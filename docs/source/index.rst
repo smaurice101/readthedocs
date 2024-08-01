@@ -27,5 +27,7 @@ Contents
 
 .. toctree::
 
-   usage
+   tml solution building 
    api
+   tml docker container (read-made solutions)
+   
