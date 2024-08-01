@@ -5,7 +5,7 @@ TML Components
 
 Components
 ------------
-**TML is comprised of 3 binaries:** https://github.com/smaurice101/transactionalmachinelearning
+**TML is comprised of 3 binaries written in Go:** https://github.com/smaurice101/transactionalmachinelearning
 
 1. Viper - source - sink binary for Apache Kafka
 2. HPDE - AutoML binary for real-time data
