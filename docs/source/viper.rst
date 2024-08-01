@@ -3,58 +3,19 @@
 
 **v.5.5.90+**
 
-This guide will provide common setup instructions for new users who want to run VIPER in their environment(s). For any questions, users are encouraged to email [support@otics.ca](mailto:support@otics.ca) **with subject line: “VIPER HELP”** (no quotes).
+This guide will provide common setup instructions for new users who want to run VIPER in their environment(s). For any questions, users are encouraged to email [support@otics.ca](mailto:support@otics.ca) .
 
 1. **SETUP Instructions:** [**Watch the YouTube video**](https://youtu.be/b1fuIeC7d-8) **or follow instructions below.**
-2. **Download VIPER and extract its contents**
-    1. **You should see six (6) files:**
-        1. This file: MAADS-Viper Installation Guide.pdf
-        2. MAADS-Viper-Product Brief.pdf
-        3. MAADS-Viper-Tests Results.pdf
-        4. VIPER binary (this binary will be for your OS: Windows, Linux, Mac, etc.)
-        5. VIPER.ENV file (this is a viper configuration file)
-        6. Token.Tok
-    2. **Quick Start using REST API:**
-        1. **Create Topic:**
-            1. <http://localhost:8000/createtopics?topic=VIPERDEMOTOPIC1&maadsalgokey=&replicationfactor=3&numpartitions=3&companyname=OTICS> Advanced Analytics [Inc.&contactname=Sebastian&contactemail=sebastian.maurice@otics.ca&description=test&location=Toronto&vipertoken=demo&enabletls=1](mailto:Inc.&contactname=Sebastian&contactemail=sebastian.maurice@otics.ca&description=test&location=Toronto&vipertoken=demo&enabletls=1)
-                1. **Note 1:** &enabletls=1, if set to 1 then Kafka has SSL/TLS enabled, otherwise set to 0 and VIPER will connect with SSL/TLS
-                2. **Note 2:** Change host:port to host and port VIPER is running on
-                3. **Note 3:** Change replication factor and numpartitions to whatever number you wish
-                4. **RETURN VALUE should look something like:** {"Topic":"VIPERDEMOTOPIC1","ProducerId":"ProducerId-oPtvGImUcijAXOdlrrDNYfyakSf5Rp"}
-        2. **Produce to Topic (use the ProducerID to produce to topic):**
-            1. <http://localhost:8000/producetotopic?topic=VIPERDEMOTOPIC1&producerid=ProducerId-oPtvGImUcijAXOdlrrDNYfyakSf5Rp&externalprediction=This> is my test topic&vipertoken=demo&enabletls=1&delay=5000
-                1. **Note 1:** &enabletls=1, if set to 1 then Kafka has SSL/TLS enabled, otherwise set to 0.
-                2. **Note 2:** Change host:port to host and port VIPER is running on
-                3. **Note 3:** Notice the Producer ID from 1d return value
-                4. **Note 4:** Write your message in “externalprediction=This is my test topic”
-                5. **Note 5:** &delay=5000, this means VIPER will wait 5000 ms before backing out, if no response from Kafka
-        3. **Subscribe Consumer to Topic VIPERDEMOTOPIC1:**
-            1. <http://localhost:8000/subscribeconsumer?topic=VIPERDEMOTOPIC1&companyname=OTICS> test&contactname=sebastian maurice&contactemail=<sebastian.maurice@otics.ca>&location=Toronot&description=This is a test consumer&vipertoken=Demo
-                1. **Note 2:** Change host:port to host and port VIPER is running on
-                2. **Note 3:** Change replication factor and numpartitions to whatever number you wish
-                3. **RETURN VALUE should look something like:** {“Consumerid”:”ConsumerId-D9ib85jS40UeDCCgLRjgkbJamnJPez”,”Topic”:”VIPERDEMOTOPIC1”}
-        4. **Consume From Topic:** VIPERDEMOTOPIC1
-            1. <http://localhost:8000/consumefromtopic?topic=VIPERDEMOTOPIC1&consumerid=ConsumerId-D9ib85jS40UeDCCgLRjgkbJamnJPez&companyname=OTICS&vipertoken=demo&enabletls=1&delay=1000&partition=1&offset=0>
-                1. **Note 1:** &enabletls=1, if set to 1 then Kafka has SSL/TLS enabled, otherwise set to 0.
-                2. **Note 2:** Change host:port to host and port VIPER is running on
-                3. **Note 3:** &delay=1000, this means VIPER will wait 1000 ms before backing out, if no response from Kafka
-                4. **Note 4:** Set the partition to the number of your choice, or -1 to let VIPER autodetect
-                5. **Note 5:** Set the offset to your choice, or -1 to go to the last offset
-        5. **List Stats in VIPER:**
-            1. <http://localhost:8000/viperstats?vipertoken=demo>
-    3. For actual (non-Demo) use you will need:
-        1. ADMIN.tok
+    A. For actual (non-Demo) use you will need:
+        1. ADMIN.tok (available in ZIP for Viper on Github: https://github.com/smaurice101/transactionalmachinelearning)
             1. This allows admin users to create topics, activate/deactivate topics, produce to topics
-        2. USER.tok
-            1. This allows users to consume from topic
-    4. VIPER comes with its own embedded database to store metadata – called “VIPER.db”
-3. Store all of the above files in the same directory you use to run VIPER
+2. Store all of the above files in the same directory you use to run VIPER
     1. VIPER will automatically create necessary directories in that folder
     2. **Note:** For Linux users File/Folder permissions may need to be adjusted for VIPER 0644 is usually fine
-4. Start VIPER
+3. Start VIPER
     1. By default, VIPER listens on “Localhost” port=8000
     2. You can easily adjust this to whatever host/port you want by typing: \[Viper Executable\] \[host\] \[port\]
-5. On Startup VIPER will check for:
+4. On Startup VIPER will check for:
     1. Valid Tokens
     2. VIPER.ENV file
 
