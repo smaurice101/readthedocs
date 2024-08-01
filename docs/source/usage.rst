@@ -7,23 +7,9 @@ Installation
 ------------
 
 The fastest way to use TML for your real-time data is to use the TML Studio container located here: [Docker Hub]
-.. code-block:: console
 
-   (.venv) $ pip install lumache
+Details on how to quickly use the TML studio can be seen in the Youtube video here: [Youtube]
 
-Creating recipes
-----------------
-
-To retrieve a list of random ingredients,
-you can use the ``lumache.get_random_ingredients()`` function:
-
-.. autofunction:: lumache.get_random_ingredients
-
-The ``kind`` parameter should be either ``"meat"``, ``"fish"``,
-or ``"veggies"``. Otherwise, :py:func:`lumache.get_random_ingredients`
-will raise an exception.
-
-.. autoexception:: lumache.InvalidKindError
 
 For example:
 
