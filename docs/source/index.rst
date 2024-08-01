@@ -28,6 +28,6 @@ Contents
 .. toctree::
 
    tml solution building 
-   api
+   tml api
    tml docker container (read-made solutions)
    
