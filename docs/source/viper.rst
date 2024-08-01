@@ -23,24 +23,6 @@ This guide will provide common setup instructions for new users who want to run 
 
 1. **With SSL/TLS enabled**
     1. If you have enabled SSL/TLS on Kafka brokers then you need to specify additional fields in the configuration file – for example purposes .PEM files are added to the configuration keys, but you can specify folder/file names as you wish:
-        1. SSL_CLIENT_CERT_FILE=client.cer.pem;
-        2. SSL_CLIENT_KEY_FILE=client.key.pem;
-        3. SSL_SERVER_CERT_FILE=server.cer.pem;
-
-**Note:** First time the plain text values need to be entered, on start VIPER will hide these values. You can update them with plain text again if you change the .pem files then simply restart VIPER to hide the updated values again.
-
-- 1. **Note:** You need to convert the certificates to a series of PEM files. Here are most common steps to do this:
-        1. First extract the Certificate Authority (CA) using **_keytools and openssl:_**
-            1. $ keytool -importkeystore -srckeystore kafka.server.truststore.jks -destkeystore server.p12 -deststoretype PKCS12  
-                $ openssl pkcs12 -in server.p12 -nokeys -out server.cer.pem
-            2. **Output:** server.cer.pem
-        2. Next, convert the client keystore:
-            1. $ keytool -importkeystore -srckeystore kafka.server.keystore.jks -destkeystore client.p12 -deststoretype PKCS12  
-                $ openssl pkcs12 -in client.p12 -nokeys -out client.cer.pem  
-                $ openssl pkcs12 -in client.p12 -nodes -nocerts -out client.key.pem
-            2. **Output:** client.cer.pem
-            3. **Output:** client.key.pem
-  2. Add path/file names to the configurations:
         1. SSL_CLIENT_CERT_FILE=client.cer.pem
         2. SSL_CLIENT_KEY_FILE=client.key.pem
         3. SSL_SERVER_CERT_FILE=server.cer.pem
@@ -56,6 +38,10 @@ This guide will provide common setup instructions for new users who want to run 
     3. With Confluent Cloud Access (If NOT using Kafka Cloud these MUST be left blank):
         1. CLOUD_USERNAME={API KEY}
         2. CLOUD_PASSWORD={API SECRET}
+    
+    4.  a. SSL_CLIENT_CERT_FILE=
+        b. SSL_CLIENT_KEY_FILE=
+        c. SSL_SERVER_CERT_FILE=
 
 **Note:** First time the plain text values need to be entered, on start VIPER will hide these values. You can update them with plain text again if you change the key/secret then simply restart VIPER to hide the updated values again.
 
