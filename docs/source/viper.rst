@@ -48,7 +48,7 @@ This guide will provide common setup instructions for new users who want to run 
 **Table 1: Configuration Parameter Details**
 
 | **Configuration Parameter** | **Description** |
-|--------------------------   | ----------------
+|--------------------------   | ----------------|
 | KAFKA_ADVERTISED_HOST_NAME | Advertised host name in Kafka server properties |
 | KAFKA_ZOOKEEPER_CONNECT | Zookeeper host name and port |
 | KAFKA_CONNECT_BOOTSTRAP_SERVERS= | Kafka bootstrap servers – separate multiple servers by comma |
