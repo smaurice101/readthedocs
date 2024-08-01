@@ -44,9 +44,7 @@ This guide will provide common setup instructions for new users who want to run 
         c. SSL_SERVER_CERT_FILE=
 
 **Note:** First time the plain text values need to be entered, on start VIPER will hide these values. You can update them with plain text again if you change the key/secret then simply restart VIPER to hide the updated values again.
-   * - Heading row 1, column 1
-     - Heading row 1, column 2
-     - Heading row 1, column 3
+
 .. list-table:: Title
    :widths: 25 25 50
    :header-rows: 1
