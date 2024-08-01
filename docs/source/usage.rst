@@ -6,8 +6,7 @@ TML Usage
 Installation
 ------------
 
-To use Lumache, first install it using pip:
-
+The fastest way to use TML for your real-time data is to use the TML Studio container located here: [Docker Hub]
 .. code-block:: console
 
    (.venv) $ pip install lumache
