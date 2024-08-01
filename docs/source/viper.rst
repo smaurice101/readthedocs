@@ -46,6 +46,11 @@ This guide will provide common setup instructions for new users who want to run 
 **Note:** First time the plain text values need to be entered, on start VIPER will hide these values. You can update them with plain text again if you change the key/secret then simply restart VIPER to hide the updated values again.
 
 **Table 1: Configuration Parameter Details**
+| Tables   |      Are      |  Cool |
+|----------|:-------------:|------:|
+| col 1 is |  left-aligned | $1600 |
+| col 2 is |    centered   |   $12 |
+| col 3 is | right-aligned |    $1 |
 
 | Configuration Parameter | Description |
 | ----------------------  | --------------- |
