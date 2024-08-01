@@ -1,10 +1,7 @@
-## MAADS-VIPER™ INSTALLATION and QUICK USER GUIDE
-
-**Date: July, 2023**
 
 **MAADS-VIPER**
 
-**v.5.5.60+**
+**v.5.5.90+**
 
 This guide will provide common setup instructions for new users who want to run VIPER in their environment(s). For any questions, users are encouraged to email [support@otics.ca](mailto:support@otics.ca) **with subject line: “VIPER HELP”** (no quotes).
 
