@@ -1,4 +1,4 @@
-Usage
+TML Usage
 =====
 
 .. _installation:
