@@ -2,7 +2,7 @@
 
 # -- Project information
 
-project = 'Lumache'
+project = 'Transational Machine Learning (TML)'
 copyright = '2021, Graziella'
 author = 'Graziella'
 
