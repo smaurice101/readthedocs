@@ -23,9 +23,9 @@ This guide will provide common setup instructions for new users who want to run 
 
 1. **With SSL/TLS enabled**
     1. If you have enabled SSL/TLS on Kafka brokers then you need to specify additional fields in the configuration file – for example purposes .PEM files are added to the configuration keys, but you can specify folder/file names as you wish:
-        1. SSL_CLIENT_CERT_FILE=&lt;client.cer.pem&gt;
-        2. SSL_CLIENT_KEY_FILE=&lt;client.key.pem&gt;
-        3. SSL_SERVER_CERT_FILE=&lt;server.cer.pem&gt;
+        1. SSL_CLIENT_CERT_FILE=client.cer.pem;
+        2. SSL_CLIENT_KEY_FILE=client.key.pem;
+        3. SSL_SERVER_CERT_FILE=server.cer.pem;
 
 **Note:** First time the plain text values need to be entered, on start VIPER will hide these values. You can update them with plain text again if you change the .pem files then simply restart VIPER to hide the updated values again.
 
@@ -48,15 +48,14 @@ This guide will provide common setup instructions for new users who want to run 
 1. **No SSL/TLS Security:**
     1. Assuming you have Kafka/Zookeeper running on a broker, simply fill in the following information in the configuration file:
         1. KAFKA_ADVERTISED_HOST_NAME=kafka
-        2. KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
-        3. KAFKA_CONNECT_BOOTSTRAP_SERVERS=localhost:9092, localhost:9093
-        4. KAFKA_ROOT=/var/kafka
+        2. KAFKA_ZOOKEEPER_CONNECT=
+        3. KAFKA_CONNECT_BOOTSTRAP_SERVERS=localhost:9092
     2. With HPDE:
-        1. HPDE_SERVER=&lt;HPDE host&gt;
-        2. HPDE_PORT=&lt;HPDE listening port&gt;
-    3. With Confluent Cloud Access:
-        1. CLOUD_USERNAME=&lt;cloud key&gt;
-        2. CLOUD_PASSWORD=&lt;cloud secret&gt;
+        1. HPDE_SERVER=
+        2. HPDE_PORT=
+    3. With Confluent Cloud Access (If NOT using Kafka Cloud these MUST be left blank):
+        1. CLOUD_USERNAME={API KEY}
+        2. CLOUD_PASSWORD={API SECRET}
 
 **Note:** First time the plain text values need to be entered, on start VIPER will hide these values. You can update them with plain text again if you change the key/secret then simply restart VIPER to hide the updated values again.
 
