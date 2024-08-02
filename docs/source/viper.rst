@@ -48,8 +48,8 @@ This guide will provide common setup instructions for new users who want to run 
 
 .. list-table::
 
-   * - Configuration Parameter
-     - Description
+   * - **Configuration Parameter**
+     - **Description**
    * - KAFKA_ADVERTISED_HOST_NAME 
      - Advertised host name in Kafka server properties 
    * - KAFKA_ZOOKEEPER_CONNECT
