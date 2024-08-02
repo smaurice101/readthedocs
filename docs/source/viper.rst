@@ -4,7 +4,7 @@ MAADS-VIPER Environmental Variable Configuration (Viper.env)
 
 **v.5.5.90+**
 
-This guide will provide common setup instructions for new users who want to run VIPER in their environment(s). For any questions, users are encouraged to email [support@otics.ca](mailto:support@otics.ca) .
+This guide will provide common setup instructions for new users who want to run VIPER in their environment(s). For any questions, users are encouraged to email support@otics.ca .
 
 1. **SETUP Instructions:** [**Watch the YouTube video**](https://youtu.be/b1fuIeC7d-8) **or follow instructions below.**
     A. For actual (non-Demo) use you will need:
@@ -47,9 +47,11 @@ This guide will provide common setup instructions for new users who want to run 
 **Note:** First time the plain text values need to be entered, on start VIPER will hide these values. You can update them with plain text again if you change the key/secret then simply restart VIPER to hide the updated values again.
 
 .. list-table::
-   :widths: 25 25 50
-   :header-rows: 1
 
+   * - row 1, column 1
+     - row 1, column 2
+   * - row 2, column 1
+     - row 2, column 2
    * - Configuration Parameter
      - Description
    * - KAFKA_ADVERTISED_HOST_NAME 
@@ -152,86 +154,67 @@ This guide will provide common setup instructions for new users who want to run 
    * - HPDE_PORT
      - HPDE listening port. Specify port. If you specifying port range use “startport:endport”, where start port and end port are numbers 
    * - VIPER_IP
-     - Specify IP for Viper, use \* or leave empty for Viper to choose. 
-  * - VIPER_PORT
-    - Specify port. If you specifying port range use “startport:endport”, where start port and end port are numbers 
-  * - VIPERVIZ_IP
-    - Specify IP for Viperviz, use \* or leave empty for Viper to choose. 
-  * - VIPERVIZ_PORT
-    - Specify port. If you specifying port range use “startport:endport”, where start port and end port are numbers 
-  * - SSL_CLIENT_CERT_FILE
-    - SSL certificate file needed if Kafka is SSL/TLS enabled 
-  * - SSL_CLIENT_KEY_FILE
-    - SSL certificate key store file needed if Kafka is SSL/TLS enabled 
-  * - SSL_SERVER_CERT_FILE
-    - SSL certificate server key file needed if Kafka is SSL/TLS enabled 
-  * - CLOUD_USERNAME
-    - SASL_PLAIN username to connect to Confluent Cloud 
-  * - CLOUD_PASSWORD= 
-    - SASL_PLAIN password to connect to Confluent Cloud 
-  * - MAILSERVER
-    - SMTP mailserver host name for sending emails. This is needed if using **AiMS Dashboard** to monitor algorithms in Kafka. 
-  * - MAILPORT
-    - SMTP mailserver port for sending emails. This is needed if using **AiMS Dashboard** to monitor algorithms in Kafka. 
-  * - FROMADDR
-    - From address to put in the emails. This is needed if using **AiMS Dashboard** to monitor algorithms in Kafka. 
-  * - SMTP_USERNAME
-    - SMTP username. This is needed if using **AiMS Dashboard** to monitor algorithms in Kafka. 
-  * - SMTP_PASSWORD
-    - SMTP password. This is needed if using **AiMS Dashboard** to monitor algorithms in Kafka and alerts are turned on.
-  * - SMTP_SSLTLS
-    - Mailserver SSL/TLS enabled: true of false. This is needed if using **AiMS Dashboard** to monitor algorithms in Kafka and alerts are turned on.
-  * - SERVICE_USERNAME
-    - If using ServiceNow, specify the ServiceNoew web page login username. This is needed if using **AiMS Dashboard** to monitor algorithms in Kafka and alerts 
-      are turned on. 
-  * - SERVICE_PASSWORD
-    - If using ServiceNow, specify the ServiceNoew web page login password. This is needed if using **AiMS Dashboard** to monitor algorithms in Kafka and alerts 
-      are turned on.
-  * - SERVICE_ASSIGNEE
-    - If using ServiceNow, specify the ServiceNow the name to assign the ServiceNow ticket to. This is needed if using **AiMS Dashboard** and Alerts are turned 
-       on. 
-  * - SERVICE_FORM_FIELDS 
-    - {"key1":"Assignedto","key2":"LastReadofTopic","key3":"Consumerid", "key4":"Brokerhost","key5":"Brokerport","key6":"Companyname", 
-        "key7":"Contactemail","key8":"Contactname","key9":"Description", 
-        "key10":"Location","key11":"Topic","key12":"Priority","key13":"Producerid","key14":"LastWritetoTopic"}<br><br>Users should replace the “Key” values with 
-        the names of the fields in the ServiceNow Form. VIPER will update the key values when submitting the incident to ServiceNow. This is needed if using 
-       **AiMS Dashboard** and Alerts are turned on. |
-  * - SERVICE_CONTENTTYPE=application/json 
-    - ServiceNow webpage content type. This can be changed but **application/json** should be fine. This is needed if using **AiMS Dashboard** and Alerts are 
-      turned on. 
-  * - POLLING_ALERTS
-    - Polling for alerts in minutes. This is needed if using **AiMS Dashboard** and Alerts are turned on. VIPER will poll for alerts and wait in minutes for the 
-      next poll. 
-  * - COMPANYNAME
-    - Specify company name. This is used when sending emails from AiMS dashboard. 
-  * - MYSQLDRIVERNAME
-    - Enter MySQL driver name i.e. mysql 
-  * - MYSQLDB
-    - Enter MySQL DB name 
-  * - MYSQLUSER
-    - Enter MySQL username
-  * - MYSQLPASS
-    - Enter MySQL password 
-  * -  MYSQLHOSTNAME
-    -  Enter MySQL hostname – **_If using MYSQL DOCKER set this to: host.docker.internal:3306_** 
-  * - MYSQLMAXLIFETIMEMINUTES
-    - Enter max lifetime in minutes 
-  * - MYSQLMAXCONN
-    - Enter maximum connections 
-  * - MYSQLMAXIDLE
-    - Enter number of idle connections 
-  * - MYSQL_ROOT_PASSWORD
-    - MYSQL DOCKER Container: Set the Root password for MySQL 
-  * - MYSQL_ROOT_HOST
-    - MYSQL DOCKER Container: Set the Root host for MySQL ie. You can use % to accept connections from any host. 
-  * - MYSQL_DATABASE
-    - MYSQL DOCKER Container: Set the database name i.e. tmlids – **_This should match MYSQLDB_**
-  * - MYSQL_USER
-    - MYSQL DOCKER Container: Set the username name i.e. tmluser, avoid “root” - **_This should match MYSQLUSER_** 
-  * - MYSQL_PASSWORD
-    - MYSQL DOCKER Container: Set the password - **_This should match MYSQLPASS_** 
-  * - MAXURLQUERYSTRINGBYTES
-    - This is the size of the URL query string in bytes, if using viperhpdepredictprocess 
+     - Specify IP for Viper, use * or leave empty for Viper to choose. 
+   * - VIPER_PORT
+     - Specify port. If you specifying port range use “startport:endport”, where start port and end port are numbers 
+   * - VIPERVIZ_IP
+     - Specify IP for Viperviz, use * or leave empty for Viper to choose. 
+   * - VIPERVIZ_PORT
+     - Specify port. If you specifying port range use “startport:endport”, where start port and end port are numbers 
+   * - SSL_CLIENT_CERT_FILE
+     - SSL certificate file needed if Kafka is SSL/TLS enabled 
+   * - SSL_CLIENT_KEY_FILE
+     - SSL certificate key store file needed if Kafka is SSL/TLS enabled 
+   * - SSL_SERVER_CERT_FILE
+     - SSL certificate server key file needed if Kafka is SSL/TLS enabled 
+   * - CLOUD_USERNAME
+     - SASL_PLAIN username to connect to Confluent Cloud 
+   * - CLOUD_PASSWORD= 
+     - SASL_PLAIN password to connect to Confluent Cloud 
+   * - MAILSERVER
+     - SMTP mailserver host name for sending emails. This is needed if using **AiMS Dashboard** to monitor algorithms in Kafka. 
+   * - MAILPORT
+     - SMTP mailserver port for sending emails. This is needed if using **AiMS Dashboard** to monitor algorithms in Kafka. 
+   * - FROMADDR
+     - From address to put in the emails. This is needed if using **AiMS Dashboard** to monitor algorithms in Kafka. 
+   * - SMTP_USERNAME
+     - SMTP username. This is needed if using **AiMS Dashboard** to monitor algorithms in Kafka. 
+   * - SMTP_PASSWORD
+     - SMTP password. This is needed if using **AiMS Dashboard** to monitor algorithms in Kafka and alerts are turned on.
+   * - SMTP_SSLTLS
+     - Mailserver SSL/TLS enabled: true of false. This is needed if using **AiMS Dashboard** to monitor algorithms in Kafka and alerts are turned on.
+   * - POLLING_ALERTS
+     - Polling for alerts in minutes. This is needed if using **AiMS Dashboard** and Alerts are turned on. VIPER will poll for alerts and wait in minutes for the next poll. 
+   * - COMPANYNAME
+     - Specify company name. This is used when sending emails from AiMS dashboard. 
+   * - MYSQLDRIVERNAME
+     - Enter MySQL driver name i.e. mysql 
+   * - MYSQLDB
+     - Enter MySQL DB name 
+   * - MYSQLUSER
+     - Enter MySQL username
+   * - MYSQLPASS
+     - Enter MySQL password 
+   * -  MYSQLHOSTNAME
+     -  Enter MySQL hostname – **_If using MYSQL DOCKER set this to: host.docker.internal:3306_** 
+   * - MYSQLMAXLIFETIMEMINUTES
+     - Enter max lifetime in minutes 
+   * - MYSQLMAXCONN
+     - Enter maximum connections 
+   * - MYSQLMAXIDLE
+     - Enter number of idle connections 
+   * - MYSQL_ROOT_PASSWORD
+     - MYSQL DOCKER Container: Set the Root password for MySQL 
+   * - MYSQL_ROOT_HOST
+     - MYSQL DOCKER Container: Set the Root host for MySQL ie. You can use % to accept connections from any host. 
+   * - MYSQL_DATABASE
+     - MYSQL DOCKER Container: Set the database name i.e. tmlids – **_This should match MYSQLDB_**
+   * - MYSQL_USER
+     - MYSQL DOCKER Container: Set the username name i.e. tmluser, avoid “root” - **_This should match MYSQLUSER_** 
+   * - MYSQL_PASSWORD
+     - MYSQL DOCKER Container: Set the password - **_This should match MYSQLPASS_** 
+   * - MAXURLQUERYSTRINGBYTES
+     - This is the size of the URL query string in bytes, if using viperhpdepredictprocess 
 
 1. **You are done! Start VIPER.**
 2. **Additional Documentation for Accessing VIPER Functionality**
@@ -241,6 +224,6 @@ This guide will provide common setup instructions for new users who want to run 
     2. REST API:
         1. When starting VIPER type “Help” to see all the REST endpoints
         2. The endpoints can be called from ANY programming language.
-4. Users can send an email to [support@otics.ca](mailto:support@otics.ca) for additional help with any of the functions.
+4. Users can send an email to support@otics.ca for additional help with any of the functions.
 5. OTICS provides up to **2 hours free virtual training** on an as-needed basis for clients or groups of clients.
 
