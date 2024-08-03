@@ -32,5 +32,6 @@ Contents
    jsonprocessing
    viper
    tmlbuilds
+   GenAI
    
    
