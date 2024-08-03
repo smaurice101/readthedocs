@@ -19,6 +19,8 @@ TML requires the following - as shown in the table below. We will go though an e
      - This needs to be the json path to the value of the subtopics.  For example, for IOT voltage, it needs to be the path to the voltage value.
    * - identifiers
      - This is the path to some metadata about the values.
+   * - datetime
+     - This is the path to any datetime field.
    * - msgid
      - This is the path to any MSG ID of the json message or blank.
    * - latlong
@@ -28,10 +30,19 @@ TML requires the following - as shown in the table below. We will go though an e
    Lets take an example.  Lets say we want to process the following JSON message:
 
    {"metadata":{"oem_id":"32795e59","oem_model":"SQR141U1XXW","dsn":"AC000W016399396","property_name":"Power","display_name":"Power 
-   (mW)","base_type":"integer","event_type":"datapoint"},"datapoint":{"id":"de3e8f0e-7faa-11ec-31cb-6b3a1eb15a96","updated_at":"2022-01- 
+   (mW)","base_type":"integer","event_type":"datapoint"},lat: "43.11", long: "127.011", "datapoint":{"id":"de3e8f0e-7faa-11ec-31cb-6b3a1eb15a96","updated_at":"2022-01- 
    27T19:53:59Z","created_at":"2022-01-27T19:53:59Z","echo":false,"closed":false,"value":"0","metadata":{},"created_at_from_device":"2022-01- 
    27T19:51:40Z","user_uuid":"f4d3b326-da9a-11eb-87af-0a580ae966af","discarded":false,"scope":"user","direction":"output"}}  
 
-The JSONCRITERIA needs to specify the JSON PATH to each TML Field.
+**The JSONCRITERIA specifies the JSON PATH to each TML Field separated by ~:**
+
 jsoncriteria='uid=metadata.dsn,filter:allrecords~subtopics=metadata.property_name~values=datapoint.value~identifiers=metadata.display_name~datetime=datapoint.updated_at~msgid=datapoint.id~latlong=lat:long'     
+
+*uid=metadata.dsn* will retrieve the value AC000W016399396
+*subtopics=metadata.property_name* will retrieve the value Power
+*values=datapoint.value* will retrieve the value 0
+*identifiers=metadata.display_name* will retrieve the value Power
+*datetime=datapoint.updated_at* will retrieve the value 2022-01-27T19:53:59Z
+*msgid=datapoint.id* will retrieve the value de3e8f0e-7faa-11ec-31cb-6b3a1eb15a96
+*latlong=lat:long* will retrieve the value 43.11:127.011
 
