@@ -38,11 +38,17 @@ TML requires the following - as shown in the table below. We will go though an e
 
 jsoncriteria='uid=metadata.dsn,filter:allrecords~subtopics=metadata.property_name~values=datapoint.value~identifiers=metadata.display_name~datetime=datapoint.updated_at~msgid=datapoint.id~latlong=lat:long'     
 
-*uid=metadata.dsn* will retrieve the value AC000W016399396
+*uid=metadata.dsn* will retrieve the value **AC000W016399396**
+
 *subtopics=metadata.property_name* will retrieve the value Power
+
 *values=datapoint.value* will retrieve the value 0
+
 *identifiers=metadata.display_name* will retrieve the value Power
+
 *datetime=datapoint.updated_at* will retrieve the value 2022-01-27T19:53:59Z
+
 *msgid=datapoint.id* will retrieve the value de3e8f0e-7faa-11ec-31cb-6b3a1eb15a96
+
 *latlong=lat:long* will retrieve the value 43.11:127.011
 
