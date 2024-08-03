@@ -31,10 +31,4 @@ TML requires the following - as shown in the table below. We will go though an e
    27T19:53:59Z","created_at":"2022-01-27T19:53:59Z","echo":false,"closed":false,"value":"0","metadata":{},"created_at_from_device":"2022-01- 
    27T19:51:40Z","user_uuid":"f4d3b326-da9a-11eb-87af-0a580ae966af","discarded":false,"scope":"user","direction":"output"}} 
 
-     jsoncriteria='uid=metadata.dsn,filter:allrecords~\
-   subtopics=metadata.property_name~\
-   values=datapoint.value~\
-   identifiers=metadata.display_name~\
-   datetime=datapoint.updated_at~\
-   msgid=datapoint.id~\
-   latlong=lat:long'     
+     jsoncriteria='uid=metadata.dsn,filter:allrecords~subtopics=metadata.property_name~values=datapoint.value~identifiers=metadata.display_name~   datetime=datapoint.updated_at~msgid=datapoint.id~latlong=lat:long'     
