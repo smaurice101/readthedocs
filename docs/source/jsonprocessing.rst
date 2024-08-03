@@ -37,8 +37,8 @@ TML requires the following - as shown in the table below. We will go though an e
 
    **The JSONCRITERIA specifies the JSON PATH to each TML Field separated by ~:**
 
-   jsoncriteria='uid=metadata.dsn,filter:allrecords~subtopics=metadata.property_name~values=datapoint.value~ 
-   identifiers=metadata.display_name~datetime=datapoint.updated_at~msgid=datapoint.id~latlong=lat:long'
+   jsoncriteria='uid=metadata.dsn,filter:allrecords~subtopics=metadata.property_name~ values=datapoint.value~ 
+   identifiers=metadata.display_name~datetime=datapoint.updated_at~msgid=datapoint.id~ latlong=lat:long'
 
    **uid=metadata.dsn** will retrieve the value **AC000W016399396**
 
