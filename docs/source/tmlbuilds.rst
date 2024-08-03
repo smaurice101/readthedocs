@@ -14,3 +14,6 @@ Machine Learning
 
 Predictions
 --------------
+
+GenAI
+---------
