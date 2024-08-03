@@ -54,3 +54,6 @@ TML requires the following - as shown in the table below. We will go though an e
 
    **latlong=lat:long** will retrieve the value **43.11:127.011**
 
+.. important::
+   The number of JSON paths in the subtopics MUST equal the number of JSON paths in the values.  Multiple JSON paths can be separated by a comma.
+
