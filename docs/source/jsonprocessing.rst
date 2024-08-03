@@ -24,7 +24,7 @@ TML requires the following - as shown in the table below. We will go though an e
    * - latlong
      - This needs to be path to latitude or longitude or blank.  You can join the fields by semicolon.
 
-.. note::
+.. code-block::
    Lets take an example.  Lets say we want to process the following JSON message:
    {"metadata":{"oem_id":"32795e59","oem_model":"SQR141U1XXW","dsn":"AC000W016399396","property_name":"Power","display_name":"Power 
    (mW)","base_type":"integer","event_type":"datapoint"},"datapoint":{"id":"de3e8f0e-7faa-11ec-31cb-6b3a1eb15a96","updated_at":"2022-01- 
