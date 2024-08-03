@@ -27,6 +27,7 @@ Contents
 
 .. toctree::
 
+   coreintegrations
    usage 
    api
    jsonprocessing
