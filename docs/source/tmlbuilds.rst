@@ -5,3 +5,12 @@ The fastest way to build TML solutions with your real-time data is to use the **
 
 Apache Airflow DAGs
 -------------------
+
+Preprocessing Data
+-----------------
+
+Machine Learning
+-------------------
+
+Predictions
+--------------
