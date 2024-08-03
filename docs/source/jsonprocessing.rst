@@ -7,6 +7,13 @@ To process your JSON data - you need to tell TML applicate the JSON paths to the
 
 TML requires the following - as shown in the table below. We will go though an example on how to apply this to your JSON data.
 
-.. 
+.. list-table::
+
+   * - **TML Field**
+     - **Description**
+   * - KAFKA_ADVERTISED_HOST_NAME 
+     - Advertised host name in Kafka server properties 
+   * - KAFKA_ZOOKEEPER_CONNECT
+     - Zookeeper host name and port 
 
 
