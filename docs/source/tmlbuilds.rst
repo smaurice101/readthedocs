@@ -6,15 +6,6 @@ The fastest way to build TML solutions with your real-time data is to use the **
 Apache Airflow DAGs
 -------------------
 
-Apache Kafka
---------------
-
-Docker Containers
-----------------
-
-Github
-------------
-
 Preprocessing Data
 -----------------
 
