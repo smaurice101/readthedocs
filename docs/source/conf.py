@@ -2,9 +2,9 @@
 
 # -- Project information
 
-project = 'Transational Machine Learning (TML)'
-copyright = '2021, Graziella'
-author = 'Graziella'
+project = 'Transactional Machine Learning (TML)'
+copyright = '2024, Otics Advanced Analytics, Inc.'
+author = 'Sebastian Maurice'
 
 release = '0.1'
 version = '0.1.0'
