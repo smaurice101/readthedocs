@@ -28,6 +28,7 @@ Contents
 .. toctree::
 
    coreintegrations
+   tmlbook
    usage 
    api
    entity
