@@ -6,6 +6,37 @@ The fastest way to build TML solutions with your real-time data is to use the **
 Apache Airflow DAGs
 -------------------
 
+DAGs (Directed Acyclic Graphs) are a powerful and easy way to build powerful (real-time) TML solutions quickly.  Users are provided with the following DAGs:
+
+.. list-table::
+
+   * - **DAG**
+     - Description
+   * - tml_system_step_1_getparams_dag
+     - Description
+   * - tml_system_step_2_kafka_createtopic_dag
+     - Description
+   * - tml_mqtt_step_3_kafka_producetotopic_dag
+     - Description
+   * - tml_localfile_step_3_kafka_producetotopic_dag
+     - Description
+   * - tml-read-gRPC-step-3-kafka-producetotopic-dag
+     - Description
+   * - tml-read-RESTAPI-step-3-kafka-producetotopic-dag
+     - Description
+   * - tml-system-step-4-kafka-preprocess-dag
+     - Description
+   * - tml-system-step-5-kafka-machine-learning-dag
+     - Description
+   * - tml-system-step-6-kafka-predictions-dag
+     - Description
+   * - tml-system-step-7-kafka-visualization-dag
+     - Description
+   * - tml_system_step_8_deploy_solution_to_docker_dag
+     - Description
+   * - tml_system_step_9_privategpt_qdrant_dag
+     - Description
+
 Preprocessing Data
 -----------------
 
