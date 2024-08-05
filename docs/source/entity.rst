@@ -24,9 +24,9 @@ TML Processes Data Using Sliding Time Windows
 
 .. note::
 
-   TML performs in-memory processing of data in the Kafka Topic using TWO components across all sliding time windows
-   REST API connect MAADSTML python script to MAADS-VIPER
-   35+ different processing types: min, max, dataage, timediff, variance, anomaly prediction, outlier detection, etc…
-   Apache Kafka is the central source of both input and output data – no external real-time database needed
-   No SQL queries are made for processing and machine learning
-   All TML solutions are containerized with Docker and scale with Kubernetes
+   * TML performs in-memory processing of data in the Kafka Topic using TWO components across all sliding time windows
+   * REST API connect MAADSTML python script to MAADS-VIPER
+   * 35+ different processing types: min, max, dataage, timediff, variance, anomaly prediction, outlier detection, etc…
+   * Apache Kafka is the central source of both input and output data – no external real-time database needed
+   * No SQL queries are made for processing and machine learning
+   * All TML solutions are containerized with Docker and scale with Kubernetes
