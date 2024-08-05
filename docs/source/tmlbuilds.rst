@@ -17,3 +17,9 @@ Predictions
 
 GenAI
 ---------
+
+Example TML Solution Container Reference Architecture
+-----------------------------------------------
+
+.. figure:: solutioncontainer.png
+
