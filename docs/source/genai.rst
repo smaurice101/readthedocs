@@ -45,6 +45,7 @@ Here is some sample code to access the privateGPT container using the maadstml A
    :emphasize-lines: 3,10,20,21,22,25
 
    import maadstml
+   import json
 
    def sendpromptgpt(prompt,pgptip,pgptport):
      pgptendpoint="/v1/completions"
@@ -67,7 +68,7 @@ Here is some sample code to access the privateGPT container using the maadstml A
         pgptip="http://127.0.0.1"
         pgptport="8001"
 
-        prompt="You is the prime minister of Canada"
+        prompt="Who is the prime minister of Canada?"
         message=sendpromptgpt(prompt,pgptip,pgptport) #"content=[TextBlock(text=yeah monitortype='text')" #
 
 
