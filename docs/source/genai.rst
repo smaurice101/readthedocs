@@ -39,7 +39,7 @@ The privateGPT container can be found on Docker hub.  The container will require
 
    If you set WEB_CONCURRENCY greater than 1, you will need Qdrant Vector DB running (see below)
 
-Here is some sample code:
+Here is some sample code to access the privateGPT container using the maadstml API:
 
 .. code-block::
    :emphasize-lines: 3,10,20,21,22,25
