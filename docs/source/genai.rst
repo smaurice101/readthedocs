@@ -69,7 +69,7 @@ Here is some sample code to access the privateGPT container using the maadstml A
         pgptport="8001"
 
         prompt="Who is the prime minister of Canada?"
-        message=sendpromptgpt(prompt,pgptip,pgptport) #"content=[TextBlock(text=yeah monitortype='text')" #
+        message=sendpromptgpt(prompt,pgptip,pgptport) 
 
 .. list-table::
 
