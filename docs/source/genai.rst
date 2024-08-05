@@ -33,6 +33,12 @@ The privateGPT container can be found on Docker hub.  The container will require
    docker run -d -p 8001:8001 --gpus all --net=host --env PORT=8001 --env GPU=1 --env WEB_CONCURRENCY=1 --env COLLECTION=tml-cisco --env CUDA_VISIBLE_DEVICES=0 
    maadsdocker/tml-privategpt-with-gpu-nvidia-amd64
 
+.. important::
+
+   To check if privateGPT is running enter this in your browser: http://localhost:8001
+
+   If you set WEB_CONCURRENCY greater than 1, you will need Qdrant Vector DB running (see below)
+
 Here is some sample code:
 
 .. code-block::
