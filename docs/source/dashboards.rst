@@ -16,3 +16,5 @@ Some sample dashboards samples are below.
 
 .. figure:: d3.png
 
+.. figure:: d4.png
+
