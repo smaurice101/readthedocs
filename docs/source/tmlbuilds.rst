@@ -28,17 +28,17 @@ DAGs (Directed Acyclic Graphs) are a powerful and easy way to build powerful (re
      - This DAG is an RESTAPI server and will listen for a connection from a REST client.  You use this if your TML solution ingests data from devices and you want 
        to leverage a rest connection and stream the data to Kafka.
    * - tml-system-step-4-kafka-preprocess-dag
-     - Description
+     - This DAG perform entity level preprocessing on the real-time data.  There are over 35 different preprocessing types in TML. 
    * - tml-system-step-5-kafka-machine-learning-dag
-     - Description
+     - This DAG perform entity level machine learning on the real-time data.
    * - tml-system-step-6-kafka-predictions-dag
-     - Description
+     - This DAG performs predictions using the trained algorithms for every entity.
    * - tml-system-step-7-kafka-visualization-dag
-     - Description
+     - This DAG streams the output to a real-time dashboard.
    * - tml_system_step_8_deploy_solution_to_docker_dag
-     - Description
+     - This DAG automatically deploys the entire TML solution to Docker container - and pushes it to Dockerhub.
    * - tml_system_step_9_privategpt_qdrant_dag
-     - Description
+     - This DAG configures your solution to access the privateGPT and Qdrant containers.
 
 Preprocessing Data
 -----------------
