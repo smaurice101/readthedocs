@@ -10,20 +10,23 @@ DAGs (Directed Acyclic Graphs) are a powerful and easy way to build powerful (re
 
 .. list-table::
 
-   * - **DAG**
+   * - **DAG Name**
      - Description
    * - tml_system_step_1_getparams_dag
-     - Description
+     - This DAG will get the core TML connection and tokens needed for operations.
    * - tml_system_step_2_kafka_createtopic_dag
-     - Description
+     - This DAG will create all the necessary topics in Kafka (on-prem or Cloud) for your TML solution. 
    * - tml_mqtt_step_3_kafka_producetotopic_dag
-     - Description
+     - This DAG is an MQTT server and will listen for a connection from a client.  You use this if your TML solution ingests data from MQTT system like HiveMQ and 
+       stream it to Kafka.
    * - tml_localfile_step_3_kafka_producetotopic_dag
-     - Description
+     - This DAG will read a local CSV file for data and stream it to Kafka.
    * - tml-read-gRPC-step-3-kafka-producetotopic-dag
-     - Description
+     - This DAG is an gRPC server and will listen for a connection from a gRPC client.  You use this if your TML solution ingests data from devices and you want to 
+       leverage a gRPC connection and stream the data to Kafka.
    * - tml-read-RESTAPI-step-3-kafka-producetotopic-dag
-     - Description
+     - This DAG is an RESTAPI server and will listen for a connection from a REST client.  You use this if your TML solution ingests data from devices and you want 
+       to leverage a rest connection and stream the data to Kafka.
    * - tml-system-step-4-kafka-preprocess-dag
      - Description
    * - tml-system-step-5-kafka-machine-learning-dag
