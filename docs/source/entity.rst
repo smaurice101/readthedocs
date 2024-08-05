@@ -30,3 +30,17 @@ TML Processes Data Using Sliding Time Windows
    * Apache Kafka is the central source of both input and output data – no external real-time database needed
    * No SQL queries are made for processing and machine learning
    * All TML solutions are containerized with Docker and scale with Kubernetes
+
+TML Machine Learning  Using Sliding Time Windows
+----------------------------------------
+
+.. figure:: tml2.png
+
+.. note::
+
+   * TML performs in-memory machine learning of data in the Kafka Topic by joining data streams using THREE components across all sliding time windows:   
+   * REST API connect MAADSTML python script to MAADS-VIPER and MAADS-HPDE
+   * 5 different algorithm types: logistic regression, linear regression, gradient boosting, neural networks, ridge regression
+   * Apache Kafka is the central source of both input and output data for estimated parameters – no external real-time database needed
+   * TML auto-creates individual machine learning models for each Device at the “entity” level and joins datastreams 1-3 for each device and user specifies 
+   * “Dependent” variable streams, and “Independent” variables streams
