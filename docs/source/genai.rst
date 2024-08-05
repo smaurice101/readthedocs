@@ -19,10 +19,15 @@ TML solutions can be built to access GPT technology in real-time using the MAADS
    * - pgpthealth
      - Check the health of the privateGPT http server.
 
-
-
 Private GPT Container
 --------------------
+
+The privateGPT container can be found on Docker hub.  The container will require a NVIDIA GPU.
+
+.. code-block::
+
+   docker pull
+
 
 Qdrant Vector Database
 ---------------------
