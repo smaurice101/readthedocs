@@ -15,3 +15,6 @@ Components
 
 4. *MAADSTML* Python library : API to build TML solutions that connect to the Viper binary
 
+.. important::
+
+   TML binaries are integrated with Apache Kafka.
