@@ -71,16 +71,6 @@ Here is some sample code to access the privateGPT container using the maadstml A
         prompt="Who is the prime minister of Canada?"
         message=sendpromptgpt(prompt,pgptip,pgptport) #"content=[TextBlock(text=yeah monitortype='text')" #
 
-
-Qdrant Vector Database
----------------------
-
-The privateGPT is also integrated with `Qdrant Vector DB <https://qdrant.tech/>`_
-
-.. code-block::
-
-   docker run -d -p 6333:6333 -v $(pwd)/qdrant_storage:/qdrant/storage:z qdrant/qdrant
-
 .. list-table::
 
    * - **Details of LLM Used in privateGPT Container**
@@ -117,3 +107,12 @@ The privateGPT is also integrated with `Qdrant Vector DB <https://qdrant.tech/>`
    * - llm_load_print_meta: LF token = 13 '<0x0A>'
    * - llm_load_tensors: ggml ctx size = 0.11 MB
    * - llm_load_tensors: mem required = 4165.47 MB
+
+Qdrant Vector Database
+---------------------
+
+The privateGPT is also integrated with `Qdrant Vector DB <https://qdrant.tech/>`_
+
+.. code-block::
+
+   docker run -d -p 6333:6333 -v $(pwd)/qdrant_storage:/qdrant/storage:z qdrant/qdrant
