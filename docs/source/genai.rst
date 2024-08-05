@@ -5,8 +5,8 @@ TML solutions can be built to access GPT technology in real-time using the MAADS
 
 .. list-table::
 
-   * - MAADSTML Python Function
-     - Description
+   * - **MAADSTML Python Function**
+     - **Description**
    * - pgptingestdocs
      - Set Context for PrivateGPT by ingesting PDFs or text documents. All responses will then use these documents for context.
    * - pgptgetingestedembeddings
