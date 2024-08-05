@@ -37,7 +37,14 @@ The privateGPT container can be found on Docker hub.  The container will require
 
    To check if privateGPT is running enter this in your browser: http://localhost:8001
 
+   You should see the private GPT website below.
+
+.. figure:: pgpt1.png
+
+.. note::
+   
    If you set WEB_CONCURRENCY greater than 1, you will need Qdrant Vector DB running (see below)
+
 
 Here is some sample code to access the privateGPT container using the maadstml API:
 
