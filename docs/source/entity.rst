@@ -21,7 +21,6 @@ TML Processes Data Using Sliding Time Windows
 ----------------------------------------
 
 .. figure:: tml1.png
-   :scale 30 %
 
 .. note::
 
