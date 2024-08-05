@@ -31,3 +31,8 @@ The above image shows a typical TML solution container
    * Linux is installed in the container
    * `TMUX (terminal multiplexer) <https://github.com/tmux/tmux/wiki>`_ is used to structure TML solution components in their own task windows to make it easier to 
      maintain and operationalize TML solutions
+   * Apache Kafka is installed (Cloud Kafka can easily be used)
+   * maria db is used as a configuration database for TML solutions
+   * specific solution python scripts are installed and run the TML solution
+   * TML dashboard code (html/javascript) runs in the container
+   * java is installed
