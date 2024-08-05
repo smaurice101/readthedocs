@@ -8,6 +8,10 @@ Apache Airflow DAGs
 
 DAGs (Directed Acyclic Graphs) are a powerful and easy way to build powerful (real-time) TML solutions quickly.  Users are provided with the following DAGs:
 
+.. note::
+   
+   The numbers in the DAGs indicate solution process step.  For example, step 2 is dependent on step 1.
+
 .. list-table::
    :widths: 20 50
 
