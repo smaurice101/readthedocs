@@ -1,7 +1,7 @@
 TML Real-Time Dashboards
 =========================
 
-You can create real-time dashboards using TML binary called **Viperviz**
+You can create real-time dashboards using TML binary called **Viperviz**.  These dashboards are integrated with TML solutions and users can build very unique and powerful real-time dashboards using simple HTML and javascript.
 
 .. note::
 
