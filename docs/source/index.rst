@@ -30,6 +30,7 @@ Contents
    coreintegrations
    usage 
    api
+   entity
    jsonprocessing
    viper
    tmlbuilds
