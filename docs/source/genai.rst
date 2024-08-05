@@ -1,7 +1,7 @@
 TML and Generative AI
 =================
 
-TML solutions can be built to access GPT technology in real-time using the MAADSTML python library functions:
+TML solutions can be built to access GPT technology in real-time using the `MAADSTML python library <https://pypi.org/project/maadstml/>`_ functions:
 
 .. list-table::
 
