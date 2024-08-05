@@ -28,6 +28,11 @@ The privateGPT container can be found on Docker hub.  The container will require
 
    docker pull maadsdocker/tml-privategpt-with-gpu-nvidia-amd64
 
+.. code-block::
+
+   docker run -d -p 8001:8001 --gpus all --net=host --env PORT=8001 --env GPU=1 --env WEB_CONCURRENCY=1 --env COLLECTION=tml-cisco --env CUDA_VISIBLE_DEVICES=0 
+   maadsdocker/tml-privategpt-with-gpu-nvidia-amd64
+
 Here is some sample code:
 
 .. code-block::
