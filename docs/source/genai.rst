@@ -28,6 +28,11 @@ The privateGPT container can be found on Docker hub.  The container will require
 
    docker pull maadsdocker/tml-privategpt-with-gpu-nvidia-amd64
 
-
 Qdrant Vector Database
 ---------------------
+
+The privateGPT is also integrated with `Qdrant Vector DB <https://qdrant.tech/>`_
+
+.. code-block::
+
+   docker run -d -p 6333:6333 -v $(pwd)/qdrant_storage:/qdrant/storage:z qdrant/qdrant
