@@ -29,6 +29,7 @@ Contents
 
    coreintegrations
    tmlbook
+   dashboards
    usage 
    api
    entity
