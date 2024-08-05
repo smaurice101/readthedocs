@@ -11,7 +11,7 @@ DAGs (Directed Acyclic Graphs) are a powerful and easy way to build powerful (re
 .. list-table::
 
    * - **DAG Name**
-     - Description
+     - **Description**
    * - tml_system_step_1_getparams_dag
      - This DAG will get the core TML connection and tokens needed for operations.
    * - tml_system_step_2_kafka_createtopic_dag
