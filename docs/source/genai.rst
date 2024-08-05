@@ -30,6 +30,34 @@ The privateGPT container can be found on Docker hub.  The container will require
 
 Here is some sample code:
 
+.. code-block::
+   :emphasize-lines: 3,10,20,21,22,25
+
+   import maadstml
+
+   def sendpromptgpt(prompt,pgptip,pgptport):
+     pgptendpoint="/v1/completions"
+     includesources=False
+     docfilter=""
+     context=False
+
+     try:
+       response=maadstml.pgptchat(prompt,context,docfilter,pgptport,includesources,pgptip,pgptendpoint)
+       jb=json.loads(response)
+       response=jb['choices'][0]['message']['content']
+      
+     except Exception as e:
+      print("ERROR: connecting to PrivateGPT=",e)
+      return ""
+
+     return response
+
+   def setupprompt():
+        pgptip="http://127.0.0.1"
+        pgptport="8001"
+
+        prompt="You is the prime minister of Canada"
+        message=sendpromptgpt(prompt,pgptip,pgptport) #"content=[TextBlock(text=yeah monitortype='text')" #
 
 
 Qdrant Vector Database
