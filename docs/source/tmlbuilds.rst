@@ -49,10 +49,8 @@ DAGs (Directed Acyclic Graphs) are a powerful and easy way to build powerful (re
    * - tml_system_step_9_privategpt_qdrant_dag
      - This DAG configures your solution to access the privateGPT and Qdrant containers.
 
-Core Parameters
+tml_system_step_1_getparams_dag
 -----------------
-
-* tml_system_step_1_getparams_dag
 
 .. code-block::
 
