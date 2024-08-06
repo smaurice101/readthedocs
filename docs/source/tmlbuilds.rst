@@ -6,7 +6,7 @@ The fastest way to build TML solutions with your real-time data is to use the **
 Apache Airflow DAGs
 -------------------
 
-The TML solution process with DAGS (explained in detail below).
+The TML solution process with DAGS (explained in detail below).  **The entire TML solution build process is highly efficient; advanced, scalable, real-time TML solutions can be built in few hours with GenAI integrations!**
 
 .. figure:: tsol1.png
 
