@@ -52,7 +52,7 @@ DAGs (Directed Acyclic Graphs) are a powerful and easy way to build powerful (re
 tml_system_step_1_getparams_dag
 -----------------
 
-Below is the complete definition of the **tml_system_step_1_getparams_dag**.  Users only need to configure the code highlighted.
+Below is the complete definition of the **tml_system_step_1_getparams_dag**.  Users only need to configure the code highlighted in the **USER CHOSEN PARAMETERS**.
 
 .. code-block::
    :emphasize-lines: 10,11,12,13,14,15,16,17,18,19
