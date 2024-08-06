@@ -74,17 +74,12 @@ Core Parameters
    'cloudusername' : '',  # <<<< --------FOR KAFKA CLOUD UPDATE WITH API KEY  - OTHERWISE LEAVE BLANK
    'cloudpassword' : '',  # <<<< --------FOR KAFKA CLOUD UPDATE WITH API SECRET - OTHERWISE LEAVE BLANK   
    'retries': 1,
-   }
-   
-   
-   ######################################################USER CHOSEN PARAMETERS ###########################################################
-   
-   
-   
-   
+   }   
+
    ############################################################### DO NOT MODIFY BELOW ####################################################
    # Instantiate your DAG
-   @dag(dag_id="tml_system_step_1_getparams_dag", default_args=default_args, tags=["tml-system-step-1-getparams"], schedule=None, start_date=datetime.datetime(2022, 3, 4), catchup=False)
+   @dag(dag_id="tml_system_step_1_getparams_dag", default_args=default_args, tags=["tml-system-step-1-getparams"], schedule=None, 
+   start_date=datetime.datetime(2022, 3, 4), catchup=False)
    def tmlparams():
     # Define tasks
    basedir = "/"
