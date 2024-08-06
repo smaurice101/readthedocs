@@ -6,6 +6,10 @@ The fastest way to build TML solutions with your real-time data is to use the **
 Apache Airflow DAGs
 -------------------
 
+The TML solution process with DAGS.
+
+.. figure:: tsol1.png
+
 DAGs (Directed Acyclic Graphs) are a powerful and easy way to build powerful (real-time) TML solutions quickly.  Users are provided with the following DAGs:
 
 .. note::
