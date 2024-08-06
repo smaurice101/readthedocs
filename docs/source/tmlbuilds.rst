@@ -53,7 +53,8 @@ tml_system_step_1_getparams_dag
 -----------------
 
 .. code-block::
-
+   :emphasize-lines: 10,11,12,13,14,15,16,17,18,19
+ 
    from airflow import DAG
    from airflow.operators.python import PythonOperator
    from airflow.operators.bash import BashOperator
