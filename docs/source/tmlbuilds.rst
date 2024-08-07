@@ -48,6 +48,8 @@ DAGs (Directed Acyclic Graphs) are a powerful and easy way to build powerful (re
      - This DAG automatically deploys the entire TML solution to Docker container - and pushes it to Dockerhub.
    * - tml_system_step_9_privategpt_qdrant_dag
      - This DAG configures your solution to access the privateGPT and Qdrant containers.
+   * - tml_system_step_10_documentation_dag
+     - This DAG will automatically create the documentation for your solution on readthedocs.io.
 
 tml_system_step_1_getparams_dag
 -----------------
