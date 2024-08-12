@@ -259,7 +259,7 @@ Produce to Kafka Topics
        You use this if your TML solution ingests data from MQTT system like HiveMQ and 
        stream it to Kafka.
    * - tml_LOCALFILE_step_3_kafka_producetotopic_dag
-     - You can process a localfile and stream the data to kafka.  See the IoTSolution 
+     - You can process a localfile and stream the data to kafka.  See the `IoTSolution DAG <https://github.com/smaurice101/raspberrypi/blob/main/tml-airflow/dags/tml-iotsolution-step-3-kafka-producetotopic-dag.py>`_
      - This DAG will read a local CSV file for data and stream it to Kafka.
    * - tml-read-gRPC-step-3-kafka-producetotopic-dag
      - Here is the gRPC client: `tml-read-gRPC-step-3-kafka-producetotopic-dag <https://github.com/smaurice101/raspberrypi/blob/main/tml-airflow/dags/tml-client- 
