@@ -237,7 +237,12 @@ Below is the complete definition of the **tml_system_step_2_kafka_createtopic_da
    dag = startkafkasetup()
 
 
+Produce to Kafka Topics: tml_system_step_2_kafka_createtopic_dag
+-----------------
 
+.. important::
+
+   You must CHOOSE how you want to ingest data and produce to a Kafka topic.  
 
 
 Preprocessing Data
