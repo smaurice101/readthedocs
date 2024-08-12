@@ -16,6 +16,9 @@ DAGs (Directed Acyclic Graphs) are a powerful and easy way to build powerful (re
    
    The numbers in the DAGs indicate solution process step.  For example, step 2 is dependent on step 1.
 
+DAG Table
+-------------------
+
 .. list-table::
    :widths: 20 50
 
