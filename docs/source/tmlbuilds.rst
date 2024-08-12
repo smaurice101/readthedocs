@@ -248,12 +248,12 @@ Produce to Kafka Topics
 
 .. list-table:
 
-   * - **DAG Name**
+   * - **Data Ingest DAG Name**
      - **Description**
    * - tml_MQTT_step_3_kafka_producetotopic_dag
      - This DAG is an MQTT server and will listen for a connection from a client.  
-       | You use this if your TML solution ingests data from MQTT system like HiveMQ and 
-       | stream it to Kafka.
+       You use this if your TML solution ingests data from MQTT system like HiveMQ and 
+       stream it to Kafka.
    * - tml_LOCALFILE_step_3_kafka_producetotopic_dag
      - This DAG will read a local CSV file for data and stream it to Kafka.
    * - tml-read-gRPC-step-3-kafka-producetotopic-dag
