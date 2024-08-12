@@ -267,7 +267,7 @@ Produce to Kafka Topics
        solution ingests data from devices and you want to 
        leverage a gRPC connection and stream the data to Kafka.
    * - tml-read-RESTAPI-step-3-kafka-producetotopic-dag
-     - TBD
+     - Here is the RESTAPI client: `tml-client-RESTAPI-step-3-kafka-producetotopic.py`_
      - This DAG is an RESTAPI server and will listen for a connection from a REST client.  You use this if your TML 
        solution ingests data from devices and you want 
        to leverage a rest connection and stream the data to Kafka.
