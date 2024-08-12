@@ -165,7 +165,7 @@ Below is the complete definition of the **tml_system_step_2_kafka_createtopic_da
      'myname' : 'Sebastian',  # <<< ********** You change as needed
      'myemail' : 'Sebastian.Maurice',  # <<< ********** You change as needed
      'mylocation' : 'Toronto',  # <<< ********** You change as needed
-     'replication' : 1,  # <<< ********** You change as needed
+     'replication' : 1,  # <<< ********** You change as needed (For Cloud Kafka this is MUST be >= 3
      'numpartitions': 1,  # <<< ********** You change as needed
      'enabletls': 1,  # <<< ********** You change as needed
      'brokerhost' : '',  # <<< ********** You change as needed
