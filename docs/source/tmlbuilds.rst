@@ -143,6 +143,7 @@ Create Kafka Topics: tml_system_step_2_kafka_createtopic_dag
 Below is the complete definition of the **tml_system_step_2_kafka_createtopic_dag** that creates all the topics for your solution.  Users only need to configure the code highlighted in the **USER CHOSEN PARAMETERS**.
 
 .. code-block::
+   :emphasize-lines: 12-32
 
 from airflow import DAG
 from airflow.operators.python import PythonOperator
@@ -174,11 +175,8 @@ default_args = {
   'prediction_data_topic' : 'prediction-data', # Separate multiple topics with comma <<< ********** You change topic names as needed
   'description' : 'Topics to store iot data',  
   'start_date': datetime (2024, 6, 29),
-  'retries': 1,
-    
+  'retries': 1,    
 }
-
-######################################## USER CHOOSEN PARAMETERS ########################################
 
 ######################################## START DAG AND TASK #############################################
 
