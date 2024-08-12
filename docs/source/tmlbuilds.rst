@@ -244,9 +244,9 @@ Produce to Kafka Topics
 
    You must CHOOSE how you want to ingest data and produce to a Kafka topic.  
 
-   TML solution provides 4 (FOUR) ways to ingest data and produce to a topic.  The following DAGs are SERVER files:
+   **TML solution provides 4 (FOUR) ways to ingest data and produce to a topic.**  The following DAGs are SERVER files:
 
-.. list-table:
+.. list-table::
 
    * - **Data Ingest DAG Name**
      - **Description**
