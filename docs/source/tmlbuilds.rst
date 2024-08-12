@@ -262,13 +262,16 @@ Produce to Kafka Topics
      - You can process a localfile and stream the data to kafka.  See the IoTSolution 
      - This DAG will read a local CSV file for data and stream it to Kafka.
    * - tml-read-gRPC-step-3-kafka-producetotopic-dag
-     - Here is the gRPC client: `tml-read-gRPC-step-3-kafka-producetotopic-dag <https://github.com/smaurice101/raspberrypi/blob/main/tml-airflow/dags/tml-client-gRPC-step-3-kafka-producetotopic.py>`_
-       NOTE: For this client you will also need: **`tml_grpc_pb2_grpc <https://github.com/smaurice101/raspberrypi/blob/main/tml-airflow/dags/tml_grpc_pb2_grpc.py>`_**, and **`tml_grpc_pb2 <https://github.com/smaurice101/raspberrypi/blob/main/tml-airflow/dags/tml_grpc_pb2.py>`_**
+     - Here is the gRPC client: `tml-read-gRPC-step-3-kafka-producetotopic-dag <https://github.com/smaurice101/raspberrypi/blob/main/tml-airflow/dags/tml-client- 
+       gRPC-step-3-kafka-producetotopic.py>`_
+       NOTE: For this client you will also need: `tml_grpc_pb2_grpc <https://github.com/smaurice101/raspberrypi/blob/main/tml- 
+       airflow/dags/tml_grpc_pb2_grpc.py>`_, and `tml_grpc_pb2 <https://github.com/smaurice101/raspberrypi/blob/main/tml-airflow/dags/tml_grpc_pb2.py>`_
      - This DAG is an gRPC server and will listen for a connection from a gRPC client.  You use this if your TML 
        solution ingests data from devices and you want to 
        leverage a gRPC connection and stream the data to Kafka.
    * - tml-read-RESTAPI-step-3-kafka-producetotopic-dag
-     - Here is the RESTAPI client: `tml-client-RESTAPI-step-3-kafka-producetotopic.py <https://github.com/smaurice101/raspberrypi/blob/main/tml-airflow/dags/tml-client-RESTAPI-step-3-kafka-producetotopic.py>`_
+     - Here is the RESTAPI client: `tml-client-RESTAPI-step-3-kafka-producetotopic.py <https://github.com/smaurice101/raspberrypi/blob/main/tml-airflow/dags/tml- 
+       client-RESTAPI-step-3-kafka-producetotopic.py>`_
      - This DAG is an RESTAPI server and will listen for a connection from a REST client.  You use this if your TML 
        solution ingests data from devices and you want 
        to leverage a rest connection and stream the data to Kafka.
