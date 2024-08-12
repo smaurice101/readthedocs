@@ -49,7 +49,7 @@ The privateGPT container can be found on Docker hub.  The container will require
 Here is some sample code to access the privateGPT container using the maadstml API:
 
 .. code-block::
-   :emphasize-lines: 3,10,20,21,22,25
+   :emphasize-lines: 4,11,21,22,23,26
 
    import maadstml
    import json
