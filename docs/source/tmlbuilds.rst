@@ -281,6 +281,7 @@ Produce Data Using MQTT: tml_MQTT_step_3_kafka_producetotopic_dag
 --------------------- 	
 
 .. code-block::
+   :emphasize-lines: 16,17,18,19,20,21,22,23,24,25,26,27,28,29,30
 
    from airflow import DAG
    from airflow.operators.python import PythonOperator
@@ -310,8 +311,7 @@ Produce Data Using MQTT: tml_MQTT_step_3_kafka_producetotopic_dag
      'delay' : 7000, # << ******* 7000 millisecond maximum delay for VIPER to wait for Kafka to return confirmation message is received and written to topic
      'topicid' : -999, # <<< ********* do not modify      
      'start_date': datetime (2024, 6, 29),
-     'retries': 1,
-       
+     'retries': 1,    
    }
    
    ######################################## DO NOT MODIFY BELOW #############################################
