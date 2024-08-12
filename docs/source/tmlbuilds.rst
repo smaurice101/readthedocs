@@ -253,7 +253,8 @@ Produce to Kafka Topics
      - Client File Name
      - **Description**
    * - tml_MQTT_step_3_kafka_producetotopic_dag
-     - TBD
+     - An **on_message(client, userdata, msg)** is triggered by the MQTT broker.  This DAGs will automatically handle the on_message event
+       and produce the data to Kafka.
      - This DAG is an MQTT server and will listen for a connection from a client.  
        You use this if your TML solution ingests data from MQTT system like HiveMQ and 
        stream it to Kafka.
