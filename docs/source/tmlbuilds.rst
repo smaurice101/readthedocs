@@ -244,13 +244,13 @@ Produce to Kafka Topics
 
    You must CHOOSE how you want to ingest data and produce to a Kafka topic.  
 
-   **TML solution provides 4 (FOUR) ways to ingest data and produce to a topic: MQTT, gRPC, RESTAPI, LOCALFILE.**  The following DAGs are SERVER files.  
-     For further convenience, client files are provides to access the server DAGs below.
+   **TML solution provides 4 (FOUR) ways to ingest data and produce to a topic: MQTT, gRPC, RESTAPI, LOCALFILE.**  The following DAGs in the table are SERVER 
+   files.  These server files wait for connections from the client files. For further convenience, client files are provides to access the server DAGs below.
 
 .. list-table::
 
    * - **Data Ingest DAG Name**
-     - Client File Name
+     - **Client File Name**
      - **Description**
    * - tml_MQTT_step_3_kafka_producetotopic_dag
      - An **on_message(client, userdata, msg)** event is triggered by the MQTT broker.  This DAGs will automatically handle the on_message event
