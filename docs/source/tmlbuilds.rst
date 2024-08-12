@@ -143,7 +143,7 @@ Create Kafka Topics: tml_system_step_2_kafka_createtopic_dag
 Below is the complete definition of the **tml_system_step_2_kafka_createtopic_dag** that creates all the topics for your solution.  Users only need to configure the code highlighted in the **USER CHOSEN PARAMETERS**.
 
 .. code-block::
-   :emphasize-lines: 12-32
+   :emphasize-lines: 12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32
 
 from airflow import DAG
 from airflow.operators.python import PythonOperator
