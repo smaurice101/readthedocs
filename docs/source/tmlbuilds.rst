@@ -855,8 +855,8 @@ STEP 4: Preprocesing Data: tml-system-step-4-kafka-preprocess-dag.p
      'enabletls': 1, # <<< *** 1=connection is encrypted, 0=no encryption
      'microserviceid' : '',  # <<< *** leave blank
      'producerid' : 'iotsolution',   # <<< *** Change as needed   
-     'raw_data_topic' : 'iot-raw-data', # *************** INCLUDE ONLY ONE TOPIC - This is one of the topic you created in SYSTEM STEP 2
-     'preprocess_data_topic' : 'iot-preprocess-data', # *************** INCLUDE ONLY ONE TOPIC - This is one of the topic you created in SYSTEM STEP 2
+     'raw_data_topic' : 'iot-raw-data', # *************** CONSUME DATA - This is one of the topic you created in SYSTEM STEP 2
+     'preprocess_data_topic' : 'iot-preprocess-data', # **** PRODUCE PREPROCESS DATA TO THIS TOPIC - This is one of the topic you created in SYSTEM STEP 2
      'maxrows' : 500, # <<< ********** Number of offsets to rollback the data stream -i.e. rollback stream by 500 offsets
      'offset' : -1, # <<< Rollback from the end of the data streams  
      'brokerhost' : '',   # <<< *** Change as needed   
@@ -873,7 +873,7 @@ STEP 4: Preprocesing Data: tml-system-step-4-kafka-preprocess-dag.p
      'usemysql' : 1, # do not modify
      'streamstojoin' : '', # leave blank
      'identifier' : 'IoT device performance and failures', # <<< ** Change as needed
-     **'preprocesstypes' : 'anomprob,trend,avg',** # <<< **** MAIN PREPROCESS TYPES CHANGE AS NEEDED REFER TO PREPROCESS TYPES TABLE
+     'preprocesstypes' : 'anomprob,trend,avg', # <<< **** MAIN PREPROCESS TYPES CHANGE AS NEEDED REFER TO PREPROCESS TYPES TABLE
      'pathtotmlattrs' : '', # Leave blank         
      'jsoncriteria' : '', # <<< **** Specify your json criteria  refer to https://tml-readthedocs.readthedocs.io/en/latest/
      'identifier' : 'TML solution',   # <<< *** Change as needed   
