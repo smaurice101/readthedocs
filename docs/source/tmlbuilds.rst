@@ -502,6 +502,12 @@ STEP 3b: Produce Data Using RESTAPI: tml-read-RESTAPI-step-3-kafka-producetotopi
    
    dag = startproducingtotopic()
 
+STEP 3c: Produce Data Using gRPC: tml-read-gRPC-step-3-kafka-producetotopic-dag.py
+--------------------- 	
+
+.. code-block::
+   :emphasize-lines: 19,20,21,22,23,24,25,26,27,28,29,30,31
+
 Preprocessing Data
 -----------------
 
