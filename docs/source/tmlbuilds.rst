@@ -875,7 +875,7 @@ STEP 4: Preprocesing Data: tml-system-step-4-kafka-preprocess-dag.p
      'identifier' : 'IoT device performance and failures', # <<< ** Change as needed
      'preprocesstypes' : 'anomprob,trend,avg', # <<< **** MAIN PREPROCESS TYPES CHANGE AS NEEDED REFER TO PREPROCESS TYPES TABLE
      'pathtotmlattrs' : '', # Leave blank         
-     'jsoncriteria' : '', # <<< **** Specify your json criteria  refer to https://tml-readthedocs.readthedocs.io/en/latest/
+     'jsoncriteria' : '', # <<< **** Specify your json criteria  refer to JSON PROCESSING section
      'identifier' : 'TML solution',   # <<< *** Change as needed   
      'start_date': datetime (2024, 6, 29),  # <<< *** Change as needed   
      'retries': 1,  # <<< *** Change as needed         
