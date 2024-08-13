@@ -21,5 +21,11 @@ This is the main container that you need to use to build TML solutions.  Below i
    * - **Parameter**
      - **Description**
    * - --env MAINHOST=127.0.0.1
-     - v
+     - This is the IP address for the TML solution container.  It will normally listen on 127.0.0.1
+   * - --env AIRFLOWPORT=9000 
+     - This is the AIRFLOWPORT.  This port will be needed to access the TML solution studion from your browser.  For sample, enter: http://localhost:9000/
+       You will be asked for a username and password: enter **tml** for both.
+   * - -v /var/run/docker.sock:/var/run/docker.sock:z 
+     - This maps the docker volume to the container - so TML studio can automatically build your solution container.
+
    
