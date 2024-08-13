@@ -175,9 +175,9 @@ Below is the complete definition of the **tml_system_step_2_kafka_createtopic_da
      'preprocess_data_topic' : 'iot-preprocess-data,iot-preprocess2-data', # Separate multiple topics with comma <<< ********** You change topic names as needed
      'ml_data_topic' : 'ml-data', # Separate multiple topics with comma <<< ********** You change topic names as needed
      'prediction_data_topic' : 'prediction-data', # Separate multiple topics with comma <<< ********** You change topic names as needed
-     'description' : 'Topics to store iot data',  
-     'start_date': datetime (2024, 6, 29),
-     'retries': 1,    
+     'description' : 'Topics to store iot data',  # <<< **** You modify as needed
+     'start_date': datetime (2024, 6, 29), # <<< **** You modify as needed
+     'retries': 1,    # <<< **** You modify as needed
    }
    
    ############################################################### DO NOT MODIFY BELOW #######################################################################
@@ -299,19 +299,19 @@ STEP 3a: Produce Data Using MQTT: tml-read-MQTT-step-3-kafka-producetotopic-dag.
    
    ######################################## USER CHOOSEN PARAMETERS ########################################
    default_args = {
-     'owner' : 'Sebastian Maurice',    
-     'enabletls': 1,
-     'microserviceid' : '',
-     'producerid' : 'iotsolution',  
-     'topics' : 'iot-raw-data', # *************** This is one of the topic you created in SYSTEM STEP 2
-     'identifier' : 'TML solution',  
+     'owner' : 'Sebastian Maurice',  # <<< **** You modify as needed
+     'enabletls': 1,   # <<< #**** 1=connections are TLS encrypted
+     'microserviceid' : '', # **** leave as is
+     'producerid' : 'iotsolution',  # <<< **** You modify as needed
+     'topics' : 'iot-raw-data', # ******* This is one of the topic you created in SYSTEM STEP 2
+     'identifier' : 'TML solution',  # <<< **** You modify as needed
      'mqtt_broker' : '', # <<<****** Enter MQTT broker i.e. test.mosquitto.org
      'mqtt_port' : '', # <<<******** Enter MQTT port i.e. 1883    
      'mqtt_subscribe_topic' : '', # <<<******** enter name of MQTT to subscribe to i.e. encyclopedia/#  
      'delay' : 7000, # << ******* 7000 millisecond maximum delay for VIPER to wait for Kafka to return confirmation message is received and written to topic
      'topicid' : -999, # <<< ********* do not modify      
-     'start_date': datetime (2024, 6, 29),
-     'retries': 1,    
+     'start_date': datetime (2024, 6, 29), # <<< **** You modify as needed
+     'retries': 1,  # <<< **** You modify as needed  
    }
    
    ######################################## DO NOT MODIFY BELOW #############################################
@@ -419,17 +419,17 @@ STEP 3b: Produce Data Using RESTAPI: tml-read-RESTAPI-step-3-kafka-producetotopi
    
    ######################################## USER CHOOSEN PARAMETERS ########################################
    default_args = {
-     'owner' : 'Sebastian Maurice',    
-     'enabletls': 1,
-     'microserviceid' : '',
-     'producerid' : 'iotsolution',  
+     'owner' : 'Sebastian Maurice', # <<< **** You modify as needed   
+     'enabletls': 1, # <<< **** 1=Connection is TLS encrypted
+     'microserviceid' : '', # <<< **** Leave as is
+     'producerid' : 'iotsolution',  # <<< **** You modify as needed   
      'topics' : 'iot-raw-data', # *************** This is one of the topic you created in SYSTEM STEP 2
-     'identifier' : 'TML solution',  
+     'identifier' : 'TML solution',  # <<< **** You modify as needed   
      'rest_port' : 9001,  # <<< ***** replace replace with port number i.e. this is listening on port 9000 
      'delay' : 7000, # << ******* 7000 millisecond maximum delay for VIPER to wait for Kafka to return confirmation message is received and written to topic
      'topicid' : -999, # <<< ********* do not modify          
-     'start_date': datetime (2024, 6, 29),
-     'retries': 1,
+     'start_date': datetime (2024, 6, 29), # <<< **** You modify as needed   
+     'retries': 1, # <<< **** You modify as needed   
    }
    
    ######################################## DO NOT MODIFY BELOW #############################################
