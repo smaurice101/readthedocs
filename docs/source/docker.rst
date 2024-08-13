@@ -27,5 +27,18 @@ This is the main container that you need to use to build TML solutions.  Below i
        You will be asked for a username and password: enter **tml** for both.
    * - -v /var/run/docker.sock:/var/run/docker.sock:z 
      - This maps the docker volume to the container - so TML studio can automatically build your solution container.
-
+  
+   * - --env GITREPOURL=https://github.com/smaurice101/raspberrypi.git 
+     - This is your Git repo. The above is an example.
+   * - --env  GITUSERNAME=smaurice101 
+     - This is the username to your repo.
+   * - --env GITPASSWORD=<Personal Access Token> 
+     - This is the **Personal Access Token** for your repo.   Look at the image below to find out how to generate this token.
+   * - --env DOCKERUSERNAME=maadsdocker 
+     - This is your Docker Hub username.
+   * - --env DOCKERPASSWORD=<password> 
+     - This is your password to Dockerhub account.
+   * - **maadsdocker/tml-solution-studio-with-airflow**
+     - This is the official TML Solution Studio container.
    
+.. figure:: tmlgit2.png
