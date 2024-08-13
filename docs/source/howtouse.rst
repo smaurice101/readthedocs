@@ -19,12 +19,13 @@ After you have signed in successfully you will see the following screen with exa
 
 .. figure:: ts2.png
 
-If you scroll down you will see the **TML DAGs** - as defined here: :ref:`Apache Airflow DAGs`.  These are the DAGs you will use to build your TML Solutions:
+If you scroll down you will see the **TML DAGs** - as defined here: :ref:`DAG Table`.  These are the DAGs you will use to build your TML Solutions:
 
 .. figure:: ts3.png
 
 .. important::
 
-   Next go into the DAG Code Editor.  Most of your TML Solution building will be done here.
+   Next go into the DAG Code Editor.  Most of your TML Solution building will be done here.  Note the DAGs solution process flows defined here: :ref:`Apache 
+   Airflow DAGs`
 
 .. figure:: ts4.png
