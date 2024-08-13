@@ -5,7 +5,7 @@ TML Solution build process is tightly integrated with GitHub to maintain a seaml
 
 You can push and pull changes directly from the TML Solution Studio - integrated with Airflow.
 
-.. figure:: tmlgit2.png
+.. figure:: tmlgit3.png
 
 .. figure:: tmlgit.png
 
