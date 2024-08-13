@@ -277,7 +277,7 @@ STEP 3: Produce to Kafka Topics
        to leverage a rest connection and stream the data to Kafka.
    
 
-STEP 3: Produce Data Using MQTT: tml-read-MQTT-step-3-kafka-producetotopic-dag.py
+STEP 3a: Produce Data Using MQTT: tml-read-MQTT-step-3-kafka-producetotopic-dag.py
 --------------------- 	
 
 .. code-block::
@@ -394,7 +394,7 @@ STEP 3: Produce Data Using MQTT: tml-read-MQTT-step-3-kafka-producetotopic-dag.p
    
    dag = startproducingtotopic()
 
-STEP 3: Produce Data Using RESTAPI: tml-read-RESTAPI-step-3-kafka-producetotopic-dag.py
+STEP 3b: Produce Data Using RESTAPI: tml-read-RESTAPI-step-3-kafka-producetotopic-dag.py
 --------------------- 	
 
 .. code-block::
