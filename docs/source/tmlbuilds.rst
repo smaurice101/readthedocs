@@ -22,7 +22,7 @@ The fastest way to build TML solutions with your real-time data is to use the :r
 
    FOLLOW THE :ref:`How To Use the TML Solution Container` SECTION.
 
-Apache Airflow DAGs
+Apache Airflow DAGs: 10 DAGs
 -------------------
 
 The TML solution process with DAGS (explained in detail below).  **The entire TML solution build process is highly efficient; advanced, scalable, real-time TML solutions can be built in few hours with GenAI integrations!**
