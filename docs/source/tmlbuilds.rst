@@ -1,4 +1,4 @@
-TML Solution Building in 10 Steps
+TML Solution Building In 10 Steps
 ======================
 
 Where Do I Start?
