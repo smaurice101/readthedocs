@@ -28,9 +28,9 @@ Contents
 .. toctree::
    
    tmlbook
+   docker   
    howtouse
    tmlbuilds
-   docker
    git
    coreintegrations
    dashboards
