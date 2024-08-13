@@ -11,9 +11,14 @@ The fastest way to build TML solutions with your real-time data is to use the **
    You will need to have the following pre-requisites:
 
    1. Install Docker - in Ubuntu run: sudo apt install docker.io
-   1. Clone Github Repo: https://github.com/smaurice101/raspberrypi.git
-   2. Create Github **Personal Access Token** (Refer to Docker section)
-   3. Create a Docker Hub account
+
+   2. You MUST have a Github Account
+
+   3. You MUST Clone Github Repo: https://github.com/smaurice101/raspberrypi.git
+
+   4. You MUST Create Github **Personal Access Token** (Refer to Docker section)
+
+   5. You MUST have a Docker Hub account
 
 Apache Airflow DAGs
 -------------------
