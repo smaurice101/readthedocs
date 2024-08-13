@@ -17,6 +17,8 @@ An entity is any device or object that produces real-time data.  TML processes d
    Because each device or object operates in its own environment - by processing each device invidually - TML offers a much deeper understanding of the behaviour of 
    that device, and therefore able to **predict the future behaviours** of that device more accurately.
 
+   TML uses :ref:`JSON PROCESSING` to process JSON messages streaming to Kafka.
+
 TML Processes Data Using Sliding Time Windows
 ----------------------------------------
 
