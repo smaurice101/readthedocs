@@ -993,8 +993,8 @@ Another powerful feature of TML is performing machine learning at the entity lev
 
 .. list-table::
 
-   * - Algorithm
-     - Description   
+   * - **Algorithm**
+     - **Description**   
    * - Logistic Regression
      - Performs classification regression and predicts probabilities
    * - Linear Regression
@@ -1002,7 +1002,7 @@ Another powerful feature of TML is performing machine learning at the entity lev
    * - Gradient Boosting
      - Gradient boosting for non-linear real-time data
    * - Ridge Regression
-     - Gradient boosting for non-linear real-time data
+     - Ridge Regression for non-linear real-time data
    * - Neural networks
      - Neural networks non-linear real-time data
 
