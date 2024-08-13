@@ -1,4 +1,4 @@
-TML Solution Building In 10 Steps Using DAGs (Directed Acyclic Graphs)
+TML Solution Building In 10 Steps Using Pre-Written DAGs (Directed Acyclic Graphs)
 ======================
 
 Where Do I Start?
