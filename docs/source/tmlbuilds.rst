@@ -989,7 +989,12 @@ STEP 4: Preprocesing Data: tml-system-step-4-kafka-preprocess-dag.py
 Entity Based Machine Learning By TML
 -------------------
 
-Another powerful feature of TML is performing machine learning at the entity level.  See :ref:`TML Performs Entity Level Machine Learning and Processing` for refresher.  
+Another powerful feature of TML is performing machine learning at the entity level.  See :ref:`TML Performs Entity Level Machine Learning and Processing` for refresher.  For example, if TML is processing real-time data from 1 million IoT devices, it can create 1 million individual machine learnig models for each device.  TML uses the following ML algorithms:
+
+.. list-table::
+
+   * - Algorithm
+     - Description   
 
 .. code-block::
    :emphasize-lines: 10,11,12,13,14,15,16,17,18,19
