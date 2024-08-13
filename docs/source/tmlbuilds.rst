@@ -873,7 +873,7 @@ STEP 4: Preprocesing Data: tml-system-step-4-kafka-preprocess-dag.p
      'usemysql' : 1, # do not modify
      'streamstojoin' : '', # leave blank
      'identifier' : 'IoT device performance and failures', # <<< ** Change as needed
-     'preprocesstypes' : 'anomprob,trend,avg', # <<< **** MAIN PREPROCESS TYPES CHNAGE AS NEEDED refer to https://tml-readthedocs.readthedocs.io/en/latest/
+     **'preprocesstypes' : 'anomprob,trend,avg',** # <<< **** MAIN PREPROCESS TYPES CHANGE AS NEEDED REFER TO PREPROCESS TYPES TABLE
      'pathtotmlattrs' : '', # Leave blank         
      'jsoncriteria' : '', # <<< **** Specify your json criteria  refer to https://tml-readthedocs.readthedocs.io/en/latest/
      'identifier' : 'TML solution',   # <<< *** Change as needed   
