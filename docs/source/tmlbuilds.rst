@@ -8,7 +8,7 @@ The fastest way to build TML solutions with your real-time data is to use the **
 
 .. important::
 
-   **The following prerequisites MUST be met:**
+   **The following prerequisites MUST be met before you run the TML Solution Studio Container:**
 
    1. You MUST Install Docker - in Ubuntu run: sudo apt install docker.io
 
