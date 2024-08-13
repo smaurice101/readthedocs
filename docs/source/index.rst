@@ -26,17 +26,18 @@ Contents
 --------
 
 .. toctree::
-
-   coreintegrations
+   
    tmlbook
+   tmlbuilds
+   docker
+   git
+   coreintegrations
    dashboards
    usage 
-   docker
    api
    entity
    jsonprocessing
    viper
-   tmlbuilds
    genai
    
    
