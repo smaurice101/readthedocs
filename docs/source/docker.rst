@@ -39,5 +39,8 @@ This is the main container that you need to use to build TML solutions.  Below i
      - This is your password to Dockerhub account.
    * - **maadsdocker/tml-solution-studio-with-airflow**
      - This is the official TML Solution Studio container.
-   
+
+Generating Personal Access Tokens in Github
+-------------------------
+
 .. figure:: tmlgit2.png
