@@ -7,7 +7,7 @@ What does entity level processing and machine learning mean?
 An entity is any device or object that produces real-time data.  TML processes data from **individual devices or objects**.  This means TML can create machine learning models for each invidual device.  
 
 .. figure:: entity.png
-   :scale: 30 %
+   :scale: 60 %
 
 .. important:: 
 
