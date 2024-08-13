@@ -54,7 +54,7 @@ DAG Table
    * - tml_system_step_10_documentation_dag
      - This DAG will automatically create the documentation for your solution on readthedocs.io.
 
-Get TML Core Params: tml_system_step_1_getparams_dag
+STEP 1: Get TML Core Params: tml_system_step_1_getparams_dag
 -----------------
 
 Below is the complete definition of the **tml_system_step_1_getparams_dag**.  Users only need to configure the code highlighted in the **USER CHOSEN PARAMETERS**.
@@ -140,7 +140,7 @@ Below is the complete definition of the **tml_system_step_1_getparams_dag**.  Us
     
    dag = tmlparams()
 
-Create Kafka Topics: tml_system_step_2_kafka_createtopic_dag
+STEP 2: Create Kafka Topics: tml_system_step_2_kafka_createtopic_dag
 -----------------
 
 Below is the complete definition of the **tml_system_step_2_kafka_createtopic_dag** that creates all the topics for your solution.  Users only need to configure the code highlighted in the **USER CHOSEN PARAMETERS**.
@@ -237,7 +237,7 @@ Below is the complete definition of the **tml_system_step_2_kafka_createtopic_da
    dag = startkafkasetup()
 
 
-Produce to Kafka Topics
+STEP 3: Produce to Kafka Topics
 -----------------
 
 .. important::
@@ -277,7 +277,7 @@ Produce to Kafka Topics
        to leverage a rest connection and stream the data to Kafka.
    
 
-Produce Data Using MQTT: tml-read-MQTT-step-3-kafka-producetotopic-dag.py
+STEP 3: Produce Data Using MQTT: tml-read-MQTT-step-3-kafka-producetotopic-dag.py
 --------------------- 	
 
 .. code-block::
@@ -394,7 +394,7 @@ Produce Data Using MQTT: tml-read-MQTT-step-3-kafka-producetotopic-dag.py
    
    dag = startproducingtotopic()
 
-Produce Data Using RESTAPI: tml-read-RESTAPI-step-3-kafka-producetotopic-dag.py
+STEP 3: Produce Data Using RESTAPI: tml-read-RESTAPI-step-3-kafka-producetotopic-dag.py
 --------------------- 	
 
 .. code-block::
