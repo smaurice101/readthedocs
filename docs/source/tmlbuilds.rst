@@ -5,6 +5,7 @@ Where Do I Start?
 ----------
 
 The fastest way to build TML solutions with your real-time data is to use the **TML Solution Studio Container** - refer to the Docker section.
+:ref:`TML Solution Studio Container`
 
 .. important::
 
