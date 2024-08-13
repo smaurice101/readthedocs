@@ -1,4 +1,4 @@
-TML Solution Studio Docker Container
+TML Solution Studio Container
 ======================================
 
 This is the main container that you need to use to build TML solutions.  Below is the **docker run** command to run the container.
