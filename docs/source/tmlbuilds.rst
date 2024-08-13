@@ -252,13 +252,13 @@ Produce to Kafka Topics
    * - **Data Ingest DAG Name**
      - **Client File Name**
      - **Description**
-   * - tml_MQTT_step_3_kafka_producetotopic_dag
+   * - tml-read-MQTT-step-3-kafka-producetotopic-dag.py
      - An **on_message(client, userdata, msg)** event is triggered by the MQTT broker.  This DAGs will automatically handle the on_message event
        and produce the data to Kafka.
      - This DAG is an MQTT server and will listen for a connection from a client.  
        You use this if your TML solution ingests data from MQTT system like HiveMQ and 
        stream it to Kafka.
-   * - tml_LOCALFILE_step_3_kafka_producetotopic_dag
+   * - tml-read-LOCALFILE-step-3-kafka-producetotopic-dag.py
      - You can process a localfile and stream the data to kafka.  See the `IoTSolution DAG <https://github.com/smaurice101/raspberrypi/blob/main/tml-airflow/dags/tml-iotsolution-step-3-kafka-producetotopic-dag.py>`_
      - This DAG will read a local CSV file for data and stream it to Kafka.
    * - tml-read-gRPC-step-3-kafka-producetotopic-dag
@@ -277,7 +277,7 @@ Produce to Kafka Topics
        to leverage a rest connection and stream the data to Kafka.
    
 
-Produce Data Using MQTT: tml_MQTT_step_3_kafka_producetotopic_dag
+Produce Data Using MQTT: tml-read-MQTT-step-3-kafka-producetotopic-dag.py
 --------------------- 	
 
 .. code-block::
@@ -393,6 +393,12 @@ Produce Data Using MQTT: tml_MQTT_step_3_kafka_producetotopic_dag
        
    
    dag = startproducingtotopic()
+
+Produce Data Using RESTAPI: tml-read-RESTAPI-step-3-kafka-producetotopic-dag.py
+--------------------- 	
+
+.. code-block::
+   :emphasize-lines: 16,17,18,19,20,21,22,23,24,25,26,27,28,29,30
 
 Preprocessing Data
 -----------------
