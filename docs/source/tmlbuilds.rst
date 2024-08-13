@@ -737,11 +737,68 @@ TML preprocesses real-time data for every entity along each sliding time window.
      - This will determine the minimum value for each entity in the sliding time windows
    * - max
      - This will determine the maximum value for each entity in the sliding time windows
+   * - avg
+     - This will determine the average value for each entity in the sliding time windows
+   * - count
+     - This will count the number of numeric data points in the sliding time windows for each entity
+   * - countstr
+     - This will count the number of string values in the sliding time windows for each entity
+   * - diff
+     - This will find the difference between the highest and lowest points in the sliding time windows for each entity
+   * - diffmargin
+     - This will find the percentage difference between the highest and lowest points in the sliding time windows for each entity
+   * - sum
+     - This will find the sum of the numeric points in the sliding time windows for each entity
+   * - median
+     - This will find the median of the numeric points in the sliding time windows for each entity
+   * - variance
+     - This will find the variane of the numeric points in the sliding time windows for each entity
+   * - outliers
+     - This will find the outliers of the numeric points in the sliding time windows for each entity
+   * - outliersx-y
+     - where X and Y are numbers or "n", if "n" means examine all outliers for recurring patterns. 
+       This will find the outliers in the data - ignoring set patterns. They allow you to check if the outlier
+       in the streams are truly outliers and not some pattern. For example, if a IoT device shuts off and turns on again routinely, 
+       this may be picked up as an outlier when in fact it is normal behaviour. So, to ignore these cases, if OUTLIER2-5, tells Viper, 
+       check outliers with patterns of 2-5 peaks. If the stream has two classes and these two classes are like 0 and 1000, and show a pattern, 
+       then they should not be considered an outlier. Meaning, class=0, is the device shutting down, class=1000 is the device turning back on. 
+       If OUTLIER3-10, Viper will check for patterns of classes 3 to 10 to see if they recur routinely. This is very helpful to reduce false 
+       positives and false negatives.
+   * - varied
+     - This will determine if there is variation in the data in the sliding time windows for each entity.  
    * - anomprob
      - This will determine the probability that there is an anomaly for each entity in the sliding time windows
+   * - anomprobx-y
+     - where X and Y are numbers or "n", if "n" means examine all anomalies for recurring patterns. 
+       This will find the anomalies in the data - ignoring set patterns. They allow you to check if the anomaly
+       in the streams are truly anomalies and not some pattern. For example, if a IoT device shuts off and turns on again routinely, 
+       this may be picked up as an anomaly when in fact it is normal behaviour. So, to ignore these cases, if ANOMPROB2-5, tells Viper, 
+       check anomaly with patterns of 2-5 peaks. If the stream has two classes and these two classes are like 0 and 1000, and show a pattern, 
+       then they should not be considered an anomaly. Meaning, class=0, is the device shutting down, class=1000 is the device turning back on. 
+       If ANOMPROB3-10, Viper will check for patterns of classes 3 to 10 to see if they recur routinely. This is very helpful to reduce false 
+       positives and false negatives.
+   * - entropy
+     - This will determine the entropy in the data for each entity in the sliding time windows
+   * - autocorr
+     - This will determine the autocorrelation in the data for each entity in the sliding time windows
    * - trend
      - This will determine the trend value for each entity in the sliding time windows.  If the trend value is less than zero then
        data in the sliding time window is decreasing, if trend value is greater than zero then it is increasing.
+   * - consistency
+     - This will check if the data all have consistent data types. Returns 1 for consistent data types, 0 otherwise for each entity in sliding windows
+   * - iqr
+     - This will compute the interquartile range between Q1 and Q3 for each entity in sliding windows
+   * - midhinge
+     - This will determine the average of the first and third quartiles for each entity in sliding windows
+   * - gm (geometric mean)
+     - This will determine the geometric mean for each entity in sliding windows
+
+
+
+ANOMPROB,ANOMPROBX-Y,ENTROPY, AUTOCORR, TREND, CONSISTENCY, IQR (InterQuartileRange), Midhinge, GM (Geometric mean), HM (Harmonic mean), Trimean, CV (coefficient of Variation),Mad (Mean absolute deviation), Skewness, Kurtosis, Spikedetect, Unique, Uniquestr, Timediff: time should be in this layout:2006-01-02T15:04:05, Timediff returns the difference in seconds between the first date/time and last datetime. Avgtimediff returns the average time in seconds between consecutive dates.. Spikedetect uses a Zscore method to detect spikes in the data using lag of 5, StD of 3.5 from mean and influence of 0.5. Geodiff (returns distance in Kilometers between two lat/long points)
+
+
+
 
 Machine Learning
 -------------------
