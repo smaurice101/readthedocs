@@ -14,3 +14,7 @@ After you enter the URL you will the following website:
 .. important::
 
    The username and password are both **tml**
+
+After you have signed in successfully you will see the following screen with example DAGs:
+
+.. figure:: ts2.png
