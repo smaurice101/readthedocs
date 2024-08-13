@@ -835,7 +835,7 @@ TML preprocesses real-time data for every entity along each sliding time window.
    * - varied
      - This will determine if there is variation in the data in the sliding time windows for each entity.  
 
-STEP 4: Preprocesing Data: tml-system-step-4-kafka-preprocess-dag.p
+STEP 4: Preprocesing Data: tml-system-step-4-kafka-preprocess-dag.py
 --------------------------------
 
 .. code-block::
