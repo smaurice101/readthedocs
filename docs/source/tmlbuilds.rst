@@ -778,7 +778,7 @@ TML preprocesses real-time data for every entity along each sliding time window.
        If ANOMPROB3-10, Viper will check for patterns of classes 3 to 10 to see if they recur routinely. This is very helpful to reduce false 
        positives and false negatives.
    * - entropy
-     - This will determine the entropy in the data for each entity in the sliding time windows
+     - This will determine the entropy in the data for each entity in the sliding time windows; will compute the amount of information in the data stream.
    * - autocorr
      - This will determine the autocorrelation in the data for each entity in the sliding time windows
    * - trend
@@ -792,13 +792,48 @@ TML preprocesses real-time data for every entity along each sliding time window.
      - This will determine the average of the first and third quartiles for each entity in sliding windows
    * - gm (geometric mean)
      - This will determine the geometric mean for each entity in sliding windows
-
-
-
-ANOMPROB,ANOMPROBX-Y,ENTROPY, AUTOCORR, TREND, CONSISTENCY, IQR (InterQuartileRange), Midhinge, GM (Geometric mean), HM (Harmonic mean), Trimean, CV (coefficient of Variation),Mad (Mean absolute deviation), Skewness, Kurtosis, Spikedetect, Unique, Uniquestr, Timediff: time should be in this layout:2006-01-02T15:04:05, Timediff returns the difference in seconds between the first date/time and last datetime. Avgtimediff returns the average time in seconds between consecutive dates.. Spikedetect uses a Zscore method to detect spikes in the data using lag of 5, StD of 3.5 from mean and influence of 0.5. Geodiff (returns distance in Kilometers between two lat/long points)
-
-
-
+   * - hm (harmonic mean)
+     - This will determine the harmonic mean for each entity in sliding windows
+   * - trimean
+     - This will determine the average of the median and the midhinge for each entity in sliding windows
+   * - cv
+     - This will determine the coefficient of variation average of the median and the midhinge for each entity in sliding windows
+   * - mad
+     - This will determine the mean absolute deviation for each entity in sliding windows
+   * - skewness
+     - This will determine the skewness for each entity in sliding windows
+   * - kurtosis
+     - This will determine the kurtosis for each entity in sliding windows
+   * - spikedetect
+     - This will determine if there are any spikes in the data using the zscore, using lag = 5, threshold = 3.5 (standard deviation), influence = 0.5,  for each 
+       entity in sliding 
+       windows
+   * - unique
+     - This will determine if there are unique numeric values in the data for each entity in sliding windows. Returns 1 if no data duplication (unique), 0 
+       otherwise.
+   * - uniquestr
+     - This will determine if there are unique string values in the data for each entity in sliding windows. Checks string data for duplication. Returns 1 if no 
+       data duplication (unique), 0 otherwise. 
+   * - timediff
+     - This will determine, in seconds, the time difference between the first and last timestamp for each entity in sliding windows; time should be in this 
+       layout:2006-01-02T15:04:05.
+   * - avgtimediff
+     - This will determine the average time in seconds between the first and last timestamp for each entity in sliding windows; time should be in this 
+       layout:2006-01-02T15:04:05.
+   * - geodiff
+     - This will determine the distance in kilimetres between two latitude and longitude points for each entity in sliding windows 
+   * - dataage_[UTC offset]_[timetype]
+     - dataage can be used to check the last update time of the data in the data stream from current local time. You can specify the UTC offset to adjust the 
+       current time to match the timezone of the data stream. You can specify timetype as millisecond, second, minute, hour, day. For example, if 
+       dataage_1_minute, then this processtype will compare the last timestamp in the data stream, to the local UTC time offset +1 and compute the time difference 
+       between the data stream timestamp and current local time and return the difference in minutes. This is a very powerful processtype for data quality and 
+       data assurance programs for any number of data streams.
+   * - meanci95
+     - returns a 95% confidence interval: mean, low, high for each entity in sliding windows.
+   * - meanci99
+     - returns a 99% confidence interval: mean, low, high for each entity in sliding windows.
+   * - raw
+     - Will not process data stream for each entity in sliding windows.
 
 Machine Learning
 -------------------
