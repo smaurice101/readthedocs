@@ -981,8 +981,7 @@ GenAI
 TML Solution Tight Integration with GitHub
 ---------------------------------------------
 
-
-
+.. figure:: tmlgit.png
 
 
 Example TML Solution Container Reference Architecture
