@@ -986,10 +986,13 @@ STEP 4: Preprocesing Data: tml-system-step-4-kafka-preprocess-dag.py
        
    dag = startprocessing()
 
-
-
 Machine Learning
 -------------------
+
+Another powerful feature of TML is performing machine learning at the entity level.  Entity level machine learning is especially important for devices (or entities) 
+
+.. code-block::
+   :emphasize-lines: 10,11,12,13,14,15,16,17,18,19
 
 Predictions
 --------------
