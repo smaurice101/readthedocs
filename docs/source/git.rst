@@ -7,5 +7,10 @@ You can push and pull changes directly from the TML Solution Studio - integrated
 
 .. figure:: tmlgit3.png
 
+Viewing Local and Remote Github Branches
+---------------------
+
+You can view the local and remote branches conveniently inside the TML Solution Studio.
+
 .. figure:: tmlgit.png
 
