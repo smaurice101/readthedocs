@@ -18,3 +18,7 @@ After you enter the URL you will the following website:
 After you have signed in successfully you will see the following screen with example DAGs:
 
 .. figure:: ts2.png
+
+If you scroll down you will see the **TML DAGs** you will use to build your TML Solutions:
+
+.. figure:: ts3.png
