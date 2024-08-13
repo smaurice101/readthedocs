@@ -861,7 +861,7 @@ STEP 4: Preprocesing Data: tml-system-step-4-kafka-preprocess-dag.p
      'offset' : -1, # <<< Rollback from the end of the data streams  
      'brokerhost' : '',   # <<< *** Change as needed   
      'brokerport' : -999,  # <<< *** Change as needed   
-     'preprocessconditions' : '', ## <<< Leave blank      
+     'preprocessconditions' : '', # <<< *** Change as needed   
      'delay' : 70, # Add a 70 millisecond maximum delay for VIPER to wait for Kafka to return confirmation message is received and written to topic     
      'array' : 0, # do not modify
      'saveasarray' : 1, # do not modify
