@@ -22,3 +22,9 @@ After you have signed in successfully you will see the following screen with exa
 If you scroll down you will see the **TML DAGs** you will use to build your TML Solutions:
 
 .. figure:: ts3.png
+
+.. important::
+
+   Next go into the DAG Code Editor.  Most of your TML Solution building will be done here.
+
+.. figure:: ts4.png
