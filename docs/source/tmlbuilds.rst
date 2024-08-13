@@ -20,7 +20,7 @@ The fastest way to build TML solutions with your real-time data is to use the :r
 
    5. You MUST have a Docker Hub account
 
-   FOLLOW THE **HOW TO USE TML SOLUTION STUDIO CONTAINER** SECTION.
+   FOLLOW THE :ref:`How To Use the TML Solution Container` SECTION.
 
 Apache Airflow DAGs
 -------------------
