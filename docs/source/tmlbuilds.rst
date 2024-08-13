@@ -724,7 +724,7 @@ STEP 3d: Produce Data Using LOCALFILE: tml-read-LOCALFILE-step-3-kafka-produceto
        
    dag = startproducingtotopic()
 
-Preprocessing Data
+Preprocessing Types
 -----------------
 
 TML preprocesses real-time data for every entity along each sliding time window.  This is quick and powerful way to accelerate insights from real-time data with very little effort.  TML provide over 35 different preprocessing types:
