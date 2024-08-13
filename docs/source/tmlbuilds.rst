@@ -727,6 +727,22 @@ STEP 3d: Produce Data Using LOCALFILE: tml-read-LOCALFILE-step-3-kafka-produceto
 Preprocessing Data
 -----------------
 
+TML preprocesses real-time data for every entity along each sliding time window.  This is quick and powerful way to accelerate insights from real-time data with very little effort.  TML provide over 35 different preprocessing types:
+
+.. list-table::
+
+   * - **Preprocessing Type**
+     - **Description**
+   * - min
+     - This will determine the minimum value for each entity in the sliding time windows
+   * - max
+     - This will determine the maximum value for each entity in the sliding time windows
+   * - anomprob
+     - This will determine the probability that there is an anomaly for each entity in the sliding time windows
+   * - trend
+     - This will determine the trend value for each entity in the sliding time windows.  If the trend value is less than zero then
+       data in the sliding time window is decreasing, if trend value is greater than zero then it is increasing.
+
 Machine Learning
 -------------------
 
