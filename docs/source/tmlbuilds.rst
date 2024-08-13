@@ -844,6 +844,13 @@ Predictions
 GenAI
 ---------
 
+TML Solution Tight Integration with GitHub
+---------------------------------------------
+
+
+
+
+
 Example TML Solution Container Reference Architecture
 -----------------------------------------------
 
