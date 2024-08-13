@@ -647,10 +647,8 @@ STEP 3d: Produce Data Using LOCALFILE: tml-read-LOCALFILE-step-3-kafka-produceto
      'start_date': datetime (2024, 6, 29),
      'retries': 1,
    }
-   
-   ######################################## USER CHOOSEN PARAMETERS ########################################
-   
-   ######################################## START DAG AND TASK #############################################
+      
+   ######################################## DO NOT MODIFY BELOW #############################################
    
    # Instantiate your DAG
    @dag(dag_id="tml_localfile_step_3_kafka_producetotopic_dag", default_args=default_args, tags=["tml-localfile-step-3-kafka-producetotopic"], schedule=None,catchup=False)
