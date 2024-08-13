@@ -506,13 +506,12 @@ STEP 3c: Produce Data Using gRPC: tml-read-gRPC-step-3-kafka-producetotopic-dag.
 --------------------- 	
 
 .. code-block::
-   :emphasize-lines: 19,20,21,22,23,24,25,26,27,28,29,30,31
+   :emphasize-lines: 22,23,24,25,26,27,28,29,30,31,32,33,34
 
    import maadstml
    from airflow import DAG
    from airflow.operators.python import PythonOperator
    from airflow.operators.bash import BashOperator
-   
    from datetime import datetime
    from airflow.decorators import dag, task
    import grpc
@@ -520,7 +519,6 @@ STEP 3c: Produce Data Using gRPC: tml-read-gRPC-step-3-kafka-producetotopic-dag.
    import time
    import tml_grpc_pb2_grpc as pb2_grpc
    import tml_grpc_pb2 as pb2
-   
    import sys
    
    sys.dont_write_bytecode = True
@@ -543,7 +541,6 @@ STEP 3c: Produce Data Using gRPC: tml-read-gRPC-step-3-kafka-producetotopic-dag.
      'topicid' : -999, # <<< ********* do not modify          
      'start_date': datetime (2024, 6, 29),
      'retries': 1,
-       
    }
        
    ######################################## DO NOT MODIFY BELOW #############################################
