@@ -66,6 +66,12 @@ TML uses PrivateGPT for fast, real-time, AI.  The container is here `Docker Priv
 
 Refer to :ref:`TML and Generative AI` for more details.
 
+7. TML Solution Studio Container
+------------------------
+
+For convenience, TML solution can be easily built using the TML Solution Studio container.  Refer to :ref:`TML Solution Studio Container` for further details.
+
+
 How The TML Components Are Integrated 
 --------------------------
 
