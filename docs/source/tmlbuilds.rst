@@ -1,5 +1,10 @@
-TML Solution Building In 10 Steps Using Pre-Written DAGs (Directed Acyclic Graphs)
+TML Solution Building 
 ======================
+
+TML Solutions Can Be Built In 10 Steps Using Pre-Written DAGs (Directed Acyclic Graphs)
+----------------------------------------------------------
+
+Users simply make configuration changes to the DAGs and build the solution.  TML Studio will even automatically containerize your complete solution, and auto generate online documentation.
 
 Where Do I Start?
 ----------
