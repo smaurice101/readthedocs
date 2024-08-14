@@ -135,7 +135,7 @@ Below is the complete definition of the **tml_system_step_1_getparams_dag**.  Us
     def getparams(args):
        VIPERHOST=""
        VIPERPORT=""
-       HTTPADDR="http://"
+       HTTPADDR2="http://"
        HPDEHOST=""
        HPDEPORT=""
       
