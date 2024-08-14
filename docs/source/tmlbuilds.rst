@@ -1297,13 +1297,12 @@ Here are the core parameters in the above dag:
        **lin-log:** leave the dependent variable as is, but take log of the independent variables.
 
        **log-log:** take log of the dependent variable, and take log of the independent variables.
-
    * - sendcoefto
-     - ' : '',  # you can send coefficients to another topic for further processing -- MUST BE SET IN STEP 2
+     - You can send the coefficients for each trained model to another Kafka topic. This topic MUST BE SET IN STEP 2.
    * - coeftoprocess
-     - ' : '', # indicate the index of the coefficients to process i.e. 0,1,2 For example, for a 3 estimated parameters 0=constant, 1,2 are the other estmated paramters
+     - You can specify which coeffients to process i.e. 0,1,2 For example, for 3 estimator parameters 0=constant, 1,2 are the other estmated paramters
    * - coefsubtopicnames
-     - ' : ''  # Give the coefficients a name: constant,elasticity,elasticity2    
+     - You can give names to the coefficients in your model: constant, elasticity, elasticity2    
 
 
 Predictions
