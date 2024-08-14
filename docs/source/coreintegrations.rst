@@ -26,8 +26,12 @@ TML solutions are built with the `MAADSTML Python Libary <https://pypi.org/proje
 Docker
 -----------
 
+TML solutions are containerized using `Docker <https://hub.docker.com/>`_.
+
 Kubernetes
 --------------
+
+TML solution containers are scaled with `Kubernetes <https://kubernetes.io/>`_.
 
 Github
 --------
