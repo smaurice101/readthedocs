@@ -11,7 +11,7 @@ TML requires the following - as shown in the table below. We will go though an e
 
    * - **TML Field**
      - **Description**
-   * - uid 
+   * - uid
      - This needs to be a unique id for the json message.  For example, if processing IOT device data, this would be the device's serial number. 
    * - subtopics
      - This is the json path to the variable name that identifies the type of data.  For example, if processing IOT, this could be json path to **voltage**
@@ -80,19 +80,19 @@ Lets consider the following example.
 
        The Json criteria will be:
          jsoncriteria=
-            uid= metadata.dsn,filter:allrecords~\  # uid: This is the json field to group by for example DSN or Device SerialNumber
+            **uid**= metadata.dsn,filter:allrecords~\  # uid: This is the json field to group by for example DSN or Device SerialNumber
 
-            subtopics= metadata.property_name~\  # subtopics:  This is the json field to the name of the field you want to process
+            **subtopics**= metadata.property_name~\  # subtopics:  This is the json field to the name of the field you want to process
 
-            values= datapoint.value~\   # values:  This is the json field containing the value of the subtopic
+            **values**= datapoint.value~\   # values:  This is the json field containing the value of the subtopic
 
-            identifiers= metadata.display_name~\  # identifier:  This is the json field containing any label or identifier for the values
+            **identifiers**= metadata.display_name~\  # identifier:  This is the json field containing any label or identifier for the values
 
-            datetime= datapoint.updated_at~\  # datetime:  This is the json field in UTC format – i.e. 2006-01-02T15:04:05
+            **datetime**= datapoint.updated_at~\  # datetime:  This is the json field in UTC format – i.e. 2006-01-02T15:04:05
 
-            msgid= datapoint.id ~\  #msgid: this is the json field containing further details about the values 
+            **msgid**= datapoint.id ~\  #msgid: this is the json field containing further details about the values 
 
-            latlong=lat:long  # This is json field contain latitude and longitude.  You can use a “:” to combine lat:long
+            **latlong**=lat:long  # This is json field contain latitude and longitude.  You can use a “:” to combine lat:long
 
    * - Say you have a value you want to extract from a Json array: 
        	"code": {
