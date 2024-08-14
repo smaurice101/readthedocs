@@ -18,6 +18,8 @@ TML offers several advantages over conventional Stream Processing:
 
 5. Stream Processing technologies still require lots of code.  TML solutions are low-code or no-code using the TML Solution Studio (TSS).  The TSS uses DAGs that allows users to quickly configure their TML solutions, and automatically deploy it with Docker, automatically generate the documentations for the solution, and commit code to Github repos.  
 
+6. TML is integrated with GenAI using PrivateGPT and Qdrant vector DB.  This integration makes it the first solution that provides fast AI integrated with real-time data processing and machine learning at the entity level.
+
 Where Is TML Used?
 ----------------
 
