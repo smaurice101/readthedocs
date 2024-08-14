@@ -1276,7 +1276,7 @@ Here are the core parameters in the above dag:
      - The topicid is an internal directive for TML.  If set to -1, it tell the TML Viper binary to process Json by their unique indentifier.  Usually, leaving 
        this at -1 is fine.
    * - fullpathtotrainingdata
-     - You must specify the full path to where the training dataset will be store on disk.  The formation for the path is /Viper-tml/viperlogs/<choose 
+     - You must specify the full path to where the training dataset will be store on disk.  The formation for the path is /Viper-ml/viperlogs/<choose 
        **foldername**>, where you specify the **foldername**.
    * - processlogic
      - This is the processlogic needed for the dependent variable if you are estimating a logistic model.  Specifically, if the conditions in your logic are 
