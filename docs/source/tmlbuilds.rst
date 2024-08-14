@@ -1039,6 +1039,9 @@ STEP 4: Preprocesing Data: tml-system-step-4-kafka-preprocess-dag.py
        
    dag = startprocessing()
 
+Preprocessed Variable Naming Standard
+-------------------------------------
+
 .. important::
    When a raw variable is processed, TML renames this raw in this standard: [Variable Name]_processed_[Process Type].  For example, say you want to perform an 
    **AnomProb** on the variable **Voltage**.  The new preprocessed variable name will be: **Voltage_preprocessed_AnomProb**
@@ -1264,7 +1267,8 @@ Here are the core parameters in the above dag:
      - This parameter will attempt to fine tune the model search space - A number close to 100 means you will have fewer models but their predictive quality will 
        be higher.      
    * - dependentvariable
-     - You specify the json path of the dependent variable in your Json message. Refer to :ref:`Json Path Example` 
+     - You specify the json path of the dependent variable in your Json message. Refer to :ref:`Json Path Example`.  If using preprocessed variables refer to 
+       :ref:`Preprocessed Variable Naming Standard`
    * - independentvariables
      - ': '', # <<< *** Change as needed, 
    * - topicid
