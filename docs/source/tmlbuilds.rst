@@ -20,6 +20,8 @@ TML offers several advantages over conventional Stream Processing:
 
 6. TML is integrated with GenAI using PrivateGPT and Qdrant vector DB.  This integration makes it the first solution that provides fast AI integrated with real-time data processing and machine learning at the entity level.
 
+7.  To ingest data from devices TML offers pre-built client python code. Users can easily using gRPC, REST API, MQTT to ingest data directly from devices and stream it to Kafka. Refer to :ref:`STEP 3: Produce to Kafka Topics` for more details.  
+
 Where Is TML Used?
 ----------------
 
