@@ -5,6 +5,11 @@ TML Solution build process is tightly integrated with GitHub to maintain a seaml
 
 You can push and pull changes directly from the TML Solution Studio - integrated with Airflow.
 
+Push and Pull From Local and Remote Github Branches
+---------------------
+
+All changes are committed to local and remote branches by simple press of a button in the TML Studio Git Workspace.
+
 .. figure:: tmlgit3.png
 
 Viewing Local and Remote Github Branches
