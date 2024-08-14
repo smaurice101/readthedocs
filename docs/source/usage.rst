@@ -8,9 +8,9 @@ Below describes the entire TML technologgy solution stack.
 
 **TML is comprised of 3 binaries written in **Go**: `found on Github <https://github.com/smaurice101/transactionalmachinelearning>`_
 
-a. *Viper* - source - sink binary for Apache Kafka
-b. *HPDE* - AutoML binary for real-time data
-c. *Viperviz* - Visualization binary for real-time dashboards
+a. *Viper* - source - sink binary for Apache Kafka - runs on MAC/Windows/Linux
+b. *HPDE* - AutoML binary for real-time data - runs on MAC/Windows/Linux
+c. *Viperviz* - Visualization binary for real-time dashboards - runs on MAC/Windows/Linux
 
 .. list-table::
 
