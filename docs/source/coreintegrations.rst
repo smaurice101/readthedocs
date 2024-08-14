@@ -3,9 +3,13 @@ TML Core Technology Integration
 
 .. important::
 
-   All TML solutions can be run on-premise or in the cloud. 
+   All TML solutions can be run on-premise or in the cloud using Apache Kafka.
 
-   All TML solutions process data in-memory
+   All TML solutions process data in-memory - no external databases are needed - ONLY Apache Kafka.
+
+   All TML solutions use TLS encryption to encrypt real-time data.
+
+   All TML solutions compress real-time using advanced compression algorithms like: snappy, gzip, lz4
 
    All TML solutions use JSON processing - not SQL - for faster, more cost effective, processing of real-time data.
 
