@@ -14,8 +14,8 @@ Below describes the entire TML technologgy solution stack.
 
 .. list-table::
 
-   * - Binary
-     - Description
+   * - **Binary**
+     - **Description**
    * - Viper
      - This is the CORE binary that performs all the major TML functions of processing and machine learning.  This binary acts like a microservice that can be 
        instantiated any number of times to process large amounts of real-time data.
@@ -23,6 +23,8 @@ Below describes the entire TML technologgy solution stack.
        This binary is compatible with REST API.  TML solutions (using Python) connect to this binary and instruct it to stream data to Kafka, preprocess data, and 
        develop training data sets for machine learning.
    * - HPDE
+     - Hyper-prediction technology performs all machine learning functions.  Viper connects to HPDE, using REST, and instructs it to perform machine learning.  By 
+       off-loading this function to HPDE, TML can perform very fast machine learning (in few seconds) for each entity and sliding time window.
 
 2. TML Component: One Core Python Library
 --------------------------
