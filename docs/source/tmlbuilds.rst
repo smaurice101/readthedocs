@@ -163,9 +163,9 @@ Below is the complete definition of the **tml_system_step_1_getparams_dag**.  Us
       
        return [VIPERTOKEN,VIPERHOST,VIPERPORT,HTTPADDR]
        
-       tmlsystemparams=getparams(default_args)
-       if tmlsystemparams[1]=="":
-          print("ERROR: No host specified")
+    tmlsystemparams=getparams(default_args)
+    if tmlsystemparams[1]=="":
+       print("ERROR: No host specified")
       
    dag = tmlparams()
 
