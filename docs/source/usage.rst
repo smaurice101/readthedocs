@@ -24,7 +24,9 @@ Below describes the entire TML technologgy solution stack.
        develop training data sets for machine learning.
    * - HPDE
      - Hyper-prediction technology performs all machine learning functions.  Viper connects to HPDE, using REST, and instructs it to perform machine learning.  By 
-       off-loading this function to HPDE, TML can perform very fast machine learning (in few seconds) for each entity and sliding time window.
+       off-loading this function to HPDE, TML can perform very fast machine learning (in few seconds) for each entity and sliding time window.  Refer to :ref:`TML 
+       Performs Entity Level Machine Learning and Processing`
+
 
 2. TML Component: One Core Python Library
 --------------------------
