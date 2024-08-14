@@ -43,7 +43,7 @@ TML solutions are developed using the MAADSTML Python library that connects to t
    TML performs **in-memory processing** of real-time data and **does NOT require an external database** - ONLY KAFKA is needed.  This results in dramatic cost- 
    savings for storage, compute and network data transfers.
 
-   TML does NOT perform SQL queries, it performs :ref:`JSON PROCESSING`.  This results in much faster, and much cheaper processing of real-time data.
+   TML **does NOT perform SQL queries**, it performs :ref:`JSON PROCESSING`.  This results in much faster, and much cheaper processing of real-time data.
 
 
 
