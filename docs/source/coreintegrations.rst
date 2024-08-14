@@ -30,6 +30,16 @@ TML solutions integrate with GenAI using a special `PrivateGPT docker container 
 
 The PrivateGPT container is integrated with `Qdrant <https://qdrant.tech/>`_ vector DB for localized AI processing with LLMs.
 
+TMUX (Terminal Multiplexing)
+----------------------------
+
+All TML solution use `TMUX <https://github.com/tmux/tmux/wiki>`_ to optimize TML solutions in Linux to enhance support and maintenance of solutions.
+
+MariaDB (MySQL)
+----------------------------
+
+All TML solution use `MariaDB <https://mariadb.com/>`_ as a configuration database for TML solutions.
+
 Docker
 -----------
 
