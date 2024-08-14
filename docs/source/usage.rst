@@ -8,9 +8,9 @@ Below describes the entire TML technologgy solution stack.
 
 **TML is comprised of 3 binaries written in **Go**: `found on Github <https://github.com/smaurice101/transactionalmachinelearning>`_
 
-1. *Viper* - source - sink binary for Apache Kafka
-2. *HPDE* - AutoML binary for real-time data
-3. *Viperviz* - Visualization binary for real-time dashboards
+a. *Viper* - source - sink binary for Apache Kafka
+b. *HPDE* - AutoML binary for real-time data
+c. *Viperviz* - Visualization binary for real-time dashboards
 
 .. list-table::
 
@@ -62,6 +62,8 @@ All TML solution containers scale with Kubernetes.  This allows companies to bui
 -----------------------------
 
 TML uses PrivateGPT for fast, real-time, AI.  The container is here `Docker PrivateGPT <https://hub.docker.com/r/maadsdocker/tml-privategpt-with-gpu-nvidia-amd64>`_
+
+Refer to :ref:`TML and Generative AI` for more details.
 
 How The TML Components Are Integrated 
 --------------------------
