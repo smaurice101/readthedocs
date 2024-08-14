@@ -13,7 +13,7 @@ TML Core Technology Integration
 
    - All TML solutions use JSON processing - not SQL - for faster, more cost effective, processing of real-time data.
 
-   - All TML perform entity based processing and machine learning.
+   - All TML solutions perform entity based processing and machine learning.
 
    - All TML solutions are developed in Python using the MAADSTML Python Library and DAGs.
 
