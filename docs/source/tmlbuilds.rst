@@ -1,6 +1,30 @@
 TML Solution Building 
 ======================
 
+Why Do I Need TML?
+----------------
+
+TML is the world's only technology that can perform entity based machine learning, in-memory, on real-time data integrated with Apache Kafka. 
+
+TML offers several advantages over conventional Stream Processing:
+
+1. Stream Processing from AWS Kinesis, or Spark Streaming - Do Not perform in-memory entity based machine learning or processing of real-time data.  TML Does.
+
+2. Stream Processing technologies are very expensive. Because TML is comprised of 3 binaries they can be operated like microservices with very little cost overhead (if any) due to in-memory processing of real-time data - this means no external databases are needed for machine learning reducing storage, compute and network transfer costs.
+
+3. Stream processing solutions still use SQL to process data.  TML uses JSON processing, in-memory, which is faster, cheaper and easier to manage.
+
+4. Performing machine learning with Streaming processing is difficult, costly, and does not perform entity based machine learning.  TML performs in-memory machine learning at the entity level for each device that is producing real-time data, this makes it very effective to learn each individual device behaviours and predict future behaviours more accurately.
+
+5. Stream Processing technologies still require lots of code.  TML solutions are low-code or no-code using the TML Solution Studio (TSS).  The TSS uses DAGs that allows users to quickly configure their TML solutions, and automatically deploy it with Docker, automatically generate the documentations for the solution, and commit code to Github repos.  
+
+Where Is TML Used?
+----------------
+
+TML is used by companies and people around the world to process real-time data.  Because TML is free for students and researchers, it is used by thousands of students in Universities and Colleges around the world.
+
+Any where you need to process real-time data - you NEED TML.
+
 TML Solutions Can Be Built In 10 Steps Using Pre-Written DAGs (Directed Acyclic Graphs)
 ----------------------------------------------------------
 
