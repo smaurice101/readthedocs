@@ -55,5 +55,35 @@ TML requires the following - as shown in the table below. We will go though an e
    **latlong=lat:long** will retrieve the value **43.11:127.011**
 
 .. important::
+   Json path are an important aspect of instructing TML where to find the data (**value**) in the Json **key** for processing and machine learning.
+
    The number of JSON paths in the **subtopics** MUST equal the number of JSON paths in the **values**.  Multiple JSON paths can be separated by a comma.
 
+   TML requires the Json path of data to be processed.  Use the "." (dot) to 
+
+Json Path Example
+---------------------
+
+Lets consider the following example.
+
+.. list-table::
+
+   * - Sample Json message
+     - Paths
+   * - {"metadata":{"oem_id":"32795e59","oem_model":"SQR141U1XXW","dsn":"AC000W016399396","property_name":"Power","display_name":"Power 
+       (mW)","base_type":"integer","event_type":"datapoint"},"datapoint":{"id":"de3e8f0e-7faa-11ec-31cb-6b3a1eb15a96","updated_at":"2022-01- 
+       27T19:53:59Z","created_at":"2022-01-27T19:53:59Z","echo":false,"closed":false,"value":"0","metadata":{},"created_at_from_device":"2022-01- 
+       27T19:51:40Z","user_uuid":"f4d3b326-da9a-11eb-87af-0a580ae966af","discarded":false,"scope":"user","direction":"output"} , “lat”: 29.22, “long”: -141.22}
+     - The Json Path to the variable: **dsn** is metadata.dsn
+
+       The Json Path to the key: **value** is datapoint.value
+   * - Say you have a value you want to extract from a Json array: 
+       	"code": {
+      		"coding": [
+			      {
+				      "system": "http://snomed.info/sct",
+				      "code": "84489001",
+				      "display": "Mold (organism)"
+			     }
+		     ]},
+     - The Json Path to the variable array: **code** is code.coding.0.code, 0 is the first element of the array.
