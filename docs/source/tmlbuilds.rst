@@ -1270,13 +1270,16 @@ Here are the core parameters in the above dag:
      - You specify the json path of the dependent variable in your Json message. Refer to :ref:`Json Path Example`.  If using preprocessed variables refer to 
        :ref:`Preprocessed Variable Naming Standard`
    * - independentvariables
-     - ': '', # <<< *** Change as needed, 
+     - You must specify the independent variables (separate multiple variables by a comma).  Refer to the :ref:`Json Path Example`.  If using preprocessed 
+       variables refer to :ref:`Preprocessed Variable Naming Standard`
    * - topicid
-     - ' : -1,  # leave as is
+     - The topicid is an internal directive for TML.  If set to -1, it tell the TML Viper binary to process Json by their unique indentifier.  Usually, leaving 
+       this at -1 is fine.
    * - fullpathtotrainingdata
-     - ' : '/Viper-tml/viperlogs/<choose foldername>',  #  # <<< *** Change as needed - add name for foldername that stores the training datasets
+     - You must specify the full path to where the training dataset will be store on disk.  The formation for the path is /Viper-tml/viperlogs/<choose 
+       **foldername**>, where you specify the **foldername**.
    * - processlogic
-     - ' : '',  # <<< *** Change as needed, i.e. classification_name=failure_prob:Voltage_preprocessed_AnomProb=55,n:Current_preprocessed_AnomProb=55,n
+     - This is the processlogic needed for the dependent variable if you are estimating a logistic model.  For example, ' : '',  # <<< *** Change as needed, i.e. classification_name=failure_prob:Voltage_preprocessed_AnomProb=55,n:Current_preprocessed_AnomProb=55,n
    * - transformtype
      - ' : '', # Sets the model to: log-lin,lin-log,log-log
    * - sendcoefto
