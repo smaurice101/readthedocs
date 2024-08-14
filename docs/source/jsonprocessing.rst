@@ -80,19 +80,21 @@ Lets consider the following example.
 
        The Json criteria will be:
          jsoncriteria=
-            uid= metadata.dsn,filter:allrecords~\  # uid: This is the json field to group by for example DSN or Device SerialNumber
+            uid= metadata.dsn,filter:allrecords~\  
 
-            subtopics= metadata.property_name~\  # subtopics:  This is the json field to the name of the field you want to process
+            subtopics= metadata.property_name~\  
 
-            values= datapoint.value~\   # values:  This is the json field containing the value of the subtopic
+            values= datapoint.value~\   
 
-            identifiers= metadata.display_name~\  # identifier:  This is the json field containing any label or identifier for the values
+            identifiers= metadata.display_name~\  
 
-            datetime= datapoint.updated_at~\  # datetime:  This is the json field in UTC format – i.e. 2006-01-02T15:04:05
+            datetime= datapoint.updated_at~\  
 
-            msgid= datapoint.id ~\  #msgid: this is the json field containing further details about the values 
+            msgid= datapoint.id~\   
 
-            latlong=lat:long  # This is json field contain latitude and longitude.  You can use a “:” to combine lat:long
+            latlong=lat:long  
+
+        Note: ~ and \ are just string delimiter and continuation characters, respectively.
 
    * - Say you have a value you want to extract from a Json array: 
        	"code": {
