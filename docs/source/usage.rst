@@ -3,7 +3,7 @@ TML Solution Components
 
 Below describes the entire TML technologgy solution stack.
 
-TML Components: Three Binaries
+1. TML Components: Three Binaries
 ------------
 
 **TML is comprised of 3 binaries written in Go:** https://github.com/smaurice101/transactionalmachinelearning
@@ -18,14 +18,14 @@ TML Components: Three Binaries
      - Description
    * - Viper
 
-TML Component: One Core Python Library
+2. TML Component: One Core Python Library
 --------------------------
 
 **TML Python Library:** https://pypi.org/project/maadstml/
 
-4. *MAADSTML* Python library : API to build TML solutions that connect to the Viper binary
+*MAADSTML* Python library : API to build TML solutions that connect to the Viper binary
 
-TML Component: Apache Kafka
+3. TML Component: Apache Kafka
 --------------------------
 
 TML integrates with Apache Kafka - on-premise or in the cloud.
@@ -34,12 +34,12 @@ TML integrates with Apache Kafka - on-premise or in the cloud.
 
    TML binaries are integrated with Apache Kafka.
 
-TML Component: Docker Containers
+4. TML Component: Docker Containers
 --------------------------
 
 All TML solutions are containerized with docker for production deployments.
 
-TML Component: Kubernetes
+5. TML Component: Kubernetes
 --------------------------
 
 All TML solution containers scale with Kubernetes.  This allows companies to build fast, scalable, real-time solutions.
