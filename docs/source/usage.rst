@@ -11,14 +11,20 @@ TML Components: Three Binaries
 2. *HPDE* - AutoML binary for real-time data
 3. *Viperviz* - Visualization binary for real-time dashboards
 
-TML Components: One Core Python Library
+.. list-table::
+
+   * - Binary
+     - Description
+   * - Viper
+
+TML Component: One Core Python Library
 --------------------------
 
 **TML Python Library:** https://pypi.org/project/maadstml/
 
 4. *MAADSTML* Python library : API to build TML solutions that connect to the Viper binary
 
-Apache Kafka
+TML Component: Apache Kafka
 --------------------------
 
 TML integrates with Apache Kafka - on-premise or in the cloud.
@@ -26,3 +32,19 @@ TML integrates with Apache Kafka - on-premise or in the cloud.
 .. important::
 
    TML binaries are integrated with Apache Kafka.
+
+How The TML Components Are Integrated 
+--------------------------
+
+TML solutions are developed using the MAADSTML Python library that connects to the TML Binaries for streaming real-time data to Apache Kafka, processing data in Kafka, and performing machine learning.
+
+.. important::
+
+   TML performs **in-memory processing** of real-time data and **does NOT require an external database** - ONLY KAFKA is needed.  This results in dramatic cost- 
+   savings for storage, compute and network data transfers.
+
+   TML does NOT perform SQL queries, it performs :ref:`JSON PROCESSING`.  This results in much faster, and much cheaper processing of real-time data.
+
+
+
+
