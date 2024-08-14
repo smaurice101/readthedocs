@@ -11,6 +11,8 @@ Apache Airflow
 
 `Apache Airflow <https://airflow.apache.org/>`_ is an open-source workflow management platform for data engineering pipelines. It started at Airbnb in October 2014[2] as a solution to manage the company's increasingly complex workflows.
 
+TML Solution Studio Container uses Airflow to build highly advanced, scalable, real-time TML solutions. Refer to :ref:`TML Solution Studio Container` for more details.
+
 TML Binaries
 -----------
 
