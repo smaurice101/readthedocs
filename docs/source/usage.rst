@@ -28,8 +28,9 @@ Below describes the entire TML technologgy solution stack.
        Performs Entity Level Machine Learning and Processing` and :ref:`Entity Based Machine Learning By TML`
    * - Viperviz
      - This binary performs real-time streaming visualization using websockets.  This is a very powerful binary because it uses the underlying network to streaming 
-       data to a client browser for fast, and very cost-effective, visualization of real-time TML solution outputs.
-
+       data to a client browser for fast, and very cost-effective, visualization of real-time TML solution outputs.  This means users do NOT need a third-party 
+       visualization tool like Tableau or PowerBI. Users can create amazing real-time dashboards quickly and cheaply.  Refer to example dashboards here :ref:`TML 
+       Real-Time Dashboards`
 
 2. TML Component: One Core Python Library
 --------------------------
