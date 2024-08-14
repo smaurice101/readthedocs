@@ -28,6 +28,8 @@ TML GenAI
 
 TML solutions integrate with GenAI using a special `PrivateGPT docker container <https://hub.docker.com/r/maadsdocker/tml-privategpt-with-gpu-nvidia-amd64>`_.   This allows for very secure, private, and highly cost-effective LLM capabilities.  Refer to :ref:`TML and Generative AI` for more details.
 
+The PrivateGPT container is integrated with `Qdrant <https://qdrant.tech/>`_ vector DB for localized AI processing with LLMs.
+
 Docker
 -----------
 
