@@ -46,7 +46,7 @@ TML integrates with Apache Kafka - on-premise or in the cloud.
 
 .. important::
 
-   TML binaries are integrated with Apache Kafka.  TML solutions can be run `On-PREMISE <https://kafka.apache.org/>`_ or in the CLOUD using `AWS MSK 
+   TML binaries are integrated with Apache Kafka.  TML solutions can be run `On-PREMISE using Open Source Kafka <https://kafka.apache.org/>`_ or in the CLOUD using `AWS MSK 
    <https://aws.amazon.com/msk/features/>`_ or `Confluent Cloud <https://www.confluent.io/>`_.
 
 4. TML Component: Docker Containers
