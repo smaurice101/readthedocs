@@ -37,7 +37,7 @@ Below describes the entire TML technologgy solution stack.
 
 **TML Python Library:** https://pypi.org/project/maadstml/
 
-*MAADSTML* Python library : API to build TML solutions that connect to the Viper binary
+*MAADSTML* Python library : API to build TML solutions that connect to the Viper binary.  Refer to the MAADSTML API here :ref:`MAADSTML Python Library API`
 
 3. TML Component: Apache Kafka
 --------------------------
@@ -46,7 +46,7 @@ TML integrates with Apache Kafka - on-premise or in the cloud.
 
 .. important::
 
-   TML binaries are integrated with Apache Kafka.
+   TML binaries are integrated with Apache Kafka.  TML solutions can be run On-PREMISE of in the CLOUD.
 
 4. TML Component: Docker Containers
 --------------------------
@@ -57,6 +57,11 @@ All TML solutions are containerized with docker for production deployments.
 --------------------------
 
 All TML solution containers scale with Kubernetes.  This allows companies to build fast, scalable, real-time solutions.
+
+6. PrivateGPT for Generate AI
+-----------------------------
+
+TML uses PrivateGPT for fast, real-time, AI.  The container is here 
 
 How The TML Components Are Integrated 
 --------------------------
