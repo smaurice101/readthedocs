@@ -15,6 +15,10 @@ TML Core Technology Integration
 
    - All TML perform entity based processing and machine learning.
 
+   - All TML solutions are developed in Python using the MAADSTML Python Library and DAGs.
+
+   - All TML solutions use REST API.
+
 Below are all the technologies TML integrates with for fast, scalable, cost-effective, real-time solutions.
 
 1. Apache Kafka
