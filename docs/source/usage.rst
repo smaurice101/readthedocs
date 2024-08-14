@@ -52,7 +52,7 @@ TML integrates with Apache Kafka - on-premise or in the cloud.
 4. TML Component: Docker Containers
 --------------------------
 
-All TML solutions are containerized with docker for production deployments.
+All TML solutions are `containerized with docker <https://hub.docker.com/>`_ for production deployments.
 
 5. TML Component: Kubernetes
 --------------------------
