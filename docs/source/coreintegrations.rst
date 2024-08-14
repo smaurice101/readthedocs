@@ -32,5 +32,8 @@ Kubernetes
 Github
 --------
 
-Python
+Python and DAGs (Directed Acylic Graphs)
 -----------
+
+All TML solutions are written using Pre-written Python DAGs.  Refer to :ref:`TML Solutions Can Be Built In 10 Steps Using Pre-Written DAGs (Directed Acyclic Graphs)`.  
+
