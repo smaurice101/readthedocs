@@ -1,7 +1,7 @@
 TML Solution Components
 =====
 
-.. _installation:
+Below describes the entire TML technologgy solution stack.
 
 TML Components: Three Binaries
 ------------
