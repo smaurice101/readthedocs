@@ -81,17 +81,17 @@ Below is the complete definition of the **tml_system_step_1_getparams_dag**.  Us
 .. code-block::
    :emphasize-lines: 10,11,12,13,14,15,16,17,18,19
  
-  from airflow import DAG
-  from airflow.operators.python import PythonOperator
-  from airflow.operators.bash import BashOperator
-  import datetime
-  from airflow.decorators import dag, task
-  import os 
-  import sys
+   from airflow import DAG
+   from airflow.operators.python import PythonOperator
+   from airflow.operators.bash import BashOperator
+   import datetime
+   from airflow.decorators import dag, task
+   import os 
+   import sys
   
-  sys.dont_write_bytecode = True
-  ######################################################USER CHOSEN PARAMETERS ###########################################################
-  default_args = {
+   sys.dont_write_bytecode = True
+   ######################################################USER CHOSEN PARAMETERS ###########################################################
+   default_args = {
    'owner': 'Sebastian Maurice',  # <<< ******** change as needed 
    'start_date': datetime.datetime (2024, 6, 29),
    'brokerhost' : '127.0.0.1',  # <<<<***************** THIS WILL ACCESS LOCAL KAFKA - YOU CAN CHANGE TO CLOUD KAFKA HOST
@@ -99,13 +99,14 @@ Below is the complete definition of the **tml_system_step_1_getparams_dag**.  Us
    'cloudusername' : '',  # <<<< --------FOR KAFKA CLOUD UPDATE WITH API KEY  - OTHERWISE LEAVE BLANK
    'cloudpassword' : '',  # <<<< --------FOR KAFKA CLOUD UPDATE WITH API SECRET - OTHERWISE LEAVE BLANK   
    'retries': 1,
-  }
+   }
   
   
-  ############################################################### DO NOT MODIFY BELOW ####################################################
-  # Instantiate your DAG
-  @dag(dag_id="tml_system_step_1_getparams_dag", default_args=default_args, tags=["tml-system-step-1-getparams"], schedule=None, start_date=datetime.datetime(2022, 3, 4), catchup=False)
-  def tmlparams():
+   ############################################################### DO NOT MODIFY BELOW ####################################################
+   # Instantiate your DAG
+   @dag(dag_id="tml_system_step_1_getparams_dag", default_args=default_args, tags=["tml-system-step-1-getparams"], schedule=None, 
+    start_date=datetime.datetime(2022, 3, 4), catchup=False)
+   def tmlparams():
       # Define tasks
     basedir = "/"
     viperconfigfile=basedir + "/Viper-produce/viper.env"
@@ -166,7 +167,7 @@ Below is the complete definition of the **tml_system_step_1_getparams_dag**.  Us
        if tmlsystemparams[1]=="":
           print("ERROR: No host specified")
       
-  dag = tmlparams()
+   dag = tmlparams()
 
 STEP 2: Create Kafka Topics: tml_system_step_2_kafka_createtopic_dag
 -----------------
