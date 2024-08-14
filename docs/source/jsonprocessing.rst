@@ -96,7 +96,7 @@ Lets consider the following example.
 	},
 	"lat": 29.22,
 	"long": -141.22
-      }
+       }
      - The Json Path to the variable: **dsn** is **metadata.dsn**
 
        The Json Path to the key: **value** is datapoint.value
