@@ -19,6 +19,8 @@ TML Core Technology Integration
 
    - All TML solutions use REST API.
 
+   - All TML solutions can have a real-time visualization dashboards using websockets enabled by TML binary: Viperviz.
+
 Below are all the technologies TML integrates with for fast, scalable, cost-effective, real-time solutions.
 
 1. Apache Kafka
