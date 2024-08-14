@@ -59,18 +59,17 @@ All TML solutions are `containerized with docker <https://hub.docker.com/>`_ for
 
 All TML solution containers scale with `Kubernetes <https://kubernetes.io/>`_.  This allows companies to build fast, scalable, real-time solutions.
 
-6. PrivateGPT for Generate AI
+6. TML Component: PrivateGPT for Generate AI
 -----------------------------
 
 TML uses PrivateGPT for fast, real-time, AI.  The container is here `Docker PrivateGPT <https://hub.docker.com/r/maadsdocker/tml-privategpt-with-gpu-nvidia-amd64>`_
 
 Refer to :ref:`TML and Generative AI` for more details.
 
-7. TML Solution Studio Container
+7. TML Component: TML Solution Studio Container
 ------------------------
 
 For convenience, TML solution can be easily built using the TML Solution Studio container.  Refer to :ref:`TML Solution Studio Container` for further details.
-
 
 How The TML Components Are Integrated 
 --------------------------
