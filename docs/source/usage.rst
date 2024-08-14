@@ -57,7 +57,7 @@ All TML solutions are `containerized with docker <https://hub.docker.com/>`_ for
 5. TML Component: Kubernetes
 --------------------------
 
-All TML solution containers scale with Kubernetes.  This allows companies to build fast, scalable, real-time solutions.
+All TML solution containers scale with `Kubernetes <https://kubernetes.io/>`_.  This allows companies to build fast, scalable, real-time solutions.
 
 6. PrivateGPT for Generate AI
 -----------------------------
