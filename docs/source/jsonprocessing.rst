@@ -68,8 +68,8 @@ Lets consider the following example.
 
 .. list-table::
 
-   * - Sample Json message
-     - Paths
+   * - **Sample Json message**
+     - **Json Paths**
    * - {"metadata":{"oem_id":"32795e59","oem_model":"SQR141U1XXW", "dsn":"AC000W016399396", "property_name":"Power", "display_name":"Power 
        (mW)","base_type":"integer","event_type":"datapoint"}, "datapoint":{"id":"de3e8f0e-7faa-11ec-31cb-6b3a1eb15a96", "updated_at":"2022-01- 
        27T19:53:59Z", "created_at":"2022-01-27T19:53:59Z", "echo":false,"closed":false, "value":"0", "metadata":{}, "created_at_from_device":"2022-01- 
