@@ -1223,7 +1223,11 @@ Entity based machine learning is a core function of TML.  This section discusses
 .. important:: 
    TML generates training algorithms and stores them on disk in the ./models or ./deploy folder, and in the Kafka topic specified in the **ml_data_topic** 
    default_args json key.  TML accesses these trained algorithms, for predictions, automatically for each entity specified by topicid.  Everything is managed by 
-   the TML binary: Viper
+   the TML binary: Viper 
+
+   TML manages the topicid, which represents individual entities in MariaDB.  Note, a topicid is uniquely associated with a primary identifier for the device or 
+   entity like its Device Serial Number (DSN).  So as data streams from all devices, there must be a json key that indicates a DSN from these devices.  TML 
+   binary Viper, aggregates data for each DSN and process the data for each device in every sliding time window.
 
    TML generates trained algorithms for each sliding time window.  This means, as new real-time data is captured in the sliding time windows, TML re-runs 
    algorithms for this sliding time window to see if there is a better algorithm using the MAPE measure.  If the MAPE in the previous sliding time window is 
@@ -1240,8 +1244,8 @@ Here are the core parameters in the above dag:
 
 .. list-table::
 
-   * - Step 5 DAG parameter
-     - Explanation
+   * - **Step 5 DAG parameter**
+     - **Explanation**
    * - modelruns
      - : 100, # <<< *** Change as needed      
    * - islogistic
