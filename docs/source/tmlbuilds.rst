@@ -1247,13 +1247,16 @@ Here are the core parameters in the above dag:
    * - **Step 5 DAG parameter**
      - **Explanation**
    * - modelruns
-     - : 100, # <<< *** Change as needed      
+     - This instructs HPDE to try to find the best trained algorithms out of many.  For example, if modelruns=100, it will iterate over 100 models before it 
+       finds the best model out of these 100 models.  It will perform hyperparameter tuning as well.
    * - islogistic
-     -  : 0,  # <<< *** Change as needed, 1=logistic, 0=not logistic
+     - TML can do classification and regression. If islogistic=1, then TML assumes the dependent variable is a binary variable with value 1 or 0, otherwise if 
+       islogistic=0, then it assumes the dependent variable is continuous.
    * - modelsearchtuner
-     - ' : 90, # <<< *This parameter will attempt to fine tune the model search space - A number close to 100 means you will have fewer models but their predictive quality will be higher.      
+     - This parameter will attempt to fine tune the model search space - A number close to 100 means you will have fewer models but their predictive quality will 
+       be higher.      
    * - dependentvariable
-     - ' : '', # <<< *** Change as needed, 
+     - You specify the json path of the dependent variable in you Json message. ' : '', # <<< *** Change as needed, 
    * - independentvariables
      - ': '', # <<< *** Change as needed, 
    * - topicid
