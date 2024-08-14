@@ -1,6 +1,18 @@
 TML Core Technology Integration
 ================================
 
+.. important::
+
+   All TML solutions can be run on-premise or in the cloud. 
+
+   All TML solutions process data in-memory
+
+   All TML solutions use JSON processing - not SQL - for faster, more cost effective, processing of real-time data.
+
+   All TML perform entity based processing and machine learning.
+
+Below are all the technologies TML integrates with for fast, scalable, cost-effective, real-time solutions.
+
 1. Apache Kafka
 --------------
 
