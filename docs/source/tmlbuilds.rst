@@ -4,7 +4,7 @@ TML Solution Building
 Why Do I Need TML?
 ----------------
 
-TML is the world's only technology that can perform entity based machine learning, in-memory, on real-time data integrated with Apache Kafka. 
+TML is the world's only technology that can perform entity based machine learning, in-memory, on real-time data integrated with Apache Kafka.  Any where you need to process real-time data - you NEED TML.  It can be used in any industry globally.
 
 .. note::
    **TML offers several advantages over conventional Stream Processing:**
@@ -37,8 +37,6 @@ Where Is TML Used?
 .. note::
    TML is used by companies and people around the world to process real-time data.  Because TML is free for students and researchers, it is used by thousands of 
    students in Universities and Colleges around the world.
-
-   Any where you need to process real-time data - you NEED TML.  It can be used in any industry globally.
 
 TML Solutions Can Be Built In 10 Steps Using Pre-Written DAGs (Directed Acyclic Graphs)
 ----------------------------------------------------------
