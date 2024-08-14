@@ -1077,7 +1077,6 @@ STEP 5: Entity Based Machine Learning : tml-system-step-5-kafka-machine-learning
       VIPERTOKEN=""
       VIPERHOST=""
       VIPERPORT=""
-      HTTPADDR2=''
       HPDEHOST = ''    
       HPDEPORT = ''
     
@@ -1090,8 +1089,6 @@ STEP 5: Entity Based Machine Learning : tml-system-step-5-kafka-machine-learning
     
       HPDEHOST = ti.xcom_pull(dag_id='tml_system_step_1_getparams_dag',task_ids='getparams',key="HPDEHOST")
       HPDEPORT = ti.xcom_pull(dag_id='tml_system_step_1_getparams_dag',task_ids='getparams',key="HPDEPORT")
-      HTTPADDR = ti.xcom_pull(dag_id='tml_system_step_1_getparams_dag',task_ids='getparams',key="HTTPADDR")
-            
             
       @task(task_id="performSupervisedMachineLearning")  
       def performSupervisedMachineLearning(maintopic):
