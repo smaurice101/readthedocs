@@ -35,7 +35,7 @@ c. *Viperviz* - Visualization binary for real-time dashboards - runs on MAC/Wind
 2. TML Component: One Core Python Library
 --------------------------
 
-**TML Python Library:** https://pypi.org/project/maadstml/
+**MAADSTML Python Library:** https://pypi.org/project/maadstml/
 
 *MAADSTML* Python library : API to build TML solutions that connect to the Viper binary.  Refer to the MAADSTML API here :ref:`MAADSTML Python Library API`
 
