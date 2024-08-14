@@ -36,6 +36,8 @@ TML solution containers are scaled with `Kubernetes <https://kubernetes.io/>`_.
 Github
 --------
 
+TML solutions are tightly integrated with `Github <https://github.com/>`_ and can commit code locally and to remote branches directly from the TML Solution Studio container.  Refer to :ref:`TML Solution Studio’s Tight Integration with GitHub`.
+
 Python and DAGs (Directed Acylic Graphs)
 -----------
 
