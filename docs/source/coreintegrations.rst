@@ -23,7 +23,7 @@ TML Python Library
 
 TML solutions are built with the `MAADSTML Python Libary <https://pypi.org/project/maadstml/>`_.  Refer to :ref:`MAADSTML Python Library API` for more details.
 
-TML GenAI
+TML GenAI With PrivateGPT and Qdrant Vector DB
 -----------
 
 TML solutions integrate with GenAI using a special `PrivateGPT docker container <https://hub.docker.com/r/maadsdocker/tml-privategpt-with-gpu-nvidia-amd64>`_.   This allows for very secure, private, and highly cost-effective LLM capabilities.  Refer to :ref:`TML and Generative AI` for more details.
