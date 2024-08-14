@@ -9,7 +9,7 @@ TML Core Technology Integration
 
    - All TML solutions use TLS encryption to encrypt real-time data.
 
-   - All TML solutions compress real-time using advanced compression algorithms like: snappy, gzip, lz4
+   - All TML solutions compress real-time data using advanced compression algorithms like: snappy, gzip, lz4
 
    - All TML solutions use JSON processing - not SQL - for faster, more cost effective, processing of real-time data.
 
