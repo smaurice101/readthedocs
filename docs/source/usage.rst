@@ -47,7 +47,7 @@ All TML solution containers scale with Kubernetes.  This allows companies to bui
 How The TML Components Are Integrated 
 --------------------------
 
-TML solutions are developed using the MAADSTML Python library that connects to the TML Binaries for streaming real-time data to Apache Kafka, processing data in Kafka, and performing machine learning.  Once the TML solutions are built, they are containerized with Docker and scaled with Kubernetes.
+TML solutions are developed using the MAADSTML Python library that connects to the TML Binaries, using REST API, for streaming real-time data to Apache Kafka, processing data in Kafka, and performing machine learning.  Once the TML solutions are built, they are containerized with Docker and scaled with Kubernetes.
 
 .. important::
 
