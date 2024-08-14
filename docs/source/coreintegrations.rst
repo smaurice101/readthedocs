@@ -18,6 +18,11 @@ TML Binaries
 
 TML uses THREE (3) core binaries: Viper, HPDE, Viperviz, for TML solutions.  More details here :ref:`1. TML Components: Three Binaries`
 
+TML Python Library
+-----------
+
+TML solutions are built with the MAADSTML Python Libary.
+
 Docker
 -----------
 
