@@ -1252,7 +1252,7 @@ Entity based machine learning is a core function of TML.  This section discusses
 
    **All training and predictions happen in parallel using different instances of the Viper binary.**
 
-Here are the core parameters in the above dag:
+Here are the **core parameters** in the above dag 5:
 
 .. list-table::
 
