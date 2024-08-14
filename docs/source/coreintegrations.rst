@@ -11,17 +11,18 @@ TML Core Technology Integration
 
    - All TML solutions compress real-time data using advanced compression algorithms like: snappy, gzip, lz4
 
-   - All TML solutions use JSON processing - not SQL - for faster, more cost effective, processing of real-time data.
+   - All TML solutions use JSON processing - not SQL - for faster, more cost effective, processing of real-time data.  Refer to :ref:`JSON PROCESSING`
 
-   - All TML solutions perform entity based processing and machine learning.
+   - All TML solutions perform entity based processing and machine learning. Refer to :ref:`TML Performs Entity Level Machine Learning and Processing`
 
    - All TML solutions are containerized with Docker and scale with Kubernetes.
 
-   - All TML solutions are developed in Python using the MAADSTML Python Library and DAGs.
+   - All TML solutions are developed in Python using the MAADSTML Python Library and DAGs. Refer to :ref:`MAADSTML Python Library API` and :ref:`TML Solution 
+     Building`
 
    - All TML solutions use REST API.
 
-   - All TML solutions can have a real-time visualization dashboards using websockets enabled by TML binary: Viperviz.
+   - All TML solutions can have a real-time visualization dashboards using websockets enabled by TML binary: Viperviz. Refer to :ref:`TML Real-Time Dashboards`
 
 Below are all the technologies TML integrates with for fast, scalable, cost-effective, real-time solutions.
 
