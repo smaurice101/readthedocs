@@ -38,7 +38,7 @@ Where Is TML Used?
    TML is used by companies and people around the world to process real-time data.  Because TML is free for students and researchers, it is used by thousands of 
    students in Universities and Colleges around the world.
 
-   Any where you need to process real-time data - you NEED TML.
+   Any where you need to process real-time data - you NEED TML.  It can be used in any industry globally.
 
 TML Solutions Can Be Built In 10 Steps Using Pre-Written DAGs (Directed Acyclic Graphs)
 ----------------------------------------------------------
