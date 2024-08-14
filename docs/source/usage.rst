@@ -12,10 +12,16 @@ TML Components: Three Binaries
 3. *Viperviz* - Visualization binary for real-time dashboards
 
 TML Components: One Core Python Library
+--------------------------
 
 **TML Python Library:** https://pypi.org/project/maadstml/
 
 4. *MAADSTML* Python library : API to build TML solutions that connect to the Viper binary
+
+Apache Kafka
+--------------------------
+
+TML integrates with Apache Kafka - on-premise or in the cloud.
 
 .. important::
 
