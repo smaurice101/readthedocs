@@ -21,7 +21,7 @@ TML uses THREE (3) core binaries: Viper, HPDE, Viperviz, for TML solutions.  Mor
 TML Python Library
 -----------
 
-TML solutions are built with the MAADSTML Python Libary.
+TML solutions are built with the `MAADSTML Python Libary <https://pypi.org/project/maadstml/>`_.  Refer to :ref:`MAADSTML Python Library API` for more details.
 
 Docker
 -----------
