@@ -5,6 +5,7 @@ TML Solution Components
 
 TML Components: Three Binaries
 ------------
+
 **TML is comprised of 3 binaries written in Go:** https://github.com/smaurice101/transactionalmachinelearning
 
 1. *Viper* - source - sink binary for Apache Kafka
@@ -32,6 +33,16 @@ TML integrates with Apache Kafka - on-premise or in the cloud.
 .. important::
 
    TML binaries are integrated with Apache Kafka.
+
+TML Component: Docker Containers
+--------------------------
+
+All TML solutions are containerized with docker for production deployments.
+
+TML Component: Kubernetes
+--------------------------
+
+All TML solution containers scale with Kubernetes.  This allows companies to build fast, scalable, real-time solutions.
 
 How The TML Components Are Integrated 
 --------------------------
