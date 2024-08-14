@@ -27,7 +27,7 @@ Contents
 
 .. toctree::
    
-   tmlbook
+   1. tmlbook
    docker   
    howtouse
    tmlbuilds
