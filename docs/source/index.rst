@@ -1,4 +1,4 @@
-Welcome to Transactional Machine Learning documentation!
+Welcome to Transactional Machine Learning (TML) documentation!
 ===================================
 
 Transactional Machine Learning : *The Machine Learning Platform for Data Streams*
