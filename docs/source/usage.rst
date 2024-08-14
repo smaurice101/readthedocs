@@ -61,7 +61,7 @@ All TML solution containers scale with Kubernetes.  This allows companies to bui
 6. PrivateGPT for Generate AI
 -----------------------------
 
-TML uses PrivateGPT for fast, real-time, AI.  The container is here 
+TML uses PrivateGPT for fast, real-time, AI.  The container is here `Docker PrivateGPT <https://hub.docker.com/r/maadsdocker/tml-privategpt-with-gpu-nvidia-amd64>`_
 
 How The TML Components Are Integrated 
 --------------------------
