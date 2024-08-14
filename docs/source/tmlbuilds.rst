@@ -1256,7 +1256,7 @@ Here are the core parameters in the above dag:
      - This parameter will attempt to fine tune the model search space - A number close to 100 means you will have fewer models but their predictive quality will 
        be higher.      
    * - dependentvariable
-     - You specify the json path of the dependent variable in you Json message. ' : '', # <<< *** Change as needed, 
+     - You specify the json path of the dependent variable in your Json message. Refer to :ref:`Json Paths` 
    * - independentvariables
      - ': '', # <<< *** Change as needed, 
    * - topicid
