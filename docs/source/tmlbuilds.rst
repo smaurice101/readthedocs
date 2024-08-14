@@ -1215,6 +1215,59 @@ STEP 5: Entity Based Machine Learning : tml-system-step-5-kafka-machine-learning
     
     dag = startmachinelearning()
 
+Additional Details on Machine Learning 
+--------------------------------------
+
+Entity based machine learning is a core function of TML.  This section discusses some of key defaul_args in the **tml-system-step-5-kafka-machine-learning-dag.py**.  These are as follows.
+
+.. important:: 
+   TML generates training algorithms and stores them on disk in the ./models or ./deploy folder, and in the Kafka topic specified in the **ml_data_topic** 
+   default_args json key.  TML accesses these trained algorithms, for predictions, automatically for each entity specified by topicid.  Everything is managed by 
+   the TML binary: Viper
+
+   TML generates trained algorithms for each sliding time window.  This means, as new real-time data is captured in the sliding time windows, TML re-runs 
+   algorithms for this sliding time window to see if there is a better algorithm using the MAPE measure.  If the MAPE in the previous sliding time window is 
+   higher than the MAPE on the next windows, the older algorithm will be used in the next window, otherwise TML overwrites the older algorithm with the newer, 
+   better, algorithm.  NOTE: TML is generating brand new algorithms for sliding windows, it is NOT simply updating the estimated parameters for ONE algorithm, as 
+   is common in convetional approaches.
+
+   All algorithm are Json serialized files that are less than 1K in size. This makes it very efficient to store millions of algorithms on disk without consuming 
+   much storage.
+
+   **All training and predictions happen in parallel using different instances of the Viper binary.**
+
+Here are the core parameters in the above dag:
+
+.. list-table::
+
+   * - Step 5 DAG parameter
+     - Explanation
+   * - modelruns
+     - : 100, # <<< *** Change as needed      
+   * - islogistic
+     -  : 0,  # <<< *** Change as needed, 1=logistic, 0=not logistic
+   * - modelsearchtuner
+     - ' : 90, # <<< *This parameter will attempt to fine tune the model search space - A number close to 100 means you will have fewer models but their predictive quality will be higher.      
+   * - dependentvariable
+     - ' : '', # <<< *** Change as needed, 
+   * - independentvariables
+     - ': '', # <<< *** Change as needed, 
+   * - topicid
+     - ' : -1,  # leave as is
+   * - fullpathtotrainingdata
+     - ' : '/Viper-tml/viperlogs/<choose foldername>',  #  # <<< *** Change as needed - add name for foldername that stores the training datasets
+   * - processlogic
+     - ' : '',  # <<< *** Change as needed, i.e. classification_name=failure_prob:Voltage_preprocessed_AnomProb=55,n:Current_preprocessed_AnomProb=55,n
+   * - transformtype
+     - ' : '', # Sets the model to: log-lin,lin-log,log-log
+   * - sendcoefto
+     - ' : '',  # you can send coefficients to another topic for further processing -- MUST BE SET IN STEP 2
+   * - coeftoprocess
+     - ' : '', # indicate the index of the coefficients to process i.e. 0,1,2 For example, for a 3 estimated parameters 0=constant, 1,2 are the other estmated paramters
+   * - coefsubtopicnames
+     - ' : ''  # Give the coefficients a name: constant,elasticity,elasticity2    
+
+
 Predictions
 --------------
 
