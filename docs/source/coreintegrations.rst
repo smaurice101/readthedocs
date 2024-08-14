@@ -15,6 +15,8 @@ TML Core Technology Integration
 
    - All TML solutions perform entity based processing and machine learning.
 
+   - All TML solutions are containerized with Docker and scale with Kubernetes.
+
    - All TML solutions are developed in Python using the MAADSTML Python Library and DAGs.
 
    - All TML solutions use REST API.
