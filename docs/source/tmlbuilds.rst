@@ -1232,16 +1232,17 @@ Additional Details on Machine Learning
 Entity based machine learning is a core function of TML.  This section discusses some of key defaul_args in the **tml-system-step-5-kafka-machine-learning-dag.py**.  These are as follows.
 
 .. important:: 
-   TML generates training algorithms and stores them on disk in the ./models or ./deploy folder, and in the Kafka topic specified in the **ml_data_topic** 
-   default_args json key.  TML accesses these trained algorithms, for predictions, automatically for each entity specified by topicid.  Everything is managed by 
-   the TML binary: Viper 
+   TML generates training algorithms and stores them on disk in the **./models** or **./deploy** folder, and in the Kafka topic specified in the 
+   **ml_data_topic** default_args json key.  TML accesses these trained algorithms, for predictions, automatically for each entity specified by topicid.  
+   **Everything is managed by the TML binary: Viper** 
 
-   TML manages the topicid, which represents individual entities in MariaDB.  Note, a topicid is uniquely associated with a primary identifier for the device or 
-   entity like its Device Serial Number (DSN).  So as data streams from all devices, there must be a json key that indicates a DSN from these devices.  TML 
+   **TML manages the topicid, which represents individual entities in MariaDB.**  Note, a topicid is uniquely associated with a primary identifier for the device 
+   or entity like its Device Serial Number (DSN).  So as data streams from all devices, there must be a json key that indicates a DSN from these devices.  TML 
    binary Viper, aggregates data for each DSN and process the data for each device in every sliding time window.
 
-   TML generates trained algorithms for each sliding time window.  This means, as new real-time data is captured in the sliding time windows, TML re-runs 
-   algorithms for this sliding time window to see if there is a better algorithm using the MAPE measure.  If the MAPE in the previous sliding time window is 
+   **TML generates trained algorithms for each sliding time window.**  This means, as new real-time data is captured in the sliding time windows, TML re-runs 
+   algorithms for this sliding time window to see if there is a better algorithm using the MAPE measure.  
+   - If the MAPE in the previous sliding time window is 
    higher than the MAPE on the next windows, the older algorithm will be used in the next window, otherwise TML overwrites the older algorithm with the newer, 
    better, algorithm.  NOTE: TML is generating brand new algorithms for sliding windows, it is NOT simply updating the estimated parameters for ONE algorithm, as 
    is common in convetional approaches.
