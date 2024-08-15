@@ -9,10 +9,15 @@ TML requires the following - as shown in the table below. We will go though an e
 
 .. list-table::
 
-   * - **TML Field**
+   * - **Jsoncriteria TML Fields**
      - **Description**
    * - uid
      - This needs to be a unique id for the json message.  For example, if processing IOT device data, this would be the device's serial number. 
+   * - filter
+     - There is a filter field in the jsoncriteria.  This allows you to either:
+	1. filter:allrecords .
+        2. filter:<key>=<value>
+        3. filter:<key>=<value>,payload=payload.payload
    * - subtopics
      - This is the json path to the variable name that identifies the type of data.  For example, if processing IOT, this could be json path to **voltage**
    * - values
@@ -41,6 +46,8 @@ TML requires the following - as shown in the table below. We will go though an e
    identifiers=metadata.display_name~datetime=datapoint.updated_at~msgid=datapoint.id~ latlong=lat:long'
 
    **uid=metadata.dsn** will retrieve the value **AC000W016399396**
+
+   **filter:allrecords
 
    **subtopics=metadata.property_name** will retrieve the value **Power**
 
@@ -149,3 +156,17 @@ Lets consider the following example.
 			     }
 		     ]},
      - The Json Path to the variable array: **code** is **code.coding.0.code**, 0 is the first element of the array.
+
+JSON Message In A Payload
+-----------
+
+.. imaportant::
+
+   If your JSON message comes as a **payload**
+     jsoncriteria='uid=code.coding.0.code|code.coding.1.code|component.0.code.coding.0.code|component.1.code.coding.0.code,filter:resourceType=allrecords,payload=payload.payload~\
+subtopics=code.coding.0.code,component.0.code.coding.0.code,component.1.code.coding.0.code,medicationCodeableConcept.coding.0.code~\
+values=valueQuantity.value,component.0.valueQuantity.value,component.1.valueQuantity.value,medicationCodeableConcept.coding.0.display~\
+identifiers=code.coding.0.display,component.0.code.coding.0.display,component.1.code.coding.0.display,medicationCodeableConcept.coding.text~\
+datetime=effectiveDateTime~\
+msgid=subject.reference~\
+latlong=address.0.extension.0.extension.0.valueDecimal:address.0.extension.0.extension.1.valueDecimal'  # add + to join fields
