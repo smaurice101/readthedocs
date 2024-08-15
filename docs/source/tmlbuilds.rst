@@ -1315,12 +1315,12 @@ STEP 6: Entity Based Predictions: tml-system-step-6-kafka-predictions-dag
 --------------
 
 .. code-block::
+   :emphasize-lines: 10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42
 
     import maadstml
     from airflow import DAG
     from airflow.operators.python import PythonOperator
-    from airflow.operators.bash import BashOperator
-    
+    from airflow.operators.bash import BashOperator    
     from datetime import datetime
     from airflow.decorators import dag, task
     import sys
@@ -1356,8 +1356,7 @@ STEP 6: Entity Based Predictions: tml-system-step-6-kafka-predictions-dag
       'pathtoalgos' : '', # << this is specified in fullpathtotrainingdata in STEP 5
       'array' : 0, # 0=do not save as array, 1=save as array    
       'start_date': datetime (2024, 6, 29),    # <<< *** Change as needed   
-      'retries': 1,   # <<< *** Change as needed   
-        
+      'retries': 1,   # <<< *** Change as needed       
     }
     ######################################## DO NOT MODIFY BELOW #############################################
     
