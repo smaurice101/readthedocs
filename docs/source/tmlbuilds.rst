@@ -1412,6 +1412,56 @@ Here are the **core parameters** in the above dag 5:
    * - coefsubtopicnames
      - You can give names to the coefficients in your model: constant, elasticity, elasticity2    
 
+Machine Learning Trained Model Sample JSON Output
+-----------------------------
+
+Below is the JSON output after TML binary: HPDE has performed machine learning using the eal-time data streams.
+
+.. code-block:: JSON
+
+    {
+    	"Algokey": "StreamConsumer_topicid59_json",
+    	"Algo": "StreamConsumer_topicid59_jsonlgt",
+    	"Forecastaccuracy": 0.747,
+    	"DependentVariable": "failure_prob",
+    	"Filename": "/Viper-tml/viperlogs/iotlogistic/StreamConsumer_topicid59.csv",
+    	"Fieldnames": "Date,topicid59_Voltage_preprocessed_AnomProb,topicid59_Current_preprocessed_AnomProb",
+    	"TestResultsFile": "/Viper-tml/viperlogs/iotlogistic/StreamConsumer_topicid59_json_predictions.csv",
+    	"Deployed": 1,
+    	"DeployedTo": "Local Machine Deploy Folder",
+    	"Created": "2024-08-15T22:05:55.692145224Z",
+    	"Fullpathtomodels": "/Viper-tml/viperlogs/iotlogistic",
+    	"Identifier": "Voltage~Line-Voltage-(mV)~iot-preprocess~uid:metadata.dsn,subtopic:metadata.property_name (Voltage),value:datapoint.value,identifier:metadata.display_name,datetime:datapoint.updated_at,:allrecords,Joinedidentifiers:~oem:n/a~lat:n/a~long:n/a~location:n/a~identifier:n/a,IoT device performance and failures~Msgsjoined=e951b524-7faa-11ec-4107-b4937c8d3c24(120743,51.16569,10.45153,Voltage,n/a,n/a,{});e9870b70-7faa-11ec-7911-7438f38e028a(120929,51.16569,10.45153,Voltage,n/a,n/a,{});e9b56d62-7faa-11ec-d0c0-c3d1d2b8ba2b(120824,51.16569,10.45153,Voltage,n/a,n/a,{})~latlong=~mainuid=AC000W018740175",
+    	"AccuracyThreshold": 0.51,
+    	"Minmax": "27.774:82.392,27.592:82.013",
+    	"MachineLearningAlgorithm": "Logistic Regression",
+    	"ParameterEstimates": "-2.8284930,0.8076427,2.7328265",
+    	"HasConstantTerm": 1,
+    	"Topicid": 59,
+    	"ConsumeridFrom": "StreamConsumer",
+    	"Producerid": "StreamProducer",
+    	"ConsumingFrom": "/Viper-tml/viperlogs/iotlogistic/trainingdata_topicid59_.json",
+    	"ProduceTo": "iot-trained-params-input",
+    	"Companyname": "OTICS Advanced Analytics",
+    	"BrokerhostPort": "127.0.0.1:9092",
+    	"Islogistic": 1,
+    	"HPDEHOST": "172.18.0.2:44269",
+    	"HPDEMACHINENAME": "329e7b30d9b8",
+    	"Modelruns": 100,
+    	"ModelSearchTuner": 90,
+    	"TrainingData_Partition": -1,
+    	"Transformtype": "",
+    	"Sendcoefto": "",
+    	"Coeftoprocess": "",
+    	"Coefsubtopicnames": "",
+    	"BytesWritten": 1912,
+    	"kafkakey": "OAA-KK6EoesoB8KX8mkL17D5y5ejN-N7Le",
+    	"Numberofmessages": 239,
+    	"Partition": 0,
+    	"Offset": 59
+    }
+
+
 STEP 6: Entity Based Predictions: tml-system-step-6-kafka-predictions-dag
 --------------
 
