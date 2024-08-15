@@ -170,7 +170,8 @@ JSON Message In A Payload
 
    If your JSON message comes as a **payload**, in the **filter** field you can specify jsoncriteria as follows:
 
-   jsoncriteria='uid=code.coding.0.code|code.coding.1.code|component.0.code.coding.0.code|component.1.code.coding.0.code, 
+   jsoncriteria='uid=code.coding.0.code|code.coding.1.code|component.0.code.coding.0.code|
+              component.1.code.coding.0.code, 
    
    **filter**:resourceType=allrecords, payload=payload.payload~\
    
