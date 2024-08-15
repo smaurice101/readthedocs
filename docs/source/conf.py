@@ -3,7 +3,7 @@
 # -- Project information
 
 project = 'Transactional Machine Learning (TML)'
-copyright = '2024, Otics Advanced Analytics, Incorporated'
+copyright = '2024, Otics Advanced Analytics, Incorporated - For Support email support@otics.ca'
 author = 'Sebastian Maurice'
 
 release = '0.1'
