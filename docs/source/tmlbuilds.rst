@@ -143,9 +143,7 @@ Below is the complete definition of the **tml_system_step_1_getparams_dag**.  Us
    'cloudusername' : '',  # <<<< --------FOR KAFKA CLOUD UPDATE WITH API KEY  - OTHERWISE LEAVE BLANK
    'cloudpassword' : '',  # <<<< --------FOR KAFKA CLOUD UPDATE WITH API SECRET - OTHERWISE LEAVE BLANK   
    'retries': 1,
-   }
-  
-  
+   }  
    ############################################################### DO NOT MODIFY BELOW ####################################################
    # Instantiate your DAG
    @dag(dag_id="tml_system_step_1_getparams_dag", default_args=default_args, tags=["tml-system-step-1-getparams"], schedule=None, 
@@ -173,7 +171,6 @@ Below is the complete definition of the **tml_system_step_1_getparams_dag**.  Us
              r += 1
           with open(mainfile, 'w', encoding='utf-8') as file: 
             file.writelines(data)
-  
   
     @task(task_id="getparams")
     def getparams(args):
@@ -251,8 +248,7 @@ Below is the complete definition of the **tml_system_step_2_kafka_createtopic_da
      'description' : 'Topics to store iot data',  # <<< **** You modify as needed
      'start_date': datetime (2024, 6, 29), # <<< **** You modify as needed
      'retries': 1,    # <<< **** You modify as needed
-   }
-   
+   } 
    ############################################################### DO NOT MODIFY BELOW #######################################################################
    
    # Instantiate your DAG
@@ -387,7 +383,6 @@ STEP 3a: Produce Data Using MQTT: tml-read-MQTT-step-3-kafka-producetotopic-dag.
      'start_date': datetime (2024, 6, 29), # <<< **** You modify as needed
      'retries': 1,  # <<< **** You modify as needed  
    }
-   
    ######################################## DO NOT MODIFY BELOW #############################################
    
    # Instantiate your DAG
@@ -505,7 +500,6 @@ STEP 3b: Produce Data Using RESTAPI: tml-read-RESTAPI-step-3-kafka-producetotopi
      'start_date': datetime (2024, 6, 29), # <<< **** You modify as needed   
      'retries': 1, # <<< **** You modify as needed   
    }
-   
    ######################################## DO NOT MODIFY BELOW #############################################
    
    # Instantiate your DAG
@@ -615,8 +609,7 @@ STEP 3c: Produce Data Using gRPC: tml-read-gRPC-step-3-kafka-producetotopic-dag.
      'topicid' : -999, # <<< ********* do not modify          
      'start_date': datetime (2024, 6, 29),
      'retries': 1,
-   }
-       
+   }   
    ######################################## DO NOT MODIFY BELOW #############################################
    
    # Instantiate your DAG
@@ -721,8 +714,7 @@ STEP 3d: Produce Data Using LOCALFILE: tml-read-LOCALFILE-step-3-kafka-produceto
      'topicid' : -999, # <<< ********* do not modify  
      'start_date': datetime (2024, 6, 29),
      'retries': 1,
-   }
-      
+   }  
    ######################################## DO NOT MODIFY BELOW #############################################
    
    # Instantiate your DAG
@@ -956,7 +948,6 @@ STEP 4: Preprocesing Data: tml-system-step-4-kafka-preprocess-dag.py
      'start_date': datetime (2024, 6, 29),  # <<< *** Change as needed   
      'retries': 1,  # <<< *** Change as needed         
    }
-   
    ######################################## DO NOT MODIFY BELOW #############################################
    
    # Instantiate your DAG
@@ -1128,7 +1119,6 @@ STEP 5: Entity Based Machine Learning : tml-system-step-5-kafka-machine-learning
       'start_date': datetime (2024, 6, 29),   # <<< *** Change as needed   
       'retries': 1,   # <<< *** Change as needed   
     }
-    
     ######################################## DO NOT MODIFY BELOW #############################################
     
     # Instantiate your DAG
@@ -1174,8 +1164,6 @@ STEP 5: Entity Based Machine Learning : tml-system-step-5-kafka-machine-learning
     
           #############################################################################################################
           #                         VIPER CALLS HPDE TO PERFORM REAL_TIME MACHINE LEARNING ON TRAINING DATA 
-    
-    
           # deploy the algorithm to ./deploy folder - otherwise it will be in ./models folder
           deploy=default_args['deploy']
           # number of models runs to find the best algorithm
@@ -1369,7 +1357,6 @@ STEP 6: Entity Based Predictions: tml-system-step-6-kafka-predictions-dag
       VIPERPORT=""
       HPDEHOST=''
       HPDEPORT=''
-        
     
       # Set Global variable for Viper confifuration file - change the folder path for your computer
       viperconfigfile="/Viper-predict/viper.env"
@@ -1474,7 +1461,7 @@ Here are the **core parameters** in the above dag 6:
        given a standard naming convention - see :ref:`Preprocessed Variable Naming Standard` for details.  For example, if you used preprocessed variables 
        Voltage and Current in your model, and used AnomProb (see :ref:`Preprocessing Types`), then the names for the preprocessed Voltage and Current streams 
        will be: Voltage_preprocessed_AnomProb, Current_preprocessed_AnomProb.
-   * -  inputdata
+   * - inputdata
      - You can also manually enter the values for the independent variables in this variable.  Specifically, if you do NOT want to join streams for the 
        independent variables, buy use different values then enter them here.  Note: You can either use streamstojoin or inputdata, not BOTH.  The data in the 
        inputdata field MUST be in the exact position of your model.  For example, if your model is y = a + b, then inputdata=a_value,b_value, not 
@@ -1483,26 +1470,26 @@ Here are the **core parameters** in the above dag 6:
      - This is the topic from STEP 5 (ml_data_topic) that contains the trained algorithm with the estimated parameters.  You need these estimated parameters for 
        the predictions.  This is exactly the same as in conventional machine learning.
    * - mainalgokey
-     - ' : '', # leave blank
+     - This is if you are using `MAADSBML <https://maadsbml.readthedocs.io/en/latest/>`_ which is AutoML for batch data, and want to use the Batch trained 
+       algorithm from MAADSBML for predictions in your streaming model.  This is where you can combine Batch and Real-time data in your solution.
    * - offset
-     - ' : -1, # << ** input data will start from the end of the preprocess_data_topic and rollback maxrows
-   * - delay
-     - ' : 60, # << network delay parameter 
-   * - usedeploy
-     - ' : '', # << 1=use algorithms in ./deploy folder, 0=use ./models folder
-   * - networktimeout
-     - ' : 6000, # << additional network parameter 
+     - This determines where to start consuming the data from the stream.  For example, if offset=-1, then consumption of the data will start from the latest 
+       data in the stream variables specified in streamstojoin.  The amount of data to consume is determined by the maxrows parameter.
    * - maxrows
-     - ' : '',  # << ** the number of offsets to rollback - For example, if 50, you will get 50 predictions continuously 
-      'produceridhyperprediction' : '',  # << leave blank
-      'consumeridtraininedparams' : '',  # << leave blank
-      'groupid' : '',  # << leave blank
-      'topicid' : -1,   # << leave as is
-      'pathtoalgos' : '', # << this is specified in fullpathtotrainingdata in STEP 5
-      'array' : 0, # 0=do not save as array, 1=save as array    
-      'start_date': datetime (2024, 6, 29),    # <<< *** Change as needed   
-      'retries': 1,   # <<< *** Change as needed       
-
+     - This determines the number of offsets to rollback the stream.  For example, if maxrows=50, and the last offset is 1000, then Viper will start consuming 
+       data from starting offset 1000-50=950, upto the last offset of 1000. 
+   * - delay
+     - This is a network delay parameter, that accomodates from any delays in Kafka (if any)
+   * - networktimeout
+     - This variable accounts for any connection latency from Python  
+   * - usedeploy
+     - When algorithms are trained they put in the ./models or ./deploy folder.  If usedeploy=1, then trained algorithms will be read from the ./deploy folder, 
+       otherwise models from ./models will be used.
+   * - topicid
+     - This is an internal parameter that TML uses to keep track of entity ids.  Setting this to -1 tells Viper to process individual entities.
+   * - pathtoalgos
+     - This is the same path you specified in the key fullpathtotrainingdata in STEP 5.  This is the location of the training datasets and algorithms.   This is 
+       also important if you wanted to keep track of training datasets for auditing and governance.
 
 GenAI
 ---------
