@@ -1651,7 +1651,6 @@ Here is the table explaining the fields in the prediction JSON.
    * - Hyperprediction
      - This contains the probability prediction of failure for the device: mainuid=AC000W020486693
 
-       A value of 0.347 means this device has a 34.7% chance of failure.
    * - Probability1
      - Probability of Class 1: Failure: 0.347
    * - Probability0
