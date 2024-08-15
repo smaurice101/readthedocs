@@ -1688,18 +1688,6 @@ Here is the table explaining the fields in the prediction JSON.
      - Compression used in the data storage: GZIP
    * - Produceto
      - The topic the predictions are produced to: iot-ml-prediction-results-output
-   * - Kafkacluster
-     - This is the kafka cluster being used: pkc-6ojv2.us-west4.gcp.confluent.cloud:9092
-   * - Minmax
-     - All data are transformed or normalized using minmax - this is the min:max for each independent variable: 
-       35.487:104.175,35.144:103.602,0.000:0.000,0.000:0.000,0.000:0.000,0.000:0.000
-   * - MachineLearningAlgorithm
-     - This is the name of the algorithm: Logistic Regression
-   * - ParameterEstimates
-     - Here are the parameter estimates from the logistic model: -0.6322068,0.0000000,0.0000000,0.0000000,0.0000000,0.0000000,0.0000000
-   * - HasConstantTerm
-     - Indicates whether model has constant term of not: 1 - indicates it has a constant term.
-
 
 STEP 7: Real-Time Visualization: tml-system-step-7-kafka-visualization-dag
 -----------------------------------------------
