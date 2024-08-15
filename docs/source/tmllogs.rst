@@ -9,6 +9,6 @@ Real-Time logs can be viewed in a browser by entering:  http://localhost:9005/vi
 Log Example
 -----------
 
-Here is an example of logs from a TML Solution.
+Here is an example of logs from a TML Solution.  GREEN items indicate Success, RED items indicate Errors.
 
 .. figure:: viperlogs.png
