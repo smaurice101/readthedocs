@@ -1604,8 +1604,40 @@ Here are the **core parameters** in the above dag 6:
      - This is the same path you specified in the key fullpathtotrainingdata in STEP 5.  This is the location of the training datasets and algorithms.   This is 
        also important if you wanted to keep track of training datasets for auditing and governance.
 
-Machine Learning Sample JSON Output
+Machine Learning Prediction Sample JSON Output
 -----------------------------
+
+.. code-block:: JSON
+
+   {
+    "Hyperprediction": 0.347,
+    "Probability1": 0.347,
+    "Probability0": 0.653,
+    "Algokey": "StreamConsumer_topicid1370_json",
+    "Algo": "StreamConsumer_topicid1370_jsonlgt",
+    "Usedeploy": 1,
+    "Created": "2022-10-29T18:24:27.5145458-04:00",
+    "Inputdata": "0.000,0.000,0.000,122022.000,0.000,0.000",
+    "Fieldnames": 
+    "Date, topicid1370_Voltage_preprocessed_AnomProb, topicid1370_Current_preprocessed_AnomProb, topicid1370_Power_preprocessed_Trend, 
+      topicid1370_Voltage_preprocessed_Avg, topicid1370_Current_preprocessed_Avg,topicid1370_Power_preprocessed_Avg",
+    "Topicid": 1370,
+    "Fullpathtomodels": "c:/maads/golang/go/bin/viperlogs/iotlogistic/deploy",
+    "Identifier": "Power~Power-(mW)~iot-preprocess~uid:metadata.dsn,subtopic:metadata.property_name ( 
+      (Power), value:datapoint.value, identifier:metadata.display_name, datetime:datapoint.updated_at,:allrecords, 
+      Joinedidentifiers:~oem:n/a~lat:n/a~long:n/a~location:n/a~identifier:n/a,IoT device performance and failures~Msgsjoined=7c54e7d8-7fab-11ec-1a0b- 
+      b4bd125d9af1(0);7ce0b024-7fab-11ec-9ac5-3ffbb1c36dfe(0);7ca71d1e-7fab-11ec-223f-87fb225a1c75(0);7cfe6880-7fab-11ec-ea23-17d1132d4605(0);7c7fdd12-7fab-11ec- 
+      41f5-50aa3db0fe21(0);7cc487c8-7fab-11ec-408e-149982099613(0)~latlong=46.151241,14.995463~mainuid=AC000W020486693",
+    "Islogistic": "1",
+    "Compression": "GZIP",
+    "Produceto": "iot-ml-prediction-results-output",
+    "Kafkacluster": "pkc-6ojv2.us-west4.gcp.confluent.cloud:9092",
+    "Minmax": "35.487:104.175,35.144:103.602,0.000:0.000,0.000:0.000,0.000:0.000,0.000:0.000",
+    "MachineLearningAlgorithm": "Logistic Regression",
+    "ParameterEstimates": "-0.6322068,0.0000000,0.0000000,0.0000000,0.0000000,0.0000000,0.0000000",
+    "HasConstantTerm": "1"
+   }
+
 
 STEP 7: Real-Time Visualization: tml-system-step-7-kafka-visualization-dag
 -----------------------------------------------
