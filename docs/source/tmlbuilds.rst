@@ -1038,8 +1038,9 @@ STEP 4: Preprocesing Data: tml-system-step-4-kafka-preprocess-dag.py
         except Exception as e:
            print(e)
            return e
-     
-     processtransactiondata()
+
+     while True:
+       processtransactiondata()
        
    dag = startprocessing()
 
@@ -1226,8 +1227,8 @@ STEP 5: Entity Based Machine Learning : tml-system-step-5-kafka-machine-learning
                                           deploy,modelruns,modelsearchtuner,HPDEPORT,offset,islogistic,
                                           brokerhost,brokerport,networktimeout,microserviceid,topicid,maintopic,
                                           independentvariables,dependentvariable,rollbackoffsets,fullpathtotrainingdata,processlogic,identifier)    
-      
-      performSupervisedMachineLearning(maintopic)
+      while True:
+        performSupervisedMachineLearning(maintopic)
     
     dag = startmachinelearning()
 
