@@ -1088,8 +1088,8 @@ Preprocessed JSON Field Descriptions
 
 .. list-table::
 
-   * - JSON Field
-     - Description 
+   * - **JSON Field**
+     - **Description** 
    * - hyperprediction
      - This contains the preprocced value for the **Preprocesstype: Avg**.  In this case, the value is 0.980
    * - Maintopic
@@ -1125,11 +1125,12 @@ Preprocessed JSON Field Descriptions
        e36d-28c9ca7b5376 is the msgis, the second number 145 is the current value used in the calculation, then latitude (34.04893) and logitude (-111.09373), 
        the variable being processed (Current), and any additional information.
 
-       Another important field is mainuid=AC000W020496398, mainuid is the entity identifier in the UID field of the Json criteria (:ref:`JSON PROCESSING`)
+       Another important field is **mainuid=AC000W020496398**, mainuid is the entity identifier in the UID field of the Json criteria (:ref:`JSON PROCESSING`).  
+       Specifically, TML processed (took average) 6 messages from this one device for Current stream.
        
        "Current~Current-(mA)~iot-preprocess~uid:metadata.dsn,subtopic:metadata.property_name 
        (Current), value:datapoint.value, identifier:metadata.display_name,datetime:datapoint.updated_at,:allrecords, Joinedidentifiers: 
-       ~oem:n/a~lat:n/a~long:n/a~location:n/a~identifier:n/a,IoT device performance and failures~**Msgsjoined**=dd4dfbbc-7fb3-11ec-e36d- 
+       ~oem:n/a~lat:n/a~long:n/a~location:n/a~identifier:n/a,IoT device performance and failures~Msgsjoined=dd4dfbbc-7fb3-11ec-e36d- 
        28c9ca7b5376(145,34.04893,-111.09373,Current,n/a,n/a,{}); dd781c12-7fb3-11ec-fa99-012971124b46(0,34.04893,-111.09373,Current,n/a,n/a,{});dd94c90c-7fb3- 
        11ec-727b-6d558b1c7fe4(0,34.04893,-111.09373,Current,n/a,n/a,{}); ddb6f676-7fb3-11ec-5c48-b5377c00ff05(0,34.04893,-111.09373,Current,n/a,n/a, 
        {});dde3be22- 
