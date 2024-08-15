@@ -1127,7 +1127,7 @@ Preprocessed JSON Field Descriptions
 
        Another important field is **mainuid=AC000W020496398**, mainuid is the entity identifier in the UID field of the Json criteria (:ref:`JSON PROCESSING`).  
        
-       **In summary, TML processed (took average) 6 messages from this one device (with DSN=AC000W020496398) for the Current stream, in the sliding time window 
+       **In summary, TML processed (took average of) 6 messages from this one device (with DSN=AC000W020496398) for the Current stream, in the sliding time window 
        starting at: 2024-08-15 19:49:08, and ending at: 2024-08-15 19:49:21**
        
        "Current~Current-(mA)~iot-preprocess~uid:metadata.dsn,subtopic:metadata.property_name 
