@@ -1462,17 +1462,17 @@ Here are the **core parameters** in the above dag 6:
    * - **Step 6 DAG parameter**
      - **Explanation**
    * - preprocess_data_topic
-     - iot-preprocess-data', # << *** data for the independent variables - You created this in STEP 2
-   * -  ml_prediction_topic
-     - iot-ml-prediction-results-output', # topic to store the predictions - You created this in STEP 2
-   * - description' : 'TML solution',    # <<< *** Change as needed   
-     - 'companyname' : 'Your company', # <<< *** Change as needed      
-   * -  'myemail' : 'Your email', # <<< *** Change as needed      
-      'mylocation' : 'Your location', # <<< *** Change as needed      
-      'brokerhost' : '', # <<< *** Change as needed      
-      'brokerport' : -999, # <<< *** Change as needed      
-      'streamstojoin' : 'Voltage_preprocessed_AnomProb,Current_preprocessed_AnomProb', # << ** These are the streams in the preprocess_data_topic for these independent variables
-      'inputdata' : '', # << ** You can specify independent variables manually - rather than consuming from the preprocess_data_topic stream
+     - This is the topic that contain the data for the independent variables.  Note: this is NOT different from conventional BATCH machine learning, where you 
+       train a model on batch data, and then you use new values for the independent variables for prediction of the dependent variable.  In the real-time case, 
+       we are streaming values for the independent variables contained in this topic.
+   * - ml_prediction_topic
+     - This topic will contain the predictions. The predictions can then be used for visualization in STEP 7.
+   * - description' 
+     - : 'TML solution',    # <<< *** Change as needed   
+   * -  streamstojoin 
+     - : 'Voltage_preprocessed_AnomProb,Current_preprocessed_AnomProb', # << ** These are the streams in the preprocess_data_topic for these independent variables
+   * -  inputdata
+     - ' : '', # << ** You can specify independent variables manually - rather than consuming from the preprocess_data_topic stream
       'consumefrom' : '', # << This is ml_data_topic in STEP 5 that contains the estimated parameters
       'mainalgokey' : '', # leave blank
       'offset' : -1, # << ** input data will start from the end of the preprocess_data_topic and rollback maxrows
