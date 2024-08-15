@@ -175,13 +175,13 @@ JSON Message In A Payload
    **filter**:resourceType=allrecords, **payload**=payload.payload~\
    
    subtopics=code.coding.0.code,component.0.code.coding.0.code,
-             component.1.code.coding.0.code,medicationCodeableConcept.coding.0.code~\
+     component.1.code.coding.0.code,medicationCodeableConcept.coding.0.code~\
    
    values=valueQuantity.value,component.0.valueQuantity.value,
-          component.1.valueQuantity.value,medicationCodeableConcept.coding.0.display~\
+    component.1.valueQuantity.value,medicationCodeableConcept.coding.0.display~\
    
    identifiers=code.coding.0.display,component.0.code.coding.0.display,
-               component.1.code.coding.0.display,medicationCodeableConcept.coding.text~\
+    component.1.code.coding.0.display,medicationCodeableConcept.coding.text~\
    
    datetime=effectiveDateTime~\
    
