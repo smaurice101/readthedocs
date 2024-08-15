@@ -168,14 +168,21 @@ JSON Message In A Payload
 
 .. important::
 
-   If your JSON message comes as a **payload**, in the **filter** field you can specify jsoncriteria 
+   If your JSON message comes as a **payload**, in the **filter** field you can specify jsoncriteria as follows:
 
    jsoncriteria='uid=code.coding.0.code|code.coding.1.code|component.0.code.coding.0.code|component.1.code.coding.0.code, 
+   
    **filter:resourceType=allrecords,payload=payload.payload**~\
+   
    subtopics=code.coding.0.code,component.0.code.coding.0.code,component.1.code.coding.0.code,medicationCodeableConcept.coding.0.code~\
+   
    values=valueQuantity.value,component.0.valueQuantity.value,component.1.valueQuantity.value,medicationCodeableConcept.coding.0.display~\
+   
    identifiers=code.coding.0.display,component.0.code.coding.0.display,component.1.code.coding.0.display,medicationCodeableConcept.coding.text~\
+   
    datetime=effectiveDateTime~\
+   
    msgid=subject.reference~\
+   
    latlong=address.0.extension.0.extension.0.valueDecimal:address.0.extension.0.extension.1.valueDecimal'  # add + to join fields
 
