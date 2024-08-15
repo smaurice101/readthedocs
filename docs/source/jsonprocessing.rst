@@ -7,6 +7,10 @@ To process your JSON data - you need to tell TML applicate the **JSON paths to t
 
 TML requires the following - as shown in the table below. We will go though an example on how to apply this to your JSON data.
 
+.. important::
+
+   Json processing and the **jsoncriteria** field will be required in :ref:`STEP 4: Preprocesing Data: tml-system-step-4-kafka-preprocess-dag.py` 
+
 .. list-table::
 
    * - **Jsoncriteria TML Fields**
