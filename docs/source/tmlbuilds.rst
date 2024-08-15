@@ -1638,11 +1638,70 @@ Machine Learning Prediction Sample JSON Output
     "HasConstantTerm": "1"
    }
 
+.. important::
+   
+   It will be important to carefully study these fields for the visualization or for other downstream analysis.
+
+.. list-table::
+
+   * - **JSON Field**
+     - **Description** 
+   * - Hyperprediction
+     - This contains the probability prediction of failure for the device: mainuid=AC000W020486693
+
+       A value of 0.347 means this device has a 34.7% chance of failure.
+   * - Probability1
+     - Probability of Class 1: Failure: 0.347
+   * - Probability0
+     - Probability of Class 0: No Failure: 0.653
+   * - Algokey
+     - Internal algorithm key identifying this algorithm for this device: StreamConsumer_topicid1370_json, internal ID 1370 is mapped to device ID AC000W020486693
+   * - Algo
+     - The algorithm used: StreamConsumer_topicid1370_jsonlgt, lgt is logitic
+   * - Usedeploy
+     - Determines which folder to grab the algorithm: 1, means use the ./deploy folder
+   * - Created
+     - Create time for this prediction in UTC: 2022-10-29T18:24:27.5145458-04:00
+   * - Inputdata
+     - Inputdata used in the model: "0.000,0.000,0.000,122022.000,0.000,0.000 - These are the independent variables
+   * - Fieldnames
+     - These are the independent variable streams used in the model: Date, topicid1370_Voltage_preprocessed_AnomProb, topicid1370_Current_preprocessed_AnomProb, 
+       topicid1370_Power_preprocessed_Trend, topicid1370_Voltage_preprocessed_Avg, topicid1370_Current_preprocessed_Avg,topicid1370_Power_preprocessed_Avg",
+   * - Topicid
+     - The topicid associated with this device id: 1370
+   * - Fullpathtomodels
+     - This is the full path to trained algorithm: c:/maads/golang/go/bin/viperlogs/iotlogistic/deploy
+   * - Identifier
+     -  This contains additional information about the json criteria used.
+
+       "Power~Power-(mW)~iot-preprocess~uid:metadata.dsn,subtopic:metadata.property_name ( 
+      (Power), value:datapoint.value, identifier:metadata.display_name, datetime:datapoint.updated_at,:allrecords, 
+      Joinedidentifiers:~oem:n/a~lat:n/a~long:n/a~location:n/a~identifier:n/a,IoT device performance and failures~Msgsjoined=7c54e7d8-7fab-11ec-1a0b- 
+      b4bd125d9af1(0);7ce0b024-7fab-11ec-9ac5-3ffbb1c36dfe(0);7ca71d1e-7fab-11ec-223f-87fb225a1c75(0);7cfe6880-7fab-11ec-ea23-17d1132d4605(0);7c7fdd12-7fab-11ec- 
+      41f5-50aa3db0fe21(0);7cc487c8-7fab-11ec-408e-149982099613(0)~latlong=46.151241,14.995463~mainuid=AC000W020486693",
+   * - Islogistic
+     - This is a logistic if the value is: 1
+   * - Compression
+     - Compression used in the data storage: GZIP
+   * - Produceto
+     - The topic the predictions are produced to: iot-ml-prediction-results-output
+   * - Kafkacluster
+     - This is the kafka cluster being used: pkc-6ojv2.us-west4.gcp.confluent.cloud:9092
+   * - Minmax
+     - All data are transformed or normalized using minmax - this is the min:max for each independent variable: 
+       35.487:104.175,35.144:103.602,0.000:0.000,0.000:0.000,0.000:0.000,0.000:0.000
+   * - MachineLearningAlgorithm
+     - This is the name of the algorithm: Logistic Regression
+   * - ParameterEstimates
+     - Here are the parameter estimates from the logistic model: -0.6322068,0.0000000,0.0000000,0.0000000,0.0000000,0.0000000,0.0000000
+   * - HasConstantTerm
+     - Indicates whether model has constant term of not: 1 - indicates it has a constant term.
+
 
 STEP 7: Real-Time Visualization: tml-system-step-7-kafka-visualization-dag
 -----------------------------------------------
 
-Fields to visualize can be determined from :ref:`Preprocessed JSON Field Descriptions`
+Fields to visualize can be determined from :ref:`Preprocessed JSON Field Descriptions` and :ref:`Machine Learning Prediction Sample JSON Output`
 
 Coming Soon.
 
