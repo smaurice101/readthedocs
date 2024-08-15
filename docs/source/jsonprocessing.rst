@@ -16,8 +16,8 @@ TML requires the following - as shown in the table below. We will go though an e
    * - filter
      - There is a filter field in the jsoncriteria.  This allows you to either:
 	1. filter:allrecords .
-        2. filter:<key>=<value>
-        3. filter:<key>=<value>,payload=<json path to payload key>
+        2. filter:<key>=<value, or allrecords>
+        3. filter:<key>=<value, or allrecords>,payload=<json path to payload key>
    * - subtopics
      - This is the json path to the variable name that identifies the type of data.  For example, if processing IOT, this could be json path to **voltage**
    * - values
