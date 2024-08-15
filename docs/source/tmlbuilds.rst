@@ -1096,7 +1096,7 @@ Preprocessed JSON Field Descriptions
      - This is the topic being consumed: iot-preprocess2
    * - Topic
      - This is the topic name for the preprocessed variable.  For example, topicid287_Current_preprocessed_AnomProb_preprocessed_Avg, means entity id 287 was 
-       processed (this number 287 is an internal number associated with device serial number: **AC000W020496398**)
+        processed (this number 287 is an internal number associated with device serial number: **AC000W020496398**)
    * - Type
      - This is an internal parameter
    * - ProducerId
@@ -1104,7 +1104,7 @@ Preprocessed JSON Field Descriptions
    * - TimeStamp
      - This is the UTC timestamp of the calculation creation: 2024-08-15 19:49:24
    * - Unixtime
-      - This is the Unixtime of the calculation: 1723751364617162000
+     - This is the Unixtime of the calculation: 1723751364617162000
    * - kafkakey
      - This is the TML Kafka key that identifies it came from TML: OAA-tFTP8Ym6BHy-bnw2X5XdSUoUSOjns7
    * - Preprocesstype
