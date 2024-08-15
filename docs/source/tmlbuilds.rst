@@ -1702,7 +1702,7 @@ Here is the table explaining the fields in the prediction JSON.
 STEP 7: Real-Time Visualization: tml-system-step-7-kafka-visualization-dag
 -----------------------------------------------
 
-Fields to visualize can be determined from :ref:`Preprocessed JSON Field Descriptions` and :ref:`Machine Learning Prediction Sample JSON Output`
+Fields to visualize can be determined from :ref:`Preprocessed Sample JSON Output` and :ref:`Machine Learning Prediction Sample JSON Output`
 
 Coming Soon.
 
