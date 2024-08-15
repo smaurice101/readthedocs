@@ -1444,7 +1444,7 @@ STEP 6: Entity Based Predictions: tml-system-step-6-kafka-predictions-dag
       'streamstojoin' : 'Voltage_preprocessed_AnomProb,Current_preprocessed_AnomProb', # << ** These are the streams in the preprocess_data_topic for these independent variables
       'inputdata' : '', # << ** You can specify independent variables manually - rather than consuming from the preprocess_data_topic stream
       'consumefrom' : '', # << This is ml_data_topic in STEP 5 that contains the estimated parameters
-      'mainalgokey' : '', # << This is the Algokey in the Machine Learning JSON output see :ref:`Machine Learning Sample JSON Output`
+      'mainalgokey' : '', # << This is the Algokey in the Machine Learning JSON output see: Machine Learning Sample JSON Output below
       'offset' : -1, # << ** input data will start from the end of the preprocess_data_topic and rollback maxrows
       'delay' : 60, # << network delay parameter 
       'usedeploy' : '', # << 1=use algorithms in ./deploy folder, 0=use ./models folder
