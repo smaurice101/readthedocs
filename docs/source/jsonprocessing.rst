@@ -164,7 +164,7 @@ JSON Message In A Payload
 
 .. important::
 
-   If your JSON message comes as a **payload**, in the **filter** field you can specify 
+   If your JSON message comes as a **payload**, in the **filter** field you can specify jsoncriteria 
 
    jsoncriteria='uid=code.coding.0.code|code.coding.1.code|component.0.code.coding.0.code|component.1.code.coding.0.code, 
    **filter:resourceType=allrecords,payload=payload.payload**~\
