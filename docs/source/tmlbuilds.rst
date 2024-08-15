@@ -1470,7 +1470,10 @@ Here are the **core parameters** in the above dag 6:
    * - description
      - You can provide a description for your solution here.  
    * - streamstojoin 
-     - This is where you specify the independent variables for your predctions.  Specifically, if you are preprocessing, the "new" preprocessed variables will be given a standard naming convention - see :ref:`` for details.  : 'Voltage_preprocessed_AnomProb,Current_preprocessed_AnomProb', # << ** These are the streams in the preprocess_data_topic for these independent variables
+     - This is where you specify the independent variables for your predctions.  Specifically, if you are preprocessing, the "new" preprocessed variables will be 
+       given a standard naming convention - see :ref:`Preprocessed Variable Naming Standard` for details.  For example, if you used preprocessed variables 
+       Voltage and Current in your model, and used AnomProb (see :ref:`Preprocessing Types`), then the names for the preprocessed Voltage and Current streams 
+       will be: Voltage_preprocessed_AnomProb, Current_preprocessed_AnomProb.
    * -  inputdata
      - ' : '', # << ** You can specify independent variables manually - rather than consuming from the preprocess_data_topic stream
       'consumefrom' : '', # << This is ml_data_topic in STEP 5 that contains the estimated parameters
