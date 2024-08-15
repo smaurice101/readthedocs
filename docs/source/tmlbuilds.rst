@@ -1480,7 +1480,8 @@ Here are the **core parameters** in the above dag 6:
        inputdata field MUST be in the exact position of your model.  For example, if your model is y = a + b, then inputdata=a_value,b_value, not 
        inputdata=b_value,a_value, since the estimated coefficients will be for a and b, in this precise position.
    * - consumefrom
-     - : '', # << This is ml_data_topic in STEP 5 that contains the estimated parameters
+     - This is the topic from STEP 5 (ml_data_topic) that contains the trained algorithm with the estimated parameters.  You need these estimated parameters for 
+       the predictions.  This is exactly the same as in conventional machine learning.
    * - mainalgokey
      - ' : '', # leave blank
    * - offset
