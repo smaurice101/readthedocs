@@ -31,6 +31,7 @@ Contents
    docker   
    howtouse
    tmlbuilds
+   examples
    git
    coreintegrations
    dashboards
