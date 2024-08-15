@@ -1050,6 +1050,7 @@ Preprocessed Sample JSON Output
 ----------------------------
 
 .. code-block:: JSON
+   
    {
     "hyperprediction": "0.980",
     "Maintopic": "iot-preprocess2",
@@ -1081,8 +1082,6 @@ Preprocessed Sample JSON Output
      "Generated": "2024-08-15T19:49:55.619+00:00",
      "Partition": 0
      }
-
-
 
 Entity Based Machine Learning By TML
 -------------------
