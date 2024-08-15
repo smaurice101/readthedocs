@@ -1665,7 +1665,7 @@ Here is the table explaining the fields in the prediction JSON.
    * - Created
      - Create time for this prediction in UTC: 2022-10-29T18:24:27.5145458-04:00
    * - Inputdata
-     - Inputdata used in the model: "0.000,0.000,0.000,122022.000,0.000,0.000 - These are the independent variables
+     - Inputdata used in the model: 0.000,0.000,0.000,122022.000,0.000,0.000 - These are the independent variables
    * - Fieldnames
      - These are the independent variable streams used in the model: Date, topicid1370_Voltage_preprocessed_AnomProb, topicid1370_Current_preprocessed_AnomProb, 
        topicid1370_Power_preprocessed_Trend, topicid1370_Voltage_preprocessed_Avg, topicid1370_Current_preprocessed_Avg,topicid1370_Power_preprocessed_Avg
