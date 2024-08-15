@@ -1086,6 +1086,10 @@ Preprocessed Sample JSON Output
 Preprocessed JSON Field Descriptions
 -------------------------------
 
+.. important::
+   
+   It will be important to carefully study these fields for the visualization.
+
 .. list-table::
 
    * - **JSON Field**
