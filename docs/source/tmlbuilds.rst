@@ -1651,6 +1651,7 @@ Here is the table explaining the fields in the prediction JSON.
    * - Hyperprediction
      - This contains the probability prediction of failure for the device: mainuid=AC000W020486693
 
+       A value of 0.347 means this device has a 34.7% chance of failure.
    * - Probability1
      - Probability of Class 1: Failure: 0.347
    * - Probability0
@@ -1673,7 +1674,7 @@ Here is the table explaining the fields in the prediction JSON.
    * - Fullpathtomodels
      - This is the full path to trained algorithm: c:/maads/golang/go/bin/viperlogs/iotlogistic/deploy
    * - Identifier
-     -  This contains additional information about the json criteria used.
+     - This contains additional information about the json criteria used.
 
        Power~Power-(mW)~iot-preprocess~uid:metadata.dsn,subtopic:metadata.property_name ( 
        (Power), value:datapoint.value, identifier:metadata.display_name, datetime:datapoint.updated_at,:allrecords, 
