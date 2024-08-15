@@ -1642,6 +1642,8 @@ Machine Learning Prediction Sample JSON Output
    
    It will be important to carefully study these fields for the visualization or for other downstream analysis.
 
+Here is the table explaining the fields in the prediction JSON.
+
 .. list-table::
 
    * - **JSON Field**
@@ -1666,7 +1668,7 @@ Machine Learning Prediction Sample JSON Output
      - Inputdata used in the model: "0.000,0.000,0.000,122022.000,0.000,0.000 - These are the independent variables
    * - Fieldnames
      - These are the independent variable streams used in the model: Date, topicid1370_Voltage_preprocessed_AnomProb, topicid1370_Current_preprocessed_AnomProb, 
-       topicid1370_Power_preprocessed_Trend, topicid1370_Voltage_preprocessed_Avg, topicid1370_Current_preprocessed_Avg,topicid1370_Power_preprocessed_Avg",
+       topicid1370_Power_preprocessed_Trend, topicid1370_Voltage_preprocessed_Avg, topicid1370_Current_preprocessed_Avg,topicid1370_Power_preprocessed_Avg
    * - Topicid
      - The topicid associated with this device id: 1370
    * - Fullpathtomodels
