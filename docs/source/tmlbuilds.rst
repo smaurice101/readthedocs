@@ -1475,14 +1475,24 @@ Here are the **core parameters** in the above dag 6:
        Voltage and Current in your model, and used AnomProb (see :ref:`Preprocessing Types`), then the names for the preprocessed Voltage and Current streams 
        will be: Voltage_preprocessed_AnomProb, Current_preprocessed_AnomProb.
    * -  inputdata
-     - ' : '', # << ** You can specify independent variables manually - rather than consuming from the preprocess_data_topic stream
-      'consumefrom' : '', # << This is ml_data_topic in STEP 5 that contains the estimated parameters
-      'mainalgokey' : '', # leave blank
-      'offset' : -1, # << ** input data will start from the end of the preprocess_data_topic and rollback maxrows
-      'delay' : 60, # << network delay parameter 
-      'usedeploy' : '', # << 1=use algorithms in ./deploy folder, 0=use ./models folder
-      'networktimeout' : 6000, # << additional network parameter 
-      'maxrows' : '',  # << ** the number of offsets to rollback - For example, if 50, you will get 50 predictions continuously 
+     - You can also manually enter the values for the independent variables in this variable.  Specifically, if you do NOT want to join streams for the 
+       independent variables, buy use different values then enter them here.  Note: You can either use streamstojoin or inputdata, not BOTH.  The data in the 
+       inputdata field MUST be in the exact position of your model.  For example, if your model is y = a + b, then inputdata=a_value,b_value, not 
+       inputdata=b_value,a_value, since the estimated coefficients will be for a and b, in this precise position.
+   * - consumefrom
+     - : '', # << This is ml_data_topic in STEP 5 that contains the estimated parameters
+   * - mainalgokey
+     - ' : '', # leave blank
+   * - offset
+     - ' : -1, # << ** input data will start from the end of the preprocess_data_topic and rollback maxrows
+   * - delay
+     - ' : 60, # << network delay parameter 
+   * - usedeploy
+     - ' : '', # << 1=use algorithms in ./deploy folder, 0=use ./models folder
+   * - networktimeout
+     - ' : 6000, # << additional network parameter 
+   * - maxrows
+     - ' : '',  # << ** the number of offsets to rollback - For example, if 50, you will get 50 predictions continuously 
       'produceridhyperprediction' : '',  # << leave blank
       'consumeridtraininedparams' : '',  # << leave blank
       'groupid' : '',  # << leave blank
