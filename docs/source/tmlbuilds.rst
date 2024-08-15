@@ -1096,60 +1096,60 @@ Preprocessed JSON Field Descriptions
      - This is the topic being consumed: iot-preprocess2
    * - Topic
      - This is the topic name for the preprocessed variable.  For example, topicid287_Current_preprocessed_AnomProb_preprocessed_Avg, means entity id 287 was 
-       processed (this number 287 is an internal number with device serial number: AC000W020496398)
-    * - Type
-      - This is an internal parameter
-    * - ProducerId
-      - This is an internal parameter: ProducerId-OAA--s0Ee-sqUX8QqLfdtivZSKRHoMShBe
-    * - TimeStamp
-      - This is the UTC timestamp of the calculation creation: 2024-08-15 19:49:24
-    * - Unixtime
+       processed (this number 287 is an internal number associated with device serial number: **AC000W020496398**)
+   * - Type
+     - This is an internal parameter
+   * - ProducerId
+     - This is an internal parameter: ProducerId-OAA--s0Ee-sqUX8QqLfdtivZSKRHoMShBe
+   * - TimeStamp
+     - This is the UTC timestamp of the calculation creation: 2024-08-15 19:49:24
+   * - Unixtime
       - This is the Unixtime of the calculation: 1723751364617162000
-    * - kafkakey
-      - This is the TML Kafka key that identifies it came from TML: OAA-tFTP8Ym6BHy-bnw2X5XdSUoUSOjns7
-    * - Preprocesstype
-      - This is the preprocessed type used: Avg
-    * - WindowStartTime
-      - This is the start of the sliding time window: 2024-08-15 19:49:08.36546688 +0000 UTC
-    * - WindowEndTime
-      - This is the end of the sliding time window: 2024-08-15 19:49:21.600164096 +0000 UTC
-    * - WindowStartUnixTime
-      - This is the start of the sliding time window in Unix time: 1723751348365466880
-    * - WindowEndUnixTime
-      - This is end of the sliding time window in Unix time: 1723751361600164096
-    * - Conditions
-      - This contains any preprocessed conditions
-    * - Identifier
-      - This will store all the data using in the Avg calculation of Current variable. It is delimited by "~".  If you parse the "Msgsjoined" field
-        you can get the RAW data: dd4dfbbc-7fb3-11ec-e36d-28c9ca7b5376(145,34.04893,-111.09373,Current,n/a,n/a,{}), the first alphanumeric: dd4dfbbc-7fb3-11ec- 
-        e36d-28c9ca7b5376 is the msgis, the second number 145 is the current value used in the calculation, then latitude (34.04893) and logitude (-111.09373), 
-        the variable being processed (Current), and any additional information.
+   * - kafkakey
+     - This is the TML Kafka key that identifies it came from TML: OAA-tFTP8Ym6BHy-bnw2X5XdSUoUSOjns7
+   * - Preprocesstype
+     - This is the preprocessed type used: Avg
+   * - WindowStartTime
+     - This is the start of the sliding time window: 2024-08-15 19:49:08.36546688 +0000 UTC
+   * - WindowEndTime
+     - This is the end of the sliding time window: 2024-08-15 19:49:21.600164096 +0000 UTC
+   * - WindowStartUnixTime
+     - This is the start of the sliding time window in Unix time: 1723751348365466880
+   * - WindowEndUnixTime
+     - This is end of the sliding time window in Unix time: 1723751361600164096
+   * - Conditions
+     - This contains any preprocessed conditions
+   * - Identifier
+     - This will store all the data using in the Avg calculation of Current variable. It is delimited by "~".  If you parse the "Msgsjoined" field
+       you can get the RAW data: dd4dfbbc-7fb3-11ec-e36d-28c9ca7b5376(145,34.04893,-111.09373,Current,n/a,n/a,{}), the first alphanumeric: dd4dfbbc-7fb3-11ec- 
+       e36d-28c9ca7b5376 is the msgis, the second number 145 is the current value used in the calculation, then latitude (34.04893) and logitude (-111.09373), 
+       the variable being processed (Current), and any additional information.
 
-        Another important field is mainuid=AC000W020496398, mainuid is the entity identifier in the UID field of the Json criteria (:ref:`JSON PROCESSING`)
+       Another important field is mainuid=AC000W020496398, mainuid is the entity identifier in the UID field of the Json criteria (:ref:`JSON PROCESSING`)
        
-        "Current~Current-(mA)~iot-preprocess~uid:metadata.dsn,subtopic:metadata.property_name 
-        (Current), value:datapoint.value, identifier:metadata.display_name,datetime:datapoint.updated_at,:allrecords, Joinedidentifiers: 
-        ~oem:n/a~lat:n/a~long:n/a~location:n/a~identifier:n/a,IoT device performance and failures~**Msgsjoined**=dd4dfbbc-7fb3-11ec-e36d- 
-        28c9ca7b5376(145,34.04893,-111.09373,Current,n/a,n/a,{}); dd781c12-7fb3-11ec-fa99-012971124b46(0,34.04893,-111.09373,Current,n/a,n/a,{});dd94c90c-7fb3- 
-        11ec-727b-6d558b1c7fe4(0,34.04893,-111.09373,Current,n/a,n/a,{}); ddb6f676-7fb3-11ec-5c48-b5377c00ff05(0,34.04893,-111.09373,Current,n/a,n/a, 
-        {});dde3be22- 
-        7fb3-11ec-4c2e-f10dea945ccd(0,34.04893,-111.09373,Current,n/a,n/a,{}); ddf6a5e6-7fb3-11ec-c25b-509766b7a301(0,34.04893,-111.09373,Current,n/a,n/a, 
-        {});de11b6d8-7fb3-11ec-77c8-a93cc4b538b6(0,34.04893,-111.09373,Current,n/a,n/a,{}); de2850f0-7fb3-11ec-5b6a- 
-        ac3b205641e0(0,34.04893,-111.09373,Current,n/a,n/a, 
-        {});de405510-7fb3-11ec-bba7-9b0ce93d49d2(0,34.04893,-111.09373,Current,n/a,n/a,{}); de4ee062-7fb3-11ec-3252- 
-        7c7e46faf86b(0,34.04893,-111.09373,Current,n/a,n/a,{})~latlong=~mainuid=AC000W020496398",
-    * - PreprocessIdentifier
-      - This is the preprocess identifier: IoT Data preprocess
-    * - Numberofmessages
-      - This is the number of messages used in the Avg calculation: 6
-    * -  Offset
-      - This is the Kafka Offset where this message is stored: 27041
-    * - Consumerid
-      - This is the id of the consumer: StreamConsumer
-    * - Generated
-      - This is the time stamp when this message was consumed: 2024-08-15T19:49:55.619+00:00
-    * - Partition
-      - This is the Kafka partition this message was stored in: 0
+       "Current~Current-(mA)~iot-preprocess~uid:metadata.dsn,subtopic:metadata.property_name 
+       (Current), value:datapoint.value, identifier:metadata.display_name,datetime:datapoint.updated_at,:allrecords, Joinedidentifiers: 
+       ~oem:n/a~lat:n/a~long:n/a~location:n/a~identifier:n/a,IoT device performance and failures~**Msgsjoined**=dd4dfbbc-7fb3-11ec-e36d- 
+       28c9ca7b5376(145,34.04893,-111.09373,Current,n/a,n/a,{}); dd781c12-7fb3-11ec-fa99-012971124b46(0,34.04893,-111.09373,Current,n/a,n/a,{});dd94c90c-7fb3- 
+       11ec-727b-6d558b1c7fe4(0,34.04893,-111.09373,Current,n/a,n/a,{}); ddb6f676-7fb3-11ec-5c48-b5377c00ff05(0,34.04893,-111.09373,Current,n/a,n/a, 
+       {});dde3be22- 
+       7fb3-11ec-4c2e-f10dea945ccd(0,34.04893,-111.09373,Current,n/a,n/a,{}); ddf6a5e6-7fb3-11ec-c25b-509766b7a301(0,34.04893,-111.09373,Current,n/a,n/a, 
+       {});de11b6d8-7fb3-11ec-77c8-a93cc4b538b6(0,34.04893,-111.09373,Current,n/a,n/a,{}); de2850f0-7fb3-11ec-5b6a- 
+       ac3b205641e0(0,34.04893,-111.09373,Current,n/a,n/a, 
+       {});de405510-7fb3-11ec-bba7-9b0ce93d49d2(0,34.04893,-111.09373,Current,n/a,n/a,{}); de4ee062-7fb3-11ec-3252- 
+       7c7e46faf86b(0,34.04893,-111.09373,Current,n/a,n/a,{})~latlong=~mainuid=AC000W020496398",
+   * - PreprocessIdentifier
+     - This is the preprocess identifier: IoT Data preprocess
+   * - Numberofmessages
+     - This is the number of messages used in the Avg calculation: 6
+   * -  Offset
+     - This is the Kafka Offset where this message is stored: 27041
+   * - Consumerid
+     - This is the id of the consumer: StreamConsumer
+   * - Generated
+     - This is the time stamp when this message was consumed: 2024-08-15T19:49:55.619+00:00
+   * - Partition
+     - This is the Kafka partition this message was stored in: 0
 
 
 Entity Based Machine Learning By TML
