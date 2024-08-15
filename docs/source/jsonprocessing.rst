@@ -142,7 +142,9 @@ Lets consider the following example.
       		"coding": [
 			      {
 				      "system": "http://snomed.info/sct",
+
 				      "code": "84489001",
+
 				      "display": "Mold (organism)"
 			     }
 		     ]},
