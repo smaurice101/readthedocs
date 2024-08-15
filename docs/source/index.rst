@@ -1,4 +1,4 @@
-Welcome to Transactional Machine Learning (TML) documentation!
+Welcome to Transactional Machine Learning (TML) Documentation!
 ===================================
 
 Transactional Machine Learning : *The Machine Learning Platform for Data Streams*
@@ -31,6 +31,7 @@ Contents
    docker   
    howtouse
    tmlbuilds
+   tmllogs
    examples
    git
    coreintegrations
