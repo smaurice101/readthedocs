@@ -1461,6 +1461,98 @@ Below is the JSON output after TML binary: HPDE has performed machine learning u
     	"Offset": 59
     }
 
+Machine Learning Trained Model Sample JSON Output: Explanations
+-----------------------------
+
+.. list-table::
+
+   * - **JSON Field**
+     - **Description**
+   * - Algokey
+     - This is the Algoirithm key:  StreamConsumer_topicid59_json
+   * - Algo
+     - This is the physical algorithm on disk: StreamConsumer_topicid59_jsonlgt
+   * - Forecastaccuracy
+     - This is the forecast accuracy using MAPE: 0.747,
+   * - DependentVariable
+     - This is the computed discreet dependent variable: failure_prob
+   * - Filename
+     - File name of the training dataset: /Viper-tml/viperlogs/iotlogistic/StreamConsumer_topicid59.csv
+
+       The above path is in the Docker container.  You can volume this path to save it on your host machine.
+   * - Fieldnames
+     - These are the independent variables: Date,topicid59_Voltage_preprocessed_AnomProb,topicid59_Current_preprocessed_AnomProb
+   * - TestResultsFile
+     - A results of the predictions using the test dataset is saved here: /Viper-tml/viperlogs/iotlogistic/StreamConsumer_topicid59_json_predictions.csv
+   * - Deployed
+     - Model is deployed to the ./deploy folder if its 1
+   * - DeployedTo
+     - It is deployed to: Local Machine Deploy Folder",
+   * - Created
+     - The time the trained algorithm was generated: 2024-08-15T22:05:55.692145224Z
+   * - Fullpathtomodels
+     - The full path to the model: /Viper-tml/viperlogs/iotlogistic, the ./models and ./deploy folder are relative to this path
+   * - Identifier
+     - Additional information about the data
+       Voltage~Line-Voltage-(mV)~iot-preprocess~uid:metadata.dsn,subtopic:metadata.property_name 
+       (Voltage), value:datapoint.value, identifier:metadata.display_name,datetime:datapoint.updated_at, 
+       :allrecords,Joinedidentifiers:~oem:n/a~lat:n/a~long:n/a~location:n/a~identifier:n/a,IoT device performance and failures~Msgsjoined=e951b524-7faa-11ec- 
+        4107-b4937c8d3c24(120743, 51.16569,10.45153,Voltage,n/a,n/a,{});e9870b70-7faa-11ec-7911-7438f38e028a(120929,51.16569,10.45153,Voltage,n/a,n/a, 
+        {});e9b56d62-7faa-11ec-d0c0-c3d1d2b8ba2b(120824,51.16569,10.45153,Voltage,n/a,n/a,{})~latlong=~mainuid=AC000W018740175",
+   * - 	AccuracyThreshold
+     - Accuracy threshold for any must be greater than: 0.51 (or 51%)
+   * - Minmax
+     - The normalization of the variables: 27.774:82.392,27.592:82.013
+   * - MachineLearningAlgorithm
+     - The machine learning algorithm used: Logistic Regression
+   * - ParameterEstimates
+     - The parameter estimates: -2.8284930,0.8076427,2.7328265
+   * - HasConstantTerm
+     - Indicates if it has a constant term: 1 - means it does
+   * - Topicid
+     - Internal topicid associated with the uid: 59
+   * -	ConsumeridFrom
+     - The consumerid: StreamConsumer
+   * - Producerid
+     - The producerid: StreamProducer
+   * - ConsumingFrom
+     - The physical training dataset file in the container: /Viper-tml/viperlogs/iotlogistic/trainingdata_topicid59_.json
+   * - ProduceTo
+     - Topic where the estimated parameters are saved:: iot-trained-params-input
+   * - Companyname
+     - Your company name: OTICS Advanced Analytics
+   * - BrokerhostPort
+     - Kafka brokerhostport: 127.0.0.1:9092 - using On-Premise Kafka
+   * - Islogistic
+     - Indicates if the model is logistic: 1 - means it is
+   * - HPDEHOST
+     - Address where HPDE is listening for a connection from Viper: 172.18.0.2:44269
+   * - HPDEMACHINENAME
+     - Machine name where the HPDE binary is running: 329e7b30d9b8
+   * - Modelruns
+     - Number of models to iterate through before stopping: 100
+   * - ModelSearchTuner
+     - Hyper parameter tuner: 90 - closer to 100 means higher quality models
+   * - TrainingData_Partition
+     - Ignored
+   * - Transformtype
+     - This is the log-lin, lin-log, log-log transformations if any
+   * - Sendcoefto
+     - You can send the estimated coefficients to a topic
+   * - Coeftoprocess
+     - The coeffienct index to process
+   * - Coefsubtopicnames
+     - The names of the coefficients
+   * - BytesWritten
+     - The size of this json: 1912
+   * - kafkakey
+     - The TML kafka key: OAA-KK6EoesoB8KX8mkL17D5y5ejN-N7Le
+   * - Numberofmessages
+     - The number of rows in the training dataset: 239
+   * - Partition
+     - The partition where this json is store in kafka: 0
+   * - Offset
+     - The offset of this json in Kafka: 59
 
 STEP 6: Entity Based Predictions: tml-system-step-6-kafka-predictions-dag
 --------------
