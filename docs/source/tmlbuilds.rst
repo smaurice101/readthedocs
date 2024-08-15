@@ -1088,7 +1088,7 @@ Preprocessed JSON Field Descriptions
 
 .. important::
    
-   It will be important to carefully study these fields for the visualization.
+   It will be important to carefully study these fields for the visualization or for other downstream analysis.
 
 .. list-table::
 
