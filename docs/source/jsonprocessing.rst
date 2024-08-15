@@ -72,7 +72,7 @@ TML requires the following - as shown in the table below. We will go though an e
 
    The number of JSON paths in the **subtopics** MUST equal the number of JSON paths in the **values**.  Multiple JSON paths can be separated by a comma.
 
-   TML requires the Json path of data to be processed.  Use the "." (dot) to 
+   TML requires the Json path of data to be processed.  Use the "." (dot) to go into deeper levels of the Json.
 
 Json Path Example
 ---------------------
