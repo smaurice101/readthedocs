@@ -73,12 +73,18 @@ Lets consider the following example.
    * - {
 	"metadata": {
 		"oem_id": "32795e59",
+
 		"oem_model": "SQR141U1XXW",
-		"dsn": "AC000W016399396",
-		"property_name": "Power",
-		"display_name": "Power (mW)",
-		"base_type": "integer",
-		"event_type": "datapoint"
+
+                "dsn": "AC000W016399396",
+		
+                "property_name": "Power",
+		
+                "display_name": "Power (mW)",
+		
+                "base_type": "integer",
+		
+                "event_type": "datapoint"
 	},
 	"datapoint": {
 		"id": "de3e8f0e-7faa-11ec-31cb-6b3a1eb15a96",
