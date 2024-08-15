@@ -172,7 +172,7 @@ JSON Message In A Payload
 
    jsoncriteria='uid=code.coding.0.code|code.coding.1.code|component.0.code.coding.0.code|component.1.code.coding.0.code, 
    
-   **filter:resourceType=allrecords,payload=payload.payload**~\
+   **filter**:resourceType=allrecords,**payload=payload.payload**~\
    
    subtopics=code.coding.0.code,component.0.code.coding.0.code,component.1.code.coding.0.code,medicationCodeableConcept.coding.0.code~\
    
