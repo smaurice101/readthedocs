@@ -131,7 +131,8 @@ Below is the complete definition of the **tml_system_step_1_getparams_dag**.  Us
    from airflow.decorators import dag, task
    import os 
    import sys
-  
+   import maadstml  
+
    sys.dont_write_bytecode = True
    ######################################################USER CHOSEN PARAMETERS ###########################################################
    default_args = {
@@ -363,7 +364,8 @@ STEP 3a: Produce Data Using MQTT: tml-read-MQTT-step-3-kafka-producetotopic-dag.
    import paho.mqtt.client as paho
    from paho import mqtt
    import sys
-   
+   import maadstml   
+
    sys.dont_write_bytecode = True
    ##################################################  MQTT SERVER #####################################
    # This is a MQTT server that will handle connections from a client.  It will handle connections
@@ -703,7 +705,8 @@ STEP 3d: Produce Data Using LOCALFILE: tml-read-LOCALFILE-step-3-kafka-produceto
    from datetime import datetime
    from airflow.decorators import dag, task
    import sys
-   
+   import maadstml   
+
    sys.dont_write_bytecode = True
    ######################################## USER CHOOSEN PARAMETERS ########################################
    default_args = {
@@ -919,7 +922,8 @@ STEP 4: Preprocesing Data: tml-system-step-4-kafka-preprocess-dag.py
    from datetime import datetime
    from airflow.decorators import dag, task
    import sys
-   
+   import maadstml   
+
    sys.dont_write_bytecode = True
    ######################################## USER CHOOSEN PARAMETERS ########################################
    default_args = {
@@ -1083,7 +1087,8 @@ STEP 5: Entity Based Machine Learning : tml-system-step-5-kafka-machine-learning
     from datetime import datetime
     from airflow.decorators import dag, task
     import sys
-    
+    import maadstml
+
     sys.dont_write_bytecode = True
     ######################################## USER CHOOSEN PARAMETERS ########################################
     default_args = {
