@@ -88,19 +88,31 @@ Lets consider the following example.
 	},
 	"datapoint": {
 		"id": "de3e8f0e-7faa-11ec-31cb-6b3a1eb15a96",
+
 		"updated_at": "2022-01- 27T19:53:59Z",
-		"created_at": "2022-01-27T19:53:59Z",
-		"echo": false,
-		"closed": false,
-		"value": "0",
-		"metadata": {},
-		"created_at_from_device": "2022-01- 27T19:51:40Z",
-		"user_uuid": "f4d3b326-da9a-11eb-87af-0a580ae966af",
-		"discarded": false,
-		"scope": "user",
-		"direction": "output"
+
+                "created_at": "2022-01-27T19:53:59Z",
+
+                "echo": false,
+
+                "closed": false,
+
+                "value": "0",
+		
+                "metadata": {},
+		
+                "created_at_from_device": "2022-01- 27T19:51:40Z",
+		
+                "user_uuid": "f4d3b326-da9a-11eb-87af-0a580ae966af",
+		
+                "discarded": false,
+		
+                "scope": "user",
+		
+                "direction": "output"
 	},
 	"lat": 29.22,
+    
 	"long": -141.22
        }
      - The Json Path to the variable: **dsn** is **metadata.dsn**
