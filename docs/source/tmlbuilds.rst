@@ -1491,6 +1491,11 @@ Here are the **core parameters** in the above dag 6:
      - This is the same path you specified in the key fullpathtotrainingdata in STEP 5.  This is the location of the training datasets and algorithms.   This is 
        also important if you wanted to keep track of training datasets for auditing and governance.
 
+STEP 7: Real-Time Visualization: tml-system-step-7-kafka-visualization-dag
+-----------------------------------------------
+
+Coming Soon.
+
 GenAI
 ---------
 
