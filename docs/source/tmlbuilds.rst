@@ -1467,10 +1467,10 @@ Here are the **core parameters** in the above dag 6:
        we are streaming values for the independent variables contained in this topic.
    * - ml_prediction_topic
      - This topic will contain the predictions. The predictions can then be used for visualization in STEP 7.
-   * - description' 
-     - : 'TML solution',    # <<< *** Change as needed   
-   * -  streamstojoin 
-     - : 'Voltage_preprocessed_AnomProb,Current_preprocessed_AnomProb', # << ** These are the streams in the preprocess_data_topic for these independent variables
+   * - description
+     - You can provide a description for your solution here.  
+   * - streamstojoin 
+     - This is where you specify the independent variables for your predctions.  Specifically, if you are preprocessing, the "new" preprocessed variables will be given a standard naming convention - see :ref:`` for details.  : 'Voltage_preprocessed_AnomProb,Current_preprocessed_AnomProb', # << ** These are the streams in the preprocess_data_topic for these independent variables
    * -  inputdata
      - ' : '', # << ** You can specify independent variables manually - rather than consuming from the preprocess_data_topic stream
       'consumefrom' : '', # << This is ml_data_topic in STEP 5 that contains the estimated parameters
