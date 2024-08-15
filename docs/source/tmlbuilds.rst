@@ -1083,7 +1083,7 @@ Preprocessed Sample JSON Output
      "Partition": 0
      }
 
-Preprocessed JSON Field Descriptions
+Preprocessed Sample JSON Output: Explanations
 -------------------------------
 
 .. important::
