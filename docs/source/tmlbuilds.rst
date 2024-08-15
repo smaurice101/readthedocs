@@ -1049,7 +1049,7 @@ Preprocessed Variable Naming Standard
 Preprocessed Sample JSON Output
 ----------------------------
 
-.. code-block:: json
+.. code-block:: JSON
    {
 	"hyperprediction": "0.980",
 	"Maintopic": "iot-preprocess2",
