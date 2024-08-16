@@ -72,7 +72,12 @@ http://localhost:9005/dashboard.html?topic=iot-preprocess&offset=-1&groupid=&rol
 Dashboard Template
 ------------------
 
-Here is the dashboard template - you can easily build on this to create your amazing real-time dashboards.
+.. note::
+   
+   Here is the dashboard template - you can easily build on this to create your amazing real-time dashboards.
+
+   This dashboard is a template that will immediately start to visualize your streaming data.  You can add/edit/modify this dashboard to fit your business needs - 
+   it is written in simple HTML and Javascript.  This template is a great way to quickly get you started with amazing real-time visualizations.
 
 .. figure:: dashtemp.png
 
