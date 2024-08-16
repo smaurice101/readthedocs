@@ -332,7 +332,7 @@ STEP 3: Produce to Kafka Topics
    
 
 STEP 3a: Produce Data Using MQTT: tml-read-MQTT-step-3-kafka-producetotopic-dag.py
---------------------- 	
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ 	
 
 .. code-block::
    :emphasize-lines: 16,17,18,19,20,21,22,23,24,25,26,27,28,29,30
@@ -449,7 +449,7 @@ STEP 3a: Produce Data Using MQTT: tml-read-MQTT-step-3-kafka-producetotopic-dag.
    dag = startproducingtotopic()
 
 STEP 3b: Produce Data Using RESTAPI: tml-read-RESTAPI-step-3-kafka-producetotopic-dag.py
---------------------- 	
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ 	
 
 .. code-block::
    :emphasize-lines: 19,20,21,22,23,24,25,26,27,28,29,30,31
@@ -556,7 +556,7 @@ STEP 3b: Produce Data Using RESTAPI: tml-read-RESTAPI-step-3-kafka-producetotopi
    dag = startproducingtotopic()
 
 STEP 3c: Produce Data Using gRPC: tml-read-gRPC-step-3-kafka-producetotopic-dag.py
---------------------- 	
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ 	
 
 .. code-block::
    :emphasize-lines: 22,23,24,25,26,27,28,29,30,31,32,33,34
@@ -672,7 +672,7 @@ STEP 3c: Produce Data Using gRPC: tml-read-gRPC-step-3-kafka-producetotopic-dag.
    dag = startproducingtotopic()
 
 STEP 3d: Produce Data Using LOCALFILE: tml-read-LOCALFILE-step-3-kafka-producetotopic-dag.py
---------------------- 	
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ 	
 
 .. code-block::
    :emphasize-lines: 10,11,12,13,14,15,16,17,18,19,20,21,22,23
