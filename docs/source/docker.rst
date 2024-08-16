@@ -4,8 +4,8 @@ TML Solution Studio (TSS) Container
 This is the main container that you need to use to build TML solutions.  Below is the **docker run** command to run the container.
 
 .. note::
-   Use this TSS container and start building amazing real-time solutions - with real-time dashboards - auto deployment to Docker - auto solution documentation - 
-   integrated with AI - in just a few hours.
+   Use this TSS container and start building amazing, advanced and scalable real-time data streaming solutions - with real-time dashboards - auto deployment to 
+   Docker - auto solution documentation - integrated with AI - integrated with Github - integrated Apache Airflow - integrated Apache Kafka - in just a few hours.
 
 .. code-block::
 
