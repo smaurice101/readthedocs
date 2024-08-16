@@ -56,7 +56,10 @@ PrivateGPT Container With NO GPU
    docker run -d -p 8001:8001 --env PORT=8001 --env GPU=0 --env CUDA_VISIBLE_DEVICES=0 maadsdocker/tml-privategpt-no-gpu-amd64
 
 
-Here is some sample code to access the privateGPT container using the maadstml API:
+Accessing PrivateGPT With MAADSTML Python API
+-----------------
+
+Once you have the PrivateGPT container running you can access it using the maadstml API. Here is some sample Python code to access the privateGPT container:
 
 .. code-block::
    :emphasize-lines: 4,11,21,22,23,26
