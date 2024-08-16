@@ -21,3 +21,8 @@ Some sample dashboards samples are below.
 
 .. figure:: hdash1.png
 
+Running Dashboards
+-------------------
+
+Creating Real-Time Dashboard in TML are simple, yet very powerful and free.  No third-party visualization tool is necessary.  
+http://localhost:9005/dashboard.html?topic=iot-preprocess&offset=-1&groupid=&rollbackoffset=500&topictype=prediction&append=0&secure=1
