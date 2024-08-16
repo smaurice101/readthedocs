@@ -6,9 +6,9 @@ Transactional Machine Learning : *The Machine Learning Platform for Data Streams
 
 **TML Is Based On the Belief that "_Fast data requires fast machine learning for fast decision-making_"**. TML gives rise in the industy to a **_Data Stream Scientist_** versus a **_Data Scientist_** in conventional machine learning (CML). 
 
-**TML Book Details Found Here:** [Publisher's site](https://link.springer.com/book/10.1007/978-1-4842-7023-3)
+**TML Book Details Found Here:** `Springer (Publisher) site <https://link.springer.com/book/10.1007/978-1-4842-7023-3>`_
 
-**TML Video:** [Youtube](https://youtu.be/ZrhRg2J8YbU)
+**TML Video:** `Watch the Youtube Video <https://youtu.be/ZrhRg2J8YbU>`_
 
 Apply data preprocessing and auto machine learning to data streams and create transactional machine learning (TML) solutions that are:
  
