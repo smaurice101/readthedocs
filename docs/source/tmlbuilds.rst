@@ -1036,7 +1036,7 @@ Preprocessed Variable Naming Standard
    This standard naming will be very important when you want to perform machine learning on the "preproccesed" variable. 
 
 Preprocessed Sample JSON Output
-----------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code-block:: JSON
    
@@ -1073,7 +1073,7 @@ Preprocessed Sample JSON Output
      }
 
 Preprocessed Sample JSON Output: Explanations
--------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. important::
    
@@ -1147,9 +1147,11 @@ Preprocessed Sample JSON Output: Explanations
    * - Partition
      - This is the Kafka partition this message was stored in: 0
 
+STEP 5: Entity Based Machine Learning : tml-system-step-5-kafka-machine-learning-dag.py
+-------------------------------------------------------------
 
 Entity Based Machine Learning By TML
--------------------
+^^^^^^^^^^^^^^^^^^^^^
 
 Another powerful feature of TML is performing machine learning at the entity level.  See :ref:`TML Performs Entity Level Machine Learning and Processing` for refresher.  For example, if TML is processing real-time data from 1 million IoT devices, it can create 1 million individual machine learnig models for each device.  TML uses the following ML algorithms:
 
@@ -1167,9 +1169,6 @@ Another powerful feature of TML is performing machine learning at the entity lev
      - Ridge Regression for non-linear real-time data
    * - Neural networks
      - Neural networks non-linear real-time data
-
-STEP 5: Entity Based Machine Learning : tml-system-step-5-kafka-machine-learning-dag.py
--------------------------------------------------------------
 
 .. code-block::
    :emphasize-lines: 10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46
@@ -1323,7 +1322,7 @@ STEP 5: Entity Based Machine Learning : tml-system-step-5-kafka-machine-learning
     dag = startmachinelearning()
 
 Additional Details on Machine Learning 
---------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Entity based machine learning is a core function of TML.  This section discusses some of key defaul_args in the **tml-system-step-5-kafka-machine-learning-dag.py**.  These are as follows.
 
@@ -1402,7 +1401,7 @@ Here are the **core parameters** in the above dag 5:
      - You can give names to the coefficients in your model: constant, elasticity, elasticity2    
 
 Machine Learning Trained Model Sample JSON Output
------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Below is the JSON output after TML binary: HPDE has performed machine learning using the eal-time data streams.
 
@@ -1451,7 +1450,7 @@ Below is the JSON output after TML binary: HPDE has performed machine learning u
     }
 
 Machine Learning Trained Model Sample JSON Output: Explanations
------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. list-table::
 
