@@ -5,7 +5,7 @@ This is the main container that you need to use to build TML solutions.  Below i
 
 .. note::
    Use this TSS container and start building amazing real-time solutions - with real-time dashboards - auto deployment to Docker - auto solution documentation - 
-   integrated with AI in just few hours.
+   integrated with AI - in just a few hours.
 
 .. code-block::
 
