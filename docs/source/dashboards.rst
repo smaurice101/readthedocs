@@ -24,5 +24,13 @@ Some sample dashboards samples are below.
 Running Dashboards
 -------------------
 
-Creating Real-Time Dashboard in TML are simple, yet very powerful and free.  No third-party visualization tool is necessary.  
+Creating Real-Time Dashboard in TML are simple, yet very powerful and free.  No third-party visualization tool is necessary. 
+
+.. note::
+   Refer to :ref:`STEP 7: Real-Time Visualization: tml-system-step-7-kafka-visualization-dag` for creating 
+
+Once you have created a dashboard to visualize TML data you enter a URL in your browser to run it.
+
+Here is an example URL:
+
 http://localhost:9005/dashboard.html?topic=iot-preprocess&offset=-1&groupid=&rollbackoffset=500&topictype=prediction&append=0&secure=1
