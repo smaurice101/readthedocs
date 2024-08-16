@@ -1,7 +1,7 @@
 TML Core Technology Integration
 ================================
 
-.. important::
+.. attention::
 
    - All TML solutions can be run on-premise or in the cloud using Apache Kafka.
 
