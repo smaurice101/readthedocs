@@ -1917,7 +1917,7 @@ Example TML Solution Container Reference Architecture
 
 The above image shows a typical TML solution container
 
-.. note::
+.. attention::
 
    * Every TML solution runs in a Docker container
    * Linux is installed in the container
