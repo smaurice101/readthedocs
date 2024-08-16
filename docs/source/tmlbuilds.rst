@@ -1020,16 +1020,16 @@ STEP 4: Preprocesing Data: tml-system-step-4-kafka-preprocess-dag.py
        
    dag = startprocessing()
 
-  Preprocessed Variable Naming Standard
-  -------------------------------------
-  
-  .. important::
-     When a raw variable is processed, TML renames this raw in this standard: [Variable Name]_processed_[Process Type].  For example, say you want to perform an 
-     **AnomProb** on the variable **Voltage**.  The new preprocessed variable name will be: **Voltage_preprocessed_AnomProb**
-  
-     If you want to take the **min** of Voltage, then the new preprocessed variable name will be: **Voltage_preprocessed_Min**
-  
-     This standard naming will be very important when you want to perform machine learning on the "preproccesed" variable. 
+Preprocessed Variable Naming Standard
+-------------------------------------
+
+.. important::
+   When a raw variable is processed, TML renames this raw in this standard: [Variable Name]_processed_[Process Type].  For example, say you want to perform an 
+   **AnomProb** on the variable **Voltage**.  The new preprocessed variable name will be: **Voltage_preprocessed_AnomProb**
+
+   If you want to take the **min** of Voltage, then the new preprocessed variable name will be: **Voltage_preprocessed_Min**
+
+   This standard naming will be very important when you want to perform machine learning on the "preproccesed" variable. 
 
 Preprocessed Sample JSON Output
 ----------------------------
