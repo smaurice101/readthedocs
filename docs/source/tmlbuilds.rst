@@ -1024,7 +1024,11 @@ Preprocessed Variable Naming Standard
 -------------------------------------
 
 .. important::
-   When a raw variable is processed, TML renames this raw in this standard: [Variable Name]_processed_[Process Type].  For example, say you want to perform an 
+   When a raw variable is processed, TML renames this raw in this standard: 
+
+   **[Variable Name]_processed_[Process Type]**
+
+   For example, say you want to perform an 
    **AnomProb** on the variable **Voltage**.  The new preprocessed variable name will be: **Voltage_preprocessed_AnomProb**
 
    If you want to take the **min** of Voltage, then the new preprocessed variable name will be: **Voltage_preprocessed_Min**
