@@ -12,6 +12,8 @@ Some sample dashboards samples are below.
 
 .. figure:: d1.png
 
+.. figure:: cyberdash2.png
+
 .. figure:: d2.png
 
 .. figure:: d3.png
