@@ -1833,11 +1833,11 @@ Fields to visualize can be determined from :ref:`Preprocessed Sample JSON Output
 and :ref:`Machine Learning Trained Model Sample JSON Output`.
 
 .. code-block::
+   :emphasize-lines: 10,11,12,13,14,15,16,17,18,19,20,21,22
 
     from airflow import DAG
     from airflow.operators.python import PythonOperator
-    from airflow.operators.bash import BashOperator
-    
+    from airflow.operators.bash import BashOperator    
     from datetime import datetime
     from airflow.decorators import dag, task
     import sys
@@ -1854,8 +1854,7 @@ and :ref:`Machine Learning Trained Model Sample JSON Output`.
       'chip' : "amd64", # << ** windows/linux=amd64, MAC/linux=arm64   
       'rollbackoffset' : 500, # *************** Rollback the data stream by rollbackoffset.  For example, if 500, then Viperviz wll grab all of the data from the last offset - 500
       'start_date': datetime (2024, 6, 29),   # <<< *** Change as needed   
-      'retries': 1,   # <<< *** Change as needed   
-        
+      'retries': 1,   # <<< *** Change as needed           
     }
     
     ######################################## DO NOT MODIFY BELOW #############################################
