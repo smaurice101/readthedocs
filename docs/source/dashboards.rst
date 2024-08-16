@@ -69,6 +69,11 @@ http://localhost:9005/dashboard.html?topic=iot-preprocess&offset=-1&groupid=&rol
    * - secure=1
      - Secure connection
 
+.. caution::
+
+   Be careful streaming too many topics at once, and/or, setting the rollbackoffset to a high number because this will cause Viperviz to send a large amout of 
+   data to your computer browser, which could overload or crash your browser and/or your computer.
+
 Dashboard Template
 ------------------
 
