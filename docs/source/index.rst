@@ -8,7 +8,7 @@ Transactional Machine Learning : *The Machine Learning Platform for Data Streams
 
 **TML Book Details Found Here:** [Publisher's site](https://link.springer.com/book/10.1007/978-1-4842-7023-3)
 
-**TML Video:** [Youtube](https://www.youtube.com/watch?v=kXmWE27Q_3o&t=4s)
+**TML Video:** [Youtube](https://youtu.be/ZrhRg2J8YbU)
 
 Apply data preprocessing and auto machine learning to data streams and create transactional machine learning (TML) solutions that are:
  
