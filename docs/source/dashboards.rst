@@ -43,7 +43,7 @@ http://localhost:9005/dashboard.html?topic=iot-preprocess&offset=-1&groupid=&rol
      - Almost all of the dashboard will point to the IP and Port that Viperviz is listening on.  Viperviz has a built in webserver, so no setup is need, just plug 
        and play.
 
-      The above URL points to localhost and port 9005 for Viperviz
+       The above URL points to localhost and port 9005 for Viperviz
    * - dashboard.html
      - TML Solution Studio (TSS) provides a template dashboard to get you up and running quickly.  This is a base dashboard but will show you how real-time data 
        from TML is analysed and processed.  As shown in the above dashboards, you can create amazing dashboards with HTML and Javascript.
@@ -54,7 +54,7 @@ http://localhost:9005/dashboard.html?topic=iot-preprocess&offset=-1&groupid=&rol
        Note: You can specify more than one topic to consume from, just separate multiple topics with comma.
    * - offset=-1
      - This tells Viperviz to start consuming from the latest data in the stream.
-   * - &groupid=
+   * - groupid=
      - ignored
    * - rollbackoffset=500
      - This tells Viperviz to rollback the datastream by 500 offsets and send it to the browser.  NOTE: While you can increase this number - use it with caution 
