@@ -84,6 +84,7 @@ Dashboard Template
 .. figure:: dashtemp.png
 
 Dashboard Template: Code Explanation
+----------------------------
 
 .. code-block:: HTML
       
@@ -93,7 +94,7 @@ Dashboard Template: Code Explanation
       <head>
           <meta charset="UTF-8" />
       	<link rel="shortcut icon" type="image/x-icon" href="./oticsico.png" />
-          <title>IoT Device Failure Surveillance Dashboard</title>                             <!-- CHANGE TITLE HERE -->
+         <title>IoT Device Failure Surveillance Dashboard</title>                             <!-- CHANGE TITLE HERE -->
       
       <!-- ************************************** START OF STYLE *************************************  -->    
         <style>
@@ -209,14 +210,12 @@ Dashboard Template: Code Explanation
               position: relative;
               width: 100%;
               height: 500px;
-            }
-      
+            }      
       </style>
       
       <!-- ************************************** END OF STYLE *************************************  -->
-      
-      <!-- ************************************** START SCRIPTS *************************************  -->
-      
+
+      <!-- ************************************** START SCRIPTS *************************************  -->      
       <script type="text/javascript" src="/js/attention.js"></script>   
       <script type="text/javascript" src="/js/r.min.js"></script>   
       <script type="text/javascript" src="/js/justgage.js"></script>   
@@ -271,10 +270,8 @@ Dashboard Template: Code Explanation
       <!-- ******************************************************* START WEBSITE BODY  ******************************************* -->
       
       <body>
-      <center><img src='./senecalogo.png' width=150 height=70></center>
-      
-      <!-- ********************************************************* DASHBOARD HEADER ******************************************** -->
-      
+      <center><img src='./senecalogo.png' width=150 height=70></center>      
+      <!-- ********************************************************* DASHBOARD HEADER ******************************************** -->      
       <table style="width: 100%;height: 80px;    background: linear-gradient(135deg,  rgba(102, 255, 217,1) 0%,rgba(0, 128, 255,1) 50%,rgba(0, 128, 255,1) 51%,rgba(0, 255, 128,1) 100%);">
       <tr>
        <td>
@@ -307,7 +304,6 @@ Dashboard Template: Code Explanation
       </table>											
       <!-- ********************************************************* DASHBOARD HEADER ******************************************** -->
       
-      		
       <table border=0 style='width: 100%;height: 400px; vertical-align: top;'>
         <tr>					   			   
       	<td  >	
@@ -362,13 +358,11 @@ Dashboard Template: Code Explanation
                  packages: ["corechart", "line"]
            });
       
-            google.charts.setOnLoadCallback(drawChart);
+           google.charts.setOnLoadCallback(drawChart);
       	  google.charts.load('current', {'packages':['table','annotatedtimeline','gauge','bar','sankey']});
       	  google.charts.setOnLoadCallback(drawTable2);  
       		   
-         	  document.documentElement.style.overflowX = 'hidden';
-      
-      
+         	document.documentElement.style.overflowX = 'hidden';
             var START = 0;
             var ws;
             var topic = "";
@@ -419,10 +413,8 @@ Dashboard Template: Code Explanation
             function drawChart(jsondata, topic) {
       
                 issues = "";
-                issuecount = 0;
-      
-                if (jsondata) {
-      
+                issuecount = 0;      
+                if (jsondata) {      
                     var text;
                     var val;
                     var createdon;
@@ -521,10 +513,8 @@ Dashboard Template: Code Explanation
                 createdon = null;
                 winstart = null;
                 winend = null;
-      
                 symptom = null;
                 processtype = null;
-      
                 identifier = null;
                 idarr = null;
                 symptomcode = null;
@@ -610,8 +600,6 @@ Dashboard Template: Code Explanation
                 } else {
       
                     //console.log("datatbl=",datatbl);
-      
-      
                     formatter.format(datatbl, 1);
                     formatter2.format(datatbl, 2);
                     datatbl.sort({
@@ -645,7 +633,6 @@ Dashboard Template: Code Explanation
             }
       
        <!-- ******************************************** DRAW TABLE ********************************************* -->
-      
       
        <!--   ***************************************** START MAIN STREAMING FUNCTION ************************************************ -->
             function streamLiveKafkaData() {
@@ -748,8 +735,7 @@ Dashboard Template: Code Explanation
                         }
       
                         kafkacluster = obj.Webkafkacluster
-                        mainkafkatopic = obj.Webtopic
-      
+                        mainkafkatopic = obj.Webtopic      
                         document.getElementById('accesstime').innerHTML = curTime;
                         document.getElementById('kafkacluster').innerHTML = kafkacluster + ", Kafka Topic: " + obj.Webtopic;
                         mainusertopic = topic;
@@ -803,9 +789,8 @@ Dashboard Template: Code Explanation
       
                     };
       <!-- ****************************************** ON OPEN SOCKET EVENT ****************** -->
-      
-      <!-- ****************************************** ON ERROR SOCKET EVENT ****************** -->
-      
+   
+      <!-- ****************************************** ON ERROR SOCKET EVENT ****************** -->      
                     ws.onerror = function (error) {
                         if (ws) {
                             ws.close(1000);
@@ -852,23 +837,17 @@ Dashboard Template: Code Explanation
                     $("#start").attr("disabled", true);
                     //	    $("#statustext").val("WEBSOCKET CLOSING...");
                     document.getElementById('statustext').innerHTML = "WEBSOCKET CLOSING...";
-      
                 } else {
                     e.preventDefault(); // avoid to execute the actual submit of the form.
                     START = 1;
                     //   $("#statustext").val("WEBSOCKET OPEN..Receiving Kafka Msgs...");
                     document.getElementById('statustext').innerHTML = "WEBSOCKET OPEN..Receiving Kafka Msgs...";
-      
                     $("#start").html("Stop Streaming");
-                    streamLiveKafkaData();
-      
-                }
-      
+                    streamLiveKafkaData();      
+                }      
             });
-          </script>
-      
-      </body>
-      
+          </script>      
+      </body>   
       </html>
 
 
