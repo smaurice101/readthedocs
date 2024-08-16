@@ -77,7 +77,7 @@ http://localhost:9005/dashboard.html?topic=iot-preprocess&offset=-1&groupid=&rol
 Dashboard Template
 ------------------
 
-.. note::
+.. tip::
    
    Here is the dashboard template - you can easily build on this to create your amazing real-time dashboards.
 
