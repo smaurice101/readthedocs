@@ -1871,7 +1871,7 @@ and :ref:`Machine Learning Trained Model Sample JSON Output`.
       def startstreamingengine():
          
             # start the viperviz on Vipervizport
-            # STEP 5: START Visualization Viperviz 
+            # START Visualization Viperviz 
             subprocess.run(["tmux", "new", "-d", "-s", "visualization-viperviz"])
             subprocess.run(["tmux", "send-keys", "-t", "visualization-viperviz", "'cd /Viperviz'", "ENTER"])
             subprocess.run(["tmux", "send-keys", "-t", "visualization-viperviz", "'/Viperviz/viperviz-linux-{} 0.0.0.0 {}'".format(chip,vipervizport), "ENTER"])  
