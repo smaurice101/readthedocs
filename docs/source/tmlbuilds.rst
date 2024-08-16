@@ -1734,7 +1734,7 @@ Here are the **core parameters** in the above dag 6:
        also important if you wanted to keep track of training datasets for auditing and governance.
 
 Machine Learning Prediction Sample JSON Output
------------------------------
+^^^^^^^^^^^^^^^^^^^^^^
 
 .. code-block:: JSON
 
@@ -1883,7 +1883,7 @@ and :ref:`Machine Learning Trained Model Sample JSON Output`.
     dag = startstreaming()
 
 Visualization DAG Parameter Explanation
---------------------------
+^^^^^^^^^^^^^^^^^^^^^^^
 
 .. list-table::
 
