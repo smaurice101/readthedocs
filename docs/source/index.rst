@@ -16,7 +16,36 @@ Apply data preprocessing and auto machine learning to data streams and create tr
  
  **2. elastic**: machine learning solutions that can scale up or down using Kubernetes to control or enhance the number of data streams, algorithms (or machine learning models) and predictions instantly and continuously.
 
-TML is ideal when data are highly erratic (nonlinear) and you want the machine to learn from the **latest** dataset by creating sliding windows of training datasets and auto creating **micro-machine learning models** quickly, that can be easily scaled, managed and the insights used immediately from any device!  **There are many TML use cases such as:**
+.. note::
+  TML is ideal when data are highly erratic (nonlinear) and you want the machine to learn from the **latest** dataset by creating sliding windows of training datasets and auto creating **micro-machine learning models** quickly, that can be easily scaled, managed and the insights used immediately from any device!  **There are many TML use cases such as:**
+  
+  1. frictionless: require minimal to no human intervention
+  
+  2. elastic: machine learning solutions that can scale up or down using Kubernetes to control or enhance the number of data streams, algorithms (or machine learning models) and predictions instantly and continuously.
+  
+  TML is ideal when data are highly erratic (nonlinear) and you want the machine to learn from the latest dataset by creating sliding windows of training datasets and auto creating micro-machine learning models quickly, that can be easily scaled, managed and the insights used immediately from any device! There are many TML use cases such as:
+  
+  1. IoT: Capture real-time, fast, data, and build custom micro-machine learning models for every IoT device specific to the environment that the device operates in and predict failures, optimize device settings, and more.
+  
+  2. IoT Edge: TML is ideal for edge devices with No Internet connections. Simply use the On-Prem version of TML software, with On-Prem Kafka and create large and powerful, real-time, edge solutions.
+  
+  3. HealthCare: TML is ideal for health data processing for patients, payers, and providers. Open access to health data has been mandated by CMS, which opens up enormous opportunities for TML.
+  
+  4. Banking/Finance Fraud Detect: Detect fraud using unsupervised learning on data streams and process millions of transactions for fraud - see the LinkedIn blog
+  
+  5. Financial Trading: Use TML to analyse stock prices and predict sub-second stock prices!
+  
+  6. Pricing: Use TML to build optimal pricing of products at scale.
+  
+  7. Oil/Gas: Use TML to optimize oil drilling operations sub-second and drill oil wells faster and cheaper with minimal downtime
+  
+  8. SO MUCH MORE...
+  
+  The above usecases are not possible with conventional machine learning methods that require frequent human interventions that create lots of friction, and not very elastic.
+  
+  By using Apache Kafka On-Premise many advanced, and large, TML usecases are 80-90% cheaper than cloud-native usecases, mainly because storage, compute, Egress/Ingress and Kafka partitions are localized. Given Compute and Storage are extremely low-cost On-Premise solutions with TML are on the rise. TML On-Prem is ideal for small companies or startups that do not want to incur large cloud costs but still want to provide TML solutions to their customers.
+  
+  Strengthen your knowledge of the inner workings of TML solutions using data streams with auto machine learning integrated with Apache Kafka. You will be at the forefront of an exciting area of machine learning that is focused on speed of data and algorithm creation, scale, and automation.
 
 Contents
 --------
