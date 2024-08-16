@@ -5,6 +5,10 @@ MAADSTML Python Library API
 
 *Revolutionizing Data Stream Science with Transactional Machine Learning*
 
+.. important::
+
+   The MAADSTML python library is a very powerful library that accelerates TML solution builds. While this library includes many functions, the TSS automatically    calls the core functions for your TML solution - considerably reducing the effort on your part.
+
 **Overview**
 
 *MAADSTML combines Artificial Intelligence, ChatGPT, PrivateGPT, Auto Machine Learning with Data Streams Integrated with Apache Kafka (or Redpanda) to create frictionless and elastic machine learning solutions.*  
