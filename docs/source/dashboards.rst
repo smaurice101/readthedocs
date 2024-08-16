@@ -66,3 +66,10 @@ http://localhost:9005/dashboard.html?topic=iot-preprocess&offset=-1&groupid=&rol
        append.
    * - secure=1
      - Secure connection
+
+Dashboard Template
+------------------
+
+Here is the dashboard template - you can easily build on this to create your amazing real-time dashboards.
+
+.. figure:: dashtemp.png
