@@ -69,7 +69,7 @@ Refer to :ref:`TML and Generative AI` for more details.
 7. TML Component: TML Solution Studio Container
 ------------------------
 
-For convenience, TML solution can be easily built using the TML Solution Studio container.  Refer to :ref:`TML Solution Studio Container` for further details.
+For convenience, TML solution can be easily built using the TML Solution Studio container.  Refer to :ref:`TML Solution Studio (TSS) Container` for further details.
 
 How The TML Components Are Integrated 
 --------------------------
