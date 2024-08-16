@@ -73,3 +73,8 @@ Dashboard Template
 Here is the dashboard template - you can easily build on this to create your amazing real-time dashboards.
 
 .. figure:: dashtemp.png
+
+More Dashboard Examples
+------------------
+
+More examples are here: `<https://github.com/smaurice101/raspberrypi/tree/main/tml-airflow/dashboard>`_
