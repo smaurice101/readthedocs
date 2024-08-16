@@ -1879,6 +1879,28 @@ and :ref:`Machine Learning Trained Model Sample JSON Output`.
             
     dag = startstreaming()
 
+Visualization DAG Parameter Explanation
+--------------------------
+
+.. list-table::
+
+   * - **DAG Parameter**
+     - **Explanation**
+   * - topic
+     - This is the topic that Viperviz will consume from.  For example, Viperviz will automatically connect into this topic: iot-preprocess, and start streaming to your browser. If you want to consume from multiple topics, you can specify topic: iot-preprocess,iot-preprocess2,iot-preprocess3
+   * - secure
+     - If set to 1, then connection is tLS secure, if 0 it is not.
+   * - vipervizport
+     - This is the port you want the Viperviz binary to listen on.  For example, if 9005, Viperviz will listen on Port 9005
+   * - offset
+     - Indicate where in the stream to consume from.  If -1, latest data is consumed.
+   * - append
+     - If 0, data will not accumulate in your dashboard, if 1 it will accumulate.
+   * - chip
+     - Viperviz can run on Windows/Mac/Linux.  Use 'amd64' for Windows/Linux, use 'arm64' for Mac/Linux   
+   * - rollbackoffset
+     - This indicates the number of offsets to rollack from the latest (or end of the stream). If 500, then Viperviz wll grab all of the data from the last 
+       offset - 500
 
 GenAI
 ---------
