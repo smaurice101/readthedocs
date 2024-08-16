@@ -4,8 +4,8 @@ Welcome to Transactional Machine Learning (TML) Documentation!
 .. attention::
    **Transactional Machine Learning : The Machine Learning Platform for Real-Time Data Streams**
 
-   TML Is Based On the Belief that **"Fast data requires fast machine learning and AI for fast decision-making"** that provides a faster way to build advanced, scalable, cost- 
-   effective and secure real-time solutions that can be built by anyone.
+   TML Is Based On the Belief that **"Fast data requires fast machine learning and AI for fast decision-making"** that provides **a faster way to build advanced, scalable, cost- 
+   effective and secure real-time solutions that can be built by anyone.**
 
    TML gives rise in the industy to a **Data Stream Scientist** versus a **Data Scientist** in conventional machine learning (CML). 
 
