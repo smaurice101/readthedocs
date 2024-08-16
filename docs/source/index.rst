@@ -18,10 +18,6 @@ Apply data preprocessing and auto machine learning to data streams and create tr
 
 TML is ideal when data are highly erratic (nonlinear) and you want the machine to learn from the **latest** dataset by creating sliding windows of training datasets and auto creating **micro-machine learning models** quickly, that can be easily scaled, managed and the insights used immediately from any device!  **There are many TML use cases such as:**
 
-.. note::
-
-   This project is under active development.
-
 Contents
 --------
 
