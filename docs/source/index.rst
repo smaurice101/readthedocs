@@ -9,7 +9,7 @@ Welcome to Transactional Machine Learning (TML) Documentation!
 
    TML gives rise in the industy to a **Data Stream Scientist** versus a **Data Scientist** in conventional machine learning (CML). 
 
-**Transactional Machine Learning (TML)** using Data Streams and AutoML is a platform for building and streaming cloud native (or on-prem) solutions using Apache Kafka or Redpanda as the data backbone, with Kubernetes and Docker as core infrastucture components, running on Confluent, AWS, GCP, AZURE,* for advanced machine learning solutions using transactional data to learn from, and provide insights, quickly and continuously to any number of devices and humans in any format!
+**Transactional Machine Learning (TML)** using Data Streams and AutoML is a platform for building and streaming cloud native (or on-prem) solutions using Apache Kafka or Redpanda as the data backbone, with Kubernetes and Docker as core infrastucture components, running on Confluent, AWS, GCP, AZURE, for advanced machine learning solutions using transactional data to learn from, and provide insights, quickly and continuously to any number of devices and humans in any format!
 
 **TML Book Details Found Here:** `Springer (Publisher) site <https://link.springer.com/book/10.1007/978-1-4842-7023-3>`_
 
