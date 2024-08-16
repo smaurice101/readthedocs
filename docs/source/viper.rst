@@ -6,7 +6,7 @@ MAADS-VIPER Environmental Variable Configuration (Viper.env)
 
 .. note::
 
-   The setting of these environmental variables is automatically set for you in the TML Solution Studio.  They are presented here for informational purposes.
+   The setting of these environmental variables are automatically set for you in the TML Solution Studio DAGs.  They are presented here for informational purposes.
 
    Refer to :ref:`Pre-Written 10 Apache Airflow DAGs To Speed Up TML Solution Builds`
 
