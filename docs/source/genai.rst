@@ -33,7 +33,7 @@ The privateGPT container can be found on Docker hub.  The container will require
    docker run -d -p 8001:8001 --gpus all --net=host --env PORT=8001 --env GPU=1 --env WEB_CONCURRENCY=1 --env COLLECTION=tml-cisco --env CUDA_VISIBLE_DEVICES=0 
    maadsdocker/tml-privategpt-with-gpu-nvidia-amd64
 
-.. important::
+.. tip::
 
    To check if privateGPT is running enter this in your browser: http://localhost:8001
 
@@ -49,7 +49,7 @@ The privateGPT container can be found on Docker hub.  The container will require
 PrivateGPT Container With NO GPU
 -----------------
 
-.. note::
+.. tip::
 
    If you do not have a Nvidia GPU you can use the docker container with NO GPU: 
 
