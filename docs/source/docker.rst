@@ -5,7 +5,7 @@ This is the main container that you need to use to build TML solutions.  Below i
 
 .. note::
    Use this TSS container and start building amazing, advanced and scalable real-time data streaming solutions - with real-time dashboards - auto deployment to 
-   Docker - auto solution documentation - integrated with AI - integrated with Github - integrated Apache Airflow - integrated Apache Kafka - in just a few hours.
+   Docker - auto solution documentation - integrated with AI - integrated with Github - integrated with Apache Airflow - integrated with Apache Kafka - in just a few hours.
 
 .. code-block::
 
