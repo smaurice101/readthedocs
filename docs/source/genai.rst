@@ -24,13 +24,6 @@ Private GPT Container
 
 The privateGPT container can be found on Docker hub.  The container will require a NVIDIA GPU.
 
-.. note::
-
-   If you do not have a Nvidia GPU you can use the docker container with NO GPU: 
-
-   docker run -d -p 8001:8001 --env PORT=8001 --env GPU=0 --env CUDA_VISIBLE_DEVICES=0 maadsdocker/tml-privategpt-no-gpu-amd64
-
-
 .. code-block::
 
    docker pull maadsdocker/tml-privategpt-with-gpu-nvidia-amd64
@@ -51,6 +44,16 @@ The privateGPT container can be found on Docker hub.  The container will require
 .. note::
    
    If you set WEB_CONCURRENCY greater than 1, you will need Qdrant Vector DB running (see below)
+
+
+PrivateGPT Container With NO GPU
+-----------------
+
+.. note::
+
+   If you do not have a Nvidia GPU you can use the docker container with NO GPU: 
+
+   docker run -d -p 8001:8001 --env PORT=8001 --env GPU=0 --env CUDA_VISIBLE_DEVICES=0 maadsdocker/tml-privategpt-no-gpu-amd64
 
 
 Here is some sample code to access the privateGPT container using the maadstml API:
