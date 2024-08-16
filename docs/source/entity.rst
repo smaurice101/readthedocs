@@ -24,7 +24,7 @@ TML Processes Real-Time Data Using Sliding Time Windows
 
 .. figure:: tml1.png
 
-.. note::
+.. attention::
 
    * TML performs in-memory processing of data in the Kafka Topic using TWO components across all sliding time windows
    * REST API connect MAADSTML python script to MAADS-VIPER
@@ -38,7 +38,7 @@ TML Machine Learning  Using Sliding Time Windows
 
 .. figure:: tml2.png
 
-.. note::
+.. attention::
 
    * TML performs in-memory machine learning of data in the Kafka Topic by joining data streams using THREE components across all sliding time windows:   
    * REST API connect MAADSTML python script to MAADS-VIPER and MAADS-HPDE
