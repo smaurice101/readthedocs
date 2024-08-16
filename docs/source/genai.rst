@@ -61,6 +61,10 @@ Accessing PrivateGPT With MAADSTML Python API
 
 Once you have the PrivateGPT container running you can access it using the maadstml API. Here is some sample Python code to access the privateGPT container:
 
+.. note:
+
+   Since PrivateGPT is compatible with REST API, you can use any programming language, and take advantage of free, and fast AI.
+
 .. code-block::
    :emphasize-lines: 4,11,21,22,23,26
 
