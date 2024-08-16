@@ -7,7 +7,7 @@ You can push and pull changes directly from the TML Solution Studio - integrated
 
 .. note::
 
-   You can commit your code in the local and remote branches to ensure tightly controlled code changes.  This is a important aspect of the TML Studio Studio (TSS) as    well, all **git pushes** can be done directly from the TSS.
+   You can commit your code in the local and remote branches to ensure tightly controlled code changes.  This is an important aspect of the TML Studio Studio (TSS) as    well, all **git pushes** can be done directly from the TSS.
 
 
 Push To and Pull From Local and Remote Github Branches
