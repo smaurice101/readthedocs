@@ -1851,8 +1851,8 @@ and :ref:`Machine Learning Trained Model Sample JSON Output`.
       'vipervizport' : 9005,   # <<< *** Port where viperviz is listening
       'offset' : -1,    # <<< *** -1 indicates to read from the last offset always
       'append' : 0,   # << ** Do not append new data in the browser
-      'chip' : "amd64", # << ** windows/linux=amd64, MAC/linux=arm64   
-      'rollbackoffset' : 500, # *************** Rollback the data stream by rollbackoffset.  For example, if 500, then Viperviz wll grab all of the data from the last offset - 500
+      'chip' : 'amd64', # << ** windows/linux=amd64, MAC/linux=arm64   
+      'rollbackoffset' : 500, # *** Rollback the data stream by rollbackoffset. If 500, then Viperviz wll grab all of the data from the last offset - 500
       'start_date': datetime (2024, 6, 29),   # <<< *** Change as needed   
       'retries': 1,   # <<< *** Change as needed           
     }
