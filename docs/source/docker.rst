@@ -1,5 +1,7 @@
-TML Solution Studio (TSS) Container: Coming Soon
+TML Solution Studio (TSS) Container
 ======================================
+
+Comming Soon.
 
 This is the main container that you need to use to build TML solutions.  Below is the **docker run** command to run the container.
 
