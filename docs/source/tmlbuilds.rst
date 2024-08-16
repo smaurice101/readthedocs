@@ -1768,7 +1768,7 @@ Machine Learning Prediction Sample JSON Output
     "HasConstantTerm": "1"
    }
 
-.. important::
+.. tip::
    
    It will be important to carefully study these fields for the visualization or for other downstream analysis.
 
