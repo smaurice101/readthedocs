@@ -79,6 +79,8 @@ Dashboard Template
    This dashboard is a template that will immediately start to visualize your streaming data.  You can add/edit/modify this dashboard to fit your business needs - 
    it is written in simple HTML and Javascript.  This template is a great way to quickly get you started with amazing real-time visualizations.
 
+   You can modify it in TML Solution Studio (TSS) and commit changes to Github directly from the TSS.
+
 .. figure:: dashtemp.png
 
 More Dashboard Examples
