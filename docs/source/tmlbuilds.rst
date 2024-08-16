@@ -47,7 +47,8 @@ Users simply make configuration changes to the DAGs and build the solution.  TML
 Where Do I Start?
 ----------
 
-**START HERE**: The fastest way to build TML solutions with your real-time data is to use the :ref:`TML Solution Studio (TSS) Container`
+.. important::
+   **START HERE**: The fastest way to build TML solutions with your real-time data is to use the :ref:`TML Solution Studio (TSS) Container`
 
 Pre-Written 10 Apache Airflow DAGs To Speed Up TML Solution Builds
 -------------------
