@@ -52,7 +52,6 @@ Contents
    
    tmlbook
    docker   
-   howtouse
    tmlbuilds
    tmllogs
    examples
