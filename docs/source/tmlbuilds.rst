@@ -49,22 +49,6 @@ Where Do I Start?
 
 **START HERE**: The fastest way to build TML solutions with your real-time data is to use the :ref:`TML Solution Studio Container`
 
-.. important::
-
-   **The following prerequisites MUST be met before you run the TML Solution Studio Container:**
-
-   1. You MUST Install Docker - in Ubuntu run: sudo apt install docker.io
-
-   2. You MUST have a Github Account
-
-   3. You MUST Clone Github Repo: https://github.com/smaurice101/raspberrypi.git
-
-   4. You MUST Create Github **Personal Access Token** (Refer to Docker section)
-
-   5. You MUST have a Docker Hub account
-
-   FOLLOW THE :ref:`How To Use the TML Solution Container` SECTION.
-
 Pre-Written 10 Apache Airflow DAGs To Speed Up TML Solution Builds
 -------------------
 
