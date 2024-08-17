@@ -66,22 +66,27 @@ DAG Solution Process Explanation
 
     1. Build Process starts with setting up system parameters for **Initial TML Solution Setup**.  Users simply need to provide configuration information in the 
        following DAG:  
-       - :ref:`tml_system_step_1_getparams_dag`
+
+       :ref:`STEP 1: Get TML Core Params: tml_system_step_1_getparams_dag`
+
     2. The next step is to create all your **topics** in Kafka - these topic will store all your input and output data.  This is done in:
-       - :ref:`tml_system_step_2_kafka_createtopic_dag`
+
+       :ref:`STEP 2: Create Kafka Topics: tml_system_step_2_kafka_createtopic_dag`
     
     **Your initial TML setup is complete.**
 
     Next, you want to start generating and producing data to the topics you creating and choose an **Ingest Real-Time Data Method**.  TML provides you with FOUR 
     (4) methods to stream your own data from any device.  This is done in the following DAGS - you need to CHOOSE ONE method: 
 
-    3a.  MQTT: :ref:`tml-read-MQTT-step-3-kafka-producetotopic-dag.py`
+    3. :ref:`STEP 3: Produce to Kafka Topics`
 
-    3b.  REST API: :ref:`tml-read-RESTAPI-step-3-kafka-producetotopic-dag`
+    3a.  MQTT: :ref:`STEP 3a: Produce Data Using MQTT: tml-read-MQTT-step-3-kafka-producetotopic-dag.py`
+
+    3b.  REST API: :ref:`STEP 3b: Produce Data Using RESTAPI: tml-read-RESTAPI-step-3-kafka-producetotopic-dag.py`
     
-    3c.  gRPC: :ref:`tml-read-gRPC-step-3-kafka-producetotopic-dag` 
+    3c.  gRPC: :ref:`STEP 3c: Produce Data Using gRPC: tml-read-gRPC-step-3-kafka-producetotopic-dag.py` 
     
-    3d.  Local File: :ref:`tml-read-LOCALFILE-step-3-kafka-producetotopic-dag.py` 
+    3d.  Local File: :ref:`STEP 3d: Produce Data Using LOCALFILE: tml-read-LOCALFILE-step-3-kafka-producetotopic-dag.py` 
 
     You are also provided CLIENT files for REST API and gRPC - these clients connect to the SERVERS in 3b and 3c:
 
@@ -93,29 +98,29 @@ DAG Solution Process Explanation
 
     After you have chosen an ingest data method and producing data, you are ready to **Preprocess Real-Time Data** - the next DAG performs this function:
 
-    4. :ref:`tml-system-step-4-kafka-preprocess-dag` - Preprocessing is a very quick way to start generating insights from your real-time in few minutes.  All 
+    4. :ref:`STEP 4: Preprocesing Data: tml-system-step-4-kafka-preprocess-dag.py` - Preprocessing is a very quick way to start generating insights from your real-time in few minutes.  All 
        preprocessing is done **in-memory and no external databases are needed, only Kafka**.  After you have preprocessed your data, you can use this 
        preprocessed data for **machine learning** - the next DAG performs this function:
 
-    5. :ref:`tml-system-step-5-kafka-machine-learning-dag` - this is another powerful DAG automatically starts building entity based machine learning models for 
+    5. :ref:`STEP 5: Entity Based Machine Learning : tml-system-step-5-kafka-machine-learning-dag.py` - this is another powerful DAG automatically starts building entity based machine learning models for 
         your real-time data.  Note, TML will continuously build ML models are new data streams in.  All machine learning is done **in-memory and no external 
         databases are needed, only Kafka**.  As these models are trained on your real-time data - the next 
         DAG performs predictions:
     
-    6. :ref:`tml-system-step-6-kafka-predictions-dag` - These predictions get automatically generated in parallel to machine learning training process in DAG 5.  
+    6. :ref:`STEP 6: Entity Based Predictions: tml-system-step-6-kafka-predictions-dag` - These predictions get automatically generated in parallel to machine learning training process in DAG 5.  
         As predictions are being generated, you can stream these predictions to a real-time dashboard - the next DAG performs this function:
 
-    7. :ref:`tml-system-step-7-kafka-visualization-dag` - The visualization data are streamed directly from the TML solution container over websockets to the 
+    7. :ref:`STEP 7: Real-Time Visualization: tml-system-step-7-kafka-visualization-dag` - The visualization data are streamed directly from the TML solution container over websockets to the 
        client browser, this eliminates any need for third-party visualization software.  Now, that you have built the **ENTIRE TML SOLUTION END-END** you are 
        ready to deploy it to Docker - the next DAG performs this function:  
 
-    8. :ref:`tml_system_step_8_deploy_solution_to_docker_dag` - The TML docker container is automatically built for you and pushed to Docker Hub.  If you have 
+    8. :ref:`STEP 8: Deploy TML Solution to Docker : tml-system-step-8-deploy-solution-to-docker-dag.py` - The TML docker container is automatically built for you and pushed to Docker Hub.  If you have 
        chosen to integrate GPT into you solution - you can initiate the PrivateGPT and Qdrant containers - the next DAG performs this function.
 
-    9. :ref:`tml_system_step_9_privategpt_qdrant_dag` - The TML docker container is automatically built for you and pushed to Docker Hub.  Lastly, you can now 
+    9. :ref:`STEP 9: PrivateGPT and Qdrant Integration: tml-system-step-9-privategpt_qdrant-dag.py` - The TML docker container is automatically built for you and pushed to Docker Hub.  Lastly, you can now 
         automatically document the entire solution - the next DAG performs this function.
 
-    10. :ref:`tml_system_step_10_documentation_dag`.  
+    10. :ref:`STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag.py`.  
 
     **YOU ARE DONE!  You just build an advanced, scalable, end-end real-time solution and deployed it to Docker, integrated with AI and with online 
     documentation.**  
@@ -2124,9 +2129,14 @@ Visualization DAG Parameter Explanation
      - This indicates the number of offsets to rollack from the latest (or end of the stream). If 500, then Viperviz wll grab all of the data from the last 
        offset - 500
 
-GenAI
----------
+STEP 8: Deploy TML Solution to Docker : tml-system-step-8-deploy-solution-to-docker-dag.py
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+STEP 9: PrivateGPT and Qdrant Integration: tml-system-step-9-privategpt_qdrant-dag.py
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag.py
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Example TML Solution Container Reference Architecture
 -----------------------------------------------
