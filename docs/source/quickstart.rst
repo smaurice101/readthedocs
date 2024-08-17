@@ -39,6 +39,9 @@ You should see this Dashboard in your browser start to populate with real-time p
 .. note::
    The above dashboard is processing real-time data and streaming it directly from your container to your browser using websockets.
 
+.. tip::
+    Hover over with your mouse on the map bubbles.  You can also download all the table data by clicking "Download as CSV".
+
 QUICK START: Another TML Soluton with Real-Time Entity Based Processing AND Machine Learning
 ----------------------------------------------------------------------
 
