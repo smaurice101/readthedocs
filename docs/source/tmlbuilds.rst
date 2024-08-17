@@ -327,7 +327,6 @@ STEP 3: Produce to Kafka Topics
        solution ingests data from devices and you want 
        to leverage a rest connection and stream the data to Kafka.
    
-
 STEP 3a: Produce Data Using MQTT: tml-read-MQTT-step-3-kafka-producetotopic-dag.py
 """"""""""""""""""""""""""" 	
 
@@ -442,7 +441,6 @@ STEP 3a: Produce Data Using MQTT: tml-read-MQTT-step-3-kafka-producetotopic-dag.
          
      gettmlsystemsparams(mqttserverconnect())
        
-   
    dag = startproducingtotopic()
 
 STEP 3b: Produce Data Using RESTAPI: tml-read-RESTAPI-step-3-kafka-producetotopic-dag.py
@@ -595,6 +593,22 @@ STEP 3b.i: REST API CLIENT: `tml-client-RESTAPI-step-3-kafka-producetotopic.py <
             
     if __name__ == '__main__':
         start()
+
+STEP 3b.i: REST API CLIENT: Explanation
+""""""""""""""""""""""""""""
+
+The REST API client runs outside the TML solution container.  The client api gives you the capability of connecting to your internal systems or devices and stream the data directly to the TML server producer.  The TML server producer receives data from REST API client and produces the data to Kafka.
+
+.. important:: 
+   The REST API client runs outside the TML solution container.  This is a very simple and convenient way to stream any type of json data from any device in your 
+   environment.
+
+.. list-table::
+
+   * - **Client Core Variables**
+     - **Explanation**
+
+    
 
 STEP 3c: Produce Data Using gRPC: tml-read-gRPC-step-3-kafka-producetotopic-dag.py
 """"""""""""""""""""""""""""""""""""""""" 	
