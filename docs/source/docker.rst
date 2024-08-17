@@ -74,7 +74,7 @@ Generating Personal Access Tokens in Github
 Generating Personal Access Tokens in Github: Explanation
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-..tip:: 
+.. tip:: 
    Follow these steps:
 
       1. Log in to your Github account
