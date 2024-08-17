@@ -801,6 +801,34 @@ STEP 3c.i: gRPC API CLIENT: `tml-client-gRPC-step-3-kafka-producetotopic.py <htt
         except Exception as e:
           print("ERROR: ",e)
 
+STEP 3c.i: gRPC API CLIENT: Explanation
+""""""""""""""""""""""""""""
+
+The gRPC API client runs outside the TML solution container.  The client api gives you the capability of connecting to your internal systems or devices and stream the data directly to the TML server producer.  The TML server producer receives data from gRPC API client and produces the data to Kafka.
+
+.. important:: 
+   The gRPC API client runs outside the TML solution container.  This is a very simple and convenient way to stream any type of json data from any device in your 
+   environment.
+
+.. list-table::
+
+   * - **Client Core Variables**
+     - **Explanation**
+   * - gRPC imports
+     - You will need the gRPC imports:
+
+         1. `tml_grpc_pb2_grpc <https://github.com/smaurice101/raspberrypi/blob/main/tml-airflow/dags/tml_grpc_pb2_grpc.py>`_ as pb2_grpc
+         2. `tml_grpc_pb2 <https://github.com/smaurice101/raspberrypi/blob/main/tml-airflow/dags/tml_grpc_pb2.py>`_ as pb2
+         3. `tml_grpc.proto <https://github.com/smaurice101/raspberrypi/blob/main/tml-airflow/dags/tml_grpc.proto>`_
+
+       Simply download and place these files in the same folder as your gRPC client.
+   * - connection parameters
+     - You need to set:
+      
+       1. self.host = 'localhost'
+       2. self.server_port = 9001 # This the gRPC_port in :ref:`STEP 3c: Produce Data Using gRPC: tml-read-gRPC-step-3-kafka-producetotopic-dag.py`
+
+
 STEP 3d: Produce Data Using LOCALFILE: tml-read-LOCALFILE-step-3-kafka-producetotopic-dag.py
 """""""""""""""""""""""""""""""""""""""""" 	
 
