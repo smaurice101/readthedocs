@@ -22,6 +22,9 @@ Then, open up your favorite browser and enter this URL below:
     
     http://localhost:9005/iot-failure-seneca.html?topic=iot-preprocess2,iot-preprocess&offset=-1&groupid=&rollbackoffset=500&topictype=prediction&append=0&secure=1
 
-You should see this Dashboard in your browser:
+.. tip::
+    PRESS THE RED "START STREAMING" button in the top-left...
+
+You should see this Dashboard in your browser start to populate with real-time IOT data:
 
 .. figure:: demosol.png
