@@ -39,6 +39,20 @@ Where Is TML Used?
    students in Universities and Colleges around the world as official part of the curriculum courses in IoT, Cybersecurity, Machine Learning, Data Science, and 
    Big Data Management courses.
 
+Can I Run TML Binaries in Standalone?
+------------------------------------
+
+.. note:
+    Yes, the :ref:`TML Solution Components` can be run as standalone.  If you want to learn more please view the Youtube:
+    
+    1. `TML Crash Course Part 1: <https://youtu.be/yh-qUe5KnaA>`_
+    
+    2. `TML Crash Course Part 2: <https://youtu.be/ol_BcXgoFVU>`_
+    
+    3. `TML Crash Course Part 3: <https://youtu.be/u5mcX1xRsvk>`_
+    
+    4. `TML Crash Course Part 4: <https://youtu.be/jSFDgOKdnbE>`_
+
 TML Solutions Can Be Built In 10 Steps Using Pre-Written DAGs (Directed Acyclic Graphs)
 ----------------------------------------------------------
 
