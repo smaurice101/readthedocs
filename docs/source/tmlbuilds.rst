@@ -752,7 +752,7 @@ STEP 3c.i: gRPC API CLIENT: `tml-client-gRPC-step-3-kafka-producetotopic.py <htt
 """""""""""""""""""""""""""""""""""""""" 	
   
 .. code-block:: PYTHON
-   :emphasize-lines: 14,15,28,35
+   :emphasize-lines: 2,3,14,15,28,35
   
     import grpc
     import tml_grpc_pb2_grpc as pb2_grpc
