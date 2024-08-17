@@ -34,7 +34,7 @@ Then, open up your favorite browser and enter this URL below:
 
 You should see this Dashboard in your browser start to populate with real-time preprocessed IOT data:
 
-.. figure:: demosol.png
+.. figure:: demosol1a.png
 
 .. note::
    The above dashboard is processing real-time data and streaming it directly from your container to your browser using websockets.
