@@ -20,6 +20,8 @@ Welcome to Transactional Machine Learning (TML) Documentation!
 
 **TML Video:** `Watch the Youtube Video <https://youtu.be/ZrhRg2J8YbU>`_
 
+**TML Solution Studio Video:** [coming soon]
+
 Apply data preprocessing and auto machine learning to data streams and create transactional machine learning (TML) solutions that are:
  
  **1. frictionless**: require minimal to no human intervention 
