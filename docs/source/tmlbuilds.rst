@@ -752,7 +752,7 @@ STEP 3c.i: gRPC API CLIENT: `tml-client-gRPC-step-3-kafka-producetotopic.py <htt
 """""""""""""""""""""""""""""""""""""""" 	
   
 .. code-block:: PYTHON
-   :emphasize-lines: 10,11,22,23,40
+   :emphasize-lines: 10,11,22,23,42
   
     import maadstml
     from airflow import DAG
@@ -796,7 +796,7 @@ STEP 3c.i: gRPC API CLIENT: `tml-client-gRPC-step-3-kafka-producetotopic.py <htt
     if __name__ == '__main__':
         try:
           client = TmlgrpcClient()
-          result = client.get_url(message="SEND YOUR DATA HERE")
+          result = client.get_url(message="PUT YOUR DATA HERE")
           print(f'{result}')
         except Exception as e:
           print("ERROR: ",e)
@@ -827,7 +827,8 @@ The gRPC API client runs outside the TML solution container.  The client api giv
       
        1. self.host = 'localhost'
        2. self.server_port = 9001 # This the gRPC_port in :ref:`STEP 3c: Produce Data Using gRPC: tml-read-gRPC-step-3-kafka-producetotopic-dag.py`
-
+   * - message
+     - You put your Json message here:  **client.get_url(message="PUT YOUR DATA HERE")**
 
 STEP 3d: Produce Data Using LOCALFILE: tml-read-LOCALFILE-step-3-kafka-producetotopic-dag.py
 """""""""""""""""""""""""""""""""""""""""" 	
