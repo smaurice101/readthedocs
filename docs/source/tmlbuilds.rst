@@ -161,9 +161,10 @@ Below is the complete definition of the **tml_system_step_1_getparams_dag**.  Us
     def getparams(args):
        VIPERHOST=""
        VIPERPORT=""
-       HTTPADDR2="http://"
+       HTTPADDR="http://"
        HPDEHOST=""
        HPDEPORT=""
+       VIPERTOKEN = ""
       
        with open(basedir + "/Viper-produce/admin.tok", "r") as f:
           VIPERTOKEN=f.read()
@@ -175,7 +176,7 @@ Below is the complete definition of the **tml_system_step_1_getparams_dag**.  Us
             VIPERPORT = output.split(",")[1]
           with open('/Hpde/hpde.txt', 'r') as f:
             output = f.read()
-            HPDEHOST = HTTPADDR2 + output.split(",")[0]
+            HPDEHOST = HTTPADDR + output.split(",")[0]
             HPDEPORT = output.split(",")[1]
   
        ti.xcom_push(key='VIPERTOKEN',value=VIPERTOKEN)
