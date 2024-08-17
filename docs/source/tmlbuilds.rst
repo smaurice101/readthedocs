@@ -616,20 +616,20 @@ The REST API client runs outside the TML solution container.  The client api giv
    * - apiroute
      - This indicates how you are sending your Json message.   You have two options: 
 
-     1. jsondataline: You can send One Json message at a time in each Api call
-     2. jsondatarray: You can send a Json array in each Api call
+       1. jsondataline: You can send One Json message at a time in each Api call
+       2. jsondatarray: You can send a Json array in each Api call
 
-     Note: Your Json must be a valid Json.  Just store your json in **datajson** 
-  * - API_ENDPOINT 
-    - API_ENDPOINT = "http://localhost:{}/{}".format(rest_port,apiroute)
+       Note: Your Json must be a valid Json.  Just store your json in **datajson** 
+   * - API_ENDPOINT 
+     - API_ENDPOINT = "http://localhost:{}/{}".format(rest_port,apiroute)
 
       This connects to the endpoint defined in :ref:`STEP 3b: Produce Data Using RESTAPI: tml-read-RESTAPI-step-3-kafka-producetotopic-dag.py`    
-  * - start()
-    - This function starts the process.
+   * - start()
+     - This function starts the process.
 
       Note: You can simply modify this function as you wish repeatly to stream your data.
-  * - send_tml_data(data)
-    - This is the main function that streams your data to :ref:`STEP 3b: Produce Data Using RESTAPI: tml-read-RESTAPI-step-3-kafka-producetotopic-dag.py`
+   * - send_tml_data(data)
+     - This is the main function that streams your data to :ref:`STEP 3b: Produce Data Using RESTAPI: tml-read-RESTAPI-step-3-kafka-producetotopic-dag.py`
 
 STEP 3c: Produce Data Using gRPC: tml-read-gRPC-step-3-kafka-producetotopic-dag.py
 """"""""""""""""""""""""""""""""""""""""" 	
