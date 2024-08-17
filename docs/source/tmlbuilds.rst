@@ -193,7 +193,7 @@ Below is the complete definition of the **tml_system_step_1_getparams_dag**.  Us
    dag = tmlparams()
 
 STEP 2: Create Kafka Topics: tml_system_step_2_kafka_createtopic_dag
------------------
+^^^^^^^^^^^^^^^^^^^^^^^
 
 Below is the complete definition of the **tml_system_step_2_kafka_createtopic_dag** that creates all the topics for your solution.  Users only need to configure the code highlighted in the **USER CHOSEN PARAMETERS**.
 
@@ -289,7 +289,7 @@ Below is the complete definition of the **tml_system_step_2_kafka_createtopic_da
 
 
 STEP 3: Produce to Kafka Topics
------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. attention::
 
@@ -774,7 +774,7 @@ STEP 3d: Produce Data Using LOCALFILE: tml-read-LOCALFILE-step-3-kafka-produceto
    dag = startproducingtotopic()
 
 STEP 4: Preprocesing Data: tml-system-step-4-kafka-preprocess-dag.py
---------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Preprocessing Types
 ^^^^^^^^^^^^^^^^
