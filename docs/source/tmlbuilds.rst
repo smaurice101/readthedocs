@@ -752,17 +752,9 @@ STEP 3c.i: gRPC API CLIENT: `tml-client-gRPC-step-3-kafka-producetotopic.py <htt
 """""""""""""""""""""""""""""""""""""""" 	
   
 .. code-block:: PYTHON
-   :emphasize-lines: 10,11,22,23,42
+   :emphasize-lines: 14,15,28,35
   
-    import maadstml
-    from airflow import DAG
-    from airflow.operators.python import PythonOperator
-    from airflow.operators.bash import BashOperator    
-    from datetime import datetime
-    from airflow.decorators import dag, task
     import grpc
-    from concurrent import futures
-    import time
     import tml_grpc_pb2_grpc as pb2_grpc
     import tml_grpc_pb2 as pb2
     import sys
