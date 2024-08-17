@@ -1,6 +1,8 @@
 QUICK START: Run A TML Solution Right Now!
 ====================================
 
+QUICK START: TML Soluton with Real-Time Entity Based Processing
+
 For users who want to quickly see a running solution now, just do the following.
 
 .. note:: 
@@ -28,3 +30,34 @@ Then, open up your favorite browser and enter this URL below:
 You should see this Dashboard in your browser start to populate with real-time IOT data:
 
 .. figure:: demosol.png
+
+.. note::
+   The above dashboard is processing real-time data and streaming it directly from your container to your browser using websockets.
+
+QUICK START: Another TML Soluton with Real-Time Entity Based Processing AND Machine Learning
+----------------------------------------------------------------------
+
+Let's run another TML solution, but this time with machine learning models being created for each device entity.
+
+Run this docker command:
+
+.. code-block::
+
+   docker run -d -p 9006:9006 maadsdocker/uoft-iot-tml-kafka-amd64
+
+.. tip::
+    Wait about 10 seconds...
+
+Then, open up your favorite browser and enter this URL below:
+
+.. code-block:: 
+    
+    http://localhost:9006/iot-failure-machinelearning-uoft.html?topic=iot-preprocess,iot-ml-prediction-results-output&offset=-1&groupid=&rollbackoffset=500&topictype=prediction&append=0&secure=1
+
+.. tip::
+    PRESS THE RED "START STREAMING" button in the top-left...
+
+You should see this Dashboard in your browser start to populate with real-time IOT data:
+
+.. figure:: demosol2.png
+
