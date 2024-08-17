@@ -623,11 +623,11 @@ The REST API client runs outside the TML solution container.  The client api giv
    * - API_ENDPOINT 
      - API_ENDPOINT = "http://localhost:{}/{}".format(rest_port,apiroute)
 
-      This connects to the endpoint defined in :ref:`STEP 3b: Produce Data Using RESTAPI: tml-read-RESTAPI-step-3-kafka-producetotopic-dag.py`    
+       This connects to the endpoint defined in :ref:`STEP 3b: Produce Data Using RESTAPI: tml-read-RESTAPI-step-3-kafka-producetotopic-dag.py`    
    * - start()
      - This function starts the process.
 
-      Note: You can simply modify this function as you wish repeatly to stream your data.
+       Note: You can simply modify this function as you wish repeatly to stream your data.
    * - send_tml_data(data)
      - This is the main function that streams your data to :ref:`STEP 3b: Produce Data Using RESTAPI: tml-read-RESTAPI-step-3-kafka-producetotopic-dag.py`
 
