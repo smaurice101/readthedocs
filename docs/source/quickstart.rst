@@ -64,7 +64,7 @@ Then, open up your favorite browser and enter this URL below:
 
 You should see this Dashboard in your browser start to populate with real-time entity based probability predictions of IOT device failures.  **The figure below shows 43 machine learning models created for 43 devices!**
 
-.. figure:: demosol2.png
+.. figure:: demosol2a.png
 
 .. tip::
     Press the TOGGLE button in the top-right of the dashboard.
