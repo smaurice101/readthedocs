@@ -559,6 +559,7 @@ STEP 3b.i: REST API CLIENT: `tml-client-RESTAPI-step-3-kafka-producetotopic.py <
 """""""""""""""""""""""""""""""""""""""" 	
 
 .. code-block:: PYTHON
+   :emphasize-lines: 7,13,15,17,25,29
 
     import requests
     import sys
@@ -746,6 +747,59 @@ STEP 3c: Produce Data Using gRPC: tml-read-gRPC-step-3-kafka-producetotopic-dag.
      serve()
    
    dag = startproducingtotopic()
+
+STEP 3c.i: gRPC API CLIENT: `tml-client-gRPC-step-3-kafka-producetotopic.py <https://github.com/smaurice101/raspberrypi/blob/main/tml-airflow/dags/tml-client-gRPC-step-3-kafka-producetotopic.py>`_
+"""""""""""""""""""""""""""""""""""""""" 	
+  
+.. code-block:: PYTHON
+   :emphasize-lines: 10,11,22,23,40
+  
+    import maadstml
+    from airflow import DAG
+    from airflow.operators.python import PythonOperator
+    from airflow.operators.bash import BashOperator    
+    from datetime import datetime
+    from airflow.decorators import dag, task
+    import grpc
+    from concurrent import futures
+    import time
+    import tml_grpc_pb2_grpc as pb2_grpc
+    import tml_grpc_pb2 as pb2
+    import sys
+    
+    sys.dont_write_bytecode = True
+    
+    class TmlgrpcClient(object):
+        """
+        Client for gRPC functionality
+        """
+    
+        def __init__(self):
+            self.host = 'localhost'
+            self.server_port = 9001 # <<<<*********** Change to gRPC server port
+    
+            # instantiate a channel
+            self.channel = grpc.insecure_channel(
+                '{}:{}'.format(self.host, self.server_port))
+    
+            # bind the client and the server
+            self.stub = pb2_grpc.TmlprotoStub(self.channel)
+    
+        def get_url(self, message):
+            """
+            Client function to call the rpc for GetServerResponse
+            """
+            message = pb2.Message(message=message)
+            print(f'{message}')
+            return self.stub.GetServerResponse(message)
+        
+    if __name__ == '__main__':
+        try:
+          client = TmlgrpcClient()
+          result = client.get_url(message="SEND YOUR DATA HERE")
+          print(f'{result}')
+        except Exception as e:
+          print("ERROR: ",e)
 
 STEP 3d: Produce Data Using LOCALFILE: tml-read-LOCALFILE-step-3-kafka-producetotopic-dag.py
 """""""""""""""""""""""""""""""""""""""""" 	
