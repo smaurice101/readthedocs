@@ -89,7 +89,20 @@ DAG Solution Process Explanation
 
     After you have chosen an ingest data method and producing data, you are ready to **Preprocess Real-Time Data** - the next DAG performs this function:
 
-    4. :ref:`tml-system-step-4-kafka-preprocess-dag`
+    4. :ref:`tml-system-step-4-kafka-preprocess-dag` - Preprocessing is a very quick way to start generating insights from your real-time in few minutes.  All 
+       preprocessing is done **in-memory and no external databases are needed, only Kafka**.  After you have preprocessed your data, you can use this 
+       preprocessed data for **machine learning** - the next DAG performs this function:
+
+    5. :ref:`tml-system-step-5-kafka-machine-learning-dag` - this is another powerful DAG automatically starts building entity based machine learning models for 
+        your real-time data.  Note, TML will continuously build ML models are new data streams in.  All machine learning is done **in-memory and no external 
+        databases are needed, only Kafka**.  As these models are trained on your real-time data - the next 
+        DAG performs predictions:
+    
+    6. :ref:`tml-system-step-6-kafka-predictions-dag` - These predictions get automatically generated in parallel to machine learning training process in DAG 5.  
+        As predictions are being generated, you can stream these predictions to a real-time dashboard - the next DAG performs this function:
+
+    7. :ref:`tml-system-step-7-kafka-visualization-dag` - The visualization data are streamed directly from the TML solution container over websockets to the 
+       client browser, this eliminates any need for third-party visualization software.
 
     
 
