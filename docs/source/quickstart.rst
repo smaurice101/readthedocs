@@ -16,4 +16,5 @@ Run this docker command:
 Then, open up your favorite browser and enter this URL below:
 
 .. code-block:: 
+    
     http://localhost:9005/iot-failure-seneca.html?topic=iot-preprocess2,iot-preprocess&offset=-1&groupid=&rollbackoffset=500&topictype=prediction&append=0&secure=1
