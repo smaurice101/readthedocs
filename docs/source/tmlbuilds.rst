@@ -94,7 +94,7 @@ DAG Solution Process Explanation
 
     3c.i: :ref:`STEP 3c.i: gRPC API CLIENT`
 
-    You are also provided with an MQTT method - if you are using a MQTT broker for machine to machine commnumication.
+    You are also provided with an MQTT method - if you are using a MQTT broker for machine to machine communication.
 
     After you have chosen an ingest data method and producing data, you are ready to **Preprocess Real-Time Data** - the next DAG performs this function:
 
