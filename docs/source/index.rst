@@ -57,10 +57,10 @@ Contents
    tmlbuilds
    examples
    git
+   usage 
    tmllogs
    coreintegrations
    dashboards
-   usage 
    api
    entity
    jsonprocessing
