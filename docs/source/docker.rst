@@ -26,6 +26,9 @@ This is the main container that you need to use to build TML solutions.  Below i
 
    FOLLOW THE :ref:`How To Use the TML Solution Container` SECTION.
 
+TSS Docker Run Command
+--------------------
+
 .. code-block::
 
    docker run -d --net="host" 
