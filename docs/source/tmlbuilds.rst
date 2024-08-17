@@ -100,19 +100,19 @@ DAG Solution Process Explanation
 
     4. :ref:`STEP 4: Preprocesing Data: tml-system-step-4-kafka-preprocess-dag.py` - Preprocessing is a very quick way to start generating insights from your real-time in few minutes.  All 
        preprocessing is done **in-memory and no external databases are needed, only Kafka**.  After you have preprocessed your data, you can use this 
-       preprocessed data for **machine learning** - the next DAG performs this function:
+       preprocessed data for **machine learning** - the next DAG performs this function.
 
     5. :ref:`STEP 5: Entity Based Machine Learning : tml-system-step-5-kafka-machine-learning-dag.py` - this is another powerful DAG automatically starts building entity based machine learning models for 
         your real-time data.  Note, TML will continuously build ML models are new data streams in.  All machine learning is done **in-memory and no external 
         databases are needed, only Kafka**.  As these models are trained on your real-time data - the next 
-        DAG performs predictions:
+        DAG performs predictions.
     
     6. :ref:`STEP 6: Entity Based Predictions: tml-system-step-6-kafka-predictions-dag` - These predictions get automatically generated in parallel to machine learning training process in DAG 5.  
-        As predictions are being generated, you can stream these predictions to a real-time dashboard - the next DAG performs this function:
+        As predictions are being generated, you can stream these predictions to a real-time dashboard - the next DAG performs this function.
 
     7. :ref:`STEP 7: Real-Time Visualization: tml-system-step-7-kafka-visualization-dag` - The visualization data are streamed directly from the TML solution container over websockets to the 
        client browser, this eliminates any need for third-party visualization software.  Now, that you have built the **ENTIRE TML SOLUTION END-END** you are 
-       ready to deploy it to Docker - the next DAG performs this function:  
+       ready to deploy it to Docker - the next DAG performs this function.
 
     8. :ref:`STEP 8: Deploy TML Solution to Docker : tml-system-step-8-deploy-solution-to-docker-dag.py` - The TML docker container is automatically built for you and pushed to Docker Hub.  If you have 
        chosen to integrate GPT into you solution - you can initiate the PrivateGPT and Qdrant containers - the next DAG performs this function.
@@ -125,8 +125,6 @@ DAG Solution Process Explanation
     **YOU ARE DONE!  You just build an advanced, scalable, end-end real-time solution and deployed it to Docker, integrated with AI and with online 
     documentation.**  
     ENJOY!
-
-    
 
 DAGs (Directed Acyclic Graphs) are a powerful and easy way to build powerful (real-time) TML solutions quickly.  Users are provided with the following DAGs:
 
