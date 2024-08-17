@@ -70,14 +70,17 @@ DAG Solution Process Explanation
     2. The next step is to create all your **topics** in Kafka - these topic will store all your input and output data.  This is done in:
        - :ref:`tml_system_step_2_kafka_createtopic_dag`
     
-    **Your initial TML setup is complete. **
+    **Your initial TML setup is complete.**
 
     Next, you want to start generating and producing data to the topics you creating and choose an **Ingest Real-Time Data Method**.  TML provides you with FOUR 
     (4) methods to stream your own data from any device.  This is done in the following DAGS - you need to CHOOSE ONE method: 
 
     3a.  MQTT: :ref:`tml-read-MQTT-step-3-kafka-producetotopic-dag.py`
+
     3b.  REST API: :ref:`tml-read-RESTAPI-step-3-kafka-producetotopic-dag`
+    
     3c.  gRPC: :ref:`tml-read-gRPC-step-3-kafka-producetotopic-dag` 
+    
     3d.  Local File: :ref:`tml-read-LOCALFILE-step-3-kafka-producetotopic-dag.py` 
 
     You are also provided CLIENT files for REST API and gRPC - these clients connect to the SERVERS in 3b and 3c:
