@@ -1000,6 +1000,32 @@ STEP 3d: Produce Data Using LOCALFILE: tml-read-LOCALFILE-step-3-kafka-produceto
        
    dag = startproducingtotopic()
 
+Producing Data Using a Local File
+"""""""""""""""""""""""""""""""""""
+
+.. important:: 
+    If you are producing data by reading from a local file, you must ensure that when you run the :ref:`TSS Docker Run Command` that you map a volume on your 
+    host system to the **rawdata** folder in the container.  For example, you need add 1. to the docker run command:
+
+     1. **-v <path to a local folder on your machine>:/rawdata**
+        
+        docker run -d --net="host"
+        --env MAINHOST=127.0.0.1
+        --env AIRFLOWPORT=9000
+        -v /var/run/docker.sock:/var/run/docker.sock:z
+        **-v /your_localmachine/foldername:/rawdata.sock:z**
+        --env GITREPOURL=https://github.com/smaurice101/raspberrypi.git
+        --env  GITUSERNAME=<your git username>
+        --env GITPASSWORD=<Personal Access Token>
+        --env DOCKERUSERNAME=<your Dockerhub account>
+        --env DOCKERPASSWORD=<password>
+        maadsdocker/tml-solution-studio-with-airflow
+
+     Then, 
+
+     2. Add the filename of the file you want to read by updating the **'inputfile' : '/rawdata/?'** in :ref:`STEP 3d: Produce Data Using LOCALFILE: tml-read- 
+        LOCALFILE-step-3-kafka-producetotopic-dag.py`
+
 STEP 4: Preprocesing Data: tml-system-step-4-kafka-preprocess-dag.py
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
