@@ -20,7 +20,7 @@ This is the main container that you need to use to build TML solutions.  Below i
 
    3. You MUST Clone Github Repo: https://github.com/smaurice101/raspberrypi.git
 
-   4. You MUST Create Github **Personal Access Token** (Refer to Docker section)
+   4. You MUST Create Github **Personal Access Token** (Refer to :ref:`Generating Personal Access Tokens in Github`)
 
    5. You MUST have a Docker Hub account
 
