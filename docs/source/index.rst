@@ -55,8 +55,8 @@ Contents
    tmlbook
    docker   
    tmlbuilds
-   tmllogs
    examples
+   tmllogs
    git
    coreintegrations
    dashboards
