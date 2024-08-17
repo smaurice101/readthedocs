@@ -35,10 +35,10 @@ TSS Docker Run Command
    --env MAINHOST=127.0.0.1 
    --env AIRFLOWPORT=9000 
    -v /var/run/docker.sock:/var/run/docker.sock:z 
-   --env GITREPOURL=https://github.com/smaurice101/raspberrypi.git 
-   --env  GITUSERNAME=smaurice101 
+   --env GITREPOURL=<your git hub repo> 
+   --env  GITUSERNAME=<your github username> 
    --env GITPASSWORD=<Personal Access Token> 
-   --env DOCKERUSERNAME=maadsdocker 
+   --env DOCKERUSERNAME=<your docker hub account> 
    --env DOCKERPASSWORD=<password> 
    maadsdocker/tml-solution-studio-with-airflow
 
@@ -53,13 +53,13 @@ TSS Docker Run Command
        You will be asked for a username and password: enter **tml** for both.
    * - -v /var/run/docker.sock:/var/run/docker.sock:z 
      - This maps the docker volume to the container - so TML studio can automatically build your solution container.
-   * - --env GITREPOURL=https://github.com/smaurice101/raspberrypi.git 
+   * - --env GITREPOURL=<your github repo> 
      - This is your Git repo. The above is an example.
-   * - --env GITUSERNAME=smaurice101 
+   * - --env GITUSERNAME=<your github username> 
      - This is the username to your repo.
    * - --env GITPASSWORD=<Personal Access Token> 
      - This is the **Personal Access Token** for your repo.   Look at the image below to find out how to generate this token.
-   * - --env DOCKERUSERNAME=maadsdocker 
+   * - --env DOCKERUSERNAME=<your docker hub account> 
      - This is your Docker Hub username.
    * - --env DOCKERPASSWORD=<password> 
      - This is your password to Dockerhub account.
