@@ -54,7 +54,7 @@ TSS Docker Run Command
    * - -v /var/run/docker.sock:/var/run/docker.sock:z 
      - This maps the docker volume to the container - so TML studio can automatically build your solution container.
    * - --env GITREPOURL=<your github repo> 
-     - This is your Git repo. The above is an example.
+     - This is your Git repo you cloned from: https://github.com/smaurice101/raspberrypi.git. 
    * - --env GITUSERNAME=<your github username> 
      - This is the username to your repo.
    * - --env GITPASSWORD=<Personal Access Token> 
