@@ -446,7 +446,7 @@ STEP 3a: Produce Data Using MQTT: tml-read-MQTT-step-3-kafka-producetotopic-dag.
    dag = startproducingtotopic()
 
 STEP 3b: Produce Data Using RESTAPI: tml-read-RESTAPI-step-3-kafka-producetotopic-dag.py
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ 	
+"""""""""""""""""""""""""""""""""""""""" 	
 
 .. code-block::
    :emphasize-lines: 19,20,21,22,23,24,25,26,27,28,29,30,31
@@ -553,7 +553,7 @@ STEP 3b: Produce Data Using RESTAPI: tml-read-RESTAPI-step-3-kafka-producetotopi
    dag = startproducingtotopic()
 
 STEP 3c: Produce Data Using gRPC: tml-read-gRPC-step-3-kafka-producetotopic-dag.py
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ 	
+""""""""""""""""""""""""""""""""""""""""" 	
 
 .. code-block::
    :emphasize-lines: 22,23,24,25,26,27,28,29,30,31,32,33,34
@@ -669,7 +669,7 @@ STEP 3c: Produce Data Using gRPC: tml-read-gRPC-step-3-kafka-producetotopic-dag.
    dag = startproducingtotopic()
 
 STEP 3d: Produce Data Using LOCALFILE: tml-read-LOCALFILE-step-3-kafka-producetotopic-dag.py
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ 	
+"""""""""""""""""""""""""""""""""""""""""" 	
 
 .. code-block::
    :emphasize-lines: 10,11,12,13,14,15,16,17,18,19,20,21,22,23
@@ -777,7 +777,7 @@ STEP 4: Preprocesing Data: tml-system-step-4-kafka-preprocess-dag.py
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Preprocessing Types
-^^^^^^^^^^^^^^^^
+"""""""""""""""""""""
 
 TML preprocesses real-time data for every entity along each sliding time window.  This is quick and powerful way to accelerate insights from real-time data with very little effort.  TML provide over 35 different preprocessing types:
 
@@ -1018,7 +1018,7 @@ TML preprocesses real-time data for every entity along each sliding time window.
    dag = startprocessing()
 
 Preprocessed Variable Naming Standard
-^^^^^^^^^^^^^^^^^^^^^^^^^^
+"""""""""""""""""""""""""""""
 
 .. important::
    When a raw variable is processed, TML renames this raw in this standard: 
@@ -1033,7 +1033,7 @@ Preprocessed Variable Naming Standard
    This standard naming will be very important when you want to perform machine learning on the "preproccesed" variable. 
 
 Preprocessed Sample JSON Output
-^^^^^^^^^^^^^^^^^^^^^^^^
+"""""""""""""""""""""""""""""
 
 .. code-block:: JSON
    
@@ -1070,7 +1070,7 @@ Preprocessed Sample JSON Output
      }
 
 Preprocessed Sample JSON Output: Explanations
-^^^^^^^^^^^^^^^^^^^^^^^^^^
+""""""""""""""""""""""""""""""
 
 .. important::
    
@@ -1145,10 +1145,10 @@ Preprocessed Sample JSON Output: Explanations
      - This is the Kafka partition this message was stored in: 0
 
 STEP 5: Entity Based Machine Learning : tml-system-step-5-kafka-machine-learning-dag.py
--------------------------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Entity Based Machine Learning By TML
-^^^^^^^^^^^^^^^^^^^^^
+""""""""""""""""""""""""""""""""
 
 Another powerful feature of TML is performing machine learning at the entity level.  See :ref:`TML Performs Entity Level Machine Learning and Processing` for refresher.  For example, if TML is processing real-time data from 1 million IoT devices, it can create 1 million individual machine learnig models for each device.  TML uses the following ML algorithms:
 
@@ -1317,7 +1317,7 @@ Another powerful feature of TML is performing machine learning at the entity lev
     dag = startmachinelearning()
 
 Additional Details on Machine Learning 
-^^^^^^^^^^^^^^^^^^^^^^^^^^^
+"""""""""""""""""""""""""""""""""""""
 
 Entity based machine learning is a core function of TML.  This section discusses some of key defaul_args in the **tml-system-step-5-kafka-machine-learning-dag.py**.  These are as follows.
 
@@ -1396,7 +1396,7 @@ Here are the **core parameters** in the above dag 5:
      - You can give names to the coefficients in your model: constant, elasticity, elasticity2    
 
 Machine Learning Trained Model Sample JSON Output
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+"""""""""""""""""""""""""""""""""""""
 
 Below is the JSON output after TML binary: HPDE has performed machine learning using the eal-time data streams.
 
@@ -1445,7 +1445,7 @@ Below is the JSON output after TML binary: HPDE has performed machine learning u
     }
 
 Machine Learning Trained Model Sample JSON Output: Explanations
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+""""""""""""""""""""""""""""""""
 
 .. list-table::
 
@@ -1538,7 +1538,7 @@ Machine Learning Trained Model Sample JSON Output: Explanations
      - The offset of this json in Kafka: 59
 
 STEP 6: Entity Based Predictions: tml-system-step-6-kafka-predictions-dag
---------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code-block::
    :emphasize-lines: 10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41
@@ -1729,7 +1729,7 @@ Here are the **core parameters** in the above dag 6:
        also important if you wanted to keep track of training datasets for auditing and governance.
 
 Machine Learning Prediction Sample JSON Output
-^^^^^^^^^^^^^^^^^^^^^^
+"""""""""""""""""""""""""""""""""""""
 
 .. code-block:: JSON
 
@@ -1825,7 +1825,7 @@ Here is the table explaining the fields in the prediction JSON.
      - Indicates if the model has a constant term: 1 - indicates it does.
 
 STEP 7: Real-Time Visualization: tml-system-step-7-kafka-visualization-dag
------------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Fields to visualize can be determined from :ref:`Preprocessed Sample JSON Output` and :ref:`Machine Learning Prediction Sample JSON Output`
 and :ref:`Machine Learning Trained Model Sample JSON Output`.
@@ -1878,7 +1878,7 @@ and :ref:`Machine Learning Trained Model Sample JSON Output`.
     dag = startstreaming()
 
 Visualization DAG Parameter Explanation
-^^^^^^^^^^^^^^^^^^^^^^^
+""""""""""""""""""""""""""""""""""""""
 
 .. list-table::
 
