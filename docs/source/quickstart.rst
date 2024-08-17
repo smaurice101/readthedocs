@@ -53,7 +53,7 @@ Then, open up your favorite browser and enter this URL below:
 
 .. code-block:: 
     
-    http://localhost:9006/iot-failure-machinelearning-uoft.html?topic=iot-preprocess,iot-ml-prediction-results-output&offset=-1&groupid=&rollbackoffset=500&topictype=prediction&append=0&secure=1
+    https://localhost:9006/iot-failure-machinelearning-uoft.html?topic=iot-preprocess,iot-ml-prediction-results-output&offset=-1&groupid=&rollbackoffset=500&topictype=prediction&append=0&secure=1
 
 .. tip::
     PRESS THE RED "START STREAMING" button in the top-left...
