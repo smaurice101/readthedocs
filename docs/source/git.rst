@@ -4,7 +4,7 @@ TML Solution Studio's Tight Integration with GitHub
 TML Solution build process is tightly integrated with GitHub to maintain a seamless process of tracking TML solution changes.  The figure below shows this integration.  As TML solution code is updated in Airflow, it can be committed directly from the Airflow UI.  This provides a high-level of convevience to ensure all code is properly checked in and committed to the main branch. 
 
 .. important::
-   You integrate Github with TSS you need to generate a Personal Access Token from your Githib repo.  Follow the instructions here: :ref:`Generating Personal 
+   You integrate Github with TSS you need to generate a **Personal Access Token** from your Githib repo.  Follow the instructions here: :ref:`Generating Personal 
    Access Tokens in Github`
 
 
