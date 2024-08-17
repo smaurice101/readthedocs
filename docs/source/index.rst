@@ -56,8 +56,8 @@ Contents
    docker   
    tmlbuilds
    examples
-   tmllogs
    git
+   tmllogs
    coreintegrations
    dashboards
    usage 
