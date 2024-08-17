@@ -56,7 +56,8 @@ Contents
 --------
 
 .. toctree::
-   
+
+   quickstart
    tmlbook
    docker   
    tmlbuilds
