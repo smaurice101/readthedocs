@@ -86,9 +86,10 @@ DAG Solution Process Explanation
     You are also provided CLIENT files for REST API and gRPC - these clients connect to the SERVERS in 3b and 3c:
 
     3b.i: :ref:`STEP 3b.i: REST API CLIENT`
+
     3c.i: :ref:`STEP 3c.i: gRPC API CLIENT`
 
-    You are also provided with an MQTT method - if you are using an MQTT broker for machine to machine commnumication.
+    You are also provided with an MQTT method - if you are using a MQTT broker for machine to machine commnumication.
 
     After you have chosen an ingest data method and producing data, you are ready to **Preprocess Real-Time Data** - the next DAG performs this function:
 
@@ -105,7 +106,20 @@ DAG Solution Process Explanation
         As predictions are being generated, you can stream these predictions to a real-time dashboard - the next DAG performs this function:
 
     7. :ref:`tml-system-step-7-kafka-visualization-dag` - The visualization data are streamed directly from the TML solution container over websockets to the 
-       client browser, this eliminates any need for third-party visualization software.
+       client browser, this eliminates any need for third-party visualization software.  Now, that you have built the **ENTIRE TML SOLUTION END-END** you are 
+       ready to deploy it to Docker - the next DAG performs this function:  
+
+    8. :ref:`tml_system_step_8_deploy_solution_to_docker_dag` - The TML docker container is automatically built for you and pushed to Docker Hub.  If you have 
+       chosen to integrate GPT into you solution - you can initiate the PrivateGPT and Qdrant containers - the next DAG performs this function.
+
+    9. :ref:`tml_system_step_9_privategpt_qdrant_dag` - The TML docker container is automatically built for you and pushed to Docker Hub.  Lastly, you can now 
+        automatically document the entire solution - the next DAG performs this function.
+
+    10. :ref:`tml_system_step_10_documentation_dag`.  
+
+    **YOU ARE DONE!  You just build an advanced, scalable, end-end real-time solution and deployed it to Docker, integrated with AI and with online 
+    documentation.**  
+    ENJOY!
 
     
 
