@@ -57,6 +57,42 @@ The TML solution process with DAGS (explained in detail below).  **The entire TM
 
 .. figure:: tsol1.png
 
+DAG Solution Process Explanation
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. note::
+    The above process shows Ten (10) DAGs that are used to build advanced, scalable, real-time TML solutions with little to no-code - just configurations to the 
+    DAGs.  
+
+    1. Build Process starts with setting up system parameters for **Initial TML Solution Setup**.  Users simply need to provide configuration information in the 
+       following DAG:  
+       - :ref:`tml_system_step_1_getparams_dag`
+    2. The next step is to create all your **topics** in Kafka - these topic will store all your input and output data.  This is done in:
+       - :ref:`tml_system_step_2_kafka_createtopic_dag`
+    
+    **Your initial TML setup is complete. **
+
+    Next, you want to start generating and producing data to the topics you creating and choose an **Ingest Real-Time Data Method**.  TML provides you with FOUR 
+    (4) methods to stream your own data from any device.  This is done in the following DAGS - you need to CHOOSE ONE method: 
+
+    3a.  MQTT: :ref:`tml-read-MQTT-step-3-kafka-producetotopic-dag.py`
+    3b.  REST API: :ref:`tml-read-RESTAPI-step-3-kafka-producetotopic-dag`
+    3c.  gRPC: :ref:`tml-read-gRPC-step-3-kafka-producetotopic-dag` 
+    3d.  Local File: :ref:`tml-read-LOCALFILE-step-3-kafka-producetotopic-dag.py` 
+
+    You are also provided CLIENT files for REST API and gRPC - these clients connect to the SERVERS in 3b and 3c:
+
+    3b.i: :ref:`STEP 3b.i: REST API CLIENT`
+    3c.i: :ref:`STEP 3c.i: gRPC API CLIENT`
+
+    You are also provided with an MQTT method - if you are using an MQTT broker for machine to machine commnumication.
+
+    After you have chosen an ingest data method and producing data, you are ready to **Preprocess Real-Time Data** - the next DAG performs this function:
+
+    4. :ref:`tml-system-step-4-kafka-preprocess-dag`
+
+    
+
 DAGs (Directed Acyclic Graphs) are a powerful and easy way to build powerful (real-time) TML solutions quickly.  Users are provided with the following DAGs:
 
 .. note::
@@ -555,8 +591,10 @@ STEP 3b: Produce Data Using RESTAPI: tml-read-RESTAPI-step-3-kafka-producetotopi
    
    dag = startproducingtotopic()
 
-STEP 3b.i: REST API CLIENT: `tml-client-RESTAPI-step-3-kafka-producetotopic.py <https://github.com/smaurice101/raspberrypi/blob/main/tml-airflow/dags/tml-client-RESTAPI-step-3-kafka-producetotopic.py>`_
+STEP 3b.i: REST API CLIENT
 """""""""""""""""""""""""""""""""""""""" 	
+
+`tml-client-RESTAPI-step-3-kafka-producetotopic.py <https://github.com/smaurice101/raspberrypi/blob/main/tml-airflow/dags/tml-client-RESTAPI-step-3-kafka-producetotopic.py>`_
 
 .. code-block:: PYTHON
    :emphasize-lines: 7,13,15,17,25,29
@@ -748,9 +786,11 @@ STEP 3c: Produce Data Using gRPC: tml-read-gRPC-step-3-kafka-producetotopic-dag.
    
    dag = startproducingtotopic()
 
-STEP 3c.i: gRPC API CLIENT: `tml-client-gRPC-step-3-kafka-producetotopic.py <https://github.com/smaurice101/raspberrypi/blob/main/tml-airflow/dags/tml-client-gRPC-step-3-kafka-producetotopic.py>`_
+STEP 3c.i: gRPC API CLIENT
 """""""""""""""""""""""""""""""""""""""" 	
-  
+
+: `tml-client-gRPC-step-3-kafka-producetotopic.py <https://github.com/smaurice101/raspberrypi/blob/main/tml-airflow/dags/tml-client-gRPC-step-3-kafka-producetotopic.py>`_
+
 .. code-block:: PYTHON
    :emphasize-lines: 2,3,14,15,28,35
   
