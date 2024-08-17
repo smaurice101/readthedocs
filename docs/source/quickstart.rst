@@ -27,7 +27,7 @@ Then, open up your favorite browser and enter this URL below:
 .. tip::
     PRESS THE RED "START STREAMING" button in the top-left...
 
-You should see this Dashboard in your browser start to populate with real-time IOT data:
+You should see this Dashboard in your browser start to populate with real-time preprocessed IOT data:
 
 .. figure:: demosol.png
 
