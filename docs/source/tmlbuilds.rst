@@ -187,12 +187,8 @@ Below is the complete definition of the **tml_system_step_1_getparams_dag**.  Us
        ti.xcom_push(key='HPDEPORT',value=HPDEPORT)
                
        updateviperenv()
-      
-       return [VIPERTOKEN,VIPERHOST,VIPERPORT,HTTPADDR]
-       
+             
     tmlsystemparams=getparams(default_args)
-    if tmlsystemparams[1]=="":
-       print("ERROR: No host specified")
       
    dag = tmlparams()
 
