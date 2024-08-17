@@ -42,7 +42,7 @@ Where Is TML Used?
 Can I Run TML Binaries in Standalone?
 ------------------------------------
 
-.. note:
+.. note::
     Yes, the :ref:`TML Solution Components` can be run as standalone.  If you want to learn more please view the Youtube:
     
     1. `TML Crash Course Part 1: <https://youtu.be/yh-qUe5KnaA>`_
