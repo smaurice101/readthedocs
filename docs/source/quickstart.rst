@@ -1,4 +1,4 @@
-QUICK START: Run A TML Solution Right Now!
+QUICK START: Run TWO TML Solutions Right Now!
 ====================================
 
 QUICK START: TML Soluton with Real-Time Entity Based Processing
