@@ -5,7 +5,7 @@ QUICK START: Run TWO TML Solutions Right Now!
     The power of TML is not only in how it can process and perform machine learning at the entity level, in-memory, but the amazing real-time visualizations that 
     users can create with the TML output for faster, deeper, insights from real-time data streams.
 
-QUICK START: TML Soluton with Real-Time Entity Based Processing
+QUICK START: TML Solution with Real-Time Entity Based Processing
 -------------------------------------------------
 
 For users who want to quickly see a running solution now, just do the following.
