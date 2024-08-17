@@ -13,6 +13,9 @@ Run this docker command:
 
    docker run -d -p 9005:9005 maadsdocker/seneca-iot-tml-kafka-amd64 
 
+.. tip::
+    Wait about 10 seconds...
+
 Then, open up your favorite browser and enter this URL below:
 
 .. code-block:: 
