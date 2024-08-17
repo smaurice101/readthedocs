@@ -2182,11 +2182,17 @@ Visualization DAG Parameter Explanation
 STEP 8: Deploy TML Solution to Docker : tml-system-step-8-deploy-solution-to-docker-dag.py
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Coming soon.
+
 STEP 9: PrivateGPT and Qdrant Integration: tml-system-step-9-privategpt_qdrant-dag.py
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Coming soon.
+
 STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag.py
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Coming soon.
 
 Example TML Solution Container Reference Architecture
 -----------------------------------------------
