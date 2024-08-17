@@ -89,7 +89,7 @@ Generating Personal Access Tokens in Github: Explanation
       
       6. Click **Generate new token** -  Your token should start with **ghp_**
       
-      7. Copy and paste token in **GITPASSWORD** docker run command
+      7. Copy and paste token in **GITPASSWORD** docker run command: :ref:`TSS Docker Run Command`
 
 How To Use the TML Solution Container
 -------------------------
