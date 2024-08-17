@@ -329,7 +329,7 @@ STEP 3: Produce to Kafka Topics
    
 
 STEP 3a: Produce Data Using MQTT: tml-read-MQTT-step-3-kafka-producetotopic-dag.py
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ 	
+""""""""""""""""""""""""""" 	
 
 .. code-block::
    :emphasize-lines: 16,17,18,19,20,21,22,23,24,25,26,27,28,29,30
