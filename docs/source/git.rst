@@ -5,7 +5,7 @@ TML Solution build process is tightly integrated with GitHub to maintain a seaml
 
 .. important::
    You integrate Github with TSS you need to generate a **Personal Access Token** from your Githib repo.  Follow the instructions here: :ref:`Generating Personal 
-   Access Tokens in Github`.  You then add this token in the TSS container docker run command :ref:TML Solution Studio (TSS) Container`
+   Access Tokens in Github`.  You then add this token in the :ref:`TSS Docker Run Command` in the field **GITPASSWORD**.
 
 
 You can push and pull changes directly from the TML Solution Studio - integrated with Airflow.
