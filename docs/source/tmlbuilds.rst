@@ -1008,7 +1008,9 @@ Producing Data Using a Local File
     host system to the **rawdata** folder in the container.  For example, you need add 1. to the docker run command:
 
      1. **-v <path to a local folder on your machine>:/rawdata**
-        
+
+       For example, your TSS Docker Run should look similar to this - replace **/your_localmachine/foldername** with actual name:
+
         docker run -d --net="host"
 
         --env MAINHOST=127.0.0.1
