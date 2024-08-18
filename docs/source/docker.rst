@@ -26,6 +26,13 @@ This is the main container that you need to use to build TML solutions.  Below i
 
    FOLLOW THE :ref:`How To Use the TML Solution Container` SECTION.
 
+TSS Logging
+-----------------
+
+The entire TSS solution build process is logged and committed to Github.
+
+.. figure:: tsslogs.png
+
 TSS Docker Run Command
 --------------------
 
