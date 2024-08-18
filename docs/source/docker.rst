@@ -33,6 +33,11 @@ The entire TSS solution build process is logged and committed to Github.  This m
 
 .. figure:: tsslogs.png
 
+.. tip::
+    The logs are committed to your Github folder: /tml-airflow/logs/logs.txt
+
+.. figure:: tsslogs2.png
+
 TSS Docker Run Command
 --------------------
 
