@@ -29,7 +29,7 @@ This is the main container that you need to use to build TML solutions.  Below i
 TSS Logging
 -----------------
 
-The entire TSS solution build process is logged and committed to Github.
+The entire TSS solution build process is logged and committed to Github.  This makes it very convenient to check for any errors in the TSS build process, and because errors are commited to the remote branch, the errors become visible to others to help in quickly rectifying any issues.
 
 .. figure:: tsslogs.png
 
