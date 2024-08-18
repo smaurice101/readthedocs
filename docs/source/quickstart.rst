@@ -14,7 +14,8 @@ For users who want to quickly see a running solution now, just do the following.
 
    You must have docker installed.
 
-Run this docker command:
+Run this docker command
+^^^^^^^^^^^^^^^^^^^
 
 .. code-block::
 
@@ -22,6 +23,9 @@ Run this docker command:
 
 .. tip::
     Wait about 10 seconds...
+
+View The Real-Time Dashboard
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Then, open up your favorite browser and enter this URL below:
 
@@ -47,7 +51,8 @@ QUICK START: Another TML Soluton with Real-Time Entity Based Processing AND Mach
 
 Let's run another TML solution, but this time with machine learning models being created for each device entity.
 
-Run this docker command:
+Run this docker command
+^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code-block::
 
@@ -55,6 +60,9 @@ Run this docker command:
 
 .. tip::
     Wait about 10 seconds...
+
+View Another Real-Time Dashboard
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Then, open up your favorite browser and enter this URL below:
 
