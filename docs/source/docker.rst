@@ -70,6 +70,7 @@ TSS Docker Run Command
    docker run -d --net="host" 
    --env MAINHOST=127.0.0.1 
    --env AIRFLOWPORT=9000 
+   --env VIPERVIZPORT=9005
    -v /var/run/docker.sock:/var/run/docker.sock:z 
    --env GITREPOURL=<your git hub repo> 
    --env  GITUSERNAME=<your github username> 
@@ -100,6 +101,10 @@ TSS Docker Run Command
        You will be asked for a 
 
        username and password: enter **tml** for both.
+   * - VIPERVIZPORT
+     - Choose a Viperviz port for visualization.  
+
+       For example, 9005
    * - -v /var/run/docker.sock:/var/run/docker.sock:z 
      - This maps the docker volume to the container - 
 
