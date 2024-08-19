@@ -41,6 +41,13 @@ The entire TSS solution build process is logged and committed to Github.  This m
 TSS Docker Run Command
 --------------------
 
+.. important::
+   If you are producing data using a local file, you need to add an extra -v volume map to the /rawdata folder in the container: Refer to :ref:`Producing Data 
+   Using a Local File`.
+
+   For example add **-v /your_localmachine/foldername:/rawdata:z**, where **your_localmachine/foldername** is a path in your local machine, and it is where you 
+   save your local file for processing.
+
 .. code-block::
 
    docker run -d --net="host" 
@@ -53,13 +60,6 @@ TSS Docker Run Command
    --env DOCKERUSERNAME=<your docker hub account> 
    --env DOCKERPASSWORD=<password> 
    maadsdocker/tml-solution-studio-with-airflow
-
-.. important::
-   If you are producing data using a local file, you need to add an extra -v volume map to the /rawdata folder in the container: Refer to :ref:`Producing Data 
-   Using a Local File`.
-
-   For example add **-v /your_localmachine/foldername:/rawdata:z**, where **your_localmachine/foldername** is a path in your local machine, and it is where you 
-   save your local file for processing.
 
 .. list-table::
 
