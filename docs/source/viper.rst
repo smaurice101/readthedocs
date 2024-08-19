@@ -42,7 +42,7 @@ This guide will provide common setup instructions for new users who want to run 
     2. With HPDE:
         1. HPDE_SERVER=
         2. HPDE_PORT=
-    3. With Confluent Cloud Access (If NOT using Kafka Cloud these MUST be left blank):
+    3. With Confluent Cloud or AWS MSK Access (If NOT using Kafka Cloud these MUST be left blank):
         1. CLOUD_USERNAME={API KEY}
         2. CLOUD_PASSWORD={API SECRET}
     
@@ -61,7 +61,7 @@ This guide will provide common setup instructions for new users who want to run 
      - Advertised host name in Kafka server properties 
    * - KAFKA_ZOOKEEPER_CONNECT
      - Zookeeper host name and port 
-   * - KAFKA_CONNECT_BOOTSTRAP_SERVERS= 
+   * - KAFKA_CONNECT_BOOTSTRAP_SERVERS
      - Kafka bootstrap servers – separate multiple servers by comma 
    * - MAADS_ALGORITHM_SERVER 
      - MAADS algorithm server host URL. This will require MAADS software installed in the host. 
