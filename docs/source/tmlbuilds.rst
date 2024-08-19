@@ -2305,6 +2305,11 @@ Coming soon.
 STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag.py
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+.. note::
+    TSS will automatically generate documentation for your solution at `READTHEDOCS <https://readthedocs.org/>`_ Each TML solution you create will have its own 
+    documentation that will detail the solution parameters in the DAGs.  This is another unique and powerful feature of the TSS.  This enables you to share your 
+    documentation with others - almost instantly!
+   
 .. code-block:: PYTHON
 
     from airflow import DAG
