@@ -52,7 +52,7 @@ This guide will provide common setup instructions for new users who want to run 
 
 **Note:** First time the plain text values need to be entered, on start VIPER will hide these values. You can update them with plain text again if you change the key/secret then simply restart VIPER to hide the updated values again.
 
-.. table::
+.. list-table::
 
    * - **Configuration Parameter**
      - **Description**
