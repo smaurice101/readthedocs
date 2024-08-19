@@ -188,7 +188,9 @@ DAG Table
  
        from devices and you want to 
  
-       leverage a gRPC connection and stream the data to Kafka.
+       leverage a gRPC connection and stream the 
+ 
+       data to Kafka.
    * - tml-read-RESTAPI-step-3-kafka-producetotopic-dag
      - This DAG is an RESTAPI server and will listen 
     
@@ -216,7 +218,9 @@ DAG Table
 
        trained algorithms for every entity.
    * - tml-system-step-7-kafka-visualization-dag
-     - This DAG streams the output to a real-time dashboard.
+     - This DAG streams the output to a 
+
+       real-time dashboard.
    * - tml_system_step_8_deploy_solution_to_docker_dag
      - This DAG automatically deploys the entire 
 
@@ -475,15 +479,41 @@ DAG STEP 1: Parameter Explanation
     * -  start_date
       - Date of solution creation
     * - brokerhost
-      - This is the IP address for Kafka.  If Kafka is running on localhost then use '127.0.0.1' or add Kafka Cloud cluster address
+      - This is the IP address for Kafka.  
+
+        If Kafka is running on localhost then 
+
+        use '127.0.0.1' or add Kafka Cloud 
+
+        cluster address
     * - brokerport
-      - The default port for Kafka on-premise or in the cloud is '9092'
+      - The default port for Kafka on-premise 
+
+        or in the cloud is '9092'
     * - cloudusername
-      - If you are running Kafka on-premise on 127.0.0.1 - then this should be left blank.  If you are using Kafka Cloud then this is the **API KEY**
+      - If you are running Kafka on-premise 
+
+        on 127.0.0.1 - then this should be left 
+
+        blank.  If you are using Kafka Cloud 
+
+        then this is the **API KEY**
     * - cloudpassword
-      - If you are running Kafka on-premise on 127.0.0.1 - then this should be left blank.  If you are using Kafka Cloud then this is the **API SECRET**
+      - If you are running Kafka on-premise on 
+
+        127.0.0.1 - then this should be left blank.  
+
+        If you are using Kafka Cloud then this 
+
+        is the **API SECRET**
     * - solutionname
-      - Provide a name for the solution.  This name should include no spaces or special characters in the name.  Choose a unique solution name.
+      - Provide a name for the solution.  This name 
+
+        should include no spaces or special 
+
+        characters in the name.  Choose a unique 
+
+        solution name.
     * - description
       - Describe your solution in one-line.
     * - retries
@@ -600,11 +630,17 @@ DAG STEP 2: Parameter Explanation
     * - mylocation
       - Change as needed
     * - replication
-      - If using on-premise Kafka at address 127.0.0.1 then this should be 1
+      - If using on-premise Kafka at address 127.0.0.1 
 
-        If using Kafka Cloud - then this MUST a minimum of 3
+        then this should be 1.
+
+        If using Kafka Cloud - then this 
+
+        MUST a minimum of 3
     * - numpartitions
-      - Specific partition for topics -  usually mimimum 3 partitions is fine
+      - Specific partition for topics -  
+
+        usually mimimum 3 partitions is fine
     * - enabletls
       - Set to 1 for TLS encryption, 0 for no encryption
     * - brokerhost
@@ -612,15 +648,31 @@ DAG STEP 2: Parameter Explanation
     * - brokerport
       - The setting in Step 1 is fine
     * - microserviceid
-      - If you are using a microservice in a load balancer i.e. NGINX you can specify the route here
+      - If you are using a microservice in a 
+ 
+        load balancer i.e. NGINX you can specify 
+
+        the route here
     * - raw_data_topic
-      - This is the data your solution will produce raw data to - see :ref:`STEP 3: Produce to Kafka Topics`
+      - This is the data your solution 
+
+        will produce raw data to - 
+
+        see :ref:`STEP 3: Produce to Kafka Topics`
     * - preprocess_data_topic
-      - This is where all the preprocess data will be stored - separate multiple topics with a comma
+      - This is where all the preprocess 
+
+        data will be stored - separate 
+
+        multiple topics with a comma
     * - ml_data_topic
-      - This is where the ML estimated paramters are stored.
+      - This is where the ML estimated paramters 
+
+        are stored.
     * - prediction_data_topic
-      - This is where all the predictions will be stored.
+      - This is where all the predictions 
+
+        will be stored.
     * - description
       - Description for the topics.
     * - start_date
@@ -644,28 +696,63 @@ STEP 3: Produce to Kafka Topics
      - **Client File Name**
      - **Description**
    * - tml-read-MQTT-step-3-kafka-producetotopic-dag.py
-     - An **on_message(client, userdata, msg)** event is triggered by the MQTT broker.  This DAGs will automatically handle the on_message event
+     - An **on_message(client, userdata, msg)** event 
+
+       is triggered by the MQTT broker.  This DAGs 
+
+       will automatically handle the on_message event
+
        and produce the data to Kafka.
-     - This DAG is an MQTT server and will listen for a connection from a client.  
-       You use this if your TML solution ingests data from MQTT system like HiveMQ and 
+     - This DAG is an MQTT server and will 
+        
+       listen for a connection from a client.  
+
+       You use this if your TML solution 
+
+       ingests data from MQTT system like HiveMQ and 
+
        stream it to Kafka.
    * - tml-read-LOCALFILE-step-3-kafka-producetotopic-dag.py
-     - You can process a localfile and stream the data to kafka.  See the `IoTSolution DAG <https://github.com/smaurice101/raspberrypi/blob/main/tml-airflow/dags/tml-iotsolution-step-3-kafka-producetotopic-dag.py>`_
-     - This DAG will read a local CSV file for data and stream it to Kafka.
+     - You can process a localfile and stream the 
+
+       data to kafka.  See the `IoTSolution DAG <https://github.com/smaurice101/raspberrypi/blob/main/tml-airflow/dags/tml-iotsolution-step-3-kafka-producetotopic-dag.py>`_
+
+     - This DAG will read a local CSV file 
+
+       for data and stream it to Kafka.
    * - tml-read-gRPC-step-3-kafka-producetotopic-dag
      - Here is the gRPC client: `tml-read-gRPC-step-3-kafka-producetotopic-dag <https://github.com/smaurice101/raspberrypi/blob/main/tml-airflow/dags/tml-client- 
        gRPC-step-3-kafka-producetotopic.py>`_
-       NOTE: For this client you will also need: `tml_grpc_pb2_grpc <https://github.com/smaurice101/raspberrypi/blob/main/tml- 
-       airflow/dags/tml_grpc_pb2_grpc.py>`_, and `tml_grpc_pb2 <https://github.com/smaurice101/raspberrypi/blob/main/tml-airflow/dags/tml_grpc_pb2.py>`_
-     - This DAG is an gRPC server and will listen for a connection from a gRPC client.  You use this if your TML 
+
+       NOTE: For this client you will also 
+ 
+       need: `tml_grpc_pb2_grpc <https://github.com/smaurice101/raspberrypi/blob/main/tml- 
+       airflow/dags/tml_grpc_pb2_grpc.py>`_, 
+
+       and `tml_grpc_pb2 <https://github.com/smaurice101/raspberrypi/blob/main/tml-airflow/dags/tml_grpc_pb2.py>`_
+     - This DAG is an gRPC server and will 
+
+       listen for a connection from 
+
+       a gRPC client.  You use this if your TML 
+
        solution ingests data from devices and you want to 
+
        leverage a gRPC connection and stream the data to Kafka.
    * - tml-read-RESTAPI-step-3-kafka-producetotopic-dag
      - Here is the RESTAPI client: `tml-client-RESTAPI-step-3-kafka-producetotopic.py <https://github.com/smaurice101/raspberrypi/blob/main/tml-airflow/dags/tml- 
        client-RESTAPI-step-3-kafka-producetotopic.py>`_
-     - This DAG is an RESTAPI server and will listen for a connection from a REST client.  You use this if your TML 
+     - This DAG is an RESTAPI server and will 
+
+       listen for a connection from a 
+
+       REST client.  You use this if your TML 
+
        solution ingests data from devices and you want 
-       to leverage a rest connection and stream the data to Kafka.
+
+       to leverage a rest connection and stream 
+
+       the data to Kafka.
    
 STEP 3a: Produce Data Using MQTT: tml-read-MQTT-step-3-kafka-producetotopic-dag.py
 """"""""""""""""""""""""""" 	
