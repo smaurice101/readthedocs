@@ -2056,68 +2056,183 @@ Preprocessed Sample JSON Output: Explanations
    * - **JSON Field**
      - **Description** 
    * - hyperprediction
-     - This contains the preprocced value for the **Preprocesstype: Avg**.  In this case, the value is 0.980
+     - This contains the preprocced value for 
+ 
+       the **Preprocesstype: Avg**.  In this case, 
+
+       the value is 0.980
    * - Maintopic
-     - This is the topic being consumed: iot-preprocess2
+     - This is the topic being consumed: 
+
+       iot-preprocess2
    * - Topic
-     - This is the topic name for the preprocessed variable.  For example, topicid287_Current_preprocessed_AnomProb_preprocessed_Avg, means entity id 287 was 
-        processed (this number 287 is an internal number associated with device serial number: **AC000W020496398**)
+     - This is the topic name for the preprocessed 
+
+       variable.  
+
+       For example, topicid287_Current_preprocessed_AnomProb_preprocessed_Avg, 
+
+       means entity id 287 was 
+
+       processed (this number 287 is an internal 
+
+       number associated with device serial 
+
+       number: **AC000W020496398**)
    * - Type
      - This is an internal parameter
    * - ProducerId
-     - This is an internal parameter: ProducerId-OAA--s0Ee-sqUX8QqLfdtivZSKRHoMShBe
+     - This is an internal parameter: 
+
+       ProducerId-OAA--s0Ee-sqUX8QqLfdtivZSKRHoMShBe
    * - TimeStamp
-     - This is the UTC timestamp of the calculation creation: 2024-08-15 19:49:24
+     - This is the UTC timestamp of the 
+
+       calculation creation: 2024-08-15 19:49:24
    * - Unixtime
-     - This is the Unixtime of the calculation: 1723751364617162000
+     - This is the Unixtime of the 
+
+       calculation: 1723751364617162000
    * - kafkakey
-     - This is the TML Kafka key that identifies it came from TML: OAA-tFTP8Ym6BHy-bnw2X5XdSUoUSOjns7
+     - This is the TML Kafka key that 
+
+       identifies it came from 
+
+       TML: OAA-tFTP8Ym6BHy-bnw2X5XdSUoUSOjns7
    * - Preprocesstype
      - This is the preprocessed type used: Avg
    * - WindowStartTime
-     - This is the start of the sliding time window: 2024-08-15 19:49:08.36546688 +0000 UTC
+     - This is the start of the sliding time 
+
+       window: 2024-08-15 19:49:08.36546688 +0000 UTC
    * - WindowEndTime
-     - This is the end of the sliding time window: 2024-08-15 19:49:21.600164096 +0000 UTC
+     - This is the end of the sliding time 
+
+       window: 2024-08-15 19:49:21.600164096 +0000 UTC
    * - WindowStartUnixTime
-     - This is the start of the sliding time window in Unix time: 1723751348365466880
+     - This is the start of the sliding time 
+
+       window in Unix time: 1723751348365466880
    * - WindowEndUnixTime
-     - This is end of the sliding time window in Unix time: 1723751361600164096
+     - This is end of the sliding time window 
+
+       in Unix time: 1723751361600164096
    * - Conditions
      - This contains any preprocessed conditions
    * - Identifier
-     - This will store all the data using in the Avg calculation of Current variable. It is delimited by "~".  If you parse the "Msgsjoined" field
-       you can get the RAW data: dd4dfbbc-7fb3-11ec-e36d-28c9ca7b5376(145,34.04893,-111.09373,Current,n/a,n/a,{}), the first alphanumeric: dd4dfbbc-7fb3-11ec- 
-       e36d-28c9ca7b5376 is the msgis, the second number 145 is the current value used in the calculation, then latitude (34.04893) and logitude (-111.09373), 
-       the variable being processed (Current), and any additional information.
+     - This will store all the data using in the 
 
-       Another important field is **mainuid=AC000W020496398**, mainuid is the entity identifier in the UID field of the Json criteria (:ref:`JSON PROCESSING`).  
+       Avg calculation of Current variable. 
+
+       It is delimited by "~".  If you parse the 
+ 
+       "Msgsjoined" field
+
+       you can get the RAW data: dd4dfbbc-7fb3-11ec-e36d-28c9ca7b5376(145,34.04893,
+ 
+       -111.09373,Current,n/a,n/a,{}), the first alphanumeric: 
+
+       dd4dfbbc-7fb3-11ec- 
+
+       e36d-28c9ca7b5376 is the msgis, the second 
+
+       number 145 is the current value used in 
+
+       the calculation, then latitude (34.04893) 
+
+       and logitude (-111.09373), 
+
+       the variable being processed (Current), 
+
+       and any additional information.
+
+       Another important field is **mainuid=AC000W020496398**, 
+
+       mainuid is the entity identifier in the UID 
+
+       field of the Json criteria (:ref:`JSON PROCESSING`).  
        
-       **In summary, TML processed (took average of) 6 messages from this one device (with DSN=AC000W020496398) for the Current stream, in the sliding time window 
-       starting at: 2024-08-15 19:49:08, and ending at: 2024-08-15 19:49:21**
+       **In summary, TML processed (took average of) 
+
+       6 messages from this one device (with DSN=AC000W020496398) 
+
+       for the Current stream, in the sliding time window 
+
+       starting at: 2024-08-15 19:49:08, and ending at: 
+
+       2024-08-15 19:49:21**
        
-       "Current~Current-(mA)~iot-preprocess~uid:metadata.dsn,subtopic:metadata.property_name 
-       (Current), value:datapoint.value, identifier:metadata.display_name,datetime:datapoint.updated_at,:allrecords, Joinedidentifiers: 
-       ~oem:n/a~lat:n/a~long:n/a~location:n/a~identifier:n/a,IoT device performance and failures~Msgsjoined=dd4dfbbc-7fb3-11ec-e36d- 
-       28c9ca7b5376(145,34.04893,-111.09373,Current,n/a,n/a,{}); dd781c12-7fb3-11ec-fa99-012971124b46(0,34.04893,-111.09373,Current,n/a,n/a,{});dd94c90c-7fb3- 
-       11ec-727b-6d558b1c7fe4(0,34.04893,-111.09373,Current,n/a,n/a,{}); ddb6f676-7fb3-11ec-5c48-b5377c00ff05(0,34.04893,-111.09373,Current,n/a,n/a, 
+       "Current~Current-(mA)~iot-preprocess~uid:metadata.dsn,
+
+       subtopic:metadata.property_name 
+
+       (Current), value:datapoint.value, 
+
+       identifier:metadata.display_name,datetime:datapoint.updated_at,
+
+       :allrecords, Joinedidentifiers: 
+
+       ~oem:n/a~lat:n/a~long:n/a~location:n/a~identifier:n/a,
+
+       IoT device performance and failures~
+
+       Msgsjoined=dd4dfbbc-7fb3-11ec-e36d- 
+
+       28c9ca7b5376(145,34.04893,-111.09373,Current,n/a,n/a,{}); 
+
+       dd781c12-7fb3-11ec-fa99-012971124b46(0,34.04893,
+
+       -111.09373,Current,n/a,n/a,{});dd94c90c-7fb3- 
+
+       11ec-727b-6d558b1c7fe4(0,34.04893,-111.09373,
+
+       Current,n/a,n/a,{}); ddb6f676-7fb3-11ec-5c48-
+
+       b5377c00ff05(0,34.04893,-111.09373,Current,n/a,n/a, 
+
        {});dde3be22- 
-       7fb3-11ec-4c2e-f10dea945ccd(0,34.04893,-111.09373,Current,n/a,n/a,{}); ddf6a5e6-7fb3-11ec-c25b-509766b7a301(0,34.04893,-111.09373,Current,n/a,n/a, 
-       {});de11b6d8-7fb3-11ec-77c8-a93cc4b538b6(0,34.04893,-111.09373,Current,n/a,n/a,{}); de2850f0-7fb3-11ec-5b6a- 
+
+       7fb3-11ec-4c2e-f10dea945ccd(0,34.04893,-111.09373,
+
+       Current,n/a,n/a,{}); ddf6a5e6-7fb3-11ec-c25b-
+
+       509766b7a301(0,34.04893,-111.09373,Current,n/a,n/a, 
+
+       {});de11b6d8-7fb3-11ec-77c8-a93cc4b538b6(0,34.04893,
+
+       -111.09373,Current,n/a,n/a,{}); de2850f0-7fb3-11ec-5b6a- 
+
        ac3b205641e0(0,34.04893,-111.09373,Current,n/a,n/a, 
-       {});de405510-7fb3-11ec-bba7-9b0ce93d49d2(0,34.04893,-111.09373,Current,n/a,n/a,{}); de4ee062-7fb3-11ec-3252- 
-       7c7e46faf86b(0,34.04893,-111.09373,Current,n/a,n/a,{})~latlong=~mainuid=AC000W020496398",
+
+       {});de405510-7fb3-11ec-bba7-9b0ce93d49d2(0,34.04893,
+
+       -111.09373,Current,n/a,n/a,{}); de4ee062-7fb3-11ec-3252- 
+
+       7c7e46faf86b(0,34.04893,-111.09373,Current,
+
+       n/a,n/a,{})~latlong=~mainuid=AC000W020496398",
    * - PreprocessIdentifier
-     - This is the preprocess identifier: IoT Data preprocess
+     - This is the preprocess identifier: 
+
+       IoT Data preprocess
    * - Numberofmessages
-     - This is the number of messages used in the Avg calculation: 6
-   * -  Offset
-     - This is the Kafka Offset where this message is stored: 27041
+     - This is the number of messages 
+
+       used in the Avg calculation: 6
+   * - Offset
+     - This is the Kafka Offset where 
+
+       this message is stored: 27041
    * - Consumerid
      - This is the id of the consumer: StreamConsumer
    * - Generated
-     - This is the time stamp when this message was consumed: 2024-08-15T19:49:55.619+00:00
+     - This is the time stamp when this 
+
+       message was consumed: 2024-08-15T19:49:55.619+00:00
    * - Partition
-     - This is the Kafka partition this message was stored in: 0
+     - This is the Kafka partition this 
+
+       message was stored in: 0
 
 STEP 5: Entity Based Machine Learning : tml-system-step-5-kafka-machine-learning-dag.py
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -2132,9 +2247,13 @@ Another powerful feature of TML is performing machine learning at the entity lev
    * - **Algorithm**
      - **Description**   
    * - Logistic Regression
-     - Performs classification regression and predicts probabilities
+     - Performs classification regression 
+
+       and predicts probabilities
    * - Linear Regression
-     - Performs linear regression using OLS algorithm
+     - Performs linear regression using 
+
+       OLS algorithm
    * - Gradient Boosting
      - Gradient boosting for non-linear real-time data
    * - Ridge Regression
@@ -2324,51 +2443,169 @@ Here are the **core parameters** in the above dag 5:
    * - **Step 5 DAG parameter**
      - **Explanation**
    * - modelruns
-     - This instructs HPDE to try to find the best trained algorithms out of many.  For example, if modelruns=100, it will iterate over 100 models before it 
-       finds the best model out of these 100 models.  It will perform hyperparameter tuning as well.
+     - This instructs HPDE to try to find the best 
+
+       trained algorithms out of many.  For example, 
+
+       if modelruns=100, it will iterate over 100 models 
+
+       before it 
+
+       finds the best model out of these 100 models.  
+
+       It will perform hyperparameter tuning as well.
    * - islogistic
-     - TML can do classification and regression. If islogistic=1, then TML assumes the dependent variable is a binary variable with value 1 or 0, otherwise if 
-       islogistic=0, then it assumes the dependent variable is continuous.
+     - TML can do classification and regression. 
+
+       If islogistic=1, then TML assumes the 
+
+       dependent variable is a binary variable with 
+
+       value 1 or 0, otherwise if 
+
+       islogistic=0, then it assumes the dependent 
+
+       variable is continuous.
    * - modelsearchtuner
-     - This parameter will attempt to fine tune the model search space - A number close to 100 means you will have fewer models but their predictive quality will 
+     - This parameter will attempt to fine tune the 
+
+       model search space - A number close to 100 means 
+
+       you will have fewer models but their predictive 
+
+       quality will 
+
        be higher.      
    * - dependentvariable
-     - You specify the json path of the dependent variable in your Json message. Refer to :ref:`Json Path Example`.  If using preprocessed variables refer to 
+     - You specify the json path of the dependent 
+
+       variable in your Json message. 
+
+       Refer to :ref:`Json Path Example`.  If using 
+
+       preprocessed variables refer to 
+
        :ref:`Preprocessed Variable Naming Standard`
    * - independentvariables
-     - You must specify the independent variables (separate multiple variables by a comma).  Refer to the :ref:`Json Path Example`.  If using preprocessed 
+     - You must specify the independent variables 
+
+       (separate multiple variables by a comma).  
+
+       Refer to the :ref:`Json Path Example`.  If 
+
+       using preprocessed 
+
        variables refer to :ref:`Preprocessed Variable Naming Standard`
    * - topicid
-     - The topicid is an internal directive for TML.  If set to -1, it tell the TML Viper binary to process Json by their unique indentifier.  Usually, leaving 
+     - The topicid is an internal directive 
+
+       for TML.  If set to -1, it tell the 
+
+       TML Viper binary to process Json 
+
+       by their unique indentifier.  Usually, 
+
+       leaving 
+
        this at -1 is fine.
    * - fullpathtotrainingdata
-     - You must specify the full path to where the training dataset will be store on disk.  The formation for the path is /Viper-ml/viperlogs/<choose 
-       **foldername**>, where you specify the **foldername**.
+     - You must specify the full path to where 
+
+       the training dataset will be store on 
+
+       disk.  The formation for the path 
+
+       is /Viper-ml/viperlogs/<choose 
+
+       **foldername**>, where you specify the 
+
+       **foldername**.
    * - processlogic
-     - This is the processlogic needed for the dependent variable if you are estimating a logistic model.  Specifically, if the conditions in your logic are 
-       TRUE, the dependent variable will be set to 1, otherwise it will be 0.  For example,  **classification_name = 
-       failure_prob:Voltage_preprocessed_AnomProb=55,n:Current_preprocessed_AnomProb=55,n** means, if the preprocessed variable Voltage_preprocessed_AnomProb is 
-       greater than 55, and Current_preprocessed_AnomProb is greater than 55, then set dependent variable failure_prob to 1, otherwise set it to 0.
+     - This is the processlogic needed for 
 
-       if you want less than 55, then use **classification_name = failure_prob:Voltage_preprocessed_AnomProb=-n,55:Current_preprocessed_AnomProb=-n,55**
+       the dependent variable if you are 
 
-       Note: **classification_name** must be specified, the name of the dependent variable **failure_prob** can be changed to any name you want.
+       estimating a logistic model.  
 
-       Performing real-time logistic regression is a very powerful way to perform probability predictions on real-time data generated by devices.
+       Specifically, if the conditions in 
+
+       your logic are 
+
+       TRUE, the dependent variable will 
+
+       be set to 1, otherwise it will be 0.  
+
+       For example,  **classification_name = 
+
+       failure_prob:Voltage_preprocessed_AnomProb=55,
+
+       n:Current_preprocessed_AnomProb=55,n** 
+
+       means, if the preprocessed variable 
+
+       Voltage_preprocessed_AnomProb is 
+
+       greater than 55, and Current_preprocessed_AnomProb 
+
+       is greater than 55, then set dependent variable 
+
+       failure_prob to 1, otherwise set it to 0.
+
+       if you want less than 55, then use **classification_name = 
+
+       failure_prob:
+
+       Voltage_preprocessed_AnomProb=-n,55:
+
+       Current_preprocessed_AnomProb=-n,55**
+
+       Note: **classification_name** must be 
+
+       specified, the name of the dependent variable 
+
+       **failure_prob** can be changed to any name you want.
+
+       Performing real-time logistic regression is 
+
+       a very powerful way to perform probability 
+
+       predictions on real-time data generated by devices.
    * - transformtype
-     - You can specify transformation of your machine learning model by specifying: log-lin, lin-log, log-log
+     - You can specify transformation of 
 
-       **log-lin:** take log of the dependent variable, and leave the independent variable as is.
+       your machine learning model by 
 
-       **lin-log:** leave the dependent variable as is, but take log of the independent variables.
+       specifying: log-lin, lin-log, log-log
 
-       **log-log:** take log of the dependent variable, and take log of the independent variables.
+       **log-lin:** take log of the dependent 
+
+       variable, and leave the independent 
+
+       variable as is.
+
+       **lin-log:** leave the dependent variable 
+
+       as is, but take log of the independent variables.
+
+       **log-log:** take log of the dependent variable, 
+
+       and take log of the independent variables.
    * - sendcoefto
-     - You can send the coefficients for each trained model to another Kafka topic. This topic MUST BE SET IN STEP 2.
+     - You can send the coefficients for each 
+
+       trained model to another Kafka topic. 
+
+       This topic MUST BE SET IN STEP 2.
    * - coeftoprocess
-     - You can specify which coeffients to process i.e. 0,1,2 For example, for 3 estimator parameters 0=constant, 1,2 are the other estmated paramters
+     - You can specify which coeffients to process 
+
+       i.e. 0,1,2 For example, for 3 estimator parameters 
+
+       0=constant, 1,2 are the other estmated paramters
    * - coefsubtopicnames
-     - You can give names to the coefficients in your model: constant, elasticity, elasticity2    
+     - You can give names to the coefficients in 
+
+       your model: constant, elasticity, elasticity2    
 
 Machine Learning Trained Model Sample JSON Output
 """""""""""""""""""""""""""""""""""""
@@ -2427,46 +2664,102 @@ Machine Learning Trained Model Sample JSON Output: Explanations
    * - **JSON Field**
      - **Description**
    * - Algokey
-     - This is the Algoirithm key:  StreamConsumer_topicid59_json
+     - This is the Algoirithm key:  
+
+       StreamConsumer_topicid59_json
    * - Algo
-     - This is the physical algorithm on disk: StreamConsumer_topicid59_jsonlgt
+     - This is the physical algorithm on 
+
+       disk: StreamConsumer_topicid59_jsonlgt
    * - Forecastaccuracy
      - This is the forecast accuracy using MAPE: 0.747,
    * - DependentVariable
-     - This is the computed discreet dependent variable: failure_prob
-   * - Filename
-     - File name of the training dataset: /Viper-tml/viperlogs/iotlogistic/StreamConsumer_topicid59.csv
+     - This is the computed discreet dependent variable: 
 
-       The above path is in the Docker container.  You can volume this path to save it on your host machine.
+       failure_prob
+   * - Filename
+     - File name of the training dataset: 
+
+       /Viper-tml/viperlogs/iotlogistic/StreamConsumer_topicid59.csv
+
+       The above path is in the Docker container.  
+
+       You can volume this path to save it on your 
+
+       host machine.
    * - Fieldnames
-     - These are the independent variables: Date,topicid59_Voltage_preprocessed_AnomProb,topicid59_Current_preprocessed_AnomProb
+     - These are the independent variables: Date,
+
+       topicid59_Voltage_preprocessed_AnomProb,
+
+       topicid59_Current_preprocessed_AnomProb
    * - TestResultsFile
-     - A results of the predictions using the test dataset is saved here: /Viper-tml/viperlogs/iotlogistic/StreamConsumer_topicid59_json_predictions.csv
+     - A results of the predictions using the 
+
+       test dataset is saved here: 
+
+       /Viper-tml/viperlogs/iotlogistic/StreamConsumer_topicid59_json_predictions.csv
    * - Deployed
      - Model is deployed to the ./deploy folder if its 1
    * - DeployedTo
      - It is deployed to: Local Machine Deploy Folder",
    * - Created
-     - The time the trained algorithm was generated: 2024-08-15T22:05:55.692145224Z
+     - The time the trained algorithm was generated: 
+
+       2024-08-15T22:05:55.692145224Z
    * - Fullpathtomodels
-     - The full path to the model: /Viper-tml/viperlogs/iotlogistic, the ./models and ./deploy folder are relative to this path
+     - The full path to the model: 
+
+       /Viper-tml/viperlogs/iotlogistic, 
+
+       the ./models and ./deploy folder are 
+
+       relative to this path
    * - Identifier
      - Additional information about the data
-       Voltage~Line-Voltage-(mV)~iot-preprocess~uid:metadata.dsn,subtopic:metadata.property_name 
-       (Voltage), value:datapoint.value, identifier:metadata.display_name,datetime:datapoint.updated_at, 
-       :allrecords,Joinedidentifiers:~oem:n/a~lat:n/a~long:n/a~location:n/a~identifier:n/a,IoT device performance and failures~Msgsjoined=e951b524-7faa-11ec- 
-        4107-b4937c8d3c24(120743, 51.16569,10.45153,Voltage,n/a,n/a,{});e9870b70-7faa-11ec-7911-7438f38e028a(120929,51.16569,10.45153,Voltage,n/a,n/a, 
-        {});e9b56d62-7faa-11ec-d0c0-c3d1d2b8ba2b(120824,51.16569,10.45153,Voltage,n/a,n/a,{})~latlong=~mainuid=AC000W018740175",
-   * - 	AccuracyThreshold
-     - Accuracy threshold for any must be greater than: 0.51 (or 51%)
+       Voltage~Line-Voltage-(mV)~iot-preprocess~uid:metadata.dsn,
+
+       subtopic:metadata.property_name 
+
+       (Voltage), value:datapoint.value, 
+
+       identifier:metadata.display_name,datetime:datapoint.updated_at, 
+
+       :allrecords,Joinedidentifiers:~oem:n/a~lat:n/a~long:n/a
+ 
+       ~location:n/a~identifier:n/a,IoT device performance 
+
+       and failures~Msgsjoined=e951b524-7faa-11ec- 
+
+       4107-b4937c8d3c24(120743, 51.16569,10.45153,Voltage,
+
+       n/a,n/a,{});e9870b70-7faa-11ec-7911-7438f38e028a(120929,
+
+       51.16569,10.45153,Voltage,n/a,n/a, 
+
+       {});e9b56d62-7faa-11ec-d0c0-c3d1d2b8ba2b(120824,51.16569,
+
+       10.45153,Voltage,n/a,n/a,{})~latlong=~mainuid=AC000W018740175",
+   * - AccuracyThreshold
+     - Accuracy threshold for any must 
+
+       be greater than: 0.51 (or 51%)
    * - Minmax
-     - The normalization of the variables: 27.774:82.392,27.592:82.013
+     - The normalization of the 
+
+       variables: 27.774:82.392,27.592:82.013
    * - MachineLearningAlgorithm
-     - The machine learning algorithm used: Logistic Regression
+     - The machine learning algorithm used: 
+
+       Logistic Regression
    * - ParameterEstimates
-     - The parameter estimates: -2.8284930,0.8076427,2.7328265
+     - The parameter estimates: -2.8284930,0.8076427,
+ 
+       2.7328265
    * - HasConstantTerm
-     - Indicates if it has a constant term: 1 - means it does
+     - Indicates if it has a constant term: 
+
+       1 - means it does
    * - Topicid
      - Internal topicid associated with the uid: 59
    * -	ConsumeridFrom
@@ -2474,29 +2767,53 @@ Machine Learning Trained Model Sample JSON Output: Explanations
    * - Producerid
      - The producerid: StreamProducer
    * - ConsumingFrom
-     - The physical training dataset file in the container: /Viper-tml/viperlogs/iotlogistic/trainingdata_topicid59_.json
+     - The physical training dataset file 
+
+       in the container: 
+
+       /Viper-tml/viperlogs/iotlogistic/trainingdata_topicid59_.json
    * - ProduceTo
-     - Topic where the estimated parameters are saved:: iot-trained-params-input
+     - Topic where the estimated parameters are 
+
+       saved:iot-trained-params-input
    * - Companyname
-     - Your company name: OTICS Advanced Analytics
+     - Your company name
    * - BrokerhostPort
-     - Kafka brokerhostport: 127.0.0.1:9092 - using On-Premise Kafka
+     - Kafka brokerhostport: 127.0.0.1:9092 
+
+       using On-Premise Kafka
    * - Islogistic
-     - Indicates if the model is logistic: 1 - means it is
+     - Indicates if the model is 
+
+       logistic: 1 - means it is
    * - HPDEHOST
-     - Address where HPDE is listening for a connection from Viper: 172.18.0.2:44269
+     - Address where HPDE is listening 
+
+       for a connection from Viper: 
+
+       172.18.0.2:44269
    * - HPDEMACHINENAME
-     - Machine name where the HPDE binary is running: 329e7b30d9b8
+     - Machine name where the HPDE binary 
+
+       is running: 329e7b30d9b8
    * - Modelruns
-     - Number of models to iterate through before stopping: 100
+     - Number of models to iterate through 
+
+       before stopping: 100
    * - ModelSearchTuner
-     - Hyper parameter tuner: 90 - closer to 100 means higher quality models
+     - Hyper parameter tuner: 90 - closer 
+
+       to 100 means higher quality models
    * - TrainingData_Partition
      - Ignored
    * - Transformtype
-     - This is the log-lin, lin-log, log-log transformations if any
+     - This is the log-lin, lin-log, 
+
+       log-log transformations if any
    * - Sendcoefto
-     - You can send the estimated coefficients to a topic
+     - You can send the estimated 
+
+       coefficients to a topic
    * - Coeftoprocess
      - The coeffienct index to process
    * - Coefsubtopicnames
@@ -2504,11 +2821,17 @@ Machine Learning Trained Model Sample JSON Output: Explanations
    * - BytesWritten
      - The size of this json: 1912
    * - kafkakey
-     - The TML kafka key: OAA-KK6EoesoB8KX8mkL17D5y5ejN-N7Le
+     - The TML kafka key: 
+
+       OAA-KK6EoesoB8KX8mkL17D5y5ejN-N7Le
    * - Numberofmessages
-     - The number of rows in the training dataset: 239
+     - The number of rows in the training 
+
+       dataset: 239
    * - Partition
-     - The partition where this json is store in kafka: 0
+     - The partition where this json 
+
+       is store in kafka: 0
    * - Offset
      - The offset of this json in Kafka: 59
 
