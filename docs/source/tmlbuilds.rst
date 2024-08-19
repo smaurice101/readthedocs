@@ -190,92 +190,125 @@ STEP 1: Get TML Core Params: tml_system_step_1_getparams_dag
 Below is the complete definition of the **tml_system_step_1_getparams_dag**.  Users only need to configure the code highlighted in the **USER CHOSEN PARAMETERS**.
 
 .. code-block:: PYTHON
-   :emphasize-lines: 10,11,12,13,14,15,16,17,18,19
+   :emphasize-lines: 10,11,12,13,14,15,16,17,18,19,20,21,22
  
-   from airflow import DAG
-   from airflow.operators.python import PythonOperator
-   from airflow.operators.bash import BashOperator
-   import datetime
-   from airflow.decorators import dag, task
-   import os 
-   import sys
-   import maadstml  
-
-   sys.dont_write_bytecode = True
-   ######################################################USER CHOSEN PARAMETERS ###########################################################
-   default_args = {
-   'owner': 'Sebastian Maurice',  # <<< ******** change as needed 
-   'start_date': datetime.datetime (2024, 6, 29),
-   'brokerhost' : '127.0.0.1',  # <<<<***************** THIS WILL ACCESS LOCAL KAFKA - YOU CAN CHANGE TO CLOUD KAFKA HOST
-   'brokerport' : '9092',     # <<<<***************** LOCAL AND CLOUD KAFKA listen on PORT 9092
-   'cloudusername' : '',  # <<<< --------FOR KAFKA CLOUD UPDATE WITH API KEY  - OTHERWISE LEAVE BLANK
-   'cloudpassword' : '',  # <<<< --------FOR KAFKA CLOUD UPDATE WITH API SECRET - OTHERWISE LEAVE BLANK   
-   'solutionname': 'mysolution',   # <<< *** Provide a name for your solution - No spaces or special characters in the name
-   'description': 'This is an awesome real-time solution built by TSS',   # <<< *** Provide a description of your solution
-   'retries': 1,
-   }  
-   ############################################################### DO NOT MODIFY BELOW ####################################################
-   # Instantiate your DAG
-   @dag(dag_id="tml_system_step_1_getparams_dag", default_args=default_args, tags=["tml-system-step-1-getparams"], schedule=None, 
-    start_date=datetime.datetime(2022, 3, 4), catchup=False)
-   def tmlparams():
-      # Define tasks
-    basedir = "/"
-    viperconfigfile=basedir + "/Viper-produce/viper.env"
-  
-    def updateviperenv():
-    # update ALL
-      filepaths = ['/Viper-produce/viper.env','/Viper-preprocess/viper.env','/Viper-preprocess2/viper.env','/Viper-ml/viper.env','/Viperviz/viper.env']
-      for mainfile in filepaths:
-          with open(mainfile, 'r', encoding='utf-8') as file: 
-            data = file.readlines() 
-          r=0 
-          for d in data:
-             if 'KAFKA_CONNECT_BOOTSTRAP_SERVERS' in d: 
-               data[r] = "KAFKA_CONNECT_BOOTSTRAP_SERVERS={}:{}".format(default_args['brokerhost'],default_args['brokerport'])
-             if 'CLOUD_USERNAME' in d: 
-               data[r] = "CLOUD_USERNAME={}".format(default_args['cloudusername'])
-             if 'CLOUD_PASSWORD' in d: 
-               data[r] = "CLOUD_PASSWORD={}".format(default_args['cloudpassword'])
-                  
-             r += 1
-          with open(mainfile, 'w', encoding='utf-8') as file: 
-            file.writelines(data)
-  
-    @task(task_id="getparams")
-    def getparams(args):
-       VIPERHOST=""
-       VIPERPORT=""
-       HTTPADDR="http://"
-       HPDEHOST=""
-       HPDEPORT=""
-       VIPERTOKEN = ""
-      
-       with open(basedir + "/Viper-produce/admin.tok", "r") as f:
-          VIPERTOKEN=f.read()
-  
-       if VIPERHOST=="":
-          with open(basedir + '/Viper-produce/viper.txt', 'r') as f:
-            output = f.read()
-            VIPERHOST = HTTPADDR + output.split(",")[0]
-            VIPERPORT = output.split(",")[1]
-          with open('/Hpde/hpde.txt', 'r') as f:
-            output = f.read()
-            HPDEHOST = HTTPADDR + output.split(",")[0]
-            HPDEPORT = output.split(",")[1]
-  
-       ti.xcom_push(key='VIPERTOKEN',value=VIPERTOKEN)
-       ti.xcom_push(key='VIPERHOST',value=VIPERHOST)
-       ti.xcom_push(key='VIPERPORT',value=VIPERPORT)
-       ti.xcom_push(key='HTTPADDR',value=HTTPADDR)
-       ti.xcom_push(key='HPDEHOST',value=HPDEHOST)
-       ti.xcom_push(key='HPDEPORT',value=HPDEPORT)
-               
-       updateviperenv()
+    from airflow import DAG
+    from airflow.operators.python import PythonOperator
+    from airflow.operators.bash import BashOperator
+    import datetime
+    from airflow.decorators import dag, task
+    import os 
+    import sys
+    #import tsslogging
+    
+    sys.dont_write_bytecode = True
+    ######################################################USER CHOSEN PARAMETERS ###########################################################
+    default_args = {
+     'owner': 'Sebastian Maurice',  # <<< ******** change as needed 
+     'start_date': datetime.datetime (2024, 6, 29),
+     'brokerhost' : '127.0.0.1',  # <<<<***************** THIS WILL ACCESS LOCAL KAFKA - YOU CAN CHANGE TO CLOUD KAFKA HOST
+     'brokerport' : '9092',     # <<<<***************** LOCAL AND CLOUD KAFKA listen on PORT 9092
+     'cloudusername' : '',  # <<<< --------FOR KAFKA CLOUD UPDATE WITH API KEY  - OTHERWISE LEAVE BLANK
+     'cloudpassword' : '',  # <<<< --------FOR KAFKA CLOUD UPDATE WITH API SECRET - OTHERWISE LEAVE BLANK   
+     'solutionname': 'mysolution',   # <<< *** Provide a name for your solution - No spaces or special characters in the name
+     'description': 'This is an awesome real-time solution built by TSS',   # <<< *** Provide a description of your solution
+     'retries': 1,
+    }
+    
+    ############################################################### DO NOT MODIFY BELOW ####################################################
+    # Instantiate your DAG
+    @dag(dag_id="tml_system_step_1_getparams_dag", default_args=default_args, tags=["tml-system-step-1-getparams"], schedule=None, start_date=datetime.datetime(2022, 3, 4), catchup=False)
+    def tmlparams():
+        # Define tasks
+      basedir = "/"
+      viperconfigfile=basedir + "/Viper-produce/viper.env"
+    
+      def updateviperenv():
+      # update ALL
+        
+        filepaths = ['/Viper-produce/viper.env','/Viper-preprocess/viper.env','/Viper-preprocess2/viper.env','/Viper-ml/viper.env','/Viperviz/viper.env','/Viper- predict/viper.env']
+        for mainfile in filepaths:
+            with open(mainfile, 'r', encoding='utf-8') as file: 
+              data = file.readlines() 
+            r=0 
+            for d in data:
+               if 'KAFKA_CONNECT_BOOTSTRAP_SERVERS' in d: 
+                 data[r] = "KAFKA_CONNECT_BOOTSTRAP_SERVERS={}:{}".format(default_args['brokerhost'],default_args['brokerport'])
+               if 'CLOUD_USERNAME' in d: 
+                 data[r] = "CLOUD_USERNAME={}".format(default_args['cloudusername'])
+               if 'CLOUD_PASSWORD' in d: 
+                 data[r] = "CLOUD_PASSWORD={}".format(default_args['cloudpassword'])
+                    
+               r += 1
+            with open(mainfile, 'w', encoding='utf-8') as file: 
+              file.writelines(data)
+    
+      @task(task_id="getparams")
+      def getparams(args):
+            
+         VIPERHOST = ""
+         VIPERPORT = ""
+         HTTPADDR = "http://"
+         HPDEHOST = ""
+         HPDEPORT = ""
+         VIPERTOKEN = ""
+        
+         with open(basedir + "/Viper-produce/admin.tok", "r") as f:
+            VIPERTOKEN=f.read()
+    
+         if VIPERHOST=="":
+            with open(basedir + '/Viper-produce/viper.txt', 'r') as f:
+              output = f.read()
+              VIPERHOST = HTTPADDR + output.split(",")[0]
+              VIPERPORT = output.split(",")[1]
+            with open('/Hpde/hpde.txt', 'r') as f:
+              output = f.read()
+              HPDEHOST = HTTPADDR + output.split(",")[0]
+              HPDEPORT = output.split(",")[1]
+    
+         sname=args['solutionname']    
+         desc=args['description']        
+            
+         ti.xcom_push(key='VIPERTOKEN',value=VIPERTOKEN)
+         ti.xcom_push(key='VIPERHOST',value=VIPERHOST)
+         ti.xcom_push(key='VIPERPORT',value=VIPERPORT)
+         ti.xcom_push(key='HTTPADDR',value=HTTPADDR)
+         ti.xcom_push(key='HPDEHOST',value=HPDEHOST)
+         ti.xcom_push(key='HPDEPORT',value=HPDEPORT)
+         ti.xcom_push(key='solutionname',value=sname)
+         ti.xcom_push(key='solutiondescription',value=desc)
+                 
+         updateviperenv()
              
-    tmlsystemparams=getparams(default_args)
-      
-   dag = tmlparams()
+      tmlsystemparams=getparams(default_args)
+              
+    dag = tmlparams()
+
+DAG STEP 1: 1Parameter Explanation
+"""""""""""""""""""""""""""""
+
+.. list-table
+
+    * - **Json Key**
+      - **Description**
+    * - owner
+      - Change as needed. 
+    * -  start_date
+      - Date of solution creation
+    * - brokerhost
+      - This is the IP address for Kafka.  If Kafka is running on localhost then use '127.0.0.1' or add Kafka Cloud cluster address
+    * - brokerport
+      - The default port for Kafka on-premise or in the cloud is '9092'
+    * - cloudusername
+      - If you are running Kafka on-premise on 127.0.0.1 - then this should be left blank.  If you are using Kafka Cloud then this is the **API KEY**
+    * - cloudpassword
+      - If you are running Kafka on-premise on 127.0.0.1 - then this should be left blank.  If you are using Kafka Cloud then this is the **API SECRET**
+    * - solutionname
+      - Provide a name for the solution.  This name should include no spaces or special characters in the name.  Choose a unique solution name.
+    * - description
+      - Describe your solution in one-line.
+    * - retries
+      - Change are neede, i.e. 1 is usually fine.
 
 STEP 2: Create Kafka Topics: tml_system_step_2_kafka_createtopic_dag
 ^^^^^^^^^^^^^^^^^^^^^^^
