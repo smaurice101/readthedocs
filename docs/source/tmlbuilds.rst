@@ -248,7 +248,7 @@ Below is the complete definition of the **tml_system_step_1_getparams_dag**.  Us
 
 .. code-block:: PYTHON
    :emphasize-lines: 11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,
-                     38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64
+                     38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65
  
     from airflow import DAG
     from airflow.operators.python import PythonOperator
@@ -509,6 +509,13 @@ DAG STEP 1: Parameter Explanation
         If you are using Kafka Cloud then this 
 
         is the **API SECRET**
+    * - ingestdatamethod
+      - You must choose how you will ingest your data.
+
+        Choose ONE from: 1. localfile, 2. mqtt, 
+
+                         3. rest, 4. grpc     
+
     * - solutionname
       - Provide a name for the solution.  This name 
 
@@ -3490,6 +3497,8 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
         brokerhost = ti.xcom_pull(dag_id='tml_system_step_1_getparams_dag',task_ids='getparams',key="brokerhost")
         brokerport = ti.xcom_pull(dag_id='tml_system_step_1_getparams_dag',task_ids='getparams',key="brokerport")
         cloudusername = ti.xcom_pull(dag_id='tml_system_step_1_getparams_dag',task_ids='getparams',key="cloudusername")
+        cloudpassword = ti.xcom_pull(dag_id='tml_system_step_1_getparams_dag',task_ids='getparams',key="cloudpassword")
+        ingestdatamethod = ti.xcom_pull(dag_id='tml_system_step_1_getparams_dag',task_ids='getparams',key="ingestdatamethod")
         
         companyname = ti.xcom_pull(dag_id='tml_system_step_2_kafka_createtopic_dag',task_ids='setupkafkatopics',key="companyname")
         myname = ti.xcom_pull(dag_id='tml_system_step_2_kafka_createtopic_dag',task_ids='setupkafkatopics',key="myname")
