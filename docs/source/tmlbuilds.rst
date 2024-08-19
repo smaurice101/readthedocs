@@ -284,10 +284,10 @@ Below is the complete definition of the **tml_system_step_1_getparams_dag**.  Us
               
     dag = tmlparams()
 
-DAG STEP 1: 1Parameter Explanation
+DAG STEP 1: Parameter Explanation
 """""""""""""""""""""""""""""
 
-.. list-table
+.. list-table::
 
     * - **Json Key**
       - **Description**
