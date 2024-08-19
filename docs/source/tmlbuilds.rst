@@ -512,9 +512,15 @@ DAG STEP 1: Parameter Explanation
     * - ingestdatamethod
       - You must choose how you will ingest your data.
 
-        Choose ONE from: 1. localfile, 2. mqtt, 
+        Choose ONE Method from: 
 
-                         3. rest, 4. grpc     
+         1. localfile
+     
+         2. mqtt
+
+         3. rest
+
+         4. grpc     
 
     * - solutionname
       - Provide a name for the solution.  This name 
