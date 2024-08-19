@@ -83,9 +83,9 @@ TSS Docker Run Command
 
        your solution container.
    * - --env GITREPOURL=<your github repo> 
-     - This is your Git repo you cloned 
+     - This is your Git repo you cloned from: 
 
-       from: https://github.com/smaurice101/raspberrypi.git. 
+       https://github.com/smaurice101/raspberrypi.git. 
    * - --env GITUSERNAME=<your github username> 
      - This is the username to your repo.
    * - --env GITPASSWORD=<Personal Access Token> 
