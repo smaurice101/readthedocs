@@ -268,6 +268,7 @@ Below is the complete definition of the **tml_system_step_1_getparams_dag**.  Us
      'brokerport' : '9092',     # <<<<***************** LOCAL AND CLOUD KAFKA listen on PORT 9092
      'cloudusername' : '',  # <<<< --------FOR KAFKA CLOUD UPDATE WITH API KEY  - OTHERWISE LEAVE BLANK
      'cloudpassword' : '',  # <<<< --------FOR KAFKA CLOUD UPDATE WITH API SECRET - OTHERWISE LEAVE BLANK   
+     'ingestdatamethod' : 'localfile', # << CHOOSE BETWEEN: 1. localfle, mqtt, rest, grpc     
      'WRITELASTCOMMIT' : 0,   ## <<<<<<<<< ******************** FOR DETAILS ON BELOW PARAMETER SEE: https://tml.readthedocs.io/en/latest/viper.html
      'NOWINDOWOVERLAP' : 0,
      'NUMWINDOWSFORDUPLICATECHECK' : 5,
@@ -447,9 +448,10 @@ Below is the complete definition of the **tml_system_step_1_getparams_dag**.  Us
               HPDEHOST = HTTPADDR + output.split(",")[0]
               HPDEPORT = output.split(",")[1]
     
-         sname=args['solutionname']    
-         desc=args['description']        
-         stitle=args['solutiontitle']    
+         sname = args['solutionname']    
+         desc = args['description']        
+         stitle = args['solutiontitle']    
+         method = args['ingestdatamethod'] 
             
          ti.xcom_push(key='VIPERTOKEN',value=VIPERTOKEN)
          ti.xcom_push(key='VIPERHOST',value=VIPERHOST)
@@ -460,7 +462,8 @@ Below is the complete definition of the **tml_system_step_1_getparams_dag**.  Us
          ti.xcom_push(key='solutionname',value=sname)
          ti.xcom_push(key='solutiondescription',value=desc)
          ti.xcom_push(key='solutiontitle',value=stitle)
-                 
+         ti.xcom_push(key='ingestdatamethod',value=method)
+                     
          updateviperenv()
              
       tmlsystemparams=getparams(default_args)
