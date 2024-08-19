@@ -48,7 +48,8 @@ TSS Docker Run Command
    For example add **-v /your_localmachine/foldername:/rawdata:z**, where **your_localmachine/foldername** is a path in your local machine, and it is where you 
    save your local file for processing.
 
-   This file contains JSON messages on each line.  See ` Sample File <https://github.com/smaurice101/raspberrypi/blob/main/tml-airflow/data/IoTDatasample.txt>`_
+   Your file must contains JSON messages on each line.  See `Sample File <https://github.com/smaurice101/raspberrypi/blob/main/tml- 
+   airflow/data/IoTDatasample.txt>`_
 
 .. code-block::
 
