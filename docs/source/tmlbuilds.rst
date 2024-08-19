@@ -249,7 +249,7 @@ Below is the complete definition of the **tml_system_step_1_getparams_dag**.  Us
 .. code-block:: PYTHON
    :emphasize-lines: 11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,
                      38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65
- 
+     
     from airflow import DAG
     from airflow.operators.python import PythonOperator
     from airflow.operators.bash import BashOperator
@@ -268,7 +268,7 @@ Below is the complete definition of the **tml_system_step_1_getparams_dag**.  Us
      'brokerport' : '9092',     # <<<<***************** LOCAL AND CLOUD KAFKA listen on PORT 9092
      'cloudusername' : '',  # <<<< --------FOR KAFKA CLOUD UPDATE WITH API KEY  - OTHERWISE LEAVE BLANK
      'cloudpassword' : '',  # <<<< --------FOR KAFKA CLOUD UPDATE WITH API SECRET - OTHERWISE LEAVE BLANK   
-     'ingestdatamethod' : 'localfile', # << CHOOSE BETWEEN: 1. localfile, 2. mqtt, 3. rest, 4. grpc     
+     'ingestdatamethod' : 'localfile', # << CHOOSE BETWEEN: 1. localfle, 2. mqtt, 3. rest, 4. grpc     
      'WRITELASTCOMMIT' : 0,   ## <<<<<<<<< ******************** FOR DETAILS ON BELOW PARAMETER SEE: https://tml.readthedocs.io/en/latest/viper.html
      'NOWINDOWOVERLAP' : 0,
      'NUMWINDOWSFORDUPLICATECHECK' : 5,
@@ -327,7 +327,7 @@ Below is the complete definition of the **tml_system_step_1_getparams_dag**.  Us
       def updateviperenv():
       # update ALL
         
-        filepaths = ['/Viper-produce/viper.env','/Viper-preprocess/viper.env','/Viper-preprocess2/viper.env','/Viper-ml/viper.env','/Viperviz/viper.env','/Viper-predict/viper.env']
+        filepaths = ['/Viper-produce/viper.env','/Viper-preprocess/viper.env','/Viper-ml/viper.env','/Viper-predict/viper.env','/Viperviz/viper.env']
         for mainfile in filepaths:
             with open(mainfile, 'r', encoding='utf-8') as file: 
               data = file.readlines() 
