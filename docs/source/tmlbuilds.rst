@@ -892,17 +892,29 @@ DAG STEP 3a: Parameter Explantion
     * - producerid
       - Enter a name i.e. 'iotsolution'
     * - topics
-      - The topic to store the raw data. You created in SYSTEM STEP 2
+      - The topic to store the raw data. You created 
+ 
+        in SYSTEM STEP 2
     * - identifier
-      - Some identifier for the data i.e.  'TML solution data'
+      - Some identifier for the data i.e.  
+
+        'TML solution data'
     * - mqtt_broker
-      - Enter the address of the mqtt broker i.e. test.mosquitto.org
+      - Enter the address of the mqtt broker 
+
+        i.e. test.mosquitto.org
     * - mqtt_port
       - Enter MQTT port i.e. 1883    
     * - mqtt_subscribe_topic
-      - Enter name of MQTT topic to subscribe to i.e. encyclopedia/#  
+      - Enter name of MQTT topic to 
+
+        subscribe to i.e. encyclopedia/#  
     * - delay
-      - Maximum delay for VIPER to wait for Kafka to return confirmation message is received and written to topic
+      - Maximum delay for VIPER to wait for 
+
+        Kafka to return confirmation message 
+
+        is received and written to topic
     * - topicid
       - Leave at -999      
     * - start_date
@@ -1077,24 +1089,43 @@ The REST API client runs outside the TML solution container.  The client api giv
    * - **Client Core Variables**
      - **Explanation**
    * - rest_port
-     - This is the same rest_port Json field in :ref:`STEP 3b: Produce Data Using RESTAPI: tml-read-RESTAPI-step-3-kafka-producetotopic-dag.py`
-   * - apiroute
-     - This indicates how you are sending your Json message.   You have two options: 
+     - This is the same rest_port Json field 
 
-       1. jsondataline: You can send One Json message at a time in each Api call
-       2. jsondatarray: You can send a Json array in each Api call
+       in :ref:`STEP 3b: Produce Data Using 
+
+       RESTAPI: tml-read-RESTAPI-step-3-kafka-producetotopic-dag.py`
+   * - apiroute
+     - This indicates how you are sending your 
+
+       Json message.   You have two options: 
+
+       1. jsondataline: You can send One Json 
+
+          message at a time in each Api call
+
+       2. jsondatarray: You can send a 
+
+          Json array in each Api call
 
        Note: Your Json must be a valid Json.  Just store your json in **datajson** 
    * - API_ENDPOINT 
      - API_ENDPOINT = "http://localhost:{}/{}".format(rest_port,apiroute)
 
-       This connects to the endpoint defined in :ref:`STEP 3b: Produce Data Using RESTAPI: tml-read-RESTAPI-step-3-kafka-producetotopic-dag.py`    
+       This connects to the endpoint defined 
+
+       in :ref:`STEP 3b: Produce Data Using RESTAPI: tml-read-RESTAPI-step-3-kafka-producetotopic-dag.py`    
    * - start()
      - This function starts the process.
 
-       Note: You can simply modify this function as you wish repeatly to stream your data.
+       Note: You can simply modify this 
+
+       function as you wish repeatly to 
+
+       stream your data.
    * - send_tml_data(data)
-     - This is the main function that streams your data to :ref:`STEP 3b: Produce Data Using RESTAPI: tml-read-RESTAPI-step-3-kafka-producetotopic-dag.py`
+     - This is the main function that streams 
+
+       your data to :ref:`STEP 3b: Produce Data Using RESTAPI: tml-read-RESTAPI-step-3-kafka-producetotopic-dag.py`
 
 STEP 3c: Produce Data Using gRPC: tml-read-gRPC-step-3-kafka-producetotopic-dag.py
 """"""""""""""""""""""""""""""""""""""""" 	
@@ -1276,17 +1307,28 @@ The gRPC API client runs outside the TML solution container.  The client api giv
      - You will need the gRPC imports:
 
          1. `tml_grpc_pb2_grpc <https://github.com/smaurice101/raspberrypi/blob/main/tml-airflow/dags/tml_grpc_pb2_grpc.py>`_ as pb2_grpc
+
          2. `tml_grpc_pb2 <https://github.com/smaurice101/raspberrypi/blob/main/tml-airflow/dags/tml_grpc_pb2.py>`_ as pb2
+
          3. `tml_grpc.proto <https://github.com/smaurice101/raspberrypi/blob/main/tml-airflow/dags/tml_grpc.proto>`_
 
-       Simply download and place these files in the same folder as your gRPC client.
+       Simply download and place these 
+ 
+       files in the same folder as your 
+
+       gRPC client.
    * - connection parameters
      - You need to set:
       
        1. self.host = 'localhost'
-       2. self.server_port = 9001 # This the gRPC_port in :ref:`STEP 3c: Produce Data Using gRPC: tml-read-gRPC-step-3-kafka-producetotopic-dag.py`
+
+       2. self.server_port = 9001 
+
+          # This the gRPC_port in :ref:`STEP 3c: Produce Data Using gRPC: tml-read-gRPC-step-3-kafka-producetotopic-dag.py`
    * - message
-     - You put your Json message here:  **client.get_url(message="PUT YOUR DATA HERE")**
+     - You put your Json message here:  
+
+       **client.get_url(message="PUT YOUR DATA HERE")**
 
 STEP 3d: Produce Data Using LOCALFILE: tml-read-LOCALFILE-step-3-kafka-producetotopic-dag.py
 """""""""""""""""""""""""""""""""""""""""" 	
@@ -1444,106 +1486,381 @@ TML preprocesses real-time data for every entity along each sliding time window.
    * - **Preprocessing Type**
      - **Description**
    * - anomprob
-     - This will determine the probability that there is an anomaly for each entity in the sliding time windows
+     - This will determine the probability 
+
+       that there is an anomaly for each 
+
+       entity in the sliding time windows
    * - anomprobx-y
-     - where X and Y are numbers or "n", if "n" means examine all anomalies for recurring patterns. 
-       This will find the anomalies in the data - ignoring set patterns. They allow you to check if the anomaly
-       in the streams are truly anomalies and not some pattern. For example, if a IoT device shuts off and turns on again routinely, 
-       this may be picked up as an anomaly when in fact it is normal behaviour. So, to ignore these cases, if ANOMPROB2-5, tells Viper, 
-       check anomaly with patterns of 2-5 peaks. If the stream has two classes and these two classes are like 0 and 1000, and show a pattern, 
-       then they should not be considered an anomaly. Meaning, class=0, is the device shutting down, class=1000 is the device turning back on. 
-       If ANOMPROB3-10, Viper will check for patterns of classes 3 to 10 to see if they recur routinely. This is very helpful to reduce false 
+     - where X and Y are numbers or "n", 
+
+       if "n" means examine all anomalies for recurring 
+
+       patterns. 
+       
+       This will find the anomalies in the data 
+
+       - ignoring set patterns. They allow you to check 
+ 
+       if the anomaly
+
+       in the streams are truly anomalies 
+
+       and not some pattern. For example, 
+
+       if a IoT device shuts off and turns 
+
+       on again routinely, 
+       
+       this may be picked up as an anomaly 
+
+       when in fact it is normal behaviour. 
+
+       So, to ignore these cases, 
+
+       if ANOMPROB2-5, tells Viper, 
+
+       check anomaly with patterns of 2-5 peaks. 
+
+       If the stream has two classes and these 
+
+       two classes are like 0 and 1000, and show 
+
+       a pattern, 
+       
+       then they should not be considered 
+
+       an anomaly. Meaning, class=0, is the 
+
+       device shutting down, class=1000 
+
+       is the device turning back on. 
+
+       If ANOMPROB3-10, Viper will check for 
+
+       patterns of classes 3 to 10 to see if 
+
+       they recur routinely. This is very helpful 
+
+       to reduce false 
+
        positives and false negatives.
    * - autocorr
-     - This will determine the autocorrelation in the data for each entity in the sliding time windows
+     - This will determine the autocorrelation 
+
+       in the data for each entity in the 
+
+       sliding time windows
    * - avg
-     - This will determine the average value for each entity in the sliding time windows
+     - This will determine the average 
+
+       value for each entity in the sliding 
+
+       time windows
    * - avgtimediff
-     - This will determine the average time in seconds between the first and last timestamp for each entity in sliding windows; time should be in this 
+     - This will determine the average time 
+
+       in seconds between the first and last 
+
+       timestamp for each entity in sliding windows; 
+
+       time should be in this 
+
        layout:2006-01-02T15:04:05.
    * - consistency
-     - This will check if the data all have consistent data types. Returns 1 for consistent data types, 0 otherwise for each entity in sliding windows
+     - This will check if the data all have 
+
+       consistent data types. Returns 1 for 
+
+       consistent data types, 0 otherwise for 
+
+       each entity in sliding windows
    * - count
-     - This will count the number of numeric data points in the sliding time windows for each entity
+     - This will count the number of numeric 
+
+       data points in the sliding time 
+
+       windows for each entity
    * - countstr
-     - This will count the number of string values in the sliding time windows for each entity
+     - This will count the number of string 
+
+       values in the sliding time windows for 
+
+       each entity
    * - cv
-     - This will determine the coefficient of variation average of the median and the midhinge for each entity in sliding windows
+     - This will determine the coefficient of 
+
+       variation average of the median and 
+
+       the midhinge for each entity in sliding 
+
+       windows
    * - dataage_[UTC offset]_[timetype]
-     - dataage can be used to check the last update time of the data in the data stream from current local time. You can specify the UTC offset to adjust the 
-       current time to match the timezone of the data stream. You can specify timetype as millisecond, second, minute, hour, day. For example, if 
-       dataage_1_minute, then this processtype will compare the last timestamp in the data stream, to the local UTC time offset +1 and compute the time difference 
-       between the data stream timestamp and current local time and return the difference in minutes. This is a very powerful processtype for data quality and 
-       data assurance programs for any number of data streams.
+     - dataage can be used to check the 
+
+       last update time of the data in 
+
+       the data stream from current local 
+
+       time. You can specify the UTC offset 
+
+       to adjust the 
+
+       current time to match the timezone of 
+
+       the data stream. You can specify timetype 
+
+       as millisecond, second, minute, hour, day. 
+
+       For example, if 
+
+       dataage_1_minute, then this processtype 
+
+       will compare the last timestamp in the data 
+
+       stream, to the local UTC time offset +1 and 
+
+       compute the time difference 
+
+       between the data stream timestamp and 
+
+       current local time and return the difference 
+
+       in minutes. This is a very powerful processtype 
+
+       for data quality and 
+
+       data assurance programs for any number of 
+
+       data streams.
    * - diff
-     - This will find the difference between the highest and lowest points in the sliding time windows for each entity
+     - This will find the difference between 
+
+       the highest and lowest points in 
+
+       the sliding time windows for each entity
    * - diffmargin
-     - This will find the percentage difference between the highest and lowest points in the sliding time windows for each entity
+     - This will find the percentage difference 
+ 
+       between the highest and lowest points 
+
+       in the sliding time windows for each entity
    * - entropy
-     - This will determine the entropy in the data for each entity in the sliding time windows; will compute the amount of information in the data stream.
+     - This will determine the entropy in the 
+
+       data for each entity in the sliding 
+ 
+       time windows; will compute the amount 
+
+       of information in the data stream.
    * - geodiff
-     - This will determine the distance in kilimetres between two latitude and longitude points for each entity in sliding windows 
+     - This will determine the distance 
+
+       in kilimetres between two latitude 
+
+       and longitude points for each entity 
+
+       in sliding windows 
    * - gm (geometric mean)
-     - This will determine the geometric mean for each entity in sliding windows
+     - This will determine the geometric 
+
+       mean for each entity in sliding windows
    * - hm (harmonic mean)
-     - This will determine the harmonic mean for each entity in sliding windows
+     - This will determine the harmonic 
+
+       mean for each entity in sliding windows
    * - iqr
-     - This will compute the interquartile range between Q1 and Q3 for each entity in sliding windows
+     - This will compute the interquartile 
+
+       range between Q1 and Q3 for each 
+
+       entity in sliding windows
    * - kurtosis
-     - This will determine the kurtosis for each entity in sliding windows
+     - This will determine the kurtosis 
+
+       for each entity in sliding windows
    * - mad
-     - This will determine the mean absolute deviation for each entity in sliding windows
+     - This will determine the mean absolute 
+
+       deviation for each entity in sliding windows
    * - max
-     - This will determine the maximum value for each entity in the sliding time windows
+     - This will determine the maximum 
+
+       value for each entity in the sliding 
+
+       time windows
    * - median
-     - This will find the median of the numeric points in the sliding time windows for each entity
+     - This will find the median of 
+
+       the numeric points in the sliding 
+
+       time windows for each entity
    * - meanci95
-     - returns a 95% confidence interval: mean, low, high for each entity in sliding windows.
+     - returns a 95% confidence interval: 
+
+       mean, low, high for each entity in 
+
+       sliding windows.
    * - meanci99
-     - returns a 99% confidence interval: mean, low, high for each entity in sliding windows.
+     - returns a 99% confidence interval: 
+
+       mean, low, high for each entity in 
+
+       sliding windows.
    * - midhinge
-     - This will determine the average of the first and third quartiles for each entity in sliding windows
+     - This will determine the average 
+
+       of the first and third quartiles 
+
+       for each entity in sliding windows
    * - min
-     - This will determine the minimum value for each entity in the sliding time windows
+     - This will determine the minimum 
+
+       value for each entity in the sliding 
+
+       time windows
    * - outliers
-     - This will find the outliers of the numeric points in the sliding time windows for each entity
+     - This will find the outliers of the 
+
+       numeric points in the sliding time 
+
+       windows for each entity
    * - outliersx-y
-     - where X and Y are numbers or "n", if "n" means examine all outliers for recurring patterns. 
-       This will find the outliers in the data - ignoring set patterns. They allow you to check if the outlier
-       in the streams are truly outliers and not some pattern. For example, if a IoT device shuts off and turns on again routinely, 
-       this may be picked up as an outlier when in fact it is normal behaviour. So, to ignore these cases, if OUTLIER2-5, tells Viper, 
-       check outliers with patterns of 2-5 peaks. If the stream has two classes and these two classes are like 0 and 1000, and show a pattern, 
-       then they should not be considered an outlier. Meaning, class=0, is the device shutting down, class=1000 is the device turning back on. 
-       If OUTLIER3-10, Viper will check for patterns of classes 3 to 10 to see if they recur routinely. This is very helpful to reduce false 
+     - where X and Y are numbers or "n", 
+
+       if "n" means examine all outliers for 
+
+       recurring patterns. 
+
+       This will find the outliers in the data 
+
+       - ignoring set patterns. They allow you to check 
+
+       if the outlier
+
+       in the streams are truly outliers and not 
+ 
+       some pattern. For example, if a IoT device 
+
+       shuts off and turns on again routinely, 
+
+       this may be picked up as an outlier when 
+
+       in fact it is normal behaviour. So, to 
+
+       ignore these cases, if OUTLIER2-5, tells Viper, 
+
+       check outliers with patterns of 2-5 peaks. 
+
+       If the stream has two classes and these two 
+
+       classes are like 0 and 1000, and show a pattern, 
+
+       then they should not be considered an outlier. 
+
+       Meaning, class=0, is the device shutting down, 
+
+       class=1000 is the device turning back on. 
+
+       If OUTLIER3-10, Viper will check for patterns 
+
+       of classes 3 to 10 to see if they recur routinely. 
+
+       This is very helpful to reduce false 
+
        positives and false negatives.
    * - raw
-     - Will not process data stream for each entity in sliding windows.
+     - Will not process data stream for 
+
+       each entity in sliding windows.
    * - skewness
-     - This will determine the skewness for each entity in sliding windows
+     - This will determine the skewness 
+
+       for each entity in sliding windows
    * - spikedetect
-     - This will determine if there are any spikes in the data using the zscore, using lag = 5, threshold = 3.5 (standard deviation), influence = 0.5,  for each 
-       entity in sliding 
-       windows
+     - This will determine if there are any 
+
+       spikes in the data using the zscore, 
+
+       using lag = 5, threshold = 3.5 
+
+       (standard deviation), influence = 0.5,  
+
+       for each 
+
+       entity in sliding windows
    * - sum
-     - This will find the sum of the numeric points in the sliding time windows for each entity
+     - This will find the sum of the numeric 
+
+       points in the sliding time windows 
+
+       for each entity
    * - timediff
-     - This will determine, in seconds, the time difference between the first and last timestamp for each entity in sliding windows; time should be in this 
+     - This will determine, in seconds, 
+
+       the time difference between the 
+
+       first and last timestamp for each 
+
+       entity in sliding windows; time should 
+
+       be in this 
+
        layout:2006-01-02T15:04:05.
    * - trend
-     - This will determine the trend value for each entity in the sliding time windows.  If the trend value is less than zero then
-       data in the sliding time window is decreasing, if trend value is greater than zero then it is increasing.
+     - This will determine the trend 
+
+       value for each entity in the sliding 
+
+       time windows.  If the trend value is 
+
+       less than zero then
+
+       data in the sliding time window is decreasing, 
+
+       if trend value is greater than zero then 
+
+       it is increasing.
    * - trimean
-     - This will determine the average of the median and the midhinge for each entity in sliding windows
+     - This will determine the average of 
+
+       the median and the midhinge for each 
+
+       entity in sliding windows
    * - unique
-     - This will determine if there are unique numeric values in the data for each entity in sliding windows. Returns 1 if no data duplication (unique), 0 
+     - This will determine if there are unique 
+
+       numeric values in the data for each 
+
+       entity in sliding windows. Returns 1 
+
+       if no data duplication (unique), 0 
+
        otherwise.
    * - uniquestr
-     - This will determine if there are unique string values in the data for each entity in sliding windows. Checks string data for duplication. Returns 1 if no 
+     - This will determine if there are 
+
+       unique string values in the data 
+
+       for each entity in sliding windows. 
+
+       Checks string data for duplication. 
+
+       Returns 1 if no 
+
        data duplication (unique), 0 otherwise. 
    * - variance
-     - This will find the variane of the numeric points in the sliding time windows for each entity
+     - This will find the variane of the 
+
+       numeric points in the sliding time 
+
+       windows for each entity
    * - varied
-     - This will determine if there is variation in the data in the sliding time windows for each entity.  
+     - This will determine if there is variation 
+
+       in the data in the sliding time windows 
+
+       for each entity.  
 
 .. code-block:: PYTHON
    :emphasize-lines: 10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40
