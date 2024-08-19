@@ -94,15 +94,23 @@ This guide will provide common setup instructions for new users who want to run 
    * - WRITETOVIPERDB 
      - Set to 1, if you want to write Egress and Ingress bytes. 
 
-       Set to 0 if you do not want to write to viper.db. By setting to 0 this 
+       Set to 0 if you do not want to write to viper.db. 
+
+       By setting to 0 this 
 
        will speed up VIPER. 
    * - WRITELASTCOMMIT
-     - Set to 1 if you want to record the last offset in the partition 
+     - Set to 1 if you want to record the 
 
-       for each topic, or 0 if not. This is convenient if you do NOT want 
+       last offset in the partition 
+
+       for each topic, or 0 if not. 
+
+       This is convenient if you do NOT want 
       
-       to RE-PROCESS data that has already been processed. 
+       to RE-PROCESS data that has 
+
+       already been processed. 
    * - NOWINDOWOVERLAP 
      - Set to 1, if you do NOT want sliding time windows to overlap. 
    * - NUMWINDOWSFORDUPLICATECHECK
@@ -126,10 +134,25 @@ This guide will provide common setup instructions for new users who want to run 
 
        per topic and cluster. 
    * - COMPRESSIONTYPE
-     - You can force the producer to compress data. You can set this to: NONE, SNAPPY, GZIP, LZ4, default is NONE. |
+     - You can force the producer to compress data. 
+
+       You can set this to: 
+
+       NONE, SNAPPY, GZIP, LZ4, default is NONE. 
    * - DATARETENTIONINMINUTES
-     - Specify how long you want to retain the data in Topics, in minutes. This is based on your data retention policy. For example, if DATARETENTIONINMINUTES=30, 
-       committed offsets will be deleted/compacted after 30 minutes. IF DATARETENTIONINMINUTES=0 or empty data is retained forever. 
+     - Specify how long you want to retain 
+
+       the data in Topics, in minutes. 
+
+       This is based on your data retention 
+
+       policy. For example, if DATARETENTIONINMINUTES=30, 
+
+       committed offsets will be deleted/compacted 
+
+       after 30 minutes. 
+
+       IF DATARETENTIONINMINUTES=0 or empty data is retained forever. 
    * - USEHTTP
      - Set to 1 if using HTTP to connect to VIPER. If SSL_CLIENT_CERT_FILE and SSL_CLIENT_KEY_FILE are specified then VIPER will automatically accept 
        HTTPS connections. However, if USEHTTP=1, then regardless of certificates, HTTP will be used. 
