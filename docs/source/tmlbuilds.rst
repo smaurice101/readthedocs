@@ -1091,9 +1091,9 @@ The REST API client runs outside the TML solution container.  The client api giv
    * - rest_port
      - This is the same rest_port Json field 
 
-       in :ref:`STEP 3b: Produce Data Using 
+       in 
 
-       RESTAPI: tml-read-RESTAPI-step-3-kafka-producetotopic-dag.py`
+       :ref:`STEP 3b: Produce Data Using RESTAPI: tml-read-RESTAPI-step-3-kafka-producetotopic-dag.py`
    * - apiroute
      - This indicates how you are sending your 
 
@@ -1125,7 +1125,9 @@ The REST API client runs outside the TML solution container.  The client api giv
    * - send_tml_data(data)
      - This is the main function that streams 
 
-       your data to :ref:`STEP 3b: Produce Data Using RESTAPI: tml-read-RESTAPI-step-3-kafka-producetotopic-dag.py`
+       your data to 
+
+       :ref:`STEP 3b: Produce Data Using RESTAPI: tml-read-RESTAPI-step-3-kafka-producetotopic-dag.py`
 
 STEP 3c: Produce Data Using gRPC: tml-read-gRPC-step-3-kafka-producetotopic-dag.py
 """"""""""""""""""""""""""""""""""""""""" 	
