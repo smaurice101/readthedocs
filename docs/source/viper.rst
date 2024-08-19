@@ -71,8 +71,8 @@ This guide will provide common setup instructions for new users who want to run 
      - Set to 1, if running VIPER on-premise, or 0 if using Cloud 
    * - VIPERDEBUG 
      - Set to 1, if you want additional screen logging, or 0.<br><br>Set to 2, if you want additional screen **_and_** disk logging. Logs will be written to 
-       ./viperlogs/viperlogs.txt. This is helpful if you want to see details when building TML solutions. However, for production deployments, VIPERDEBUG 
-       should be set to 1 for optimized performance. 
+       | ./viperlogs/viperlogs.txt. This is helpful if you want to see details when building TML solutions. However, for production deployments, VIPERDEBUG 
+       | should be set to 1 for optimized performance. 
    * - WRITETOVIPERDB 
      - Set to 1, if you want to write Egress and Ingress bytes. Set to 0 if you do not want to write to viper.db. By setting to 0 this will speed up VIPER, but 
        you will not get Egress and Ingress details in AIMS. 
