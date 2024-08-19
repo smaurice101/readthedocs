@@ -63,8 +63,9 @@ This guide will provide common setup instructions for new users who want to run 
    * - KAFKA_CONNECT_BOOTSTRAP_SERVERS= 
      - Kafka bootstrap servers – separate multiple servers by comma 
    * - MAADS_ALGORITHM_SERVER 
-     - MAADS algorithm server host URL. This will require MAADS software installed in the host. This is needed to generate predictions from algorithms generated 
-       by MAADS.
+     - MAADS algorithm server host URL. This will require MAADS software installed in the host. 
+       |This is needed to generate predictions from algorithms generated 
+       |by MAADS.
    * - ONPREM
      - Set to 1, if running VIPER on-premise, or 0 if using Cloud 
    * - VIPERDEBUG 
