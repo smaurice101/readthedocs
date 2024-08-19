@@ -2717,6 +2717,7 @@ Machine Learning Trained Model Sample JSON Output: Explanations
        relative to this path
    * - Identifier
      - Additional information about the data
+
        Voltage~Line-Voltage-(mV)~iot-preprocess~uid:metadata.dsn,
 
        subtopic:metadata.property_name 
