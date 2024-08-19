@@ -99,7 +99,9 @@ TSS Docker Run Command
    * - --env GITUSERNAME=<your github username> 
      - This is the username to your repo.
    * - --env GITPASSWORD=<Personal Access Token> 
-     - This is the **Personal Access Token** for your repo.   
+     - This is the **Personal Access Token** for 
+
+       your repo.   
 
        Look at the image below to find out how 
 
@@ -109,7 +111,9 @@ TSS Docker Run Command
    * - --env DOCKERPASSWORD=<password> 
      - This is your password to Dockerhub account.
    * - **maadsdocker/tml-solution-studio-with-airflow**
-     - This is the official TML Solution Studio container.
+     - This is the official TML Solution 
+ 
+       Studio container.
 
 Generating Personal Access Tokens in Github
 -------------------------
