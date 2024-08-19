@@ -2739,7 +2739,9 @@ Machine Learning Trained Model Sample JSON Output: Explanations
 
        {});e9b56d62-7faa-11ec-d0c0-c3d1d2b8ba2b(120824,51.16569,
 
-       10.45153,Voltage,n/a,n/a,{})~latlong=~mainuid=AC000W018740175",
+       10.45153,Voltage,n/a,n/a,{})~
+
+       latlong=~mainuid=AC000W018740175",
    * - AccuracyThreshold
      - Accuracy threshold for any must 
 
@@ -3374,19 +3376,50 @@ Visualization DAG Parameter Explanation
    * - **DAG Parameter**
      - **Explanation**
    * - topic
-     - This is the topic that Viperviz will consume from.  For example, Viperviz will automatically connect into this topic: iot-preprocess, and start streaming to your browser. If you want to consume from multiple topics, you can specify topic: iot-preprocess,iot-preprocess2,iot-preprocess3
+     - This is the topic that Viperviz will consume from.  
+
+       For example, Viperviz will automatically connect 
+
+       into this topic: iot-preprocess, and start streaming 
+
+       to your browser. If you want to consume from 
+
+       multiple topics, you can specify topic: iot-preprocess,
+
+       iot-preprocess2,iot-preprocess3
    * - secure
-     - If set to 1, then connection is tLS secure, if 0 it is not.
+     - If set to 1, then connection is 
+
+       TLS secure, if 0 it is not.
    * - vipervizport
-     - This is the port you want the Viperviz binary to listen on.  For example, if 9005, Viperviz will listen on Port 9005
+     - This is the port you want the Viperviz 
+
+       binary to listen on.  For example, if 9005, 
+
+       Viperviz will listen on Port 9005
    * - offset
-     - Indicate where in the stream to consume from.  If -1, latest data is consumed.
+     - Indicate where in the stream to consume from.  
+
+       If -1, latest data is consumed.
    * - append
-     - If 0, data will not accumulate in your dashboard, if 1 it will accumulate.
+     - If 0, data will not accumulate in your 
+
+       dashboard, if 1 it will accumulate.
    * - chip
-     - Viperviz can run on Windows/Mac/Linux.  Use 'amd64' for Windows/Linux, use 'arm64' for Mac/Linux   
+     - Viperviz can run on Windows/Mac/Linux.  
+
+       Use 'amd64' for Windows/Linux,
+
+       use 'arm64' for Mac/Linux   
    * - rollbackoffset
-     - This indicates the number of offsets to rollack from the latest (or end of the stream). If 500, then Viperviz wll grab all of the data from the last 
+     - This indicates the number of offsets to 
+
+       rollack from the latest (or end of the stream). 
+
+       If 500, then Viperviz wll grab all of the 
+
+       data from the last
+
        offset - 500
 
 STEP 8: Deploy TML Solution to Docker : tml-system-step-8-deploy-solution-to-docker-dag.py
@@ -3529,15 +3562,25 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
    * - **Json Key**
      - **Explanation**
    * - conf_project
-     - This is the project name that will be used in Readthedocs documentation
+     - This is the project name that will be 
+
+       used in Readthedocs documentation
    * - conf_copyright
-     - This is the copyright information that will be used in Readthedocs documentation
+     - This is the copyright information 
+
+       that will be used in Readthedocs documentation
    * - conf_author
-     - This is the author name that will be used in Readthedocs documentation
+     - This is the author name that will 
+
+       be used in Readthedocs documentation
    * - conf_release
-     - This is the release number for your Readthedocs documentation
+     - This is the release number for 
+
+       your Readthedocs documentation
    * - conf_version
-     - This is the version number that will be used in Readthedocs documentation
+     - This is the version number that will 
+
+       be used in Readthedocs documentation
 
 Example TML Solution Container Reference Architecture
 -----------------------------------------------
