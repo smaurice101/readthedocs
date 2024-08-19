@@ -418,11 +418,11 @@ This guide will provide common setup instructions for new users who want to run 
    * - MYSQLPASS
      - Enter MySQL password 
    * - MYSQLHOSTNAME
-     - Enter MySQL hostname – 
+     - Enter MySQL hostname
 
        **If using MYSQL DOCKER set this to: 
 
-       host.docker.internal:3306_** 
+       host.docker.internal:3306** 
    * - MYSQLMAXLIFETIMEMINUTES
      - Enter max lifetime in minutes 
    * - MYSQLMAXCONN
