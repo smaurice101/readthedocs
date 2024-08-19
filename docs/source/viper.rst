@@ -368,15 +368,25 @@ This guide will provide common setup instructions for new users who want to run 
 
        where start port and end port are numbers 
    * - SSL_CLIENT_CERT_FILE
-     - SSL certificate file needed if Kafka is SSL/TLS enabled 
+     - SSL certificate file needed if Kafka is 
+
+       SSL/TLS enabled 
    * - SSL_CLIENT_KEY_FILE
-     - SSL certificate key store file needed if Kafka is SSL/TLS enabled 
+     - SSL certificate key store file 
+
+       needed if Kafka is SSL/TLS enabled 
    * - SSL_SERVER_CERT_FILE
-     - SSL certificate server key file needed if Kafka is SSL/TLS enabled 
+     - SSL certificate server key file needed 
+
+       if Kafka is SSL/TLS enabled 
    * - CLOUD_USERNAME
-     - SASL_PLAIN username to connect to Confluent Cloud 
+     - SASL_PLAIN username to connect to 
+
+       Confluent Cloud 
    * - CLOUD_PASSWORD= 
-     - SASL_PLAIN password to connect to Confluent Cloud 
+     - SASL_PLAIN password to connect to 
+
+       Confluent Cloud 
    * - MAILSERVER
      - SMTP mailserver host name for sending emails. 
    * - MAILPORT
