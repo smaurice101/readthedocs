@@ -302,9 +302,9 @@ This guide will provide common setup instructions for new users who want to run 
       
        are in the billions. Setting MAXPERCMESSAGES=1000 
 
-      for example, ensures message are 
+       for example, ensures message are 
 
-      1000 messages from the last message. 
+       1000 messages from the last message. 
    * - MAXCONSUMEMESSAGES
      - The amount of message you want Viper 
 
