@@ -609,7 +609,42 @@ STEP 3a: Produce Data Using MQTT: tml-read-MQTT-step-3-kafka-producetotopic-dag.
    automatically 
    gets an **on_message(client, userdata, msg)** event and streams the data to Kafka.   This is a powerful way to use TML with MQTT to process real-time data 
    instantly.
-   
+
+DAG STEP 3a: Parameter Explantion
+""""""""""""""""""""""""""""""""""
+
+.. list-table::
+
+    * - **Json Key**
+      - **Explanation**
+    * - owner
+      - Change as needed
+    * - enabletls
+      - Set to 1 for TLS encryption, 0 no encryption
+    * - microserviceid
+      - Enter route is using a load balancer i.e. NGINX
+    * - producerid
+      - Enter a name i.e. 'iotsolution'
+    * - topics
+      - The topic to store the raw data. You created in SYSTEM STEP 2
+    * - identifier
+      - Some identifier for the data i.e.  'TML solution data'
+    * - mqtt_broker
+      - Enter the address of the mqtt broker i.e. test.mosquitto.org
+    * - mqtt_port
+      - Enter MQTT port i.e. 1883    
+    * - mqtt_subscribe_topic
+      - Enter name of MQTT topic to subscribe to i.e. encyclopedia/#  
+    * - delay
+      - Maximum delay for VIPER to wait for Kafka to return confirmation message is received and written to topic
+    * - topicid
+      - Leave at -999      
+    * - start_date
+      - Solution start date
+    * - retries
+      - DAG retries 
+
+
 STEP 3b: Produce Data Using RESTAPI: tml-read-RESTAPI-step-3-kafka-producetotopic-dag.py
 """""""""""""""""""""""""""""""""""""""" 	
 
