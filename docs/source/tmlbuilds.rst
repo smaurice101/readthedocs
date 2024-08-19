@@ -43,7 +43,8 @@ Can I Run TML Binaries in Standalone?
 ------------------------------------
 
 .. note::
-    Yes, the :ref:`TML Solution Components` can be run as standalone.  If you want to learn more please view the 4-part Youtube videos:
+    Yes, the :ref:`TML Solution Components` can be run as standalone - but this is not advised as it may become difficult to maintain and support.  TSS is the 
+    preferred, and easiest, way.  However, if you want to learn more please view the 4-part Youtube videos:
     
     1. `TML Crash Course Part 1 <https://youtu.be/yh-qUe5KnaA>`_
     
