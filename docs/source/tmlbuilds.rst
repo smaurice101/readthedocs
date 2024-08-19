@@ -2557,6 +2557,21 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
 .. tip::
    The TSS will develop the base documentation for your solution.  However, you can edit/modify the base documentation on readthedocs as you wish.  
 
+.. list-table::
+
+   * - **Json Key**
+     - **Explanation**
+   * - conf_project
+     - This is the project name that will be used in Readthedocs documentation
+   * - conf_copyright
+     - This is the copyright information that will be used in Readthedocs documentation
+   * - conf_author
+     - This is the author name that will be used in Readthedocs documentation
+   * - conf_release
+     - This is the release number for your Readthedocs documentation
+   * - conf_version
+     - This is the version number that will be used in Readthedocs documentation
+
 Example TML Solution Container Reference Architecture
 -----------------------------------------------
 
