@@ -195,7 +195,7 @@ Below is the complete definition of the **tml_system_step_1_getparams_dag**.  Us
 
 .. code-block:: PYTHON
    :emphasize-lines: 11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,
-                     38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63
+                     38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64
  
     from airflow import DAG
     from airflow.operators.python import PythonOperator
@@ -255,6 +255,7 @@ Below is the complete definition of the **tml_system_step_1_getparams_dag**.  Us
      'SSL_CLIENT_CERT_FILE' : 'client.cer.pem',
      'SSL_CLIENT_KEY_FILE' : 'client.key.pem', 
      'SSL_SERVER_CERT_FILE' : 'server.cer.pem',  
+     'KUBERNETES' : 0,
      'solutionname': 'mysolution',   # <<< *** Provide a name for your solution - No spaces or special characters in the name
      'solutiontitle: 'My Solution Title', # <<< *** Provide a descriptive title for your solution
      'description': 'This is an awesome real-time solution built by TSS',   # <<< *** Provide a description of your solution
@@ -362,7 +363,9 @@ Below is the complete definition of the **tml_system_step_1_getparams_dag**.  Us
                  data[r] = "SSL_CLIENT_KEY_FILE={}".format(default_args['SSL_CLIENT_KEY_FILE'])
                if 'SSL_SERVER_CERT_FILE' in d: 
                  data[r] = "SSL_SERVER_CERT_FILE={}".format(default_args['SSL_SERVER_CERT_FILE'])                
-                    
+               if 'KUBERNETES' in d: 
+                 data[r] = "KUBERNETES={}".format(default_args['KUBERNETES'])                
+    
                r += 1
             with open(mainfile, 'w', encoding='utf-8') as file: 
               file.writelines(data)
@@ -407,8 +410,8 @@ Below is the complete definition of the **tml_system_step_1_getparams_dag**.  Us
                  
          updateviperenv()
              
-      tmlsystemparams=getparams(default_args)  
-        
+      tmlsystemparams=getparams(default_args)
+          
     dag = tmlparams()
 
 DAG STEP 1: Parameter Explanation
