@@ -210,6 +210,8 @@ Below is the complete definition of the **tml_system_step_1_getparams_dag**.  Us
    'brokerport' : '9092',     # <<<<***************** LOCAL AND CLOUD KAFKA listen on PORT 9092
    'cloudusername' : '',  # <<<< --------FOR KAFKA CLOUD UPDATE WITH API KEY  - OTHERWISE LEAVE BLANK
    'cloudpassword' : '',  # <<<< --------FOR KAFKA CLOUD UPDATE WITH API SECRET - OTHERWISE LEAVE BLANK   
+   'solutionname': 'mysolution',   # <<< *** Provide a name for your solution - No spaces or special characters in the name
+   'description': 'This is an awesome real-time solution built by TSS',   # <<< *** Provide a description of your solution
    'retries': 1,
    }  
    ############################################################### DO NOT MODIFY BELOW ####################################################
