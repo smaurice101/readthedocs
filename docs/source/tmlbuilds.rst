@@ -311,7 +311,7 @@ Below is the complete definition of the **tml_system_step_1_getparams_dag**.  Us
      'SSL_SERVER_CERT_FILE' : 'server.cer.pem',  
      'KUBERNETES' : 0,
      'solutionname': 'mysolution',   # <<< *** Provide a name for your solution - No spaces or special characters in the name
-     'solutiontitle: 'My Solution Title', # <<< *** Provide a descriptive title for your solution
+     'solutiontitle': 'My Solution Title', # <<< *** Provide a descriptive title for your solution
      'description': 'This is an awesome real-time solution built by TSS',   # <<< *** Provide a description of your solution
      'retries': 1,
     }
