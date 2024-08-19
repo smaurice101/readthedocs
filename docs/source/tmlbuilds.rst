@@ -2258,7 +2258,8 @@ and :ref:`Machine Learning Trained Model Sample JSON Output`.
     
       @task(task_id="startstreamingengine")  
       def startstreamingengine():
-         
+            vipervizport = default_args['vipervizport']
+            ti.xcom_push(key='VIPERVIZPORT',value=vipervizport)
             # start the viperviz on Vipervizport
             # START Visualization Viperviz 
             subprocess.run(["tmux", "new", "-d", "-s", "visualization-viperviz"])
