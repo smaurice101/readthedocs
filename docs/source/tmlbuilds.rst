@@ -405,6 +405,49 @@ Below is the complete definition of the **tml_system_step_2_kafka_createtopic_da
          
    dag = startkafkasetup()
 
+DAG STEP 2: Parameter Explanation
+""""""""""""""""""""""""""""""
+
+.. list-table::
+
+    * - owner
+      - Change as needed
+    * - companyname
+      - Change as needed
+    * - myname
+      - Change as needed
+    * - myemail
+      - Change as needed
+    * - mylocation
+      - Change as needed
+    * - replication
+      - If using on-premise Kafka at address 127.0.0.1 then this should be 1
+
+        If using Kafka Cloud - then this MUST a minimum of 3
+    * - numpartitions
+      - Specific partition for topics -  usually mimimum 3 partitions is fine
+    * - enabletls
+      - Set to 1 for TLS encryption, 0 for no encryption
+    * - brokerhost
+      - The setting in Step 1 is fine
+    * - brokerport
+      - The setting in Step 1 is fine
+    * - microserviceid
+      - If you are using a microservice in a load balancer i.e. NGINX you can specify the route here
+    * - raw_data_topic
+      - This is the data your solution will produce raw data to - see :ref:`STEP 3: Produce to Kafka Topics`
+    * - preprocess_data_topic
+      - This is where all the preprocess data will be stored - separate multiple topics with a comma
+    * - ml_data_topic
+      - This is where the ML estimated paramters are stored.
+    * - prediction_data_topic
+      - This is where all the predictions will be stored.
+    * - description
+      - Description for the topics.
+    * - start_date
+      - Solution start date
+    * - retries
+      - DAG retries, i.e. 1 is usually fine
 
 STEP 3: Produce to Kafka Topics
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
