@@ -252,6 +252,9 @@ Below is the complete definition of the **tml_system_step_1_getparams_dag**.  Us
      'SMTP_USERNAME' : '',
      'SMTP_PASSWORD' : '',
      'SMTP_SSLTLS' : 'true',
+     'SSL_CLIENT_CERT_FILE' : 'client.cer.pem',
+     'SSL_CLIENT_KEY_FILE' : 'client.key.pem', 
+     'SSL_SERVER_CERT_FILE' : 'server.cer.pem',  
      'solutionname': 'mysolution',   # <<< *** Provide a name for your solution - No spaces or special characters in the name
      'description': 'This is an awesome real-time solution built by TSS',   # <<< *** Provide a description of your solution
      'retries': 1,
@@ -352,6 +355,12 @@ Below is the complete definition of the **tml_system_step_1_getparams_dag**.  Us
                  data[r] = "SMTP_PASSWORD={}".format(default_args['SMTP_PASSWORD'])
                if 'SMTP_SSLTLS' in d: 
                  data[r] = "SMTP_SSLTLS={}".format(default_args['SMTP_SSLTLS'])
+               if 'SSL_CLIENT_CERT_FILE' in d: 
+                 data[r] = "SSL_CLIENT_CERT_FILE={}".format(default_args['SSL_CLIENT_CERT_FILE'])
+               if 'SSL_CLIENT_KEY_FILE' in d: 
+                 data[r] = "SSL_CLIENT_KEY_FILE={}".format(default_args['SSL_CLIENT_KEY_FILE'])
+               if 'SSL_SERVER_CERT_FILE' in d: 
+                 data[r] = "SSL_SERVER_CERT_FILE={}".format(default_args['SSL_SERVER_CERT_FILE'])
                     
                r += 1
             with open(mainfile, 'w', encoding='utf-8') as file: 
