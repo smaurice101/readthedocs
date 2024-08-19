@@ -53,7 +53,7 @@ This guide will provide common setup instructions for new users who want to run 
 **Note:** First time the plain text values need to be entered, on start VIPER will hide these values. You can update them with plain text again if you change the key/secret then simply restart VIPER to hide the updated values again.
 
 .. list-table::
-   :width: 30
+   :width: 50
 
    * - **Configuration Parameter**
      - **Description**
@@ -62,7 +62,9 @@ This guide will provide common setup instructions for new users who want to run 
    * - KAFKA_ZOOKEEPER_CONNECT
      - Zookeeper host name and port 
    * - KAFKA_CONNECT_BOOTSTRAP_SERVERS
-     - Kafka bootstrap servers – separate multiple servers by comma 
+     - Kafka bootstrap servers – 
+
+       separate multiple servers by comma 
    * - MAADS_ALGORITHM_SERVER 
      - MAADS algorithm server host URL. This will require 
 
@@ -112,7 +114,9 @@ This guide will provide common setup instructions for new users who want to run 
 
        already been processed. 
    * - NOWINDOWOVERLAP 
-     - Set to 1, if you do NOT want sliding time windows to overlap. 
+     - Set to 1, if you do NOT want 
+  
+       sliding time windows to overlap. 
    * - NUMWINDOWSFORDUPLICATECHECK
      - This is an integer to specify how much data to 
  
@@ -152,9 +156,13 @@ This guide will provide common setup instructions for new users who want to run 
 
        after 30 minutes. 
 
-       IF DATARETENTIONINMINUTES=0 or empty data is retained forever. 
+       IF DATARETENTIONINMINUTES=0 or 
+
+       empty data is retained forever. 
    * - USEHTTP
-     - Set to 1 if using HTTP to connect to VIPER. If SSL_CLIENT_CERT_FILE and SSL_CLIENT_KEY_FILE are specified then VIPER will automatically accept 
+     - Set to 1 if using HTTP to connect 
+
+       to VIPER. If SSL_CLIENT_CERT_FILE and SSL_CLIENT_KEY_FILE are specified then VIPER will automatically accept 
        HTTPS connections. However, if USEHTTP=1, then regardless of certificates, HTTP will be used. 
    * - LOGSTREAMTOPIC
      - Enter the name of the topic that you want to write logs to. If this field is non-empty VIPER/HPDE/VIPERVIZ will all write logging 
