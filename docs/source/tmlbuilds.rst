@@ -1326,7 +1326,9 @@ The gRPC API client runs outside the TML solution container.  The client api giv
 
        2. self.server_port = 9001 
 
-          # This the gRPC_port in :ref:`STEP 3c: Produce Data Using gRPC: tml-read-gRPC-step-3-kafka-producetotopic-dag.py`
+       This the gRPC_port in 
+
+       :ref:`STEP 3c: Produce Data Using gRPC: tml-read-gRPC-step-3-kafka-producetotopic-dag.py`
    * - message
      - You put your Json message here:  
 
