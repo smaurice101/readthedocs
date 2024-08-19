@@ -563,8 +563,8 @@ Below is the complete definition of the **tml_system_step_2_kafka_createtopic_da
      'replication' : 1,  # <<< ********** You change as needed (For Cloud Kafka this is MUST be >= 3
      'numpartitions': 1,  # <<< ********** You change as needed
      'enabletls': 1,  # <<< ********** You change as needed
-     'brokerhost' : '',  # <<< ********** You change as needed
-     'brokerport' : -999,  # <<< ********** You change as needed
+     'brokerhost' : '',  # <<< ********** Leave as is
+     'brokerport' : -999,  # <<< ********** Leave as is
      'microserviceid' : '',  # <<< ********** You change as needed
      'raw_data_topic' : 'iot-raw-data', # Separate multiple topics with comma <<< ********** You change topic names as needed
      'preprocess_data_topic' : 'iot-preprocess-data,iot-preprocess2-data', # Separate multiple topics with comma <<< ********** You change topic names as needed
@@ -1904,8 +1904,8 @@ TML preprocesses real-time data for every entity along each sliding time window.
      'preprocess_data_topic' : 'iot-preprocess-data', # **** PRODUCE PREPROCESS DATA TO THIS TOPIC - This is one of the topic you created in SYSTEM STEP 2
      'maxrows' : 500, # <<< ********** Number of offsets to rollback the data stream -i.e. rollback stream by 500 offsets
      'offset' : -1, # <<< Rollback from the end of the data streams  
-     'brokerhost' : '',   # <<< *** Change as needed   
-     'brokerport' : -999,  # <<< *** Change as needed   
+     'brokerhost' : '',   # <<< *** Leave as is
+     'brokerport' : -999,  # <<< *** Leave as is
      'preprocessconditions' : '', # <<< *** Change as needed   
      'delay' : 70, # Add a 70 millisecond maximum delay for VIPER to wait for Kafka to return confirmation message is received and written to topic     
      'array' : 0, # do not modify
@@ -2306,8 +2306,8 @@ Another powerful feature of TML is performing machine learning at the entity lev
       'companyname' : 'Your company', # <<< *** Change as needed      
       'myemail' : 'Your email', # <<< *** Change as needed      
       'mylocation' : 'Your location', # <<< *** Change as needed      
-      'brokerhost' : '', # <<< *** Change as needed      
-      'brokerport' : -999, # <<< *** Change as needed      
+      'brokerhost' : '', # <<< *** Leave as is
+      'brokerport' : -999, # <<< *** Leave as is      
       'deploy' : 1, # <<< *** do not modofy
       'modelruns': 100, # <<< *** Change as needed      
       'offset' : -1, # <<< *** Do not modify
@@ -2885,8 +2885,8 @@ STEP 6: Entity Based Predictions: tml-system-step-6-kafka-predictions-dag
       'companyname' : 'Your company', # <<< *** Change as needed      
       'myemail' : 'Your email', # <<< *** Change as needed      
       'mylocation' : 'Your location', # <<< *** Change as needed      
-      'brokerhost' : '', # <<< *** Change as needed      
-      'brokerport' : -999, # <<< *** Change as needed      
+      'brokerhost' : '', # <<< *** Leave as is
+      'brokerport' : -999, # <<< *** Leave as is      
       'streamstojoin' : 'Voltage_preprocessed_AnomProb,Current_preprocessed_AnomProb', # << ** These are the streams in the preprocess_data_topic for these independent variables
       'inputdata' : '', # << ** You can specify independent variables manually - rather than consuming from the preprocess_data_topic stream
       'consumefrom' : '', # << This is ml_data_topic in STEP 5 that contains the estimated parameters
