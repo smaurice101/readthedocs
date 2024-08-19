@@ -268,7 +268,7 @@ Below is the complete definition of the **tml_system_step_1_getparams_dag**.  Us
      'brokerport' : '9092',     # <<<<***************** LOCAL AND CLOUD KAFKA listen on PORT 9092
      'cloudusername' : '',  # <<<< --------FOR KAFKA CLOUD UPDATE WITH API KEY  - OTHERWISE LEAVE BLANK
      'cloudpassword' : '',  # <<<< --------FOR KAFKA CLOUD UPDATE WITH API SECRET - OTHERWISE LEAVE BLANK   
-     'ingestdatamethod' : 'localfile', # << CHOOSE BETWEEN: 1. localfle, mqtt, rest, grpc     
+     'ingestdatamethod' : 'localfile', # << CHOOSE BETWEEN: 1. localfile, mqtt, rest, grpc     
      'WRITELASTCOMMIT' : 0,   ## <<<<<<<<< ******************** FOR DETAILS ON BELOW PARAMETER SEE: https://tml.readthedocs.io/en/latest/viper.html
      'NOWINDOWOVERLAP' : 0,
      'NUMWINDOWSFORDUPLICATECHECK' : 5,
