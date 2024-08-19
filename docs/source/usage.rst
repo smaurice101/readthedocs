@@ -81,9 +81,7 @@ c. *Viperviz* - Visualization binary for real-time dashboards - runs on MAC/Wind
 
        quickly and cheaply.  Refer to example dashboards 
 
-       here :ref:`TML 
-
-       Real-Time Dashboards`
+       here :ref:`TML Real-Time Dashboards`
 
 2. TML Component: One Core Python Library
 --------------------------
