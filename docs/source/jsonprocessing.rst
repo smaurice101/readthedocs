@@ -16,26 +16,55 @@ TML requires the following - as shown in the table below. We will go though an e
    * - **Jsoncriteria TML Fields**
      - **Description**
    * - uid
-     - This needs to be a unique id for the json message.  For example, if processing IOT device data, this would be the device's serial number. 
+     - This needs to be a unique id for the json message.  
 
-       You can also specify multiple UID by separating by a pipe "|" . See example below :ref:`JSON Message In A Payload`
+       For example, if processing IOT device data, 
+
+       this would be the device's serial number. 
+
+       You can also specify multiple UID by separating 
+
+       by a pipe "|" . See example below :ref:`JSON Message In A Payload`
    * - filter
-     - There is a filter field in the jsoncriteria.  This allows you to either:
-	1. filter:allrecords .
+     - There is a filter field in the jsoncriteria.  
+
+       This allows you to either:
+
+	1. filter:allrecords
+
         2. filter:<key>=<value, or allrecords>
+
         3. filter:<key>=<value, or allrecords>,payload=<json path to payload key>
    * - subtopics
-     - This is the json path to the variable name that identifies the type of data.  For example, if processing IOT, this could be json path to **voltage**
+     - This is the json path to the variable 
+
+       name that identifies the type of data.  
+
+       For example, if processing IOT, this could 
+
+       be json path to **voltage**
    * - values
-     - This needs to be the json path to the value of the subtopics.  For example, for IOT voltage, it needs to be the path to the voltage value.
+     - This needs to be the json path to the 
+
+       value of the subtopics.  For example, for 
+
+       IOT voltage, it needs to be the path to 
+
+       the voltage value.
    * - identifiers
      - This is the path to some metadata about the values.
    * - datetime
      - This is the path to any datetime field.
    * - msgid
-     - This is the path to any MSG ID of the json message or blank.
+     - This is the path to any MSG ID of the json 
+
+       message or blank.
    * - latlong
-     - This needs to be path to latitude or longitude or blank.  You can join the fields by semicolon.
+     - This needs to be path to latitude 
+
+       or longitude or blank.  You can join 
+
+       the fields by semicolon.
 
 .. note::
    Lets take an example.  Lets say we want to process the following JSON message:
@@ -84,7 +113,9 @@ Lets consider the following example.
    * - **Sample Json message**
      - **Json Paths**
    * - {
+
 	"metadata": {
+
 		"oem_id": "32795e59",
 
 		"oem_model": "SQR141U1XXW",
@@ -99,7 +130,9 @@ Lets consider the following example.
 		
                 "event_type": "datapoint"
 	},
+
 	"datapoint": {
+
 		"id": "de3e8f0e-7faa-11ec-31cb-6b3a1eb15a96",
 
 		"updated_at": "2022-01- 27T19:53:59Z",
@@ -128,12 +161,15 @@ Lets consider the following example.
     
 	"long": -141.22
        }
+
      - The Json Path to the variable: **dsn** is **metadata.dsn**
 
        The Json Path to the key: **value** is datapoint.value
 
        The Json criteria will be:
+
          jsoncriteria=
+
             uid= metadata.dsn,filter:allrecords~\  
 
             subtopics= metadata.property_name~\  
@@ -148,11 +184,17 @@ Lets consider the following example.
 
             latlong=lat:long  
 
-        Note: ~ and \ are just string delimiter and continuation characters, respectively.
+        Note: ~ and \ are just string delimiter 
 
-   * - Say you have a value you want to extract from a Json array: 
+        and continuation characters, respectively.
+
+   * - Say you have a value you want to extract 
+
+       from a Json array: 
+
        	"code": {
       		"coding": [
+
 			      {
 				      "system": "http://snomed.info/sct",
 
@@ -160,8 +202,14 @@ Lets consider the following example.
 
 				      "display": "Mold (organism)"
 			     }
+
 		     ]},
-     - The Json Path to the variable array: **code** is **code.coding.0.code**, 0 is the first element of the array.
+
+     - The Json Path to the variable array: 
+
+       **code** is **code.coding.0.code**, 0 
+
+       is the first element of the array.
 
 JSON Message In A Payload
 -----------
