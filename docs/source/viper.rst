@@ -162,61 +162,171 @@ This guide will provide common setup instructions for new users who want to run 
    * - USEHTTP
      - Set to 1 if using HTTP to connect 
 
-       to VIPER. If SSL_CLIENT_CERT_FILE and SSL_CLIENT_KEY_FILE are specified then VIPER will automatically accept 
-       HTTPS connections. However, if USEHTTP=1, then regardless of certificates, HTTP will be used. 
+       to VIPER. 
+
+       If SSL_CLIENT_CERT_FILE and 
+
+       SSL_CLIENT_KEY_FILE are specified 
+ 
+       then VIPER will automatically accept 
+
+       HTTPS connections. 
+      
+       However, if USEHTTP=1, then regardless 
+
+       of certificates, HTTP will be used. 
    * - LOGSTREAMTOPIC
-     - Enter the name of the topic that you want to write logs to. If this field is non-empty VIPER/HPDE/VIPERVIZ will all write logging 
+     - Enter the name of the topic that you 
+
+       want to write logs to. If this field 
+
+       is non-empty VIPER/HPDE/VIPERVIZ 
+ 
+       will all write logging 
+       
        information to this stream. 
    * - LOGSENDTOEMAILS
-     -  Viper will send log emails to these addresses: separate multiple addresses by comma. 
+     - Viper will send log emails to 
+
+       these addresses: separate multiple 
+
+       addresses by comma. 
    * - LOGSENDTOEMAILSSUBJECT
      - You can add a custom subject for the email. 
    * - LOGSENDTOEMAILFOOTER
-     - Specify additional text to be included in the footer of your email. 
+     - Specify additional text to be included 
+
+       in the footer of your email. 
    * - KUBERNETES
-     - If deploying to Kubernetes, set to 1 and VIPER will dynamically get IP address of Pod, and free port. 
+     - If deploying to Kubernetes, 
+
+       set to 1 and VIPER will dynamically 
+
+       get IP address of Pod, and free port. 
    * - MAXVIPERVIZROLLBACKOFFSET
-     - Sets the maximum rollback offset in VIPERVIZ. This prevents memory heap issues. 
+     - Sets the maximum rollback 
+
+       offset in VIPERVIZ. This prevents 
+
+       memory heap issues. 
    * - MAXVIPERVIZCONNECTIONS
-     - Total number of simultaneous connections to Viperviz. For example, MAXVIPERVIZCONNECTIONS=5 
+     - Total number of simultaneous connections 
+
+       to Viperviz. 
+
+       For example, MAXVIPERVIZCONNECTIONS=5 
    * - SASLMECHANISM
-     - Choose SASL mechanism. You can specify: PLAIN, SCRAM256, SCRAM512 
+     - Choose SASL mechanism. 
+
+       You can specify: PLAIN, SCRAM256, SCRAM512 
    * - LOGSTREAMTOPICPARTITIONS
-     - Enter number of partitions for LOGSTREAMTOPIC, i.e. 3 
+     - Enter number of partitions 
+
+       for LOGSTREAMTOPIC, i.e. 3 
    * - LOGSTREAMTOPICREPLICATIONFACTOR
      - Enter replication factor for LOGSTREAMTOPIC, i.e. 3 
    * - LOGSENDINTERVALMINUTES
-     - Specify the minutes you want Viper to check the logs – it will email you a list of logs that have been created. This is convenient when you want a batch of 
+     - Specify the minutes you want Viper 
+
+       to check the logs – it will email you a 
+
+       list of logs that have been created. 
+ 
+       This is convenient when you want a batch of 
+       
        logs to see what Viper is doing. 
    * - LOGSENDINTERVALONLYERROR
-     - Set to 1 if you only want interval emails to check for ERROR or WARNING. If set to 0, all messages with ERROR, WARN, INFO will be checked, this is useful 
+     - Set to 1 if you only want interval emails 
+
+       to check for ERROR or WARNING. 
+
+       If set to 0, all messages with ERROR, 
+
+       WARN, INFO will be checked, this is useful 
+
        for debugging. For production set to 1.
    * - MAADS_ALGORITHM_SERVER_PORT
-     - MAADS algorithm server host PORT. This will require MAADS software installed in the host. This is needed to generate predictions from algorithms generated 
+     - MAADS algorithm server host PORT. 
+ 
+       This will require MAADS software 
+ 
+       installed in the host. This is needed 
+
+       to generate predictions from algorithms generated 
+
        by MAADS.
    * - MAXTRAININGROWS
-     - Maximum number of rows for training dataset. Higher number will consumer more memory resources. 
+     - Maximum number of rows for training 
+
+       dataset. Higher number will consumer 
+
+       more memory resources. 
    * - MAXOPENREQUESTS
-     - How many outstanding requests a connection is allowed to have before<br><br>sending on it blocks (default 5).
+     - How many outstanding requests a connection 
+
+       is allowed to have before sending 
+
+       on it blocks (default 5).
    * - MAXPREDICTIONROWS
      - Maximum prediction batch size. 
    * - MINFORECASTACCURACY
-     - Minimum forecast accuracy of trained TML model. Choose a number between 0-100, default is 0. A model is selected if it is greater than this value. 
+     - Minimum forecast accuracy of trained 
+
+       TML model. Choose a number between 0-100, 
+
+       default is 0. A model is selected if 
+
+       it is greater than this value. 
    * - MAXPREPROCESSMESSAGES
-     - Number of message for preprocessing. Defaults to 2000. Higher number will consume more energy. |
+     - Number of message for preprocessing. 
+
+       Defaults to 2000. Higher number will consume more energy.
    * - BATCHTHREADS
-     - This is used in batch functions like “viperpreprocessbatch” and indicates how many topicids to preprocess concurrently. For example, if BATCHTHREADS=5, and 
-       you are preprocessing 10 topicids in batch, then 5 will be preprocessed concurrently at a time. 
+     - This is used in batch functions like “viperpreprocessbatch” 
+
+       and indicates how many topicids to preprocess 
+
+       concurrently. For example, if BATCHTHREADS=5, and 
+
+       you are preprocessing 10 topicids in batch, 
+
+       then 5 will be preprocessed concurrently at a time. 
    * - MAXPERCMESSAGES
-     - Maximum messages when using Topicid to rollback stream. This is useful when even 1% rollbackback could result in millions of message if your total messages 
-       are in the billions. Setting MAXPERCMESSAGES=1000 for example, ensures message are 1000 messages from the last message. 
+     - Maximum messages when using Topicid 
+
+       to rollback stream. This is useful when 
+
+       even 1% rollbackback could result in 
+
+       millions of message if your total messages 
+      
+       are in the billions. Setting MAXPERCMESSAGES=1000 
+
+      for example, ensures message are 
+
+      1000 messages from the last message. 
    * - MAXCONSUMEMESSAGES
-     - The amount of message you want Viper to consume. Note consuming a large amount will impact memory and network. 
+     - The amount of message you want Viper 
+
+       to consume. Note consuming a large 
+
+       amount will impact memory and network. 
    * - MAADS_ALGORITHM_SERVER_MICROSERVICE
-     - MAADS algorithm server microservice. This will require MAADS software installed in the host. If you use a reverse proxy to access the MAADS software then 
+     - MAADS algorithm server microservice. 
+
+       This will require MAADS software installed 
+
+       in the host. If you use a reverse proxy 
+
+       to access the MAADS software then 
+
        specify the name here.
    * - MAADS_ALGORITHM_SERVER1
-     - Additional MAADS algorithm server. You can list up to 10,000 MAADS algorithm servers. Just increment the “SERVER#”, where #=1,…,10000 
+     - Additional MAADS algorithm server. 
+
+       You can list up to 10,000 MAADS algorithm 
+
+       servers. Just increment the “SERVER#”, where #=1,…,10000 
    * - MAADS_ALGORITHM_SERVER1_PORT
      - Additional MAADS algorithm server port. 
    * - MAADS_ALGORITHM_SERVER1_MICROSERVICE
@@ -224,17 +334,39 @@ This guide will provide common setup instructions for new users who want to run 
    * - KAFKA_ROOT
      - Kafka root folder 
    * - HPDE_IP
-     - HPDE (Hyper-Predictions for Edge Devices) is another product required for **Real-Time Machine Learning.** Specify the host where it is installed. 
+     - HPDE (Hyper-Predictions for Edge Devices) 
+
+       is another product required for 
+
+       **Real-Time Machine Learning.** 
+
+       Specify the host where it is installed. 
    * - HPDE_PORT
-     - HPDE listening port. Specify port. If you specifying port range use “startport:endport”, where start port and end port are numbers 
+     - HPDE listening port. Specify port. 
+
+       If you specifying port range use 
+ 
+       “startport:endport”, where start port 
+
+       and end port are numbers 
    * - VIPER_IP
      - Specify IP for Viper, use * or leave empty for Viper to choose. 
    * - VIPER_PORT
-     - Specify port. If you specifying port range use “startport:endport”, where start port and end port are numbers 
+     - Specify port. If you specifying port range use 
+
+       “startport:endport”, where start port 
+
+       and end port are numbers 
    * - VIPERVIZ_IP
-     - Specify IP for Viperviz, use * or leave empty for Viper to choose. 
+     - Specify IP for Viperviz, use * or 
+
+       leave empty for Viper to choose. 
    * - VIPERVIZ_PORT
-     - Specify port. If you specifying port range use “startport:endport”, where start port and end port are numbers 
+     - Specify port. If you specifying 
+ 
+       port range use “startport:endport”, 
+
+       where start port and end port are numbers 
    * - SSL_CLIENT_CERT_FILE
      - SSL certificate file needed if Kafka is SSL/TLS enabled 
    * - SSL_CLIENT_KEY_FILE
@@ -246,21 +378,27 @@ This guide will provide common setup instructions for new users who want to run 
    * - CLOUD_PASSWORD= 
      - SASL_PLAIN password to connect to Confluent Cloud 
    * - MAILSERVER
-     - SMTP mailserver host name for sending emails. This is needed if using **AiMS Dashboard** to monitor algorithms in Kafka. 
+     - SMTP mailserver host name for sending emails. 
    * - MAILPORT
-     - SMTP mailserver port for sending emails. This is needed if using **AiMS Dashboard** to monitor algorithms in Kafka. 
+     - SMTP mailserver port for sending emails. 
    * - FROMADDR
-     - From address to put in the emails. This is needed if using **AiMS Dashboard** to monitor algorithms in Kafka. 
+     - From address to put in the emails.  
    * - SMTP_USERNAME
-     - SMTP username. This is needed if using **AiMS Dashboard** to monitor algorithms in Kafka. 
+     - SMTP username.  
    * - SMTP_PASSWORD
-     - SMTP password. This is needed if using **AiMS Dashboard** to monitor algorithms in Kafka and alerts are turned on.
+     - SMTP password. 
    * - SMTP_SSLTLS
-     - Mailserver SSL/TLS enabled: true of false. This is needed if using **AiMS Dashboard** to monitor algorithms in Kafka and alerts are turned on.
+     - Mailserver SSL/TLS enabled: true of false. 
    * - POLLING_ALERTS
-     - Polling for alerts in minutes. This is needed if using **AiMS Dashboard** and Alerts are turned on. VIPER will poll for alerts and wait in minutes for the next poll. 
+     - Polling for alerts in minutes. 
+
+       VIPER will poll for alerts and wait 
+
+       in minutes for the next poll. 
    * - COMPANYNAME
-     - Specify company name. This is used when sending emails from AiMS dashboard. 
+     - Specify company name. This is used when 
+ 
+       sending emails from AiMS dashboard. 
    * - MYSQLDRIVERNAME
      - Enter MySQL driver name i.e. mysql 
    * - MYSQLDB
@@ -269,8 +407,12 @@ This guide will provide common setup instructions for new users who want to run 
      - Enter MySQL username
    * - MYSQLPASS
      - Enter MySQL password 
-   * -  MYSQLHOSTNAME
-     -  Enter MySQL hostname – **_If using MYSQL DOCKER set this to: host.docker.internal:3306_** 
+   * - MYSQLHOSTNAME
+     - Enter MySQL hostname – 
+
+       **If using MYSQL DOCKER set this to: 
+
+       host.docker.internal:3306_** 
    * - MYSQLMAXLIFETIMEMINUTES
      - Enter max lifetime in minutes 
    * - MYSQLMAXCONN
@@ -278,17 +420,35 @@ This guide will provide common setup instructions for new users who want to run 
    * - MYSQLMAXIDLE
      - Enter number of idle connections 
    * - MYSQL_ROOT_PASSWORD
-     - MYSQL DOCKER Container: Set the Root password for MySQL 
+     - MYSQL DOCKER Container: 
+
+       Set the Root password for MySQL 
    * - MYSQL_ROOT_HOST
-     - MYSQL DOCKER Container: Set the Root host for MySQL ie. You can use % to accept connections from any host. 
+     - MYSQL DOCKER Container: Set the Root host 
+
+       for MySQL ie. You can use % to 
+ 
+       accept connections from any host. 
    * - MYSQL_DATABASE
-     - MYSQL DOCKER Container: Set the database name i.e. tmlids – **_This should match MYSQLDB_**
+     - MYSQL DOCKER Container: Set the database 
+
+       name i.e. tmlids – **This should match MYSQLDB**
    * - MYSQL_USER
-     - MYSQL DOCKER Container: Set the username name i.e. tmluser, avoid “root” - **_This should match MYSQLUSER_** 
+     - MYSQL DOCKER Container: 
+
+       Set the username name i.e. tmluser, 
+
+       avoid “root” - **This should match MYSQLUSER** 
    * - MYSQL_PASSWORD
-     - MYSQL DOCKER Container: Set the password - **_This should match MYSQLPASS_** 
+     - MYSQL DOCKER Container: Set the password 
+
+       **This should match MYSQLPASS** 
    * - MAXURLQUERYSTRINGBYTES
-     - This is the size of the URL query string in bytes, if using viperhpdepredictprocess 
+     - This is the size of the URL 
+
+       query string in bytes, 
+
+       if using viperhpdepredictprocess 
 
 1. **You are done! Start VIPER.**
 2. **Additional Documentation for Accessing VIPER Functionality**
