@@ -2419,6 +2419,8 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
         
     dag = startdocumentation()
 
+.. tip::
+   The TSS will develop the base documentation for your solution.  However, you can edit/modify the base documentation on readthedocs as you wish.  
 
 Example TML Solution Container Reference Architecture
 -----------------------------------------------
