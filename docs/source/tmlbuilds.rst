@@ -2253,15 +2253,14 @@ and :ref:`Machine Learning Trained Model Sample JSON Output`.
     @dag(dag_id="tml-system-step-7-kafka-visualization-dag", default_args=default_args, tags=["tml-system-step-7-kafka-visualization-dag"], schedule=None,catchup=False)
     def startstreaming():    
         
-      chip = default_args['chip']
-      vipervizport = default_args['vipervizport']
-    
       @task(task_id="startstreamingengine")  
       def startstreamingengine():
+            chip = default_args['chip']
             vipervizport = default_args['vipervizport']
+           
             ti.xcom_push(key='VIPERVIZPORT',value=vipervizport)
             # start the viperviz on Vipervizport
-            # START Visualization Viperviz 
+            # STEP 5: START Visualization Viperviz 
             subprocess.run(["tmux", "new", "-d", "-s", "visualization-viperviz"])
             subprocess.run(["tmux", "send-keys", "-t", "visualization-viperviz", "'cd /Viperviz'", "ENTER"])
             subprocess.run(["tmux", "send-keys", "-t", "visualization-viperviz", "'/Viperviz/viperviz-linux-{} 0.0.0.0 {}'".format(chip,vipervizport), "ENTER"])  
