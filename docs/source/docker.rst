@@ -72,6 +72,7 @@ TSS Docker Run Command
    --env AIRFLOWPORT=9000 
    --env VIPERVIZPORT=9005
    -v /var/run/docker.sock:/var/run/docker.sock:z 
+   -v /<your local dagsbackup folder>:/dagslocalbackup:z
    --env GITREPOURL=<your git hub repo> 
    --env  GITUSERNAME=<your github username> 
    --env GITPASSWORD=<Personal Access Token> 
@@ -105,6 +106,8 @@ TSS Docker Run Command
      - Choose a Viperviz port for visualization.  
 
        For example, 9005
+   * - -v /<your local dagsbackup folder>:/dagslocalbackup:z
+     - If you like, you can also backsup the dags to your local folder with this volume mapping
    * - -v /var/run/docker.sock:/var/run/docker.sock:z 
      - This maps the docker volume to the container - 
 
