@@ -26,6 +26,15 @@ This is the main container that you need to use to build TML solutions.  Below i
 
    FOLLOW THE :ref:`How To Use the TML Solution Container` SECTION.
 
+TSS Contains a TML Dev Environment
+----------------------------
+
+Another powerful feature is the TSS dev environment which is contained directly inside the TSS container
+
+.. tip::
+   TML developers can test each component or their entire TML solution inside the TSS before deploying the solution in the container.  This is a very convenient 
+   way to make sure all the solution components are working before shipping your TML product.
+
 TSS Logging
 -----------------
 
