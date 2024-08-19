@@ -236,7 +236,8 @@ JSON Message In A Payload
    
    msgid=subject.reference~\
    
-   latlong=address.0.extension.0.extension.0.valueDecimal:address.0.extension.0.extension.1.valueDecimal' 
+   latlong=
+    address.0.extension.0.extension.0.valueDecimal:address.0.extension.0.extension.1.valueDecimal' 
 
    # add + to join fields
 
