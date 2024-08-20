@@ -318,7 +318,7 @@ Below is the complete definition of the **tml_system_step_1_getparams_dag**.  Us
     
     ############################################################### DO NOT MODIFY BELOW ####################################################
     # Instantiate your DAG
-    @dag(dag_id="tml_system_step_1_getparams_dag", default_args=default_args, tags=["tml-system-step-1-getparams"], schedule=None, start_date=datetime.datetime(2022, 3, 4), catchup=False)
+    @dag(dag_id="tml_system_step_1_getparams_dag", default_args=default_args, tags=["tml_system_step_1_getparams_dag"], schedule=None, start_date=datetime.datetime(2022, 3, 4), catchup=False)
     def tmlparams():
         # Define tasks
       basedir = "/"
@@ -577,7 +577,7 @@ Below is the complete definition of the **tml_system_step_2_kafka_createtopic_da
    ############################################################### DO NOT MODIFY BELOW #######################################################################
    
    # Instantiate your DAG
-   @dag(dag_id="tml_system_step_2_kafka_createtopic_dag", default_args=default_args, tags=["tml-system-step-2-kafka-createtopic"], schedule=None,catchup=False)
+   @dag(dag_id="tml_system_step_2_kafka_createtopic_dag", default_args=default_args, tags=["tml_system_step_2_kafka_createtopic_dag"], schedule=None,catchup=False)
    def startkafkasetup():
      @task(task_id="setupkafkatopics")
      def setupkafkatopic(args):
@@ -810,7 +810,7 @@ STEP 3a: Produce Data Using MQTT: tml-read-MQTT-step-3-kafka-producetotopic-dag.
    ######################################## DO NOT MODIFY BELOW #############################################
    
    # Instantiate your DAG
-   @dag(dag_id="tml_mqtt_step_3_kafka_producetotopic_dag", default_args=default_args, tags=["tml-mqtt-step-3-kafka-producetotopic"], schedule=None,catchup=False)
+   @dag(dag_id="tml_mqtt_step_3_kafka_producetotopic_dag", default_args=default_args, tags=["tml_mqtt_step_3_kafka_producetotopic_dag"], schedule=None,catchup=False)
    def startproducingtotopic():
      # This sets the lat/longs for the IoT devices so it can be map
      VIPERTOKEN=""
@@ -979,7 +979,7 @@ STEP 3b: Produce Data Using RESTAPI: tml-read-RESTAPI-step-3-kafka-producetotopi
    ######################################## DO NOT MODIFY BELOW #############################################
    
    # Instantiate your DAG
-   @dag(dag_id="tml-read-RESTAPI-step-3-kafka-producetotopic-dag", default_args=default_args, tags=["tml-read-RESTAPI-step-3-kafka-producetotopic-dag"], schedule=None,catchup=False)
+   @dag(dag_id="tml_read_RESTAPI_step_3_kafka_producetotopic_dag", default_args=default_args, tags=["tml_read_RESTAPI_step_3_kafka_producetotopic_dag"], schedule=None,catchup=False)
    def startproducingtotopic():
      # This sets the lat/longs for the IoT devices so it can be map
      VIPERTOKEN=""
@@ -1188,7 +1188,7 @@ STEP 3c: Produce Data Using gRPC: tml-read-gRPC-step-3-kafka-producetotopic-dag.
    ######################################## DO NOT MODIFY BELOW #############################################
    
    # Instantiate your DAG
-   @dag(dag_id="tml-read-gRPC-step-3-kafka-producetotopic-dag", default_args=default_args, tags=["tml-read-gRPC-step-3-kafka-producetotopic-dag"], schedule=None,catchup=False)
+   @dag(dag_id="tml_read_gRPC_step_3_kafka_producetotopic_dag", default_args=default_args, tags=["tml_read_gRPC_step_3_kafka_producetotopic_dag"], schedule=None,catchup=False)
    def startproducingtotopic():
      # This sets the lat/longs for the IoT devices so it can be map
      VIPERTOKEN=""
@@ -1382,7 +1382,7 @@ STEP 3d: Produce Data Using LOCALFILE: tml-read-LOCALFILE-step-3-kafka-produceto
    ######################################## DO NOT MODIFY BELOW #############################################
    
    # Instantiate your DAG
-   @dag(dag_id="tml_localfile_step_3_kafka_producetotopic_dag", default_args=default_args, tags=["tml-localfile-step-3-kafka-producetotopic"], schedule=None,catchup=False)
+   @dag(dag_id="tml_localfile_step_3_kafka_producetotopic_dag", default_args=default_args, tags=["tml_localfile_step_3_kafka_producetotopic_dag"], schedule=None,catchup=False)
    def startproducingtotopic():
      # This sets the lat/longs for the IoT devices so it can be map
      VIPERTOKEN=""
@@ -1928,7 +1928,7 @@ TML preprocesses real-time data for every entity along each sliding time window.
    ######################################## DO NOT MODIFY BELOW #############################################
    
    # Instantiate your DAG
-   @dag(dag_id="tml-system-step-4-kafka-preprocess-dag", default_args=default_args, tags=["tml-system-step-4-kafka-preprocess-dag"], schedule=None,catchup=False)
+   @dag(dag_id="tml_system_step_4_kafka_preprocess_dag", default_args=default_args, tags=["tml_system_step_4_kafka_preprocess_dag"], schedule=None,catchup=False)
    def startprocessing():
      # This sets the lat/longs for the IoT devices so it can be map
      VIPERTOKEN=""
@@ -2334,7 +2334,7 @@ Another powerful feature of TML is performing machine learning at the entity lev
     ######################################## DO NOT MODIFY BELOW #############################################
     
     # Instantiate your DAG
-    @dag(dag_id="tml-system-step-5-kafka-machine-learning-dag", default_args=default_args, tags=["tml-system-step-5-kafka-machine-learning-dag"], schedule=None,catchup=False)
+    @dag(dag_id="tml_system_step_5_kafka_machine_learning_dag", default_args=default_args, tags=["tml_system_step_5_kafka_machine_learning_dag"], schedule=None,catchup=False)
     def startmachinelearning():
       # This sets the lat/longs for the IoT devices so it can be map
       VIPERTOKEN=""
@@ -2908,7 +2908,7 @@ STEP 6: Entity Based Predictions: tml-system-step-6-kafka-predictions-dag
     ######################################## DO NOT MODIFY BELOW #############################################
     
     # Instantiate your DAG
-    @dag(dag_id="tml-system-step-6-kafka-predictions-dag", default_args=default_args, tags=["tml-system-step-6-kafka-predictions-dag"], schedule=None,catchup=False)
+    @dag(dag_id="tml_system_step_6_kafka_predictions_dag", default_args=default_args, tags=["tml_system_step_6_kafka_predictions_dag"], schedule=None,catchup=False)
     def startpredictions():
       # This sets the lat/longs for the IoT devices so it can be map
       VIPERTOKEN=""
@@ -3370,7 +3370,7 @@ and :ref:`Machine Learning Trained Model Sample JSON Output`.
     ######################################## DO NOT MODIFY BELOW #############################################
     
     # Instantiate your DAG
-    @dag(dag_id="tml-system-step-7-kafka-visualization-dag", default_args=default_args, tags=["tml-system-step-7-kafka-visualization-dag"], schedule=None,catchup=False)
+    @dag(dag_id="tml_system_step_7_kafka_visualization_dag", default_args=default_args, tags=["tml_system_step_7_kafka_visualization_dag"], schedule=None,catchup=False)
     def startstreaming():    
         
       @task(task_id="startstreamingengine")  
@@ -3489,7 +3489,7 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
     
     ############################################################### DO NOT MODIFY BELOW ####################################################
     # Instantiate your DAG
-    @dag(dag_id="tml_system_step_10_documentation_dag", default_args=default_args, tags=["tml-system-step-10-documentation-dag"], schedule=None,  catchup=False)
+    @dag(dag_id="tml_system_step_10_documentation_dag", default_args=default_args, tags=["tml_system_step_10_documentation_dag"], schedule=None,  catchup=False)
     def startdocumentation():
         # Define tasks
     
