@@ -116,7 +116,7 @@ TSS Docker Run Command
 
        your solution container.
    * - --env READTHEDOCS=<Token>
-     - Create, copy and paste the Readthedocs token here.  Refer to :ref:``
+     - Create, copy and paste the Readthedocs token here.  Refer to :ref:`Set Up Readthedocs`
    * - --env GITREPOURL=<your github repo> 
      - This is your Git repo you cloned from: 
 
