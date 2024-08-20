@@ -522,9 +522,9 @@ DAG STEP 1: Parameter Explanation
 
          4. grpc     
     * - solutionname
-      - DO NOT MODIFY = THIS WILL BE AUTOMATICALLY UPDATED when you create your solution.  Refer to :ref:`Lets Start Building a TML Solution`
+      - DO NOT MODIFY THIS WILL BE AUTOMATICALLY UPDATED when you create your solution.  Refer to :ref:`Lets Start Building a TML Solution`
     * - solutiontitle
-        Provide a descriptive title for your solution
+      - Provide a descriptive title for your solution
     * - description
       - Describe your solution in one-line.
     * - retries
