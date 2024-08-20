@@ -215,8 +215,10 @@ STEP 3. **Type the name of your project in CREATETMLPROJECT.txt** - DO NOT ENTER
 
    .. figure:: sol3.png
 
-STEP 4. You just created a TML Project and committed to Github. Congratulations!  To confirm everything went ok go to the Github account:
+STEP 4. You just created a TML Project and committed to Github. Congratulations!  
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+To confirm everything went ok go to the Github account:
 
    i.e. **/raspberrypi/tml-airflow/dags/tml-solutions/** you should see a folder for **myawesometmlproject**
 
@@ -230,7 +232,11 @@ STEP 5. Click the folder: **myawesometmlproject** - you will see the figure belo
 STEP 6. Confirm Your New Project Was Created in TSS and Committed to Github
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-To confirm the new DAGs for **myawesometmlproject** were created properly, in TSS click DAGs (top menu item), enter a filter: myawesometmlproject Click Enter.  You should see all your DAGs (note if they don't show up just wait 30 seconds or so) - you should see figure below:
+To confirm the new DAGs for **myawesometmlproject** were created properly, in TSS click DAGs (top menu item)
+
+Then enter a filter: myawesometmlproject Click Enter.  
+
+You should see all your DAGs (note if they don't show up just wait 30 seconds or so) - you should see figure below:
 
    .. figure:: sol6.png
 
