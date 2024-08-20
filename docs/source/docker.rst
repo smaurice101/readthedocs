@@ -200,29 +200,37 @@ Lets Start Building a TML Solution
 
 After you are in the **DAG code editor** you must go into the following folder:
 
-1. **tml-airflow -> dags -> tml-solutions** - you will see the following as shown in figure below:
+STEP 1. **tml-airflow -> dags -> tml-solutions** - you will see the following as shown in figure below:
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
    .. figure:: sol1.png
 
-2. **Click the file: CREATETMLPROJECT.txt** - you will see the following as shown in figure below:
+STEP 2. **Click the file: CREATETMLPROJECT.txt** - you will see the following as shown in figure below:
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
    .. figure:: sol2.png
 
-3. **Type the name of your project in CREATETMLPROJECT.txt** - DO NOT ENTER ANY SPACES - Enter any name like **myawesometmlproject** then **PRESS SAVE**
+STEP 3. **Type the name of your project in CREATETMLPROJECT.txt** - DO NOT ENTER ANY SPACES - Enter any name like **myawesometmlproject** then **PRESS SAVE**
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
    .. figure:: sol3.png
 
-4. You just created a TML Project and committed to Github. Congratulations!  To confirm everything went ok go to the Github account:
+STEP 4. You just created a TML Project and committed to Github. Congratulations!  To confirm everything went ok go to the Github account:
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
    i.e. **/raspberrypi/tml-airflow/dags/tml-solutions/** you should see a folder for **myawesometmlproject**
 
    .. figure:: sol4.png
 
-5. Click the folder: **myawesometmlproject** - you will see the figure below - VOILA!
+STEP 5. Click the folder: **myawesometmlproject** - you will see the figure below - VOILA!
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
    .. figure:: sol5.png
 
-6. To confirm the new DAGs for **myawesometmlproject** were created properly, in TSS click DAGs (top menu item), enter a filter: myawesometmlproject Click Enter.  You should see all your DAGs (note if they don't show up just wait 30 seconds or so) - you should see figure below:
+STEP 6. Confirm Your New Project Was Created in TSS and Committed to Github
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+To confirm the new DAGs for **myawesometmlproject** were created properly, in TSS click DAGs (top menu item), enter a filter: myawesometmlproject Click Enter.  You should see all your DAGs (note if they don't show up just wait 30 seconds or so) - you should see figure below:
 
    .. figure:: sol6.png
 
@@ -246,8 +254,12 @@ To confirm the new project was properly copied repeat STEPS 4 - 6.  You should s
 
 .. figure:: sol8.png
 
-Here are you new DAGs:
+Here are your new DAGs:
 
 .. figure:: sol9.png
 
+.. tip::
+   Check the logs for status updates.
+
+.. figure:: sol10.png
 
