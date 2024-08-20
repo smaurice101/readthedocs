@@ -73,6 +73,7 @@ TSS Docker Run Command
    --env VIPERVIZPORT=9005
    -v /var/run/docker.sock:/var/run/docker.sock:z 
    -v /<your local dagsbackup folder>:/dagslocalbackup:z
+   --env READTHEDOCS=<Token>
    --env GITREPOURL=<your git hub repo> 
    --env  GITUSERNAME=<your github username> 
    --env GITPASSWORD=<Personal Access Token> 
@@ -114,6 +115,8 @@ TSS Docker Run Command
        so TML studio can automatically build 
 
        your solution container.
+   * - --env READTHEDOCS=<Token>
+     - Create, copy and paste the Readthedocs token here.  Refer to :ref:``
    * - --env GITREPOURL=<your github repo> 
      - This is your Git repo you cloned from: 
 
