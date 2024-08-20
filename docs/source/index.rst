@@ -66,6 +66,7 @@ Contents
    examples
    git
    usage 
+   readthedocs
    tmllogs
    coreintegrations
    dashboards
