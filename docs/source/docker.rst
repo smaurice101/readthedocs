@@ -194,3 +194,55 @@ If you scroll down you will see the **TML DAGs** - as defined here: :ref:`DAG Ta
    solution process flows defined here: :ref:`Apache Airflow DAGs`
 
 .. figure:: ts4.png
+
+Lets Start Building a TML Solution
+--------------------------------
+
+After you are in the **DAG code editor** you must go into the following folder:
+
+1. **tml-airflow -> dags -> tml-solutions** - you will see the following as shown in figure below:
+
+   .. figure:: sol1.png
+
+2. **Click the file: CREATETMLPROJECT.txt** - you will see the following as shown in figure below:
+
+   .. figure:: sol2.png
+
+3. **Type the name of your project in CREATETMLPROJECT.txt** - DO NOT ENTER ANY SPACES - Enter any name like **myawesometmlproject** then **PRESS SAVE**
+
+   .. figure:: sol3.png
+
+4. You just created a TML Project and committed to Github. Congratulations!  To confirm everything went ok go to the Github account:
+
+   i.e. **/raspberrypi/tml-airflow/dags/tml-solutions/** you should see a folder for **myawesometmlproject**
+
+   .. figure:: sol4.png
+
+5. Click the folder: **myawesometmlproject** - you will see the figure below - VOILA!
+
+   .. figure:: sol5.png
+
+6. To confirm the new DAGs for **myawesometmlproject** were created properly, in TSS click DAGs (top menu item), enter a filter: myawesometmlproject Click Enter.  You should see all your DAGs (note if they don't show up just wait 30 seconds or so) - you should see figure below:
+
+   .. figure:: sol6.png
+
+.. important::
+   What did you just do?
+
+   You copied **TML TEMPLATE** DAGs to your own solution folder - for your own TML solution build.  
+
+   If you want to create another TML solution - just repeat STEPS 1-3 with a new project name.
+
+.. tip::
+   If you want to copy from a previous TML project and **rename** to a new project then:
+
+   a. In STEP 3 type **myawesometmlproject>myawesometmlproject2**, the character ">" means copy myawesometmlproject to myawesometmlproject2 (as shown in figure below)
+   b. Hit Save
+   c. Voila! You just copied an older projec to a new one and saved the time in entering paramters in the DAGs.
+
+.. figure:: sol7.png
+
+To confirm the new project was properly copied repeat STEPS 4 - 6.  You should see your **myawesometmlproject2** committed to Github:
+
+.. figure:: sol8.png
+
