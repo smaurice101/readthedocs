@@ -521,15 +521,10 @@ DAG STEP 1: Parameter Explanation
          3. rest
 
          4. grpc     
-
     * - solutionname
-      - Provide a name for the solution.  This name 
-
-        should include no spaces or special 
-
-        characters in the name.  Choose a unique 
-
-        solution name.
+      - DO NOT MODIFY = THIS WILL BE AUTOMATICALLY UPDATED when you create your solution.  Refer to :ref:`Lets Start Building a TML Solution`
+    * - solutiontitle
+        Provide a descriptive title for your solution
     * - description
       - Describe your solution in one-line.
     * - retries
