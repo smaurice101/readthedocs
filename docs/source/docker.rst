@@ -265,7 +265,7 @@ Here are your new DAGs:
 .. figure:: sol9.png
 
 .. tip::
-   Check the logs for status updates.
+   Check the logs for status updates: Go to **/raspberrypi/tml-airflow/logs/logs.txt**
 
 .. figure:: sol10.png
 
