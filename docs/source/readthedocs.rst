@@ -8,7 +8,7 @@ Set Up Readthedocs
 STEP 1: Create a Readthedocs Account 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-A free account can be created at `Readthedocs <https://readthedocs.org/>`_
+Create a free account at `Readthedocs <https://readthedocs.org/>`_
 
 STEP 2: Generate API Token
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
