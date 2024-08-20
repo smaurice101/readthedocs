@@ -246,3 +246,8 @@ To confirm the new project was properly copied repeat STEPS 4 - 6.  You should s
 
 .. figure:: sol8.png
 
+Here are you new DAGs:
+
+.. figure:: sol9.png
+
+
