@@ -16,7 +16,7 @@ STEP 2: Generate API Token
 Once account created, go to your Profile settings and generate API Token - see figure below
 
 .. figure:: read1.png
-   :scale: 40%
+   :scale: 50%
 
 STEP 3: Add Token in TSS Docker Run Command
 ^^^^^^^^^^^^^^^^^^^^^^^^^
