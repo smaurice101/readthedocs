@@ -200,6 +200,11 @@ Lets Start Building a TML Solution
 
 After you are in the **DAG code editor** you must go into the following folder:
 
+STEP 0. Go into **tml-airflow** folder
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+   .. figure:: sol11.png
+
 STEP 1. **tml-airflow -> dags -> tml-solutions** - you will see the following as shown in figure below:
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
