@@ -3461,7 +3461,6 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
    
 .. code-block:: PYTHON
 
-    from airflow import DAG
     from airflow.operators.python import PythonOperator
     from airflow.operators.bash import BashOperator
     from datetime import datetime
@@ -3504,7 +3503,7 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
         except:
             print('Some error occured while pushing the code')    
     
-      @task(task_id="getparams")
+      @task(task_id="generatedoc")
       def generatedoc():    
         
         sname = ti.xcom_pull(dag_id='tml_system_step_1_getparams_dag',task_ids='getparams',key="solutionname")
@@ -3751,6 +3750,8 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
         )
         print(response.json())
         tsslogging.tsslogit(response.json())
+      
+      generatedoc()  
         
     dag = startdocumentation()
 
