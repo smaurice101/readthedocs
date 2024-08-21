@@ -277,3 +277,5 @@ Here are your new DAGs:
 
 .. figure:: sol10.png
 
+.. tip::
+   For details on the editor go to `Codemirror <https://codemirror.net/5/doc/manual.html#commands>`_
