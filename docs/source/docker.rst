@@ -6,7 +6,7 @@ Coming Soon.
 .. figure:: tmlarch.png
    :scale: 80%
 
-This is the main container that you need to use to build TML solutions.  Below is the **docker run** command to run the container.
+This is the main container that you need to use to build TML solutions.  Below is the **:ref:`TSS Docker Run Command`** to run the container.
 
 .. important::
    Use this TSS container and start building amazing, advanced and scalable real-time data streaming solutions - with real-time dashboards - auto deployment to 
