@@ -4,7 +4,7 @@ TML Solution Studio (TSS) Container
 Coming Soon.
 
 .. figure:: tmlarch.png
-   :scale: 80%
+   :scale: 70%
 
 This is the main container that you need to use to build TML solutions.  Below is the :ref:`TSS Docker Run Command` to run the container.
 
