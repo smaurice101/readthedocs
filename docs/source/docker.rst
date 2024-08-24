@@ -71,6 +71,7 @@ TSS Docker Run Command
 .. code-block::
 
    docker run -d --net="host" 
+   --env CHIP="AMD64"
    --env MAINHOST=127.0.0.1 
    --env AIRFLOWPORT=9000 
    --env VIPERVIZPORT=9005
@@ -88,6 +89,12 @@ TSS Docker Run Command
 
    * - **Parameter**
      - **Description**
+   * - CHIP
+     - Specifies the container OS.  NOTE: If you are using MAC then 
+ 
+       change to CHIP=ARM64 and run:
+ 
+       **maadsdocker/tml-solution-studio-with-airflow-arm64 containter**
    * - --env MAINHOST=127.0.0.1
      - This is the IP address for the TML solution 
 
