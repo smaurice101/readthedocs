@@ -94,7 +94,7 @@ TSS Docker Run Command
  
        change to CHIP=ARM64 and run:
  
-       **maadsdocker/tml-solution-studio-with-airflow-arm64 containter**
+       **maadsdocker/tml-solution-studio-with-airflow-arm64** containter
    * - --env MAINHOST=127.0.0.1
      - This is the IP address for the TML solution 
 
