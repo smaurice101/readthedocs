@@ -74,6 +74,7 @@ TSS Docker Run Command
    --env CHIP="AMD64"
    --env MAINHOST=127.0.0.1 
    --env TSS=1
+   --env SOLUTIONNAME=TSS
    --env AIRFLOWPORT=9000 
    --env VIPERVIZPORT=9005
    -v /var/run/docker.sock:/var/run/docker.sock:z 
@@ -103,6 +104,8 @@ TSS Docker Run Command
 
        on 127.0.0.1
    * - TSS
+     - Do not modify.
+   * - SOLUTIONNAME
      - Do not modify.
    * - --env AIRFLOWPORT=9000 
      - This is the AIRFLOWPORT.  This port 
