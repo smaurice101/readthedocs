@@ -248,6 +248,8 @@ To confirm everything went ok go to the Github account:
 
    .. figure:: sol4.png
 
+Deleting a Project
+""""""""""""""""""""
 .. tip::
    If you want to DELETE this project simply type a - (minus) in front of it:
 
