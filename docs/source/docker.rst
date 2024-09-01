@@ -248,6 +248,13 @@ To confirm everything went ok go to the Github account:
 
    .. figure:: sol4.png
 
+.. tip::
+   If you want to DELETE this project simply type a - (minus) in front of it:
+
+   **-myawesometmlproject**
+
+   The TSS will delete the entire project and commit the changes to Github.
+   
 STEP 5. Click the folder: **myawesometmlproject** - you will see the figure below - VOILA!
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
