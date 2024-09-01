@@ -251,12 +251,15 @@ To confirm everything went ok go to the Github account:
 Deleting a Project
 """"""""""""""""""""
 .. tip::
-   If you want to DELETE this project simply type a - (minus) in front of it:
+   If you want to DELETE this project simply type a - (minus) in front of it (as shown below):
 
    **-myawesometmlproject**
 
    The TSS will delete the entire project and commit the changes to Github.
-   
+
+.. figure:: deleteproject.png 
+   :scale: 70%
+
 STEP 5. Click the folder: **myawesometmlproject** - you will see the figure below - VOILA!
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
