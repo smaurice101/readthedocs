@@ -280,6 +280,9 @@ You should see all your DAGs (note if they don't show up just wait 30 seconds or
 
    If you want to create another TML solution - just repeat STEPS 1-3 with a new project name.
 
+Copying A Previous Project
+""""""""""""""""""""""""
+
 .. tip::
    If you want to copy from a previous TML project and **rename** to a new project then:
 
