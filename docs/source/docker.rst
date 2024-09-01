@@ -283,10 +283,10 @@ You should see all your DAGs (note if they don't show up just wait 30 seconds or
 
    If you want to create another TML solution - just repeat STEPS 1-3 with a new project name.
 
--- tip::
-   New project could take 30 seconds or more to show up.  Please be patient.  If there are no
+.. tip::
+   New project could take 30 seconds or more to show up on the main Airflow screen.  
 
-   errors - it will show up.
+   Please be patient.  If there are no errors - it will show up.
 
 Copying A Previous Project
 """"""""""""""""""""""""
