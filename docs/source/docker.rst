@@ -259,6 +259,11 @@ Deleting a Project
 
    The TSS will delete the entire project and commit the changes to Github.
 
+.. warning::
+   All information/code related to this project will be deleted and my not 
+
+   be recoverable.
+
 .. figure:: deleteproject.png 
    :scale: 70%
 
