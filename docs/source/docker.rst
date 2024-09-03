@@ -27,7 +27,7 @@ This is the main container that you need to use to build TML solutions.  Below i
 
    5. You MUST have a Docker Hub account
 
-   6. Create a Readthedocs account and get an API token: :ref:`See instructions`
+   6. Create a Readthedocs account and get an API token: :ref:`Set Up Readthedocs`
 
    FOLLOW THE :ref:`How To Use the TML Solution Container` SECTION.
 
