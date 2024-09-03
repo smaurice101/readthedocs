@@ -19,7 +19,7 @@ This is the main container that you need to use to build TML solutions.  Below i
 
    1. You MUST Install Docker - in Ubuntu run: sudo apt install docker.io
 
-   2. You MUST have a ` Github Account <https://github.com/>`_
+   2. You MUST have a `Github Account <https://github.com/>`_
 
    3. You MUST Clone Github Repo: https://github.com/smaurice101/raspberrypi.git
 
