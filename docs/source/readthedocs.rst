@@ -23,4 +23,4 @@ STEP 3: Add Token in TSS Docker Run Command
 
 Copy the Token and paste it in the TSS docker run command. Refer to :ref:`TSS Docker Run Command`
 
-        **--env READTHEDOCS=<Token>**
+        **\-\-env READTHEDOCS=<Token>**
