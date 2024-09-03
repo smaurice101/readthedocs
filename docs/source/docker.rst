@@ -19,15 +19,15 @@ This is the main container that you need to use to build TML solutions.  Below i
 
    1. You MUST Install Docker - in Ubuntu run: sudo apt install docker.io
 
-   2. You MUST have a Github Account: `Docker Hub <https://https://github.com/>`_
+   2. You MUST have a ` Github Account <https://github.com/>`_
 
    3. You MUST Clone Github Repo: https://github.com/smaurice101/raspberrypi.git
 
    4. You MUST Create Github **Personal Access Token** (Refer to :ref:`Generating Personal Access Tokens in Github`)
 
-   5. You MUST have sign up for a Docker Hub account: `Docker Hub <https://hub.docker.com/>`_
+   5. You MUST have sign up for a `Docker Hub account: <https://hub.docker.com/>`_
 
-   6. Create a Readthedocs account and get an API token: :ref:`Set Up Readthedocs`
+   6. Create a `Readthedocs <https://about.readthedocs.com/>`_ account and get an API token: :ref:`Set Up Readthedocs`
 
    FOLLOW THE :ref:`How To Use the TML Solution Container` SECTION.
 
