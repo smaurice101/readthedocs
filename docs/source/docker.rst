@@ -236,11 +236,11 @@ STEP 2. **Click the file: CREATETMLPROJECT.txt** - you will see the following as
 
    .. figure:: sol2.png
 
-STEP 3. **Type the name of your project in CREATETMLPROJECT.txt** - DO NOT ENTER ANY SPACES - Enter any name like **myawesometmlproject** then **PRESS SAVE**
+STEP 3. **Type the name of your project** 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. important::
-   You should use lowecase letters. 
+   You should use lowecase letters.  DO NOT ENTER ANY SPACES - Enter any name like **myawesometmlproject** then **PRESS SAVE**
 
    .. figure:: sol3.png
 
