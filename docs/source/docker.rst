@@ -239,6 +239,9 @@ STEP 2. **Click the file: CREATETMLPROJECT.txt** - you will see the following as
 STEP 3. **Type the name of your project in CREATETMLPROJECT.txt** - DO NOT ENTER ANY SPACES - Enter any name like **myawesometmlproject** then **PRESS SAVE**
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+.. important::
+   You should use lowecase letters. 
+
    .. figure:: sol3.png
 
 STEP 4. You just created a TML Project and committed to Github. Congratulations!  
