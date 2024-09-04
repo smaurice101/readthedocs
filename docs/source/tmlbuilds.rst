@@ -3457,7 +3457,11 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
     documentation with others - almost instantly!
 
 .. tip::
-   The TSS will develop the base documentation for your solution.  However, you can edit/modify the base documentation on readthedocs as you wish.  
+   The TSS will develop the base documentation for your solution.  
+
+   Note. Your documentation URL will be: https://<Your Solution Name>.readthedocs.io
+
+         **Your Solution Name** is the name you chose here: :ref:`STEP 3. Type the name of your project`
    
 .. code-block:: PYTHON
 
