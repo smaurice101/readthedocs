@@ -1,7 +1,7 @@
 TML Solution Examples: Coming soon
 ======================
 
-Real-Time Iot Data Preprocessing Example
+Real-Time IoT Data Preprocessing Example
 ----------------------
 
 .. figure:: soldags1.png
