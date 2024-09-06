@@ -107,6 +107,13 @@ The Python code below is the code representtion for the figure.  **This code bui
       
         start_task >> sensor_A >> sensor_B >> start_task4 >> [sensor_C, sensor_D, sensor_E] >> start_task2 >> sensor_F >> start_task3  >> sensor_G
 
+Successful Run Screen
+"""""""""""""""""""""""
+
+Below the TSS/Airflow screen that shows a successful TML solution build.  All colors should be green for all of the steps.  If you see a red color, it means your DAG has an error.
+
+.. figure:: run1.png
+   :scale: 70%
 
 
 Real-Time IoT Data Preprocessing and Machine Learning Example 
