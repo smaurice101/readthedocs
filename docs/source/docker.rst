@@ -158,6 +158,15 @@ TSS Docker Run Command
  
        Studio container.
 
+.. important::
+   It is highly recommended you map your local folder to the **dagslocalbackup** folder: 
+
+    **-v /<your local dagsbackup folder>:/dagslocalbackup:z**
+
+    This ensures that is anything happens to Github you always have a local copy of all
+
+    of your solution dags.
+
 Generating Personal Access Tokens in Github
 -------------------------
 
