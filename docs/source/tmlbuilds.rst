@@ -3835,7 +3835,7 @@ Lets choose solution DAG **solution_template_processing_dag-myawesometmlsolution
 
 7. To run your new solution - click DAGs in the top-menu. 
 
-   You should see your new **TASK 11**.  If so, CONGRATULATIONS!  You just created a new/custom  TML solution.
+   You should see your new **STEP 11**.  If so, CONGRATULATIONS!  You just created a new/custom TML solution.
 
 .. figure:: customdag6.png
       :scale: 50%
