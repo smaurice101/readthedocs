@@ -3845,9 +3845,15 @@ Github Push Issues
 
 You may, sometimes, encounter an issue pushing to Github in the UI.   IF this happens, you can issue a **+gitreset** as shown in the figure below:
 
-.. figure:: gitreset1.png
+.. figure:: gitreset2.png
 
 .. figure:: gitreset.png
+
+.. note:: 
+
+   This ususaly happens if there is commit from another process. 
+
+After the **+gitreset** -- you can then Push your changes.
 
 Example TML Solution Container Reference Architecture
 -----------------------------------------------
