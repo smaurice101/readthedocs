@@ -3819,7 +3819,7 @@ You can easily create your own custom DAG and add it to the solution templates. 
 
 Lets choose solution DAG **solution_template_processing_dag-myawesometmlsolution.py**.  Import your new DAG into the temlate by adding an import statement for your new DAG. Here you can create step 11 for your new DAG called "mynewdag": 
 
-   **step11 = step10 = importlib.import_module("tml-solutions.myawesometmlsolution.mynewdag")**
+   **step11 = importlib.import_module("tml-solutions.myawesometmlsolution.mynewdag")**
 
    .. figure:: customdag4.png
       :scale: 50%
