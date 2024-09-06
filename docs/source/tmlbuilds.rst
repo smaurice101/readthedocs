@@ -3823,9 +3823,22 @@ Lets choose solution DAG **solution_template_processing_dag-myawesometmlsolution
 
    .. figure:: customdag4.png
       :scale: 50%
-  
 
+6. Now, connect your new DAG to the solution process flow - as shown in figure below:
 
+.. note::
+   This task assumes you have a function named **mycooldag** in your python script: **tml-solutions.myawesometmlsolution.mynewdag.py** and now TSS will also 
+   run **sensor_H** task you just created.
+   
+.. figure:: customdag5.png
+      :scale: 50%
+
+7. To run your new solution - click DAGs in the top-menu. 
+
+   You should see your new **TASK 11**.  If so, CONGRATULATIONS!  You just created a new/custom  TML solution.
+
+.. figure:: customdag6.png
+      :scale: 50%
 
 
 Example TML Solution Container Reference Architecture
