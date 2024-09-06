@@ -163,7 +163,7 @@ TSS Docker Run Command
 
     **-v /<your local dagsbackup folder>:/dagslocalbackup:z**
 
-    This ensures that is anything happens to Github you always have a local copy of all
+    This ensures that if anything happens to Github you always have a local copy of all
 
     of your solution dags.
 
