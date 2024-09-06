@@ -3784,6 +3784,40 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
 
        be used in Readthedocs documentation
 
+Creating Your Own DAG
+--------------------
+
+.. note::
+   This is for advanced users who are advanced users of Python.
+
+You can easily create your own custom DAG and add it to the solution templates.  Follow these guideline.
+
+1. Create a project first - see :ref:`Lets Start Building a TML Solution`
+
+2. Go to your project folder in TSS - as shown in figure below
+
+   .. figure:: customdag1.png
+      :scale: 50%
+
+3. Create and SAVE your DAG
+
+   .. tip::
+      You should copy a previously written TML Dag and then simply modify it for your needs.
+
+4. Your new DAG will be in the project folder.
+
+   .. important::
+      Make sure you click Git Workspaces to commit your DAG to Github.  As shown in the figure below.
+
+.. figure:: customdag2.png
+
+5. Now add your new DAG to one of the solution templates.
+
+
+
+
+
+
 Example TML Solution Container Reference Architecture
 -----------------------------------------------
 
