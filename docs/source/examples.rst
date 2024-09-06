@@ -8,6 +8,7 @@ Real-Time IoT Data Preprocessing Example
    :scale: 70%
 
 .. code-block:: PYTHON
+
       from __future__ import annotations
       import pendulum
       from airflow.decorators import task
