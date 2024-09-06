@@ -4,11 +4,13 @@ TML Solution Examples: Coming soon
 Real-Time IoT Data Preprocessing Example
 ----------------------
 
+.. figure:: soldags1.png
+   :scale: 70%
+
 Solution DAG Code: solution_preprocessing_dag-myawesometmlsolution
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. figure:: soldags1.png
-   :scale: 70%
+The Python code below is the code representtion for the figure.  **This code builds the entire end-end TML solution in about 2 minutes.**
 
 .. code-block:: PYTHON
 
