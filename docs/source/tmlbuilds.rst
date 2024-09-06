@@ -3840,6 +3840,14 @@ Lets choose solution DAG **solution_template_processing_dag-myawesometmlsolution
 .. figure:: customdag6.png
       :scale: 50%
 
+Github Push Issues
+---------------
+
+You may, sometimes, encounter an issue pushing to Github in the UI.   IF this happens, you can issue a **+gitreset** as shown in the figure below:
+
+.. figure:: gitreset1.png
+
+.. figure:: gitreset.png
 
 Example TML Solution Container Reference Architecture
 -----------------------------------------------
