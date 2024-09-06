@@ -3810,10 +3810,20 @@ You can easily create your own custom DAG and add it to the solution templates. 
       Make sure you click Git Workspaces to commit your DAG to Github.  As shown in the figure below.
 
 .. figure:: customdag2.png
+   :scale: 50%
 
-5. Now add your new DAG to one of the solution templates.
+5. Now add your new DAG to one of the solution templates.  Simply click one of the solution templates.
 
+   .. figure:: customdag3.png
+      :scale: 50%
 
+Lets choose solution DAG **solution_template_processing_dag-myawesometmlsolution.py**.  Import your new DAG into the temlate by adding an import statement for your new DAG. Here you can create step 11 for your new DAG called "mynewdag": 
+
+   **step11 = step10 = importlib.import_module("tml-solutions.myawesometmlsolution.mynewdag")**
+
+   .. figure:: customdag4.png
+      :scale: 50%
+  
 
 
 
