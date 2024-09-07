@@ -887,7 +887,7 @@ STEP 3: Produce to Kafka Topics
    * - tml-read-LOCALFILE-step-3-kafka-producetotopic-dag
      - You can process a localfile and stream the 
 
-       data to kafka.  See the `IoTSolution DAG <https://github.com/smaurice101/raspberrypi/blob/main/tml-airflow/dags/tml-iotsolution-step-3-kafka-producetotopic-dag.py>`_
+       data to kafka.
 
      - This DAG will read a local CSV file 
 
