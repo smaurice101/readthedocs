@@ -893,8 +893,7 @@ STEP 3: Produce to Kafka Topics
 
        for data and stream it to Kafka.
    * - tml-read-gRPC-step-3-kafka-producetotopic-dag
-     - Here is the gRPC client: `tml-read-gRPC-step-3-kafka-producetotopic-dag <https://github.com/smaurice101/raspberrypi/blob/main/tml-airflow/dags/tml-client- 
-       gRPC-step-3-kafka-producetotopic.py>`_
+     - Here is the gRPC client: `tml-read-gRPC-step-3-kafka-producetotopic-dag <https://github.com/smaurice101/raspberrypi/blob/main/tml-airflow/dags/tml_read_gRPC_step_3_kafka_producetotopic_dag.py>`_
 
        NOTE: For this client you will also 
  
