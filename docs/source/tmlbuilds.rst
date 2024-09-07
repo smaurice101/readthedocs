@@ -500,6 +500,10 @@ Below is the complete definition of the **tml_system_step_1_getparams_dag**.  Us
           output = f.read()
           VIPERHOSTPREPROCESS = output.split(",")[0]
           VIPERPORTPREPROCESS = output.split(",")[1]    
+        with open('/Viper-preprocess-pgpt/viper.txt', 'r') as f:
+          output = f.read()
+          VIPERHOSTPREPROCESSPGPT = output.split(",")[0]
+          VIPERPORTPREPROCESSPGPT = output.split(",")[1]        
         with open('/Viper-ml/viper.txt', 'r') as f:
           output = f.read()
           VIPERHOSTML = output.split(",")[0]
@@ -574,9 +578,12 @@ Below is the complete definition of the **tml_system_step_1_getparams_dag**.  Us
         task_instance.xcom_push(key="{}_SOLUTIONEXTERNALPORT".format(sname),value="_{}".format(os.environ['SOLUTIONEXTERNALPORT'])) 
         task_instance.xcom_push(key="{}_SOLUTIONVIPERVIZPORT".format(sname),value="_{}".format(os.environ['SOLUTIONVIPERVIZPORT']))  
         task_instance.xcom_push(key="{}_SOLUTIONAIRFLOWPORT".format(sname),value="_{}".format(os.environ['SOLUTIONAIRFLOWPORT'])) 
-      
+        
+        
       task_instance.xcom_push(key="{}_TSS".format(sname),value="_{}".format(tss))  
+        
       task_instance.xcom_push(key="{}_EXTERNALPORT".format(sname),value="_{}".format(externalport)) 
+      
       task_instance.xcom_push(key="{}_VIPERVIZPORT".format(sname),value="_{}".format(vipervizport))  
       task_instance.xcom_push(key="{}_VIPERTOKEN".format(sname),value=VIPERTOKEN)
       task_instance.xcom_push(key="{}_VIPERHOST".format(sname),value=VIPERHOST)
@@ -585,6 +592,10 @@ Below is the complete definition of the **tml_system_step_1_getparams_dag**.  Us
       task_instance.xcom_push(key="{}_VIPERPORTPRODUCE".format(sname),value="_{}".format(VIPERPORT))
       task_instance.xcom_push(key="{}_VIPERHOSTPREPROCESS".format(sname),value=VIPERHOSTPREPROCESS)
       task_instance.xcom_push(key="{}_VIPERPORTPREPROCESS".format(sname),value="_{}".format(VIPERPORTPREPROCESS))
+    
+      task_instance.xcom_push(key="{}_VIPERHOSTPREPROCESSPGPT".format(sname),value=VIPERHOSTPREPROCESSPGPT)
+      task_instance.xcom_push(key="{}_VIPERPORTPREPROCESSPGPT".format(sname),value="_{}".format(VIPERPORTPREPROCESSPGPT))
+        
       task_instance.xcom_push(key="{}_VIPERHOSTML".format(sname),value=VIPERHOSTML)
       task_instance.xcom_push(key="{}_VIPERPORTML".format(sname),value="_{}".format(VIPERPORTML))
       task_instance.xcom_push(key="{}_VIPERHOSTPREDICT".format(sname),value=VIPERHOSTPREDICT)
@@ -645,6 +656,35 @@ DAG STEP 1: Parameter Explanation
         If you are using Kafka Cloud then this 
 
         is the **API SECRET**
+
+    * - solutionairflowport
+      - This is your solution airflow port.  If -1, TSS will choose 
+
+        a free port randomly, or set this to a fixed number to prevent
+
+        the port from changing.
+    
+    * - solutionexternalport
+      - This is an external port that you WILL need to stream external 
+
+        data to your TML solution when using:
+
+        You will need this port in the `REST <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-3b-i-rest-api-client>`_, and `gRPC 
+        <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-3c-i-grpc-api-client>`_ clients.
+
+        If -1, TSS will choose a free port 
+
+        randomly, or set this to a fixed number to prevent the port 
+
+        from changing.
+    
+    * - solutionvipervizport
+      - This is your solution dashboard port.  If -1, TSS will choose 
+
+        a free port randomly, or set this to a fixed number to prevent 
+
+        port from changing.
+
     * - ingestdatamethod
       - You must choose how you will ingest your data.
 
