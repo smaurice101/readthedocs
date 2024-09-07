@@ -909,7 +909,7 @@ STEP 3: Produce to Kafka Topics
 
        leverage a gRPC connection and stream the data to Kafka.
    * - `tml-read-RESTAPI-step-3-kafka-producetotopic-dag <https://github.com/smaurice101/raspberrypi/blob/main/tml-airflow/dags/tml_read_RESTAPI_step_3_kafka_producetotopic_dag.py>`_
-     - Here is the RESTAPI client: `tml-client-RESTAPI-step-3-kafka-producetotopic.py <https://github.com/smaurice101/raspberrypi/blob/main/tml-airflow/dags/tml_client_RESTAPI_step_3_kafka_producetotopic.py>`_
+     - This is one of the most popular APIs.
      - This DAG is an RESTAPI server and will 
 
        listen for a connection from a 
