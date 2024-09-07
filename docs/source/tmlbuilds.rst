@@ -4736,6 +4736,8 @@ You may, sometimes, encounter an issue pushing to Github in the UI.   IF this ha
 
 After the **+gitresetpull** -- you can then Push your changes.
 
+.. figure:: gitresetpush.png
+
 Example TML Solution Container Reference Architecture
 -----------------------------------------------
 
