@@ -867,7 +867,7 @@ STEP 3: Produce to Kafka Topics
    * - **Data Ingest DAG Name**
      - **Client File Name**
      - **Description**
-   * - tml-read-MQTT-step-3-kafka-producetotopic-dag
+   * - `tml-read-MQTT-step-3-kafka-producetotopic-dag <https://github.com/smaurice101/raspberrypi/blob/main/tml-airflow/dags/tml_read_MQTT_step_3_kafka_producetotopic_dag.py>`_
      - An **on_message(client, userdata, msg)** event 
 
        is triggered by the MQTT broker.  This DAGs 
