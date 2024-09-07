@@ -1310,6 +1310,7 @@ STEP 3b: Produce Data Using RESTAPI: tml-read-RESTAPI-step-3-kafka-producetotopi
              VIPERHOST = sys.argv[3] 
              VIPERPORT = sys.argv[4]                  
              gettmlsystemsparams()
+
 STEP 3b.i: REST API CLIENT
 """""""""""""""""""""""""""""""""""""""" 	
 
