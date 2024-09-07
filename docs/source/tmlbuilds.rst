@@ -7,7 +7,8 @@ Why Do I Need TML?
 TML is the world's only technology that can perform entity based machine learning, in-memory, on real-time data integrated with Apache Kafka.  Any where you need to process real-time data - you NEED TML.  It can be used in any industry globally.
 
 .. important::
-   **TML offers several advantages over conventional Stream Processing:**
+   **TML offers several advantages over conventional Stream Processing: In addition to being the FASTEST wsy to build advanced, scalable, secure real-time 
+   solutons in roughly TWO (2) minutes:**
 
    1. Stream Processing from AWS Kinesis, or Spark Streaming - Do Not perform in-memory entity based machine learning or processing of real-time data.  TML Does.
 
