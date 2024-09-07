@@ -884,7 +884,7 @@ STEP 3: Produce to Kafka Topics
        ingests data from MQTT system like HiveMQ and 
 
        stream it to Kafka.
-   * - tml-read-LOCALFILE-step-3-kafka-producetotopic-dag
+   * - `tml-read-LOCALFILE-step-3-kafka-producetotopic-dag <https://github.com/smaurice101/raspberrypi/blob/main/tml-airflow/dags/tml_read_LOCALFILE_step_3_kafka_producetotopic_dag.py>`_
      - You can process a localfile and stream the 
 
        data to kafka.
@@ -892,7 +892,7 @@ STEP 3: Produce to Kafka Topics
      - This DAG will read a local CSV file 
 
        for data and stream it to Kafka.
-   * - tml-read-gRPC-step-3-kafka-producetotopic-dag
+   * - `tml-read-gRPC-step-3-kafka-producetotopic-dag <https://github.com/smaurice101/raspberrypi/blob/main/tml-airflow/dags/tml_read_gRPC_step_3_kafka_producetotopic_dag.py>`_
      - Here is the gRPC client: `tml-read-gRPC-step-3-kafka-producetotopic-dag <https://github.com/smaurice101/raspberrypi/blob/main/tml-airflow/dags/tml_read_gRPC_step_3_kafka_producetotopic_dag.py>`_
 
        NOTE: For this client you will also 
@@ -910,7 +910,7 @@ STEP 3: Produce to Kafka Topics
        solution ingests data from devices and you want to 
 
        leverage a gRPC connection and stream the data to Kafka.
-   * - tml-read-RESTAPI-step-3-kafka-producetotopic-dag
+   * - `tml-read-RESTAPI-step-3-kafka-producetotopic-dag <https://github.com/smaurice101/raspberrypi/blob/main/tml-airflow/dags/tml_read_RESTAPI_step_3_kafka_producetotopic_dag.py>`_
      - Here is the RESTAPI client: `tml-client-RESTAPI-step-3-kafka-producetotopic.py <https://github.com/smaurice101/raspberrypi/blob/main/tml-airflow/dags/tml_client_RESTAPI_step_3_kafka_producetotopic.py>`_
      - This DAG is an RESTAPI server and will 
 
