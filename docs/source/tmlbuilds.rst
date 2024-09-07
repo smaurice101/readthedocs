@@ -4720,17 +4720,21 @@ Lets choose solution DAG **solution_template_processing_dag-myawesometmlsolution
 Github Push Issues
 ---------------
 
-You may, sometimes, encounter an issue pushing to Github in the UI.   IF this happens, you can issue a **+gitreset** as shown in the figure below:
+You may, sometimes, encounter an issue pushing to Github in the UI.   IF this happens, you can issue a **+gitresetpull** or **+gitresetpush** as shown in the figure below:
+
+.. note:: 
+
+   This ususaly happens if there is commit from another process.  
+
+   Important to note that **+gitresetpull** will fetch all of the commits and add them to the main branch.
+
+   **+gitresetpush** will rebase the commit to the head of the main branch, commit the changes and push it to main branch.
 
 .. figure:: gitreset2.png
 
 .. figure:: gitreset.png
 
-.. note:: 
-
-   This ususaly happens if there is commit from another process. 
-
-After the **+gitreset** -- you can then Push your changes.
+After the **+gitresetpull** -- you can then Push your changes.
 
 Example TML Solution Container Reference Architecture
 -----------------------------------------------
