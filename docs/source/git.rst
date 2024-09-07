@@ -29,3 +29,9 @@ You can view the local and remote branches conveniently inside the TML Solution 
 
 .. figure:: tmlgit.png
 
+Github Logs
+----------
+This is your main TSS Github logs.  All TSS processes are committed to Github and logged. 
+
+.. important::
+   https:\/\/github.com\/<your github username>\/<repo you cloned>\/blob\/main\/tml-airflow\/logs\/logs.txt
