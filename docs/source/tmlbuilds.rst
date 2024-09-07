@@ -8,12 +8,17 @@ TML is the world's only technology that can perform entity based machine learnin
 
 .. important::
    **TML offers several advantages over conventional Stream Processing: In addition to being:
-     - the FASTEST and EASIEST way to build advanced, 
-   scalable, secure, and cost-effective, real-time solutions, with GenAI, for the Enterprise, 
+
+     - the FASTEST and EASIEST way to build advanced, scalable, secure, and cost-effective, real-time solutions, with GenAI, for the Enterprise, 
+
      - in roughly TWO (2) minutes with
+
        - automated documentation, 
+
        - automated docker builds and,
+
        - automated code commits to Github 
+
        - with tight integration with Apache Airflow and Apache Kafka:**
 
    1. Stream Processing from AWS Kinesis, or Spark Streaming - Do Not perform in-memory entity based machine learning or processing of real-time data.  TML Does.
