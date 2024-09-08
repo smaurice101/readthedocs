@@ -1869,12 +1869,22 @@ STEP 3d: Produce Data Using LOCALFILE: tml-read-LOCALFILE-step-3-kafka-produceto
       VIPERPORT = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_VIPERPORTPRODUCE".format(sname))
       HTTPADDR = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_HTTPADDR".format(sname))
     
+      VIPERHOSTFROM=tsslogging.getip(VIPERHOST)     
       ti = context['task_instance']
       ti.xcom_push(key="{}_PRODUCETYPE".format(sname),value='LOCALFILE')
       ti.xcom_push(key="{}_TOPIC".format(sname),value=default_args['topics'])
-      ti.xcom_push(key="{}_PORT".format(sname),value=default_args['inputfile'])
-      ti.xcom_push(key="{}_IDENTIFIER".format(sname),value=default_args['identifier'])
+      ti.xcom_push(key="{}_CLIENTPORT".format(sname),value="")
+      ti.xcom_push(key="{}_IDENTIFIER".format(sname),value="{},{}".format(default_args['identifier'],default_args['inputfile']))
+    
+      ti.xcom_push(key="{}_FROMHOST".format(sname),value=VIPERHOSTFROM)
+      ti.xcom_push(key="{}_TOHOST".format(sname),value=VIPERHOST)
+    
+      ti.xcom_push(key="{}_TSSCLIENTPORT".format(sname),value="")
+      ti.xcom_push(key="{}_TMLCLIENTPORT".format(sname),value="")
         
+      ti.xcom_push(key="{}_PORT".format(sname),value=VIPERPORT)
+      ti.xcom_push(key="{}_HTTPADDR".format(sname),value=HTTPADDR)
+            
       chip = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_chip".format(sname))   
     
       repo=tsslogging.getrepo() 
