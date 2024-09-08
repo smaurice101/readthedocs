@@ -1210,6 +1210,11 @@ DAG STEP 3a: Parameter Explantion
     * - retries
       - DAG retries 
 
+MQTT Reference Architecture
+""""""""""""""""""""""""""""""
+
+.. figure:: mqttimg.png
+   :scale: 70%
 
 STEP 3b: Produce Data Using RESTAPI: tml-read-RESTAPI-step-3-kafka-producetotopic-dag
 """""""""""""""""""""""""""""""""""""""" 	
@@ -1466,6 +1471,12 @@ The REST API client runs outside the TML solution container.  The client api giv
        your data to 
 
        :ref:`STEP 3b: Produce Data Using RESTAPI: tml-read-RESTAPI-step-3-kafka-producetotopic-dag`
+
+REST API Reference Architecture
+""""""""""""""""""""""""""""""
+
+.. figure:: restimg.png
+   :scale: 70%
 
 STEP 3c: Produce Data Using gRPC: tml-read-gRPC-step-3-kafka-producetotopic-dag
 """"""""""""""""""""""""""""""""""""""""" 	
@@ -1925,6 +1936,12 @@ Producing Data Using a Local File
 
      2. Add the filename of the file you want to read by updating the **'inputfile' : '/rawdata/?'** in 
         :ref:`STEP 3d: Produce Data Using LOCALFILE: tml-read-LOCALFILE-step-3-kafka-producetotopic-dag`
+
+Local File Reference Architecture
+""""""""""""""""""""""""""""""
+
+.. figure:: localfileimg.png
+   :scale: 70%
 
 STEP 4: Preprocesing Data: tml-system-step-4-kafka-preprocess-dag
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
