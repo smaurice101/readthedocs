@@ -376,8 +376,7 @@ Below is the complete definition of the **tml_system_step_1_getparams_dag**.  Us
          pass
            
         # copy folders
-        shutil.copytree("/tss_readthedocs/docs/source", "/{}/docs/source".format(sname),dirs_exist_ok=True)
-        shutil.copy2("/tss_readthedocs/docs/source/conf.py", "/{}/docs/source/conf.py".format(sname))
+        shutil.copytree("/tss_readthedocs", "/{}".format(sname),dirs_exist_ok=True)
         return VIPERPORT,VIPERPORTPREPROCESS,VIPERPORTPREDICT,VIPERPORTML
             
     def updateviperenv():
