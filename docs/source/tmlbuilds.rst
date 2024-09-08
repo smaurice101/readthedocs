@@ -1228,7 +1228,7 @@ STEP 3b: Produce Data Using RESTAPI: tml-read-RESTAPI-step-3-kafka-producetotopi
     import json
     from datetime import datetime
     from airflow.decorators import dag, task
-    from flask import Flask
+    from flask import Flask, request, jsonify
     from gevent.pywsgi import WSGIServer
     import sys
     import tsslogging
@@ -1242,7 +1242,9 @@ STEP 3b: Produce Data Using RESTAPI: tml-read-RESTAPI-step-3-kafka-producetotopi
     # This is a REST API server that will handle connections from a client
     # There are two endpoints you can use to stream data to this server:
     # 1. jsondataline -  You can POST a single JSONs from your client app. Your json will be streamed to Kafka topic.
-    # 2. jsondataarray -  You can POST JSON arrays from your client app. Your json will be streamed to Kafka topic.    
+    # 2. jsondataarray -  You can POST JSON arrays from your client app. Your json will be streamed to Kafka topic.
+    
+    
     ######################################## USER CHOOSEN PARAMETERS ########################################
     default_args = {
       'owner' : 'Sebastian Maurice',    
@@ -1251,7 +1253,8 @@ STEP 3b: Produce Data Using RESTAPI: tml-read-RESTAPI-step-3-kafka-producetotopi
       'producerid' : 'iotsolution',  
       'topics' : 'iot-raw-data', # *************** This is one of the topic you created in SYSTEM STEP 2
       'identifier' : 'TML solution',  
-      'rest_port' : '9001',  # <<< ***** replace replace with port number i.e. this is listening on port 9000 
+      'tss_rest_port' : '9001',  # <<< ***** replace replace with port number i.e. this is listening on port 9000 
+      'rest_port' : '9002',  # <<< ***** replace replace with port number i.e. this is listening on port 9000     
       'delay' : '7000', # << ******* 7000 millisecond maximum delay for VIPER to wait for Kafka to return confirmation message is received and written to topic
       'topicid' : '-999', # <<< ********* do not modify              
     }
@@ -1266,12 +1269,7 @@ STEP 3b: Produce Data Using RESTAPI: tml-read-RESTAPI-step-3-kafka-producetotopi
         
     dag = startproducingtotopic()
     
-    VIPERTOKEN=""
-    VIPERHOST=""
-    VIPERPORT=""
-    HTTPADDR=""    
-    
-    def producetokafka(value, tmlid, identifier,producerid,maintopic,substream,args):
+    def producetokafka(value, tmlid, identifier,producerid,maintopic,substream,args,VIPERTOKEN, VIPERHOST, VIPERPORT):
          inputbuf=value     
          topicid=int(args['topicid'])
       
@@ -1279,7 +1277,7 @@ STEP 3b: Produce Data Using RESTAPI: tml-read-RESTAPI-step-3-kafka-producetotopi
          delay=int(args['delay'])
          enabletls = int(args['enabletls'])
          identifier = args['identifier']
-    
+            
          try:
             result=maadstml.viperproducetotopic(VIPERTOKEN,VIPERHOST,VIPERPORT,maintopic,producerid,enabletls,delay,'','', '',0,inputbuf,substream,
                                                 topicid,identifier)
@@ -1287,40 +1285,50 @@ STEP 3b: Produce Data Using RESTAPI: tml-read-RESTAPI-step-3-kafka-producetotopi
             print("ERROR:",e)
     
     def gettmlsystemsparams():
-    
         repo=tsslogging.getrepo()  
         tsslogging.tsslogit("RESTAPI producing DAG in {}".format(os.path.basename(__file__)), "INFO" )                     
         tsslogging.git_push("/{}".format(repo),"Entry from {}".format(os.path.basename(__file__)),"origin")            
             
         if VIPERHOST != "":
             app = Flask(__name__)
-    
-            @app.route('/jsondataline', methods=['POST'])
+                     
+            app.config['VIPERTOKEN'] = os.environ['VIPERTOKEN']
+            app.config['VIPERHOST'] = os.environ['VIPERHOST']
+            app.config['VIPERPORT'] = os.environ['VIPERPORT']
+                    
+                   
+            @app.route(rule='/jsondataline', methods=['POST'])
             def storejsondataline():
               jdata = request.get_json()
-              readdata(jdata)
-    
-            @app.route('/jsondataarray', methods=['POST'])
+              readdata(jdata,app.config['VIPERTOKEN'],app.config['VIPERHOST'],app.config['VIPERPORT'])
+              return "ok"
+        
+            @app.route(rule='/jsondataarray', methods=['POST'])
             def storejsondataarray():    
               jdata = request.get_json()
               json_array = json.load(jdata)
               for item in json_array: 
-                 readdata(item)
+                 readdata(item,app.config['VIPERTOKEN'],app.config['VIPERHOST'],app.config['VIPERPORT'])
+              return "ok"      
             
             #app.run(port=default_args['rest_port']) # for dev
-            http_server = WSGIServer(('', int(default_args['rest_port'])), app)
+            if os.environ['TSS']=="0": 
+              http_server = WSGIServer(('', int(default_args['rest_port'])), app)
+            else:
+              http_server = WSGIServer(('', int(default_args['tss_rest_port'])), app)
+            
             http_server.serve_forever()        
     
          #return [VIPERTOKEN,VIPERHOST,VIPERPORT]
             
-    def readdata(valuedata):
+    def readdata(valuedata,VIPERTOKEN, VIPERHOST, VIPERPORT):
           args = default_args    
     
           # MAin Kafka topic to store the real-time data
           maintopic = args['topics']
           producerid = args['producerid']
           try:
-              producetokafka(valuedata.strip(), "", "",producerid,maintopic,"",args)
+              producetokafka(valuedata, "", "",producerid,maintopic,"",args,VIPERTOKEN, VIPERHOST, VIPERPORT)
               # change time to speed up or slow down data   
               #time.sleep(0.15)
           except Exception as e:
@@ -1343,11 +1351,6 @@ STEP 3b: Produce Data Using RESTAPI: tml-read-RESTAPI-step-3-kafka-producetotopi
            VIPERPORT = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_VIPERPORTPRODUCE".format(sname))
            HTTPADDR = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_HTTPADDR".format(sname))
     
-           ti = context['task_instance']
-           ti.xcom_push(key="{}_PRODUCETYPE".format(sname),value='REST')
-           ti.xcom_push(key="{}_TOPIC".format(sname),value=default_args['topics'])
-           ti.xcom_push(key="{}_PORT".format(sname),value=default_args['rest_port'])
-           ti.xcom_push(key="{}_IDENTIFIER".format(sname),value=default_args['identifier'])
             
            chip = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_chip".format(sname)) 
            
@@ -1357,10 +1360,29 @@ STEP 3b: Produce Data Using RESTAPI: tml-read-RESTAPI-step-3-kafka-producetotopi
            else:
              fullpath="/{}/tml-airflow/dags/{}".format(repo,os.path.basename(__file__))  
                 
+           hs,VIPERHOSTFROM=tsslogging.getip(VIPERHOST)     
+           ti = context['task_instance']
+           ti.xcom_push(key="{}_PRODUCETYPE".format(sname),value='REST')
+           ti.xcom_push(key="{}_TOPIC".format(sname),value=default_args['topics'])
+           if os.environ['TSS']=="0": 
+             ti.xcom_push(key="{}_CLIENTPORT".format(sname),value="_{}".format(default_args['rest_port']))
+           else:
+             ti.xcom_push(key="{}_CLIENTPORT".format(sname),value="_{}".format(default_args['tss_rest_port']))
+    
+           ti.xcom_push(key="{}_TSSCLIENTPORT".format(sname),value="_{}".format(default_args['tss_rest_port']))  
+           ti.xcom_push(key="{}_TMLCLIENTPORT".format(sname),value="_{}".format(default_args['rest_port']))  
+                
+           ti.xcom_push(key="{}_IDENTIFIER".format(sname),value=default_args['identifier'])
+           ti.xcom_push(key="{}_FROMHOST".format(sname),value="{},{}".format(hs,VIPERHOSTFROM))
+           ti.xcom_push(key="{}_TOHOST".format(sname),value=VIPERHOST)
+        
+           ti.xcom_push(key="{}_PORT".format(sname),value=VIPERPORT)
+           ti.xcom_push(key="{}_HTTPADDR".format(sname),value=HTTPADDR)
+        
            wn = windowname('produce',sname,sd)      
            subprocess.run(["tmux", "new", "-d", "-s", "{}".format(wn)])
            subprocess.run(["tmux", "send-keys", "-t", "{}".format(wn), "cd /Viper-produce", "ENTER"])
-           subprocess.run(["tmux", "send-keys", "-t", "{}".format(wn), "python {} 1 {} {}{} {}".format(fullpath,VIPERTOKEN,HTTPADDR,VIPERHOST,VIPERPORT[1:]), "ENTER"])        
+           subprocess.run(["tmux", "send-keys", "-t", "{}".format(wn), "python {} 1 {} {}{} {}".format(fullpath,VIPERTOKEN,HTTPADDR,VIPERHOSTFROM,VIPERPORT[1:]), "ENTER"])        
             
     if __name__ == '__main__':
         
@@ -1368,7 +1390,11 @@ STEP 3b: Produce Data Using RESTAPI: tml-read-RESTAPI-step-3-kafka-producetotopi
            if sys.argv[1] == "1":          
              VIPERTOKEN = sys.argv[2]
              VIPERHOST = sys.argv[3] 
-             VIPERPORT = sys.argv[4]                  
+             VIPERPORT = sys.argv[4]
+             os.environ['VIPERTOKEN']=VIPERTOKEN
+             os.environ['VIPERHOST']=VIPERHOST
+             os.environ['VIPERPORT']=VIPERPORT
+            
              gettmlsystemsparams()
 
 STEP 3b.i: REST API CLIENT
