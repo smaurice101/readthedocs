@@ -1725,6 +1725,12 @@ The gRPC API client runs outside the TML solution container.  The client api giv
 
        **client.get_url(message="PUT YOUR DATA HERE")**
 
+gRPC Reference Architecture
+"""""""""""""""""""""""""""""""
+
+.. figure:: grpcimg.png
+   :scale: 70%
+
 STEP 3d: Produce Data Using LOCALFILE: tml-read-LOCALFILE-step-3-kafka-producetotopic-dag
 """""""""""""""""""""""""""""""""""""""""" 	
 
