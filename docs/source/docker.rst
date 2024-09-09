@@ -333,6 +333,8 @@ Here are your new DAGs:
 
 .. figure:: sol9.png
 
+.. figure:: sol55.png
+
 .. tip::
    Check the logs for status updates: Go to **/raspberrypi/tml-airflow/logs/logs.txt**
 
