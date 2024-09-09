@@ -217,35 +217,35 @@ DAG Table
        to leverage a rest connection and stream the 
 
        data to Kafka.
-   * - tml-system-step-4-kafka-preprocess-dag
+   * - :ref:`STEP 4: Preprocesing Data: tml-system-step-4-kafka-preprocess-dag`
      - This DAG perform entity level preprocessing on 
 
        the real-time data.  There are over 
 
        35 different preprocessing types in TML. 
-   * - tml-system-step-5-kafka-machine-learning-dag
+   * - :ref:`STEP 5: Entity Based Machine Learning : tml-system-step-5-kafka-machine-learning-dag`
      - This DAG perform entity level machine 
 
        learning on the real-time data.
-   * - tml-system-step-6-kafka-predictions-dag
+   * - :ref:`STEP 6: Entity Based Predictions: tml-system-step-6-kafka-predictions-dag`
      - This DAG performs predictions using the 
 
        trained algorithms for every entity.
-   * - tml-system-step-7-kafka-visualization-dag
+   * - :ref:`STEP 7: Real-Time Visualization: tml-system-step-7-kafka-visualization-dag`
      - This DAG streams the output to a 
 
        real-time dashboard.
-   * - tml_system_step_8_deploy_solution_to_docker_dag
+   * - :ref:`STEP 8: Deploy TML Solution to Docker : tml-system-step-8-deploy-solution-to-docker-dag`
      - This DAG automatically deploys the entire 
 
        TML solution to Docker container - and pushes 
 
        it to Dockerhub.
-   * - tml_system_step_9_privategpt_qdrant_dag
+   * - :ref:`STEP 9: PrivateGPT and Qdrant Integration: tml-system-step-9-privategpt_qdrant-dag`
      - This DAG configures your solution to 
 
        access the privateGPT and Qdrant containers.
-   * - tml_system_step_10_documentation_dag
+   * - :ref:`STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag`
      - This DAG will automatically create 
 
        the documentation for your solution 
