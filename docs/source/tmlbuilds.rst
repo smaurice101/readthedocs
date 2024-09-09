@@ -171,7 +171,9 @@ DAG Table
      - **Description**
    * - :ref:`STEP 1: Get TML Core Params: tml_system_step_1_getparams_dag`
 
-       This DAG will get the core TML connection and 
+       Description: This DAG will get the core TML connection and 
+
+               tokens needed for operations.
      - This DAG will get the core TML connection and 
       
        tokens needed for operations.
