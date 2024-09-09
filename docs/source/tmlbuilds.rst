@@ -165,7 +165,7 @@ DAG Table
 ^^^^^^^^^^^^^^^^^^
 
 .. list-table::
-   :widths: 20 50
+   :widths: 20
 
    * - **DAG Name**
    * - :ref:`STEP 1: Get TML Core Params: tml_system_step_1_getparams_dag`
