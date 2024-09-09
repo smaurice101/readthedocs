@@ -282,7 +282,7 @@ Deleting a Project
 .. figure:: deleteproject.png 
    :scale: 70%
 
-STEP 5. Click the folder: **myawesometmlproject** - you will see the figure below - VOILA!
+STEP 5. Click the folder: **myawesometmlproject-3f10** - you will see the figure below - VOILA!
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
    .. figure:: sol5.png
