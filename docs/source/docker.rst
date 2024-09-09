@@ -253,6 +253,9 @@ STEP 3. **Type the name of your project**
 
    .. figure:: sol3.png
 
+.. note:: 
+   All projects will be "appended" with parts of your READTHEDOCS token.  This is to ensure project uniqness on READTHEDOCS.
+
 STEP 4. You just created a TML Project and committed to Github. Congratulations!  
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
