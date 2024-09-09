@@ -327,7 +327,7 @@ To confirm the new project was properly copied repeat STEPS 4 - 6.  You should s
 .. figure:: sol8.png
 
 .. important:: 
-   The documentation link **WILL ONLY be functionall AFTER you run your project in TSS.**
+   The documentation link **WILL ONLY be functional AFTER you run your project in TSS.**
 
 Here are your new DAGs:
 
