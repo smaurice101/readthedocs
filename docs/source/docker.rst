@@ -322,9 +322,12 @@ Copying A Previous Project
 
 .. figure:: sol7.png
 
-To confirm the new project was properly copied repeat STEPS 4 - 6.  You should see your **myawesometmlproject2** committed to Github:
+To confirm the new project was properly copied repeat STEPS 4 - 6.  You should see your **myawesometmlproject2-3f10** committed to Github:
 
 .. figure:: sol8.png
+
+.. important:: 
+   The documentation link **WILL ONLY be functionall AFTER you run your project in TSS.**
 
 Here are your new DAGs:
 
