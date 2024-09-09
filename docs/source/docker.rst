@@ -261,7 +261,7 @@ STEP 4. You just created a TML Project and committed to Github. Congratulations!
 
 To confirm everything went ok go to the Github account:
 
-   i.e. **/raspberrypi/tml-airflow/dags/tml-solutions/** you should see a folder for **myawesometmlproject**
+   i.e. **/raspberrypi/tml-airflow/dags/tml-solutions/** you should see a folder for **myawesometmlproject-3f10**
 
    .. figure:: sol4.png
 
