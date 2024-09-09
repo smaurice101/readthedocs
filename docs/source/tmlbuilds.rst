@@ -173,13 +173,13 @@ DAG Table
      - This DAG will get the core TML connection and 
       
        tokens needed for operations.
-   * - tml_system_step_2_kafka_createtopic_dag
+   * - :ref:`STEP 2: Create Kafka Topics: tml_system_step_2_kafka_createtopic_dag`
      - This DAG will create all the necessary 
 
        topics in Kafka (on-prem or Cloud) for 
 
        your TML solution. 
-   * - tml-read-MQTT-step-3-kafka-producetotopic-dag
+   * - :ref:`STEP 3a: Produce Data Using MQTT: tml-read-MQTT-step-3-kafka-producetotopic-dag`
      - This DAG is an MQTT server and will listen 
 
        for a connection from a client.  You use 
@@ -189,11 +189,11 @@ DAG Table
        from MQTT system like HiveMQ and 
 
        stream it to Kafka.
-   * - tml-read-LOCALFILE-step-3-kafka-producetotopic-dag
+   * - :ref:`STEP 3d: Produce Data Using LOCALFILE: tml-read-LOCALFILE-step-3-kafka-producetotopic-dag`
      - This DAG will read a local CSV file for 
 
        data and stream it to Kafka.
-   * - tml-read-gRPC-step-3-kafka-producetotopic-dag
+   * - :ref:`STEP 3c: Produce Data Using gRPC: tml-read-gRPC-step-3-kafka-producetotopic-dag`
      - This DAG is an gRPC server and will 
 
        listen for a connection from a gRPC client.  
@@ -205,7 +205,7 @@ DAG Table
        leverage a gRPC connection and stream the 
  
        data to Kafka.
-   * - tml-read-RESTAPI-step-3-kafka-producetotopic-dag
+   * - :ref:`STEP 3b: Produce Data Using RESTAPI: tml-read-RESTAPI-step-3-kafka-producetotopic-dag`
      - This DAG is an RESTAPI server and will listen 
     
        for a connection from a REST client.  
