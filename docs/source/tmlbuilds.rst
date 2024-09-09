@@ -168,23 +168,21 @@ DAG Table
    :widths: 20 50
 
    * - **DAG Name**
-     - **Description**
    * - :ref:`STEP 1: Get TML Core Params: tml_system_step_1_getparams_dag`
 
-       Description: This DAG will get the core TML connection and 
+       **Description:** This DAG will get the core TML connection and 
 
-               tokens needed for operations.
-     - This DAG will get the core TML connection and 
-      
        tokens needed for operations.
    * - :ref:`STEP 2: Create Kafka Topics: tml_system_step_2_kafka_createtopic_dag`
-     - This DAG will create all the necessary 
+
+       **Description:** This DAG will create all the necessary 
 
        topics in Kafka (on-prem or Cloud) for 
 
        your TML solution. 
    * - :ref:`STEP 3a: Produce Data Using MQTT: tml-read-MQTT-step-3-kafka-producetotopic-dag`
-     - This DAG is an MQTT server and will listen 
+        
+       **Description:** This DAG is an MQTT server and will listen 
 
        for a connection from a client.  You use 
 
@@ -194,11 +192,13 @@ DAG Table
 
        stream it to Kafka.
    * - :ref:`STEP 3d: Produce Data Using LOCALFILE: tml-read-LOCALFILE-step-3-kafka-producetotopic-dag`
-     - This DAG will read a local CSV file for 
+
+       **Description:** This DAG will read a local CSV file for 
 
        data and stream it to Kafka.
    * - :ref:`STEP 3c: Produce Data Using gRPC: tml-read-gRPC-step-3-kafka-producetotopic-dag`
-     - This DAG is an gRPC server and will 
+        
+       **Description:** This DAG is an gRPC server and will 
 
        listen for a connection from a gRPC client.  
 
@@ -210,7 +210,8 @@ DAG Table
  
        data to Kafka.
    * - :ref:`STEP 3b: Produce Data Using RESTAPI: tml-read-RESTAPI-step-3-kafka-producetotopic-dag`
-     - This DAG is an RESTAPI server and will listen 
+     
+       **Description:** This DAG is an RESTAPI server and will listen 
     
        for a connection from a REST client.  
 
@@ -222,35 +223,42 @@ DAG Table
 
        data to Kafka.
    * - :ref:`STEP 4: Preprocesing Data: tml-system-step-4-kafka-preprocess-dag`
-     - This DAG perform entity level preprocessing on 
+        
+       Description: This DAG perform entity level preprocessing on 
 
        the real-time data.  There are over 
 
        35 different preprocessing types in TML. 
    * - :ref:`STEP 5: Entity Based Machine Learning : tml-system-step-5-kafka-machine-learning-dag`
-     - This DAG perform entity level machine 
+      
+       **Description:** This DAG perform entity level machine 
 
        learning on the real-time data.
    * - :ref:`STEP 6: Entity Based Predictions: tml-system-step-6-kafka-predictions-dag`
-     - This DAG performs predictions using the 
+      
+       **Description:** This DAG performs predictions using the 
 
        trained algorithms for every entity.
    * - :ref:`STEP 7: Real-Time Visualization: tml-system-step-7-kafka-visualization-dag`
-     - This DAG streams the output to a 
+
+       **Description:** This DAG streams the output to a 
 
        real-time dashboard.
    * - :ref:`STEP 8: Deploy TML Solution to Docker : tml-system-step-8-deploy-solution-to-docker-dag`
-     - This DAG automatically deploys the entire 
+      
+       **Description:** This DAG automatically deploys the entire 
 
        TML solution to Docker container - and pushes 
 
        it to Dockerhub.
    * - :ref:`STEP 9: PrivateGPT and Qdrant Integration: tml-system-step-9-privategpt_qdrant-dag`
-     - This DAG configures your solution to 
+     
+       **Description:** This DAG configures your solution to 
 
        access the privateGPT and Qdrant containers.
    * - :ref:`STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag`
-     - This DAG will automatically create 
+      
+       **Description:** This DAG will automatically create 
 
        the documentation for your solution 
 
