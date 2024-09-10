@@ -1105,12 +1105,17 @@ STEP 3a: Produce Data Using MQTT: tml-read-MQTT-step-3-kafka-producetotopic-dag
      client.connect(mqttBroker,mqttport)
     
      if client:
+       print("Connected")   
        client.on_subscribe = on_subscribe
        client.on_message = on_message
-       client.subscribe(args['mqtt_subscribe_topic'], qos=1)            
+       client.subscribe(default_args['mqtt_subscribe_topic'], qos=1)            
        client.on_connect = on_connect
-    
-       client.loop_start()
+       client.loop_forever()
+     else:   
+        print("Cannot Connected")   
+        tsslogging.tsslogit("CANNOT Connect to MQTT Broker in {}".format(os.path.basename(__file__)), "ERROR" )                     
+        tsslogging.git_push("/{}".format(repo),"Entry from {}".format(os.path.basename(__file__)),"origin")        
+        
     
     def producetokafka(value, tmlid, identifier,producerid,maintopic,substream,args):
      inputbuf=value     
