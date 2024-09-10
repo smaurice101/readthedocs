@@ -89,7 +89,7 @@ TSS Docker Run Command
    --env DOCKERPASSWORD=<password> 
    --env MQTTUSERNAME=<enter MQTT username>
    --env MQTTPASSWORD=<enter MQTT password>
-   maadsdocker/tml-solution-studio-with-airflow
+   maadsdocker/tml-solution-studio-with-airflow-amd64
 
 .. list-table::
 
@@ -159,8 +159,10 @@ TSS Docker Run Command
      - This is your MQTT username.
    * - --env MQTTPASSWORD=<MQTT password> 
      - This is your password to MQTT cluster.
-   * - **maadsdocker/tml-solution-studio-with-airflow**
-     - This is the official TML Solution 
+   * - **maadsdocker/tml-solution-studio-with-airflow-amd64**
+     - This is the official TML Solution.  If using MAC change 
+
+       **amd64** to **arm64**
  
        Studio container.
 
