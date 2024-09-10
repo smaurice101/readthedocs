@@ -1382,6 +1382,11 @@ MQTT Reference Architecture
 .. figure:: mqttimg.png
    :scale: 70%
 
+If using HiveMQ cluster:
+
+.. figure:: hivemq.png
+   :scale: 70%
+
 STEP 3b: Produce Data Using RESTAPI: tml-read-RESTAPI-step-3-kafka-producetotopic-dag
 """""""""""""""""""""""""""""""""""""""" 	
 
