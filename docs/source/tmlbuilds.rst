@@ -1725,7 +1725,7 @@ STEP 3c: Produce Data Using gRPC: tml-read-gRPC-step-3-kafka-producetotopic-dag
 STEP 3c.i: gRPC API CLIENT
 """""""""""""""""""""""""""""""""""""""" 	
 .. code-block:: PYTHON
-   :emphasize-lines: 27,28,29,30.31
+   :emphasize-lines: 27,28,29,30,31
 
     import grpc
     import tml_grpc_pb2_grpc as pb2_grpc
