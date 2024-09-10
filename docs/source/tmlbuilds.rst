@@ -930,7 +930,7 @@ DAG STEP 2: Parameter Explanation
 STEP 3: Produce to Kafka Topics
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. attention::
+.. important::
 
    You must CHOOSE how you want to ingest data and produce to a Kafka topic.  
 
@@ -941,6 +941,12 @@ STEP 3: Produce to Kafka Topics
    The client examples for LOCALFILE, REST, MQTT, gRPC the data file can be download from Github:
 
    `<https://github.com/smaurice101/raspberrypi/tree/main/tml-airflow/data>`_ 
+
+Four Ways to Ingest Data Into Your TML Solution Containber
+"""""""""""""""""""""""""""""""""""""""
+
+.. figure:: fourways.png
+   :scale: 70%
 
 .. list-table::
 
