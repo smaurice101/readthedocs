@@ -87,6 +87,8 @@ TSS Docker Run Command
    --env GITPASSWORD=<Personal Access Token> 
    --env DOCKERUSERNAME=<your docker hub account> 
    --env DOCKERPASSWORD=<password> 
+   --env MQTTUSERNAME=<enter MQTT username>
+   --env MQTTPASSWORD=<enter MQTT password>
    maadsdocker/tml-solution-studio-with-airflow
 
 .. list-table::
@@ -153,6 +155,10 @@ TSS Docker Run Command
      - This is your Docker Hub username.
    * - --env DOCKERPASSWORD=<password> 
      - This is your password to Dockerhub account.
+   * - --env MQTTUSERNAME=<your MQTT username> 
+     - This is your MQTT username.
+   * - --env MQTTPASSWORD=<MQTT password> 
+     - This is your password to MQTT cluster.
    * - **maadsdocker/tml-solution-studio-with-airflow**
      - This is the official TML Solution 
  
