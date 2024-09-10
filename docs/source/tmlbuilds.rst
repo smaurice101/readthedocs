@@ -1034,6 +1034,9 @@ STEP 3a: Produce Data Using MQTT: tml-read-MQTT-step-3-kafka-producetotopic-dag
     # This is a MQTT server that will handle connections from a client.  It will handle connections
     # from an MQTT client for on_message, on_connect, and on_subscribe
     
+    # If Connecting to HiveMQ cluster you will need USERNAME/PASSWORD and mqtt_enabletls = 1
+    # USERNAME/PASSWORD should be set in your DOCKER RUN command of the TSS container
+    
     ######################################## USER CHOOSEN PARAMETERS ########################################
     default_args = {
       'owner' : 'Sebastian Maurice',    
@@ -1042,9 +1045,10 @@ STEP 3a: Produce Data Using MQTT: tml-read-MQTT-step-3-kafka-producetotopic-dag
       'producerid' : 'iotsolution',  
       'topics' : 'iot-raw-data', # *************** This is one of the topic you created in SYSTEM STEP 2
       'identifier' : 'TML solution',  
-      'mqtt_broker' : 'test.mosquitto.org', # <<<****** Enter MQTT broker i.e. test.mosquitto.org
-      'mqtt_port' : '1883', # <<<******** Enter MQTT port i.e. 1883    
-      'mqtt_subscribe_topic' : 'tmliot/#', # <<<******** enter name of MQTT to subscribe to i.e. encyclopedia/#  
+      'mqtt_broker' : '', # <<<****** Enter MQTT broker i.e. test.mosquitto.org
+      'mqtt_port' : '', # <<<******** Enter MQTT port i.e. 1883    
+      'mqtt_subscribe_topic' : '', # <<<******** enter name of MQTT to subscribe to i.e. tml/iot  
+      'mqtt_enabletls': '0', # set 1=TLS, 0=no TLSS  
       'delay' : '7000', # << ******* 7000 millisecond maximum delay for VIPER to wait for Kafka to return confirmation message is received and written to topic
       'topicid' : '-999', # <<< ********* do not modify      
     }
@@ -1063,6 +1067,7 @@ STEP 3a: Produce Data Using MQTT: tml-read-MQTT-step-3-kafka-producetotopic-dag
     VIPERHOST=""
     VIPERPORT=""
     HTTPADDR=""  
+    VIPERHOSTFROM=""
         
     # setting callbacks for different events to see if it works, print the message etc.
     def on_connect(client, userdata, flags, rc, properties=None):
@@ -1083,10 +1088,20 @@ STEP 3a: Produce Data Using MQTT: tml-read-MQTT-step-3-kafka-producetotopic-dag
      tsslogging.tsslogit("MQTT producing DAG in {}".format(os.path.basename(__file__)), "INFO" )                     
      tsslogging.git_push("/{}".format(repo),"Entry from {}".format(os.path.basename(__file__)),"origin")        
     
+     username = ""    
+     password = ""   
+         if 'MQTTUSERNAME' in os.environ:
+           username = os.environ['MQTTUSERNAME']  
+         if 'MQTTPASSWORD' in os.environ:
+           password = os.environ['MQTTPASSWORD']  
     
      client = paho.Client(paho.CallbackAPIVersion.VERSION2)
      mqttBroker = default_args['mqtt_broker'] 
      mqttport = int(default_args['mqtt_port'])
+     if default_args['mqtt_enabletls'] == "1":
+       client.tls_set(tls_version=mqtt.client.ssl.PROTOCOL_TLS)
+       client.username_pw_set(username, password)
+    
      client.connect(mqttBroker,mqttport)
     
      if client:
@@ -1117,6 +1132,7 @@ STEP 3a: Produce Data Using MQTT: tml-read-MQTT-step-3-kafka-producetotopic-dag
       global VIPERHOST
       global VIPERPORT
       global HTTPADDR
+      global VIPERHOSTFROM
     
       sd = context['dag'].dag_id
       sname=context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_solutionname".format(sd))
@@ -1126,21 +1142,30 @@ STEP 3a: Produce Data Using MQTT: tml-read-MQTT-step-3-kafka-producetotopic-dag
       VIPERPORT = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_VIPERPORTPRODUCE".format(sname))
       HTTPADDR = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_HTTPADDR".format(sname))
         
+      hs,VIPERHOSTFROM=tsslogging.getip(VIPERHOST)     
       ti = context['task_instance']
       ti.xcom_push(key="{}_PRODUCETYPE".format(sname),value='MQTT')
       ti.xcom_push(key="{}_TOPIC".format(sname),value=default_args['topics'])
       buf = default_args['mqtt_broker'] + ":" + default_args['mqtt_port']   
-      ti.xcom_push(key="{}_PORT".format(sname),value=buf)
+      ti.xcom_push(key="{}_CLIENTPORT".format(sname),value="_{}".format(default_args['mqtt_port']))
       buf="MQTT Subscription Topic: " + default_args['mqtt_subscribe_topic']   
       ti.xcom_push(key="{}_IDENTIFIER".format(sname),value=buf)
+      ti.xcom_push(key="{}_FROMHOST".format(sname),value="{},{}".format(hs,VIPERHOSTFROM))
+      ti.xcom_push(key="{}_TOHOST".format(sname),value=VIPERHOST)
     
+      ti.xcom_push(key="{}_TSSCLIENTPORT".format(sname),value="_{}".format(default_args['mqtt_port']))
+      ti.xcom_push(key="{}_TMLCLIENTPORT".format(sname),value="_{}".format(default_args['mqtt_port']))
+      
+      ti.xcom_push(key="{}_PORT".format(sname),value=VIPERPORT)
+      ti.xcom_push(key="{}_HTTPADDR".format(sname),value=HTTPADDR)
+        
         
     def readdata(valuedata):
       # MAin Kafka topic to store the real-time data
       maintopic = default_args['topics']
       producerid = default_args['producerid']
       try:
-          producetokafka(valuedata.strip(), "", "",producerid,maintopic,"",default_args)
+          producetokafka(valuedata, "", "",producerid,maintopic,"",default_args)
           # change time to speed up or slow down data   
           #time.sleep(0.15)
       except Exception as e:
@@ -1170,7 +1195,7 @@ STEP 3a: Produce Data Using MQTT: tml-read-MQTT-step-3-kafka-producetotopic-dag
            wn = windowname('produce',sname,sd)      
            subprocess.run(["tmux", "new", "-d", "-s", "{}".format(wn)])
            subprocess.run(["tmux", "send-keys", "-t", "{}".format(wn), "cd /Viper-produce", "ENTER"])
-           subprocess.run(["tmux", "send-keys", "-t", "{}".format(wn), "python {} 1 {} {}{} {}".format(fullpath,VIPERTOKEN,HTTPADDR,VIPERHOST,VIPERPORT[1:]), "ENTER"])        
+           subprocess.run(["tmux", "send-keys", "-t", "{}".format(wn), "python {} 1 {} {}{} {}".format(fullpath,VIPERTOKEN,HTTPADDR,VIPERHOSTFROM,VIPERPORT[1:]), "ENTER"])        
             
     if __name__ == '__main__':
         
@@ -1220,7 +1245,19 @@ DAG STEP 3a: Parameter Explantion
     * - mqtt_subscribe_topic
       - Enter name of MQTT topic to 
 
-        subscribe to i.e. encyclopedia/#  
+        subscribe to i.e. tml/iot
+    * - mqtt_enabletls
+      - You can set to 1 to enable TLS or 0 no TLS. 
+
+        If you are using a HiveMQ cluster or some other MQTT cloud cluster, 
+
+        this is usually set to 1.  If you are using a cloud cluster,
+
+        a USERNAME/PASSWORD is also usually needed.  
+
+        Set the MQTTUSERNAME and MQTTPASSWORD on the Docker RUN command
+
+        of your TSS container: :ref:`TSS Docker Run Command`
     * - delay
       - Maximum delay for VIPER to wait for 
 
