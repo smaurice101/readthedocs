@@ -935,6 +935,11 @@ STEP 3: Produce to Kafka Topics
    **TML solution provides 4 (FOUR) ways to ingest data and produce to a topic: MQTT, gRPC, RESTAPI, LOCALFILE.**  The following DAGs in the table are SERVER 
    files.  These server files wait for connections from the client files. For further convenience, client files are provides to access the server DAGs below.
 
+.. tip::
+   The client examples for LOCALFILE, REST, MQTT, gRPC the data file can be download from Github:
+
+   `<https://github.com/smaurice101/raspberrypi/tree/main/tml-airflow/data>`_ 
+
 .. list-table::
 
    * - **Data Ingest DAG Name**
