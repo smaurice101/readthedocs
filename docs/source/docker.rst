@@ -160,11 +160,9 @@ TSS Docker Run Command
    * - --env MQTTPASSWORD=<MQTT password> 
      - This is your password to MQTT cluster.
    * - **maadsdocker/tml-solution-studio-with-airflow-amd64**
-     - This is the official TML Solution.  If using MAC change 
+     - This is the official TML Solution Studio container.  If using MAC change 
 
-       **amd64** to **arm64**
- 
-       Studio container.
+       **amd64** to **arm64**       
 
 .. important::
    It is highly recommended you map your local folder to the **dagslocalbackup** folder: 
