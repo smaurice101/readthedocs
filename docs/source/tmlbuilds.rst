@@ -1036,9 +1036,9 @@ STEP 3a: Produce Data Using MQTT: tml-read-MQTT-step-3-kafka-producetotopic-dag
       'producerid' : 'iotsolution',  
       'topics' : 'iot-raw-data', # *************** This is one of the topic you created in SYSTEM STEP 2
       'identifier' : 'TML solution',  
-      'mqtt_broker' : '', # <<<****** Enter MQTT broker i.e. test.mosquitto.org
-      'mqtt_port' : '', # <<<******** Enter MQTT port i.e. 1883    
-      'mqtt_subscribe_topic' : '', # <<<******** enter name of MQTT to subscribe to i.e. encyclopedia/#  
+      'mqtt_broker' : 'test.mosquitto.org', # <<<****** Enter MQTT broker i.e. test.mosquitto.org
+      'mqtt_port' : '1883', # <<<******** Enter MQTT port i.e. 1883    
+      'mqtt_subscribe_topic' : 'tmliot/#', # <<<******** enter name of MQTT to subscribe to i.e. encyclopedia/#  
       'delay' : '7000', # << ******* 7000 millisecond maximum delay for VIPER to wait for Kafka to return confirmation message is received and written to topic
       'topicid' : '-999', # <<< ********* do not modify      
     }
@@ -1080,7 +1080,7 @@ STEP 3a: Produce Data Using MQTT: tml-read-MQTT-step-3-kafka-producetotopic-dag
     
      client = paho.Client(paho.CallbackAPIVersion.VERSION2)
      mqttBroker = default_args['mqtt_broker'] 
-     mqttport = default_args['mqtt_port']
+     mqttport = int(default_args['mqtt_port'])
      client.connect(mqttBroker,mqttport)
     
      if client:
