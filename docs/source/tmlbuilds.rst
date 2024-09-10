@@ -1251,7 +1251,7 @@ STEP 3a.i: MQTT CLIENT
     from datetime import datetime
     
     default_args = {
-      'mqtt_broker' : 'test.mosquitto.org', # <<<****** Enter MQTT broker i.e. test.mosquitto.org
+      'mqtt_broker' : 'test.mosquitto.org', # <<<****** Enter MQTT broker i.e. test.mosquitto.org or HiveMQ cluster
       'mqtt_port' : '1883', # <<<******** Enter MQTT port i.e. 1883    
       'mqtt_subscribe_topic' : 'tml/iot', # <<<******** enter name of MQTT to subscribe to i.e. encyclopedia/#  
       'mqtt_enabletls' : '0'
