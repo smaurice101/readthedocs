@@ -1225,8 +1225,10 @@ DAG STEP 3a: Parameter Explantion
       - Solution start date
     * - retries
       - DAG retries 
+
 MQTT Client 
 """""""""""""""""
+
 .. code-block:: PYTHON
    :emphasize-lines: 11,12,1,14,15,16
 
