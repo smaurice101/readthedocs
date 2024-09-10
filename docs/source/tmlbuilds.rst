@@ -1859,7 +1859,7 @@ STEP 3d: Produce Data Using LOCALFILE: tml-read-LOCALFILE-step-3-kafka-produceto
 """""""""""""""""""""""""""""""""""""""""" 	
 
 .. code-block:: PYTHON
-   :emphasize-lines: 10,11,12,13,14,15,16,17,18,19,20,21,22,23
+   :emphasize-lines: 17,18,19,20,21,22,23,24,25,26,27,28,29,30
 
     from airflow import DAG
     from airflow.operators.python import PythonOperator
