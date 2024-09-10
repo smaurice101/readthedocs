@@ -1290,7 +1290,7 @@ STEP 3a.i: MQTT CLIENT
     
     def publishtomqttbroker(client,line):
     
-         client.publish(topic="tml/", payload=line, qos=1, retain=False)
+         client.publish(topic=default_args['mqtt_subscribe_topic'], payload=line, qos=1, retain=False)
          client.loop()
     
     def readdatafile(client,inputfile):
