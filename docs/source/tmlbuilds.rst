@@ -1231,7 +1231,7 @@ STEP 3b: Produce Data Using RESTAPI: tml-read-RESTAPI-step-3-kafka-producetotopi
 """""""""""""""""""""""""""""""""""""""" 	
 
 .. code-block:: PYTHON
-   :emphasize-lines: 19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34
+   :emphasize-lines: 25,26,27,28,29,30,31,32,33,34,35,36
 
     import maadstml
     from airflow import DAG
@@ -1255,7 +1255,6 @@ STEP 3b: Produce Data Using RESTAPI: tml-read-RESTAPI-step-3-kafka-producetotopi
     # There are two endpoints you can use to stream data to this server:
     # 1. jsondataline -  You can POST a single JSONs from your client app. Your json will be streamed to Kafka topic.
     # 2. jsondataarray -  You can POST JSON arrays from your client app. Your json will be streamed to Kafka topic.
-    
     
     ######################################## USER CHOOSEN PARAMETERS ########################################
     default_args = {
