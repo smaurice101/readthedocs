@@ -119,6 +119,8 @@ DAG Solution Process Explanation
 
     You are also provided CLIENT files for REST API and gRPC - these clients connect to the SERVERS in 3b and 3c:
 
+    3a.i: :ref:`STEP 3a.i: MQTT CLIENT`
+
     3b.i: :ref:`STEP 3b.i: REST API CLIENT`
 
     3c.i: :ref:`STEP 3c.i: gRPC API CLIENT`
@@ -1226,7 +1228,7 @@ DAG STEP 3a: Parameter Explantion
     * - retries
       - DAG retries 
 
-MQTT Client 
+STEP 3a.i: MQTT CLIENT 
 """""""""""""""""
 
 .. code-block:: PYTHON
