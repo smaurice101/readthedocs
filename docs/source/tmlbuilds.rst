@@ -942,7 +942,7 @@ STEP 3: Produce to Kafka Topics
 
    `<https://github.com/smaurice101/raspberrypi/tree/main/tml-airflow/data>`_ 
 
-Four Ways to Ingest Data Into Your TML Solution Containber
+Four Ways to Ingest Data Into Your TML Solution Container
 """""""""""""""""""""""""""""""""""""""
 
 .. figure:: fourways.png
