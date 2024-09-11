@@ -236,6 +236,11 @@ If you scroll down you will see the **TML DAGs** - as defined here: :ref:`DAG Ta
 Lets Start Building a TML Solution
 --------------------------------
 
+Here is the TML solution creation process, that is detailed below:
+
+.. figure:: tmlcreateprocess.png
+   :scale: 70%
+
 After you are in the **DAG code editor** you must go into the following folder:
 
 STEP 0. Go into **tml-airflow** folder
