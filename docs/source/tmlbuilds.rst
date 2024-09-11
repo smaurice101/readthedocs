@@ -296,8 +296,8 @@ Below is the complete definition of the **tml_system_step_1_getparams_dag**.  Us
      'owner': 'Sebastian Maurice',  # <<< ******** change as needed 
      'brokerhost' : '127.0.0.1',  # <<<<***************** THIS WILL ACCESS LOCAL KAFKA - YOU CAN CHANGE TO CLOUD KAFKA HOST
      'brokerport' : '9092',     # <<<<***************** LOCAL AND CLOUD KAFKA listen on PORT 9092
-     'cloudusername' : '',  # <<<< --------FOR KAFKA CLOUD UPDATE WITH API KEY  - OTHERWISE LEAVE BLANK
-     'cloudpassword' : '',  # <<<< --------FOR KAFKA CLOUD UPDATE WITH API SECRET - OTHERWISE LEAVE BLANK   
+     'cloudusername' : '',  # <<<< --THIS WILL BE UPDATED FOR YOU IF USING KAFKA CLOUD WITH API KEY  - LEAVE BLANK
+     'cloudpassword' : '',  # <<<< --THIS WILL BE UPDATED FOR YOU IF USING KAFKA CLOUD WITH API SECRET - LEAVE BLANK   
      'ingestdatamethod' : 'localfile', # << CHOOSE BETWEEN: 1. localfle, 2. mqtt, 3. rest, 4. grpc     
      'solutionname': '_mysolution_',   # <<< *** DO NOT MODIFY - THIS WILL BE AUTOMATICALLY UPDATED
      'solutiontitle': 'My Solution Title', # <<< *** Provide a descriptive title for your solution
@@ -360,7 +360,7 @@ Below is the complete definition of the **tml_system_step_1_getparams_dag**.  Us
             pass
     dag = tmlparams()
     
-    def reinitbinaries(chip,VIPERHOST,VIPERPORT,VIPERHOSTPREPROCESS,VIPERPORTPREPROCESS,VIPERHOSTPREDICT,VIPERPORTPREDICT,VIPERHOSTML,VIPERPORTML,sname):  
+    def reinitbinaries(sname):  
     
         try:
           with open("/tmux/pythonwindows_{}.txt".format(sname), 'r', encoding='utf-8') as file: 
@@ -391,13 +391,21 @@ Below is the complete definition of the **tml_system_step_1_getparams_dag**.  Us
            
         # copy folders
         shutil.copytree("/tss_readthedocs", "/{}".format(sname),dirs_exist_ok=True)
-        return VIPERPORT,VIPERPORTPREPROCESS,VIPERPORTPREDICT,VIPERPORTML
+        
             
     def updateviperenv():
         # update ALL
         os.environ['tssbuild']="0"
         os.environ['tssdoc']="0"
     
+        cloudusername = ""
+        cloudpassword = ""
+        
+        if 'KAFKACLOUDUSERNAME' in os.environ:
+              cloudusername = os.environ['KAFKACLOUDUSERNAME']
+        if 'KAFKACLOUDPASSWORD' in os.environ:
+              cloudpassword = os.environ['KAFKACLOUDPASSWORD']
+                    
         filepaths = ['/Viper-produce/viper.env','/Viper-preprocess/viper.env','/Viper-ml/viper.env','/Viper-predict/viper.env','/Viperviz/viper.env']
         for mainfile in filepaths:
          with open(mainfile, 'r', encoding='utf-8') as file: 
@@ -411,9 +419,9 @@ Below is the complete definition of the **tml_system_step_1_getparams_dag**.  Us
            if 'KAFKA_CONNECT_BOOTSTRAP_SERVERS' in d: 
              data[r] = "KAFKA_CONNECT_BOOTSTRAP_SERVERS={}:{}\n".format(default_args['brokerhost'],default_args['brokerport'])
            if 'CLOUD_USERNAME' in d: 
-             data[r] = "CLOUD_USERNAME={}\n".format(default_args['cloudusername'])
+             data[r] = "CLOUD_USERNAME={}\n".format(cloudusername)
            if 'CLOUD_PASSWORD' in d: 
-             data[r] = "CLOUD_PASSWORD={}\n".format(default_args['cloudpassword'])                
+             data[r] = "CLOUD_PASSWORD={}\n".format(cloudpassword)                
            if 'WRITELASTCOMMIT' in d: 
              data[r] = "WRITELASTCOMMIT={}\n".format(default_args['WRITELASTCOMMIT'])
            if 'NOWINDOWOVERLAP' in d: 
@@ -501,6 +509,8 @@ Below is the complete definition of the **tml_system_step_1_getparams_dag**.  Us
          with open(mainfile, 'w', encoding='utf-8') as file: 
           file.writelines(data)
     
+        subprocess.call("/tmux/starttml.sh", shell=True)
+        time.sleep(10)
     
     def getparams(**context):
       args = default_args    
@@ -512,6 +522,16 @@ Below is the complete definition of the **tml_system_step_1_getparams_dag**.  Us
       VIPERTOKEN = ""
       HPDEHOSTPREDICT = ""
       HPDEPORTPREDICT = ""
+    
+      sname = args['solutionname']    
+      desc = args['description']        
+      stitle = args['solutiontitle']    
+      method = args['ingestdatamethod'] 
+      brokerhost = args['brokerhost']   
+      brokerport = args['brokerport'] 
+      dashboardhtml = args['dashboardhtml'] 
+      reinitbinaries(sname)
+      updateviperenv()
     
       with open("/Viper-produce/admin.tok", "r") as f:
         VIPERTOKEN=f.read()
@@ -546,25 +566,13 @@ Below is the complete definition of the **tml_system_step_1_getparams_dag**.  Us
           HPDEHOSTPREDICT = output.split(",")[0]
           HPDEPORTPREDICT = output.split(",")[1]
     
-      sname = args['solutionname']    
-      desc = args['description']        
-      stitle = args['solutiontitle']    
-      method = args['ingestdatamethod'] 
-      brokerhost = args['brokerhost']   
-      brokerport = args['brokerport'] 
-      dashboardhtml = args['dashboardhtml'] 
       
       if 'CHIP' in os.environ:
          chip = os.environ['CHIP']
          chip = chip.lower()   
       else:   
           chip = 'amd64'
-         
-      VIPERPORT,VIPERPORTPREPROCESS,VIPERPORTPREDICT,VIPERPORTML = reinitbinaries(chip,VIPERHOST,VIPERPORT,VIPERHOSTPREPROCESS,VIPERPORTPREPROCESS,
-                                                                                  VIPERHOSTPREDICT,VIPERPORTPREDICT,VIPERHOSTML,VIPERPORTML,sname)
-      print("VIPERHOST=", VIPERHOST) 
-      print("VIPERPORT=", VIPERPORT) 
-    
+           
       if 'VIPERVIZPORT' in os.environ:
           if os.environ['VIPERVIZPORT'] != '' and os.environ['VIPERVIZPORT'] != '-1':
                vipervizport = int(os.environ['VIPERVIZPORT'])
@@ -611,6 +619,26 @@ Below is the complete definition of the **tml_system_step_1_getparams_dag**.  Us
         task_instance.xcom_push(key="{}_SOLUTIONVIPERVIZPORT".format(sname),value="_{}".format(os.environ['SOLUTIONVIPERVIZPORT']))  
         task_instance.xcom_push(key="{}_SOLUTIONAIRFLOWPORT".format(sname),value="_{}".format(os.environ['SOLUTIONAIRFLOWPORT'])) 
         
+    
+      if 'MQTTUSERNAME' in os.environ:
+        task_instance.xcom_push(key="{}_MQTTUSERNAME".format(sname),value=os.environ['MQTTUSERNAME'])
+      else:
+        task_instance.xcom_push(key="{}_MQTTUSERNAME".format(sname),value="")
+    
+      if 'MQTTPASSWORD' in os.environ:
+        task_instance.xcom_push(key="{}_MQTTPASSWORD".format(sname),value=os.environ['MQTTPASSWORD'])
+      else:
+        task_instance.xcom_push(key="{}_MQTTPASSWORD".format(sname),value="")
+    
+      if 'KAFKACLOUDUSERNAME' in os.environ:
+        task_instance.xcom_push(key="{}_KAFKACLOUDUSERNAME".format(sname),value=os.environ['KAFKACLOUDUSERNAME'])
+      else:
+        task_instance.xcom_push(key="{}_KAFKACLOUDUSERNAME".format(sname),value="")
+    
+      if 'KAFKACLOUDPASSWORD' in os.environ:
+        task_instance.xcom_push(key="{}_KAFKACLOUDPASSWORD".format(sname),value=os.environ['KAFKACLOUDPASSWORD'])
+      else:
+        task_instance.xcom_push(key="{}_KAFKACLOUDPASSWORD".format(sname),value="")
         
       task_instance.xcom_push(key="{}_TSS".format(sname),value="_{}".format(tss))  
         
@@ -647,8 +675,6 @@ Below is the complete definition of the **tml_system_step_1_getparams_dag**.  Us
       task_instance.xcom_push(key="{}_brokerport".format(sname),value="_{}".format(brokerport))
       task_instance.xcom_push(key="{}_chip".format(sname),value=chip)
       task_instance.xcom_push(key="{}_dashboardhtml".format(sname),value=dashboardhtml)
-        
-      updateviperenv()
 
 DAG STEP 1: Parameter Explanation
 """""""""""""""""""""""""""""
@@ -1028,6 +1054,7 @@ STEP 3a: Produce Data Using MQTT: tml-read-MQTT-step-3-kafka-producetotopic-dag
     import subprocess
     import time
     import random
+    import json
     
     sys.dont_write_bytecode = True
     ##################################################  MQTT SERVER #####################################
@@ -1046,7 +1073,7 @@ STEP 3a: Produce Data Using MQTT: tml-read-MQTT-step-3-kafka-producetotopic-dag
       'topics' : 'iot-raw-data', # *************** This is one of the topic you created in SYSTEM STEP 2
       'identifier' : 'TML solution',  
       'mqtt_broker' : '', # <<<****** Enter MQTT broker i.e. test.mosquitto.org
-      'mqtt_port' : '', # <<<******** Enter MQTT port i.e. 1883    
+      'mqtt_port' : '', # <<<******** Enter MQTT port i.e. 1883, 8883    (for HiveMQ cluster)
       'mqtt_subscribe_topic' : '', # <<<******** enter name of MQTT to subscribe to i.e. tml/iot  
       'mqtt_enabletls': '0', # set 1=TLS, 0=no TLSS  
       'delay' : '7000', # << ******* 7000 millisecond maximum delay for VIPER to wait for Kafka to return confirmation message is received and written to topic
@@ -1079,8 +1106,8 @@ STEP 3a: Produce Data Using MQTT: tml-read-MQTT-step-3-kafka-producetotopic-dag
     
     def on_message(client, userdata, msg):
       data=json.loads(msg.payload.decode("utf-8"))
-      #print(msg.payload.decode("utf-8"))
-      readdata(data)
+      datad = json.dumps(data)
+      readdata(datad)
     
     def mqttserverconnect():
     
@@ -1090,17 +1117,23 @@ STEP 3a: Produce Data Using MQTT: tml-read-MQTT-step-3-kafka-producetotopic-dag
     
      username = ""    
      password = ""   
-         if 'MQTTUSERNAME' in os.environ:
+     if 'MQTTUSERNAME' in os.environ:
            username = os.environ['MQTTUSERNAME']  
-         if 'MQTTPASSWORD' in os.environ:
+     if 'MQTTPASSWORD' in os.environ:
            password = os.environ['MQTTPASSWORD']  
-    
-     client = paho.Client(paho.CallbackAPIVersion.VERSION2)
-     mqttBroker = default_args['mqtt_broker'] 
-     mqttport = int(default_args['mqtt_port'])
-     if default_args['mqtt_enabletls'] == "1":
-       client.tls_set(tls_version=mqtt.client.ssl.PROTOCOL_TLS)
-       client.username_pw_set(username, password)
+     
+     try: 
+       client = paho.Client(paho.CallbackAPIVersion.VERSION2)
+       mqttBroker = default_args['mqtt_broker'] 
+       mqttport = int(default_args['mqtt_port'])
+       if default_args['mqtt_enabletls'] == "1":
+         client.tls_set(tls_version=mqtt.client.ssl.PROTOCOL_TLS)
+         client.username_pw_set(username, password)
+     except Exception as e:       
+       tsslogging.tsslogit("MQTT producing DAG in {}".format(os.path.basename(__file__)), "INFO" )                     
+       tsslogging.git_push("/{}".format(repo),"Entry from {}".format(os.path.basename(__file__)),"origin")        
+       print("ERROR: Cannot connect to MQTT broker") 
+       return 
     
      client.connect(mqttBroker,mqttport)
     
@@ -1132,38 +1165,6 @@ STEP 3a: Produce Data Using MQTT: tml-read-MQTT-step-3-kafka-producetotopic-dag
      except Exception as e:
         print("ERROR:",e)
     
-    def gettmlsystemsparams(**context):
-      global VIPERTOKEN
-      global VIPERHOST
-      global VIPERPORT
-      global HTTPADDR
-      global VIPERHOSTFROM
-    
-      sd = context['dag'].dag_id
-      sname=context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_solutionname".format(sd))
-    
-      VIPERTOKEN = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_VIPERTOKEN".format(sname))
-      VIPERHOST = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_VIPERHOSTPRODUCE".format(sname))
-      VIPERPORT = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_VIPERPORTPRODUCE".format(sname))
-      HTTPADDR = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_HTTPADDR".format(sname))
-        
-      hs,VIPERHOSTFROM=tsslogging.getip(VIPERHOST)     
-      ti = context['task_instance']
-      ti.xcom_push(key="{}_PRODUCETYPE".format(sname),value='MQTT')
-      ti.xcom_push(key="{}_TOPIC".format(sname),value=default_args['topics'])
-      buf = default_args['mqtt_broker'] + ":" + default_args['mqtt_port']   
-      ti.xcom_push(key="{}_CLIENTPORT".format(sname),value="_{}".format(default_args['mqtt_port']))
-      buf="MQTT Subscription Topic: " + default_args['mqtt_subscribe_topic']   
-      ti.xcom_push(key="{}_IDENTIFIER".format(sname),value=buf)
-      ti.xcom_push(key="{}_FROMHOST".format(sname),value="{},{}".format(hs,VIPERHOSTFROM))
-      ti.xcom_push(key="{}_TOHOST".format(sname),value=VIPERHOST)
-    
-      ti.xcom_push(key="{}_TSSCLIENTPORT".format(sname),value="_{}".format(default_args['mqtt_port']))
-      ti.xcom_push(key="{}_TMLCLIENTPORT".format(sname),value="_{}".format(default_args['mqtt_port']))
-      
-      ti.xcom_push(key="{}_PORT".format(sname),value=VIPERPORT)
-      ti.xcom_push(key="{}_HTTPADDR".format(sname),value=HTTPADDR)
-        
         
     def readdata(valuedata):
       # MAin Kafka topic to store the real-time data
@@ -1186,7 +1187,36 @@ STEP 3a: Produce Data Using MQTT: tml-read-MQTT-step-3-kafka-producetotopic-dag
         return wn
     
     def startproducing(**context):
-           gettmlsystemsparams(context)
+           global VIPERTOKEN
+           global VIPERHOST
+           global VIPERPORT
+           global HTTPADDR
+           global VIPERHOSTFROM
+    
+           sd = context['dag'].dag_id
+           sname=context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_solutionname".format(sd))
+    
+           VIPERTOKEN = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_VIPERTOKEN".format(sname))
+           VIPERHOST = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_VIPERHOSTPRODUCE".format(sname))
+           VIPERPORT = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_VIPERPORTPRODUCE".format(sname))
+           HTTPADDR = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_HTTPADDR".format(sname))
+    
+           hs,VIPERHOSTFROM=tsslogging.getip(VIPERHOST)     
+           ti = context['task_instance']
+           ti.xcom_push(key="{}_PRODUCETYPE".format(sname),value='MQTT')
+           ti.xcom_push(key="{}_TOPIC".format(sname),value=default_args['topics'])
+           buf = default_args['mqtt_broker'] + ":" + default_args['mqtt_port']   
+           ti.xcom_push(key="{}_CLIENTPORT".format(sname),value="_{}".format(default_args['mqtt_port']))
+           buf="MQTT Subscription Topic: " + default_args['mqtt_subscribe_topic']   
+           ti.xcom_push(key="{}_IDENTIFIER".format(sname),value=buf)
+           ti.xcom_push(key="{}_FROMHOST".format(sname),value="{},{}".format(hs,VIPERHOSTFROM))
+           ti.xcom_push(key="{}_TOHOST".format(sname),value=VIPERHOST)
+    
+           ti.xcom_push(key="{}_TSSCLIENTPORT".format(sname),value="_{}".format(default_args['mqtt_port']))
+           ti.xcom_push(key="{}_TMLCLIENTPORT".format(sname),value="_{}".format(default_args['mqtt_port']))
+    
+           ti.xcom_push(key="{}_PORT".format(sname),value=VIPERPORT)
+           ti.xcom_push(key="{}_HTTPADDR".format(sname),value=HTTPADDR)
            sd = context['dag'].dag_id
            sname=context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_solutionname".format(sd))
             
