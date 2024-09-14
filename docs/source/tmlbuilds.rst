@@ -133,7 +133,7 @@ DAG Solution Process Explanation
        preprocessing is done **in-memory and no external databases are needed, only Kafka**.  After you have preprocessed your data, you can use this 
        preprocessed data for **machine learning** - the next DAG performs this function.
     
-    4b. :ref:`STEP 4b: Preprocesing 2 Data: tml-system-step-4b-kafka-preprocess-dag` - This second preprocessing step is an important step that uses the preprocessed data for additional processing in machine learning.  In the conventional machine learning sense, STEP 4 is like "feature engneering" and STEP 4b is using the engineered features for a much deeper understanding of the data streaming variables.  
+    4b. :ref:`STEP 4b: Preprocesing 2 Data: tml-system-step-4b-kafka-preprocess-dag` - This second preprocessing step is an important step that uses the preprocessed data for additional processing in machine learning.  In the conventional machine learning sense, **STEP 4 is like "feature engineering"** and STEP 4b is using the engineered features for a much deeper understanding of the data streaming variables.  
 
     5. :ref:`STEP 5: Entity Based Machine Learning : tml-system-step-5-kafka-machine-learning-dag` - this is another powerful DAG automatically starts building entity based machine learning models for 
         your real-time data.  Note, TML will continuously build ML models are new data streams in.  All machine learning is done **in-memory and no external 
