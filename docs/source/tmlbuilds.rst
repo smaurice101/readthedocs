@@ -289,6 +289,7 @@ Below is the complete definition of the **tml_system_step_1_getparams_dag**.  Us
     import time 
     import subprocess
     import shutil
+    import glob
     
     sys.dont_write_bytecode = True
     ######################################################USER CHOSEN PARAMETERS ###########################################################
@@ -298,7 +299,6 @@ Below is the complete definition of the **tml_system_step_1_getparams_dag**.  Us
      'brokerport' : '9092',     # <<<<***************** LOCAL AND CLOUD KAFKA listen on PORT 9092
      'cloudusername' : '',  # <<<< --THIS WILL BE UPDATED FOR YOU IF USING KAFKA CLOUD WITH API KEY  - LEAVE BLANK
      'cloudpassword' : '',  # <<<< --THIS WILL BE UPDATED FOR YOU IF USING KAFKA CLOUD WITH API SECRET - LEAVE BLANK   
-     'ingestdatamethod' : 'localfile', # << CHOOSE BETWEEN: 1. localfle, 2. mqtt, 3. rest, 4. grpc     
      'solutionname': '_mysolution_',   # <<< *** DO NOT MODIFY - THIS WILL BE AUTOMATICALLY UPDATED
      'solutiontitle': 'My Solution Title', # <<< *** Provide a descriptive title for your solution
      'solutionairflowport' : '-1', # << If -1, TSS will choose a free port randonly, or set this to a fixed number
@@ -306,7 +306,6 @@ Below is the complete definition of the **tml_system_step_1_getparams_dag**.  Us
      'solutionvipervizport' : '-1', # << If -1, TSS will choose a free port randonly, or set this to a fixed number   
      'description': 'This is an awesome real-time solution built by TSS',   # <<< *** Provide a description of your solution
      'HTTPADDR' : 'https://',
-     'dashboardhtml' : 'dashboard.html',   ## << Update with your custom dashboard    
      'COMPANYNAME' : 'My company',       
      'WRITELASTCOMMIT' : '0',   ## <<<<<<<<< ******************** FOR DETAILS ON BELOW PARAMETER SEE: https://tml.readthedocs.io/en/latest/viper.html
      'NOWINDOWOVERLAP' : '0',
@@ -360,34 +359,40 @@ Below is the complete definition of the **tml_system_step_1_getparams_dag**.  Us
             pass
     dag = tmlparams()
     
-    def reinitbinaries(sname):  
-    
-        try:
-          with open("/tmux/pythonwindows_{}.txt".format(sname), 'r', encoding='utf-8') as file: 
-            data = file.readlines() 
-            for d in data:          
-              if d != "":             
-                d=d.rstrip()            
-                v=subprocess.call(["tmux", "kill-window", "-t", "{}".format(d)])   
-          os.remove("/tmux/pythonwindows_{}.txt".format(sname))        
-        except Exception as e:
-         print("ERROR=",e)   
-         pass
         
-        try:
-          with open("/tmux/vipervizwindows_{}.txt".format(sname), 'r', encoding='utf-8') as file: 
-             data = file.readlines()  
-             for d in data:
-                 d=d.rstrip()
-                 dsw = d.split(",")[0]             
-                 dsp = d.split(",")[1]
-                 if dsw != "":  
-                   subprocess.call(["tmux", "kill-window", "-t", "{}".format(dsw)])        
-                   v=subprocess.call(["kill", "-9", "$(lsof -i:{} -t)".format(dsp)])
-                   time.sleep(1) 
-          os.remove("/tmux/vipervizwindows_{}.txt".format(sname))                    
-        except Exception as e:
-         pass
+    def reinitbinaries(sname):  
+        pywindowfiles=glob.glob("/tmux/pythonwindows_*") 
+        
+        for f in pywindowfiles: 
+            try:
+              with open(f, 'r', encoding='utf-8') as file: 
+                data = file.readlines() 
+                for d in data:          
+                  if d != "":             
+                    d=d.rstrip()            
+                    v=subprocess.call(["tmux", "kill-window", "-t", "{}".format(d)])   
+              os.remove(f)        
+            except Exception as e:
+             print("ERROR=",e)   
+             pass
+    
+        vizwindowfiles=glob.glob("/tmux/vipervizwindows_*") 
+        
+        for f in vizwindowfiles: 
+            try:
+              with open(f, 'r', encoding='utf-8') as file: 
+                 data = file.readlines()  
+                 for d in data:
+                     d=d.rstrip()
+                     dsw = d.split(",")[0]             
+                     dsp = d.split(",")[1]
+                     if dsw != "":  
+                       subprocess.call(["tmux", "kill-window", "-t", "{}".format(dsw)])        
+                       v=subprocess.call(["kill", "-9", "$(lsof -i:{} -t)".format(dsp)])
+                       time.sleep(1) 
+              os.remove(f)                    
+            except Exception as e:
+             pass
            
         # copy folders
         shutil.copytree("/tss_readthedocs", "/{}".format(sname),dirs_exist_ok=True)
@@ -406,7 +411,7 @@ Below is the complete definition of the **tml_system_step_1_getparams_dag**.  Us
         if 'KAFKACLOUDPASSWORD' in os.environ:
               cloudpassword = os.environ['KAFKACLOUDPASSWORD']
                     
-        filepaths = ['/Viper-produce/viper.env','/Viper-preprocess/viper.env','/Viper-ml/viper.env','/Viper-predict/viper.env','/Viperviz/viper.env']
+        filepaths = ['/Viper-produce/viper.env','/Viper-preprocess/viper.env','/Viper-preprocess-pgpt/viper.env','/Viper-preprocess2/viper.env','/Viper-ml/viper.env','/Viper-predict/viper.env','/Viperviz/viper.env']
         for mainfile in filepaths:
          with open(mainfile, 'r', encoding='utf-8') as file: 
            data = file.readlines() 
@@ -510,7 +515,7 @@ Below is the complete definition of the **tml_system_step_1_getparams_dag**.  Us
           file.writelines(data)
     
         subprocess.call("/tmux/starttml.sh", shell=True)
-        time.sleep(10)
+        time.sleep(3)
     
     def getparams(**context):
       args = default_args    
@@ -526,10 +531,9 @@ Below is the complete definition of the **tml_system_step_1_getparams_dag**.  Us
       sname = args['solutionname']    
       desc = args['description']        
       stitle = args['solutiontitle']    
-      method = args['ingestdatamethod'] 
+      
       brokerhost = args['brokerhost']   
       brokerport = args['brokerport'] 
-      dashboardhtml = args['dashboardhtml'] 
       reinitbinaries(sname)
       updateviperenv()
     
@@ -545,6 +549,10 @@ Below is the complete definition of the **tml_system_step_1_getparams_dag**.  Us
           output = f.read()
           VIPERHOSTPREPROCESS = output.split(",")[0]
           VIPERPORTPREPROCESS = output.split(",")[1]    
+        with open('/Viper-preprocess2/viper.txt', 'r') as f:
+          output = f.read()
+          VIPERHOSTPREPROCESS2 = output.split(",")[0]
+          VIPERPORTPREPROCESS2 = output.split(",")[1]        
         with open('/Viper-preprocess-pgpt/viper.txt', 'r') as f:
           output = f.read()
           VIPERHOSTPREPROCESSPGPT = output.split(",")[0]
@@ -653,6 +661,8 @@ Below is the complete definition of the **tml_system_step_1_getparams_dag**.  Us
       task_instance.xcom_push(key="{}_VIPERPORTPRODUCE".format(sname),value="_{}".format(VIPERPORT))
       task_instance.xcom_push(key="{}_VIPERHOSTPREPROCESS".format(sname),value=VIPERHOSTPREPROCESS)
       task_instance.xcom_push(key="{}_VIPERPORTPREPROCESS".format(sname),value="_{}".format(VIPERPORTPREPROCESS))
+      task_instance.xcom_push(key="{}_VIPERHOSTPREPROCESS2".format(sname),value=VIPERHOSTPREPROCESS2)
+      task_instance.xcom_push(key="{}_VIPERPORTPREPROCESS2".format(sname),value="_{}".format(VIPERPORTPREPROCESS2))
     
       task_instance.xcom_push(key="{}_VIPERHOSTPREPROCESSPGPT".format(sname),value=VIPERHOSTPREPROCESSPGPT)
       task_instance.xcom_push(key="{}_VIPERPORTPREPROCESSPGPT".format(sname),value="_{}".format(VIPERPORTPREPROCESSPGPT))
@@ -669,12 +679,11 @@ Below is the complete definition of the **tml_system_step_1_getparams_dag**.  Us
       task_instance.xcom_push(key="{}_solutionname".format(sd),value=sname)
       task_instance.xcom_push(key="{}_solutiondescription".format(sname),value=desc)
       task_instance.xcom_push(key="{}_solutiontitle".format(sname),value=stitle)
-      task_instance.xcom_push(key="{}_ingestdatamethod".format(sname),value=method)
+    
       task_instance.xcom_push(key="{}_containername".format(sname),value='')
       task_instance.xcom_push(key="{}_brokerhost".format(sname),value=brokerhost)
       task_instance.xcom_push(key="{}_brokerport".format(sname),value="_{}".format(brokerport))
       task_instance.xcom_push(key="{}_chip".format(sname),value=chip)
-      task_instance.xcom_push(key="{}_dashboardhtml".format(sname),value=dashboardhtml)
 
 DAG STEP 1: Parameter Explanation
 """""""""""""""""""""""""""""
@@ -782,6 +791,7 @@ Below is the complete definition of the **tml_system_step_2_kafka_createtopic_da
     import sys
     import tsslogging
     import os
+    import subprocess
     
     sys.dont_write_bytecode = True
     
@@ -799,9 +809,10 @@ Below is the complete definition of the **tml_system_step_2_kafka_createtopic_da
       'brokerport' : '-999',  # <<< ********** Leave as is
       'microserviceid' : '',  # <<< ********** You change as needed
       'raw_data_topic' : 'iot-raw-data', # Separate multiple topics with comma <<< ********** You change topic names as needed
-      'preprocess_data_topic' : 'iot-preprocess-data,iot-preprocess2-data', # Separate multiple topics with comma <<< ********** You change topic names as needed
+      'preprocess_data_topic' : 'iot-preprocess,iot-preprocess2', # Separate multiple topics with comma <<< ********** You change topic names as needed
       'ml_data_topic' : 'ml-data', # Separate multiple topics with comma <<< ********** You change topic names as needed
       'prediction_data_topic' : 'prediction-data', # Separate multiple topics with comma <<< ********** You change topic names as needed
+      'pgpt_data_topic' : 'cisco-network-privategpt',  #  PrivateGPT will produce responses to this topic - change as  needed
       'description' : 'Topics to store iot data',      
     }
     
@@ -814,6 +825,17 @@ Below is the complete definition of the **tml_system_step_2_kafka_createtopic_da
             pass
     dag = startkafkasetup()
     
+    def deletetopics(topic):
+        
+        buf = "/Kafka/kafka_2.13-3.0.0/bin/kafka-topics.sh --bootstrap-server localhost:9092 --topic {} --delete".format(topic)
+        res=subprocess.call(buf, shell=True)
+        print(buf)
+        print("Result=",res)
+        
+        repo=tsslogging.getrepo()    
+        tsslogging.tsslogit("Deleting topic {} in {}".format(topic,os.path.basename(__file__)), "INFO" )                     
+        tsslogging.git_push("/{}".format(repo),"Entry from {}".format(os.path.basename(__file__)),"origin")  
+        
     def setupkafkatopics(**context):
      # Set personal data
       args = default_args
@@ -849,6 +871,7 @@ Below is the complete definition of the **tml_system_step_2_kafka_createtopic_da
       VIPERTOKEN = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_VIPERTOKEN".format(sname))
       VIPERHOST = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_VIPERHOSTPRODUCE".format(sname))
       VIPERPORT = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_VIPERPORTPRODUCE".format(sname))
+      mainbroker = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_brokerhost".format(sname))
         
       ti = context['task_instance'] 
       ti.xcom_push(key="{}_companyname".format(sname), value=companyname)
@@ -871,20 +894,35 @@ Below is the complete definition of the **tml_system_step_2_kafka_createtopic_da
       #############################################################################################################
       #                         CREATE TOPIC TO STORE TRAINED PARAMS FROM ALGORITHM  
     
-      topickeys = ['raw_data_topic','preprocess_data_topic','ml_data_topic','prediction_data_topic'] 
+      topickeys = ['raw_data_topic','preprocess_data_topic','ml_data_topic','prediction_data_topic','pgpt_data_topic'] 
     
       for k in topickeys:
         producetotopic=args[k]
         description=args['description']
     
         topicsarr = producetotopic.split(",")
-    
         for topic in topicsarr:  
+            if topic != '' and "127.0.0.1" in mainbroker:
+              try:  
+                deletetopics(topic)
+              except Exception as e:
+                print("ERROR: ",e)
+                continue 
+            
+        for topic in topicsarr:  
+          if topic != '':
+              continue
           print("Creating topic=",topic)  
-          result=maadstml.vipercreatetopic(VIPERTOKEN,VIPERHOST,VIPERPORT,topic,companyname,
+          try:
+            result=maadstml.vipercreatetopic(VIPERTOKEN,VIPERHOST,VIPERPORT,topic,companyname,
                                      myname,myemail,mylocation,description,enabletls,
                                      brokerhost,brokerport,numpartitions,replication,
                                      microserviceid='')
+          except Exception as e:
+           repo=tsslogging.getrepo()    
+           tsslogging.tsslogit("Cannot create topic {} in {} - {}".format(topic,os.path.basename(__file__),e), "ERROR" )                     
+           tsslogging.git_push("/{}".format(repo),"Entry from {}".format(os.path.basename(__file__)),"origin")  
+            
           print("Result=",result)
 
 DAG STEP 2: Parameter Explanation
@@ -1130,7 +1168,7 @@ STEP 3a: Produce Data Using MQTT: tml-read-MQTT-step-3-kafka-producetotopic-dag
          client.tls_set(tls_version=mqtt.client.ssl.PROTOCOL_TLS)
          client.username_pw_set(username, password)
      except Exception as e:       
-       tsslogging.tsslogit("MQTT producing DAG in {}".format(os.path.basename(__file__)), "INFO" )                     
+       tsslogging.tsslogit("ERROR: Cannot connect to MQTT broker in {} - {}".format(os.path.basename(__file__),e), "ERROR" )                     
        tsslogging.git_push("/{}".format(repo),"Entry from {}".format(os.path.basename(__file__)),"origin")        
        print("ERROR: Cannot connect to MQTT broker") 
        return 
@@ -1145,7 +1183,7 @@ STEP 3a: Produce Data Using MQTT: tml-read-MQTT-step-3-kafka-producetotopic-dag
        client.on_connect = on_connect
        client.loop_forever()
      else:   
-        print("Cannot Connected")   
+        print("Cannot Connect")   
         tsslogging.tsslogit("CANNOT Connect to MQTT Broker in {}".format(os.path.basename(__file__)), "ERROR" )                     
         tsslogging.git_push("/{}".format(repo),"Entry from {}".format(os.path.basename(__file__)),"origin")        
         
@@ -1319,11 +1357,12 @@ STEP 3a.i: MQTT CLIENT
     from datetime import datetime
     
     default_args = {
-      'mqtt_broker' : 'b526253c5560459da5337e561c142369.s1.eu.hivemq.cloud', # <<<** Enter MQTT broker i.e. HiveMQ
+      'mqtt_broker' : 'b526253c5560459da5337e561c142369.s1.eu.hivemq.cloud', # <<<****** Enter MQTT broker i.e. test.mosquitto.org
       'mqtt_port' : '8883', # <<<******** Enter MQTT port i.e. 1883    
-      'mqtt_subscribe_topic' : 'tml/iot', # <<<******** enter name of MQTT to subscribe to i.e. tml/iot
+      'mqtt_subscribe_topic' : 'tml/iot', # <<<******** enter name of MQTT to subscribe to i.e. encyclopedia/#
       'mqtt_enabletls' : '1', # << Enable TLS if connecting to a cloud cluster like HiveMQ
     }
+    
     
     sys.dont_write_bytecode = True
     ##################################################  MQTT SERVER #####################################
@@ -1331,6 +1370,7 @@ STEP 3a.i: MQTT CLIENT
     # from an MQTT client for on_message, on_connect, and on_subscribe
     
     ######################################## USER CHOOSEN PARAMETERS ########################################
+    
     
     def mqttconnection():
          username="<Enter MQTT username>"
@@ -1381,10 +1421,10 @@ STEP 3a.i: MQTT CLIENT
             continue
           publishtomqttbroker(client,line)
           # change time to speed up or slow down data   
-          time.sleep(.5)
+          time.sleep(.15)
         except Exception as e:
           print(e)
-          time.sleep(.5)
+          time.sleep(.15)
           pass
     
     client=mqttconnection()
@@ -1430,6 +1470,7 @@ STEP 3b: Produce Data Using RESTAPI: tml-read-RESTAPI-step-3-kafka-producetotopi
     # There are two endpoints you can use to stream data to this server:
     # 1. jsondataline -  You can POST a single JSONs from your client app. Your json will be streamed to Kafka topic.
     # 2. jsondataarray -  You can POST JSON arrays from your client app. Your json will be streamed to Kafka topic.
+    
     
     ######################################## USER CHOOSEN PARAMETERS ########################################
     default_args = {
@@ -1499,9 +1540,22 @@ STEP 3b: Produce Data Using RESTAPI: tml-read-RESTAPI-step-3-kafka-producetotopi
             
             #app.run(port=default_args['rest_port']) # for dev
             if os.environ['TSS']=="0": 
-              http_server = WSGIServer(('', int(default_args['rest_port'])), app)
+              try:  
+                http_server = WSGIServer(('', int(default_args['rest_port'])), app)
+              except Exception as e:
+               tsslogging.tsslogit("ERROR: Cannot connect to WSGIServer in {}".format(os.path.basename(__file__)), "ERROR" )                     
+               tsslogging.git_push("/{}".format(repo),"Entry from {} - {}".format(os.path.basename(__file__),e),"origin")        
+               print("ERROR: Cannot connect to  WSGIServer") 
+               return             
             else:
-              http_server = WSGIServer(('', int(default_args['tss_rest_port'])), app)
+              try:  
+                http_server = WSGIServer(('', int(default_args['tss_rest_port'])), app)
+              except Exception as e:
+               tsslogging.tsslogit("ERROR: Cannot connect to WSGIServer in {}".format(os.path.basename(__file__)), "ERROR" )                     
+               tsslogging.git_push("/{}".format(repo),"Entry from {} - {}".format(os.path.basename(__file__),e),"origin")        
+               print("ERROR: Cannot connect to  WSGIServer") 
+               return             
+                
             
             http_server.serve_forever()        
     
@@ -1617,6 +1671,7 @@ STEP 3b.i: REST API CLIENT
     
       # extracting response text
       return r.text
+        
     
     def readdatafile(inputfile):
     
@@ -1651,7 +1706,8 @@ STEP 3b.i: REST API CLIENT
           # change time to speed up or slow down data   
           time.sleep(.5)
         except Exception as e:
-          print(e)  
+          print(e)
+          time.sleep(0.5)
           pass
         
     def start():
@@ -1820,13 +1876,19 @@ STEP 3c: Produce Data Using gRPC: tml-read-gRPC-step-3-kafka-producetotopic-dag
         tsslogging.tsslogit("gRPC producing DAG in {}".format(os.path.basename(__file__)), "INFO" )
         tsslogging.git_push("/{}".format(repo),"Entry from {}".format(os.path.basename(__file__)),"origin")
     
-        server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
-        pb2_grpc.add_TmlprotoServicer_to_server(TmlprotoService(), server)
-        if os.environ['TSS']=="0":
-          server.add_insecure_port("[::]:{}".format(default_args['gRPC_Port']))
-        else:
-          server.add_insecure_port("[::]:{}".format(default_args['tss_gRPC_Port']))
-    
+        try:
+            server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
+            pb2_grpc.add_TmlprotoServicer_to_server(TmlprotoService(), server)
+            if os.environ['TSS']=="0":
+              server.add_insecure_port("[::]:{}".format(default_args['gRPC_Port']))
+            else:
+              server.add_insecure_port("[::]:{}".format(default_args['tss_gRPC_Port']))
+        except Exception as e:
+               tsslogging.tsslogit("ERROR: Cannot connect to gRPC server in {} - {}".format(os.path.basename(__file__),e), "ERROR" )                     
+               tsslogging.git_push("/{}".format(repo),"Entry from {}".format(os.path.basename(__file__)),"origin")        
+               print("ERROR: Cannot connect to gRPC server in") 
+               return             
+            
         server.start()
         server.wait_for_termination()
     
@@ -1918,7 +1980,7 @@ STEP 3c.i: gRPC API CLIENT
     
         def __init__(self):
             self.host = 'localhost'
-            self.server_port = 9001 # <<<<*********** Change to gRPC server port
+            self.server_port = 9002 # <<<<*********** Change to gRPC server port
     
             # instantiate a channel
             self.channel = grpc.insecure_channel(
@@ -1952,7 +2014,7 @@ STEP 3c.i: gRPC API CLIENT
           while True:
             line = file1.readline()
             line = line.replace(";", " ")
-            print("line=",line)
+            print("line2=",line)
             # add lat/long/identifier
             k = k + 1
             try:
@@ -2655,7 +2717,7 @@ TML preprocesses real-time data for every entity along each sliding time window.
       'microserviceid' : '',  # <<< *** leave blank
       'producerid' : 'iotsolution',   # <<< *** Change as needed   
       'raw_data_topic' : 'iot-raw-data', # *************** INCLUDE ONLY ONE TOPIC - This is one of the topic you created in SYSTEM STEP 2
-      'preprocess_data_topic' : 'iot-preprocess-data', # *************** INCLUDE ONLY ONE TOPIC - This is one of the topic you created in SYSTEM STEP 2
+      'preprocess_data_topic' : 'iot-preprocess', # *************** INCLUDE ONLY ONE TOPIC - This is one of the topic you created in SYSTEM STEP 2
       'maxrows' : '800', # <<< ********** Number of offsets to rollback the data stream -i.e. rollback stream by 500 offsets
       'offset' : '-1', # <<< Rollback from the end of the data streams  
       'brokerhost' : '',   # <<< *** Leave as is
@@ -2672,7 +2734,7 @@ TML preprocesses real-time data for every entity along each sliding time window.
       'usemysql' : '1', # do not modify
       'streamstojoin' : '', # leave blank
       'identifier' : 'IoT device performance and failures', # <<< ** Change as needed
-      'preprocesstypes' : 'anomprob,trend,avg,entropy,kurtosis', # <<< **** MAIN PREPROCESS TYPES CHNAGE AS NEEDED refer to https://tml-readthedocs.readthedocs.io/en/latest/
+      'preprocesstypes' : 'anomprob,trend,avg', # <<< **** MAIN PREPROCESS TYPES CHNAGE AS NEEDED refer to https://tml-readthedocs.readthedocs.io/en/latest/
       'pathtotmlattrs' : 'oem=n/a,lat=n/a,long=n/a,location=n/a,identifier=n/a', # Change as needed     
       'jsoncriteria' : 'uid=metadata.dsn,filter:allrecords~\
     subtopics=metadata.property_name~\
@@ -3087,6 +3149,216 @@ Preprocessed Sample JSON Output: Explanations
      - This is the Kafka partition this 
 
        message was stored in: 0
+
+STEP 4b: tml_system_step_4b_kafka_preprocess_dag
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. code-block:: PYTHON
+
+    from airflow import DAG
+    from airflow.operators.python import PythonOperator
+    from airflow.operators.bash import BashOperator
+    
+    from datetime import datetime
+    from airflow.decorators import dag, task
+    import sys
+    import maadstml
+    import tsslogging
+    import os
+    import subprocess
+    import time
+    import random
+    
+    sys.dont_write_bytecode = True
+    ######################################## USER CHOOSEN PARAMETERS ########################################
+    default_args = {
+      'owner' : 'Sebastian Maurice',  # <<< *** Change as needed      
+      'enabletls': '1', # <<< *** 1=connection is encrypted, 0=no encryption
+      'microserviceid' : '',  # <<< *** leave blank
+      'producerid' : 'iotsolution',   # <<< *** Change as needed   
+      'raw_data_topic' : 'iot-preprocess', # *************** INCLUDE ONLY ONE TOPIC - This is one of the topic you created in SYSTEM STEP 2
+      'preprocess_data_topic' : 'iot-preprocess2', # *************** INCLUDE ONLY ONE TOPIC - This is one of the topic you created in SYSTEM STEP 2
+      'maxrows' : '800', # <<< ********** Number of offsets to rollback the data stream -i.e. rollback stream by 500 offsets
+      'offset' : '-1', # <<< Rollback from the end of the data streams  
+      'brokerhost' : '',   # <<< *** Leave as is
+      'brokerport' : '-999',  # <<< *** Leave as is   
+      'preprocessconditions' : '', ## <<< Leave blank      
+      'delay' : '70', # Add a 70 millisecond maximum delay for VIPER to wait for Kafka to return confirmation message is received and written to topic     
+      'array' : '0', # do not modify
+      'saveasarray' : '1', # do not modify
+      'topicid' : '-1', # do not modify
+      'rawdataoutput' : '1', # <<< 1 to output raw data used in the preprocessing, 0 do not output
+      'asynctimeout' : '120', # <<< 120 seconds for connection timeout 
+      'timedelay' : '0', # <<< connection delay
+      'tmlfilepath' : '', # leave blank
+      'usemysql' : '1', # do not modify
+      'streamstojoin' : 'Voltage_preprocessed_AnomProb,Current_preprocessed_AnomProb', # Change as needed - THESE VARIABLES ARE CREATED BY TML IN tml_system_step_4_kafka_preprocess2_dag.py
+      'identifier' : 'IoT device performance and failures', # <<< ** Change as needed - THIS IS TAKING AVG of variables in streamstojoin
+      'preprocesstypes' : 'avg,avg', # <<< **** MAIN PREPROCESS TYPES CHNAGE AS NEEDED refer to https://tml-readthedocs.readthedocs.io/en/latest/
+      'pathtotmlattrs' : 'oem=n/a,lat=n/a,long=n/a,location=n/a,identifier=n/a', # Change as needed     
+      'jsoncriteria' : '', # <<< **** Specify your json criteria. Here is an example of a multiline json --  refer to https://tml-readthedocs.readthedocs.io/en/latest/
+      'identifier' : 'TML solution',   # <<< *** Change as needed   
+    }
+    
+    ######################################## DO NOT MODIFY BELOW #############################################
+    
+    # Instantiate your DAG
+    @dag(dag_id="tml_system_step_4b_kafka_preprocess_dag", default_args=default_args, tags=["tml_system_step_4b_kafka_preprocess_dag"], start_date=datetime(2023, 1, 1),schedule=None,catchup=False)
+    def startprocessing():
+      def empty():
+         pass
+    dag = startprocessing()
+    
+    VIPERTOKEN=""
+    VIPERHOST=""
+    VIPERPORT=""
+    HTTPADDR=""
+    
+    def processtransactiondata():
+             global VIPERTOKEN
+             global VIPERHOST
+             global VIPERPORT   
+             global HTTPADDR
+             preprocesstopic = default_args['preprocess_data_topic']
+             maintopic =  default_args['raw_data_topic']  
+             mainproducerid = default_args['producerid']     
+    
+            #############################################################################################################
+              #                                    PREPROCESS DATA STREAMS
+    
+    
+              # Roll back each data stream by 10 percent - change this to a larger number if you want more data
+              # For supervised machine learning you need a minimum of 30 data points in each stream
+             maxrows=int(default_args['maxrows'])
+    
+              # Go to the last offset of each stream: If lastoffset=500, then this function will rollback the 
+              # streams to offset=500-50=450
+             offset=int(default_args['offset'])
+              # Max wait time for Kafka to response on milliseconds - you can increase this number if
+              #maintopic to produce the preprocess data to
+             topic=maintopic
+              # producerid of the topic
+             producerid=mainproducerid
+              # use the host in Viper.env file
+             brokerhost=default_args['brokerhost']
+              # use the port in Viper.env file
+             brokerport=int(default_args['brokerport'])
+              #if load balancing enter the microsericeid to route the HTTP to a specific machine
+             microserviceid=default_args['microserviceid']
+    
+    
+              # You can preprocess with the following functions: MAX, MIN, SUM, AVG, COUNT, DIFF,OUTLIERS
+              # here we will take max values of the arcturus-humidity, we will Diff arcturus-temperature, and average arcturus-Light_Intensity
+              # NOTE: The number of process logic functions MUST match the streams - the operations will be applied in the same order
+            #
+             preprocessconditions=default_args['preprocessconditions']
+    
+             # Add a 7000 millisecond maximum delay for VIPER to wait for Kafka to return confirmation message is received and written to topic 
+             delay=int(default_args['delay'])
+             # USE TLS encryption when sending to Kafka Cloud (GCP/AWS/Azure)
+             enabletls=int(default_args['enabletls'])
+             array=int(default_args['array'])
+             saveasarray=int(default_args['saveasarray'])
+             topicid=int(default_args['topicid'])
+    
+             rawdataoutput=int(default_args['rawdataoutput'])
+             asynctimeout=int(default_args['asynctimeout'])
+             timedelay=int(default_args['timedelay'])
+    
+             jsoncriteria = default_args['jsoncriteria']
+    
+             tmlfilepath=default_args['tmlfilepath']
+             usemysql=int(default_args['usemysql'])
+    
+             streamstojoin=default_args['streamstojoin']
+             identifier = default_args['identifier']
+    
+             # if dataage - use:dataage_utcoffset_timetype
+             preprocesstypes=default_args['preprocesstypes']
+    
+             pathtotmlattrs=default_args['pathtotmlattrs']       
+             raw_data_topic = default_args['raw_data_topic']  
+             preprocess_data_topic = default_args['preprocess_data_topic']  
+    
+             try:
+                    result=maadstml.viperpreprocessproducetotopicstream(VIPERTOKEN,VIPERHOST,VIPERPORT,topic,producerid,offset,maxrows,enabletls,delay,brokerhost,
+                                                      brokerport,microserviceid,topicid,streamstojoin,preprocesstypes,preprocessconditions,identifier,preprocesstopic)
+                    #print(result)
+             except Exception as e:
+                    print("ERROR:",e)
+    
+            
+    def windowname(wtype,sname,dagname):
+        randomNumber = random.randrange(10, 9999)
+        wn = "python-{}-{}-{},{}".format(wtype,randomNumber,sname,dagname)
+        with open("/tmux/pythonwindows_{}.txt".format(sname), 'a', encoding='utf-8') as file: 
+          file.writelines("{}\n".format(wn))
+        
+        return wn
+    
+    def dopreprocessing(**context):
+           sd = context['dag'].dag_id
+           sname=context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_solutionname".format(sd))
+           
+           VIPERTOKEN = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_VIPERTOKEN".format(sname))
+           VIPERHOST = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_VIPERHOSTPREPROCESS2".format(sname))
+           VIPERPORT = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_VIPERPORTPREPROCESS2".format(sname))
+           HTTPADDR = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_HTTPADDR".format(sname))
+    
+           chip = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_chip".format(sname)) 
+                    
+           ti = context['task_instance']    
+           ti.xcom_push(key="{}_raw_data_topic".format(sname), value=default_args['raw_data_topic'])
+           ti.xcom_push(key="{}_preprocess_data_topic".format(sname), value=default_args['preprocess_data_topic'])
+           ti.xcom_push(key="{}_preprocessconditions".format(sname), value=default_args['preprocessconditions'])
+           ti.xcom_push(key="{}_delay".format(sname), value="_{}".format(default_args['delay']))
+           ti.xcom_push(key="{}_array".format(sname), value="_{}".format(default_args['array']))
+           ti.xcom_push(key="{}_saveasarray".format(sname), value="_{}".format(default_args['saveasarray']))
+           ti.xcom_push(key="{}_topicid".format(sname), value="_{}".format(default_args['topicid']))
+           ti.xcom_push(key="{}_rawdataoutput".format(sname), value="_{}".format(default_args['rawdataoutput']))
+           ti.xcom_push(key="{}_asynctimeout".format(sname), value="_{}".format(default_args['asynctimeout']))
+           ti.xcom_push(key="{}_timedelay".format(sname), value="_{}".format(default_args['timedelay']))
+           ti.xcom_push(key="{}_usemysql".format(sname), value="_{}".format(default_args['usemysql']))
+           ti.xcom_push(key="{}_preprocesstypes".format(sname), value=default_args['preprocesstypes'])
+           ti.xcom_push(key="{}_pathtotmlattrs".format(sname), value=default_args['pathtotmlattrs'])
+           ti.xcom_push(key="{}_identifier".format(sname), value=default_args['identifier'])
+           ti.xcom_push(key="{}_jsoncriteria".format(sname), value=default_args['jsoncriteria'])
+            
+           repo=tsslogging.getrepo() 
+           if sname != '_mysolution_':
+            fullpath="/{}/tml-airflow/dags/tml-solutions/{}/{}".format(repo,sname,os.path.basename(__file__))  
+           else:
+             fullpath="/{}/tml-airflow/dags/{}".format(repo,os.path.basename(__file__))  
+                
+           wn = windowname('preprocess2',sname,sd)     
+           subprocess.run(["tmux", "new", "-d", "-s", "{}".format(wn)])
+           subprocess.run(["tmux", "send-keys", "-t", "{}".format(wn), "cd /Viper-preprocess2", "ENTER"])
+           subprocess.run(["tmux", "send-keys", "-t", "{}".format(wn), "python {} 1 {} {}{} {}".format(fullpath,VIPERTOKEN,HTTPADDR,VIPERHOST,VIPERPORT[1:]), "ENTER"])        
+    
+    if __name__ == '__main__':
+        if len(sys.argv) > 1:
+           if sys.argv[1] == "1": 
+            repo=tsslogging.getrepo()
+            try:            
+              tsslogging.tsslogit("Preprocessing2 DAG in {}".format(os.path.basename(__file__)), "INFO" )                     
+              tsslogging.git_push("/{}".format(repo),"Entry from {}".format(os.path.basename(__file__)),"origin")    
+            except Exception as e:
+                #git push -f origin main
+                os.chdir("/{}".format(repo))
+                subprocess.call("git push -f origin main", shell=True)
+            
+            VIPERTOKEN = sys.argv[2]
+            VIPERHOST = sys.argv[3] 
+            VIPERPORT = sys.argv[4]                  
+    
+            while True:
+              try: 
+                processtransactiondata()
+                time.sleep(.5)
+              except Exception as e:     
+               tsslogging.tsslogit("Preprocessing2 DAG in {} {}".format(os.path.basename(__file__),e), "ERROR" )                     
+               tsslogging.git_push("/{}".format(repo),"Entry from {}".format(os.path.basename(__file__)),"origin")    
+               break
 
 STEP 5: Entity Based Machine Learning : tml-system-step-5-kafka-machine-learning-dag
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -5005,6 +5277,9 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
         producingport = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_VIPERPORTPRODUCE".format(sname))
         preprocesshost = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_VIPERHOSTPREPROCESS".format(sname))
         preprocessport = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_VIPERPORTPREPROCESS".format(sname))
+        preprocesshost2 = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_VIPERHOSTPREPROCESS2".format(sname))
+        preprocessport2 = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_VIPERPORTPREPROCESS2".format(sname))
+    
         mlhost = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_VIPERHOSTML".format(sname))
         mlport = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_VIPERPORTML".format(sname))
         predictionhost = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_VIPERHOSTPREDICT".format(sname))
@@ -5039,7 +5314,6 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
         brokerport = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_brokerport".format(sname))
         cloudusername = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_cloudusername".format(sname))
         cloudpassword = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_cloudpassword".format(sname))
-        ingestdatamethod = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_ingestdatamethod".format(sname))
     
         subprocess.call(["sed", "-i", "-e",  "s/--solutionname--/{}/g".format(sname), "/{}/docs/source/index.rst".format(sname)])
         subprocess.call(["sed", "-i", "-e",  "s/--solutiontitle--/{}/g".format(stitle), "/{}/docs/source/index.rst".format(sname)])
@@ -5052,7 +5326,7 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
         subprocess.call(["sed", "-i", "-e",  "s/--brokerhost--/{}/g".format(brokerhost), "/{}/docs/source/details.rst".format(sname)])
         subprocess.call(["sed", "-i", "-e",  "s/--brokerport--/{}/g".format(brokerport[1:]), "/{}/docs/source/details.rst".format(sname)])
         subprocess.call(["sed", "-i", "-e",  "s/--cloudusername--/{}/g".format(cloudusername), "/{}/docs/source/details.rst".format(sname)])
-        subprocess.call(["sed", "-i", "-e",  "s/--ingestdatamethod--/{}/g".format(ingestdatamethod), "/{}/docs/source/details.rst".format(sname)])
+    
         subprocess.call(["sed", "-i", "-e",  "s/--solutiontitle--/{}/g".format(stitle), "/{}/docs/source/details.rst".format(sname)])
         subprocess.call(["sed", "-i", "-e",  "s/--solutiondescription--/{}/g".format(sdesc), "/{}/docs/source/details.rst".format(sname)])
     
@@ -5125,6 +5399,8 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
           doparse("/{}/docs/source/details.rst".format(sname), ["--TMLCLIENTPORT--;Not Applicable"])
         
         doparse("/{}/docs/source/details.rst".format(sname), ["--IDENTIFIER--;{}".format(IDENTIFIER)])
+        
+        subprocess.call(["sed", "-i", "-e",  "s/--ingestdatamethod--/{}/g".format(PRODUCETYPE), "/{}/docs/source/details.rst".format(sname)])
                 
         raw_data_topic = context['ti'].xcom_pull(task_ids='step_4_solution_task_preprocess',key="{}_raw_data_topic".format(sname))
         preprocess_data_topic = context['ti'].xcom_pull(task_ids='step_4_solution_task_preprocess',key="{}_preprocess_data_topic".format(sname))    
@@ -5157,7 +5433,39 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
             subprocess.call(["sed", "-i", "-e",  "s/--pathtotmlattrs--/{}/g".format(pathtotmlattrs), "/{}/docs/source/details.rst".format(sname)])
             subprocess.call(["sed", "-i", "-e",  "s/--identifier--/{}/g".format(identifier), "/{}/docs/source/details.rst".format(sname)])
             subprocess.call(["sed", "-i", "-e",  "s/--jsoncriteria--/{}/g".format(jsoncriteria), "/{}/docs/source/details.rst".format(sname)])
-        
+    
+        raw_data_topic = context['ti'].xcom_pull(task_ids='step_4b_solution_task_preprocess',key="{}_raw_data_topic".format(sname))
+        preprocess_data_topic = context['ti'].xcom_pull(task_ids='step_4b_solution_task_preprocess',key="{}_preprocess_data_topic".format(sname))    
+        preprocessconditions = context['ti'].xcom_pull(task_ids='step_4b_solution_task_preprocess',key="{}_preprocessconditions".format(sname))
+        delay = context['ti'].xcom_pull(task_ids='step_4b_solution_task_preprocess',key="{}_delay".format(sname))
+        array = context['ti'].xcom_pull(task_ids='step_4b_solution_task_preprocess',key="{}_array".format(sname))
+        saveasarray = context['ti'].xcom_pull(task_ids='step_4b_solution_task_preprocess',key="{}_saveasarray".format(sname))
+        topicid = context['ti'].xcom_pull(task_ids='step_4b_solution_task_preprocess',key="{}_topicid".format(sname))
+        rawdataoutput = context['ti'].xcom_pull(task_ids='step_4b_solution_task_preprocess',key="{}_rawdataoutput".format(sname))
+        asynctimeout = context['ti'].xcom_pull(task_ids='step_4b_solution_task_preprocess',key="{}_asynctimeout".format(sname))
+        timedelay = context['ti'].xcom_pull(task_ids='step_4b_solution_task_preprocess',key="{}_timedelay".format(sname))
+        usemysql = context['ti'].xcom_pull(task_ids='step_4b_solution_task_preprocess',key="{}_usemysql".format(sname))
+        preprocesstypes = context['ti'].xcom_pull(task_ids='step_4b_solution_task_preprocess',key="{}_preprocesstypes".format(sname))
+        pathtotmlattrs = context['ti'].xcom_pull(task_ids='step_4b_solution_task_preprocess',key="{}_pathtotmlattrs".format(sname))
+        identifier = context['ti'].xcom_pull(task_ids='step_4b_solution_task_preprocess',key="{}_identifier".format(sname))
+        jsoncriteria = context['ti'].xcom_pull(task_ids='step_4b_solution_task_preprocess',key="{}_jsoncriteria".format(sname))
+    
+        if preprocess_data_topic:
+            subprocess.call(["sed", "-i", "-e",  "s/--raw_data_topic2--/{}/g".format(raw_data_topic), "/{}/docs/source/details.rst".format(sname)])
+            subprocess.call(["sed", "-i", "-e",  "s/--preprocess_data_topic2--/{}/g".format(preprocess_data_topic), "/{}/docs/source/details.rst".format(sname)])
+            subprocess.call(["sed", "-i", "-e",  "s/--preprocessconditions2--/{}/g".format(preprocessconditions), "/{}/docs/source/details.rst".format(sname)])
+            subprocess.call(["sed", "-i", "-e",  "s/--delay2--/{}/g".format(delay[1:]), "/{}/docs/source/details.rst".format(sname)])
+            subprocess.call(["sed", "-i", "-e",  "s/--array2--/{}/g".format(array[1:]), "/{}/docs/source/details.rst".format(sname)])
+            subprocess.call(["sed", "-i", "-e",  "s/--saveasarray2--/{}/g".format(saveasarray[1:]), "/{}/docs/source/details.rst".format(sname)])
+            subprocess.call(["sed", "-i", "-e",  "s/--topicid2--/{}/g".format(topicid[1:]), "/{}/docs/source/details.rst".format(sname)])
+            subprocess.call(["sed", "-i", "-e",  "s/--rawdataoutput2--/{}/g".format(rawdataoutput[1:]), "/{}/docs/source/details.rst".format(sname)])
+            subprocess.call(["sed", "-i", "-e",  "s/--asynctimeout2--/{}/g".format(asynctimeout[1:]), "/{}/docs/source/details.rst".format(sname)])
+            subprocess.call(["sed", "-i", "-e",  "s/--timedelay2--/{}/g".format(timedelay[1:]), "/{}/docs/source/details.rst".format(sname)])
+            subprocess.call(["sed", "-i", "-e",  "s/--preprocesstypes2--/{}/g".format(preprocesstypes), "/{}/docs/source/details.rst".format(sname)])
+            subprocess.call(["sed", "-i", "-e",  "s/--pathtotmlattrs2--/{}/g".format(pathtotmlattrs), "/{}/docs/source/details.rst".format(sname)])
+            subprocess.call(["sed", "-i", "-e",  "s/--identifier2--/{}/g".format(identifier), "/{}/docs/source/details.rst".format(sname)])
+            subprocess.call(["sed", "-i", "-e",  "s/--jsoncriteria2--/{}/g".format(jsoncriteria), "/{}/docs/source/details.rst".format(sname)])
+            
         preprocess_data_topic = context['ti'].xcom_pull(task_ids='step_5_solution_task_ml',key="{}_preprocess_data_topic".format(sname))
         ml_data_topic = context['ti'].xcom_pull(task_ids='step_5_solution_task_ml',key="{}_ml_data_topic".format(sname))
         modelruns = context['ti'].xcom_pull(task_ids='step_5_solution_task_ml',key="{}_modelruns".format(sname))
@@ -5228,6 +5536,7 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
         append = context['ti'].xcom_pull(task_ids='step_7_solution_task_visualization',key="{}_append".format(sname))
         chip = context['ti'].xcom_pull(task_ids='step_7_solution_task_visualization',key="{}_chip".format(sname))
         rollbackoffset = context['ti'].xcom_pull(task_ids='step_7_solution_task_visualization',key="{}_rollbackoffset".format(sname))
+        dashboardhtml = context['ti'].xcom_pull(task_ids='step_7_solution_task_visualization',key="{}_dashboardhtml".format(sname))
     
         containername = context['ti'].xcom_pull(task_ids='step_8_solution_task_containerize',key="{}_containername".format(sname))
         if containername:
@@ -5240,6 +5549,7 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
         if vipervizport:
             subprocess.call(["sed", "-i", "-e",  "s/--vipervizport--/{}/g".format(vipervizport[1:]), "/{}/docs/source/details.rst".format(sname)])
             subprocess.call(["sed", "-i", "-e",  "s/--topic--/{}/g".format(topic), "/{}/docs/source/details.rst".format(sname)])
+            subprocess.call(["sed", "-i", "-e",  "s/--dashboardhtml--/{}/g".format(dashboardhtml), "/{}/docs/source/details.rst".format(sname)])        
             subprocess.call(["sed", "-i", "-e",  "s/--secure--/{}/g".format(secure[1:]), "/{}/docs/source/details.rst".format(sname)])
             subprocess.call(["sed", "-i", "-e",  "s/--offset--/{}/g".format(offset[1:]), "/{}/docs/source/details.rst".format(sname)])
             subprocess.call(["sed", "-i", "-e",  "s/--append--/{}/g".format(append[1:]), "/{}/docs/source/details.rst".format(sname)])
@@ -5269,14 +5579,39 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
         doparse("/{}/docs/source/operating.rst".format(sname), ["--externalport--;{}".format(externalport[1:])])
         doparse("/{}/docs/source/operating.rst".format(sname), ["--solutionexternalport--;{}".format(solutionexternalport[1:])])
         
+        pconsumefrom = context['ti'].xcom_pull(task_ids='step_9_solution_task_ai',key="{}_consumefrom".format(sname))
+        pgpt_data_topic = context['ti'].xcom_pull(task_ids='step_9_solution_task_ai',key="{}_pgpt_data_topic".format(sname))
+        pgptcontainername = context['ti'].xcom_pull(task_ids='step_9_solution_task_ai',key="{}_pgptcontainername".format(sname))
+        poffset = context['ti'].xcom_pull(task_ids='step_9_solution_task_ai',key="{}_offset".format(sname))
+        prollbackoffset = context['ti'].xcom_pull(task_ids='step_9_solution_task_ai',key="{}_rollbackoffset".format(sname))
+        ptopicid = context['ti'].xcom_pull(task_ids='step_9_solution_task_ai',key="{}_topicid".format(sname))
+        penabletls = context['ti'].xcom_pull(task_ids='step_9_solution_task_ai',key="{}_enabletls".format(sname))
+        ppartition = context['ti'].xcom_pull(task_ids='step_9_solution_task_ai',key="{}_partition".format(sname))
+        pprompt = context['ti'].xcom_pull(task_ids='step_9_solution_task_ai',key="{}_prompt".format(sname))
+        pcontext = context['ti'].xcom_pull(task_ids='step_9_solution_task_ai',key="{}_context".format(sname))
+        pjsonkeytogather = context['ti'].xcom_pull(task_ids='step_9_solution_task_ai',key="{}_jsonkeytogather".format(sname))
+        pkeyattribute = context['ti'].xcom_pull(task_ids='step_9_solution_task_ai',key="{}_keyattribute".format(sname))
+        pconcurrency = context['ti'].xcom_pull(task_ids='step_9_solution_task_ai',key="{}_concurrency".format(sname))
+        pcuda = context['ti'].xcom_pull(task_ids='step_9_solution_task_ai',key="{}_cuda".format(sname))
+        pcollection = context['ti'].xcom_pull(task_ids='step_9_solution_task_ai',key="{}_vectordbcollectionname".format(sname))    
+        pgpthost = context['ti'].xcom_pull(task_ids='step_9_solution_task_ai',key="{}_pgpthost".format(sname))
+        pgptport = context['ti'].xcom_pull(task_ids='step_9_solution_task_ai',key="{}_pgptport".format(sname))
+        pprocesstype = context['ti'].xcom_pull(task_ids='step_9_solution_task_ai',key="{}_keyprocesstype".format(sname))
+              
         if len(CLIENTPORT) > 1:
           doparse("/{}/docs/source/operating.rst".format(sname), ["--clientport--;{}".format(TMLCLIENTPORT[1:])])
           dockerrun = ("docker run -d -p {}:{} -p {}:{} -p {}:{} -p {}:{} \-\-env TSS=0 \-\-env SOLUTIONNAME={} \-\-env SOLUTIONDAG={} \-\-env GITUSERNAME={} " \
-                     "\-\-env GITPASSWORD=<Enter Github Password>  \-\-env GITREPOURL={} \-\-env SOLUTIONEXTERNALPORT={} " \
-                     "\-\-env READTHEDOCS=<Enter Readthedocs token> \-\-env CHIP={} \-\-env SOLUTIONAIRFLOWPORT={} " \
-                     " \-\-env SOLUTIONVIPERVIZPORT={} \-\-env DOCKERUSERNAME={} \-\-env CLIENTPORT={} " \
-                     " \-\-env EXTERNALPORT={} \-\-env KAFKACLOUDUSERNAME={}  \-\-env KAFKACLOUDPASSWORD=<Enter API secret> " \
-                     " \-\-env VIPERVIZPORT={} \-\-env MQTTUSERNAME={} \-\-env MQTTPASSWORD=<Enter mqtt password> \-\-env AIRFLOWPORT={} {}".format(solutionexternalport[1:],solutionexternalport[1:],
+                     " \-\-env GITREPOURL={} \-\-env SOLUTIONEXTERNALPORT={} " \
+                     " \-\-env CHIP={} \-\-env SOLUTIONAIRFLOWPORT={} " \
+                     " \-\-env SOLUTIONVIPERVIZPORT={} \-\-env DOCKERUSERNAME='{}' \-\-env CLIENTPORT={} " \
+                     " \-\-env EXTERNALPORT={} \-\-env KAFKACLOUDUSERNAME='{}' " \
+                     " \-\-env VIPERVIZPORT={} \-\-env MQTTUSERNAME='{}'" \
+                     " \-\-env AIRFLOWPORT={} " \
+                     " \-\-env GITPASSWORD='<Enter Github Password>' " \
+                     " \-\-env KAFKACLOUDPASSWORD='<Enter API secret>' " \
+                     " \-\-env MQTTPASSWORD='<Enter mqtt password>' " \
+                     " \-\-env READTHEDOCS='<Enter Readthedocs token>' " \
+                     " {}".format(solutionexternalport[1:],solutionexternalport[1:],
                               solutionairflowport[1:],solutionairflowport[1:],solutionvipervizport[1:],solutionvipervizport[1:],
                               TMLCLIENTPORT[1:],TMLCLIENTPORT[1:],sname,sd,os.environ['GITUSERNAME'],
                               os.environ['GITREPOURL'],solutionexternalport[1:],chipmain,
@@ -5285,11 +5620,16 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
         else:
           doparse("/{}/docs/source/operating.rst".format(sname), ["--clientport--;Not Applicable"])
           dockerrun = ("docker run -d -p {}:{} -p {}:{} -p {}:{} \-\-env TSS=0 \-\-env SOLUTIONNAME={} \-\-env SOLUTIONDAG={} \-\-env GITUSERNAME={} " \
-                     "\-\-env GITPASSWORD=<Enter Github Password>  \-\-env GITREPOURL={} \-\-env SOLUTIONEXTERNALPORT={} " \
-                     "\-\-env READTHEDOCS=<Enter Readthedocs token> \-\-env CHIP={} \-\-env SOLUTIONAIRFLOWPORT={} " \
-                     " \-\-env SOLUTIONVIPERVIZPORT={} \-\-env DOCKERUSERNAME={} " \
-                     " \-\-env EXTERNALPORT={} \-\-env KAFKACLOUDUSERNAME={} \-\-env KAFKACLOUDPASSWORD=<Enter API secret> " \
-                     " \-\-env VIPERVIZPORT={} \-\-env MQTTUSERNAME={} \-\-env MQTTPASSWORD=<Enter mqtt password>  \-\-env AIRFLOWPORT={} {}".format(solutionexternalport[1:],solutionexternalport[1:],
+                     " \-\-env GITREPOURL={} \-\-env SOLUTIONEXTERNALPORT={} " \
+                     " \-\-env CHIP={} \-\-env SOLUTIONAIRFLOWPORT={} " \
+                     " \-\-env SOLUTIONVIPERVIZPORT={} \-\-env DOCKERUSERNAME='{}' " \
+                     " \-\-env EXTERNALPORT={} \-\-env KAFKACLOUDUSERNAME='{}' " \
+                     " \-\-env VIPERVIZPORT={} \-\-env MQTTUSERNAME='{}' \-\-env AIRFLOWPORT={} " \
+                     " \-\-env MQTTPASSWORD='<Enter mqtt password>' " \
+                     " \-\-env KAFKACLOUDPASSWORD='<Enter API secret>' " \
+                     " \-\-env GITPASSWORD='<Enter Github Password>' " \
+                     " \-\-env READTHEDOCS='<Enter Readthedocs token>' " \
+                     " {}".format(solutionexternalport[1:],solutionexternalport[1:],
                               solutionairflowport[1:],solutionairflowport[1:],solutionvipervizport[1:],solutionvipervizport[1:],
                               sname,sd,os.environ['GITUSERNAME'],
                               os.environ['GITREPOURL'],solutionexternalport[1:],chipmain,
@@ -5298,19 +5638,38 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
             
        # dockerrun = re.escape(dockerrun) 
         v=subprocess.call(["sed", "-i", "-e",  "s/--dockerrun--/{}/g".format(dockerrun), "/{}/docs/source/operating.rst".format(sname)])
-       
-    
+        
         doparse("/{}/docs/source/operating.rst".format(sname), ["--dockerrun--;{}".format(dockerrun),"--dockercontainer--;{} ({})".format(containername, hurl)])
         doparse("/{}/docs/source/details.rst".format(sname), ["--dockerrun--;{}".format(dockerrun),"--dockercontainer--;{} ({})".format(containername, hurl)])
         
-        privategptcontainer = "https://hub.docker.com/r/maadsdocker/tml-privategpt-with-gpu-nvidia-amd64"
-        privategptrun = "docker run -d -p 8001:8001 --gpus all --net=host --env PORT=8001 --env GPU=1 --env WEB_CONCURRENCY=1 --env COLLECTION=tml-cisco --env CUDA_VISIBLE_DEVICES=0 maadsdocker/tml-privategpt-with-gpu-nvidia-amd64"
-        doparse("/{}/docs/source/details.rst".format(sname), ["--privategptcontainer--;{}".format(privategptcontainer),"--privategptrun--;{}".format(privategptrun)])
+        
+        privategptrun = "docker run -d -p {}:{} --net=host --gpus all --env PORT={} --env GPU=1 --env COLLECTION={} --env WEB_CONCURRENCY={} --env CUDA_VISIBLE_DEVICES={} {}".format(pgptport[1:],pgptport[1:],pgptport[1:],pcollection,pconcurrency[1:],pcuda[1:],pgptcontainername)
+        
+        doparse("/{}/docs/source/details.rst".format(sname), ["--pgptcontainername--;{}".format(pgptcontainername),"--privategptrun--;{}".format(privategptrun)])
     
         qdrantcontainer = "qdrant/qdrant"
         qdrantrun = "docker run -d -p 6333:6333 -v $(pwd)/qdrant_storage:/qdrant/storage:z qdrant/qdrant"
         doparse("/{}/docs/source/details.rst".format(sname), ["--qdrantcontainer--;{}".format(qdrantcontainer),"--qdrantrun--;{}".format(qdrantrun)])
     
+        doparse("/{}/docs/source/details.rst".format(sname), ["--consumefrom--;{}".format(pconsumefrom)])
+        doparse("/{}/docs/source/details.rst".format(sname), ["--pgpt_data_topic--;{}".format(pgpt_data_topic)])
+        doparse("/{}/docs/source/details.rst".format(sname), ["--vectordbcollectionname--;{}".format(pcollection)])
+        doparse("/{}/docs/source/details.rst".format(sname), ["--offset--;{}".format(poffset[1:])])
+        doparse("/{}/docs/source/details.rst".format(sname), ["--rollbackoffset--;{}".format(prollbackoffset[1:])])
+        doparse("/{}/docs/source/details.rst".format(sname), ["--topicid--;{}".format(ptopicid[1:])])
+        doparse("/{}/docs/source/details.rst".format(sname), ["--enabletls--;{}".format(penabletls[1:])])
+        doparse("/{}/docs/source/details.rst".format(sname), ["--partition--;{}".format(ppartition[1:])])
+        doparse("/{}/docs/source/details.rst".format(sname), ["--prompt--;{}".format(pprompt)])
+        doparse("/{}/docs/source/details.rst".format(sname), ["--context--;{}".format(pcontext)])
+        doparse("/{}/docs/source/details.rst".format(sname), ["--jsonkeytogather--;{}".format(pjsonkeytogather)])
+        doparse("/{}/docs/source/details.rst".format(sname), ["--keyattribute--;{}".format(pkeyattribute)])
+        doparse("/{}/docs/source/details.rst".format(sname), ["--concurrency--;{}".format(pconcurrency[1:])])
+        doparse("/{}/docs/source/details.rst".format(sname), ["--cuda--;{}".format(pcuda[1:])])
+        doparse("/{}/docs/source/details.rst".format(sname), ["--pgpthost--;{}".format(pgpthost)])
+        doparse("/{}/docs/source/details.rst".format(sname), ["--pgptport--;{}".format(pgptport[1:])])
+        doparse("/{}/docs/source/details.rst".format(sname), ["--keyprocesstype--;{}".format(pkeyprocesstype)])
+        
+        
         rbuf = "https://{}.readthedocs.io".format(sname)
         doparse("/{}/docs/source/details.rst".format(sname), ["--readthedocs--;{}".format(rbuf)])
         
@@ -5349,17 +5708,17 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
                         " -v /var/run/docker.sock:/var/run/docker.sock:z " \
                         " \-\-env GITREPOURL={} " \
                         " \-\-env CHIP={} \-\-env TSS=1 \-\-env SOLUTIONNAME=TSS " \
-                        " \-\-env READTHEDOCS=<Enter your readthedocs token> " \
                         " \-\-env EXTERNALPORT={} " \
                         " \-\-env VIPERVIZPORT={} " \
-                        " \-\-env GITUSERNAME={} " \
-                        " \-\-env GITPASSWORD=<Enter personal access token> " \
-                        " \-\-env DOCKERUSERNAME={} " \
-                        " \-\-env DOCKERPASSWORD=<Enter your docker hub password> " \
-                        " \-\-env MQTTUSERNAME={} " \
-                        " \-\-env MQTTPASSWORD=<Enter your mqtt password> " \
-                        " \-\-env KAFKACLOUDUSERNAME={} " \
-                        " \-\-env KAFKACLOUDPASSWORD=<Enter your API secret> " \
+                        " \-\-env GITUSERNAME='{}' " \
+                        " \-\-env DOCKERUSERNAME='{}' " \
+                        " \-\-env MQTTUSERNAME='{}' " \
+                        " \-\-env KAFKACLOUDUSERNAME='{}' " \
+                        " \-\-env KAFKACLOUDPASSWORD='<Enter your API secret>' " \
+                        " \-\-env READTHEDOCS='<Enter your readthedocs token>' " \
+                        " \-\-env GITPASSWORD='<Enter personal access token>' " \
+                        " \-\-env DOCKERPASSWORD='<Enter your docker hub password>' " \
+                        " \-\-env MQTTPASSWORD='<Enter your mqtt password>' " \
                         " maadsdocker/tml-solution-studio-with-airflow-{}".format(airflowport[1:],os.environ['GITREPOURL'],
                                 chip,externalport[1:],vipervizport[1:],
                                 os.environ['GITUSERNAME'],os.environ['DOCKERUSERNAME'],mqttusername,kafkacloudusername,chip))
@@ -5370,6 +5729,8 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
         producingport = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_SOLUTIONEXTERNALPORT".format(sname))
         preprocesshost = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_VIPERHOSTPREPROCESS".format(sname))
         preprocessport = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_VIPERPORTPREPROCESS".format(sname))
+        preprocesshost2 = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_VIPERHOSTPREPROCESS2".format(sname))
+        preprocessport2 = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_VIPERPORTPREPROCESS2".format(sname))
     
         preprocesshostpgpt = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_VIPERHOSTPREPROCESSPGPT".format(sname))
         preprocessportpgpt = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_VIPERPORTPREPROCESSPGPT".format(sname))
@@ -5387,11 +5748,13 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
             
         tmlbinaries = ("VIPERHOST_PRODUCE={}, VIPERPORT_PRODUCE={}, "
                            "VIPERHOST_PREPOCESS={}, VIPERPORT_PREPROCESS={}, "
+                           "VIPERHOST_PREPOCESS2={}, VIPERPORT_PREPROCESS2={}, "                   
                            "VIPERHOST_PREPOCESS_PGPT={}, VIPERPORT_PREPROCESS_PGPT={}, "                   
                            "VIPERHOST_ML={}, VIPERPORT_ML={}, "
                            "VIPERHOST_PREDCT={}, VIPERPORT_PREDICT={}, "
                            "HPDEHOST={}, HPDEPORT={}, "
                            "HPDEHOST_PREDICT={}, HPDEPORT_PREDICT={}".format(producinghost,producingport[1:],preprocesshost,preprocessport[1:],
+                                                                                preprocesshost2,preprocessport2[1:],
                                                                                  preprocesshostpgpt,preprocessportpgpt[1:],
                                                                                   mlhost,mlport[1:],predictionhost,predictionport[1:],
                                                                                   hpdehost,hpdeport[1:],hpdepredicthost,hpdepredictport[1:] ))
