@@ -5277,7 +5277,7 @@ Consider the following JSON. This JSON is the output from :ref:`STEP 4: Preproce
 .. tip::
    You can separate multiple **keyattribute**, and **keyprocesstype** with a comma.
 
-   This way of using processing data and using privateGPR to further analyse processed data offers a tremendously powerful way to leverag GenAI technology with real-time data streams and no cost - since all API calls are done to the privateGPT container that is running locally.  Also, no data are sent outside your environment, this further makes this solution very secure giving you 100% data control. 
+   This way of using processed data with privateGPT for further analysis, offers a tremendously powerful way to leverage GenAI technology with real-time data streams at no cost: since all API calls are done to the privateGPT container that is running locally.  Also, no data are sent outside your environment, this further makes this solution very secure giving you 100% data control. 
 
 .. code-block:: JSON
       
