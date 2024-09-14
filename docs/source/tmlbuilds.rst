@@ -5192,6 +5192,72 @@ STEP 9: PrivateGPT and Qdrant Integration: tml-system-step-9-privategpt_qdrant-d
               tsslogging.git_push("/{}".format(repo),"Entry from {}".format(os.path.basename(__file__)),"origin")
               break
 
+STEP 9 DAG Core Parameter Explanation
+"""""""""""""""""""""""""""""""""""""
+
+.. list-table::
+
+   * - **Step 9 DAG parameter**
+     - **Explanation**
+   * - pgptcontainername
+     - Enter the privateGPT container to use.  For example:
+
+       - maadsdocker/tml-privategpt-with-gpu-nvidia-amd64
+
+       - maadsdocker/tml-privategpt-no-gpu-amd64
+
+       Containers can be found in `Docker Hub under MAADSDOCKER account name <https://hub.docker.com/r/maadsdocker>`_
+   * - rollbackoffset
+     - Choose rollback offset 
+   * - offset
+     - Choose offset - usually leave at -1
+   * - enabletls
+     - Set to 1 for TLS encryption, or 0 no encryption.
+   * - consumefrom
+     - Enter the topic to consume from
+   * - pgpt_data_topic
+     - This is the topic that will store the privateGPT responses.
+   * - pgpthost
+     - This is the host where privateGPT is running i.e. http://127.0.0.1
+   * - pgptport
+     - This is the port provateGPT is listening on i.e. 8001
+   * - prompt
+     - This the prompt for privateGPT. For example, 
+  
+       Do the device data show any malfunction or defects?
+   * - context
+     - Provide the context for the data. For example, 
+
+       This is IoT data from devices. The data are anomaly probabilities 
+
+       for each IoT device. If voltage or current probabilities are low, 
+
+       it is likely the device is not working properly.
+   * - jsonkeytogather
+     - This is the JSON key to use to gather the data for privateGPT.
+
+       Normally, you two options:
+  
+       1. **hyperprediction**: TML will store predictions and other outcomes 
+
+          in this variable.
+
+       2. **Identifier**: TML will store additional output details here.
+   * - keyattribute
+     - This is the attiribute you are analysing with TML i.e. Voltage,current
+   * - keyprocesstype
+     - This is the type of processing you are doing on the keyattribute 
+
+       i.e. anomprob, avg, trend etc.  See :ref:`Preprocessing Types` for 
+
+       a complete list. 
+   * - vectordbcollectionname
+     - This is the name of the collection on Qdrant Vector DB
+   * - concurrency
+     - The number of instances of privateGPT to run i.e. 2
+   * - CUDA_VISIBLE_DEVICES
+     - If you have NVIDIA GPU enter the location here i.e. 0
+
 STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
