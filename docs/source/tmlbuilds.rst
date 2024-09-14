@@ -3404,6 +3404,7 @@ Another powerful feature of TML is performing machine learning at the entity lev
     import os
     import subprocess
     import time
+    import random
     
     sys.dont_write_bytecode = True
     ######################################## USER CHOOSEN PARAMETERS ########################################
@@ -3412,7 +3413,7 @@ Another powerful feature of TML is performing machine learning at the entity lev
       'enabletls': '1',   # <<< *** 1=connection is encrypted, 0=no encryption
       'microserviceid' : '', # <<< *** leave blank
       'producerid' : 'iotsolution',    # <<< *** Change as needed   
-      'preprocess_data_topic' : 'iot-preprocess-data', # << *** topic/data to use for training datasets - You created this in STEP 2
+      'preprocess_data_topic' : 'iot-preprocess', # << *** topic/data to use for training datasets - You created this in STEP 2
       'ml_data_topic' : 'ml-data', # topic to store the trained algorithms  - You created this in STEP 2
       'identifier' : 'TML solution',    # <<< *** Change as needed   
       'companyname' : 'Your company', # <<< *** Change as needed      
@@ -3440,6 +3441,8 @@ Another powerful feature of TML is performing machine learning at the entity lev
       'sendcoefto' : '',  # you can send coefficients to another topic for further processing -- MUST BE SET IN STEP 2
       'coeftoprocess' : '', # indicate the index of the coefficients to process i.e. 0,1,2 For example, for a 3 estimated parameters 0=constant, 1,2 are the other estmated paramters
       'coefsubtopicnames' : '',  # Give the coefficients a name: constant,elasticity,elasticity2    
+      'viperconfigfile' : '/Viper-ml/viper.env', # Do not modify
+      'HPDEADDR' : 'http://'
     }
     
     ######################################## DO NOT MODIFY BELOW #############################################
@@ -3462,8 +3465,8 @@ Another powerful feature of TML is performing machine learning at the entity lev
     mainproducerid = default_args['producerid']                     
             
     def performSupervisedMachineLearning():
-          
-            
+                
+          viperconfigfile = default_args['viperconfigfile']
           # Set personal data
           companyname=default_args['companyname']
           myname=default_args['myname']
@@ -3514,7 +3517,7 @@ Another powerful feature of TML is performing machine learning at the entity lev
           producerid=default_args['producerid']
           consumefrom=default_args['consumefrom']
     
-          topicid=int(default_args['mylocation'])      
+          topicid=int(default_args['topicid'])      
           fullpathtotrainingdata=default_args['fullpathtotrainingdata']
     
          # These are the conditions that sets the dependent variable to a 1 - if condition not met it will be 0
@@ -3556,29 +3559,31 @@ Another powerful feature of TML is performing machine learning at the entity lev
            VIPERHOST = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_VIPERHOSTML".format(sname))
            VIPERPORT = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_VIPERPORTML".format(sname))
            HTTPADDR = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_HTTPADDR".format(sname))
+           HPDEADDR = default_args['HPDEADDR']
         
-           HPDEHOST = ti.xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_HPDEHOST".format(sname))
-           HPDEPORT = ti.xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_HPDEPORT".format(sname))
+           HPDEHOST = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_HPDEHOST".format(sname))
+           HPDEPORT = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_HPDEPORT".format(sname))
            chip = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_chip".format(sname)) 
             
            ti = context['task_instance']
-           ti.xcom_push(key="{}_preprocess_data_topic".format(sname), value=preprocess_data_topic)
-           ti.xcom_push(key="{}_ml_data_topic".format(sname), value=ml_data_topic)
-           ti.xcom_push(key="{}_modelruns".format(sname), value="_{}".format(modelruns))
-           ti.xcom_push(key="{}_offset".format(sname), value="_{}".format(offset))
-           ti.xcom_push(key="{}_islogistic".format(sname), value="_{}".format(islogistic))
-           ti.xcom_push(key="{}_networktimeout".format(sname), value="_{}".format(networktimeout))
-           ti.xcom_push(key="{}_modelsearchtuner".format(sname), value="_{}".format(modelsearchtuner))
-           ti.xcom_push(key="{}_dependentvariable".format(sname), value=dependentvariable)
-           ti.xcom_push(key="{}_independentvariables".format(sname), value=independentvariables)
-           ti.xcom_push(key="{}_rollbackoffsets".format(sname), value="_{}".format(rollbackoffsets))
-           ti.xcom_push(key="{}_topicid".format(sname), value="_{}".format(topicid))
-           ti.xcom_push(key="{}_consumefrom".format(sname), value=consumefrom)
-           ti.xcom_push(key="{}_fullpathtotrainingdata".format(sname), value=fullpathtotrainingdata)
-           ti.xcom_push(key="{}_transformtype".format(sname), value=transformtype)
-           ti.xcom_push(key="{}_sendcoefto".format(sname), value=sendcoefto)
-           ti.xcom_push(key="{}_coeftoprocess".format(sname), value=coeftoprocess)
-           ti.xcom_push(key="{}_coefsubtopicnames".format(sname), value=coefsubtopicnames)
+           ti.xcom_push(key="{}_preprocess_data_topic".format(sname), value=default_args['preprocess_data_topic'])
+           ti.xcom_push(key="{}_ml_data_topic".format(sname), value=default_args['ml_data_topic'])
+           ti.xcom_push(key="{}_modelruns".format(sname), value="_{}".format(default_args['modelruns']))
+           ti.xcom_push(key="{}_offset".format(sname), value="_{}".format(default_args['offset']))
+           ti.xcom_push(key="{}_islogistic".format(sname), value="_{}".format(default_args['islogistic']))
+           ti.xcom_push(key="{}_networktimeout".format(sname), value="_{}".format(default_args['networktimeout']))
+           ti.xcom_push(key="{}_modelsearchtuner".format(sname), value="_{}".format(default_args['modelsearchtuner']))
+           ti.xcom_push(key="{}_dependentvariable".format(sname), value=default_args['dependentvariable'])
+           ti.xcom_push(key="{}_independentvariables".format(sname), value=default_args['independentvariables'])
+           ti.xcom_push(key="{}_rollbackoffsets".format(sname), value="_{}".format(default_args['rollbackoffsets']))
+           ti.xcom_push(key="{}_topicid".format(sname), value="_{}".format(default_args['topicid']))
+           ti.xcom_push(key="{}_consumefrom".format(sname), value=default_args['consumefrom'])
+           ti.xcom_push(key="{}_fullpathtotrainingdata".format(sname), value=default_args['fullpathtotrainingdata'])
+           ti.xcom_push(key="{}_transformtype".format(sname), value=default_args['transformtype'])
+           ti.xcom_push(key="{}_sendcoefto".format(sname), value=default_args['sendcoefto'])
+           ti.xcom_push(key="{}_coeftoprocess".format(sname), value=default_args['coeftoprocess'])
+           ti.xcom_push(key="{}_coefsubtopicnames".format(sname), value=default_args['coefsubtopicnames'])
+           ti.xcom_push(key="{}_HPDEADDR".format(sname), value=HPDEADDR)
     
            repo=tsslogging.getrepo() 
            if sname != '_mysolution_':
@@ -3589,7 +3594,7 @@ Another powerful feature of TML is performing machine learning at the entity lev
            wn = windowname('ml',sname,sd)     
            subprocess.run(["tmux", "new", "-d", "-s", "{}".format(wn)])
            subprocess.run(["tmux", "send-keys", "-t", "{}".format(wn), "cd /Viper-ml", "ENTER"])
-           subprocess.run(["tmux", "send-keys", "-t", "{}".format(wn), "python {} 1 {} {}{} {} {} {}".format(fullpath,VIPERTOKEN, HTTPADDR, VIPERHOST, VIPERPORT[1:], HPDEHOST, HPDEPORT[1:]), "ENTER"])        
+           subprocess.run(["tmux", "send-keys", "-t", "{}".format(wn), "python {} 1 {} {}{} {} {}{} {}".format(fullpath,VIPERTOKEN, HTTPADDR, VIPERHOST, VIPERPORT[1:], HPDEADDR, HPDEHOST, HPDEPORT[1:]), "ENTER"])        
     
     if __name__ == '__main__':
         if len(sys.argv) > 1:
@@ -3607,8 +3612,9 @@ Another powerful feature of TML is performing machine learning at the entity lev
             VIPERHOST = sys.argv[3]
             VIPERPORT = sys.argv[4]
             HPDEHOST = sys.argv[5]
-            HPDEPORT = sys.argv[6]        
-      
+            HPDEPORT = sys.argv[6]
+            
+        
             while True:
              try:     
               performSupervisedMachineLearning()
@@ -4063,6 +4069,8 @@ STEP 6: Entity Based Predictions: tml-system-step-6-kafka-predictions-dag
     import tsslogging
     import os
     import subprocess
+    import random
+    import time
     
     sys.dont_write_bytecode = True
     ######################################## USER CHOOSEN PARAMETERS ########################################
@@ -4093,7 +4101,8 @@ STEP 6: Entity Based Predictions: tml-system-step-6-kafka-predictions-dag
       'groupid' : '',  # << leave blank
       'topicid' : '-1',   # << leave as is
       'pathtoalgos' : '', # << this is specified in fullpathtotrainingdata in STEP 5
-      'array' : '0', # 0=do not save as array, 1=save as array    
+      'array' : '0', # 0=do not save as array, 1=save as array   
+      'HPDEADDR' : 'http://' # Do not modify
     }
     ######################################## DO NOT MODIFY BELOW #############################################
     
@@ -4107,8 +4116,8 @@ STEP 6: Entity Based Predictions: tml-system-step-6-kafka-predictions-dag
     VIPERTOKEN=""
     VIPERHOST=""
     VIPERPORT=""
-    HPDEHOST=''
-    HPDEPORT=''
+    HPDEHOSTPREDICT=''
+    HPDEPORTPREDICT=''
     HTTPADDR=""    
     
     # Set Global variable for Viper confifuration file - change the folder path for your computer
@@ -4175,11 +4184,12 @@ STEP 6: Entity Based Predictions: tml-system-step-6-kafka-predictions-dag
           # Path where the trained algorithms are stored in the machine learning python file
           pathtoalgos=default_args['pathtoalgos'] #'/Viper-tml/viperlogs/iotlogistic'
           array=int(default_args['array'])
-              
-          result6=maadstml.viperhpdepredict(VIPERTOKEN,VIPERHOST,VIPERPORT,consumefrom,producetotopic,
+          ml_prediction_topic = default_args['ml_prediction_topic']    
+        
+          result6=maadstml.viperhpdepredict(VIPERTOKEN,VIPERHOST,VIPERPORT,consumefrom,ml_prediction_topic,
                                          companyname,consumeridtraininedparams,
-                                         produceridhyperprediction, HPDEHOST,inputdata,maxrows,mainalgokey,
-                                         -1,offset,enabletls,delay,HPDEPORT,
+                                         produceridhyperprediction, HPDEHOSTPREDICT,inputdata,maxrows,mainalgokey,
+                                         -1,offset,enabletls,delay,HPDEPORTPREDICT,
                                          brokerhost,brokerport,networktimeout,usedeploy,microserviceid,
                                          topicid,maintopic,streamstojoin,array,pathtoalgos)
     
@@ -4202,6 +4212,7 @@ STEP 6: Entity Based Predictions: tml-system-step-6-kafka-predictions-dag
            VIPERHOST = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_VIPERHOSTPREDICT".format(sname))
            VIPERPORT = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_VIPERPORTPREDICT".format(sname))
            HTTPADDR = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_HTTPADDR".format(sname))
+           HPDEADDR = default_args['HPDEADDR']
     
            HPDEHOSTPREDICT = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_HPDEHOSTPREDICT".format(sname))
            HPDEPORTPREDICT = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_HPDEPORTPREDICT".format(sname))
@@ -4220,6 +4231,7 @@ STEP 6: Entity Based Predictions: tml-system-step-6-kafka-predictions-dag
            ti.xcom_push(key="{}_maxrows".format(sname),value="_{}".format(default_args['maxrows']))
            ti.xcom_push(key="{}_topicid".format(sname),value="_{}".format(default_args['topicid']))
            ti.xcom_push(key="{}_pathtoalgos".format(sname),value=default_args['pathtoalgos'])
+           ti.xcom_push(key="{}_HPDEADDR".format(sname), value=HPDEADDR)
         
            repo=tsslogging.getrepo() 
            if sname != '_mysolution_':
@@ -4230,7 +4242,7 @@ STEP 6: Entity Based Predictions: tml-system-step-6-kafka-predictions-dag
            wn = windowname('predict',sname,sd)     
            subprocess.run(["tmux", "new", "-d", "-s", "{}".format(wn)])
            subprocess.run(["tmux", "send-keys", "-t", "{}".format(wn), "cd /Viper-predict", "ENTER"])
-           subprocess.run(["tmux", "send-keys", "-t", "{}".format(wn), "python {} 1 {} {}{} {} {} {}".format(fullpath,VIPERTOKEN,HTTPADDR,VIPERHOST,VIPERPORT[1:],HPDEHOSTPREDICT,HPDEPORTPREDICT[1:]), "ENTER"])        
+           subprocess.run(["tmux", "send-keys", "-t", "{}".format(wn), "python {} 1 {} {}{} {} {}{} {}".format(fullpath,VIPERTOKEN,HTTPADDR,VIPERHOST,VIPERPORT[1:],HPDEADDR,HPDEHOSTPREDICT,HPDEPORTPREDICT[1:]), "ENTER"])        
     
     if __name__ == '__main__':
         if len(sys.argv) > 1:
@@ -4619,7 +4631,8 @@ and :ref:`Machine Learning Trained Model Sample JSON Output`.
     sys.dont_write_bytecode = True
     ######################################## USER CHOOSEN PARAMETERS ########################################
     default_args = {
-      'topic' : 'iot-preprocess-data',    # <<< *** Separate multiple topics by a comma - Viperviz will stream data from these topics to your browser
+      'topic' : 'iot-preprocess,iot-preprocess2',    # <<< *** Separate multiple topics by a comma - Viperviz will stream data from these topics to your browser
+      'dashboardhtml': 'dashboard.html', # <<< *** name of your dashboard html file  try: iot-failure-seneca.html
       'secure': '1',   # <<< *** 1=connection is encrypted, 0=no encryption
       'offset' : '-1',    # <<< *** -1 indicates to read from the last offset always
       'append' : '0',   # << ** Do not append new data in the browser
@@ -4665,9 +4678,11 @@ and :ref:`Machine Learning Trained Model Sample JSON Output`.
             offset = default_args['offset']
             append = default_args['append']
             rollbackoffset = default_args['rollbackoffset']
+            dashboardhtml = default_args['dashboardhtml']
                     
             ti = context['task_instance']
             ti.xcom_push(key="{}_topic".format(sname),value=topic)
+            ti.xcom_push(key="{}_dashboardhtml".format(sname),value=dashboardhtml)        
             ti.xcom_push(key="{}_secure".format(sname),value="_{}".format(secure))
             ti.xcom_push(key="{}_offset".format(sname),value="_{}".format(offset))
             ti.xcom_push(key="{}_append".format(sname),value="_{}".format(append))
@@ -4680,7 +4695,7 @@ and :ref:`Machine Learning Trained Model Sample JSON Output`.
             subprocess.run(["tmux", "new", "-d", "-s", "{}".format(wn)])
             subprocess.run(["tmux", "send-keys", "-t", "{}".format(wn), "cd /Viperviz", "ENTER"])
             if tss[1:] == "1":
-              subprocess.run(["tmux", "send-keys", "-t", "{}".format(wn), "/Viperviz/viperviz-linux-{} 0.0.0.0 {}".format(chip,vipervizport[1:]), "ENTER"])           
+              subprocess.run(["tmux", "send-keys", "-t", "{}".format(wn), "/Viperviz/viperviz-linux-{} 0.0.0.0 {}".format(chip,vipervizport[1:]), "ENTER"])            
             else:    
               subprocess.run(["tmux", "send-keys", "-t", "{}".format(wn), "/Viperviz/viperviz-linux-{} 0.0.0.0 {}".format(chip,solutionvipervizport[1:]), "ENTER"])
 
@@ -4743,82 +4758,87 @@ STEP 8: Deploy TML Solution to Docker : tml-system-step-8-deploy-solution-to-doc
 
 .. code-block:: PYTHON
 
-    from airflow import DAG
-    from airflow.operators.python import PythonOperator
-    from airflow.operators.bash import BashOperator
-    from datetime import datetime
-    from airflow.decorators import dag, task
-    import os 
-    import subprocess
-    import tsslogging
-    import git
-    import sys
-    sys.dont_write_bytecode = True
-    ############################################################### DO NOT MODIFY BELOW ####################################################
-    # Instantiate your DAG
-    @dag(dag_id="tml_system_step_8_deploy_solution_to_docker_dag", tags=["tml_system_step_8_deploy_solution_to_docker_dag"], schedule=None,  catchup=False)
-    def starttmldeploymentprocess():
-        # Define tasks
-        def empty():
-            pass
-    dag = starttmldeploymentprocess()
-    def doparse(fname,farr):
-          data = ''
-          with open(fname, 'r', encoding='utf-8') as file: 
-            data = file.readlines() 
-            r=0
-            for d in data:        
-                for f in farr:
-                    fs = f.split(";")
-                    if fs[0] in d:
-                        data[r] = d.replace(fs[0],fs[1])
-                r += 1  
-          with open(fname, 'w', encoding='utf-8') as file: 
-            file.writelines(data)
-            
-    def dockerit(**context):
-         if 'tssbuild' in os.environ:
-            if os.environ['tssbuild']=="1":
-                return        
-         try:
+from airflow import DAG
+from airflow.operators.python import PythonOperator
+from airflow.operators.bash import BashOperator
+from datetime import datetime
+from airflow.decorators import dag, task
+import os 
+import subprocess
+import tsslogging
+import git
+
+import sys
+
+sys.dont_write_bytecode = True
+
+############################################################### DO NOT MODIFY BELOW ####################################################
+# Instantiate your DAG
+@dag(dag_id="tml_system_step_8_deploy_solution_to_docker_dag", tags=["tml_system_step_8_deploy_solution_to_docker_dag"], schedule=None,  catchup=False)
+def starttmldeploymentprocess():
+    # Define tasks
+    def empty():
+        pass
+dag = starttmldeploymentprocess()
     
-           sd = context['dag'].dag_id
-           sname=context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_solutionname".format(sd))
-            
-           repo=tsslogging.getrepo()    
-           tsslogging.tsslogit("Docker DAG in {}".format(os.path.basename(__file__)), "INFO" )                     
-           tsslogging.git_push("/{}".format(repo),"Entry from {}".format(os.path.basename(__file__)),"origin")            
-           
-           chip = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_chip".format(sname))         
-           cname = os.environ['DOCKERUSERNAME']  + "/{}-{}".format(sname,chip)          
-          
-           print("Containername=",cname)
-            
-           ti = context['task_instance']
-           ti.xcom_push(key="{}_containername".format(sname),value=cname)
-           ti.xcom_push(key="{}_solution_dag_to_trigger".format(sname), value=sd)
-            
-           scid = tsslogging.getrepo('/tmux/cidname.txt')
-           cid = os.environ['SCID']
+
+def doparse(fname,farr):
+      data = ''
+      with open(fname, 'r', encoding='utf-8') as file: 
+        data = file.readlines() 
+        r=0
+        for d in data:        
+            for f in farr:
+                fs = f.split(";")
+                if fs[0] in d:
+                    data[r] = d.replace(fs[0],fs[1])
+            r += 1  
+      with open(fname, 'w', encoding='utf-8') as file: 
+        file.writelines(data)
+        
+def dockerit(**context):
+     if 'tssbuild' in os.environ:
+        if os.environ['tssbuild']=="1":
+            return        
+     try:
+
+       sd = context['dag'].dag_id
+       sname=context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_solutionname".format(sd))
+        
+       repo=tsslogging.getrepo()    
+       tsslogging.tsslogit("Docker DAG in {}".format(os.path.basename(__file__)), "INFO" )                     
+       tsslogging.git_push("/{}".format(repo),"Entry from {}".format(os.path.basename(__file__)),"origin")            
+       
+       chip = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_chip".format(sname))         
+       cname = os.environ['DOCKERUSERNAME']  + "/{}-{}".format(sname,chip)          
       
-           key = "trigger-{}".format(sname)
-           os.environ[key] = sd
-           if os.environ['TSS'] == "1": 
-             v=subprocess.call("docker commit {} {}".format(cid,cname), shell=True)
-             print("[INFO] docker commit {} {} - message={}".format(cid,cname,v))  
-             subprocess.call("docker rmi -f $(docker images --filter 'dangling=true' -q --no-trunc)", shell=True)
+       print("Containername=",cname)
         
-             v=subprocess.call("docker push {}".format(cname), shell=True)  
-             print("[INFO] docker push {} - message={}".format(cname,v))  
-           os.environ['tssbuild']="1"
+       ti = context['task_instance']
+       ti.xcom_push(key="{}_containername".format(sname),value=cname)
+       ti.xcom_push(key="{}_solution_dag_to_trigger".format(sname), value=sd)
         
-           doparse("/{}/tml-airflow/dags/tml-solutions/{}/docker_run_stop-{}.py".format(repo,sname,sname), ["--solution-name--;{}".format(sname)])
-           doparse("/{}/tml-airflow/dags/tml-solutions/{}/docker_run_stop-{}.py".format(repo,sname,sname), ["--solution-dag--;{}".format(sd)])
-        
-         except Exception as e:
-            print("[ERROR] Step 8: ",e)
-            tsslogging.tsslogit("Deploying to Docker in {}: {}".format(os.path.basename(__file__),e), "ERROR" )             
-            tsslogging.git_push("/{}".format(repo),"Entry from {}".format(os.path.basename(__file__)),"origin")
+       scid = tsslogging.getrepo('/tmux/cidname.txt')
+       cid = os.environ['SCID']
+  
+       key = "trigger-{}".format(sname)
+       os.environ[key] = sd
+       if os.environ['TSS'] == "1": 
+         v=subprocess.call("docker commit {} {}".format(cid,cname), shell=True)
+         print("[INFO] docker commit {} {} - message={}".format(cid,cname,v))  
+         subprocess.call("docker rmi -f $(docker images --filter 'dangling=true' -q --no-trunc)", shell=True)
+    
+         v=subprocess.call("docker push {}".format(cname), shell=True)  
+         print("[INFO] docker push {} - message={}".format(cname,v))  
+       os.environ['tssbuild']="1"
+    
+       doparse("/{}/tml-airflow/dags/tml-solutions/{}/docker_run_stop-{}.py".format(repo,sname,sname), ["--solution-name--;{}".format(sname)])
+       doparse("/{}/tml-airflow/dags/tml-solutions/{}/docker_run_stop-{}.py".format(repo,sname,sname), ["--solution-dag--;{}".format(sd)])
+    
+     except Exception as e:
+        print("[ERROR] Step 8: ",e)
+        tsslogging.tsslogit("Deploying to Docker in {}: {}".format(os.path.basename(__file__),e), "ERROR" )             
+        tsslogging.git_push("/{}".format(repo),"Entry from {}".format(os.path.basename(__file__)),"origin")
    
 STEP 9: PrivateGPT and Qdrant Integration: tml-system-step-9-privategpt_qdrant-dag
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -5109,6 +5129,7 @@ STEP 9: PrivateGPT and Qdrant Integration: tml-system-step-9-privategpt_qdrant-d
            ti.xcom_push(key="{}_jsonkeytogather".format(sname), value=default_args['jsonkeytogather'])
            ti.xcom_push(key="{}_keyattribute".format(sname), value=default_args['keyattribute'])
            ti.xcom_push(key="{}_keyprocesstype".format(sname), value=default_args['keyprocesstype'])
+            
            ti.xcom_push(key="{}_vectordbcollectionname".format(sname), value=default_args['vectordbcollectionname'])
     
            ti.xcom_push(key="{}_concurrency".format(sname), value="_{}".format(default_args['concurrency']))
