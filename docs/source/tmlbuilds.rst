@@ -233,6 +233,13 @@ DAG Table
        the real-time data.  There are over 
 
        35 different preprocessing types in TML. 
+   * - :ref:`STEP 4b: Preprocesing 2 Data: tml-system-step-4b-kafka-preprocess-dag`
+        
+       Description: This DAG perform entity level preprocessing on the featured
+
+       engineered variables in STEP 4. The processed variables are named
+
+       in a standard way following the procedure here :ref:`Preprocessed Variable Naming Standard`
    * - :ref:`STEP 5: Entity Based Machine Learning : tml-system-step-5-kafka-machine-learning-dag`
       
        **Description:** This DAG perform entity level machine 
