@@ -150,8 +150,8 @@ DAG Solution Process Explanation
     8. :ref:`STEP 8: Deploy TML Solution to Docker : tml-system-step-8-deploy-solution-to-docker-dag` - The TML docker container is automatically built for you and pushed to Docker Hub.  If you have 
        chosen to integrate GPT into you solution - you can initiate the PrivateGPT and Qdrant containers - the next DAG performs this function.
 
-    9. :ref:`STEP 9: PrivateGPT and Qdrant Integration: tml-system-step-9-privategpt_qdrant-dag` - The TML docker container is automatically built for you and pushed to Docker Hub.  Lastly, you can now 
-        automatically document the entire solution - the next DAG performs this function.
+    9. :ref:`STEP 9: PrivateGPT and Qdrant Integration: tml-system-step-9-privategpt_qdrant-dag` - This DAG integrates your real-time solution seamlessly with 
+       GenAI using the privateGPT container see :ref:`TML and Generative AI`.  
 
     10. :ref:`STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag`.  
 
@@ -264,9 +264,15 @@ DAG Table
        it to Dockerhub.
    * - :ref:`STEP 9: PrivateGPT and Qdrant Integration: tml-system-step-9-privategpt_qdrant-dag`
      
-       **Description:** This DAG configures your solution to 
+       **Description:** This DAG integrates your real-time solution seamlessly with 
 
-       access the privateGPT and Qdrant containers.
+       GenAI using the privateGPT container see :ref:`TML and Generative AI`.  
+
+       This is a very powerful, secure, and low-cost way of harnessing the power of 
+
+       AI for fast AI analysis of your streaming data.  No data is sent outside 
+
+       your network, the privateGPT container runs locally.
    * - :ref:`STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag`
       
        **Description:** This DAG will automatically create 
