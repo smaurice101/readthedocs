@@ -5263,22 +5263,6 @@ privateGPT Processing Explantion
 
 Consider the following JSON. This JSON is the output from :ref:`STEP 4: Preprocesing Data: tml-system-step-4-kafka-preprocess-dag`
 
-.. important::    
-   It is important to note the format of this JSON as follows.
-
-   1. **hyperprediction** - all TML output is stored in this variable.  This could be the name of the value of **jsonkeytogather**.  The Step 9 DAG, will gather all the data from this key and ask privateGPT the question in your **prompt**.
-
-   2. **Identifier** - Additional details are put in this key.  Specifically, the data used in the analysis is stored in the **RawData** JSON array, that can also be gathered and presented to privateGPT for prompting.
-
-   3. **keyattribute** is the variable you are processing.  This is seen in the **"Topic": "topicid155_Voltage_preprocessed_Avg"**, here TML is taking Average of voltage from the devices.   Clearly, you can specify any name for key attribute you are processing.
-
-   4. **keyprocesstype** is the type of processing you are doing, as listed in :ref:`Preprocessing Types`.  This is seen in the **"Preprocesstype": "Avg",**, here TML is taking Average of voltage from the devices.   Clearly, you can specify any name for key processing type from the processing types table.
-
-.. tip::
-   You can separate multiple **keyattribute**, and **keyprocesstype** with a comma.
-
-   This way of using processed data with privateGPT for further analysis, offers a tremendously powerful way to leverage GenAI technology with real-time data streams at no cost: since all API calls are done to the privateGPT container that is running locally.  Also, no data are sent outside your environment, this further makes this solution very secure giving you 100% data control. 
-
 .. code-block:: JSON
       
     		{
@@ -5327,7 +5311,21 @@ Consider the following JSON. This JSON is the output from :ref:`STEP 4: Preproce
     			"Partition": 0
     		}
 
+.. important::    
+   It is important to note the format of this JSON as follows.
 
+   1. **hyperprediction** - all TML output is stored in this variable.  This could be the name of the value of **jsonkeytogather**.  The Step 9 DAG, will gather all the data from this key and ask privateGPT the question in your **prompt**.
+
+   2. **Identifier** - Additional details are put in this key.  Specifically, the data used in the analysis is stored in the **RawData** JSON array, that can also be gathered and presented to privateGPT for prompting.
+
+   3. **keyattribute** is the variable you are processing.  This is seen in the **"Topic": "topicid155_Voltage_preprocessed_Avg"**, here TML is taking Average of voltage from the devices.   Clearly, you can specify any name for key attribute you are processing.
+
+   4. **keyprocesstype** is the type of processing you are doing, as listed in :ref:`Preprocessing Types`.  This is seen in the **"Preprocesstype": "Avg",**, here TML is taking Average of voltage from the devices.   Clearly, you can specify any name for key processing type from the processing types table.
+
+.. tip::
+   You can separate multiple **keyattribute**, and **keyprocesstype** with a comma.
+
+   This way of using processed data with privateGPT for further analysis, offers a tremendously powerful way to leverage GenAI technology with real-time data streams at no cost: since all API calls are done to the privateGPT container that is running locally.  Also, no data are sent outside your environment, this further makes this solution very secure giving you 100% data control. 
 
 STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
