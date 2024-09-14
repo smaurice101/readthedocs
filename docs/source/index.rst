@@ -1,4 +1,4 @@
-Welcome to Transactional Machine Learning (TML) Documentation!
+Welcome to Transactional Machine Learning (TML) and TML Solution Studio (TSS) Documentation!
 ===================================
 
 .. attention::
