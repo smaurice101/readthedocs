@@ -4834,6 +4834,7 @@ STEP 9: PrivateGPT and Qdrant Integration: tml-system-step-9-privategpt_qdrant-d
            ti.xcom_push(key="{}_context".format(sname), value=default_args['context'])
            ti.xcom_push(key="{}_jsonkeytogather".format(sname), value=default_args['jsonkeytogather'])
            ti.xcom_push(key="{}_keyattribute".format(sname), value=default_args['keyattribute'])
+           ti.xcom_push(key="{}_keyprocesstype".format(sname), value=default_args['keyprocesstype'])
            ti.xcom_push(key="{}_vectordbcollectionname".format(sname), value=default_args['vectordbcollectionname'])
     
            ti.xcom_push(key="{}_concurrency".format(sname), value="_{}".format(default_args['concurrency']))
