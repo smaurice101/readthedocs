@@ -5258,6 +5258,52 @@ STEP 9 DAG Core Parameter Explanation
    * - CUDA_VISIBLE_DEVICES
      - If you have NVIDIA GPU enter the location here i.e. 0
 
+privateGPT Processing Explantion
+"""""""""""""""""""""""""""""""""""
+
+.. code-block:: JSON
+  
+  		{
+  			"hyperprediction": "0.000",
+  			"Maintopic": "iot-preprocess",
+  			"Topic": "topicid153_EnergyUsed24hr_preprocessed_Avg",
+  			"Type": "External",
+  			"ProducerId": "customjson",
+  			"TimeStamp": "2024-09-13 17:04:36",
+  			"Unixtime": 1726247076204737538,
+  			"kafkakey": "OAA-jKOv7cqSgMO1mrMUJ76LP2d2Aiao7Y",
+  			"Preprocesstype": "Avg",
+  			"WindowStartTime": "2022-01-27 19:55:07 +0000 UTC",
+  			"WindowEndTime": "2022-01-27 19:55:08 +0000 UTC",
+  			"WindowStartUnixTime": "1643313307000000000",
+  			"WindowEndUnixTime": "1643313308000000000",
+  			"Conditions": "",
+  			"Identifier": "EnergyUsed24hr~Energy-Used-24hr-(mWh)~iot-preprocess~uid:metadata.dsn,subtopic:metadata.property_name (EnergyUsed24hr),value:datapoint.value,identifier:metadata.display_name,datetime:datapoint.updated_at,:allrecords,Joinedidentifiers:~oem:n/a~lat:n/a~long:n/a~location:n/a~identifier:n/a,TML solution~Msgsjoined=06e99e4e-7fab-11ec-d3aa-a69234339ff7(0,36.77826,-119.41793,EnergyUsed24hr,n/a,n/a,{});070030c8-7fab-11ec-8366-411a96496b84(0,36.77826,-119.41793,EnergyUsed24hr,n/a,n/a,{});0715693e-7fab-11ec-67e9-17ae054cc5b6(0,36.77826,-119.41793,EnergyUsed24hr,n/a,n/a,{});0728789e-7fab-11ec-3240-e14d69781022(0,36.77826,-119.41793,EnergyUsed24hr,n/a,n/a,{});0739ab78-7fab-11ec-25aa-df5e17362b2f(0,36.77826,-119.41793,EnergyUsed24hr,n/a,n/a,{});074b7452-7fab-11ec-3c42-ed5eb6978887(0,36.77826,-119.41793,EnergyUsed24hr,n/a,n/a,{});077171e8-7fab-11ec-6e96-a74f3d8ceaca(0,36.77826,-119.41793,EnergyUsed24hr,n/a,n/a,{});078431d4-7fab-11ec-f96f-da1dde95fdbc(0,36.77826,-119.41793,EnergyUsed24hr,n/a,n/a,{});079cf5de-7fab-11ec-d5c3-41e7ed40b068(0,36.77826,-119.41793,EnergyUsed24hr,n/a,n/a,{});07c07d38-7fab-11ec-0324-79f720598345(0,36.77826,-119.41793,EnergyUsed24hr,n/a,n/a,{})~latlong=~mainuid=AC000W016399131",
+  			"PreprocessIdentifier": "",
+  			"Numberofmessages": 10,
+  			"RawData": [
+  				0
+  			],
+  			"MsgIdData": [
+  				"06e99e4e-7fab-11ec-d3aa-a69234339ff7(0):{1}",
+  				"070030c8-7fab-11ec-8366-411a96496b84(0):{1}",
+  				"0715693e-7fab-11ec-67e9-17ae054cc5b6(0):{1}",
+  				"0728789e-7fab-11ec-3240-e14d69781022(0):{1}",
+  				"0739ab78-7fab-11ec-25aa-df5e17362b2f(0):{1}",
+  				"074b7452-7fab-11ec-3c42-ed5eb6978887(0):{1}",
+  				"077171e8-7fab-11ec-6e96-a74f3d8ceaca(0):{1}",
+  				"078431d4-7fab-11ec-f96f-da1dde95fdbc(0):{1}",
+  				"079cf5de-7fab-11ec-d5c3-41e7ed40b068(0):{1}",
+  				"07c07d38-7fab-11ec-0324-79f720598345(0):{1}"
+  			],
+  			"Offset": 524238,
+  			"Consumerid": "StreamConsumer",
+  			"Generated": "2024-09-13T17:04:37.459+00:00",
+  			"Partition": 0
+  		},
+
+
+
 STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
