@@ -5236,7 +5236,7 @@ STEP 9 DAG Core Parameter Explanation
    * - jsonkeytogather
      - This is the JSON key to use to gather the data for privateGPT.
 
-       Normally, you two options:
+       Normally, you two options (only ONE value can be specified):
   
        1. **hyperprediction**: TML will store predictions and other outcomes 
 
@@ -5261,46 +5261,71 @@ STEP 9 DAG Core Parameter Explanation
 privateGPT Processing Explantion
 """""""""""""""""""""""""""""""""""
 
+Consider the following JSON. This JSON is the output from :ref:`STEP 4: Preprocesing Data: tml-system-step-4-kafka-preprocess-dag`
+
+.. important::    
+   It is important to note the format of this JSON as follows.
+
+   1. **hyperprediction** - all TML output is stored in this variable.  This could be the name of the value of **jsonkeytogather**.  The Step 9 DAG, will gather all the data from this key and ask privateGPT the question in your **prompt**.
+
+   2. **Identifier** - Additional details are put in this key.  Specifically, the data used in the analysis is stored in the **RawData** JSON array, that can also be gathered and presented to privateGPT for prompting.
+
+   3. **keyattribute** is the variable you are processing.  This is seen in the **"Topic": "topicid155_Voltage_preprocessed_Avg"**, here TML is taking Average of voltage from the devices.   Clearly, you can specify any name for key attribute you are processing.
+
+   4. **keyprocesstype** is the type of processing you are doing, as listed in :ref:`Preprocessing Types`.  This is seen in the **"Preprocesstype": "Avg",**, here TML is taking Average of voltage from the devices.   Clearly, you can specify any name for key processing type from the processing types table.
+
+.. tip::
+   You can separate multiple **keyattribute**, and **keyprocesstype** with a comma.
+
+   This way of using processing data and using privateGPR to further analyse processed data offers a tremendously powerful way to leverag GenAI technology with real-time data streams and no cost - since all API calls are done to the privateGPT container that is running locally.  Also, no data are sent outside your environment, this further makes this solution very secure giving you 100% data control. 
+
 .. code-block:: JSON
-  
-  		{
-  			"hyperprediction": "0.000",
-  			"Maintopic": "iot-preprocess",
-  			"Topic": "topicid153_EnergyUsed24hr_preprocessed_Avg",
-  			"Type": "External",
-  			"ProducerId": "customjson",
-  			"TimeStamp": "2024-09-13 17:04:36",
-  			"Unixtime": 1726247076204737538,
-  			"kafkakey": "OAA-jKOv7cqSgMO1mrMUJ76LP2d2Aiao7Y",
-  			"Preprocesstype": "Avg",
-  			"WindowStartTime": "2022-01-27 19:55:07 +0000 UTC",
-  			"WindowEndTime": "2022-01-27 19:55:08 +0000 UTC",
-  			"WindowStartUnixTime": "1643313307000000000",
-  			"WindowEndUnixTime": "1643313308000000000",
-  			"Conditions": "",
-  			"Identifier": "EnergyUsed24hr~Energy-Used-24hr-(mWh)~iot-preprocess~uid:metadata.dsn,subtopic:metadata.property_name (EnergyUsed24hr),value:datapoint.value,identifier:metadata.display_name,datetime:datapoint.updated_at,:allrecords,Joinedidentifiers:~oem:n/a~lat:n/a~long:n/a~location:n/a~identifier:n/a,TML solution~Msgsjoined=06e99e4e-7fab-11ec-d3aa-a69234339ff7(0,36.77826,-119.41793,EnergyUsed24hr,n/a,n/a,{});070030c8-7fab-11ec-8366-411a96496b84(0,36.77826,-119.41793,EnergyUsed24hr,n/a,n/a,{});0715693e-7fab-11ec-67e9-17ae054cc5b6(0,36.77826,-119.41793,EnergyUsed24hr,n/a,n/a,{});0728789e-7fab-11ec-3240-e14d69781022(0,36.77826,-119.41793,EnergyUsed24hr,n/a,n/a,{});0739ab78-7fab-11ec-25aa-df5e17362b2f(0,36.77826,-119.41793,EnergyUsed24hr,n/a,n/a,{});074b7452-7fab-11ec-3c42-ed5eb6978887(0,36.77826,-119.41793,EnergyUsed24hr,n/a,n/a,{});077171e8-7fab-11ec-6e96-a74f3d8ceaca(0,36.77826,-119.41793,EnergyUsed24hr,n/a,n/a,{});078431d4-7fab-11ec-f96f-da1dde95fdbc(0,36.77826,-119.41793,EnergyUsed24hr,n/a,n/a,{});079cf5de-7fab-11ec-d5c3-41e7ed40b068(0,36.77826,-119.41793,EnergyUsed24hr,n/a,n/a,{});07c07d38-7fab-11ec-0324-79f720598345(0,36.77826,-119.41793,EnergyUsed24hr,n/a,n/a,{})~latlong=~mainuid=AC000W016399131",
-  			"PreprocessIdentifier": "",
-  			"Numberofmessages": 10,
-  			"RawData": [
-  				0
-  			],
-  			"MsgIdData": [
-  				"06e99e4e-7fab-11ec-d3aa-a69234339ff7(0):{1}",
-  				"070030c8-7fab-11ec-8366-411a96496b84(0):{1}",
-  				"0715693e-7fab-11ec-67e9-17ae054cc5b6(0):{1}",
-  				"0728789e-7fab-11ec-3240-e14d69781022(0):{1}",
-  				"0739ab78-7fab-11ec-25aa-df5e17362b2f(0):{1}",
-  				"074b7452-7fab-11ec-3c42-ed5eb6978887(0):{1}",
-  				"077171e8-7fab-11ec-6e96-a74f3d8ceaca(0):{1}",
-  				"078431d4-7fab-11ec-f96f-da1dde95fdbc(0):{1}",
-  				"079cf5de-7fab-11ec-d5c3-41e7ed40b068(0):{1}",
-  				"07c07d38-7fab-11ec-0324-79f720598345(0):{1}"
-  			],
-  			"Offset": 524238,
-  			"Consumerid": "StreamConsumer",
-  			"Generated": "2024-09-13T17:04:37.459+00:00",
-  			"Partition": 0
-  		},
+      
+    		{
+    			"hyperprediction": "120714.692",
+    			"Maintopic": "iot-preprocess",
+    			"Topic": "topicid155_Voltage_preprocessed_Avg",
+    			"Type": "External",
+    			"ProducerId": "customjson",
+    			"TimeStamp": "2024-09-13 17:04:36",
+    			"Unixtime": 1726247076213196638,
+    			"kafkakey": "OAA-Tvw04fZB3lr7bDehMDMAmK1ug2p0jw",
+    			"Preprocesstype": "Avg",
+    			"WindowStartTime": "2022-01-27 19:55:07 +0000 UTC",
+    			"WindowEndTime": "2022-01-27 19:55:09 +0000 UTC",
+    			"WindowStartUnixTime": "1643313307000000000",
+    			"WindowEndUnixTime": "1643313309000000000",
+    			"Conditions": "",
+    			"Identifier": "Voltage~Line-Voltage-(mV)~iot-preprocess~uid:metadata.dsn,subtopic:metadata.property_name (Voltage),value:datapoint.value,identifier:metadata.display_name,datetime:datapoint.updated_at,:allrecords,Joinedidentifiers:~oem:n/a~lat:n/a~long:n/a~location:n/a~identifier:n/a,TML solution~Msgsjoined=06d99238-7fab-11ec-16dd-04357e6ea60c(120609,41.60322,-73.08775,Voltage,n/a,n/a,{});06f7a066-7fab-11ec-b57e-c6fecac720c2(120456,41.60322,-73.08775,Voltage,n/a,n/a,{});071a7abe-7fab-11ec-d105-4ccdd61deb1a(120609,41.60322,-73.08775,Voltage,n/a,n/a,{});0733212c-7fab-11ec-d162-80400f9d10d6(120609,41.60322,-73.08775,Voltage,n/a,n/a,{});0758c90e-7fab-11ec-24d3-2c9b20193b60(120609,41.60322,-73.08775,Voltage,n/a,n/a,{});0780e5a6-7fab-11ec-4416-1bf4bf386653(120812,41.60322,-73.08775,Voltage,n/a,n/a,{});07a1965c-7fab-11ec-ab45-fb68b835cee7(120712,41.60322,-73.08775,Voltage,n/a,n/a,{});07b56970-7fab-11ec-2762-03c9c43b6eac(120812,41.60322,-73.08775,Voltage,n/a,n/a,{});07ce4558-7fab-11ec-f91b-bce1f12d0bdc(120712,41.60322,-73.08775,Voltage,n/a,n/a,{});07ea1986-7fab-11ec-3b6d-d650f04215e1(120812,41.60322,-73.08775,Voltage,n/a,n/a,{});08014156-7fab-11ec-924c-3d9a32b7def1(120915,41.60322,-73.08775,Voltage,n/a,n/a,{});08197cd0-7fab-11ec-5c87-5902076c89be(120812,41.60322,-73.08775,Voltage,n/a,n/a,{});083c9760-7fab-11ec-f6e0-05d9b27e71d5(120812,41.60322,-73.08775,Voltage,n/a,n/a,{})~latlong=~mainuid=AC000W017810194",
+    			"PreprocessIdentifier": "",
+    			"Numberofmessages": 13,
+    			"RawData": [
+    				120609,
+    				120456,
+    				120812,
+    				120712,
+    				120915
+    			],
+    			"MsgIdData": [
+    				"06d99238-7fab-11ec-16dd-04357e6ea60c(120609):{1}",
+    				"06f7a066-7fab-11ec-b57e-c6fecac720c2(120456):{1}",
+    				"071a7abe-7fab-11ec-d105-4ccdd61deb1a(120609):{1}",
+    				"0733212c-7fab-11ec-d162-80400f9d10d6(120609):{1}",
+    				"0758c90e-7fab-11ec-24d3-2c9b20193b60(120609):{1}",
+    				"0780e5a6-7fab-11ec-4416-1bf4bf386653(120812):{1}",
+    				"07a1965c-7fab-11ec-ab45-fb68b835cee7(120712):{1}",
+    				"07b56970-7fab-11ec-2762-03c9c43b6eac(120812):{1}",
+    				"07ce4558-7fab-11ec-f91b-bce1f12d0bdc(120712):{1}",
+    				"07ea1986-7fab-11ec-3b6d-d650f04215e1(120812):{1}",
+    				"08014156-7fab-11ec-924c-3d9a32b7def1(120915):{1}",
+    				"08197cd0-7fab-11ec-5c87-5902076c89be(120812):{1}",
+    				"083c9760-7fab-11ec-f6e0-05d9b27e71d5(120812):{1}"
+    			],
+    			"Offset": 524247,
+    			"Consumerid": "StreamConsumer",
+    			"Generated": "2024-09-13T17:04:37.459+00:00",
+    			"Partition": 0
+    		}
 
 
 
