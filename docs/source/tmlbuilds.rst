@@ -6248,7 +6248,12 @@ STEP 3. Make a Parameter Modification to Your Project's TML DAGs
 .. figure:: soldags2.png
    :scale: 60%
 
+TML Dags inside your project:
+
 .. figure:: tmldags.png
    :scale: 60%
 
+STEP 4. Choose the Solution Yo Want to Run
+---------------------------------------
 
+You have several solution templates to choose from see 
