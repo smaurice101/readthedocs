@@ -226,8 +226,10 @@ If you scroll down you will see the **TML DAGs** - as defined here: :ref:`DAG Ta
 
 .. figure:: ts3.png
 
-.. attention::
+TSS Code Editor
+-----------------
 
+.. important::
    Next go into the DAG Code Editor: Select Drop-down menu **Admin --> DAGs Code Editor**.  Most of your TML Solution building will be done here.  Note the DAGs 
    solution process flows defined here: :ref:`Apache Airflow DAGs`
 
