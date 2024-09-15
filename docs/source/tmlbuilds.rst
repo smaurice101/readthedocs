@@ -6172,6 +6172,8 @@ Deleting a Project
 
    The TSS will delete the entire project and commit the changes to Github.
 
+   NOTE: If you deleted a previous project and re-created it you should CLEAR your TSS browser CACHE.  
+
 .. warning::
    All information/code related to this project will be deleted and may not 
 
@@ -6279,5 +6281,19 @@ As an example, let choose **solution_preprocessing_dag-myawesometmlsolution-3f10
 
 Now, as per :ref:`STEP 3. Make a Parameter Modification to Your Project’s TML DAGs` as you need. This DAG uses a local file for ingesting data: how do I know this? See :ref:`The Solution Template Naming Conventions`
 
+Parameter Changes to TML DAGs
+""""""""""""""""""""""""""""""
 
+Here is a step by step changes to the TML DAGs.
+
+1. **tml_read_LOCALFILE_step_3_kafka_producetotopic_dag-myawesometmlsolution-3f10.py**: Change the **inputfile** field to point to your local data file: 
+
+   - I added   'inputfile' : '/rawdata/IoTData.txt' - the IoTData.txt is provided to you for demonstation inside the TSS container in the **/rawdata** folder.
+
+   - SAVE the file
+
+   .. figure:: p1.png
+      :scale: 50%
+
+2. 
 
