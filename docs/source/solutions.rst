@@ -18,11 +18,8 @@ Here are the solution templates provided.
 
    * - **Solution Templates**
    * - 1. :ref:`Solution Template: solution_template_processing_ai_dag_grpc.py`
-
         This template will analyse ANY real-time data using the gRPC protocol.
-
         See :ref:`gRPC Reference Architecture` with integration with GenAI 
-
         for real-time AI analysis of TML output data. 
    * - 2. :ref:`Solution Template: solution_template_processing_ai_dag_mqtt.py`
 
