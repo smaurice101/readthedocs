@@ -42,7 +42,7 @@ Creating Real-Time Dashboard in TML are simple, yet very powerful and free.  No 
 
    To access your dashboard you must enter the filename of the HTML file (i.e. Your Dashboard file) in the **dashboardhtml** field in DAG 7.
 
-.. figure:: d2.png
+.. figure:: dag7.png
    :scale: 50%
 
 Once you have created a dashboard to visualize TML data you enter a URL in your browser to run it.
