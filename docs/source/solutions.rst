@@ -10,7 +10,7 @@ Solution templated reuire NO CODE or Configurations.  Just RUN THEM!
 
    These solution templates execute all of the TML DAGs here :ref:`DAG Solution Process Explanation`  
 
-   All you do is configure the parameters in the TML DAGs.  THAT IS IT!
+   All you do is configure the parameters in the TML DAGs and RUN the Solution Templates.  THAT IS IT!
 
 Here are the solution templates provided.
 
