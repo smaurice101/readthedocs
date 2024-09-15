@@ -6334,7 +6334,7 @@ All topics will be created for your solution in Kafka.
 
 4. **tml_system_step_4_kafka_preprocess_dag-myawesometmlsolution-3f10.py**: Modify the preprocessing **JSONCRITERIA.**
 
-.. code=block:: JSON
+.. code-block:: JSON
 
    'jsoncriteria' : 'uid=metadata.dsn,filter:allrecords~\
    subtopics=metadata.property_name~\
