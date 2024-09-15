@@ -26,6 +26,9 @@ Some sample dashboards samples are below.
 Running Dashboards
 -------------------
 
+Creating Your Own Dashboards
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
 Creating Real-Time Dashboard in TML are simple, yet very powerful and free.  No third-party visualization tool is necessary. 
 
 .. note::
