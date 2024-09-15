@@ -6114,3 +6114,126 @@ The above image shows a typical TML solution container
    * specific solution python scripts are installed and run the TML solution
    * TML dashboard code (html/javascript) runs in the container
    * java is installed
+
+Lets Start Building a TML Solution
+===================================
+
+Here is the TML solution creation process, that is detailed below:
+
+.. figure:: tmlcreateprocess.png
+   :scale: 70%
+
+After you are in the **DAG code editor** you must go into the following folder:
+
+STEP 0. Go into **tml-airflow** folder
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+   .. figure:: sol11.png
+
+STEP 1. **tml-airflow -> dags -> tml-solutions** - you will see the following as shown in figure below:
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+   .. figure:: sol1.png
+
+STEP 2. **Click the file: CREATETMLPROJECT.txt** - you will see the following as shown in figure below:
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+   .. figure:: sol2.png
+
+STEP 3. **Type the name of your project** 
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. important::
+   You should use lowecase letters.  DO NOT ENTER ANY SPACES - Enter any name like **myawesometmlproject** then **PRESS SAVE**
+
+   .. figure:: sol3.png
+
+.. note:: 
+   All projects will be "appended" with parts of your READTHEDOCS token.  This is to ensure project uniqness on READTHEDOCS.
+
+STEP 4. You just created a TML Project and committed to Github. Congratulations!  
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+To confirm everything went ok go to the Github account:
+
+   i.e. **/raspberrypi/tml-airflow/dags/tml-solutions/** you should see a folder for **myawesometmlproject-3f10**
+
+   .. figure:: sol4.png
+
+Deleting a Project
+""""""""""""""""""""
+.. tip::
+   If you want to DELETE this project simply type a - (minus) in front of it (as shown below):
+
+   **-myawesometmlproject**
+
+   The TSS will delete the entire project and commit the changes to Github.
+
+.. warning::
+   All information/code related to this project will be deleted and may not 
+
+   be recoverable.
+
+.. figure:: deleteproject.png 
+   :scale: 70%
+
+STEP 5. Click the folder: **myawesometmlproject-3f10** - you will see the figure below - VOILA!
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+   .. figure:: sol5.png
+
+STEP 6. Confirm Your New Project Was Created in TSS and Committed to Github
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+To confirm the new DAGs for **myawesometmlproject** were created properly, in TSS click DAGs (top menu item)
+
+Then enter a filter: myawesometmlproject Click Enter.  
+
+You should see all your DAGs (note if they don't show up just wait 30 seconds or so) - you should see figure below:
+
+   .. figure:: sol6.png
+
+.. important::
+   What did you just do?
+
+   You copied **TML TEMPLATE** DAGs to your own solution folder - for your own TML solution build.  
+
+   If you want to create another TML solution - just repeat STEPS 1-3 with a new project name.
+
+.. tip::
+   New project could take 30 seconds or more to show up on the main Airflow screen.  
+
+   Please be patient.  If there are no errors - it will show up.
+
+Copying A Previous Project
+""""""""""""""""""""""""
+
+.. tip::
+   If you want to copy from a previous TML project and **rename** to a new project then:
+
+   a. In STEP 3 type **myawesometmlproject>myawesometmlproject2**, the character ">" means copy myawesometmlproject to myawesometmlproject2 (as shown in figure below)
+   b. Hit Save
+   c. Voila! You just copied an older projec to a new one and saved the time in entering paramters in the DAGs.
+
+.. figure:: sol7.png
+
+To confirm the new project was properly copied repeat STEPS 4 - 6.  You should see your **myawesometmlproject2-3f10** committed to Github:
+
+.. figure:: sol8.png
+
+.. important:: 
+   The documentation link **WILL ONLY be functional AFTER you run your project in TSS.**
+
+Here are your new DAGs:
+
+.. figure:: sol9.png
+
+.. figure:: sol55.png
+
+.. tip::
+   Check the logs for status updates: Go to **/raspberrypi/tml-airflow/logs/logs.txt**
+
+.. figure:: sol10.png
+
+.. tip::
+   For details on the editor go to `Codemirror <https://codemirror.net/5/doc/manual.html#commands>`_
