@@ -19,18 +19,18 @@ Here are the solution templates provided.
    * - **Solution Templates**
    * - 1. :ref:`Solution Template: solution_template_processing_ai_dag_grpc.py`
 
-       This template will analyse ANY real-time data using the gRPC protocol.
+        This template will analyse ANY real-time data using the gRPC protocol.
 
-       See :ref:`gRPC Reference Architecture` with integration with GenAI 
+        See :ref:`gRPC Reference Architecture` with integration with GenAI 
 
-       for real-time AI analysis of TML output data. 
-   * - :ref:`Solution Template: solution_template_processing_ai_dag_mqtt.py`
+        for real-time AI analysis of TML output data. 
+   * - 2. :ref:`Solution Template: solution_template_processing_ai_dag_mqtt.py`
 
-       This template will analyse ANY real-time data using the MQTT protocol.
+        This template will analyse ANY real-time data using the MQTT protocol.
 
-       See :ref:`MQTT Reference Architecture` with integration with GenAI 
+        See :ref:`MQTT Reference Architecture` with integration with GenAI 
 
-       for real-time AI analysis of TML output data.
+        for real-time AI analysis of TML output data.
    * - :ref:`Solution Template: solution_template_processing_ai_dag_restapi.py`
 
        This template will analyse ANY real-time data using the REST protocol.
