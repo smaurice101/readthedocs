@@ -24,21 +24,21 @@ The namees of the solution template tell you what the solution is about.  Each s
 3. AI - using ingested data from: local file, MQTT, gRPC, REST
 
 For example:
+"""""""""""""""
 
-1. solution_preprocessing_dag: Is doing ONLY preprocessing using LOCAL FILE because it does not use MQTT, REST, gRPC and defaults to local file
+**1. solution_preprocessing_dag:** Is doing ONLY preprocessing using LOCAL FILE because it does not use MQTT, REST, gRPC and defaults to local file
 
-2. solution_preprocessing_dag_mqtt: Is doing preprocessing using MQTT
+**2. solution_preprocessing_dag_mqtt:** Is doing preprocessing using MQTT
 
-3. solution_preprocessing_ai_grpc_dag: Is doing preprocessing AND AI using gRPC
+**3. solution_preprocessing_ai_grpc_dag:** Is doing preprocessing AND AI using gRPC
 
-4. solution_preprocessing_ml_ai_mqtt: Is dong preprocessing, ML AND AI using MQTT
+**4. solution_preprocessing_ml_ai_mqtt:** Is dong preprocessing, ML AND AI using MQTT
 
-5. solution_preprocessing_ml_mqtt_dag: Is doing preprocessing, ML using MQTT
+**5. solution_preprocessing_ml_mqtt_dag:** Is doing preprocessing, ML using MQTT
 
-6. solution_preprocessing_ml_dag: Is doing preprocessing and ML using LOCAL File
+**6. solution_preprocessing_ml_dag:** Is doing preprocessing and ML using LOCAL File
 
 So on...
-
 
 Here are the solution templates provided
 --------------------------------
