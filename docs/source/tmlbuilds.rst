@@ -6316,6 +6316,8 @@ For our demonstration we will use the existing values in the DAG.
   - 'ml_data_topic' : 'ml-data', # Separate multiple topics with comma <<< ********** You change topic names as needed
   - 'prediction_data_topic' : 'prediction-data', # Separate multiple topics with comma <<< ********** You change topic names as needed
   - 'pgpt_data_topic' : 'cisco-network-privategpt',  #  PrivateGPT will produce responses to this topic - change as  needed
+  - 'replication' : '1',  Leave at 1 for on-prem Kafka
+  - 'numpartitions': '1',  Increase partition as needed.
 
 .. figure:: p3.png
    :scale: 50%
