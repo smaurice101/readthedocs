@@ -87,12 +87,12 @@ Here are the solution templates provided.
        This solution template will process data, perform machine learning
 
        and predictions while ingesting data from MQTT protocol.
-  * - :ref:`Solution Template: solution_template_processing_ml_dag_restapi.py`
+   * - :ref:`Solution Template: solution_template_processing_ml_dag_restapi.py`
 
        This solution template will process data, perform machine learning
 
        and predictions while ingesting data from REST API protocol.
-  * - :ref:`Solution Template: solution_template_processing_ml_dag.py`
+   * - :ref:`Solution Template: solution_template_processing_ml_dag.py`
 
        This solution template will process data, perform machine learning
 
