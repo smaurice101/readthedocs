@@ -6252,7 +6252,7 @@ TML Dags inside your project:
 .. figure:: tmldags.png
    :scale: 60%
 
-STEP 4. Choose the Solution Yo Want to Run
+STEP 4. Choose the Solution Template You Want to Run
 ---------------------------------------
 
 You have several solution templates to choose from see :ref:`TML Solution Templates`.
