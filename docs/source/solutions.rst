@@ -7,8 +7,24 @@ Solution templated reuire NO CODE or Configurations.  Just RUN THEM!
 
 Here are the solution templates provided.
 
+.. list-table::
+
+   * - **Solution Template**
+   * - :ref:`Solution Template: solution_template_processing_ai_dag_grpc.py`
+
+       This template will analyse ANY real-time data using the gRPC protocol.
+
+       See :ref:`gRPC Reference Architecture` with integration with GenAI 
+
+       for real-time AI analysis of TML output data.
+
+
 Solution Template: solution_template_processing_ai_dag_grpc.py
 -----------------------------------------------------
+
+This solution template ingest data from devices using the gRPC protocol and streams it to the TML solution container :ref:`gRPC Reference Architecture` 
+
+This 
 
 .. code-block:: PYTHON
 
@@ -114,11 +130,3 @@ Solution Template: solution_template_processing_ai_dag_grpc.py
       start_task >> sensor_A >> sensor_B  >> start_task4 >> [sensor_I, sensor_C, sensor_D, sensor_E] >> start_task2 >> sensor_F >> start_task3  >> sensor_G
 
 
-.. list-table::
-
-   * - **Solution Template**
-   * - solution_template_processing_ai_dag_grpc.py
-
-       This template will analyse ANY real-time data using the gRPC protocol.
-
-       See :ref:`gRPC Reference Architecture` 
