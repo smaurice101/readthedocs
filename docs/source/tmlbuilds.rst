@@ -6123,10 +6123,12 @@ Here is the TML solution creation process, that is detailed below:
 .. figure:: tmlcreateprocess.png
    :scale: 60%
 
-Assuming you have the TSS container running following the steps here :ref:`TSS Docker Run Command` and logged in using the instructions here :ref:`How To Use the TML Solution Container` go into **DAG code editor** then:
-
 STEP 0. Go into **tml-airflow** folder
 ----------------------------------
+
+Assuming you have the TSS container running following the steps here :ref:`TSS Docker Run Command` and logged in using the instructions here :ref:`How To Use the TML Solution Container` go into **DAG code editor** then:
+
+
 
    .. figure:: sol11.png
 
