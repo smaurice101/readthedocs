@@ -6126,22 +6126,22 @@ Here is the TML solution creation process, that is detailed below:
 Assuming you have the TSS container running following the steps here :ref:`TSS Docker Run Command` and logged in using the instructions here :ref:`How To Use the TML Solution Container` go into **DAG code editor** then:
 
 STEP 0. Go into **tml-airflow** folder
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+----------------------------------
 
    .. figure:: sol11.png
 
 STEP 0. **tml-airflow -> dags -> tml-solutions** - you will see the following as shown in figure below:
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+----------------------------------
 
    .. figure:: sol1.png
 
 STEP 1. **Click the file: CREATETMLPROJECT.txt** - you will see the following as shown in figure below:
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+----------------------------------
 
    .. figure:: sol2.png
 
 STEP 1. **Type the name of your project** 
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+----------------------------------
 
 .. important::
    You should use lowecase letters.  DO NOT ENTER ANY SPACES - Enter any name like **myawesometmlproject** then **PRESS SAVE**
@@ -6152,7 +6152,7 @@ STEP 1. **Type the name of your project**
    All projects will be "appended" with parts of your READTHEDOCS token.  This is to ensure project uniqness on READTHEDOCS.
 
 STEP 1. You just created a TML Project and committed to Github. Congratulations!  
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+----------------------------------
 
 To confirm everything went ok go to the Github account:
 
@@ -6161,7 +6161,8 @@ To confirm everything went ok go to the Github account:
    .. figure:: sol4.png
 
 Deleting a Project
-""""""""""""""""""""
+----------------------------------
+
 .. tip::
    If you want to DELETE this project simply type a - (minus) in front of it (as shown below):
 
@@ -6178,12 +6179,12 @@ Deleting a Project
    :scale: 70%
 
 STEP 2. Click the folder: **myawesometmlproject-3f10** - you will see the figure below - VOILA!
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+----------------------------------
 
    .. figure:: sol5.png
 
 STEP 2. Confirm Your New Project Was Created in TSS and Committed to Github
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+----------------------------------
 
 To confirm the new DAGs for **myawesometmlproject** were created properly, in TSS click DAGs (top menu item)
 
@@ -6206,7 +6207,7 @@ You should see all your DAGs (note if they don't show up just wait 30 seconds or
    Please be patient.  If there are no errors - it will show up.
 
 Copying A Previous Project
-""""""""""""""""""""""""
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. tip::
    If you want to copy from a previous TML project and **rename** to a new project then:
@@ -6239,7 +6240,7 @@ Here are your new DAGs:
    For details on the editor go to `Codemirror <https://codemirror.net/5/doc/manual.html#commands>`_
 
 STEP 3. Make a Parameter Modification to TML DAGs
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+------------------------------------
 
 .. figure:: tmldags.png
    :scale: 70%
