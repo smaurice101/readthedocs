@@ -17,85 +17,85 @@ Here are the solution templates provided.
 .. list-table::
 
    * - **Solution Templates**
-   * - 1. :ref:`Solution Template: solution_template_processing_ai_dag_grpc.py`
+   * - :ref:`1. Solution Template: solution_template_processing_ai_dag_grpc.py`
         This template will analyse ANY real-time data using the gRPC protocol.
         See :ref:`gRPC Reference Architecture` with integration with GenAI 
         for real-time AI analysis of TML output data. 
-   * - 2. :ref:`Solution Template: solution_template_processing_ai_dag_mqtt.py`
+   * - :ref:`2. Solution Template: solution_template_processing_ai_dag_mqtt.py`
 
         This template will analyse ANY real-time data using the MQTT protocol.
 
         See :ref:`MQTT Reference Architecture` with integration with GenAI 
 
         for real-time AI analysis of TML output data.
-   * - 3. :ref:`Solution Template: solution_template_processing_ai_dag_restapi.py`
+   * - :ref:`3. Solution Template: solution_template_processing_ai_dag_restapi.py`
 
         This template will analyse ANY real-time data using the REST protocol.
 
         See :ref:`REST API Reference Architecture` with integration with GenAI 
 
         for real-time AI analysis of TML output data.
-   * - 4. :ref:`Solution Template: solution_template_processing_ai_dag.py`
+   * - :ref:`4. Solution Template: solution_template_processing_ai_dag.py`
 
         This solution template will read a local file from the file system
 
         and stream it to the TML solution for processing, with integration
 
         with GenAI for further processing.
-   * - 5. :ref:`Solution Template: solution_template_processing_dag_grpc.py`
+   * - :ref:`5. Solution Template: solution_template_processing_dag_grpc.py`
 
         This solution template will process data ingested using gRPC. 
-   * - 6. :ref:`Solution Template: solution_template_processing_dag_mqtt.py`
+   * - :ref:`6. Solution Template: solution_template_processing_dag_mqtt.py`
 
         This solution template will process data using MQTT protocol.
-   * - 7. :ref:`Solution Template: solution_template_processing_dag_restapi.py`
+   * - :ref:`7. Solution Template: solution_template_processing_dag_restapi.py`
 
         This solution template will process data using the REST API.
-   * - 8. :ref:`Solution Template: solution_template_processing_dag.py`
+   * - :ref:`8. Solution Template: solution_template_processing_dag.py`
 
         This solution template will process data using local file.
-   * - 9. :ref:`Solution Template: solution_template_processing_ml_ai_dag_grpc.py`
+   * - :ref:`9. Solution Template: solution_template_processing_ml_ai_dag_grpc.py`
 
         This solution template will process data, perform machine learning
 
         and perform AI on the output data, while ingesting data from gRPC protocol.
-   * - 10. :ref:`Solution Template: solution_template_processing_ml_ai_dag_mqtt.py`
+   * - :ref:`10. Solution Template: solution_template_processing_ml_ai_dag_mqtt.py`
 
         This solution template will process data, perform machine learning
 
         and perform AI on the output data, while ingesting data from MQTT protocol.
-   * - 11. :ref:`Solution Template: solution_template_processing_ml_ai_dag_restapi.py`
+   * - :ref:`11. Solution Template: solution_template_processing_ml_ai_dag_restapi.py`
 
         This solution template will process data, perform machine learning
 
         and perform AI on the output data, while ingesting data from REST API protocol.
-   * - 12. :ref:`Solution Template: solution_template_processing_ml_ai_dag.py`
+   * - :ref:`12. Solution Template: solution_template_processing_ml_ai_dag.py`
 
         This solution template will process data, perform machine learning
 
         and perform AI on the output data, while ingesting data from local file.
-   * - 13. :ref:`Solution Template: solution_template_processing_ml_dag_grpc.py`
+   * - :ref:`13. Solution Template: solution_template_processing_ml_dag_grpc.py`
 
         This solution template will process data, perform machine learning
 
         and predictions while ingesting data from gRPC protocol.
-   * - 14. :ref:`Solution Template: solution_template_processing_ml_dag_mqtt.py`
+   * - :ref:`14. Solution Template: solution_template_processing_ml_dag_mqtt.py`
 
         This solution template will process data, perform machine learning
 
         and predictions while ingesting data from MQTT protocol.
-   * - 15. :ref:`Solution Template: solution_template_processing_ml_dag_restapi.py`
+   * - :ref:`15. Solution Template: solution_template_processing_ml_dag_restapi.py`
 
         This solution template will process data, perform machine learning
 
         and predictions while ingesting data from REST API protocol.
-   * - 16. :ref:`Solution Template: solution_template_processing_ml_dag.py`
+   * - :ref:`16. Solution Template: solution_template_processing_ml_dag.py`
 
         This solution template will process data, perform machine learning
 
         and predictions while ingesting data from local file.
 
-Solution Template: solution_template_processing_ai_dag_grpc.py
+1. Solution Template: solution_template_processing_ai_dag_grpc.py
 -----------------------------------------------------
 
 .. code-block:: PYTHON
@@ -202,7 +202,7 @@ Solution Template: solution_template_processing_ai_dag_grpc.py
       start_task >> sensor_A >> sensor_B  >> start_task4 >> [sensor_I, sensor_C, sensor_D, sensor_E] >> start_task2 >> sensor_F >> start_task3  >> sensor_G
 
 
-Solution Template: solution_template_processing_ai_dag_mqtt.py
+2. Solution Template: solution_template_processing_ai_dag_mqtt.py
 -------------------------------------------------
 
 .. code-block:: PYTHON
@@ -307,7 +307,7 @@ Solution Template: solution_template_processing_ai_dag_mqtt.py
     
       start_task >> sensor_A >> sensor_B  >> start_task4 >> [sensor_I, sensor_C, sensor_D, sensor_E] >> start_task2 >> sensor_F >> start_task3  >> sensor_G
 
-Solution Template: solution_template_processing_ai_dag_restapi.py
+3. Solution Template: solution_template_processing_ai_dag_restapi.py
 ---------------------------------
 
 .. code-block::
@@ -412,7 +412,7 @@ Solution Template: solution_template_processing_ai_dag_restapi.py
     
       start_task >> sensor_A >> sensor_B  >> start_task4 >> [sensor_I, sensor_C, sensor_D, sensor_E] >> start_task2 >> sensor_F >> start_task3  >> sensor_G
 
-Solution Template: solution_template_processing_ai_dag.py
+4. Solution Template: solution_template_processing_ai_dag.py
 ---------------------------------
 
 .. code-block:: PYTHON
@@ -518,7 +518,7 @@ Solution Template: solution_template_processing_ai_dag.py
     
       start_task >> sensor_A >> sensor_B >> start_task4 >> [sensor_I, sensor_C, sensor_D, sensor_E] >> start_task2 >> sensor_F >> start_task3  >> sensor_G
 
-Solution Template: solution_template_processing_dag_grpc.py
+5. Solution Template: solution_template_processing_dag_grpc.py
 -----------------------------------------
 
 .. code-block:: PYTHON
@@ -617,7 +617,7 @@ Solution Template: solution_template_processing_dag_grpc.py
     
       start_task >> sensor_A >> sensor_B >> start_task4 >> [sensor_C, sensor_D, sensor_E] >> start_task2 >> sensor_F >> start_task3  >> sensor_G
 
-Solution Template: solution_template_processing_dag_mqtt.py
+6. Solution Template: solution_template_processing_dag_mqtt.py
 -------------------------
 
 .. code-block:: PYTHON
@@ -716,7 +716,7 @@ Solution Template: solution_template_processing_dag_mqtt.py
     
       start_task >> sensor_A >> sensor_B >> start_task4 >> [sensor_C, sensor_D, sensor_E] >> start_task2 >> sensor_F >> start_task3  >> sensor_G
 
-Solution Template: solution_template_processing_dag_restapi.py
+7. Solution Template: solution_template_processing_dag_restapi.py
 ------------------------
 
 .. code-block:: PYTHON
@@ -815,7 +815,7 @@ Solution Template: solution_template_processing_dag_restapi.py
     
       start_task >> sensor_A >> sensor_B >> start_task4 >> [sensor_C, sensor_D, sensor_E] >> start_task2 >> sensor_F >> start_task3  >> sensor_G
 
-Solution Template: solution_template_processing_dag.py
+8. Solution Template: solution_template_processing_dag.py
 ----------------------------------
 
 .. code-block:: PYTHON
@@ -914,7 +914,7 @@ Solution Template: solution_template_processing_dag.py
     
       start_task >> sensor_A >> sensor_B >> start_task4 >> [sensor_C, sensor_D, sensor_E] >> start_task2 >> sensor_F >> start_task3  >> sensor_G
 
-Solution Template: solution_template_processing_ml_ai_dag_grpc.py
+9. Solution Template: solution_template_processing_ml_ai_dag_grpc.py
 ---------------------------
 
 .. code-block:: PYTHON
@@ -1032,7 +1032,7 @@ Solution Template: solution_template_processing_ml_ai_dag_grpc.py
     
       start_task >> sensor_A >> sensor_B >> start_task4 >> [sensor_I, sensor_C, sensor_D, sensor_E, sensor_F, sensor_G] >> start_task2 >> sensor_H >> start_task3 >> sensor_J
 
-Solution Template: solution_template_processing_ml_ai_dag_mqtt.py
+10. Solution Template: solution_template_processing_ml_ai_dag_mqtt.py
 ---------------------------
 
 .. code-block:: PYTHON
@@ -1150,7 +1150,7 @@ Solution Template: solution_template_processing_ml_ai_dag_mqtt.py
     
       start_task >> sensor_A >> sensor_B >> start_task4 >> [sensor_I, sensor_C, sensor_D, sensor_E, sensor_F, sensor_G] >> start_task2 >> sensor_H >> start_task3 >> sensor_J
 
-Solution Template: solution_template_processing_ml_ai_dag_restapi.py
+11. Solution Template: solution_template_processing_ml_ai_dag_restapi.py
 ----------------------------------
 
 .. code-block:: PYTHON
@@ -1268,7 +1268,7 @@ Solution Template: solution_template_processing_ml_ai_dag_restapi.py
     
       start_task >> sensor_A >> sensor_B >> start_task4 >> [sensor_I, sensor_C, sensor_D, sensor_E, sensor_F, sensor_G] >> start_task2 >> sensor_H >> start_task3 >> sensor_J
 
-Solution Template: solution_template_processing_ml_dag_grpc.py
+12. Solution Template: solution_template_processing_ml_dag_grpc.py
 ------------------------------------
 
 .. code-block:: PYTHON
@@ -1381,7 +1381,7 @@ Solution Template: solution_template_processing_ml_dag_grpc.py
 
   start_task >> sensor_A >> sensor_B >> start_task4 >> [sensor_C, sensor_D, sensor_E, sensor_F, sensor_G] >> start_task2 >> sensor_H >> start_task3 >> sensor_J
 
-Solution Template: solution_template_processing_ml_dag_mqtt.py
+13. Solution Template: solution_template_processing_ml_dag_mqtt.py
 ------------------------------------
 
 .. code-block:: PYTHON
@@ -1494,7 +1494,7 @@ Solution Template: solution_template_processing_ml_dag_mqtt.py
     
       start_task >> sensor_A >> sensor_B >> start_task4 >> [sensor_C, sensor_D, sensor_E, sensor_F, sensor_G] >> start_task2 >> sensor_H >> start_task3 >> sensor_J
 
-Solution Template: solution_template_processing_ml_dag_restapi.py
+14. Solution Template: solution_template_processing_ml_dag_restapi.py
 ------------------------------------
 
 .. code-block:: PYTHON
@@ -1607,7 +1607,7 @@ Solution Template: solution_template_processing_ml_dag_restapi.py
     
       start_task >> sensor_A >> sensor_B >> start_task4 >> [sensor_C, sensor_D, sensor_E, sensor_F, sensor_G] >> start_task2 >> sensor_H >> start_task3 >> sensor_J
 
-Solution Template: solution_template_processing_ml_dag.py
+15. Solution Template: solution_template_processing_ml_dag.py
 ----------------------------------
 
 .. code-block:: PYTHON
