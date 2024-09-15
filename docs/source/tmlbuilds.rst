@@ -6125,12 +6125,26 @@ Here is the TML solution creation process, that is detailed below:
 
 .. list-table::
 
-   * - PROCESS STEPS
-     - Explanation
-   * - Process Step 0: :ref:`STEP 0. Go into **tml-airflow** folder`
+   * - **PROCESS STEPS**
+     - **Explanation**
+   * - **Process Step 0:** :ref:`STEP 0. Go into **tml-airflow** folder`
      - Start the TSS container (:ref:`TSS Docker Run Command`) and go into the TSS Code Editor: :ref:`TSS Code Editor`.
-   * - Process Step 1: :ref:`STEP 1. **Click the file: CREATETMLPROJECT.txt**` 
-     - Start the TSS container (:ref:`TSS Docker Run Command`) and go into the TSS Code Editor: :ref:`TSS Code Editor`.
+   * - **Process Step 1:** :ref:`STEP 1. **Click the file: CREATETMLPROJECT.txt**` 
+     - You must choose a name for your TML project.  No spaces, or special characaters, just text.  
+
+       NOTE: Four characters from your READTHEDOCS token will be automatically appended to your project name. 
+   * - **Process Step 2:** :ref:`STEP 2. Click the folder: **myawesometmlproject-3f10**` 
+     - You must choose a name for your TML project.  No spaces, or special characaters, just text.  
+
+       NOTE: We are just using **myawesometmlproject** as an example.  Youc an choose any name you want.
+   * - **Process Step 3:** :ref:`STEP 3. Make Parameter Modifications to Your Project's TML DAGs` 
+     - Simply update the parameters to your TML DAGs.  **You do not need to write any code**.
+   * - **Process Step 4:** :ref:`STEP 4. Choose the Solution Template You Want to Run` 
+     - You must select a solution template.  These templates build and run the entire end-end
+
+       TML soluton.
+   * - **Process Step 5:** :ref:`STEP 4. Choose the Solution Template You Want to Run` 
+     - You must select a solution template.  These templates build and run the entire end-end
 
 
 STEP 0. Go into **tml-airflow** folder
@@ -6192,8 +6206,10 @@ Deleting a Project
 .. figure:: deleteproject.png 
    :scale: 70%
 
-STEP 2. Click the folder: **myawesometmlproject-3f10** - you will see the figure below - VOILA!
+STEP 2. Click the folder: **myawesometmlproject-3f10**
 ----------------------------------
+
+ You will see the figure below - VOILA!
 
    .. figure:: sol5.png
 
@@ -6253,7 +6269,7 @@ Here are your new DAGs:
 .. tip::
    For details on the editor go to `Codemirror <https://codemirror.net/5/doc/manual.html#commands>`_
 
-STEP 3. Make a Parameter Modification to Your Project's TML DAGs
+STEP 3. Make Parameter Modifications to Your Project's TML DAGs
 ------------------------------------
 
 .. figure:: soldags2.png
@@ -6264,7 +6280,7 @@ TML Dags inside your project:
 .. figure:: tmldags.png
    :scale: 60%
 
-STEP 4. Choose the Solution Template You Want to Run Inside Your Project Folder
+STEP 4. Choose the Solution Template You Want to Run
 ---------------------------------------
 
 You have several solution templates to choose from see :ref:`TML Solution Templates` and choose the functions you want your solution to perform see :ref:`The Solution Template Naming Conventions`
