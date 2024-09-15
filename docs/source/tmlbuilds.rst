@@ -6252,7 +6252,7 @@ TML Dags inside your project:
 .. figure:: tmldags.png
    :scale: 60%
 
-STEP 4. Choose the Solution Template You Want to Run
+STEP 4. Choose the Solution Template You Want to Run Inside Your Project Folder
 ---------------------------------------
 
 You have several solution templates to choose from see :ref:`TML Solution Templates`.
@@ -6264,4 +6264,10 @@ You have several solution templates to choose from see :ref:`TML Solution Templa
 
    This ensure proper versioning of projects, and ensures project integrity.  Also, it allows you to see the differences between multiple projects. 
 
+Project Solution Template Run
+"""""""""""""""""""""""""""
 
+As an example, let choose **solution_preprocessing_dag-myawesometmlsolution-3f10**
+
+.. tip::
+   Note, when you create your own project  - I called mine: **myawesometmlsolution** - all of the DAGs and solution templates are copied, renamed and committed to Github.  
