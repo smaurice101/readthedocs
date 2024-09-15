@@ -1269,6 +1269,7 @@ Here are the solution templates provided.
       start_task >> sensor_A >> sensor_B >> start_task4 >> [sensor_I, sensor_C, sensor_D, sensor_E, sensor_F, sensor_G] >> start_task2 >> sensor_H >> start_task3 >> sensor_J
 
 12. Solution Template: solution_template_processing_ml_ai_dag.py
+-----------------------------
 
 .. code-block:: PYTHON
 
