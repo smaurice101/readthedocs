@@ -61,7 +61,8 @@ Contents
 
    quickstart
    tmlbook
-   docker   
+   docker
+   solutions
    tmlbuilds
    examples
    git
