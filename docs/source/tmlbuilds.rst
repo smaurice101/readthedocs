@@ -6295,5 +6295,18 @@ Here is a step by step changes to the TML DAGs.
    .. figure:: p1.png
       :scale: 50%
 
-2. 
+2. **tml_system_step_1_getparams_dag-myawesometmlsolution-3f10.py**: Most of the parameters are set for you.  But, if you are using KAFKA CLOUD you may want to set:
 
+ - brokerhost : '127.0.0.1',  # <<<<***************** THIS WILL ACCESS LOCAL KAFKA - YOU CAN CHANGE TO CLOUD KAFKA HOST
+ - brokerport : '9092',     # <<<<***************** LOCAL AND CLOUD KAFKA listen on PORT 9092
+ - cloudusername : '',  # <<<< --THIS WILL BE UPDATED FOR YOU IF USING KAFKA CLOUD WITH API KEY  - LEAVE BLANK
+ - cloudpassword : '',  # <<<< --THIS WILL BE UPDATED FOR YOU IF USING KAFKA CLOUD WITH API SECRET - LEAVE BLANK   
+
+.. figure:: p2.png
+   :scale: 50%
+
+To see what all the other parameters mean, go here :ref:`DAG STEP 1: Parameter Explanation`
+
+For our demonstration we will use the existing values in the DAG.
+
+3. 
