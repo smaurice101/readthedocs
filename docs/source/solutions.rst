@@ -5,6 +5,9 @@ TML solution templates are designed to dramatically accelerate TML solution solu
 
 Solution templated reuire NO CODE or Configurations.  Just RUN THEM!
 
+.. important::
+   **ALL TML SOLUTION ARE DEVELOPED USING THESE SOLUTION TEMPLATES.**
+
 Here are the solution templates provided.
 
 .. list-table::
@@ -240,3 +243,6 @@ Solution Template: :ref:`solution_template_processing_ai_dag_mqtt.py`
       )
     
       start_task >> sensor_A >> sensor_B  >> start_task4 >> [sensor_I, sensor_C, sensor_D, sensor_E] >> start_task2 >> sensor_F >> start_task3  >> sensor_G
+
+Solution Template: solution_template_processing_ai_dag_restapi.py
+---------------------------------
