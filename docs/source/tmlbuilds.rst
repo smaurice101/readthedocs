@@ -6343,3 +6343,5 @@ All topics will be created for your solution in Kafka.
    datetime=datapoint.updated_at~\
    msgid=datapoint.id~\
    latlong=lat:long', # <<< **** Specify your json criteria. Here is an example of a multiline json -
+
+   Refer to :ref:`JSON PROCESSING` for more explanation.
