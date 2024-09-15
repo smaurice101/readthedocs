@@ -6309,4 +6309,22 @@ To see what all the other parameters mean, go here :ref:`DAG STEP 1: Parameter E
 
 For our demonstration we will use the existing values in the DAG.
 
-3. 
+3. **tml_system_step_2_kafka_createtopic_dag-myawesometmlsolution-3f10.py**: Now create all the Kafka topics for your solution. Specifcally,
+
+  - 'raw_data_topic' : 'iot-raw-data', # Separate multiple topics with comma <<< ********** You change topic names as needed
+  - 'preprocess_data_topic' : 'iot-preprocess,iot-preprocess2', # Separate multiple topics with comma <<< ********** You change topic names as needed
+  - 'ml_data_topic' : 'ml-data', # Separate multiple topics with comma <<< ********** You change topic names as needed
+  - 'prediction_data_topic' : 'prediction-data', # Separate multiple topics with comma <<< ********** You change topic names as needed
+  - 'pgpt_data_topic' : 'cisco-network-privategpt',  #  PrivateGPT will produce responses to this topic - change as  needed
+
+.. figure:: p3.png
+   :scale: 50%
+
+All topics will be created for your solution in Kafka.  
+
+.. important::
+   If using Kafka Cloud you will need to set 
+
+   - 'replication' : '3',  Change to a minimum of 3 for replication factor
+   - 'numpartitions': '1',  Increase partition as needed.
+  
