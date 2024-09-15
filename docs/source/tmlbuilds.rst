@@ -6241,10 +6241,14 @@ Here are your new DAGs:
 .. tip::
    For details on the editor go to `Codemirror <https://codemirror.net/5/doc/manual.html#commands>`_
 
-STEP 3. Make a Parameter Modification to TML DAGs
+STEP 3. Make a Parameter Modification to Your Project's TML DAGs
 ------------------------------------
 
+
+.. figure:: soldags2.png
+   :scale: 60%
+
 .. figure:: tmldags.png
-   :scale: 70%
+   :scale: 60%
 
 
