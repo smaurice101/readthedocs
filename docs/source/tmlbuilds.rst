@@ -6329,4 +6329,17 @@ All topics will be created for your solution in Kafka.
 
    - 'replication' : '3',  Change to a minimum of 3 for replication factor
    - 'numpartitions': '1',  Increase partition as needed.
-  
+
+   For more explanation on parameters go here :ref:`DAG STEP 2: Parameter Explanation`
+
+4. **tml_system_step_4_kafka_preprocess_dag-myawesometmlsolution-3f10.py**: Modify the preprocessing **JSONCRITERIA.**
+
+.. code=block:: JSON
+
+   'jsoncriteria' : 'uid=metadata.dsn,filter:allrecords~\
+   subtopics=metadata.property_name~\
+   values=datapoint.value~\
+   identifiers=metadata.display_name~\
+   datetime=datapoint.updated_at~\
+   msgid=datapoint.id~\
+   latlong=lat:long', # <<< **** Specify your json criteria. Here is an example of a multiline json -
