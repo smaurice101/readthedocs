@@ -35,13 +35,16 @@ Once you have created a dashboard to visualize TML data you enter a URL in your 
 
 Here is an example URL:
 
-http://localhost:9005/dashboard.html?topic=iot-preprocess&offset=-1&groupid=&rollbackoffset=500&topictype=prediction&append=0&secure=1
+http://localhost:<PORT>/dashboard.html?topic=iot-preprocess&offset=-1&groupid=&rollbackoffset=500&topictype=prediction&append=0&secure=1
+
+.. note::
+   When you run your TML solution in TSS by following the instructions here :ref:`Lets Start Building a TML Solution` a visualization URL will be generated for you in your TML solution documentation.  A sample documentatation is `here <https://myawesometmlsolution-3f10.readthedocs.io/en/latest/operating.html#your-solution-dashboard-url>`_ A PORT will be assigned to your dashboard at runtime.
 
 .. list-table::
 
    * - **URL Key**
      - **Description**
-   * - http://localhost:9005
+   * - http://localhost:<PORT>
      - Almost all of the dashboard will point to the 
 
        IP and Port that Viperviz is listening on.  Viperviz 
