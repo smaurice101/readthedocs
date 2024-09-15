@@ -6265,7 +6265,7 @@ You have several solution templates to choose from see :ref:`TML Solution Templa
    This ensure proper versioning of projects, and ensures project integrity.  Also, it allows you to see the differences between multiple projects. 
 
 Project Solution Template Run
-"""""""""""""""""""""""""""
+^^^^^^^^^^^^^^^^^^^^^
 
 As an example, let choose **solution_preprocessing_dag-myawesometmlsolution-3f10**
 
@@ -6277,6 +6277,7 @@ As an example, let choose **solution_preprocessing_dag-myawesometmlsolution-3f10
 .. figure:: sd2.png
    :scale: 50%
 
-Now, as per :ref:`STEP 3. Make a Parameter Modification to Your Project’s TML DAGs` as you need. This DAGs uses a local file for reading - how do I know this? See :ref:`The Solution Template Naming Conventions`
+Now, as per :ref:`STEP 3. Make a Parameter Modification to Your Project’s TML DAGs` as you need. This DAG uses a local file for ingesting data: how do I know this? See :ref:`The Solution Template Naming Conventions`
+
 
 
