@@ -6255,7 +6255,7 @@ TML Dags inside your project:
 STEP 4. Choose the Solution Template You Want to Run Inside Your Project Folder
 ---------------------------------------
 
-You have several solution templates to choose from see :ref:`TML Solution Templates`.
+You have several solution templates to choose from see :ref:`TML Solution Templates` and choose the functions you want your solution to perform see :ref:`The Solution Template Naming Conventions`
 
 .. attention::
    After you create a project in STEP 1 above, these templates will be copied under your project.  
