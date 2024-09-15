@@ -6386,3 +6386,19 @@ All topics will be created for your solution in Kafka.
    Since this is preprocessing ONLY we are skipping the Machine Learning and AI DAGs - DAGS 5, 6 and 9.
 
 5. **tml_system_step_7_kafka_visualization_dag-myawesometmlsolution-3f10.py**
+
+   For further details on how to create your own dashboards refer to :re:`Creating Your Own Dashboards`
+
+   As an example, TSS has several dashboards out of the box - **dashboard.html** is being used here.
+.. figure:: p5.png
+   :scale: 50%
+
+Other dashboards are:
+
+- iot-failure-seneca.html
+
+- iot-failure-machinelearning-uoft.html
+
+- tml-cisco-network-privategpt-monitor.html
+
+You can go inside these dashboard by going to your <repo>/tml-airflow/dashboard in Github and create your own.
