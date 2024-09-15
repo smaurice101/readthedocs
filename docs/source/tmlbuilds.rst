@@ -6244,7 +6244,6 @@ Here are your new DAGs:
 STEP 3. Make a Parameter Modification to Your Project's TML DAGs
 ------------------------------------
 
-
 .. figure:: soldags2.png
    :scale: 60%
 
@@ -6256,4 +6255,13 @@ TML Dags inside your project:
 STEP 4. Choose the Solution Yo Want to Run
 ---------------------------------------
 
-You have several solution templates to choose from see 
+You have several solution templates to choose from see :ref:`TML Solution Templates`.
+
+.. attention::
+   After you create a project in STEP 1 above, these templates will be copied under your project.  
+ 
+   **DO NOT MODIFY the original templates, create a project first, then work on the renamed templates under your project name.**
+
+   This ensure proper versioning of projects, and ensures project integrity.  Also, it allows you to see the differences between multiple projects. 
+
+
