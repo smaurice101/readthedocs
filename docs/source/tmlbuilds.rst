@@ -6124,11 +6124,15 @@ Here is the TML solution creation process, that is detailed below:
    :scale: 60%
 
 .. list-table::
+
    * - PROCESS STEPS
      - Explanation
-   * - Process Step 0 
+   * - Process Step 0: :ref:`STEP 0. Go into **tml-airflow** folder`
      - Start the TSS container (:ref:`TSS Docker Run Command`) and go into the TSS Code Editor: :ref:`TSS Code Editor`.
-   
+   * - Process Step 1: :ref:`STEP 1. **Click the file: CREATETMLPROJECT.txt**` 
+     - Start the TSS container (:ref:`TSS Docker Run Command`) and go into the TSS Code Editor: :ref:`TSS Code Editor`.
+
+
 STEP 0. Go into **tml-airflow** folder
 ----------------------------------
 
@@ -6136,8 +6140,10 @@ Assuming you have the TSS container running following the steps here :ref:`TSS D
 
    .. figure:: sol11.png
 
-STEP 0. **tml-airflow -> dags -> tml-solutions** - you will see the following as shown in figure below:
+STEP 0. **tml-airflow -> dags -> tml-solutions**
 ----------------------------------
+
+ You will see the following as shown in figure below
 
    .. figure:: sol1.png
 
