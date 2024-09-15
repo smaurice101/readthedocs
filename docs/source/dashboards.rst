@@ -38,7 +38,7 @@ Here is an example URL:
 http://localhost:<PORT>/dashboard.html?topic=iot-preprocess&offset=-1&groupid=&rollbackoffset=500&topictype=prediction&append=0&secure=1
 
 .. note::
-   When you run your TML solution in TSS by following the instructions here :ref:`Lets Start Building a TML Solution` a visualization URL will be generated for you in your TML solution documentation.  A sample documentatation is `here <https://myawesometmlsolution-3f10.readthedocs.io/en/latest/operating.html#your-solution-dashboard-url>`_ A PORT will be assigned to your dashboard at runtime.
+   When you run your TML solution in TSS by following the instructions here :ref:`Lets Start Building a TML Solution` a visualization URL will be generated for you in your TML solution documentation.  A sample documentation is `here <https://myawesometmlsolution-3f10.readthedocs.io/en/latest/operating.html#your-solution-dashboard-url>`_. A PORT will be assigned to your dashboard at runtime.
 
 .. list-table::
 
