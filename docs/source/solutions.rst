@@ -31,72 +31,72 @@ Here are the solution templates provided.
         See :ref:`MQTT Reference Architecture` with integration with GenAI 
 
         for real-time AI analysis of TML output data.
-   * - :ref:`Solution Template: solution_template_processing_ai_dag_restapi.py`
+   * - 3. :ref:`Solution Template: solution_template_processing_ai_dag_restapi.py`
 
-       This template will analyse ANY real-time data using the REST protocol.
+        This template will analyse ANY real-time data using the REST protocol.
 
-       See :ref:`REST API Reference Architecture` with integration with GenAI 
+        See :ref:`REST API Reference Architecture` with integration with GenAI 
 
-       for real-time AI analysis of TML output data.
-   * - :ref:`Solution Template: solution_template_processing_ai_dag.py`
+        for real-time AI analysis of TML output data.
+   * - 4. :ref:`Solution Template: solution_template_processing_ai_dag.py`
 
-       This solution template will read a local file from the file system
+        This solution template will read a local file from the file system
 
-       and stream it to the TML solution for processing, with integration
+        and stream it to the TML solution for processing, with integration
 
-       with GenAI for further processing.
-   * - :ref:`Solution Template: solution_template_processing_dag_grpc.py`
+        with GenAI for further processing.
+   * - 5. :ref:`Solution Template: solution_template_processing_dag_grpc.py`
 
-       This solution template will process data ingested using gRPC. 
-   * - :ref:`Solution Template: solution_template_processing_dag_mqtt.py`
+        This solution template will process data ingested using gRPC. 
+   * - 6. :ref:`Solution Template: solution_template_processing_dag_mqtt.py`
 
-       This solution template will process data using MQTT protocol.
-   * - :ref:`Solution Template: solution_template_processing_dag_restapi.py`
+        This solution template will process data using MQTT protocol.
+   * - 7. :ref:`Solution Template: solution_template_processing_dag_restapi.py`
 
-       This solution template will process data using the REST API.
-   * - :ref:`Solution Template: solution_template_processing_dag.py`
+        This solution template will process data using the REST API.
+   * - 8. :ref:`Solution Template: solution_template_processing_dag.py`
 
-       This solution template will process data using local file.
-   * - :ref:`Solution Template: solution_template_processing_ml_ai_dag_grpc.py`
+        This solution template will process data using local file.
+   * - 9. :ref:`Solution Template: solution_template_processing_ml_ai_dag_grpc.py`
 
-       This solution template will process data, perform machine learning
+        This solution template will process data, perform machine learning
 
-       and perform AI on the output data, while ingesting data from gRPC protocol.
-   * - :ref:`Solution Template: solution_template_processing_ml_ai_dag_mqtt.py`
+        and perform AI on the output data, while ingesting data from gRPC protocol.
+   * - 10. :ref:`Solution Template: solution_template_processing_ml_ai_dag_mqtt.py`
 
-       This solution template will process data, perform machine learning
+        This solution template will process data, perform machine learning
 
-       and perform AI on the output data, while ingesting data from MQTT protocol.
-   * - :ref:`Solution Template: solution_template_processing_ml_ai_dag_restapi.py`
+        and perform AI on the output data, while ingesting data from MQTT protocol.
+   * - 11. :ref:`Solution Template: solution_template_processing_ml_ai_dag_restapi.py`
 
-       This solution template will process data, perform machine learning
+        This solution template will process data, perform machine learning
 
-       and perform AI on the output data, while ingesting data from REST API protocol.
-   * - :ref:`Solution Template: solution_template_processing_ml_ai_dag.py`
+        and perform AI on the output data, while ingesting data from REST API protocol.
+   * - 12. :ref:`Solution Template: solution_template_processing_ml_ai_dag.py`
 
-       This solution template will process data, perform machine learning
+        This solution template will process data, perform machine learning
 
-       and perform AI on the output data, while ingesting data from local file.
-   * - :ref:`Solution Template: solution_template_processing_ml_dag_grpc.py`
+        and perform AI on the output data, while ingesting data from local file.
+   * - 13. :ref:`Solution Template: solution_template_processing_ml_dag_grpc.py`
 
-       This solution template will process data, perform machine learning
+        This solution template will process data, perform machine learning
 
-       and predictions while ingesting data from gRPC protocol.
-   * - :ref:`Solution Template: solution_template_processing_ml_dag_mqtt.py`
+        and predictions while ingesting data from gRPC protocol.
+   * - 14. :ref:`Solution Template: solution_template_processing_ml_dag_mqtt.py`
 
-       This solution template will process data, perform machine learning
+        This solution template will process data, perform machine learning
 
-       and predictions while ingesting data from MQTT protocol.
-   * - :ref:`Solution Template: solution_template_processing_ml_dag_restapi.py`
+        and predictions while ingesting data from MQTT protocol.
+   * - 15. :ref:`Solution Template: solution_template_processing_ml_dag_restapi.py`
 
-       This solution template will process data, perform machine learning
+        This solution template will process data, perform machine learning
 
-       and predictions while ingesting data from REST API protocol.
-   * - :ref:`Solution Template: solution_template_processing_ml_dag.py`
+        and predictions while ingesting data from REST API protocol.
+   * - 16. :ref:`Solution Template: solution_template_processing_ml_dag.py`
 
-       This solution template will process data, perform machine learning
+        This solution template will process data, perform machine learning
 
-       and predictions while ingesting data from local file.
+        and predictions while ingesting data from local file.
 
 Solution Template: solution_template_processing_ai_dag_grpc.py
 -----------------------------------------------------
