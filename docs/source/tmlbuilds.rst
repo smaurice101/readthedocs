@@ -6277,4 +6277,6 @@ As an example, let choose **solution_preprocessing_dag-myawesometmlsolution-3f10
 .. figure:: sd2.png
    :scale: 50%
 
-Now, as per :ref:`STEP 3. Make a Parameter Modification to Your Project’s TML DAGs` as you need. This DAGs uses a local file for reading.   
+Now, as per :ref:`STEP 3. Make a Parameter Modification to Your Project’s TML DAGs` as you need. This DAGs uses a local file for reading - how do I know this? See :ref:`The Solution Template Naming Conventions`
+
+
