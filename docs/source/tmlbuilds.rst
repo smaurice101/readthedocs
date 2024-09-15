@@ -6270,4 +6270,8 @@ Project Solution Template Run
 As an example, let choose **solution_preprocessing_dag-myawesometmlsolution-3f10**
 
 .. tip::
-   Note, when you create your own project  - I called mine: **myawesometmlsolution** - all of the DAGs and solution templates are copied, renamed and committed to Github.  
+   Note, when you create your own project  - I called mine: **myawesometmlsolution** - all of the DAGs and solution templates are copied, renamed and committed to Github.  It is a copy of DAG :ref:`8. Solution Template: solution_template_processing_dag.py` and simply copied, renamed and moved under your project folder **myawesometmlsolution-3f10**.  Go to TSS and see it as in STEP 3. 
+
+  Also, this project folder will automatically be committed to your Github folder: 
+
+Now, as per :ref:`STEP 3. Make a Parameter Modification to Your Project’s TML DAGs` as you need. This DAGs uses a local file for reading.   
