@@ -31,8 +31,19 @@ Creating Your Own Dashboards
 
 Creating Real-Time Dashboard in TML are simple, yet very powerful and free.  No third-party visualization tool is necessary. 
 
+.. important::
+   All dashboards MUST be created and saved in your **<repo>/tml-airflow/dashboard** folder as shown in Figure below.
+
+.. figure:: d1.png
+   :scale: 50% 
+
 .. note::
-   Refer to :ref:`STEP 7: Real-Time Visualization: tml-system-step-7-kafka-visualization-dag` for creating dashboards and details on Viperviz.
+   Refer to :ref:`STEP 7: Real-Time Visualization: tml-system-step-7-kafka-visualization-dag` for details.  
+
+   To access your dashboard you must enter the filename of the HTML file (i.e. Your Dashboard file) in the **dashboardhtml** field in DAG 7.
+
+.. figure:: d2.png
+   :scale: 50%
 
 Once you have created a dashboard to visualize TML data you enter a URL in your browser to run it.
 
