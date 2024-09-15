@@ -16,8 +16,8 @@ Here are the solution templates provided.
 
 .. list-table::
 
-   * - **Solution Template**
-   * - :ref:`Solution Template: solution_template_processing_ai_dag_grpc.py`
+   * - **Solution Templates**
+   * - 1. :ref:`Solution Template: solution_template_processing_ai_dag_grpc.py`
 
        This template will analyse ANY real-time data using the gRPC protocol.
 
