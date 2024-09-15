@@ -6334,6 +6334,11 @@ All topics will be created for your solution in Kafka.
 
 4. **tml_system_step_4_kafka_preprocess_dag-myawesometmlsolution-3f10.py**: Modify the preprocessing **JSONCRITERIA.**
 
+   Refer to :ref:`JSON PROCESSING` for more explanation.  The following jsoncriteria is being used.
+
+.. figure:: p4.png
+   :scale: 50%
+
 .. code-block:: JSON
 
    'jsoncriteria' : 'uid=metadata.dsn,filter:allrecords~\
@@ -6344,4 +6349,7 @@ All topics will be created for your solution in Kafka.
    msgid=datapoint.id~\
    latlong=lat:long', # <<< **** Specify your json criteria. Here is an example of a multiline json -
 
-   Refer to :ref:`JSON PROCESSING` for more explanation.
+.. note::
+   Since this is preprocessing ONLY we are skipping the Machine Learning and AI DAGs - DAGS 5, 6 and 9.
+
+5. **tml_system_step_7_kafka_visualization_dag-myawesometmlsolution-3f10.py**
