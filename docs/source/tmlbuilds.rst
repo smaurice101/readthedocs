@@ -6130,17 +6130,17 @@ STEP 0. Go into **tml-airflow** folder
 
    .. figure:: sol11.png
 
-STEP 1. **tml-airflow -> dags -> tml-solutions** - you will see the following as shown in figure below:
+STEP 0. **tml-airflow -> dags -> tml-solutions** - you will see the following as shown in figure below:
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
    .. figure:: sol1.png
 
-STEP 2. **Click the file: CREATETMLPROJECT.txt** - you will see the following as shown in figure below:
+STEP 1. **Click the file: CREATETMLPROJECT.txt** - you will see the following as shown in figure below:
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
    .. figure:: sol2.png
 
-STEP 3. **Type the name of your project** 
+STEP 1. **Type the name of your project** 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. important::
@@ -6151,7 +6151,7 @@ STEP 3. **Type the name of your project**
 .. note:: 
    All projects will be "appended" with parts of your READTHEDOCS token.  This is to ensure project uniqness on READTHEDOCS.
 
-STEP 4. You just created a TML Project and committed to Github. Congratulations!  
+STEP 1. You just created a TML Project and committed to Github. Congratulations!  
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 To confirm everything went ok go to the Github account:
@@ -6177,12 +6177,12 @@ Deleting a Project
 .. figure:: deleteproject.png 
    :scale: 70%
 
-STEP 5. Click the folder: **myawesometmlproject-3f10** - you will see the figure below - VOILA!
+STEP 2. Click the folder: **myawesometmlproject-3f10** - you will see the figure below - VOILA!
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
    .. figure:: sol5.png
 
-STEP 6. Confirm Your New Project Was Created in TSS and Committed to Github
+STEP 2. Confirm Your New Project Was Created in TSS and Committed to Github
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 To confirm the new DAGs for **myawesometmlproject** were created properly, in TSS click DAGs (top menu item)
@@ -6237,3 +6237,11 @@ Here are your new DAGs:
 
 .. tip::
    For details on the editor go to `Codemirror <https://codemirror.net/5/doc/manual.html#commands>`_
+
+STEP 3. Make a Parameter Modification to TML DAGs
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. figure:: tmldags.png
+   :scale: 70%
+
+
