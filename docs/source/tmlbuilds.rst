@@ -6406,14 +6406,33 @@ You can go inside these dashboard by going to your <repo>/tml-airflow/dashboard 
 STEP 5. Run Your Solution
 -----------------------
 
+Go to the main DAGs Screen
+"""""""""""""""""""""""
+
 The figures below show the VERY SIMPLE steps of running your solution template DAG:
 
 .. figure:: p51.png
+
+Click the Start Button
+"""""""""""""""""""""""
 
 Then click the START button on top right.
 
 .. figure:: p52.png
 
+Success
+""""""""""""
+
 If the solution ran successfully you will see all green light.
 
 .. figure:: p53.png
+
+Go To the Solution Documentation
+"""""""""""""""""""""""
+
+Your solution documentation is automatically generated for you:
+
+.. important::
+   Goto the URL: `https://myawesometmlsolution-3f10.readthedocs.io/ <https://myawesometmlsolution-3f10.readthedocs.io/>`_
+
+
