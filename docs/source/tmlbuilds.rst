@@ -6447,7 +6447,7 @@ If the solution ran successfully you will see all green light.
    :scale: 50%
 
 STEP 6: Go To the Solution Documentation
-"""""""""""""""""""""""
+---------------------------
 
 Your solution documentation is automatically generated for you:
 
@@ -6463,7 +6463,7 @@ Your solution documentation is automatically generated for you:
    :scale: 50%
 
 STEP 7: Your Solution Docker Run Command
-"""""""""""""""""""""""""""""
+------------------------
 
 You solution docker container is also automatically built and pushed to Docker hub:
 
@@ -6481,7 +6481,7 @@ You solution docker container is also automatically built and pushed to Docker h
    :scale: 50%
 
 STEP 8: Stream Your Solution Dashboard
-"""""""""""""""""""""""""""""
+----------------------
 
 Click the Operating Details and Run Your Dashboard
 
