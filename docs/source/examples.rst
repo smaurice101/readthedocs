@@ -1,6 +1,8 @@
 TML Solution Examples
 ======================
 
+All examples simply follow the steps here :ref:`Lets Start Building a TML Solution`
+
 Real-Time IoT Data Preprocessing Example
 ----------------------
 
