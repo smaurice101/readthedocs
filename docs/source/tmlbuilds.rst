@@ -6459,6 +6459,18 @@ Click the Operating Details and Run Your Dashboard
 .. figure:: sp3.png
    :scale: 50%
 
+**And, here is your real-time dashboard - auto-generated!**
+
 .. figure:: sp4.png
+   :scale: 50%
+
+**And, here is your real-time dashboard - auto-generated!**
+
+.. figure:: sp4.png
+   :scale: 50%
+
+You solution docker container is also automatically built and pushed to Docker hub:
+
+.. figure:: sp6.png
    :scale: 50%
 
