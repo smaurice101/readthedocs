@@ -6,9 +6,9 @@ All examples simply follow the steps here :ref:`Lets Start Building a TML Soluti
 Real-Time IoT Data Preprocessing Example
 ----------------------
 
-This IoT Data Preprocessing Solution DAG: **solution_preprocessing_dag-myawesometmlsolution-3f10** reads a local file data in **/rawdata/IoTdata.txt** and streams it to Kafka.  The streaming data are then processed with TML binary Viper and the output data are streamed to a browser that runs the dashboard: dashboard.html that is located in /Viperviz/viperviz/views.  
+This IoT Data Preprocessing Solution DAG: **solution_preprocessing_dag-myawesometmlsolution-3f10** reads local file data in **/rawdata/IoTdata.txt** and streams it to Kafka.  The streaming data are then processed with TML binary Viper and the output data are streamed to a browser that runs the dashboard: dashboard.html that is located in /Viperviz/viperviz/views.  
 
-The solution will automatically build and push the solution container to docker hub, automatically create documentation on READTHEDOCS.io and automatically commit your solution code to Github, all in about 2 minutes.
+The solution will automatically build and push the solution container to docker hub, automatically create documentation on READTHEDOCS.io and automatically commits your solution code to Github, all in about 2 minutes.
 
 .. figure:: soldags1.png
    :scale: 70%
@@ -156,9 +156,20 @@ Github Commits
 Real-Time IoT Data Preprocessing and Machine Learning Example 
 -----------------------------
 
+This IoT Data Preprocessing Solution DAG: solution_preprocessing_ml_dag-myawesometmlsolutionml-3f10 reads local file data in /rawdata/IoTdata.txt and streams it to Kafka. The streaming data are then processed and entity level machine learning is performed with TML binaries Viper and HPDE, the output data are streamed to a browser that runs the dashboard: iot-failure-machinelearning.html, that is located in /Viperviz/viperviz/views.
+
+The solution will automatically build and push the solution container to docker hub, automatically create documentation on READTHEDOCS.io and automatically commit your solution code to Github, all in about 2 minutes.
+
+
 comming soon
 
 Cybersecurity Solution with PrivateGPT and Qdrant Vector DB
 -------------------------------------
+
+This Cybersecurity Data Preprocessing Solution DAG: solution_preprocessing_ai_dag-cybersecuritysolutionwithprivategpt-3f10 reads local file data in /rawdata/cisco_network_data.txt and streams it to Kafka. The streaming data are then processed, the processed output data sent to the privateGPT container and Qdrant vector DB for further analysis. Processing is done by Viper and AI is performed by privateGPT, the output data are streamed to a browser that runs the dashboard: tml-cisco-network-privategpt-monitor.html, that is located in /Viperviz/viperviz/views.
+
+The solution will automatically build and push the solution container to docker hub, automatically create documentation on READTHEDOCS.io and automatically commit your solution code to Github, all in about 2 minutes.
+
+Note also the solution will start the privateGPT and Qdrant containers automatically for you.
 
 comming soon
