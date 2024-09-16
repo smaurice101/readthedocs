@@ -6406,3 +6406,14 @@ You can go inside these dashboard by going to your <repo>/tml-airflow/dashboard 
 STEP 5. Run Your Solution
 -----------------------
 
+The figures below show the VERY SIMPLE steps of running your solution template DAG:
+
+.. figure:: p51.png
+
+Then click the START button on top right.
+
+.. figure:: p52.png
+
+If the solution ran successfully you will see all green light.
+
+.. figure:: p53.png
