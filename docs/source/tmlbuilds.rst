@@ -6474,3 +6474,10 @@ You solution docker container is also automatically built and pushed to Docker h
 .. figure:: sp6.png
    :scale: 50%
 
+TML Solution Built in Less than 2 Minutus
+---------------------
+
+**CONGRATULATIONS! YOU JUST BUILT A END-END REAL-TIME SOLUTION IN LESS THAN 2 MINUTES!**
+
+.. figure:: sp7.png
+   :scale: 50%
