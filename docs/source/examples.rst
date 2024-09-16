@@ -6,6 +6,10 @@ All examples simply follow the steps here :ref:`Lets Start Building a TML Soluti
 Real-Time IoT Data Preprocessing Example
 ----------------------
 
+This IoT Data Preprocessing Solution DAG: **solution_preprocessing_dag-myawesometmlsolution-3f10** reads a local file data in **/rawdata/IoTdata.txt** and streams it to Kafka.  The streaming data are then processed with TML binary Viper and the output data are streamed to a browser that runs the dashboard: dashboard.html that is located in /Viperviz/viperviz/views.  
+
+The solution will automatically build and push the solution container to docker hub, automatically create documentation on READTHEDOCS.io and automatically commit your solution code to Github, all in about 2 minutes.
+
 .. figure:: soldags1.png
    :scale: 70%
 
