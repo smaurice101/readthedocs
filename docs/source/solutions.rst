@@ -6,7 +6,7 @@ TML solution templates are designed to dramatically accelerate TML solution solu
 Solution templated require NO CODE or Configurations.  Just RUN THEM in TSS! An example will be shown to make this easy to understand here :ref:`Running A Solution Container`
 
 .. important::
-   **ALL TML SOLUTIONS MUST BE DEVELOPED USING THESE SOLUTION TEMPLATES.**
+   **ALL TML SOLUTIONS MUST BE DEVELOPED USING COPIES OF THESE SOLUTION TEMPLATES IN YOUR TML PROJECT FOLDER.**
 
    These solution templates execute all of the TML DAGs here :ref:`DAG Solution Process Explanation`  
 
