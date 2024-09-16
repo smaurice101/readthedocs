@@ -34,8 +34,11 @@ Creating Real-Time Dashboard in TML are simple, yet very powerful and free.  No 
 .. important::
    All dashboards MUST be created and saved in your **<repo>/tml-airflow/dashboard** folder as shown in Figure below.
 
-.. figure:: dashfolder.png
+   You can also upload any images, javascript, css, etc. to the folders in this location.
+
+.. figure:: dashfolder2.png
    :scale: 50% 
+
 
 .. note::
    Refer to :ref:`STEP 7: Real-Time Visualization: tml-system-step-7-kafka-visualization-dag` for details.  
