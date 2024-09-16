@@ -17,6 +17,7 @@ The Python code below is the code representtion for the figure.  **This code bui
 .. code-block:: PYTHON
 
       from __future__ import annotations
+      
       import pendulum
       from airflow.decorators import task
       from airflow.models.dag import DAG
@@ -30,20 +31,20 @@ The Python code below is the code representtion for the figure.  **This code bui
           ExternalPythonOperator,
           PythonOperator
       )
-      step1 = importlib.import_module("tml-solutions.myawesometmlsolution.tml_system_step_1_getparams_dag-myawesometmlsolution")
-      step2 = importlib.import_module("tml-solutions.myawesometmlsolution.tml_system_step_2_kafka_createtopic_dag-myawesometmlsolution")
-      step3 = importlib.import_module("tml-solutions.myawesometmlsolution.tml_read_LOCALFILE_step_3_kafka_producetotopic_dag-myawesometmlsolution")
-      step4 = importlib.import_module("tml-solutions.myawesometmlsolution.tml_system_step_4_kafka_preprocess_dag-myawesometmlsolution")
-      step5 = importlib.import_module("tml-solutions.myawesometmlsolution.tml_system_step_5_kafka_machine_learning_dag-myawesometmlsolution")
-      step6 = importlib.import_module("tml-solutions.myawesometmlsolution.tml_system_step_6_kafka_predictions_dag-myawesometmlsolution")
-      step7 = importlib.import_module("tml-solutions.myawesometmlsolution.tml_system_step_7_kafka_visualization_dag-myawesometmlsolution")
-      step8 = importlib.import_module("tml-solutions.myawesometmlsolution.tml_system_step_8_deploy_solution_to_docker_dag-myawesometmlsolution")
-      step9 = importlib.import_module("tml-solutions.myawesometmlsolution.tml_system_step_9_privategpt_qdrant_dag-myawesometmlsolution")
-      step10 = importlib.import_module("tml-solutions.myawesometmlsolution.tml_system_step_10_documentation_dag-myawesometmlsolution")
+      step1 = importlib.import_module("tml-solutions.myawesometmlsolution-3f10.tml_system_step_1_getparams_dag-myawesometmlsolution-3f10")
+      step2 = importlib.import_module("tml-solutions.myawesometmlsolution-3f10.tml_system_step_2_kafka_createtopic_dag-myawesometmlsolution-3f10")
+      step3 = importlib.import_module("tml-solutions.myawesometmlsolution-3f10.tml_read_LOCALFILE_step_3_kafka_producetotopic_dag-myawesometmlsolution-3f10")
+      step4 = importlib.import_module("tml-solutions.myawesometmlsolution-3f10.tml_system_step_4_kafka_preprocess_dag-myawesometmlsolution-3f10")
+      step5 = importlib.import_module("tml-solutions.myawesometmlsolution-3f10.tml_system_step_5_kafka_machine_learning_dag-myawesometmlsolution-3f10")
+      step6 = importlib.import_module("tml-solutions.myawesometmlsolution-3f10.tml_system_step_6_kafka_predictions_dag-myawesometmlsolution-3f10")
+      step7 = importlib.import_module("tml-solutions.myawesometmlsolution-3f10.tml_system_step_7_kafka_visualization_dag-myawesometmlsolution-3f10")
+      step8 = importlib.import_module("tml-solutions.myawesometmlsolution-3f10.tml_system_step_8_deploy_solution_to_docker_dag-myawesometmlsolution-3f10")
+      step9 = importlib.import_module("tml-solutions.myawesometmlsolution-3f10.tml_system_step_9_privategpt_qdrant_dag-myawesometmlsolution-3f10")
+      step10 = importlib.import_module("tml-solutions.myawesometmlsolution-3f10.tml_system_step_10_documentation_dag-myawesometmlsolution-3f10")
       
       
       with DAG(
-          dag_id="solution_preprocessing_dag-myawesometmlsolution",
+          dag_id="solution_preprocessing_dag-myawesometmlsolution-3f10",
           start_date=datetime(2023, 1, 1),
           schedule=None,
       ) as dag:
