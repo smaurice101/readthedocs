@@ -143,6 +143,12 @@ The entire end-end real-time solution took less than 2 minutes to build:
 .. figure:: sp7.png
    :scale: 60%
 
+Github Commits
+----------------
+
+.. figure:: sp9.png
+   :scale: 50%
+
 Real-Time IoT Data Preprocessing and Machine Learning Example 
 -----------------------------
 
