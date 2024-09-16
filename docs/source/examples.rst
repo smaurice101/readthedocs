@@ -191,6 +191,11 @@ This is the real-time dashboard generated:
 .. figure:: mldash.png
    :scale: 50%     
 
+Here is the docker container that was automatically built and pushed to Docker hub:
+
+.. figure:: ml4.png
+   :scale: 50%     
+
 
 Cybersecurity Solution with PrivateGPT and Qdrant Vector DB
 -------------------------------------
