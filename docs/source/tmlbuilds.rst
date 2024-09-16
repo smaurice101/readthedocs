@@ -6126,40 +6126,40 @@ Here is the TML solution creation process, that is detailed below:
 .. list-table::
 
    * - **PROCESS STEPS**
-   * - **Process Step 0:** :ref:`STEP 0. Go into **tml-airflow** folder`
+   * - **Process** :ref:`STEP 0. Go into **tml-airflow** folder`
      
        Start the TSS container (:ref:`TSS Docker Run Command`) and go into the TSS Code Editor: :ref:`TSS Code Editor`.
-   * - **Process Step 1:** :ref:`STEP 1. **Type the name of your project**` 
+   * - **Process** :ref:`STEP 1. **Type the name of your project**` 
        
        You must choose a name for your TML project.  No spaces, or special characaters, just text.  
 
        NOTE: Four characters from your READTHEDOCS token will be automatically appended to your project name. 
-   * - **Process Step 2:** :ref:`STEP 2. Click the folder: **myawesometmlproject-3f10**` 
+   * - **Process** :ref:`STEP 2. Click the folder: **myawesometmlproject-3f10**` 
       
        You must choose a name for your TML project.  No spaces, or special characaters, just text.  
 
        NOTE: We are just using **myawesometmlproject** as an example.  Youc an choose any name you want.
-   * - **Process Step 3:** :ref:`STEP 3. Make Parameter Modifications to Your Project's TML DAGs` 
+   * - **Process** :ref:`STEP 3. Make Parameter Modifications to Your Project's TML DAGs` 
        
        Simply update the parameters to your TML DAGs.  **You do not need to write any code**.
-   * - **Process Step 4:** :ref:`STEP 4. Choose the Solution Template You Want to Run` 
+   * - **Process** :ref:`STEP 4. Choose the Solution Template You Want to Run` 
        
        You must select a solution template.  These templates build and run the entire end-end
 
        TML solution and make modifications to your TML DAGs.
-   * - **Process Step 5:** :ref:`STEP 5. Run Your Solution` 
+   * - **Process** :ref:`STEP 5. Run Your Solution` 
        
        You can now run your solution.
-   * - **Process Step 6:** :ref:`STEP 6: Go To the Solution Documentation` 
+   * - **Process** :ref:`STEP 6: Go To the Solution Documentation` 
        
        You can now run your solution.
-   * - **Process Step 7:** :ref:`STEP 7: Your Solution Docker Run Command` 
+   * - **Process** :ref:`STEP 7: Your Solution Docker Run Command` 
        
        You can now run your solution container.
-   * - **Process Step 8:** :ref:`STEP 8: Stream Your Solution Dashboard` 
+   * - **Process** :ref:`STEP 8: Stream Your Solution Dashboard` 
        
        Stream your real-time dashboard.
-   * - **Process Step 9:** :ref:`STEP 9: TML Solution Built in Less than 2 Minutes` 
+   * - **Process** :ref:`STEP 9: TML Solution Built in Less than 2 Minutes` 
        
        Congratulations! You just built a real-time solution in less than 2 minutes
 
