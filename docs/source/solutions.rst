@@ -1871,8 +1871,10 @@ How To Read a Solution Template
 ------------------------
 
 The key components of a solution template are:
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 1. import files
+"""""""""""""""""""
 
    - Consider the following import files:
 
@@ -1906,10 +1908,28 @@ The key components of a solution template are:
 
     For this example it is here: `https://github.com/smaurice101/raspberrypi/blob/main/tml-airflow/dags/tml-solutions/myawesometmlsolutionml-3f10/tml_system_step_1_getparams_dag-myawesometmlsolutionml-3f10.py <https://github.com/smaurice101/raspberrypi/blob/main/tml-airflow/dags/tml-solutions/myawesometmlsolutionml-3f10/tml_system_step_1_getparams_dag-myawesometmlsolutionml-3f10.py>`_
 
-2. tasks
+2. tasks to execute
+""""""""""""""""""""""""
 
-3 tasks groupings
+Keeping with the above example.  We can create the task for Step 1:
 
+ - STEP 1: Get the Parameters
+      **sensor_A** = PythonOperator(
+                task_id="step_1_solution_task_getparams",
+                **python_callable=step1.getparams,**
+                provide_context=True,
+      )
+
+ **python_callable=step1.getparams,**
+
+   - Notice **step1.getparams**, this will now call the function **getparams** in the file `https://github.com/smaurice101/raspberrypi/blob/main/tml- 
+     airflow/dags/tml-solutions/myawesometmlsolutionml-3f10/tml_system_step_1_getparams_dag-myawesometmlsolutionml-3f10.py 
+     <https://github.com/smaurice101/raspberrypi/blob/main/tml-airflow/dags/tml-solutions/myawesometmlsolutionml-3f10/tml_system_step_1_getparams_dag- 
+     myawesometmlsolutionml-3f10.py>`_
+
+
+3. tasks groupings
+"""""""""""""""""""""""
 
 Running A Solution Container
 ----------------------------------
