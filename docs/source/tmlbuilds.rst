@@ -6142,9 +6142,9 @@ Here is the TML solution creation process, that is detailed below:
    * - **Process Step 4:** :ref:`STEP 4. Choose the Solution Template You Want to Run` 
      - You must select a solution template.  These templates build and run the entire end-end
 
-       TML soluton.
-   * - **Process Step 5:** :ref:`STEP 4. Choose the Solution Template You Want to Run` 
-     - You must select a solution template.  These templates build and run the entire end-end
+       TML solution and make modifications to your TML DAGs.
+   * - **Process Step 5:** :ref:`STEP 5. Run Your Solution` 
+     - You can now run your solution.
 
 
 STEP 0. Go into **tml-airflow** folder
@@ -6402,3 +6402,7 @@ Other dashboards are:
 - tml-cisco-network-privategpt-monitor.html
 
 You can go inside these dashboard by going to your <repo>/tml-airflow/dashboard in Github and create your own.
+
+STEP 5. Run Your Solution
+-----------------------
+
