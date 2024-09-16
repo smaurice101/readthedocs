@@ -1937,7 +1937,7 @@ We can now group the tasks into a complete end-end TML solution:
       **start_task >> sensor_A >> sensor_B >> start_task4 >> [sensor_C, sensor_D, sensor_E, sensor_F, sensor_G] >> start_task2 >> sensor_H >> start_task3 >> sensor_J**
 
 .. note::
-   These tasks will run sequentially.  The tasks in the square brackets, [sensor_C, sensor_D, sensor_E, sensor_F, sensor_G], will run in parallel.  The entire process is shwon in the graph below.
+   These tasks will run sequentially.  The tasks in the square brackets, [sensor_C, sensor_D, sensor_E, sensor_F, sensor_G], will run in parallel.  The entire process is shown in the graph below.
 
 .. figure:: mlgraph.png
    :scale: 60% 
