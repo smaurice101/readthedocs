@@ -81,6 +81,7 @@ TSS Docker Run Command
    --env SOLUTIONNAME=TSS
    --env AIRFLOWPORT=9000 
    --env VIPERVIZPORT=9005
+   --env EXTERNALPORT=-1 
    -v /var/run/docker.sock:/var/run/docker.sock:z 
    -v /<your local dagsbackup folder>:/dagslocalbackup:z
    --env READTHEDOCS=<Token>
