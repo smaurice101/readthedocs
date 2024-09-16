@@ -115,7 +115,7 @@ Successful Run Screen
 
 Below the TSS/Airflow screen that shows a successful TML solution build.  All colors should be green for all of the steps.  If you see a red color, it means your DAG has an error.
 
-.. figure:: run1.png
+.. figure:: p53.png
    :scale: 70%
 
 Solution Documentation Example
