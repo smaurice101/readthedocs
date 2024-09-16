@@ -6126,26 +6126,42 @@ Here is the TML solution creation process, that is detailed below:
 .. list-table::
 
    * - **PROCESS STEPS**
-     - **Explanation**
    * - **Process Step 0:** :ref:`STEP 0. Go into **tml-airflow** folder`
-     - Start the TSS container (:ref:`TSS Docker Run Command`) and go into the TSS Code Editor: :ref:`TSS Code Editor`.
+     
+       Start the TSS container (:ref:`TSS Docker Run Command`) and go into the TSS Code Editor: :ref:`TSS Code Editor`.
    * - **Process Step 1:** :ref:`STEP 1. **Click the file: CREATETMLPROJECT.txt**` 
-     - You must choose a name for your TML project.  No spaces, or special characaters, just text.  
+       
+       You must choose a name for your TML project.  No spaces, or special characaters, just text.  
 
        NOTE: Four characters from your READTHEDOCS token will be automatically appended to your project name. 
    * - **Process Step 2:** :ref:`STEP 2. Click the folder: **myawesometmlproject-3f10**` 
-     - You must choose a name for your TML project.  No spaces, or special characaters, just text.  
+      
+       You must choose a name for your TML project.  No spaces, or special characaters, just text.  
 
        NOTE: We are just using **myawesometmlproject** as an example.  Youc an choose any name you want.
    * - **Process Step 3:** :ref:`STEP 3. Make Parameter Modifications to Your Project's TML DAGs` 
-     - Simply update the parameters to your TML DAGs.  **You do not need to write any code**.
+       
+       Simply update the parameters to your TML DAGs.  **You do not need to write any code**.
    * - **Process Step 4:** :ref:`STEP 4. Choose the Solution Template You Want to Run` 
-     - You must select a solution template.  These templates build and run the entire end-end
+       
+       You must select a solution template.  These templates build and run the entire end-end
 
        TML solution and make modifications to your TML DAGs.
    * - **Process Step 5:** :ref:`STEP 5. Run Your Solution` 
-     - You can now run your solution.
-
+       
+       You can now run your solution.
+   * - **Process Step 6:** :ref:`STEP 6: Go To the Solution Documentation` 
+       
+       You can now run your solution.
+   * - **Process Step 7:** :ref:`STEP 7: Your Solution Docker Run Command` 
+       
+       You can now run your solution container.
+   * - **Process Step 8:** :ref:`STEP 8: Stream Your Solution Dashboard` 
+       
+       Stream your real-time dashboard.
+   * - **Process Step 9:** :ref:`STEP 9: TML Solution Built in Less than 2 Minutes` 
+       
+       Congratulations! You just built a real-time solution in less than 2 minutes
 
 STEP 0. Go into **tml-airflow** folder
 ----------------------------------
@@ -6430,7 +6446,7 @@ If the solution ran successfully you will see all green light.
 .. figure:: p53.png
    :scale: 50%
 
-Go To the Solution Documentation
+STEP 6: Go To the Solution Documentation
 """""""""""""""""""""""
 
 Your solution documentation is automatically generated for you:
@@ -6446,7 +6462,32 @@ Your solution documentation is automatically generated for you:
 .. figure:: sp5.png
    :scale: 50%
 
-   
+STEP 7: Your Solution Docker Run Command
+"""""""""""""""""""""""""""""
+
+You solution docker container is also automatically built and pushed to Docker hub:
+
+.. figure:: sp6.png
+   :scale: 50%
+
+Your Solution docker run command is in the documentation.  You can now take this Docker container and scale it with Kubernetes as you wish.
+
+.. figure:: sp8.png
+   :scale: 50%
+
+STEP 8: Stream Your Solution Dashboard
+"""""""""""""""""""""""""""""
+
+You solution docker container is also automatically built and pushed to Docker hub:
+
+.. figure:: sp6.png
+   :scale: 50%
+
+Your Solution docker run command is in the documentation.  You can now take this Docker container and scale it with Kubernetes as you wish.
+
+.. figure:: sp8.png
+   :scale: 50%
+
 Click the Operating Details and Run Your Dashboard
 """"""""""""""""""""""""""""""""""""""""
 
@@ -6464,22 +6505,8 @@ Click the Operating Details and Run Your Dashboard
 .. figure:: sp4.png
    :scale: 50%
 
-**And, here is your real-time dashboard - auto-generated!**
 
-.. figure:: sp4.png
-   :scale: 50%
-
-You solution docker container is also automatically built and pushed to Docker hub:
-
-.. figure:: sp6.png
-   :scale: 50%
-
-Your Solution docker run command is in the documentation.  You can now take this Docker container and scale it with Kubernetes as you wish.
-
-.. figure:: sp8.png
-   :scale: 50%
-
-TML Solution Built in Less than 2 Minutus
+STEP 9: TML Solution Built in Less than 2 Minutes
 ---------------------
 
 **CONGRATULATIONS! YOU JUST BUILT A END-END REAL-TIME SOLUTION IN LESS THAN 2 MINUTES!**
