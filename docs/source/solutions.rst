@@ -8,6 +8,8 @@ Solution templated require NO CODE or Configurations.  Just RUN THEM in TSS! An 
 .. important::
    **ALL TML SOLUTIONS MUST BE DEVELOPED USING COPIES OF THESE SOLUTION TEMPLATES IN YOUR TML PROJECT FOLDER.**
 
+   Refer to here for details :ref:`Lets Start Building a TML Solution`
+
    These solution templates execute all of the TML DAGs here :ref:`DAG Solution Process Explanation`  
 
    All you do is configure the parameters in the TML DAGs and RUN the Solution Templates.  THAT IS IT!
