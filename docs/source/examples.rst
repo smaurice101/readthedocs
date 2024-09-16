@@ -175,8 +175,13 @@ This IoT Data Preprocessing and Machine Learning Solution DAG: **solution_prepro
 
 The solution will automatically build and push the solution container to docker hub, automatically create documentation on READTHEDOCS.io and automatically commit your solution code to Github, all in about 2 minutes.
 
+Here is the automated readthedocs documentation
 
-comming soon
+This is the real-time dashboard generated:
+
+.. figure:: mldash.png
+   :scale: 50%     
+
 
 Cybersecurity Solution with PrivateGPT and Qdrant Vector DB
 -------------------------------------
