@@ -6438,6 +6438,15 @@ Your solution documentation is automatically generated for you:
 .. important::
    Goto the URL: `https://myawesometmlsolution-3f10.readthedocs.io/ <https://myawesometmlsolution-3f10.readthedocs.io/>`_
 
+.. tip::
+   To find the name of the documentation URL goto to your Github /tml-airflow/dags/tml-solutions/myawesometmlsolution-3f10
+
+   The url is in the commit message as shown in figure below.
+
+.. figure:: sp5.png
+   :scale: 50%
+
+   
 Click the Operating Details and Run Your Dashboard
 """"""""""""""""""""""""""""""""""""""""
 
