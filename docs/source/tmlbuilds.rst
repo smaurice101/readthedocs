@@ -6129,7 +6129,7 @@ Here is the TML solution creation process, that is detailed below:
    * - **Process Step 0:** :ref:`STEP 0. Go into **tml-airflow** folder`
      
        Start the TSS container (:ref:`TSS Docker Run Command`) and go into the TSS Code Editor: :ref:`TSS Code Editor`.
-   * - **Process Step 1:** :ref:`STEP 1. **Click the file: CREATETMLPROJECT.txt**` 
+   * - **Process Step 1:** :ref:`STEP 1. **Type the name of your project**` 
        
        You must choose a name for your TML project.  No spaces, or special characaters, just text.  
 
