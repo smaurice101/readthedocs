@@ -6308,6 +6308,9 @@ You have several solution templates to choose from see :ref:`TML Solution Templa
 
    This ensure proper versioning of projects, and ensures project integrity.  Also, it allows you to see the differences between multiple projects. 
 
+.. important
+   This solution reads a local file. All local files are in the /rawdata folder in the container.  If you want to read your own local file, you MUST map a local folder to the rawdata folder.  For further details refer to here :ref:`Producing Data Using a Local File`
+
 Project Solution Template Run
 ^^^^^^^^^^^^^^^^^^^^^
 
