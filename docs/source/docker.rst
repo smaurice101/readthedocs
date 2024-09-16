@@ -85,12 +85,14 @@ TSS Docker Run Command
    -v /<your local dagsbackup folder>:/dagslocalbackup:z
    --env READTHEDOCS=<Token>
    --env GITREPOURL=<your git hub repo> 
-   --env  GITUSERNAME=<your github username> 
-   --env GITPASSWORD=<Personal Access Token> 
-   --env DOCKERUSERNAME=<your docker hub account> 
-   --env DOCKERPASSWORD=<password> 
-   --env MQTTUSERNAME=<enter MQTT username>
-   --env MQTTPASSWORD=<enter MQTT password>
+   --env  GITUSERNAME='<your github username>' 
+   --env GITPASSWORD='<Personal Access Token>' 
+   --env DOCKERUSERNAME='<your docker hub account>' 
+   --env DOCKERPASSWORD='<password>' 
+   --env MQTTUSERNAME='<enter MQTT username>'
+   --env MQTTPASSWORD='<enter MQTT password>'
+   --env KAFKACLOUDUSERNAME='' 
+   --env KAFKACLOUDPASSWORD='<Enter your API secret>'
    maadsdocker/tml-solution-studio-with-airflow-amd64
 
 .. list-table::
