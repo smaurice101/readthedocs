@@ -6475,9 +6475,6 @@ Your Solution docker run command is in the documentation.  You can now take this
 .. figure:: sp8.png
    :scale: 50%
 
-STEP 8: Stream Your Solution Dashboard
-"""""""""""""""""""""""""""""
-
 You solution docker container is also automatically built and pushed to Docker hub:
 
 .. figure:: sp6.png
@@ -6488,8 +6485,10 @@ Your Solution docker run command is in the documentation.  You can now take this
 .. figure:: sp8.png
    :scale: 50%
 
+STEP 8: Stream Your Solution Dashboard
+"""""""""""""""""""""""""""""
+
 Click the Operating Details and Run Your Dashboard
-""""""""""""""""""""""""""""""""""""""""
 
 .. figure:: sp1.png
    :scale: 50%
