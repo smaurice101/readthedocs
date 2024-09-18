@@ -31,6 +31,8 @@ This is the main container that you need to use to build TML solutions.  Below i
 
    7. Create a `HiveMQ account <https://www.hivemq.com/>`_ - while this is OPTIONAL - if using MQTT and HiveMQ you will need this.
 
+   8. Kafka Cloud API keys from `Confluent <https://www.confluent.io>`_ or `AWS MSK <https://aws.amazon.com/msk/>`_ - while this is OPTONAL - it will be for production, or large scale, deployments.
+
    FOLLOW THE :ref:`How To Use the TML Solution Container` SECTION.
 
 TSS Contains a TML Dev Environment
