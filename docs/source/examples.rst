@@ -6,9 +6,9 @@ All examples simply follow the steps here :ref:`Lets Start Building a TML Soluti
 .. list-table::
 
    * - **Example**
-     - **Description**
    * - IoT Data Preprocessing Using a Localfile
-     - This will process IoT for anomalies, stream the results to a dashboad,
+       
+       This will process IoT for anomalies, stream the results to a dashboad,
 
        build and push the container to docker hub, automatically create the
 
@@ -16,7 +16,8 @@ All examples simply follow the steps here :ref:`Lets Start Building a TML Soluti
 
        to GitHub.
    * - IoT Data Preprocessing and Real-Time Entity Level Machine Using a Localfile
-     - This will process IoT data, and perform entity level machine learning (TML)
+      
+       This will process IoT data, and perform entity level machine learning (TML)
 
        on the data, stream the results to a dashboad,
 
@@ -26,7 +27,8 @@ All examples simply follow the steps here :ref:`Lets Start Building a TML Soluti
 
        to GitHub.
    * - Cybersecurity Solution with PrivateGPT Using a MQTT and HiveMQ
-     - This will process cybersecurity data for anomalies, 
+     
+       This will process cybersecurity data for anomalies, 
 
        and further process the TML anomalies
       
