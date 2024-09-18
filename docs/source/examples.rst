@@ -352,8 +352,8 @@ The solution will automatically build and push the solution container to docker 
 
 Note also the solution will start the privateGPT and Qdrant containers automatically for you.
 
-.. figure:: gptdash2.png
-   :scale: 60%
+Here is the solution DAG: solution_preprocessing_ai_mqtt_dag-cybersecuritywithprivategpt-3f10
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code-block:: PYTHON
 
@@ -457,5 +457,33 @@ Note also the solution will start the privateGPT and Qdrant containers automatic
     
       start_task >> sensor_A >> sensor_B  >> start_task4 >> [sensor_I, sensor_C, sensor_D, sensor_E] >> start_task2 >> sensor_F >> start_task3  >> sensor_G
 
+DAG Successful Run
+^^^^^^^^^^^^^^^^^
+
+.. figure:: gptdash2.png
+   :scale: 60%
+
+The Dashboard with PrivateGPT
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
 .. figure:: gptdash.png
    :scale: 60%
+
+The HiveMQ Cluster
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. figure:: mqttcluster.png
+   :scale: 50%
+
+
+Solution Documentation
+^^^^^^^^^^^^^^^^^
+
+.. figure:: cyberdoc.png
+   :scale: 50%
+
+Solution Docker Container
+^^^^^^^^^^^^^^^^^
+
+.. figure:: dockercyber.png
+   :scale: 50%
