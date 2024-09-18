@@ -3,6 +3,43 @@ TML Solution Examples
 
 All examples simply follow the steps here :ref:`Lets Start Building a TML Solution`
 
+.. list-table::
+
+   * - **Example**
+    - **Description**
+   * - IoT Data Preprocessing Using a Localfile
+     - This will process IoT for anomalies, stream the results to a dashboad,
+
+       build and push the container to docker hub, automatically create the
+
+       solution documentation on Readthdocs, and auto-commit your solution
+
+       to GitHub.
+   * - IoT Data Preprocessing and Real-Time Entity Level Machine Using a Localfile
+     - This will process IoT data, and perform entity level machine learning (TML)
+
+       on the data, stream the results to a dashboad,
+
+       build and push the container to docker hub, automatically create the
+
+       solution documentation on Readthdocs, and auto-commit your solution
+
+       to GitHub.
+   * - Cybersecurity Solution with PrivateGPT Using a MQTT and HiveMQ
+     - This will process cybersecurity data for anomalies, 
+
+       and further process the TML anomalies
+      
+       data by sending the results to privateGPT container. It will stream 
+
+       the results to a dashboad,
+
+       build and push the container to docker hub, automatically create the
+
+       solution documentation on Readthdocs, and auto-commit your solution
+
+       to GitHub.
+
 .. note::
    While we are using a local file for the demos, this is to make it easy for users to build and run these solutions themselves.  Ideally, in industry, we would use APIs like MQTT, REST and gRPC to ingest data from devices and stream it to TML solutions.  TSS allows you to build solutions with these APIs with pre-written DAGs here:
 
@@ -304,7 +341,7 @@ Here is the docker container that was automatically built and pushed to Docker h
    :scale: 50%     
 
 
-Cybersecurity Solution with PrivateGPT and Qdrant Vector DB
+Cybersecurity Solution with PrivateGPT
 -------------------------------------
 
 This Cybersecurity Data Preprocessing with GenAI Solution DAG: **solution_preprocessing_ai_dag-cybersecuritysolutionwithprivategpt-3f10** reads local file data in /rawdata/cisco_network_data.txt and streams it to Kafka. **The streaming data are then processed, the processed output data sent to the privateGPT container and Qdrant vector DB for further analysis.** Processing is done by Viper and AI is performed by privateGPT, the output data are streamed to a browser that runs the dashboard: tml-cisco-network-privategpt-monitor.html, that is located in /Viperviz/viperviz/views.
