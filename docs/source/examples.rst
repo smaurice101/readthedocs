@@ -73,7 +73,7 @@ This IoT Data Preprocessing Solution DAG: **solution_preprocessing_dag-myawesome
 The solution will automatically build and push the solution container to docker hub, automatically create documentation on READTHEDOCS.io and **automatically commits your solution code to Github, all in about 2 minutes.**
 
 .. figure:: soldags1.png
-   :scale: 70%
+   :scale: 50%
 
 Solution DAG Code: solution_preprocessing_dag-myawesometmlsolution-3f10
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
