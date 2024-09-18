@@ -6,7 +6,7 @@ All examples simply follow the steps here :ref:`Lets Start Building a TML Soluti
 .. list-table::
 
    * - **Example**
-   * - IoT Data Preprocessing Using a Localfile
+   * - :ref:`Real-Time IoT Data Preprocessing Example`
        
        This will process IoT for anomalies, stream the results to a dashboad,
 
@@ -15,7 +15,7 @@ All examples simply follow the steps here :ref:`Lets Start Building a TML Soluti
        solution documentation on Readthdocs, and auto-commit your solution
 
        to GitHub.
-   * - IoT Data Preprocessing and Real-Time Entity Level Machine Using a Localfile
+   * - :ref:`Real-Time IoT Data Preprocessing and Machine Learning Example`
       
        This will process IoT data, and perform entity level machine learning (TML)
 
@@ -26,7 +26,7 @@ All examples simply follow the steps here :ref:`Lets Start Building a TML Soluti
        solution documentation on Readthdocs, and auto-commit your solution
 
        to GitHub.
-   * - Cybersecurity Solution with PrivateGPT Using a MQTT and HiveMQ
+   * - :ref:`Cybersecurity Solution with PrivateGPT, MQTT, HiveMQ`
      
        This will process cybersecurity data for anomalies, 
 
@@ -343,7 +343,7 @@ Here is the docker container that was automatically built and pushed to Docker h
    :scale: 50%     
 
 
-Cybersecurity Solution with PrivateGPT
+Cybersecurity Solution with PrivateGPT, MQTT, HiveMQ
 -------------------------------------
 
 This Cybersecurity Data Preprocessing with GenAI Solution DAG: **solution_preprocessing_ai_dag-cybersecuritysolutionwithprivategpt-3f10** reads local file data in /rawdata/cisco_network_data.txt and streams it to Kafka. **The streaming data are then processed, the processed output data sent to the privateGPT container and Qdrant vector DB for further analysis.** Processing is done by Viper and AI is performed by privateGPT, the output data are streamed to a browser that runs the dashboard: tml-cisco-network-privategpt-monitor.html, that is located in /Viperviz/viperviz/views.
