@@ -6,7 +6,7 @@ All examples simply follow the steps here :ref:`Lets Start Building a TML Soluti
 .. list-table::
 
    * - **Example**
-    - **Description**
+     - **Description**
    * - IoT Data Preprocessing Using a Localfile
      - This will process IoT for anomalies, stream the results to a dashboad,
 
