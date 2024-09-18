@@ -5882,7 +5882,7 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
             doparse("/{}/docs/source/details.rst".format(sname), ["--cuda--;{}".format(pcuda[1:])])
             doparse("/{}/docs/source/details.rst".format(sname), ["--pgpthost--;{}".format(pgpthost)])
             doparse("/{}/docs/source/details.rst".format(sname), ["--pgptport--;{}".format(pgptport[1:])])
-            doparse("/{}/docs/source/details.rst".format(sname), ["--keyprocesstype--;{}".format(pkeyprocesstype)])
+            doparse("/{}/docs/source/details.rst".format(sname), ["--keyprocesstype--;{}".format(pprocesstype)])
             doparse("/{}/docs/source/details.rst".format(sname), ["--hyperbatch--;{}".format(hyperbatch)])
         
         
