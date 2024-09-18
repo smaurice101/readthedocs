@@ -4902,8 +4902,9 @@ STEP 9: PrivateGPT and Qdrant Integration: tml-system-step-9-privategpt_qdrant-d
      'jsonkeytogather' : 'hyperprediction', # enter key you want to gather data from to analyse with PrivateGpt i.e. Identifier or hyperprediction
      'keyattribute' : 'Voltage,current', # change as needed  
      'keyprocesstype' : 'anomprob',  # change as needed
+     'hyperbatch' : '0', # Set to 1 if you want to batch all of the hyperpredictions and sent to chatgpt, set to 0, if you want to send it one by one   
      'vectordbcollectionname' : 'tml', # change as needed
-     'concurrency' : '2', # change as needed 
+     'concurrency' : '1', # change as needed Leave at 1
      'CUDA_VISIBLE_DEVICES' : '0' # change as needed
     }
     
@@ -5031,21 +5032,23 @@ STEP 9: PrivateGPT and Qdrant Integration: tml-system-step-9-privategpt_qdrant-d
                isin=any(x in r['Identifier'].lower() for x in aar)
                if isin:
                  found=0
-                 for d in r['RawData']:
-                   found=1
-                   message = message  + str(d) + '<br>'
+                 for d in r['RawData']:              
+                    found=1
+                    message = message  + str(d) + ', '
                  if found:
-                   message = "{}<br><br> {} <br><br>{}".format(context,message,prompt)
-                   privategptmessage.append(message)
+                   message = "{}.  Data: {}. {}".format(context,message,prompt)
+                   privategptmessage.append([message,identarr[0]])
                  message = ""
              except Excepption as e:
                tsslogging.tsslogit("PrivateGPT DAG in {} {}".format(os.path.basename(__file__),e), "ERROR" )
                tsslogging.git_push("/{}".format(repo),"Entry from {}".format(os.path.basename(__file__)),"origin")
-               break
+    #           break
            else:
              isin1 = False
              isin2 = False
              found=0
+             message = ""   
+             identarr=r['Identifier'].split("~")   
              if processtype != '' and attribute != '':
                processtype = processtype.lower()
                ptypearr = processtype.split(",")
@@ -5059,7 +5062,7 @@ STEP 9: PrivateGPT and Qdrant Integration: tml-system-step-9-privategpt_qdrant-d
                  buf = r[jsonkeytogather]
                  if buf != '':
                    found=1
-                   message = message  + buf + '<br>'
+                   message = message  + "{} (Identifier={})".format(buf,identarr[0]) + ', '
              elif processtype != '' and attribute == '':
                processtype = processtype.lower()
                ptypearr = processtype.split(",")
@@ -5068,7 +5071,7 @@ STEP 9: PrivateGPT and Qdrant Integration: tml-system-step-9-privategpt_qdrant-d
                  buf = r[jsonkeytogather]
                  if buf != '':
                    found=1
-                   message = message  + buf + '<br>'
+                   message = message  + "{} (Identifier={})".format(buf,identarr[0]) + ', '
              elif processtype == '' and attribute != '':
                attribute = attribute.lower()
                aar = attribute.split(",")
@@ -5077,15 +5080,20 @@ STEP 9: PrivateGPT and Qdrant Integration: tml-system-step-9-privategpt_qdrant-d
                  buf = r[jsonkeytogather]
                  if buf != '':
                    found=1
-                   message = message  + buf + '<br>'
+                   message = message  + "{} (Identifier={})".format(buf,identarr[0]) + ', '
              else:
                buf = r[jsonkeytogather]
                if buf != '':
                  found=1
-                 message = message  + buf + '<br>'
+                 message = message  + "{} (Identifier={})".format(buf,identarr[0]) + ', '
+             
+             if found and default_args['hyperbatch']=="0":
+                  message = "{}.  Data: {}.  {}".format(context,message,prompt)
+                  privategptmessage.append([message,identarr[0]])
     
-       if jsonkeytogather != 'Identifier' and found:
-         message = "{}<br><br> {} <br><br>{}".format(context,message,prompt)
+                    
+       if jsonkeytogather != 'Identifier' and found and default_args['hyperbatch']=="1":
+         message = "{}.  Data: {}.  {}".format(context,message,prompt)
          privategptmessage.append(message)
     
     
@@ -5095,19 +5103,39 @@ STEP 9: PrivateGPT and Qdrant Integration: tml-system-step-9-privategpt_qdrant-d
     
     def sendtoprivategpt(maindata):
     
+       counter = 0   
        pgptendpoint="/v1/completions"
-    
+       
        maintopic = default_args['pgpt_data_topic']
        mainip = default_args['pgpthost']
        mainport = default_args['pgptport']
     
-       for m in maindata:
+       for mess in maindata:
+            if default_args['jsonkeytogather']=='Identifier' or default_args['hyperbatch']=="0":
+               m = mess[0]
+               m1 = mess[1]
+            else:
+               m = mess
+               m1 = default_args['keyattribute']
+                
             response=pgptchat(m,False,"",mainport,False,mainip,pgptendpoint)
             # Produce data to Kafka
-            response = response[:-1] + "," + "\"prompt\":\"" + m + "\"}"
-            if 'ERROR:' not in response:
+            response = response[:-1] + "," + "\"prompt\":\"" + m + "\",\"identifier\":\"" + m1 + "\"}"
+            print("PGPT response=",response)
+            if 'ERROR:' not in response:         
+              response = response.replace('\\"',"'").replace('\n',' ')  
               producegpttokafka(response,maintopic)
-              print("response=",response)
+              time.sleep(1)
+            else:
+              counter += 1
+              time.sleep(1)
+              if counter > 60:                
+                 startpgptcontainer()
+                 qdrantcontainer()
+                 counter = 0 
+                 tsslogging.tsslogit("PrivateGPT Step 9 DAG PrivateGPT Container restarting in {} {}".format(os.path.basename(__file__),response), "WARN" )
+                 tsslogging.git_push("/{}".format(repo),"Entry from {}".format(os.path.basename(__file__)),"origin")                    
+                    
     
     def windowname(wtype,sname,dagname):
         randomNumber = random.randrange(10, 9999)
@@ -5149,6 +5177,7 @@ STEP 9: PrivateGPT and Qdrant Integration: tml-system-step-9-privategpt_qdrant-d
            ti.xcom_push(key="{}_cuda".format(sname), value="_{}".format(default_args['CUDA_VISIBLE_DEVICES']))
            ti.xcom_push(key="{}_pgpthost".format(sname), value=default_args['pgpthost'])
            ti.xcom_push(key="{}_pgptport".format(sname), value="_{}".format(default_args['pgptport']))
+           ti.xcom_push(key="{}_hyperbatch".format(sname), value="_{}".format(default_args['hyperbatch']))
     
            repo=tsslogging.getrepo()
            if sname != '_mysolution_':
@@ -5191,8 +5220,8 @@ STEP 9: PrivateGPT and Qdrant Integration: tml-system-step-9-privategpt_qdrant-d
     
                  # Send the data to PrivateGPT and produce to Kafka
                  if len(maindata) > 0:
-                   sendtoprivategpt(maindata)
-                 time.sleep(1)
+                  sendtoprivategpt(maindata)                      
+                 time.sleep(2)
              except Exception as e:
               tsslogging.tsslogit("PrivateGPT Step 9 DAG in {} {}".format(os.path.basename(__file__),e), "ERROR" )
               tsslogging.git_push("/{}".format(repo),"Entry from {}".format(os.path.basename(__file__)),"origin")
@@ -5239,6 +5268,18 @@ STEP 9 DAG Core Parameter Explanation
        for each IoT device. If voltage or current probabilities are low, 
 
        it is likely the device is not working properly.
+   * - hyperbatch
+     - Set to 1, if you want to sen privateGPT batch grouping 
+
+       of hyperpredictions.  Or set to 1, if you want to send privateGPT
+
+       one result of the hyperpredictions at a time.  For example,
+
+       if doing anomaly predictions on each IoT device, set hyperbatch to 0
+
+       and TML will send individyual hyperpredictions to privateGPT, or 
+
+       in a batch.
    * - jsonkeytogather
      - This is the JSON key to use to gather the data for privateGPT.
 
@@ -5770,6 +5811,7 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
         pgpthost = context['ti'].xcom_pull(task_ids='step_9_solution_task_ai',key="{}_pgpthost".format(sname))
         pgptport = context['ti'].xcom_pull(task_ids='step_9_solution_task_ai',key="{}_pgptport".format(sname))
         pprocesstype = context['ti'].xcom_pull(task_ids='step_9_solution_task_ai',key="{}_keyprocesstype".format(sname))
+        hyperbatch = context['ti'].xcom_pull(task_ids='step_9_solution_task_ai',key="{}_hyperbatch".format(sname))
               
         if len(CLIENTPORT) > 1:
           doparse("/{}/docs/source/operating.rst".format(sname), ["--clientport--;{}".format(TMLCLIENTPORT[1:])])
@@ -5815,32 +5857,33 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
         doparse("/{}/docs/source/operating.rst".format(sname), ["--dockerrun--;{}".format(dockerrun),"--dockercontainer--;{} ({})".format(containername, hurl)])
         doparse("/{}/docs/source/details.rst".format(sname), ["--dockerrun--;{}".format(dockerrun),"--dockercontainer--;{} ({})".format(containername, hurl)])
         
-        
-        privategptrun = "docker run -d -p {}:{} --net=host --gpus all --env PORT={} --env GPU=1 --env COLLECTION={} --env WEB_CONCURRENCY={} --env CUDA_VISIBLE_DEVICES={} {}".format(pgptport[1:],pgptport[1:],pgptport[1:],pcollection,pconcurrency[1:],pcuda[1:],pgptcontainername)
-        
-        doparse("/{}/docs/source/details.rst".format(sname), ["--pgptcontainername--;{}".format(pgptcontainername),"--privategptrun--;{}".format(privategptrun)])
+        if pgptcontainername != None:
+            privategptrun = "docker run -d -p {}:{} --net=host --gpus all --env PORT={} --env GPU=1 --env COLLECTION={} --env WEB_CONCURRENCY={} --env CUDA_VISIBLE_DEVICES={} {}".format(pgptport[1:],pgptport[1:],pgptport[1:],pcollection,pconcurrency[1:],pcuda[1:],pgptcontainername)
     
-        qdrantcontainer = "qdrant/qdrant"
-        qdrantrun = "docker run -d -p 6333:6333 -v $(pwd)/qdrant_storage:/qdrant/storage:z qdrant/qdrant"
-        doparse("/{}/docs/source/details.rst".format(sname), ["--qdrantcontainer--;{}".format(qdrantcontainer),"--qdrantrun--;{}".format(qdrantrun)])
+            doparse("/{}/docs/source/details.rst".format(sname), ["--pgptcontainername--;{}".format(pgptcontainername),"--privategptrun--;{}".format(privategptrun)])
     
-        doparse("/{}/docs/source/details.rst".format(sname), ["--consumefrom--;{}".format(pconsumefrom)])
-        doparse("/{}/docs/source/details.rst".format(sname), ["--pgpt_data_topic--;{}".format(pgpt_data_topic)])
-        doparse("/{}/docs/source/details.rst".format(sname), ["--vectordbcollectionname--;{}".format(pcollection)])
-        doparse("/{}/docs/source/details.rst".format(sname), ["--offset--;{}".format(poffset[1:])])
-        doparse("/{}/docs/source/details.rst".format(sname), ["--rollbackoffset--;{}".format(prollbackoffset[1:])])
-        doparse("/{}/docs/source/details.rst".format(sname), ["--topicid--;{}".format(ptopicid[1:])])
-        doparse("/{}/docs/source/details.rst".format(sname), ["--enabletls--;{}".format(penabletls[1:])])
-        doparse("/{}/docs/source/details.rst".format(sname), ["--partition--;{}".format(ppartition[1:])])
-        doparse("/{}/docs/source/details.rst".format(sname), ["--prompt--;{}".format(pprompt)])
-        doparse("/{}/docs/source/details.rst".format(sname), ["--context--;{}".format(pcontext)])
-        doparse("/{}/docs/source/details.rst".format(sname), ["--jsonkeytogather--;{}".format(pjsonkeytogather)])
-        doparse("/{}/docs/source/details.rst".format(sname), ["--keyattribute--;{}".format(pkeyattribute)])
-        doparse("/{}/docs/source/details.rst".format(sname), ["--concurrency--;{}".format(pconcurrency[1:])])
-        doparse("/{}/docs/source/details.rst".format(sname), ["--cuda--;{}".format(pcuda[1:])])
-        doparse("/{}/docs/source/details.rst".format(sname), ["--pgpthost--;{}".format(pgpthost)])
-        doparse("/{}/docs/source/details.rst".format(sname), ["--pgptport--;{}".format(pgptport[1:])])
-        doparse("/{}/docs/source/details.rst".format(sname), ["--keyprocesstype--;{}".format(pkeyprocesstype)])
+            qdrantcontainer = "qdrant/qdrant"
+            qdrantrun = "docker run -d -p 6333:6333 -v $(pwd)/qdrant_storage:/qdrant/storage:z qdrant/qdrant"
+            doparse("/{}/docs/source/details.rst".format(sname), ["--qdrantcontainer--;{}".format(qdrantcontainer),"--qdrantrun--;{}".format(qdrantrun)])
+    
+            doparse("/{}/docs/source/details.rst".format(sname), ["--consumefrom--;{}".format(pconsumefrom)])
+            doparse("/{}/docs/source/details.rst".format(sname), ["--pgpt_data_topic--;{}".format(pgpt_data_topic)])
+            doparse("/{}/docs/source/details.rst".format(sname), ["--vectordbcollectionname--;{}".format(pcollection)])
+            doparse("/{}/docs/source/details.rst".format(sname), ["--offset--;{}".format(poffset[1:])])
+            doparse("/{}/docs/source/details.rst".format(sname), ["--rollbackoffset--;{}".format(prollbackoffset[1:])])
+            doparse("/{}/docs/source/details.rst".format(sname), ["--topicid--;{}".format(ptopicid[1:])])
+            doparse("/{}/docs/source/details.rst".format(sname), ["--enabletls--;{}".format(penabletls[1:])])
+            doparse("/{}/docs/source/details.rst".format(sname), ["--partition--;{}".format(ppartition[1:])])
+            doparse("/{}/docs/source/details.rst".format(sname), ["--prompt--;{}".format(pprompt)])
+            doparse("/{}/docs/source/details.rst".format(sname), ["--context--;{}".format(pcontext)])
+            doparse("/{}/docs/source/details.rst".format(sname), ["--jsonkeytogather--;{}".format(pjsonkeytogather)])
+            doparse("/{}/docs/source/details.rst".format(sname), ["--keyattribute--;{}".format(pkeyattribute)])
+            doparse("/{}/docs/source/details.rst".format(sname), ["--concurrency--;{}".format(pconcurrency[1:])])
+            doparse("/{}/docs/source/details.rst".format(sname), ["--cuda--;{}".format(pcuda[1:])])
+            doparse("/{}/docs/source/details.rst".format(sname), ["--pgpthost--;{}".format(pgpthost)])
+            doparse("/{}/docs/source/details.rst".format(sname), ["--pgptport--;{}".format(pgptport[1:])])
+            doparse("/{}/docs/source/details.rst".format(sname), ["--keyprocesstype--;{}".format(pkeyprocesstype)])
+            doparse("/{}/docs/source/details.rst".format(sname), ["--hyperbatch--;{}".format(hyperbatch)])
         
         
         rbuf = "https://{}.readthedocs.io".format(sname)
@@ -5931,7 +5974,7 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
                                                                                  preprocesshostpgpt,preprocessportpgpt[1:],
                                                                                   mlhost,mlport[1:],predictionhost,predictionport[1:],
                                                                                   hpdehost,hpdeport[1:],hpdepredicthost,hpdepredictport[1:] ))
-        print("TML=",tmlbinaries)
+     
         
         subprocess.call(["sed", "-i", "-e",  "s/--tmlbinaries--/{}/g".format(tmlbinaries), "/{}/docs/source/operating.rst".format(sname)])
         
