@@ -8,7 +8,7 @@ All examples simply follow the steps here :ref:`Lets Start Building a TML Soluti
    * - **Example**
    * - :ref:`Real-Time IoT Data Preprocessing Example`
        
-       This will process IoT for anomalies, stream the results to a dashboad,
+       This will process IoT for anomalies, stream the results to a dashboard,
 
        build and push the container to docker hub, automatically create the
 
@@ -21,7 +21,7 @@ All examples simply follow the steps here :ref:`Lets Start Building a TML Soluti
       
        This will process IoT data, and perform entity level machine learning (TML)
 
-       on the data, stream the results to a dashboad,
+       on the data, stream the results to a dashboard,
 
        build and push the container to docker hub, automatically create the
 
@@ -38,7 +38,7 @@ All examples simply follow the steps here :ref:`Lets Start Building a TML Soluti
       
        data by sending the results to privateGPT container. It will stream 
 
-       the results to a dashboad,
+       the results to a dashboard,
 
        build and push the container to docker hub, automatically create the
 
