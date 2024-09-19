@@ -1,7 +1,13 @@
 TML Solution Studio (TSS) Container
 ======================================
 
-Coming Soon.
+NOW AVAILABLE: `<https://hub.docker.com/r/maadsdocker/tml-solution-studio-with-airflow-amd64>`_
+
+To Run the container go to: :ref:`TSS Docker Run Command`
+
+.. important::
+   You MUST have the pre-requisites met before running this container: :ref:`TSS Pre-Requisites`
+
 
 .. figure:: tmlarch.png
    :scale: 70%
@@ -12,6 +18,9 @@ This is the main container that you need to use to build TML solutions.  Below i
    Use this TSS container and start building amazing, advanced and scalable real-time data streaming solutions - with real-time dashboards - auto deployment to 
    Docker - auto solution documentation - integrated with AI - integrated with Github - integrated with Apache Airflow - integrated with Apache Kafka - in just a 
    few hours.
+
+TSS Pre-Requisites
+-------------------
 
 .. attention::
 
