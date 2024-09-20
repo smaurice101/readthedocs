@@ -20,7 +20,7 @@ Welcome to Transactional Machine Learning (TML) and TML Solution Studio (TSS) Do
 
 **TML Video:** `Watch the Youtube Video <https://youtu.be/ZrhRg2J8YbU>`_
 
-**TML Solution Studio Video:** [coming soon]
+**TML Solution Studio Video:** `Youtube Video <https://www.youtube.com/watch?v=z3h2nJXVgUs>`_
 
 Apply data preprocessing and auto machine learning to data streams and create transactional machine learning (TML) solutions that are:
  
