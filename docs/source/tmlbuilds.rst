@@ -718,7 +718,11 @@ DAG STEP 1: Parameter Explanation
 
         use '127.0.0.1' or add Kafka Cloud 
 
-        cluster address
+        cluster address.  Note, if using multiple brokers, 
+
+        you can separate them by a comma, and set brokerport 
+
+        as empty.
     * - brokerport
       - The default port for Kafka on-premise 
 
