@@ -425,7 +425,11 @@ Below is the complete definition of the **tml_system_step_1_getparams_dag**.  Us
               cloudusername = os.environ['KAFKACLOUDUSERNAME']
         if 'KAFKACLOUDPASSWORD' in os.environ:
               cloudpassword = os.environ['KAFKACLOUDPASSWORD']
-                    
+    
+        if '127.0.0.1' in default_args['brokerhost']:
+          cloudusername = ""
+          cloudpassword = ""
+            
         filepaths = ['/Viper-produce/viper.env','/Viper-preprocess/viper.env','/Viper-preprocess-pgpt/viper.env','/Viper-preprocess2/viper.env','/Viper-ml/viper.env','/Viper-predict/viper.env','/Viperviz/viper.env']
         for mainfile in filepaths:
          with open(mainfile, 'r', encoding='utf-8') as file: 
@@ -437,7 +441,10 @@ Below is the complete definition of the **tml_system_step_1_getparams_dag**.  Us
               continue 
             
            if 'KAFKA_CONNECT_BOOTSTRAP_SERVERS' in d: 
-             data[r] = "KAFKA_CONNECT_BOOTSTRAP_SERVERS={}:{}\n".format(default_args['brokerhost'],default_args['brokerport'])
+             if default_args['brokerport'] == '':
+               data[r] = "KAFKA_CONNECT_BOOTSTRAP_SERVERS={}\n".format(default_args['brokerhost'])    
+             else:       
+               data[r] = "KAFKA_CONNECT_BOOTSTRAP_SERVERS={}:{}\n".format(default_args['brokerhost'],default_args['brokerport'])
            if 'CLOUD_USERNAME' in d: 
              data[r] = "CLOUD_USERNAME={}\n".format(cloudusername)
            if 'CLOUD_PASSWORD' in d: 
@@ -891,7 +898,8 @@ Below is the complete definition of the **tml_system_step_2_kafka_createtopic_da
       VIPERHOST = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_VIPERHOSTPRODUCE".format(sname))
       VIPERPORT = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_VIPERPORTPRODUCE".format(sname))
       mainbroker = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_brokerhost".format(sname))
-        
+      HTTPADDR = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_HTTPADDR".format(sname))
+    
       ti = context['task_instance'] 
       ti.xcom_push(key="{}_companyname".format(sname), value=companyname)
       ti.xcom_push(key="{}_myname".format(sname), value=myname)
@@ -906,14 +914,13 @@ Below is the complete definition of the **tml_system_step_2_kafka_createtopic_da
       ti.xcom_push(key="{}_ml_data_topic".format(sname), value=ml_data_topic)
       ti.xcom_push(key="{}_prediction_data_topic".format(sname), value=prediction_data_topic)
       
-      print("Vipertoken=", VIPERTOKEN)
-      print("VIPERHOST=", VIPERHOST)
-      print("VIPERPORT=", VIPERPORT)
+    
     
       #############################################################################################################
       #                         CREATE TOPIC TO STORE TRAINED PARAMS FROM ALGORITHM  
     
       topickeys = ['raw_data_topic','preprocess_data_topic','ml_data_topic','prediction_data_topic','pgpt_data_topic'] 
+      VIPERHOSTMAIN = "{}{}".format(HTTPADDR,VIPERHOST)    
     
       for k in topickeys:
         producetotopic=args[k]
@@ -927,13 +934,16 @@ Below is the complete definition of the **tml_system_step_2_kafka_createtopic_da
               except Exception as e:
                 print("ERROR: ",e)
                 continue 
-            
+    
+        if '127.0.0.1' in mainbroker:
+            replication=1
+                
         for topic in topicsarr:  
           if topic == '':
               continue
           print("Creating topic=",topic)  
           try:
-            result=maadstml.vipercreatetopic(VIPERTOKEN,VIPERHOST,VIPERPORT[1:],topic,companyname,
+            result=maadstml.vipercreatetopic(VIPERTOKEN,VIPERHOSTMAIN,VIPERPORT[1:],topic,companyname,
                                      myname,myemail,mylocation,description,enabletls,
                                      brokerhost,brokerport,numpartitions,replication,
                                      microserviceid='')
@@ -2921,7 +2931,7 @@ TML preprocesses real-time data for every entity along each sliding time window.
             while True:
               try: 
                 processtransactiondata()
-                time.sleep(.5)
+                time.sleep(1)
               except Exception as e:     
                tsslogging.tsslogit("Preprocessing DAG in {} {}".format(os.path.basename(__file__),e), "ERROR" )                     
                tsslogging.git_push("/{}".format(repo),"Entry from {}".format(os.path.basename(__file__)),"origin")    
@@ -3373,7 +3383,7 @@ STEP 4b: Preprocesing 2 Data: tml-system-step-4b-kafka-preprocess-dag
             while True:
               try: 
                 processtransactiondata()
-                time.sleep(.5)
+                time.sleep(1)
               except Exception as e:     
                tsslogging.tsslogit("Preprocessing2 DAG in {} {}".format(os.path.basename(__file__),e), "ERROR" )                     
                tsslogging.git_push("/{}".format(repo),"Entry from {}".format(os.path.basename(__file__)),"origin")    
@@ -4110,9 +4120,9 @@ STEP 6: Entity Based Predictions: tml-system-step-6-kafka-predictions-dag
       'mainalgokey' : '', # leave blank
       'offset' : '-1', # << ** input data will start from the end of the preprocess_data_topic and rollback maxrows
       'delay' : '60', # << network delay parameter 
-      'usedeploy' : '', # << 1=use algorithms in ./deploy folder, 0=use ./models folder
+      'usedeploy' : '1', # << 1=use algorithms in ./deploy folder, 0=use ./models folder
       'networktimeout' : '6000', # << additional network parameter 
-      'maxrows' : '',  # << ** the number of offsets to rollback - For example, if 50, you will get 50 predictions continuously 
+      'maxrows' : '50',  # << ** the number of offsets to rollback - For example, if 50, you will get 50 predictions continuously 
       'produceridhyperprediction' : '',  # << leave blank
       'consumeridtraininedparams' : '',  # << leave blank
       'groupid' : '',  # << leave blank
@@ -4282,7 +4292,7 @@ STEP 6: Entity Based Predictions: tml-system-step-6-kafka-predictions-dag
              while True:
               try:              
                 performPrediction()      
-                time.sleep(.5)
+                time.sleep(1)
               except Exception as e:
                 tsslogging.tsslogit("Predictions DAG in {} {}".format(os.path.basename(__file__),e), "ERROR" )                     
                 tsslogging.git_push("/{}".format(repo),"Entry from {}".format(os.path.basename(__file__)),"origin")
