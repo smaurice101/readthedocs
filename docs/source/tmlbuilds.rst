@@ -929,11 +929,11 @@ Below is the complete definition of the **tml_system_step_2_kafka_createtopic_da
                 continue 
             
         for topic in topicsarr:  
-          if topic != '':
+          if topic == '':
               continue
           print("Creating topic=",topic)  
           try:
-            result=maadstml.vipercreatetopic(VIPERTOKEN,VIPERHOST,VIPERPORT,topic,companyname,
+            result=maadstml.vipercreatetopic(VIPERTOKEN,VIPERHOST,VIPERPORT[1:],topic,companyname,
                                      myname,myemail,mylocation,description,enabletls,
                                      brokerhost,brokerport,numpartitions,replication,
                                      microserviceid='')
