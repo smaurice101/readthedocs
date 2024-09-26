@@ -290,8 +290,9 @@ Below is the complete definition of the **tml_system_step_1_getparams_dag**.  Us
    For details on the parameters below refer to :ref:`MAADS-VIPER Environmental Variable Configuration (Viper.env)`
 
 .. code-block:: PYTHON
-   :emphasize-lines: 11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,
-                     38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65
+   :emphasize-lines: 16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,
+                     38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,
+                     66,67,68,69,70,71 
      
     from airflow import DAG
     from airflow.operators.python import PythonOperator
@@ -806,7 +807,7 @@ STEP 2: Create Kafka Topics: tml_system_step_2_kafka_createtopic_dag
 Below is the complete definition of the **tml_system_step_2_kafka_createtopic_dag** that creates all the topics for your solution.  Users only need to configure the code highlighted in the **USER CHOSEN PARAMETERS**.
 
 .. code-block:: PYTHON
-   :emphasize-lines: 12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32
+   :emphasize-lines: 15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33
 
     from airflow import DAG
     from airflow.operators.python import PythonOperator
@@ -1105,7 +1106,7 @@ STEP 3a: Produce Data Using MQTT: tml-read-MQTT-step-3-kafka-producetotopic-dag
 """"""""""""""""""""""""""" 	
 
 .. code-block:: PYTHON
-   :emphasize-lines: 16,17,18,19,20,21,22,23,24,25,26,27,28,29,30
+   :emphasize-lines: 26,27,28,29,30,31,32,33,34,35,36,37,38,39
 
     from airflow import DAG
     from airflow.operators.python import PythonOperator
@@ -1377,7 +1378,7 @@ STEP 3a.i: MQTT CLIENT
 """""""""""""""""
 
 .. code-block:: PYTHON
-   :emphasize-lines: 11,12,1,14,15,16
+   :emphasize-lines: 1,7,8,9,10,11,12
 
     import paho.mqtt.client as paho
     from paho import mqtt
@@ -1814,7 +1815,7 @@ STEP 3c: Produce Data Using gRPC: tml-read-gRPC-step-3-kafka-producetotopic-dag
 """"""""""""""""""""""""""""""""""""""""" 	
 
 .. code-block:: PYTHON
-   :emphasize-lines: 19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36
+   :emphasize-lines: 26,27,28,29,30,31,32,33,34,35,36,37
 
     import maadstml
     from airflow import DAG
@@ -2125,7 +2126,7 @@ STEP 3d: Produce Data Using LOCALFILE: tml-read-LOCALFILE-step-3-kafka-produceto
 """""""""""""""""""""""""""""""""""""""""" 	
 
 .. code-block:: PYTHON
-   :emphasize-lines: 17,18,19,20,21,22,23,24,25,26,27,28,29,30
+   :emphasize-lines: 17,18,19,20,21,22,23,24,25,26,27,28
 
     from airflow import DAG
     from airflow.operators.python import PythonOperator
@@ -2722,7 +2723,8 @@ TML preprocesses real-time data for every entity along each sliding time window.
        for each entity.  
 
 .. code-block:: PYTHON
-   :emphasize-lines: 10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40
+   :emphasize-lines: 17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,
+                     41,42,43,44,45,46,47,48,49,50
 
     from airflow import DAG
     from airflow.operators.python import PythonOperator
@@ -3183,6 +3185,7 @@ STEP 4b: Preprocesing 2 Data: tml-system-step-4b-kafka-preprocess-dag
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code-block:: PYTHON
+   :emphasize-lines: 17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36
 
     from airflow import DAG
     from airflow.operators.python import PythonOperator
@@ -3417,7 +3420,8 @@ Another powerful feature of TML is performing machine learning at the entity lev
      - Neural networks non-linear real-time data
 
 .. code-block:: PYTHON
-   :emphasize-lines: 10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46
+   :emphasize-lines: 17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,
+                     47,48,49,50,51,52
 
     from airflow import DAG
     from airflow.operators.python import PythonOperator
@@ -4083,7 +4087,8 @@ STEP 6: Entity Based Predictions: tml-system-step-6-kafka-predictions-dag
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code-block:: PYTHON
-   :emphasize-lines: 10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41
+   :emphasize-lines: 17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,
+                     42,43,44,45,46,47 
 
     import maadstml
     from airflow import DAG
@@ -4640,7 +4645,7 @@ Fields to visualize can be determined from :ref:`Preprocessed Sample JSON Output
 and :ref:`Machine Learning Trained Model Sample JSON Output`.
 
 .. code-block:: PYTHON
-   :emphasize-lines: 10,11,12,13,14,15,16,17,18,19,20,21,22
+   :emphasize-lines: 17,18,19,20,21,22,23,24
 
     from airflow import DAG
     from airflow.operators.python import PythonOperator
@@ -4871,6 +4876,8 @@ STEP 9: PrivateGPT and Qdrant Integration: tml-system-step-9-privategpt_qdrant-d
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code-block:: PYTHON
+   :emphasize-lines: 17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,
+                     37,38,39,40,41,42,43,44,45,46,47,48,49,50
 
     from airflow.operators.python import PythonOperator
     from airflow.operators.bash import BashOperator
@@ -5406,6 +5413,7 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
          **Your Solution Name** is the name you chose here: :ref:`STEP 3. Type the name of your project`
    
 .. code-block:: PYTHON
+   :emphasize-lines: 18,19,20,21,22,23,24
 
     from airflow import DAG
     from airflow.operators.python import PythonOperator
