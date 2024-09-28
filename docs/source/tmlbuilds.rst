@@ -6317,6 +6317,13 @@ You should see all your DAGs (note if they don't show up just wait 30 seconds or
 
    Please be patient.  If there are no errors - it will show up.
 
+Stopping a Running Project
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+To stop a running project use the '.' then project name.
+
+.. figure:: dotproject.png
+
 Copying A Previous Project
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
