@@ -6590,17 +6590,22 @@ Project Action Commands Summary
 
    * - **Action Type**
      - **Syntax**
+     - **Explanation**
    * - Add Project 
+     - No symbol needed
      - Just Type project name. No spaces, or special characters, 
 
        just alphanumerics.
    * - Delete Project 
+     -  **-**
      - Type - then project name.  For example, -myproject
    * - Copy From a Previous Project 
+     - **>**
      - Type > between projects.  For example, 
 
        oldproject>newproject
    * - Stop a Running Project
+     - **.**
      - Type . then your currently running project. 
 
        For example, .myproject
