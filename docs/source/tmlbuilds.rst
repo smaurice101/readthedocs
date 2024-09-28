@@ -6582,3 +6582,20 @@ STEP 9: TML Solution Built in Less than 2 Minutes
 
 .. figure:: sp7.png
    :scale: 50%
+
+Project Action Commands Summary
+------------------
+
+.. list-table::
+
+   * - **Action Type**
+     - **Syntax**
+   * - **Add Project**` 
+     - Just Type project name. No spaces, or special characters, just alphanumerics.
+   * - **Delete Project**` 
+     - Type - then project name.  For example, -myproject
+   * - **Copy From a Previous Project**` 
+     - Type oldproject>newproject
+   * - **Stop a Running Project**` 
+     - Type . then your currently running project. For example, .myproject
+
