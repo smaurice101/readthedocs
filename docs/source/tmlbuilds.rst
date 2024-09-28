@@ -6602,15 +6602,15 @@ Project Action Commands Summary
      -  **-**
      - Type - then project name.  
  
-       For example, -myproject
+       For example, **-myproject**
    * - Copy From a Previous Project 
      - **>**
      - Type > between projects.  For example, 
 
-       oldproject>newproject
+       **oldproject>newproject**
    * - Stop a Running Project
      - **.**
      - Type . then your currently running project. 
 
-       For example, .myproject
+       For example, **.myproject**
 
