@@ -6593,12 +6593,16 @@ Project Action Commands Summary
      - **Explanation**
    * - Add Project 
      - No symbol needed
-     - Just Type project name. No spaces, or special characters, 
+     - Just Type project name. No spaces, or 
+
+       special characters, 
 
        just alphanumerics.
    * - Delete Project 
      -  **-**
-     - Type - then project name.  For example, -myproject
+     - Type - then project name.  
+ 
+       For example, -myproject
    * - Copy From a Previous Project 
      - **>**
      - Type > between projects.  For example, 
