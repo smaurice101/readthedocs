@@ -19,7 +19,7 @@ TML solutions run on Linux operating systems (or windows/mac), and on any curren
    code.  **The TSS redefines how complex real-time solutions can be built by anyone**, using pre-written Apache Airflow TML DAGs, that are integrated Github, AI 
    (PrivateGPT), Docker, and Kubernetes, with automated online documentation of your entire solution.
 
-   **TSS enables TML solutions to be developed WITHOUT ANY CODE - ONLY CONFIGURATIONS TO THE DAGS.**
+   **TSS enables TML solutions to be developed WITHOUT WRITING ANY CODE - ONLY CONFIGURATIONS TO DAGS - DRAMATICALLY ACCELERATING REAL-TIME SOLUTION BUILDS.**
 
 Transactional Machine Learning (TML) Overview
 ----------------------
