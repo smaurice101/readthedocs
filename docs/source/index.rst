@@ -8,7 +8,7 @@ TSS is a revolutionary platform for building, enterprise-ready, process-driven, 
 
 These real-time TML solutions can process any real-time data from devices and systems. The real-time data are ingested using RESTful, gRPC, MQTT APIs or localfile on the file system. **All TML solutions are containerized with Docker (scale with Kubernetes), come with automated documentation about the solution, automated commits to Github for real-time logging, and automated real-time dashboard for visualization using websockets.**
 
-TML solutions run on Linux operating systems (or windows/mac), and on any current and legacy chipsets. TML solutions can be deployed on the cloud (**with Internet**) or on-premise (**without Internet**) to process unlimited real-time data globally.  TML solutions can run on any cloud infrastructure.
+TML solutions run on Linux operating systems (or windows/mac/and other OS), and on any current and legacy chipsets. TML solutions can be deployed on the cloud (**with Internet**) or on-premise (**without Internet**) to process unlimited real-time data globally.  TML solutions can run on any cloud infrastructure.
 
 **TSS Video:** `Youtube Video <https://www.youtube.com/watch?v=z3h2nJXVgUs>`_
 
