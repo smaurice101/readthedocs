@@ -1,7 +1,7 @@
 Welcome to Transactional Machine Learning (TML) and TML Solution Studio (TSS) Documentation!
 ===================================
 
-Transactional Machine Learning (TML) Soluiton Studio Overview
+Transactional Machine Learning Soluiton Studio (TSS) Overview
 ----------------------
 
 TSS is a revolutionary platform for building advanced, scalable, intelligent real-time TML solutions **really fast** - within minutes - what can take orgaizations up to 6 months to build. These real-time TML solutions can process any real-time data from devices and systems using RESTful, gRPC, MQTT APIs or localfile on the file system. These TML solutions can be deployed on the cloud or on-premise.
