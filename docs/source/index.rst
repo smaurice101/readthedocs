@@ -1,13 +1,10 @@
 Welcome to Transactional Machine Learning (TML) and TML Solution Studio (TSS) Documentation!
 ===================================
 
-.. important::
-   **Transactional Machine Learning (TML): The Machine Learning and AI Platform for Real-Time Data Streams**
+Transactional Machine Learning (TML) Soluiton Studio Overview
+----------------------
 
-   TML Is Based On the Belief that **"Fast data requires fast machine learning and AI for fast decision-making"** that provides **a faster way to build advanced, scalable, cost- 
-   effective and secure real-time solutions that can be built by anyone.**
-
-   TML gives rise in the industy to a **Data Stream Scientist** versus a **Data Scientist** in conventional machine learning (CML). 
+TSS is a revolutionary platform for building advanced, scalable, intelligent real-time TML solutions **really fast** - within minutes - what can take orgaizations up to 6 months to build. These real-time TML solutions can process any real-time data from devices and systems using RESTful, gRPC, MQTT APIs or localfile on the file system. These TML solutions can be deployed on the cloud or on-premise.
 
 .. important::
    **TML Solution Studio (TSS)**
@@ -18,6 +15,14 @@ Welcome to Transactional Machine Learning (TML) and TML Solution Studio (TSS) Do
 
 Transactional Machine Learning (TML) Overview
 ----------------------
+
+.. important::
+   **Transactional Machine Learning (TML): The Machine Learning and AI Platform for Real-Time Data Streams**
+
+   TML Is Based On the Belief that **"Fast data requires fast machine learning and AI for fast decision-making"** that provides **a faster way to build advanced, scalable, cost- 
+   effective and secure real-time solutions that can be built by anyone.**
+
+   TML gives rise in the industy to a **Data Stream Scientist** versus a **Data Scientist** in conventional machine learning (CML). 
 
 **Transactional Machine Learning (TML)** using Data Streams and AutoML is a platform for building and streaming cloud native (or on-prem) solutions using Apache Kafka or Redpanda as the data backbone, with Kubernetes and Docker as core infrastucture components, running on Confluent, AWS, GCP, AZURE, for advanced machine learning solutions using transactional data to learn from, and provide insights, quickly and continuously to any number of devices and humans in any format!
 
