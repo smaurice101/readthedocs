@@ -1,8 +1,8 @@
 Welcome to Transactional Machine Learning (TML) and TML Solution Studio (TSS) Documentation!
 ===================================
 
-.. attention::
-   **Transactional Machine Learning : The Machine Learning and AI Platform for Real-Time Data Streams**
+.. important::
+   **Transactional Machine Learning (TML): The Machine Learning and AI Platform for Real-Time Data Streams**
 
    TML Is Based On the Belief that **"Fast data requires fast machine learning and AI for fast decision-making"** that provides **a faster way to build advanced, scalable, cost- 
    effective and secure real-time solutions that can be built by anyone.**
@@ -10,6 +10,8 @@ Welcome to Transactional Machine Learning (TML) and TML Solution Studio (TSS) Do
    TML gives rise in the industy to a **Data Stream Scientist** versus a **Data Scientist** in conventional machine learning (CML). 
 
 .. important::
+   **TML Solution Studio (TSS)**
+
    You will learn how to use the :ref:`TML Solution Studio (TSS) Container` to build advanced, scalable, end-end real-time TML solutions easily with little to no- 
    code.  **The TSS redefines how complex real-time solutions can be built by anyone**, using pre-written Apache Airflow TML DAGs, that are integrated Github, AI 
    (PrivateGPT), Docker, and Kubernetes, with automated online documentation of your entire solution.
