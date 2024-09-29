@@ -4,7 +4,7 @@ Welcome to Transactional Machine Learning (TML) and TML Solution Studio (TSS) Do
 Transactional Machine Learning Soluiton Studio (TSS) Overview
 ----------------------
 
-TSS is a revolutionary platform for building advanced, scalable, intelligent real-time TML solutions **really fast** - within minutes - what can take orgaizations up to 6 months to build. These real-time TML solutions can process any real-time data from devices and systems using RESTful, gRPC, MQTT APIs or localfile on the file system. These TML solutions can be deployed on the cloud or on-premise.
+TSS is a revolutionary platform for building advanced, scalable, intelligent real-time TML solutions **really fast** - within minutes - what can take orgaizations up to 6 months to build. These real-time TML solutions can process any real-time data from devices and systems using RESTful, gRPC, MQTT APIs or localfile on the file system. **All TML solutions are containerized with Docker, and scale with Kubernetes, which can be deployed on the cloud or on-premise to process unlimited real-time globally.**
 
 **TSS Video:** `Youtube Video <https://www.youtube.com/watch?v=z3h2nJXVgUs>`_
 
