@@ -6191,7 +6191,7 @@ Lets Start Building a TML Solution
 Here is the TML solution creation process, that is detailed below:
 
 .. figure:: tmlcreateprocess.png
-   :scale: 60%
+   :scale: 50%
 
 .. list-table::
 
