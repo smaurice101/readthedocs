@@ -1,4 +1,4 @@
-Generating Personal Access Tokens in Github
+Set Up Personal Access Tokens in Github
 ==================
 
 .. figure:: tmlgit2.png
