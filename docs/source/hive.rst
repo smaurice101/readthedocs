@@ -14,9 +14,24 @@ Step 1: Setup a Free HiveMQ Account
 .. figure:: hive0.png
    :scale: 50%  
 
-Step 2: Create a FREE Serverless Cluter
+Step 2: Create a FREE Serverless Cluster
 ----------------
 
 .. figure:: hive1.png
    :scale: 50%  
 
+Step 3: Cluster Details
+----------------
+
+.. note::
+
+   Note the cluster URL and Port.  You will need these details if publishing and subscribing from the HiveMQ cluster topic.
+
+.. figure:: hive2.png
+   :scale: 50%  
+
+Step 4: Create MQTT Username and Password
+----------------
+
+.. figure:: hive3.png
+   :scale: 50%  
