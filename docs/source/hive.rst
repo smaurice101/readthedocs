@@ -1,4 +1,4 @@
-HiveMQ Setup
+Set Up HiveMQ
 =================
 
 Setting up a HiveMQ cluster is a simle process and users can setup a HiveMQ cluster for free here at `HiveMQ wesbite <https://www.hivemq.com/>`_
