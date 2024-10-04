@@ -84,6 +84,7 @@ Contents
    git
    usage 
    readthedocs
+   hive
    tmllogs
    coreintegrations
    dashboards
