@@ -210,7 +210,9 @@ Generating Personal Access Tokens in Github: Explanation
       
       5. Choose **Tokens (classic)**
       
-      6. Click **Generate new token** -  Your token should start with **ghp_**
+      6. Click **Generate new token** -  Your token should start with **ghp_**.  
+
+         Give your Token Read/Write access.
       
       7. Copy and paste token in **GITPASSWORD** docker run command: :ref:`TSS Docker Run Command`
 
