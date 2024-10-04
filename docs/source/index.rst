@@ -82,10 +82,10 @@ Contents
    tmlbuilds
    examples
    git
-   gitsetup
    usage 
    readthedocs
    hive
+   gitsetup
    tmllogs
    coreintegrations
    dashboards
