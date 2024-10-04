@@ -35,7 +35,7 @@ Step 4: Create MQTT Username and Password
 
 .. important::
 
-   Give your username **Publishing and Subscribing** permission.
+   Give your username **Publishing and Subscribing** permission.  These will be needed in the :ref:`TSS Docker Run Command`
 
 .. figure:: hive3.png
    :scale: 50%  
