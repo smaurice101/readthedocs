@@ -35,7 +35,7 @@ Step 4: Create MQTT Username and Password
 
 .. important::
 
-   Give your username **Publishing and Subscribing permission**.
+   Give your username **Publishing and Subscribing** permission.
 
 .. figure:: hive3.png
    :scale: 50%  
