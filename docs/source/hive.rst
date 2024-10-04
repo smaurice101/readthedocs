@@ -33,5 +33,9 @@ Step 3: Cluster Details
 Step 4: Create MQTT Username and Password
 ----------------
 
+.. important::
+
+   Give your username **Publishing and Subscribing access**.
+
 .. figure:: hive3.png
    :scale: 50%  
