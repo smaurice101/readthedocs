@@ -22,7 +22,7 @@ Watch The TSS Youtube Video
    code.  **The TSS redefines how complex real-time solutions can be built by anyone**, using pre-written Apache Airflow TML DAGs, that are integrated Github, AI 
    (PrivateGPT), Docker, and Kubernetes, with automated online documentation of your entire solution.
 
-   **TSS enables TML solutions to be developed WITHOUT WRITING ANY CODE - ONLY CONFIGURATIONS TO DAGS - DRAMATICALLY ACCELERATING REAL-TIME SOLUTION BUILDS.**
+   **TSS enables TML solutions to be developed WITHOUT WRITING ANY CODE - ONLY CONFIGURATIONS TO DAGS - dramatically accelerating real-time solution builds.**
 
 Transactional Machine Learning (TML) Overview
 ----------------------
