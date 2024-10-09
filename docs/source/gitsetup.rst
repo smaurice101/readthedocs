@@ -24,3 +24,11 @@ Generating Personal Access Tokens in Github: Explanation
          Give your Token Read/Write access.
       
       7. Copy and paste token in **GITPASSWORD** docker run command: :ref:`TSS Docker Run Command`
+
+Permissions For Your Token
+----------------------------------
+
+Your token permissions should look like this below:
+
+.. figure:: gitpac.png
+   :scale: 60%
