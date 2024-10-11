@@ -6,7 +6,7 @@ All examples simply follow the steps here :ref:`Lets Start Building a TML Soluti
 .. list-table::
 
    * - **Example**
-   * - :ref:`Real-Time IoT Data Preprocessing Example`
+   * - 1. :ref:`Real-Time IoT Data Preprocessing Example`
        
        This will process IoT for anomalies, stream the results to a dashboard,
 
@@ -17,7 +17,7 @@ All examples simply follow the steps here :ref:`Lets Start Building a TML Soluti
        to GitHub.
 
        Data Used is here (unzip the file): `Demo Data <https://github.com/smaurice101/raspberrypi/blob/main/tml-airflow/data/IoTData.zip>`_
-   * - :ref:`Real-Time IoT Data Preprocessing and Machine Learning Example`
+   * - 2. :ref:`Real-Time IoT Data Preprocessing and Machine Learning Example`
       
        This will process IoT data, and perform entity level machine learning (TML)
 
@@ -30,7 +30,7 @@ All examples simply follow the steps here :ref:`Lets Start Building a TML Soluti
        to GitHub.
 
        Data Used is here (unzip the file): `Demo Data <https://github.com/smaurice101/raspberrypi/blob/main/tml-airflow/data/IoTData.zip>`_
-   * - :ref:`Cybersecurity Solution with PrivateGPT, MQTT, HiveMQ`
+   * - 3. :ref:`Cybersecurity Solution with PrivateGPT, MQTT, HiveMQ`
      
        This will process cybersecurity data for anomalies, 
 
