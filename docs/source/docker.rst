@@ -242,11 +242,11 @@ This is a list of common commands for Docker and Tmux.
    * - List Running Docker containers
      - Type: **docker ps**
    * - Stop Running Docker containers
-     - From **docker ps** copy the Conatiner ID
+     - From **docker ps** copy the Container ID
    
        Type: **docker stop <paste container ID>**
    * - Go inside the Docker containers
-     - From **docker ps** copy the Conatiner ID
+     - From **docker ps** copy the Container ID
    
        Type: **docker exec -it <paste container ID> bash**
    * - List the TMUX windows once inside the container
