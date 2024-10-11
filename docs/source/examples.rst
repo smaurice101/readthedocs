@@ -5,7 +5,7 @@ All examples simply follow the steps here :ref:`Lets Start Building a TML Soluti
 
 .. list-table::
 
-   * - **Example**
+   * - **TSS Starter Examples**
    * - 1. :ref:`Real-Time IoT Data Preprocessing Example`
        
        This will process IoT for anomalies, stream the results to a dashboard,
