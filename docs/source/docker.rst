@@ -246,3 +246,15 @@ This is a list of common commands for Docker and Tmux.
        Type: **docker exec -it <paste container ID> bash**
    * - List the TMUX windows once inside the container
      - Type: **tmux ls**
+   * - Go inside TMUX windows
+     - From **tmux ls** copy the window name you want to enter
+
+     - Type: **tmux a -t <window name>**
+   * - To scroll inside a TMUX window
+     - Press: CTRL+b, [
+   * - To UN-scroll inside a TMUX window
+     - Press: CTRL + [
+   * - To EXIT a TMUX window
+     - Press: CTRL + b, d
+   * - To EXIT docker
+     - Type: **exit**
