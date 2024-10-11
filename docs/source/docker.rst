@@ -235,6 +235,10 @@ This is a list of common commands for Docker and Tmux.
      - **Command**
    * - List Docker containers
      - Type: **docker image ls**
+   * - Delete Docker containers
+     - From: **docker image ls** and copy the **REPOSITORY** to delete
+
+       Type: **docker rmi <REPOSITORY name>
    * - List Running Docker containers
      - Type: **docker ps**
    * - Stop Running Docker containers
