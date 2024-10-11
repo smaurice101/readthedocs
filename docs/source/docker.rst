@@ -252,10 +252,10 @@ This is a list of common commands for Docker and Tmux.
 
        Type: **tmux a -t <window name>**
    * - To scroll inside a TMUX window
-     - Press: CTRL+b, [
+     - Press: **CTRL+b, [**
    * - To UN-scroll inside a TMUX window
-     - Press: CTRL + [
+     - Press: **CTRL + [**
    * - To EXIT a TMUX window
-     - Press: CTRL + b, d
+     - Press: **CTRL + b, d**
    * - To EXIT docker
      - Type: **exit**
