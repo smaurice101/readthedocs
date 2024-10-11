@@ -224,3 +224,25 @@ TSS Code Editor
 
 .. figure:: ts4.png
 
+Common Commands
+--------------------
+
+This is a list of common commands for Docker and Tmux.
+
+.. list-table::
+   * - **Description**
+     - **Command**
+   * - List Docker containers
+     - Type: **docker image ls**
+   * - List Running Docker containers
+     - Type: **docker ps**
+   * - Stop Running Docker containers
+     - From **docker ps** copy the Conatiner ID
+   
+       Type: **docker stop <paste container ID>**
+   * - Go inside the Docker containers
+     - From **docker ps** copy the Conatiner ID
+   
+       Type: **docker exec -it <paste container ID> bash**
+   * - List the TMUX windows once inside the container
+     - Type: **tmux ls**
