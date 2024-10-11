@@ -261,5 +261,5 @@ This is a list of common commands for Docker and Tmux.
      - Press: **CTRL + [**
    * - To EXIT a TMUX window
      - Press: **CTRL + b, d**
-   * - To EXIT docker
+   * - To EXIT docker container
      - Type: **exit**
