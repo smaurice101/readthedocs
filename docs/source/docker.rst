@@ -230,6 +230,7 @@ Common Commands
 This is a list of common commands for Docker and Tmux.
 
 .. list-table::
+
    * - **Description**
      - **Command**
    * - List Docker containers
