@@ -577,23 +577,28 @@ TML Dag Parameter Changes To Be Made For: solution_preprocessing_ai_mqtt_dag-cyb
      - 'preprocesstypes' : 'min,max,trend,anomprob,variance,avg'
 
    * - tml_system_step_4_kafka_preprocess_dag-cybersecuritywithprivategpt-3f10.py
-     -  'jsoncriteria' : 'uid=metadata.dsn,filter:allrecords~\
-subtopics=metadata.property_name~\
-values=datapoint.value~\
-identifiers=metadata.display_name~\
-datetime=datapoint.updated_at~\
-msgid=datapoint.id~\
-latlong=lat:long',
-     -  'jsoncriteria' : 'uid=hostName,filter:allrecords~\
-subtopics=hostName,hostName,hostName~\
-values=inboundpackets,outboundpackets,pingStatus~\
-identifiers=inboundpackets,outboundpackets,pingStatus~\
-datetime=lastUpdated~\
-msgid=~\
-latlong=',
+     - 'jsoncriteria' : 'uid=metadata.dsn,filter:allrecords~\
+       subtopics=metadata.property_name~\ 
+       values=datapoint.value~\
+       identifiers=metadata.display_name~\
+       datetime=datapoint.updated_at~\
+       msgid=datapoint.id~\
+       latlong=lat:long',
+     - 'jsoncriteria' : 'uid=hostName,filter:allrecords~\
+       subtopics=hostName,hostName,hostName~\
+       values=inboundpackets,outboundpackets,pingStatus~\
+       identifiers=inboundpackets,outboundpackets,pingStatus~\
+       datetime=lastUpdated~\
+       msgid=~\
+       latlong=',
+   * - tml_system_step_7_kafka_visualization_dag-cybersecuritywithprivategpt-3f10.py
+     - 'topic' : 'iot-preprocess,iot-preprocess2' 
+     - 'topic' : 'cisco-network-preprocess,cisco-network-privategpt'
+   * - tml_system_step_7_kafka_visualization_dag-cybersecuritywithprivategpt-3f10.py
+     - 'dashboardhtml' : 'dashboard.html' 
+     - 'dashboardhtml': 'tml-cisco-network-privategpt-monitor.html'
 
-
-
+  
 
 
 
