@@ -542,42 +542,50 @@ TML Dag Parameter Changes To Be Made For: solution_preprocessing_ai_mqtt_dag-cyb
 .. list-table::
 
    * - **TML Dag**
-     - **Default_args Parameter To Change**
-     - **Change To Value**
-   * - tml_system_step_2_kafka_createtopic_dag-cybersecuritywithprivategpt-3f10.py
-     - 'raw_data_topic' : 'iot-raw-data'
-     - 'raw_data_topic' : 'cisco-network-mainstream'
-   * - tml_system_step_2_kafka_createtopic_dag-cybersecuritywithprivategpt-3f10.py
-     - 'preprocess_data_topic' : 'iot-preprocess,iot-preprocess2'
-     - 'preprocess_data_topic' : 'cisco-network-preprocess'
+       **Default_args Parameter To Change**
+       **Change To Value**
+   * - **TML Dag:** tml_system_step_2_kafka_createtopic_dag-cybersecuritywithprivategpt-3f10.py
 
-   * - tml_read_LOCALFILE_step_3_kafka_producetotopic_dag-cybersecuritywithprivategpt-3f10.py
-     - 'topics' : 'iot-raw-data',
-     - 'topics' : 'cisco-network-mainstream'
+       **Current Value:** 'raw_data_topic' : 'iot-raw-data'
 
-   * - tml_read_LOCALFILE_step_3_kafka_producetotopic_dag-cybersecuritywithprivategpt-3f10.py
-     - 'inputfile' : '/rawdata/IoTData.txt'
-     - 'inputfile' : '/rawdata/cisco_network_data.txt'
+       **New Value:** 'raw_data_topic' : 'cisco-network-mainstream'
+   * - **TML Dag:** tml_system_step_2_kafka_createtopic_dag-cybersecuritywithprivategpt-3f10.py
+       
+       **Current Value:** 'preprocess_data_topic' : 'iot-preprocess,iot-preprocess2'
+       
+       **New Value:** 'preprocess_data_topic' : 'cisco-network-preprocess'
+   * - **TML Dag:** tml_read_LOCALFILE_step_3_kafka_producetotopic_dag-cybersecuritywithprivategpt-3f10.py
+      
+       **Current Value:** 'topics' : 'iot-raw-data',
+     
+       **New Value:** 'topics' : 'cisco-network-mainstream'
+   * - **TML Dag:** tml_read_LOCALFILE_step_3_kafka_producetotopic_dag-cybersecuritywithprivategpt-3f10.py
 
+       **Current Value:** 'inputfile' : '/rawdata/IoTData.txt'
+     
+       **New Value:** 'inputfile' : '/rawdata/cisco_network_data.txt'
+   * - **TML Dag:** tml_system_step_4_kafka_preprocess_dag-cybersecuritywithprivategpt-3f10.py
+     
+       **Curent Value:** 'raw_data_topic' : 'iot-raw-data'
+     
+       **New Value:** 'raw_data_topic' : 'cisco-network-mainstream'
+   * - **TML Dag:** tml_system_step_4_kafka_preprocess_dag-cybersecuritywithprivategpt-3f10.py
+ 
+       **Current Value:** 'preprocess_data_topic' : 'iot-preprocess'
 
-   * - tml_system_step_4_kafka_preprocess_dag-cybersecuritywithprivategpt-3f10.py
-     - 'raw_data_topic' : 'iot-raw-data'
-     - 'raw_data_topic' : 'cisco-network-mainstream'
+       **New Value:** 'preprocess_data_topic' : 'cisco-network-preprocess'
+   * - **TML Dag:** tml_system_step_4_kafka_preprocess_dag-cybersecuritywithprivategpt-3f10.py
 
-   * - tml_system_step_4_kafka_preprocess_dag-cybersecuritywithprivategpt-3f10.py
-     - 'preprocess_data_topic' : 'iot-preprocess'
-     - 'preprocess_data_topic' : 'cisco-network-preprocess'
+       **Current Value:** 'identifier' : 'IoT device performance and failures'
 
-   * - tml_system_step_4_kafka_preprocess_dag-cybersecuritywithprivategpt-3f10.py
-     - 'identifier' : 'IoT device performance and failures'
-     - 'identifier' : 'Detect potential cyber attacks and monitor network'
+       **New Value:** 'identifier' : 'Detect potential cyber attacks and monitor network'
+   * - **TML Dag:** tml_system_step_4_kafka_preprocess_dag-cybersecuritywithprivategpt-3f10.py
+     
+       **Current Value:** 'preprocesstypes' : 'anomprob,trend,avg'
 
-   * - tml_system_step_4_kafka_preprocess_dag-cybersecuritywithprivategpt-3f10.py
-     - 'preprocesstypes' : 'anomprob,trend,avg'
-     - 'preprocesstypes' : 'min,max,trend,anomprob,variance,avg'
-
-   * - tml_system_step_4_kafka_preprocess_dag-cybersecuritywithprivategpt-3f10.py
-     - 'jsoncriteria' : 'uid=metadata.dsn,filter:allrecords~\
+       **New Value:** 'preprocesstypes' : 'min,max,trend,anomprob,variance,avg'
+   * - **TML Dag:** tml_system_step_4_kafka_preprocess_dag-cybersecuritywithprivategpt-3f10.py
+       **Current Value:** 'jsoncriteria' : 'uid=metadata.dsn,filter:allrecords~\
 
        subtopics=metadata.property_name~\ 
 
@@ -590,7 +598,8 @@ TML Dag Parameter Changes To Be Made For: solution_preprocessing_ai_mqtt_dag-cyb
        msgid=datapoint.id~\
 
        latlong=lat:long',
-     - 'jsoncriteria' : 'uid=hostName,filter:allrecords~\
+     
+       **New Value:** 'jsoncriteria' : 'uid=hostName,filter:allrecords~\
 
        subtopics=hostName,hostName,hostName~\
 
@@ -603,50 +612,72 @@ TML Dag Parameter Changes To Be Made For: solution_preprocessing_ai_mqtt_dag-cyb
        msgid=~\
 
        latlong=',
-   * - tml_system_step_7_kafka_visualization_dag-cybersecuritywithprivategpt-3f10.py
-     - 'topic' : 'iot-preprocess,iot-preprocess2' 
-     - 'topic' : 'cisco-network-preprocess,cisco-network-privategpt'
-   * - tml_system_step_7_kafka_visualization_dag-cybersecuritywithprivategpt-3f10.py
-     - 'dashboardhtml' : 'dashboard.html' 
-     - 'dashboardhtml': 'tml-cisco-network-privategpt-monitor.html'
-   * - tml_system_step_5_kafka_machine_learning_dag-myawesometmlsolutionml-3f10.py
-     - 'fullpathtotrainingdata' : '/Viper-ml/viperlogs/<choose foldername>', 
-     - 'fullpathtotrainingdata' : '/Viper-ml/viperlogs/iotlogistic'
-   * - tml_system_step_5_kafka_machine_learning_dag-myawesometmlsolutionml-3f10.py
-     - 'processlogic' : ''
-     - processlogic': 'classification_name=failure_prob:
+   * - **TML Dag:** tml_system_step_7_kafka_visualization_dag-cybersecuritywithprivategpt-3f10.py
+     
+       **Current Value:** 'topic' : 'iot-preprocess,iot-preprocess2' 
+
+       **New Value:** 'topic' : 'cisco-network-preprocess,cisco-network-privategpt'
+   * - **TML Dag:** tml_system_step_7_kafka_visualization_dag-cybersecuritywithprivategpt-3f10.py
+     
+       **Current Value:** 'dashboardhtml' : 'dashboard.html' 
+
+       **New Value:** 'dashboardhtml': 'tml-cisco-network-privategpt-monitor.html'
+   * - **TML Dag:** tml_system_step_5_kafka_machine_learning_dag-myawesometmlsolutionml-3f10.py
+
+     - **Current Value:** 'fullpathtotrainingdata' : '/Viper-ml/viperlogs/<choose foldername>', 
+
+     - **New Value:** 'fullpathtotrainingdata' : '/Viper-ml/viperlogs/iotlogistic'
+   * - **TML Dag:** tml_system_step_5_kafka_machine_learning_dag-myawesometmlsolutionml-3f10.py
+       
+       **Current Value:** 'processlogic' : ''
+
+       **New Value:** processlogic': 'classification_name=failure_prob:
 
        Voltage_preprocessed_AnomProb=55,n:Current_preprocessed_AnomProb=55,n'
-   * - tml_system_step_6_kafka_predictions_dag-myawesometmlsolutionml-3f10.py
-     - 'consumefrom' : ''
-     - 'consumefrom' : 'ml-data'
+   * - **TML Dag:** tml_system_step_6_kafka_predictions_dag-myawesometmlsolutionml-3f10.py
+
+       **Current Value:** 'consumefrom' : ''
+       
+       **New Value:** 'consumefrom' : 'ml-data'
    * - tml_system_step_6_kafka_predictions_dag-myawesometmlsolutionml-3f10.py
      - 'pathtoalgos' : '/Viper-ml/viperlogs/<choose foldername>'
      - 'pathtoalgos' : '/Viper-ml/viperlogs/iotlogistic'
-   * - tml_system_step_7_kafka_visualization_dag-myawesometmlsolutionml-3f10.py
-     - 'topic' : 'iot-preprocess,iot-preprocess2'
-     - 'topic' : 'iot-preprocess,iot-ml-prediction-results-output'
-   * - tml_system_step_7_kafka_visualization_dag-myawesometmlsolutionml-3f10.py
-     - 'dashboardhtml': 'dashboard.html'
-     - 'dashboardhtml': 'iot-failure-machinelearning.html'
-   * - tml_system_step_9_privategpt_qdrant_dag-cybersecuritywithprivategpt-3f10.py
-     - 'consumefrom' : 'iot-preprocess', 
-     - 'consumefrom' : 'cisco-network-preprocess'
-   * - tml_system_step_9_privategpt_qdrant_dag-cybersecuritywithprivategpt-3f10.py
-     - 'prompt': 'Do the device data show any malfunction or defects?'
-     - 'prompt': 'Do any of the values of the inbound or outbound packets look abnormal?'
-   * - tml_system_step_9_privategpt_qdrant_dag-cybersecuritywithprivategpt-3f10.py
-     - 'context' : 'This is IoT data from devices. The data are 
+   * - **TML Dag:** tml_system_step_7_kafka_visualization_dag-myawesometmlsolutionml-3f10.py
+      
+       **Current Value:** 'topic' : 'iot-preprocess,iot-preprocess2'
+      
+       **New Value:** 'topic' : 'iot-preprocess,iot-ml-prediction-results-output'
+   * - **TML Dag:** tml_system_step_7_kafka_visualization_dag-myawesometmlsolutionml-3f10.py
 
-        anomaly probabilities for each IoT device. If voltage or current 
+       **Current Value:** 'dashboardhtml': 'dashboard.html'
 
-        probabilities are low, it is likely the device is not working properly.'
-     - 'context' : 'These data are anomaly probabilities of suspicious data traffic.  
+       **New Value:** 'dashboardhtml': 'iot-failure-machinelearning.html'
+   * - **TML Dag:** tml_system_step_9_privategpt_qdrant_dag-cybersecuritywithprivategpt-3f10.py
+
+       **Current Value:** 'consumefrom' : 'iot-preprocess', 
+
+       **New Value:** 'consumefrom' : 'cisco-network-preprocess'
+   * - **TML Dag:** tml_system_step_9_privategpt_qdrant_dag-cybersecuritywithprivategpt-3f10.py
+       
+       Current Value: 'prompt': 'Do the device data show any malfunction or defects?'
+       
+       New Value: 'prompt': 'Do any of the values of the inbound or outbound packets look abnormal?'
+   * - **TML Dag:** tml_system_step_9_privategpt_qdrant_dag-cybersecuritywithprivategpt-3f10.py
+      
+       **Current Value:** 'context' : 'This is IoT data from devices. The data are 
+
+       anomaly probabilities for each IoT device. If voltage or current 
+
+       probabilities are low, it is likely the device is not working properly.'
+     
+       **New Value:** 'context' : 'These data are anomaly probabilities of suspicious data traffic.  
 
        A high probability of over 0.80 is likely suspicious.'
-   * - tml_system_step_9_privategpt_qdrant_dag-cybersecuritywithprivategpt-3f10.py
-     - 'keyattribute' : 'Voltage,current'
-     - 'keyattribute' : 'outboundpackets,inboundpackets'
+   * - **TML Dag:** tml_system_step_9_privategpt_qdrant_dag-cybersecuritywithprivategpt-3f10.py
+
+       **Current Value:** 'keyattribute' : 'Voltage,current'
+     
+       **New Value:** 'keyattribute' : 'outboundpackets,inboundpackets'
 
 DAG Successful Run
 ^^^^^^^^^^^^^^^^^
