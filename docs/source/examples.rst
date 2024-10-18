@@ -3,6 +3,9 @@ TML Solution Examples
 
 All examples simply follow the steps here :ref:`Lets Start Building a TML Solution`
 
+.. tip::
+   You can watch the development and running of the examples below in this `Youtube video <https://www.youtube.com/watch?v=ZzLL3tfBsh0>`_.
+
 .. list-table::
 
    * - **TSS Starter Examples**
