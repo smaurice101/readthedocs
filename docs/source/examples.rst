@@ -349,13 +349,18 @@ TML Dag Parameter Changes To Be Made For: solution_preprocessing_ml_dag-myawesom
 .. important
    You must make the following parameter changes to the TML Dags as define in the table.
 
-.. list=table::
-   * - TML Dag
-   * - Default_args Parameter
-   * - From
-   * - To
-   * - 
+.. tip::
+   This is the same that is located here: `solution_preprocessing_ml_dag-myawesometmlsolutionml-3f10 <https://github.com/smaurice101/raspberrypi/tree/main/tml-airflow/dags/tml-solutions/myawesometmlsolutionml-3f10>`_
 
+.. list=table::
+   * - **TML Dag**
+     - **Default_args Parameter To Change**
+     - **From Value**
+     - **To Value**
+   *  - tml_system_step_2_kafka_createtopic_dag-myawesometmlsolutionml-3f10.py
+      -  'numpartitions': '1',
+      - 1
+      - 3
 
 
 Here is the TSS successful run:
