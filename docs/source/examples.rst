@@ -357,10 +357,10 @@ TML Dag Parameter Changes To Be Made For: solution_preprocessing_ml_dag-myawesom
      - **Default_args Parameter To Change**
      - **From Value**
      - **To Value**
-   *  - tml_system_step_2_kafka_createtopic_dag-myawesometmlsolutionml-3f10.py
-      -  'numpartitions': '1',
-      - 1
-      - 3
+   * - tml_system_step_2_kafka_createtopic_dag-myawesometmlsolutionml-3f10.py
+     - 'numpartitions': '1',
+     - 1
+     - 3
 
 
 Here is the TSS successful run:
