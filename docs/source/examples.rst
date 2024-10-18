@@ -356,40 +356,57 @@ TML Dag Parameter Changes To Be Made For: solution_preprocessing_ml_dag-myawesom
 
 .. list-table::
 
-   * - **TML Dag**
-       **Default_args Parameter To Change**
-       **Change To Value**
+   * - **TML Dag Default_args Parameter To Change To New Value**
    * - **TML Dag:** tml_system_step_2_kafka_createtopic_dag-myawesometmlsolutionml-3f10.py
 
        **Current Value:** 'numpartitions': '1'
-     - 'numpartitions': '3'
-   * - tml_system_step_5_kafka_machine_learning_dag-myawesometmlsolutionml-3f10.py
-     - 'islogistic' : '0'
-     - 'islogistic' : '1'     
-   * - tml_system_step_5_kafka_machine_learning_dag-myawesometmlsolutionml-3f10.py
-     - 'dependentvariable' : ''
-     - 'dependentvariable' : 'failure'
-   * - tml_system_step_5_kafka_machine_learning_dag-myawesometmlsolutionml-3f10.py
-     - 'independentvariables': ''
-     - 'independentvariables': 'Voltage_preprocessed_AnomProb,Current_preprocessed_AnomProb'
-   * - tml_system_step_5_kafka_machine_learning_dag-myawesometmlsolutionml-3f10.py
-     - 'fullpathtotrainingdata' : '/Viper-ml/viperlogs/<choose foldername>', 
-     - 'fullpathtotrainingdata' : '/Viper-ml/viperlogs/iotlogistic'
-   * - tml_system_step_5_kafka_machine_learning_dag-myawesometmlsolutionml-3f10.py
-     - 'processlogic' : ''
-     - processlogic': 'classification_name=failure_prob:Voltage_preprocessed_AnomProb=55,n:Current_preprocessed_AnomProb=55,n'
-   * - tml_system_step_6_kafka_predictions_dag-myawesometmlsolutionml-3f10.py
-     - 'consumefrom' : ''
-     - 'consumefrom' : 'ml-data'
-   * - tml_system_step_6_kafka_predictions_dag-myawesometmlsolutionml-3f10.py
-     - 'pathtoalgos' : '/Viper-ml/viperlogs/<choose foldername>'
-     - 'pathtoalgos' : '/Viper-ml/viperlogs/iotlogistic'
-   * - tml_system_step_7_kafka_visualization_dag-myawesometmlsolutionml-3f10.py
-     - 'topic' : 'iot-preprocess,iot-preprocess2'
-     - 'topic' : 'iot-preprocess,iot-ml-prediction-results-output'
-   * - tml_system_step_7_kafka_visualization_dag-myawesometmlsolutionml-3f10.py
-     - 'dashboardhtml': 'dashboard.html'
-     - 'dashboardhtml': 'iot-failure-machinelearning.html'
+
+       **New Value:** 'numpartitions': '3'
+   * - **TML Dag:** tml_system_step_5_kafka_machine_learning_dag-myawesometmlsolutionml-3f10.py
+       
+       **Current Value:** 'islogistic' : '0'
+     
+       **New Value:** 'islogistic' : '1'     
+   * - **TML Dag:** tml_system_step_5_kafka_machine_learning_dag-myawesometmlsolutionml-3f10.py
+     
+       **Current Value:** 'dependentvariable' : ''
+     
+       **New Value:** 'dependentvariable' : 'failure'
+   * - **TML Dag:** tml_system_step_5_kafka_machine_learning_dag-myawesometmlsolutionml-3f10.py
+      
+       **Current Value:** 'independentvariables': ''
+     
+       **New Value:** 'independentvariables': 'Voltage_preprocessed_AnomProb,Current_preprocessed_AnomProb'
+   * - **TML Dag:** tml_system_step_5_kafka_machine_learning_dag-myawesometmlsolutionml-3f10.py
+      
+       **Current Value:** 'fullpathtotrainingdata' : '/Viper-ml/viperlogs/<choose foldername>', 
+      
+       **New Value:** 'fullpathtotrainingdata' : '/Viper-ml/viperlogs/iotlogistic'
+   * - **TML Dag:** tml_system_step_5_kafka_machine_learning_dag-myawesometmlsolutionml-3f10.py
+      
+       **Current Value:** 'processlogic' : ''
+     
+       **New Value:**  processlogic': 'classification_name=failure_prob:Voltage_preprocessed_AnomProb=55,n:Current_preprocessed_AnomProb=55,n'
+   * - **TML Dag:** tml_system_step_6_kafka_predictions_dag-myawesometmlsolutionml-3f10.py
+      
+       **Current Value:** 'consumefrom' : ''
+     
+       **New Value:** 'consumefrom' : 'ml-data'
+   * - **TML Dag:** tml_system_step_6_kafka_predictions_dag-myawesometmlsolutionml-3f10.py
+      
+       **Current Value:** 'pathtoalgos' : '/Viper-ml/viperlogs/<choose foldername>'
+     
+       **New Value:** 'pathtoalgos' : '/Viper-ml/viperlogs/iotlogistic'
+   * - **TML Dag:** tml_system_step_7_kafka_visualization_dag-myawesometmlsolutionml-3f10.py
+      
+       **Current Value:** 'topic' : 'iot-preprocess,iot-preprocess2'
+     
+       **New Value:** 'topic' : 'iot-preprocess,iot-ml-prediction-results-output'
+   * - **TML Dag:** tml_system_step_7_kafka_visualization_dag-myawesometmlsolutionml-3f10.py
+      
+       **Current Value:** 'dashboardhtml': 'dashboard.html'
+     
+       **New Value:** 'dashboardhtml': 'iot-failure-machinelearning.html'
 
 Here is the TSS successful run:
 
@@ -542,9 +559,7 @@ TML Dag Parameter Changes To Be Made For: solution_preprocessing_ai_mqtt_dag-cyb
 
 .. list-table::
 
-   * - **TML Dag**
-       **Default_args Parameter To Change**
-       **Change To Value**
+   * - **TML Dag Default_args Parameter To Change To New Value**
    * - **TML Dag:** tml_system_step_2_kafka_createtopic_dag-cybersecuritywithprivategpt-3f10.py
 
        **Current Value:** 'raw_data_topic' : 'iot-raw-data'
