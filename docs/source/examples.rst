@@ -570,16 +570,37 @@ TML Dag Parameter Changes To Be Made For: solution_preprocessing_ai_mqtt_dag-cyb
        **Current Value:** 'preprocess_data_topic' : 'iot-preprocess,iot-preprocess2'
        
        **New Value:** 'preprocess_data_topic' : 'cisco-network-preprocess'
-   * - **TML Dag:** tml_read_LOCALFILE_step_3_kafka_producetotopic_dag-cybersecuritywithprivategpt-3f10.py
+
+   * - **TML Dag:** tml_read_MQTT_step_3_kafka_producetotopic_dag-cybersecuritywithprivategpt-3f10.py
       
-       **Current Value:** 'topics' : 'iot-raw-data',
+       **Current Value:** 'topics' : 'iot-raw-data'
      
        **New Value:** 'topics' : 'cisco-network-mainstream'
-   * - **TML Dag:** tml_read_LOCALFILE_step_3_kafka_producetotopic_dag-cybersecuritywithprivategpt-3f10.py
 
-       **Current Value:** 'inputfile' : '/rawdata/IoTData.txt'
+   * - **TML Dag:** tml_read_MQTT_step_3_kafka_producetotopic_dag-cybersecuritywithprivategpt-3f10.py
+      
+       **Current Value:** 'mqtt_broker' : ''
      
-       **New Value:** 'inputfile' : '/rawdata/cisco_network_data.txt'
+       **New Value:**  'mqtt_broker' : '<ENTER YOUR HIVEMQ BROKER>'
+
+       For example - HIVEMQ broker should look similar to this:
+
+       **b526253c5560459da5337e561c142369.s1.eu.hivemq.cloud**
+   * - **TML Dag:** tml_read_MQTT_step_3_kafka_producetotopic_dag-cybersecuritywithprivategpt-3f10.py
+      
+       **Current Value:** 'mqtt_port' : ''
+     
+       **New Value:**  'mqtt_port' : '8883',
+   * - **TML Dag:** tml_read_MQTT_step_3_kafka_producetotopic_dag-cybersecuritywithprivategpt-3f10.py
+      
+       **Current Value:** 'mqtt_subscribe_topic' : ''
+     
+       **New Value:**  'mqtt_subscribe_topic' : 'tml/cybersecurity'
+   * - **TML Dag:** tml_read_MQTT_step_3_kafka_producetotopic_dag-cybersecuritywithprivategpt-3f10.py
+      
+       **Current Value:** 'mqtt_enabletls': '0'
+     
+       **New Value:**  'mqtt_enabletls': '1'
    * - **TML Dag:** tml_system_step_4_kafka_preprocess_dag-cybersecuritywithprivategpt-3f10.py
      
        **Curent Value:** 'raw_data_topic' : 'iot-raw-data'
