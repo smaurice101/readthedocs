@@ -609,18 +609,14 @@ TML Dag Parameter Changes To Be Made For: solution_preprocessing_ai_mqtt_dag-cyb
    * - tml_system_step_7_kafka_visualization_dag-cybersecuritywithprivategpt-3f10.py
      - 'dashboardhtml' : 'dashboard.html' 
      - 'dashboardhtml': 'tml-cisco-network-privategpt-monitor.html'
-
-  
-
-
-
-
    * - tml_system_step_5_kafka_machine_learning_dag-myawesometmlsolutionml-3f10.py
      - 'fullpathtotrainingdata' : '/Viper-ml/viperlogs/<choose foldername>', 
      - 'fullpathtotrainingdata' : '/Viper-ml/viperlogs/iotlogistic'
    * - tml_system_step_5_kafka_machine_learning_dag-myawesometmlsolutionml-3f10.py
      - 'processlogic' : ''
-     - processlogic': 'classification_name=failure_prob:Voltage_preprocessed_AnomProb=55,n:Current_preprocessed_AnomProb=55,n'
+     - processlogic': 'classification_name=failure_prob:
+
+       Voltage_preprocessed_AnomProb=55,n:Current_preprocessed_AnomProb=55,n'
    * - tml_system_step_6_kafka_predictions_dag-myawesometmlsolutionml-3f10.py
      - 'consumefrom' : ''
      - 'consumefrom' : 'ml-data'
@@ -636,7 +632,6 @@ TML Dag Parameter Changes To Be Made For: solution_preprocessing_ai_mqtt_dag-cyb
    * - tml_system_step_9_privategpt_qdrant_dag-cybersecuritywithprivategpt-3f10.py
      - 'consumefrom' : 'iot-preprocess', 
      - 'consumefrom' : 'cisco-network-preprocess'
-
    * - tml_system_step_9_privategpt_qdrant_dag-cybersecuritywithprivategpt-3f10.py
      - 'prompt': 'Do the device data show any malfunction or defects?'
      - 'prompt': 'Do any of the values of the inbound or outbound packets look abnormal?'
