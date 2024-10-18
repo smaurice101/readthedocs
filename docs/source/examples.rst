@@ -528,6 +528,53 @@ Solution DAG Code: solution_preprocessing_ai_mqtt_dag-cybersecuritywithprivategp
     
       start_task >> sensor_A >> sensor_B  >> start_task4 >> [sensor_I, sensor_C, sensor_D, sensor_E] >> start_task2 >> sensor_F >> start_task3  >> sensor_G
 
+TML Dag Parameter Changes To Be Made For: solution_preprocessing_ai_mqtt_dag-cybersecuritywithprivategpt-3f10
+""""""""""""""""""""""""""""""""
+
+.. important
+   1. You must make the following parameter changes to the TML Dags as define in the table.
+
+   2. You must make these changes to the TML Dags inside your project in the TSS.  In this example, changes are being made to Dags inside the project: **myawesometmlsolutionml-3f10**
+
+.. tip::
+   This is the same that is located here: `solution_preprocessing_ai_mqtt_dag-cybersecuritywithprivategpt-3f10 <https://github.com/smaurice101/raspberrypi/tree/main/tml-airflow/dags/tml-solutions/cybersecuritywithprivategpt-3f10>`_
+
+.. list-table::
+
+   * - **TML Dag**
+     - **Default_args Parameter To Change**
+     - **Change To Value**
+   * - tml_system_step_2_kafka_createtopic_dag-myawesometmlsolutionml-3f10.py
+     - 'numpartitions': '1'
+     - 'numpartitions': '3'
+   * - tml_system_step_5_kafka_machine_learning_dag-myawesometmlsolutionml-3f10.py
+     - 'islogistic' : '0'
+     - 'islogistic' : '1'     
+   * - tml_system_step_5_kafka_machine_learning_dag-myawesometmlsolutionml-3f10.py
+     - 'dependentvariable' : ''
+     - 'dependentvariable' : 'failure'
+   * - tml_system_step_5_kafka_machine_learning_dag-myawesometmlsolutionml-3f10.py
+     - 'independentvariables': ''
+     - 'independentvariables': 'Voltage_preprocessed_AnomProb,Current_preprocessed_AnomProb'
+   * - tml_system_step_5_kafka_machine_learning_dag-myawesometmlsolutionml-3f10.py
+     - 'fullpathtotrainingdata' : '/Viper-ml/viperlogs/<choose foldername>', 
+     - 'fullpathtotrainingdata' : '/Viper-ml/viperlogs/iotlogistic'
+   * - tml_system_step_5_kafka_machine_learning_dag-myawesometmlsolutionml-3f10.py
+     - 'processlogic' : ''
+     - processlogic': 'classification_name=failure_prob:Voltage_preprocessed_AnomProb=55,n:Current_preprocessed_AnomProb=55,n'
+   * - tml_system_step_6_kafka_predictions_dag-myawesometmlsolutionml-3f10.py
+     - 'consumefrom' : ''
+     - 'consumefrom' : 'ml-data'
+   * - tml_system_step_6_kafka_predictions_dag-myawesometmlsolutionml-3f10.py
+     - 'pathtoalgos' : '/Viper-ml/viperlogs/<choose foldername>'
+     - 'pathtoalgos' : '/Viper-ml/viperlogs/iotlogistic'
+   * - tml_system_step_7_kafka_visualization_dag-myawesometmlsolutionml-3f10.py
+     - 'topic' : 'iot-preprocess,iot-preprocess2'
+     - 'topic' : 'iot-preprocess,iot-ml-prediction-results-output'
+   * - tml_system_step_7_kafka_visualization_dag-myawesometmlsolutionml-3f10.py
+     - 'dashboardhtml': 'dashboard.html'
+     - 'dashboardhtml': 'iot-failure-machinelearning.html'
+
 DAG Successful Run
 ^^^^^^^^^^^^^^^^^
 
