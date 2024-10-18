@@ -621,6 +621,25 @@ TML Dag Parameter Changes To Be Made For: solution_preprocessing_ai_mqtt_dag-cyb
    * - tml_system_step_7_kafka_visualization_dag-myawesometmlsolutionml-3f10.py
      - 'dashboardhtml': 'dashboard.html'
      - 'dashboardhtml': 'iot-failure-machinelearning.html'
+   * - tml_system_step_9_privategpt_qdrant_dag-cybersecuritywithprivategpt-3f10.py
+     - 'consumefrom' : 'iot-preprocess', 
+     - 'consumefrom' : 'cisco-network-preprocess'
+
+   * - tml_system_step_9_privategpt_qdrant_dag-cybersecuritywithprivategpt-3f10.py
+     - 'prompt': 'Do the device data show any malfunction or defects?'
+     - 'prompt': 'Do any of the values of the inbound or outbound packets look abnormal?'
+   * - tml_system_step_9_privategpt_qdrant_dag-cybersecuritywithprivategpt-3f10.py
+     - 'context' : 'This is IoT data from devices. The data are 
+
+        anomaly probabilities for each IoT device. If voltage or current 
+
+        probabilities are low, it is likely the device is not working properly.'
+     - 'context' : 'These data are anomaly probabilities of suspicious data traffic.  
+
+       A high probability of over 0.80 is likely suspicious.'
+   * - tml_system_step_9_privategpt_qdrant_dag-cybersecuritywithprivategpt-3f10.py
+     - 'keyattribute' : 'Voltage,current'
+     - 'keyattribute' : 'outboundpackets,inboundpackets'
 
 DAG Successful Run
 ^^^^^^^^^^^^^^^^^
