@@ -383,7 +383,12 @@ TML Dag Parameter Changes To Be Made For: solution_preprocessing_ml_dag-myawesom
    * - tml_system_step_6_kafka_predictions_dag-myawesometmlsolutionml-3f10.py
      - 'pathtoalgos' : '/Viper-ml/viperlogs/<choose foldername>'
      - 'pathtoalgos' : '/Viper-ml/viperlogs/iotlogistic'
-
+   * - tml_system_step_7_kafka_visualization_dag-myawesometmlsolutionml-3f10.py
+     - 'topic' : 'iot-preprocess,iot-preprocess2'
+     - 'topic' : 'iot-preprocess,iot-ml-prediction-results-output'
+   * - tml_system_step_7_kafka_visualization_dag-myawesometmlsolutionml-3f10.py
+     - 'dashboardhtml': 'dashboard.html'
+     - 'dashboardhtml': 'iot-failure-machinelearning.html'
 
 Here is the TSS successful run:
 
