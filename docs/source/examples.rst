@@ -624,9 +624,9 @@ TML Dag Parameter Changes To Be Made For: solution_preprocessing_ai_mqtt_dag-cyb
        **New Value:** 'dashboardhtml': 'tml-cisco-network-privategpt-monitor.html'
    * - **TML Dag:** tml_system_step_5_kafka_machine_learning_dag-myawesometmlsolutionml-3f10.py
 
-     - **Current Value:** 'fullpathtotrainingdata' : '/Viper-ml/viperlogs/<choose foldername>', 
+       **Current Value:** 'fullpathtotrainingdata' : '/Viper-ml/viperlogs/<choose foldername>', 
 
-     - **New Value:** 'fullpathtotrainingdata' : '/Viper-ml/viperlogs/iotlogistic'
+       **New Value:** 'fullpathtotrainingdata' : '/Viper-ml/viperlogs/iotlogistic'
    * - **TML Dag:** tml_system_step_5_kafka_machine_learning_dag-myawesometmlsolutionml-3f10.py
        
        **Current Value:** 'processlogic' : ''
@@ -639,9 +639,11 @@ TML Dag Parameter Changes To Be Made For: solution_preprocessing_ai_mqtt_dag-cyb
        **Current Value:** 'consumefrom' : ''
        
        **New Value:** 'consumefrom' : 'ml-data'
-   * - tml_system_step_6_kafka_predictions_dag-myawesometmlsolutionml-3f10.py
-     - 'pathtoalgos' : '/Viper-ml/viperlogs/<choose foldername>'
-     - 'pathtoalgos' : '/Viper-ml/viperlogs/iotlogistic'
+   * - **TML Dag:** tml_system_step_6_kafka_predictions_dag-myawesometmlsolutionml-3f10.py
+
+       **Current Value:** 'pathtoalgos' : '/Viper-ml/viperlogs/<choose foldername>'
+
+       **New Value:** 'pathtoalgos' : '/Viper-ml/viperlogs/iotlogistic'
    * - **TML Dag:** tml_system_step_7_kafka_visualization_dag-myawesometmlsolutionml-3f10.py
       
        **Current Value:** 'topic' : 'iot-preprocess,iot-preprocess2'
