@@ -585,6 +585,7 @@ TML Dag Parameter Changes To Be Made For: solution_preprocessing_ai_mqtt_dag-cyb
 
        **New Value:** 'preprocesstypes' : 'min,max,trend,anomprob,variance,avg'
    * - **TML Dag:** tml_system_step_4_kafka_preprocess_dag-cybersecuritywithprivategpt-3f10.py
+
        **Current Value:** 'jsoncriteria' : 'uid=metadata.dsn,filter:allrecords~\
 
        subtopics=metadata.property_name~\ 
@@ -661,9 +662,9 @@ TML Dag Parameter Changes To Be Made For: solution_preprocessing_ai_mqtt_dag-cyb
        **New Value:** 'consumefrom' : 'cisco-network-preprocess'
    * - **TML Dag:** tml_system_step_9_privategpt_qdrant_dag-cybersecuritywithprivategpt-3f10.py
        
-       Current Value: 'prompt': 'Do the device data show any malfunction or defects?'
+       **Current Value:** 'prompt': 'Do the device data show any malfunction or defects?'
        
-       New Value: 'prompt': 'Do any of the values of the inbound or outbound packets look abnormal?'
+       **New Value:** 'prompt': 'Do any of the values of the inbound or outbound packets look abnormal?'
    * - **TML Dag:** tml_system_step_9_privategpt_qdrant_dag-cybersecuritywithprivategpt-3f10.py
       
        **Current Value:** 'context' : 'This is IoT data from devices. The data are 
