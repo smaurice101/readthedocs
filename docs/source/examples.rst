@@ -352,7 +352,7 @@ TML Dag Parameter Changes To Be Made For: solution_preprocessing_ml_dag-myawesom
    2. You must make these changes to the TML Dags inside your project in the TSS.  In this example, changes are being made to Dags inside the project: **myawesometmlsolutionml-3f10**
 
 .. tip::
-   This is the same that is located here: `solution_preprocessing_ml_dag-myawesometmlsolutionml-3f10 <https://github.com/smaurice101/raspberrypi/tree/main/tml-airflow/dags/tml-solutions/myawesometmlsolutionml-3f10>`_
+   This is the same that is located here: `solution_preprocessing_ml_dag-myawesometmlsolutionml-3f10 <https://github.com/smaurice101/raspberrypi/blob/main/tml-airflow/dags/tml-solutions/myawesometmlsolutionml-3f10/solution_template_processing_ml_dag-myawesometmlsolutionml-3f10.py>`_
 
 .. list-table::
 
@@ -537,7 +537,7 @@ TML Dag Parameter Changes To Be Made For: solution_preprocessing_ai_mqtt_dag-cyb
    2. You must make these changes to the TML Dags inside your project in the TSS.  In this example, changes are being made to Dags inside the project: **myawesometmlsolutionml-3f10**
 
 .. tip::
-   This is the same that is located here: `solution_preprocessing_ai_mqtt_dag-cybersecuritywithprivategpt-3f10 <https://github.com/smaurice101/raspberrypi/tree/main/tml-airflow/dags/tml-solutions/cybersecuritywithprivategpt-3f10>`_
+   This is the same that is located here: `solution_preprocessing_ai_mqtt_dag-cybersecuritywithprivategpt-3f10 <https://github.com/smaurice101/raspberrypi/blob/main/tml-airflow/dags/tml-solutions/cybersecuritywithprivategpt-3f10/solution_template_processing_ai_dag_mqtt-cybersecuritywithprivategpt-3f10.py>`_
 
 .. list-table::
 
