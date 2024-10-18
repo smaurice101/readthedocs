@@ -357,10 +357,11 @@ TML Dag Parameter Changes To Be Made For: solution_preprocessing_ml_dag-myawesom
 .. list-table::
 
    * - **TML Dag**
-     - **Default_args Parameter To Change**
-     - **Change To Value**
-   * - tml_system_step_2_kafka_createtopic_dag-myawesometmlsolutionml-3f10.py
-     - 'numpartitions': '1'
+       **Default_args Parameter To Change**
+       **Change To Value**
+   * - **TML Dag:** tml_system_step_2_kafka_createtopic_dag-myawesometmlsolutionml-3f10.py
+
+       **Current Value:** 'numpartitions': '1'
      - 'numpartitions': '3'
    * - tml_system_step_5_kafka_machine_learning_dag-myawesometmlsolutionml-3f10.py
      - 'islogistic' : '0'
