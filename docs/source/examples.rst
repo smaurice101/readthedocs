@@ -352,7 +352,8 @@ TML Dag Parameter Changes To Be Made For: solution_preprocessing_ml_dag-myawesom
 .. tip::
    This is the same that is located here: `solution_preprocessing_ml_dag-myawesometmlsolutionml-3f10 <https://github.com/smaurice101/raspberrypi/tree/main/tml-airflow/dags/tml-solutions/myawesometmlsolutionml-3f10>`_
 
-.. list=tabel::
+.. list-table::
+
    * - **TML Dag**
      - **Default_args Parameter To Change**
      - **From Value**
