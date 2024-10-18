@@ -544,18 +544,60 @@ TML Dag Parameter Changes To Be Made For: solution_preprocessing_ai_mqtt_dag-cyb
    * - **TML Dag**
      - **Default_args Parameter To Change**
      - **Change To Value**
-   * - tml_system_step_2_kafka_createtopic_dag-myawesometmlsolutionml-3f10.py
-     - 'numpartitions': '1'
-     - 'numpartitions': '3'
-   * - tml_system_step_5_kafka_machine_learning_dag-myawesometmlsolutionml-3f10.py
-     - 'islogistic' : '0'
-     - 'islogistic' : '1'     
-   * - tml_system_step_5_kafka_machine_learning_dag-myawesometmlsolutionml-3f10.py
-     - 'dependentvariable' : ''
-     - 'dependentvariable' : 'failure'
-   * - tml_system_step_5_kafka_machine_learning_dag-myawesometmlsolutionml-3f10.py
-     - 'independentvariables': ''
-     - 'independentvariables': 'Voltage_preprocessed_AnomProb,Current_preprocessed_AnomProb'
+   * - tml_system_step_2_kafka_createtopic_dag-cybersecuritywithprivategpt-3f10.py
+     - 'raw_data_topic' : 'iot-raw-data'
+     - 'raw_data_topic' : 'cisco-network-mainstream'
+   * - tml_system_step_2_kafka_createtopic_dag-cybersecuritywithprivategpt-3f10.py
+     - 'preprocess_data_topic' : 'iot-preprocess,iot-preprocess2'
+     - 'preprocess_data_topic' : 'cisco-network-preprocess'
+
+   * - tml_read_LOCALFILE_step_3_kafka_producetotopic_dag-cybersecuritywithprivategpt-3f10.py
+     - 'topics' : 'iot-raw-data',
+     - 'topics' : 'cisco-network-mainstream'
+
+   * - tml_read_LOCALFILE_step_3_kafka_producetotopic_dag-cybersecuritywithprivategpt-3f10.py
+     - 'inputfile' : '/rawdata/IoTData.txt'
+     - 'inputfile' : '/rawdata/cisco_network_data.txt'
+
+
+   * - tml_system_step_4_kafka_preprocess_dag-cybersecuritywithprivategpt-3f10.py
+     - 'raw_data_topic' : 'iot-raw-data'
+     - 'raw_data_topic' : 'cisco-network-mainstream'
+
+   * - tml_system_step_4_kafka_preprocess_dag-cybersecuritywithprivategpt-3f10.py
+     - 'preprocess_data_topic' : 'iot-preprocess'
+     - 'preprocess_data_topic' : 'cisco-network-preprocess'
+
+   * - tml_system_step_4_kafka_preprocess_dag-cybersecuritywithprivategpt-3f10.py
+     - 'identifier' : 'IoT device performance and failures'
+     - 'identifier' : 'Detect potential cyber attacks and monitor network'
+
+   * - tml_system_step_4_kafka_preprocess_dag-cybersecuritywithprivategpt-3f10.py
+     - 'preprocesstypes' : 'anomprob,trend,avg'
+     - 'preprocesstypes' : 'min,max,trend,anomprob,variance,avg'
+
+   * - tml_system_step_4_kafka_preprocess_dag-cybersecuritywithprivategpt-3f10.py
+     -  'jsoncriteria' : 'uid=metadata.dsn,filter:allrecords~\
+subtopics=metadata.property_name~\
+values=datapoint.value~\
+identifiers=metadata.display_name~\
+datetime=datapoint.updated_at~\
+msgid=datapoint.id~\
+latlong=lat:long',
+     -  'jsoncriteria' : 'uid=hostName,filter:allrecords~\
+subtopics=hostName,hostName,hostName~\
+values=inboundpackets,outboundpackets,pingStatus~\
+identifiers=inboundpackets,outboundpackets,pingStatus~\
+datetime=lastUpdated~\
+msgid=~\
+latlong=',
+
+
+
+
+
+
+
    * - tml_system_step_5_kafka_machine_learning_dag-myawesometmlsolutionml-3f10.py
      - 'fullpathtotrainingdata' : '/Viper-ml/viperlogs/<choose foldername>', 
      - 'fullpathtotrainingdata' : '/Viper-ml/viperlogs/iotlogistic'
