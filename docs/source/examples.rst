@@ -372,7 +372,7 @@ TML Dag Parameter Changes To Be Made For: solution_preprocessing_ml_dag-myawesom
      - 'independentvariables': ''
      - 'independentvariables': 'Voltage_preprocessed_AnomProb,Current_preprocessed_AnomProb'
    * - tml_system_step_5_kafka_machine_learning_dag-myawesometmlsolutionml-3f10.py
-     - 'fullpathtotrainingdata' : '/Viper-ml/viperlogs/<Enter folder path>', 
+     - 'fullpathtotrainingdata' : '/Viper-ml/viperlogs/<choose foldername>', 
      - 'fullpathtotrainingdata' : '/Viper-ml/viperlogs/iotlogistic'
    * - tml_system_step_5_kafka_machine_learning_dag-myawesometmlsolutionml-3f10.py
      - 'processlogic' : ''
@@ -381,7 +381,7 @@ TML Dag Parameter Changes To Be Made For: solution_preprocessing_ml_dag-myawesom
      - 'consumefrom' : ''
      - 'consumefrom' : 'ml-data'
    * - tml_system_step_6_kafka_predictions_dag-myawesometmlsolutionml-3f10.py
-     - 'pathtoalgos' : '/Viper-ml/viperlogs/<enter folder path>'
+     - 'pathtoalgos' : '/Viper-ml/viperlogs/<choose foldername>'
      - 'pathtoalgos' : '/Viper-ml/viperlogs/iotlogistic'
 
 
