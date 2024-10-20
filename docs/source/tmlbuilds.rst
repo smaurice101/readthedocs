@@ -5448,7 +5448,7 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
     import tsslogging
     import shutil
     from git import Repo
-    
+    import time
     sys.dont_write_bytecode = True
     
     ######################################################USER CHOSEN PARAMETERS ###########################################################
@@ -5524,6 +5524,7 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
         if 'tssdoc' in os.environ:
             if os.environ['tssdoc']=="1":
                 return
+        tsslogging.locallogs("INFO", "STEP 10: Started to build the documentation")
         
         sd = context['dag'].dag_id
         sname=context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_solutionname".format(sd))
@@ -5644,6 +5645,7 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
         doparse("/{}/docs/source/details.rst".format(sname), ["--datetime--;{}".format(datetime.now().strftime('%Y-%m-%d %H:%M:%S'))])
         doparse("/{}/docs/source/index.rst".format(sname), ["--datetime--;{}".format(datetime.now().strftime('%Y-%m-%d %H:%M:%S'))])
         doparse("/{}/docs/source/operating.rst".format(sname), ["--datetime--;{}".format(datetime.now().strftime('%Y-%m-%d %H:%M:%S'))])
+        doparse("/{}/docs/source/logs.rst".format(sname), ["--datetime--;{}".format(datetime.now().strftime('%Y-%m-%d %H:%M:%S'))])
         
         if len(CLIENTPORT) > 1:
           doparse("/{}/docs/source/details.rst".format(sname), ["--CLIENTPORT--;{}".format(CLIENTPORT[1:])])
@@ -5950,7 +5952,20 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
            
         githublogs = "https:\/\/github.com\/{}\/{}\/blob\/main\/tml-airflow\/logs\/logs.txt".format(os.environ['GITUSERNAME'],repo)
         subprocess.call(["sed", "-i", "-e",  "s/--githublogs--/{}/g".format(githublogs), "/{}/docs/source/operating.rst".format(sname)])
+        #-----------------------
+        subprocess.call(["sed", "-i", "-e",  "s/--githublogs--/{}/g".format(githublogs), "/{}/docs/source/logs.rst".format(sname)])
+        tsslogging.locallogs("INFO", "STEP 10: Documentation successfully built on GitHub..Readthedocs build in process and should complete in few seconds")
+    
+        try:
+           sf = "" 
+           with open('/dagslocalbackup/logs.txt', "r") as f:
+                sf=f.read()
+           doparse("/{}/docs/source/logs.rst".format(sname), ["--logs--;{}".format(sf)])
+        except Exception as e:
+          print("Cannot open file - ",e)  
+          pass        
         
+        #-------------------    
         airflowurl = "http:\/\/localhost:{}".format(airflowport[1:])
         subprocess.call(["sed", "-i", "-e",  "s/--airflowurl--/{}/g".format(airflowurl), "/{}/docs/source/operating.rst".format(sname)])
         
@@ -6022,8 +6037,9 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
      
         
         subprocess.call(["sed", "-i", "-e",  "s/--tmlbinaries--/{}/g".format(tmlbinaries), "/{}/docs/source/operating.rst".format(sname)])
-        
-        with open("/tmux/pythonwindows_{}.txt".format(sname), 'r', encoding='utf-8') as file: 
+        try:
+          tmuxwindows = "None"  
+          with open("/tmux/pythonwindows_{}.txt".format(sname), 'r', encoding='utf-8') as file: 
             data = file.readlines() 
             data.append("viper-produce")
             data.append("viper-preprocess")
@@ -6033,22 +6049,24 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
             tmuxwindows = ", ".join(data)
             tmuxwindows = tmuxwindows.replace("\n","")
             print("tmuxwindows=",tmuxwindows)
+        except Exception as e:
+           pass 
     
         doparse("/{}/docs/source/operating.rst".format(sname), ["--tmuxwindows--;{}".format(tmuxwindows)])
-        
-        if os.environ['TSS'] == "1":
+        try:
+         if os.environ['TSS'] == "1":
           doparse("/{}/docs/source/operating.rst".format(sname), ["--tssgen--;TSS Development Environment Container"])
-        else:
+         else:
           doparse("/{}/docs/source/operating.rst".format(sname), ["--tssgen--;TML Solution Container"])
         
         # Kick off shell script 
         #tsslogging.git_push("/{}".format(sname),"For solution details GOTO: https://{}.readthedocs.io".format(sname),sname)
         
-        subprocess.call("/tmux/gitp.sh {} 'For solution details GOTO: https://{}.readthedocs.io'".format(sname,sname), shell=True)
+         subprocess.call("/tmux/gitp.sh {} 'For solution details GOTO: https://{}.readthedocs.io'".format(sname,sname), shell=True)
         
-        rtd = context['ti'].xcom_pull(task_ids='step_10_solution_task_document',key="{}_RTD".format(sname))
+         rtd = context['ti'].xcom_pull(task_ids='step_10_solution_task_document',key="{}_RTD".format(sname))
     
-        if rtd == None: 
+         if rtd == None: 
             URL = 'https://readthedocs.org/api/v3/projects/'
             TOKEN = os.environ['READTHEDOCS']
             HEADERS = {'Authorization': f'token {TOKEN}'}
@@ -6076,11 +6094,14 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
             print(response.json())
             tsslogging.tsslogit(response.json())
             os.environ['tssdoc']="1"
-        
-        updatebranch(sname,"main")
-        triggerbuild(sname)
-        ti = context['task_instance']
-        ti.xcom_push(key="{}_RTD".format(sname), value="DONE")
+         time.sleep(10)
+         ti = context['task_instance']
+         ti.xcom_push(key="{}_RTD".format(sname), value="DONE")    
+         updatebranch(sname,"main")
+         triggerbuild(sname)
+            
+        except Exception as e:
+           print("Error=",e)
 
 .. list-table::
 
