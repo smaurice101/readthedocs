@@ -5,6 +5,9 @@ TML processes json data only.  JSON (Java Script Object Notation) is a standard 
 
 To process your JSON data - you need to tell TML applicate the **JSON paths to the keys and values** to process.
 
+.. tip::
+   Watch the `YouTube video <https://www.youtube.com/watch?v=3s5-7tiE1-s>`_ that shows you how to process your json.
+
 TML requires the following - as shown in the table below. We will go though an example on how to apply this to your JSON data.
 
 .. important::
