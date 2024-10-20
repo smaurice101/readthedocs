@@ -244,3 +244,14 @@ JSON Message In A Payload
 
    # add + to join fields
 
+JSON Criteria Creator
+----------------------
+
+.. important::
+   The Json criteria creator is a simple, powerful and visual way to process your json.
+
+   `YouTube video <https://www.youtube.com/watch?v=3s5-7tiE1-s>`_
+
+
+
+
