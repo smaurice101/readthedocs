@@ -252,6 +252,9 @@ JSON Criteria Creator
 
    `YouTube video <https://www.youtube.com/watch?v=3s5-7tiE1-s>`_
 
+Here are the screenshots of the TML JSON creator.
 
+.. figure:: json1.png
+   :scale: 50%
 
 
