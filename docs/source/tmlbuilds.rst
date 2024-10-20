@@ -4875,7 +4875,7 @@ STEP 8: Deploy TML Solution to Docker : tml-system-step-8-deploy-solution-to-doc
                tsslogging.locallogs("INFO", "STEP 8: Docker Container created.  Will push it now.  Here is the commit command: {} - message={}".format(cbuf,v))         
                
              v=subprocess.call("docker push {}".format(cname), shell=True)  
-             time.sleep(7)               
+             time.sleep(30)               
              if v != 0:   
                   tsslogging.locallogs("WARN", "STEP 8: There seems to an issue pushing to Docker.  Here is the command: docker push {} - message={}".format(cname,v)) 
              else:                   
