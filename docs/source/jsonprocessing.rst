@@ -290,4 +290,7 @@ Here are the screenshots of the TML JSON creator.
 .. figure:: json13.png
    :scale: 50%
 
+.. figure:: json14.png
+   :scale: 50%
+
 
