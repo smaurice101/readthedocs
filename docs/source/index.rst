@@ -17,9 +17,9 @@ Watch The TSS Youtube Video
 
 **TML Examples Video**: `YouTube Video <https://www.youtube.com/watch?v=ZzLL3tfBsh0>`_ Describes examples shown here: :ref:`TML Solution Examples`
 
-**TML JSON Criteria Creator**: `YouTube Video <https://www.youtube.com/watch?v=3s5-7tiE1-s>`_
+**TML JSON Criteria Creator**: `YouTube Video <https://www.youtube.com/watch?v=3s5-7tiE1-s>`_ Describes Json Criteria creation for Json Processing shown here: :ref:`JSON PROCESSING`
 
-**TML Step 9 Dag**: `YouTube Video <https://youtu.be/dGzsqx8MtIY>`_
+**TML Step 9 Dag**: `YouTube Video <https://youtu.be/dGzsqx8MtIY>`_ Describes key parameter configurations in: :ref:`STEP 9: PrivateGPT and Qdrant Integration: tml-system-step-9-privategpt_qdrant-dag`
 
 .. important::
    **TML Solution Studio (TSS)**
