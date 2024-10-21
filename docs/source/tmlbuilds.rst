@@ -4895,6 +4895,9 @@ STEP 8: Deploy TML Solution to Docker : tml-system-step-8-deploy-solution-to-doc
 STEP 9: PrivateGPT and Qdrant Integration: tml-system-step-9-privategpt_qdrant-dag
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+.. tip::
+   Watch the `YouTube video <https://youtu.be/dGzsqx8MtIY>`_ to learn how to configure the key paramaters in the Step 9 dag.
+
 .. code-block:: PYTHON
    :emphasize-lines: 17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,
                      37,38,39,40,41,42,43,44,45,46,47,48,49,50
