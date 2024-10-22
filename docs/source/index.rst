@@ -17,6 +17,8 @@ Watch The TSS Youtube Videos
 
 **Managing TML Projects (Creating, deleting, copying and stopping):** `Youtube Video <https://youtu.be/46k18ExfLLE>`_ See details here :ref:`Lets Start Building a TML Solution`
 
+**Running TML Projects in TSS:** `Youtube Video <https://youtu.be/MH-l0LBkxXc>`_ Describes how to run a TML project.
+
 **TML Examples Video**: `YouTube Video <https://www.youtube.com/watch?v=ZzLL3tfBsh0>`_ Describes examples shown here: :ref:`TML Solution Examples`
 
 **TML JSON Criteria Creator**: `YouTube Video <https://www.youtube.com/watch?v=3s5-7tiE1-s>`_ Describes Json Criteria creation for Json Processing shown here: :ref:`JSON PROCESSING`
