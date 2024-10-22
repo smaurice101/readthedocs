@@ -663,38 +663,6 @@ TML Dag Parameter Changes To Be Made For: solution_preprocessing_ai_mqtt_dag-cyb
        **Current Value:** 'dashboardhtml' : 'dashboard.html' 
 
        **New Value:** 'dashboardhtml': 'tml-cisco-network-privategpt-monitor.html'
-   * - **TML Dag:** tml_system_step_5_kafka_machine_learning_dag-myawesometmlsolutionml-3f10.py
-
-       **Current Value:** 'fullpathtotrainingdata' : '/Viper-ml/viperlogs/<choose foldername>', 
-
-       **New Value:** 'fullpathtotrainingdata' : '/Viper-ml/viperlogs/iotlogistic'
-   * - **TML Dag:** tml_system_step_5_kafka_machine_learning_dag-myawesometmlsolutionml-3f10.py
-       
-       **Current Value:** 'processlogic' : ''
-
-       **New Value:** processlogic': 'classification_name=failure_prob:
-
-       Voltage_preprocessed_AnomProb=55,n:Current_preprocessed_AnomProb=55,n'
-   * - **TML Dag:** tml_system_step_6_kafka_predictions_dag-myawesometmlsolutionml-3f10.py
-
-       **Current Value:** 'consumefrom' : ''
-       
-       **New Value:** 'consumefrom' : 'ml-data'
-   * - **TML Dag:** tml_system_step_6_kafka_predictions_dag-myawesometmlsolutionml-3f10.py
-
-       **Current Value:** 'pathtoalgos' : '/Viper-ml/viperlogs/<choose foldername>'
-
-       **New Value:** 'pathtoalgos' : '/Viper-ml/viperlogs/iotlogistic'
-   * - **TML Dag:** tml_system_step_7_kafka_visualization_dag-myawesometmlsolutionml-3f10.py
-      
-       **Current Value:** 'topic' : 'iot-preprocess,iot-preprocess2'
-      
-       **New Value:** 'topic' : 'iot-preprocess,iot-ml-prediction-results-output'
-   * - **TML Dag:** tml_system_step_7_kafka_visualization_dag-myawesometmlsolutionml-3f10.py
-
-       **Current Value:** 'dashboardhtml': 'dashboard.html'
-
-       **New Value:** 'dashboardhtml': 'iot-failure-machinelearning.html'
    * - **TML Dag:** tml_system_step_9_privategpt_qdrant_dag-cybersecuritywithprivategpt-3f10.py
 
        **Current Value:** 'consumefrom' : 'iot-preprocess', 
