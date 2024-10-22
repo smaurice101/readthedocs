@@ -23,6 +23,8 @@ Watch The TSS Youtube Videos
 
 **TML JSON Criteria Creator**: `YouTube Video <https://www.youtube.com/watch?v=3s5-7tiE1-s>`_ Describes Json Criteria creation for Json Processing shown here: :ref:`JSON PROCESSING`
 
+**Zoom student meeting at Seneca Polytechnic:** `YouTube Video <https://youtu.be/lZI50X6dp48>`_ Zoom meeting to students to show how to run Examples 1 nand 3 with data streaming to a MQTT broker in HiveMQ.  See here :ref:`TML Solution Examples`
+
 **TML Step 9 Dag Configurations**: `YouTube Video <https://youtu.be/dGzsqx8MtIY>`_ Describes key parameter configurations in: :ref:`STEP 9: PrivateGPT and Qdrant Integration: tml-system-step-9-privategpt_qdrant-dag`
 
 .. important::
