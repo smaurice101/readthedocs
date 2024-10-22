@@ -17,7 +17,7 @@ Watch The TSS Youtube Videos
 
    * - **Video Namae**
      - **YouTube URL**
-   * -TSS Video:** 
+   * - TSS Video:** 
      - `Youtube Video <https://www.youtube.com/watch?v=z3h2nJXVgUs>`_
    * - **Managing TML Projects (Creating, 
 
@@ -26,9 +26,9 @@ Watch The TSS Youtube Videos
    * - **Running TML Projects in TSS:** 
      - `Youtube Video <https://youtu.be/MH-l0LBkxXc>`_ 
 
-        Describes how to run a TML project. See details 
+       Describes how to run a TML project. See details 
 
-        here :ref:`Lets Start Building a TML Solution`
+       here :ref:`Lets Start Building a TML Solution`
    * - **TML Examples Video**: 
      - `YouTube Video <https://www.youtube.com/watch?v=ZzLL3tfBsh0>`_ 
 
