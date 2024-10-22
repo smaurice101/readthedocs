@@ -22,7 +22,9 @@ Watch The TSS Youtube Videos
    * - **Managing TML Projects (Creating, 
 
        deleting, copying and stopping):** 
-     - `Youtube Video <https://youtu.be/46k18ExfLLE>`_ See details here :ref:`Lets Start Building a TML Solution`
+     - `Youtube Video <https://youtu.be/46k18ExfLLE>`_ See details here 
+
+       :ref:`Lets Start Building a TML Solution`
    * - **Running TML Projects in TSS:** 
      - `Youtube Video <https://youtu.be/MH-l0LBkxXc>`_ 
 
