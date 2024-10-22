@@ -6278,6 +6278,9 @@ Here is the TML solution creation process, that is detailed below:
 STEP 0. Go into **tml-airflow** folder
 ----------------------------------
 
+.. tip::
+   Watch the video that shows how to easily create, delete, copy and stop TML project: `Youtube Video <https://youtu.be/46k18ExfLLE>`_
+
 Assuming you have the TSS container running following the steps here :ref:`TSS Docker Run Command` and logged in using the instructions here :ref:`How To Use the TML Solution Container` go into **DAG code editor** then:
 
    .. figure:: sol11.png
