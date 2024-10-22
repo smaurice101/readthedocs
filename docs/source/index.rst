@@ -13,19 +13,46 @@ TML solutions run on Linux operating systems (or windows/mac/and other OS), and 
 Watch The TSS Youtube Videos
 """""""""""""""""""""""""""""""
 
-**TSS Video:** `Youtube Video <https://www.youtube.com/watch?v=z3h2nJXVgUs>`_
+.. list-table::
 
-**Managing TML Projects (Creating, deleting, copying and stopping):** `Youtube Video <https://youtu.be/46k18ExfLLE>`_ See details here :ref:`Lets Start Building a TML Solution`
+   * - **Video Namae**
+     - **YouTube URL**
+   * -TSS Video:** 
+     - `Youtube Video <https://www.youtube.com/watch?v=z3h2nJXVgUs>`_
+   * - **Managing TML Projects (Creating, 
 
-**Running TML Projects in TSS:** `Youtube Video <https://youtu.be/MH-l0LBkxXc>`_ Describes how to run a TML project. See details here :ref:`Lets Start Building a TML Solution`
+       deleting, copying and stopping):** 
+     - `Youtube Video <https://youtu.be/46k18ExfLLE>`_ See details here :ref:`Lets Start Building a TML Solution`
+   * - **Running TML Projects in TSS:** 
+     - `Youtube Video <https://youtu.be/MH-l0LBkxXc>`_ 
 
-**TML Examples Video**: `YouTube Video <https://www.youtube.com/watch?v=ZzLL3tfBsh0>`_ Describes examples shown here: :ref:`TML Solution Examples`
+        Describes how to run a TML project. See details 
 
-**TML JSON Criteria Creator**: `YouTube Video <https://www.youtube.com/watch?v=3s5-7tiE1-s>`_ Describes Json Criteria creation for Json Processing shown here: :ref:`JSON PROCESSING`
+        here :ref:`Lets Start Building a TML Solution`
+   * - **TML Examples Video**: 
+     - `YouTube Video <https://www.youtube.com/watch?v=ZzLL3tfBsh0>`_ 
 
-**Zoom student meeting at Seneca Polytechnic:** `YouTube Video <https://youtu.be/lZI50X6dp48>`_ Zoom meeting to students to show how to run Examples 1 nand 3 with data streaming to a MQTT broker in HiveMQ.  See here :ref:`TML Solution Examples`
+       Describes examples shown here: :ref:`TML Solution Examples`
+   * - **TML JSON Criteria Creator**: 
+     - `YouTube Video <https://www.youtube.com/watch?v=3s5-7tiE1-s>`_ 
 
-**TML Step 9 Dag Configurations**: `YouTube Video <https://youtu.be/dGzsqx8MtIY>`_ Describes key parameter configurations in: :ref:`STEP 9: PrivateGPT and Qdrant Integration: tml-system-step-9-privategpt_qdrant-dag`
+       Describes Json Criteria creation for Json 
+
+       Processing shown here: :ref:`JSON PROCESSING`
+   * - **Zoom student meeting at Seneca Polytechnic:** 
+     - `YouTube Video <https://youtu.be/lZI50X6dp48>`_ Zoom meeting 
+ 
+       to students to show how to run Examples 1 nand 3 with data 
+ 
+       streaming to a MQTT broker in HiveMQ.  
+
+       See here :ref:`TML Solution Examples`
+   * - **TML Step 9 Dag Configurations**: 
+     - `YouTube Video <https://youtu.be/dGzsqx8MtIY>`_ 
+
+       Describes key parameter configurations in: 
+      
+       :ref:`STEP 9: PrivateGPT and Qdrant Integration: tml-system-step-9-privategpt_qdrant-dag`
 
 .. important::
    **TML Solution Studio (TSS)**
