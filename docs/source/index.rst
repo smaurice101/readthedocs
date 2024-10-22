@@ -17,11 +17,11 @@ Watch The TSS Youtube Videos
 
    * - **Video Namae**
      - **YouTube URL**
-   * - TSS Video:** 
+   * - **TSS Video:** 
      - `Youtube Video <https://www.youtube.com/watch?v=z3h2nJXVgUs>`_
-   * - **Managing TML Projects (Creating, 
+   * - **Managing TML Projects (Creating,** 
 
-       deleting, copying and stopping):** 
+       **deleting, copying and stopping):** 
      - `Youtube Video <https://youtu.be/46k18ExfLLE>`_ See details here 
 
        :ref:`Lets Start Building a TML Solution`
