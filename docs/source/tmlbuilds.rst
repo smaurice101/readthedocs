@@ -2020,6 +2020,50 @@ STEP 3c: Produce Data Using gRPC: tml-read-gRPC-step-3-kafka-producetotopic-dag
              VIPERPORT = sys.argv[4]
              serve()
 
+STEP 3c: Parameter Explanation
+""""""""""""""""""""""""""""""
+
+.. list-table::
+
+   * - **Parameter**
+     - **Explanation**
+   * - owner 
+     - Specify owner for Dag    
+   * - enabletls 
+     - Set to 1, for encrytion, 0 no encryption
+   * - microserviceid
+     - If using load balancer set this to the microservice id or else leave blank
+   * - producerid
+     - Specifies an identifier name i.e. iotsolution'
+   * - topics
+     - Specify name of topic to store data into - 
+ 
+       Note: This is the raw_data_topic in STEP 2 Dag
+   * - identifier
+     - Specify some identifying name for solution i.e. TML solution  
+   * - tss_gRPC_port
+     - This is the port for TSS dev testing.  
+
+       You can point your gRPC API client (self.server_port) 
+ 
+       to match this port.
+   * - gRPC_port
+     - This is the TML solution port. 
+ 
+       Point your client rest_port to here 
+
+       when running the TML in its own container.
+
+       The tss_gRPC_port and gRPC_port are 
+
+       different numbers but they perform the 
+
+       same use: tss is for DEV, rest is container.
+   * - delay
+     - System delay parameter when VIPER streams to Kafka.
+   * - topicid
+     - Monitors all device entities.  Leave at -999
+
 STEP 3c.i: gRPC API CLIENT
 """""""""""""""""""""""""""""""""""""""" 	
 
