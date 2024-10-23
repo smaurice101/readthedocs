@@ -1497,8 +1497,8 @@ STEP 3b: Produce Data Using RESTAPI: tml-read-RESTAPI-step-3-kafka-producetotopi
       'producerid' : 'iotsolution',  
       'topics' : 'iot-raw-data', # *************** This is one of the topic you created in SYSTEM STEP 2
       'identifier' : 'TML solution',  
-      'tss_rest_port' : '9001',  # <<< ***** replace replace with port number i.e. this is listening on port 9000 
-      'rest_port' : '9002',  # <<< ***** replace replace with port number i.e. this is listening on port 9000     
+      'tss_rest_port' : '9001',  # <<< ***** replace with port number i.e. this is listening on port 9000 
+      'rest_port' : '9002',  # <<< *****  replace with port number i.e. this is listening on port 9000     
       'delay' : '7000', # << ******* 7000 millisecond maximum delay for VIPER to wait for Kafka to return confirmation message is received and written to topic
       'topicid' : '-999', # <<< ********* do not modify              
     }
@@ -1653,6 +1653,50 @@ STEP 3b: Produce Data Using RESTAPI: tml-read-RESTAPI-step-3-kafka-producetotopi
              os.environ['VIPERPORT']=VIPERPORT
             
              gettmlsystemsparams()
+
+STEP 3b: Parameter Explanation
+""""""""""""""""""""""""""""""
+
+.. list-table::
+
+   * - **Parameter**
+     - **Explanation**
+   * - owner 
+     - Specify owner for Dag    
+   * - enabletls 
+     - Set to 1, for encrytion, 0 no encryption
+   * - microserviceid
+     - If using load balancer set this to the microservice id or else leave blank
+   * - producerid
+     - Specifies an identifier name i.e. iotsolution'
+   * - topics
+     - Specify name of topic to store data into - 
+ 
+       Note: This is the raw_data_topic in STEP 2 Dag
+   * - identifier
+     - Specify some identifying name for solution i.e. TML solution  
+   * - tss_rest_port
+     - This is the port for TSS dev testing.  
+
+       You can point your REST API client (rest_port) 
+ 
+       to match this port.
+   * - rest_port
+     - This is the TML solution port. 
+ 
+       Point your client rest_port to here 
+
+       when running the TML in its own container.
+
+       The tss_rest_port and rest_port are 
+
+       different numbers but they perform the 
+
+       same use: tss is for DEV, rest is container.
+   * - delay
+     - System delay parameter when VIPER streams to Kafka.
+   * - topicid
+     - Monitors all device entities.  Leave at -999
 
 STEP 3b.i: REST API CLIENT
 """""""""""""""""""""""""""""""""""""""" 	
