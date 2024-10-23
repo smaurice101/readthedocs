@@ -1021,6 +1021,8 @@ STEP 3: Produce to Kafka Topics
 
    `<https://github.com/smaurice101/raspberrypi/tree/main/tml-airflow/data>`_ 
 
+   Also, watch this youtube video that describes the four ingeston methods: `YouTube <https://youtu.be/o0Xk8pHV4nw>`_
+
 Four Ways to Ingest Data Into Your TML Solution Container
 """""""""""""""""""""""""""""""""""""""
 
