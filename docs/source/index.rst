@@ -31,6 +31,14 @@ Watch The TSS Youtube Videos
        Describes how to run a TML project. See details 
 
        here :ref:`Lets Start Building a TML Solution`
+   * - **Ingesting Real-Time Data into TML Solutions:** 
+     - `Youtube Video <https://youtu.be/o0Xk8pHV4nw>`_ 
+
+       Describes how to ingest real-time data using:
+
+       MQTT, RESTful API, gRPC API or Local file.
+
+       See here :ref:`Four Ways to Ingest Data Into Your TML Solution Container`
    * - **TML Examples Video**: 
      - `YouTube Video <https://www.youtube.com/watch?v=ZzLL3tfBsh0>`_ 
 
