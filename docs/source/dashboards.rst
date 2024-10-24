@@ -3,6 +3,9 @@ TML Real-Time Dashboards
 
 You can create real-time dashboards using TML binary called **Viperviz**.  These dashboards are integrated with TML solutions and users can build very unique and powerful real-time dashboards using simple HTML and javascript.
 
+.. tip::
+   Watch the `Youtube Video <https://youtu.be/ZnaU1RJfXT8>`_ that shows how to create amazing TML real-time dashboards.
+
 .. note::
 
    Viperviz streams data **directly** from the **Docker Container** to the client browser.  Viperviz binary uses websockets to stream data to the browser.  This 
