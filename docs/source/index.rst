@@ -46,7 +46,9 @@ Watch The TSS Youtube Videos
 
        using websockets, and no third-party tools.
 
-       See here :ref:`TML Real-Time Dashboards`
+       See here :ref:`TML Real-Time Dashboards` and,
+
+       :ref:`STEP 7: Real-Time Visualization: tml-system-step-7-kafka-visualization-dag`
    * - **TML Examples Video**: 
      - `YouTube Video <https://www.youtube.com/watch?v=ZzLL3tfBsh0>`_ 
 
