@@ -39,6 +39,14 @@ Watch The TSS Youtube Videos
        MQTT, RESTful API, gRPC API or Local file.
 
        See here :ref:`STEP 3: Produce to Kafka Topics`
+   * - **How To Create Amazing TML Real-Time Dashboards:** 
+     - `Youtube Video <https://youtu.be/ZnaU1RJfXT8>`_ 
+
+       Describes how to create TML real-time dashboards
+
+       using websockets, and no third-party tools.
+
+       See here :ref:`TML Real-Time Dashboards`
    * - **TML Examples Video**: 
      - `YouTube Video <https://www.youtube.com/watch?v=ZzLL3tfBsh0>`_ 
 
