@@ -67,6 +67,12 @@ Watch The TSS Youtube Videos
        streaming to a MQTT broker in HiveMQ.  
 
        See here :ref:`TML Solution Examples`
+   * - **TML Step 1 Dag Configurations**: 
+     - `YouTube Video <https://youtu.be/N2ghgJuZAiU>`_ 
+
+       Describes key parameter configurations in: 
+      
+       :ref:`STEP 1: Get TML Core Params: tml_system_step_1_getparams_dag`
    * - **TML Step 9 Dag Configurations**: 
      - `YouTube Video <https://youtu.be/dGzsqx8MtIY>`_ 
 
