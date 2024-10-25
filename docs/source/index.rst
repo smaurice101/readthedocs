@@ -103,6 +103,12 @@ Watch The TSS Youtube Videos
        Describes key parameter configurations in: 
       
        :ref:`STEP 9: PrivateGPT and Qdrant Integration: tml-system-step-9-privategpt_qdrant-dag`
+   * - **TML Step 10 Dag Configurations**: 
+     - `YouTube Video <https://youtu.be/iue3ljO_bBU>`_ 
+
+       Describes key parameter configurations in: 
+      
+       :ref:`STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag`
 
 .. important::
    **TML Solution Studio (TSS)**
