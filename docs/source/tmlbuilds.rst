@@ -793,6 +793,9 @@ STEP 2: Create Kafka Topics: tml_system_step_2_kafka_createtopic_dag
 
 Below is the complete definition of the **tml_system_step_2_kafka_createtopic_dag** that creates all the topics for your solution.  Users only need to configure the code highlighted in the **USER CHOSEN PARAMETERS**.
 
+.. tip::
+   Watch the YouTube video for Step 2 dag configurations. `YouTube Video <https://youtu.be/h9HL_xarNgw>`_
+
 .. code-block:: PYTHON
    :emphasize-lines: 15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33
 
