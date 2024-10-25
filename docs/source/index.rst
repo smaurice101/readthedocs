@@ -89,7 +89,25 @@ Watch The TSS Youtube Videos
        Describes key parameter configurations in: 
       
        :ref:`STEP 4: Preprocesing Data: tml-system-step-4-kafka-preprocess-dag`
-   * - **TML Step 7 Dag Configurations**: 
+   * - **TML Step 4b Dag Configurations**: 
+     - `YouTube Video <>`_ 
+
+       COMING SOON: Describes key parameter configurations in: 
+      
+       :ref:`STEP 4b: Preprocesing 2 Data: tml-system-step-4b-kafka-preprocess-dag`
+   * - **TML Step 5 Dag Configurations**: 
+     - `YouTube Video <>`_ 
+
+       COMING SOON: Describes key parameter configurations in: 
+      
+       :ref:`STEP 5: Entity Based Machine Learning : tml-system-step-5-kafka-machine-learning-dag`
+   * - **TML Step 6 Dag Configurations**: 
+     - `YouTube Video <>`_ 
+
+       COMING SOON: Describes key parameter configurations in: 
+      
+       :ref:`STEP 6: Entity Based Predictions: tml-system-step-6-kafka-predictions-dag`
+* - **TML Step 7 Dag Configurations**: 
      - Refer to **How To Create Amazing TML Real-Time Dashboards:**
 
        :ref:`STEP 7: Real-Time Visualization: tml-system-step-7-kafka-visualization-dag`
