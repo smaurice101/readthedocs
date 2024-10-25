@@ -90,9 +90,9 @@ Watch The TSS Youtube Videos
       
        :ref:`STEP 4: Preprocesing Data: tml-system-step-4-kafka-preprocess-dag`
    * - **TML Step 4b Dag Configurations**: 
-     - `YouTube Video <>`_ 
+     - `YouTube Video <https://youtu.be/UA_gm2eqaAU>`_ 
 
-       COMING SOON: Describes key parameter configurations in: 
+       Describes key parameter configurations in: 
       
        :ref:`STEP 4b: Preprocesing 2 Data: tml-system-step-4b-kafka-preprocess-dag`
    * - **TML Step 5 Dag Configurations**: 
