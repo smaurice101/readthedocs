@@ -107,7 +107,7 @@ Watch The TSS Youtube Videos
        COMING SOON: Describes key parameter configurations in: 
       
        :ref:`STEP 6: Entity Based Predictions: tml-system-step-6-kafka-predictions-dag`
-* - **TML Step 7 Dag Configurations**: 
+   * - **TML Step 7 Dag Configurations**: 
      - Refer to **How To Create Amazing TML Real-Time Dashboards:**
 
        :ref:`STEP 7: Real-Time Visualization: tml-system-step-7-kafka-visualization-dag`
