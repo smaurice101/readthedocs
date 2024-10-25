@@ -73,6 +73,12 @@ Watch The TSS Youtube Videos
        Describes key parameter configurations in: 
       
        :ref:`STEP 1: Get TML Core Params: tml_system_step_1_getparams_dag`
+   * - **TML Step 2 Dag Configurations**: 
+     - `YouTube Video <https://youtu.be/h9HL_xarNgw>`_ 
+
+       Describes key parameter configurations in: 
+      
+       :ref:`STEP 2: Create Kafka Topics: tml_system_step_2_kafka_createtopic_dag`
    * - **TML Step 9 Dag Configurations**: 
      - `YouTube Video <https://youtu.be/dGzsqx8MtIY>`_ 
 
