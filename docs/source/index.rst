@@ -81,6 +81,8 @@ Watch The TSS Youtube Videos
        :ref:`STEP 2: Create Kafka Topics: tml_system_step_2_kafka_createtopic_dag`
    * - **TML Step 3 Dag Configurations**: 
      - Refer to **Ingesting Real-Time Data into TML Solutions:**
+       
+       :ref:`STEP 3: Produce to Kafka Topics`
    * - **TML Step 4 Dag Configurations**: 
      - `YouTube Video <https://youtu.be/mLvi__oNyCA>`_ 
 
