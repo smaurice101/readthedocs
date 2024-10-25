@@ -3272,6 +3272,9 @@ Preprocessed Sample JSON Output: Explanations
 STEP 4b: Preprocesing 2 Data: tml-system-step-4b-kafka-preprocess-dag
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+.. tip::
+   Watch the YouTube that discussed how to configure this Dag, used to process preprocessed variables in Step 4.  `YouTube Video <https://youtu.be/UA_gm2eqaAU>`_ 
+
 .. code-block:: PYTHON
    :emphasize-lines: 17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44
 
