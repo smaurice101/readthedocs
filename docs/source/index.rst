@@ -79,6 +79,12 @@ Watch The TSS Youtube Videos
        Describes key parameter configurations in: 
       
        :ref:`STEP 2: Create Kafka Topics: tml_system_step_2_kafka_createtopic_dag`
+   * - **TML Step 3 Dag Configurations**: 
+     - Refer to **Ingesting Real-Time Data into TML Solutions:**
+   * - **TML Step 7 Dag Configurations**: 
+     - Refer to **How To Create Amazing TML Real-Time Dashboards:**
+   * - **TML Step 8 Dag**: 
+     - Step 8 Dag for docker container - Does not require any configurations. 
    * - **TML Step 9 Dag Configurations**: 
      - `YouTube Video <https://youtu.be/dGzsqx8MtIY>`_ 
 
