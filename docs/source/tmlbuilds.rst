@@ -5537,7 +5537,9 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
    Note. Your documentation URL will be: https://<Your Solution Name>.readthedocs.io
 
          **Your Solution Name** is the name you chose here: :ref:`STEP 3. Type the name of your project`
-   
+
+   Watch the YouTube to see how to configure this Dag: `YouTube Video <https://youtu.be/iue3ljO_bBU>`_ 
+
 .. code-block:: PYTHON
    :emphasize-lines: 18,19,20,21,22,23,24
 
