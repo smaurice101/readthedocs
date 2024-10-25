@@ -91,6 +91,8 @@ Watch The TSS Youtube Videos
        :ref:`STEP 4: Preprocesing Data: tml-system-step-4-kafka-preprocess-dag`
    * - **TML Step 7 Dag Configurations**: 
      - Refer to **How To Create Amazing TML Real-Time Dashboards:**
+
+       :ref:`STEP 7: Real-Time Visualization: tml-system-step-7-kafka-visualization-dag`
    * - **TML Step 8 Dag**: 
      - Step 8 Dag for docker container - Does not require any configurations. 
 
