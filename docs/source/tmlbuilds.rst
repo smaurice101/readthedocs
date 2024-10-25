@@ -2426,6 +2426,9 @@ Preprocessing Types
 
 TML preprocesses real-time data for every entity along each sliding time window.  This is quick and powerful way to accelerate insights from real-time data with very little effort.  TML provide over 35 different preprocessing types:
 
+.. tip::
+   Watch the YouTube on how to configure the parameters in this dag.  `YouTube Video <https://youtu.be/mLvi__oNyCA>`_
+
 .. list-table::
 
    * - **Preprocessing Type**
