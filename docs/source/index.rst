@@ -96,9 +96,9 @@ Watch The TSS Youtube Videos
       
        :ref:`STEP 4b: Preprocesing 2 Data: tml-system-step-4b-kafka-preprocess-dag`
    * - **TML Step 5 Dag Configurations**: 
-     - `YouTube Video <>`_ 
+     - `YouTube Video <https://youtu.be/oVIne8JCowI>`_ 
 
-       COMING SOON: Describes key parameter configurations in: 
+       Describes key parameter configurations in: 
       
        :ref:`STEP 5: Entity Based Machine Learning : tml-system-step-5-kafka-machine-learning-dag`
    * - **TML Step 6 Dag Configurations**: 
