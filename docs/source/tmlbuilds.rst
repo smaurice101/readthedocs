@@ -3487,7 +3487,7 @@ STEP 5: Entity Based Machine Learning : tml-system-step-5-kafka-machine-learning
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. tip::
-   Watch the YouTube to learn how to configure this dag.  `YouTube Video <https://youtu.be/oVIne8JCowI>`_ 
+   Watch the YouTube video to learn how to configure this Step 5 dag.  `YouTube Video <https://youtu.be/oVIne8JCowI>`_ 
 
 Entity Based Machine Learning By TML
 """"""""""""""""""""""""""""""""
