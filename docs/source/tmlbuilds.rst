@@ -3486,6 +3486,9 @@ STEP 4b: Preprocesing 2 Data: tml-system-step-4b-kafka-preprocess-dag
 STEP 5: Entity Based Machine Learning : tml-system-step-5-kafka-machine-learning-dag
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+.. tip::
+   Watch the YouTube to learn how to configure this dag.  `YouTube Video <https://youtu.be/oVIne8JCowI>`_ 
+
 Entity Based Machine Learning By TML
 """"""""""""""""""""""""""""""""
 
