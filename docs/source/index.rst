@@ -15,7 +15,7 @@ Watch The TSS Youtube Videos
 
 .. list-table::
 
-   * - **Video Namae**
+   * - **Video Name**
      - **YouTube URL**
    * - **TSS Video:** 
      - `Youtube Video <https://www.youtube.com/watch?v=z3h2nJXVgUs>`_
