@@ -224,7 +224,7 @@ TSS Code Editor
 
 .. figure:: ts4.png
 
-Common Commands
+Common Docker and TMUX Commands
 --------------------
 
 This is a list of common commands for Docker and Tmux.
