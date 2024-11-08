@@ -4981,7 +4981,7 @@ STEP 8: Deploy TML Solution to Docker : tml-system-step-8-deploy-solution-to-doc
            ti.xcom_push(key="{}_solution_dag_to_trigger".format(sname), value=sd)
             
            scid = tsslogging.getrepo('/tmux/cidname.txt')
-           cid = scid
+           cid = scid # cid added
       
            key = "trigger-{}".format(sname)
            os.environ[key] = sd
@@ -4997,16 +4997,16 @@ STEP 8: Deploy TML Solution to Docker : tml-system-step-8-deploy-solution-to-doc
                tsslogging.locallogs("INFO", "STEP 8: Docker Container created.  Will push it now.  Here is the commit command: {} - message={}".format(cbuf,v))         
                
              v=subprocess.call("docker push {}".format(cname), shell=True)  
-             time.sleep(7)               
+             time.sleep(20)               
              if v != 0:   
-                  tsslogging.locallogs("WARN", "STEP 8: There seems to an issue pushing to Docker.  Here is the command: docker push {} - message={}".format(cname,v)) 
+                  tsslogging.locallogs("WARN", "STEP 8: There may be an issue pushing to Docker Hub, or just wait few seconds to see if the container shows up.  Here is the command: docker push {} - message={}".format(cname,v)) 
              else:                   
                   tsslogging.locallogs("INFO", "STEP 8: Successfully ran Docker push: docker push {} - message={}".format(cname,v)) 
            elif len(cid) <= 1:
                   tsslogging.locallogs("ERROR", "STEP 8: There seems to be an issue with docker commit. Here is the command: docker commit {} {}".format(cid,cname)) 
-                  tsslogging.tsslogit("Deploying to Docker in {}: {}".format(os.path.basename(__file__),e), "ERROR" )             
+                  tsslogging.tsslogit("Deploying to Docker in {}".format(os.path.basename(__file__)), "ERROR" )             
                   tsslogging.git_push("/{}".format(repo),"Entry from {}".format(os.path.basename(__file__)),"origin")
-            
+               
            os.environ['tssbuild']="1"
         
            doparse("/{}/tml-airflow/dags/tml-solutions/{}/docker_run_stop-{}.py".format(repo,sname,sname), ["--solution-name--;{}".format(sname)])
