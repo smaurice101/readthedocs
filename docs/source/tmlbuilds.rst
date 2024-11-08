@@ -5116,18 +5116,21 @@ STEP 9: PrivateGPT and Qdrant Integration: tml-system-step-9-privategpt_qdrant-d
           stopcontainers()
     #      buf="docker stop $(docker ps -q --filter ancestor={} )".format(pgptcontainername)
      #     subprocess.call(buf, shell=True)
-          time.sleep(4)
+          time.sleep(10)
           buf = "docker run -d -p {}:{} --net=host --gpus all --env PORT={} --env GPU=1 --env COLLECTION={} --env WEB_CONCURRENCY={} --env CUDA_VISIBLE_DEVICES={} {}".format(pgptport,pgptport,pgptport,collection,concurrency,cuda,pgptcontainername)
-          subprocess.call(buf, shell=True)
-    
+          v=subprocess.call(buf, shell=True)
+          return v,buf
+     
     def qdrantcontainer():
-    
+        v=0
+        buf=""
         if int(default_args['concurrency']) > 1:
           buf="docker stop $(docker ps -q --filter ancestor=qdrant/qdrant )"
           subprocess.call(buf, shell=True)
           time.sleep(4)
           buf = "docker run -d -p 6333:6333 -v $(pwd)/qdrant_storage:/qdrant/storage:z qdrant/qdrant"
-          subprocess.call(buf, shell=True)
+          v=subprocess.call(buf, shell=True)
+        return v,buf
     
     def pgptchat(prompt,context,docfilter,port,includesources,ip,endpoint):
     
@@ -5186,6 +5189,7 @@ STEP 9: PrivateGPT and Qdrant Integration: tml-system-step-9-privategpt_qdrant-d
     
        res=json.loads(result,strict='False')
        message = ""
+       found=0 
     
        if jsonkeytogather == '':
          tsslogging.tsslogit("PrivateGPT DAG jsonkeytogather is empty in {} {}".format(os.path.basename(__file__),e), "ERROR" )
@@ -5274,6 +5278,7 @@ STEP 9: PrivateGPT and Qdrant Integration: tml-system-step-9-privategpt_qdrant-d
     def sendtoprivategpt(maindata):
     
        counter = 0   
+       maxc = 300
        pgptendpoint="/v1/completions"
        
        maintopic = default_args['pgpt_data_topic']
@@ -5299,7 +5304,7 @@ STEP 9: PrivateGPT and Qdrant Integration: tml-system-step-9-privategpt_qdrant-d
             else:
               counter += 1
               time.sleep(1)
-              if counter > 60:                
+              if counter > maxc:                
                  startpgptcontainer()
                  qdrantcontainer()
                  counter = 0 
@@ -5376,8 +5381,20 @@ STEP 9: PrivateGPT and Qdrant Integration: tml-system-step-9-privategpt_qdrant-d
             VIPERHOST = sys.argv[3]
             VIPERPORT = sys.argv[4]
     
-            startpgptcontainer()
-            qdrantcontainer()
+            tsslogging.locallogs("INFO", "STEP 9: Starting privateGPT")
+            v,buf=startpgptcontainer()
+            if v==1:
+              tsslogging.locallogs("WARN", "STEP 9: There seems to be an issue starting the privateGPT container.  Here is the run command - try to run it nanually for testing: {}".format(buf))
+            else:
+              tsslogging.locallogs("INFO", "STEP 9: Success starting privateGPT.  Here is the run command: {}".format(buf))
+             
+            v,buf=qdrantcontainer()
+            if buf != "":
+             if v==1:
+              tsslogging.locallogs("WARN", "STEP 9: There seems to be an issue starting the Qdrant container.  Here is the run command - try to run it nanually for testing: {}".format(buf))
+             else:
+              tsslogging.locallogs("INFO", "STEP 9: Success starting Qdrant.  Here is the run command: {}".format(buf))
+            
             time.sleep(10)  # wait for containers to start
     
             while True:
@@ -5393,6 +5410,7 @@ STEP 9: PrivateGPT and Qdrant Integration: tml-system-step-9-privategpt_qdrant-d
                   sendtoprivategpt(maindata)                      
                  time.sleep(2)
              except Exception as e:
+              tsslogging.locallogs("ERROR", "STEP 9: PrivateGPT Step 9 DAG in {} {}".format(os.path.basename(__file__),e))
               tsslogging.tsslogit("PrivateGPT Step 9 DAG in {} {}".format(os.path.basename(__file__),e), "ERROR" )
               tsslogging.git_push("/{}".format(repo),"Entry from {}".format(os.path.basename(__file__)),"origin")
               break
