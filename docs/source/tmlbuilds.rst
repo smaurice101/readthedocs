@@ -75,7 +75,7 @@ DAG Solution Process Explanation
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. note::
-    The above process shows Ten (10) DAGs that are used to build advanced, scalable, real-time TML solutions with little to no-code - just configurations to the 
+    The above process shows Ten (10) DAGs that are used to build advanced, scalable, real-time TML solutions with **no-code** - just configurations to the 
     DAGs.  
 
     1. Build Process starts with setting up system parameters for **Initial TML Solution Setup**.  Users simply need to provide configuration information in the 
