@@ -666,7 +666,7 @@ TML Dag Parameter Changes To Be Made For: solution_preprocessing_ai_mqtt_dag-cyb
    * - **TML Dag:** tml_system_step_9_privategpt_qdrant_dag-cybersecuritywithprivategpt-3f10.py
 
 
-       **NOTE: NEW VALUE BELOW IS OPTIONAL FOR USERS WITHOUT ACCESS TO A GPU CARD** 
+       **NOTE: THIS CHANGE IS ONLY FOR USERS WITHOUT ACCESS TO A NVIDIA GPU CARD** 
 
 
        **Current Value:** 'pgptcontainername' : 'maadsdocker/tml-privategpt-with-gpu-nvidia-amd64', 
