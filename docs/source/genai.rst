@@ -66,7 +66,16 @@ PrivateGPT Container With NO GPU
 
    docker run -d -p 8001:8001 --env PORT=8001 --env GPU=0 --env CUDA_VISIBLE_DEVICES=0 maadsdocker/tml-privategpt-no-gpu-amd64
 
+Installing CUDA For NVIDIA GPU
+^^^^^^^^^^^^^^^^^^
 
+.. important::
+   It is highly recommended that users run the privateGPT container using the NVIDIA GPU for FASTER performance.  
+
+   If you have a NVIDIA GPU you must install the `CUDA Software Development Kit <https://developer.nvidia.com/cuda-downloads>`_ in your Linux environment.
+
+   To confirm your GPU card is recognized in Linux type: **nvidia-smi**
+    
 Accessing PrivateGPT With MAADSTML Python API
 -----------------
 
