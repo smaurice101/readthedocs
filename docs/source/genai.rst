@@ -74,7 +74,7 @@ Installing CUDA For NVIDIA GPU
 
    If you have a NVIDIA GPU you must install the `CUDA Software Development Kit <https://developer.nvidia.com/cuda-downloads>`_ in your Linux environment.
 
-   To confirm your GPU card is recognized in Linux type: **nvidia-smi**
+   To confirm your GPU card is recognized in Linux type: **nvidia-smi.exe**
     
 Accessing PrivateGPT With MAADSTML Python API
 -----------------
