@@ -3979,7 +3979,7 @@ Classification Models: Details on the Processlogic field
 
    Similarly, if processing any variable, this naming standard will apply.
 
-For example, lets breakdown this rule for prepcoccesed variables Voltage and Current:
+For example, lets breakdown the following rule for prepcoccesed variables Voltage and Current - this rule would be the value of the **processlogic** field in Dag 5 above:
 
 **classification_name=failure_prob:Voltage_preprocessed_AnomProb=55,n:Current_preprocessed_AnomProb=55,n**
 
@@ -3990,7 +3990,6 @@ True   False  True
 False  True   True
 True   True   True
 =====  =====  ======
-
 
 Machine Learning Trained Model Sample JSON Output
 """""""""""""""""""""""""""""""""""""
