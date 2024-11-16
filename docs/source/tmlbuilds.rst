@@ -3961,7 +3961,7 @@ Here are the **core parameters** in the above dag 5:
        your model: constant, elasticity, elasticity2    
 
 Classification Models: Details on the Processlogic field
---------------------------------
+""""""""""""""""""""""""""""""""""
 
 .. important::
    If you are estimating a classification model, and want to predict probabilities, then you must define the **processlogic** field.  
