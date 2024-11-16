@@ -4062,15 +4062,14 @@ Classification Models: Details on the Processlogic field
 
 .. important:: 
    The 1 and 0's are then compared between the variables to see if they match.  For example, if 
-
-   Voltage_preprocessed_AnomProb AND Current_preprocessed_AnomProb both are 1, then the failure_prob
-
+   Voltage_preprocessed_AnomProb AND Current_preprocessed_AnomProb both are 1, then the failure_prob 
    variable is 1, otherwise 0.  
 
 .. tip:: 
    If Current_preprocessed_AnomProb=-n,55, then this rule is if Current_preprocessed_AnomProb is less then 55, then set failure_prob to 1, otherwise 0.
 
-   Both -n and n indicate that the variable has NO lower bound or upper bound, respectively.
+   Both **-n** and **n** indicate that the variable has NO lower bound or upper bound, respectively.  **If you want a specific lower and upper bound, just replace -n, and n with exact 
+   numbers.**
 
 Machine Learning Trained Model Sample JSON Output
 """""""""""""""""""""""""""""""""""""
