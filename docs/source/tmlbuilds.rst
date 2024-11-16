@@ -3968,7 +3968,16 @@ Classification Models: Details on the Processlogic field
 
    The **processlogic** define the rules to classify the dependent variable into 1 or 0 based on the rules.   The table below shows how to 
 
-   specify these rules for the variables you are using.
+   specify these rules for the variables you are using or processed in Step 4 Dag.  We will set rules on these processed variables: Voltage and Current.  
+
+.. tip::
+   You should refer to :ref:`Preprocessed Variable Naming Standard` to properly specify the names of the processed variables.  If Voltage and Current. are processed with anomaly probability processing type (i.e. AnomProb), then the new processed variables for Voltage and Current will be:
+
+   1. Voltage_preprocessed_AnomProb
+
+   2. Current_preprocessed_AnomProb 
+
+
 
 
 
