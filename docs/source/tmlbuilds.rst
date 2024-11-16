@@ -4022,14 +4022,20 @@ Classification Models: Details on the Processlogic field
 
        and sets the **failure_prob** to 1 IF the values of the variable
 
-       Voltage_preprocessed_AnomProb are between 55 and n, where **n** signifies
+       Current_preprocessed_AnomProb are between 55 and n, where **n** signifies
 
        no upper bound.  
 
-       If rule was Voltage_preprocessed_AnomProb=55,95, then **failure_prob** will 
+       If rule was Current_preprocessed_AnomProb=55,95, then **failure_prob** will 
 
        be 1, if it is between 55 and 95, inclusive.
 
+.. important:: 
+   The 1 and 0's are then compared between the variables to see if they match.  For example, if 
+
+   Voltage_preprocessed_AnomProb AND Current_preprocessed_AnomProb both are 1, then the failure_prob
+
+   variable is 1, otherwise 0.  
 
 Machine Learning Trained Model Sample JSON Output
 """""""""""""""""""""""""""""""""""""
