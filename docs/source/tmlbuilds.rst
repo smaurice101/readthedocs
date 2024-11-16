@@ -3971,7 +3971,8 @@ Classification Models: Details on the Processlogic field
    specify these rules for the variables you are using or processed in :ref:`STEP 4: Preprocesing Data: tml-system-step-4-kafka-preprocess-dag`.  We will set rules on the processed variables: Voltage and Current.  
 
 .. tip::
-   You should refer to :ref:`Preprocessed Variable Naming Standard` to properly specify the names of the processed variables: Voltage and Current  If Voltage and Current are processed with anomaly probability processing type (i.e. AnomProb), then the new processed variables for Voltage and Current will be named:
+   You should refer to :ref:`Preprocessed Variable Naming Standard` to properly specify the names of the processed variables: Voltage and Current  If Voltage and Current are processed  
+   with anomaly probability processing type (i.e. AnomProb), then the new processed variables for Voltage and Current will be named:
 
    1. Voltage_preprocessed_AnomProb
 
@@ -3979,9 +3980,11 @@ Classification Models: Details on the Processlogic field
 
    Similarly, if processing any variable, this naming standard will apply.
 
-For example, lets breakdown the following rule for prepcoccesed variables Voltage and Current - this rule would be the value of the **processlogic** field in Dag 5 above:
+   For example, lets breakdown the following rule for prepcoccesed variables Voltage and Current - this rule would be the value of the **processlogic** field in Dag 5 above:
 
-**classification_name=failure_prob:Voltage_preprocessed_AnomProb=55,n:Current_preprocessed_AnomProb=55,n**
+   **classification_name=failure_prob:Voltage_preprocessed_AnomProb=55,n : Current_preprocessed_AnomProb=55,n**
+
+   **NOTE:** Separate multiple rules by a colon (**:**).  The colon acts as an "AND".
 
 .. list-table::
    * - **Variable/Rule**
@@ -4002,6 +4005,20 @@ For example, lets breakdown the following rule for prepcoccesed variables Voltag
      - 55
      - n
      - This sets the rule for the Voltage_preprocessed_AnomProb
+
+       and sets the **failure_prob** to 1 IF the values of the variable
+
+       Voltage_preprocessed_AnomProb are between 55 and n, where **n** signifies
+
+       no upper bound.  
+
+       If rule was Voltage_preprocessed_AnomProb=55,95, then **failure_prob** will 
+
+       be 1, if it is between 55 and 95, inclusive.
+   * - Current_preprocessed_AnomProb=55,n
+     - 55
+     - n
+     - This sets the rule for the Current_preprocessed_AnomProb
 
        and sets the **failure_prob** to 1 IF the values of the variable
 
