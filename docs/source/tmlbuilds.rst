@@ -3988,6 +3988,7 @@ Classification Models: Details on the Processlogic field
    their rules, then **failure_prob** is set to 1, otherwise, 0.
 
 .. list-table::
+
    * - **Variable/Rule**
      - **Upper Bound**
      - **Lower Bound**
