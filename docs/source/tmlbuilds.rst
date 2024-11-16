@@ -3984,7 +3984,8 @@ Classification Models: Details on the Processlogic field
 
    **classification_name=failure_prob:Voltage_preprocessed_AnomProb=55,n : Current_preprocessed_AnomProb=55,n**
 
-   **NOTE:** Separate multiple rules by a colon (**:**).  The colon acts as an "AND".
+   **NOTE:** Separate multiple rules by a colon (**:**).  The colon acts as an "AND".  Specifically, if Voltage_preprocessed_AnomProb **AND** Current_preprocessed_AnomProb both satisfy 
+   their rules, then **failure_prob** is set to 1, otherwise, 0.
 
 .. list-table::
    * - **Variable/Rule**
