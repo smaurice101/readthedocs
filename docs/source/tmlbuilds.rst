@@ -4008,8 +4008,8 @@ Classification Models: Details on the Processlogic field
 
        You can put any name you want.
    * - Voltage_preprocessed_AnomProb=55,n
-     - 55
      - n
+     - 55
      - This sets the rule for the 
   
        Voltage_preprocessed_AnomProb
@@ -4034,8 +4034,8 @@ Classification Models: Details on the Processlogic field
 
        inclusive.
    * - Current_preprocessed_AnomProb=55,n
-     - 55
      - n
+     - 55
      - This sets the rule for the 
 
        Current_preprocessed_AnomProb
