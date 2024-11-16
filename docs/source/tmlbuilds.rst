@@ -3984,7 +3984,7 @@ For example, lets breakdown the following rule for prepcoccesed variables Voltag
 **classification_name=failure_prob:Voltage_preprocessed_AnomProb=55,n:Current_preprocessed_AnomProb=55,n**
 
 .. list-table::
-   * - **Variable**
+   * - **Variable/Rule**
      - **Upper Bound**
      - **Lower Bound**
      - **Explanation**
@@ -3992,10 +3992,27 @@ For example, lets breakdown the following rule for prepcoccesed variables Voltag
      - n/a
      - n/a
      - This simply tells TML that this is a classification model
-   * - classification_name
+   * - failure_prob
      - n/a
      - n/a
-     - This simply tells TML that this is a classification model
+     - This is simply the name for your generated classified variable.
+
+       You can put any name you want.
+   * - Voltage_preprocessed_AnomProb=55,n
+     - 55
+     - n
+     - This sets the rule for the Voltage_preprocessed_AnomProb
+
+       and sets the **failure_prob** to 1 IF the values of the variable
+
+       Voltage_preprocessed_AnomProb are between 55 and n, where **n** signifies
+
+       no upper bound.  
+
+       If rule was Voltage_preprocessed_AnomProb=55,95, then **failure_prob** will 
+
+       be 1, if it is between 55 and 95, inclusive.
+
 
 Machine Learning Trained Model Sample JSON Output
 """""""""""""""""""""""""""""""""""""
