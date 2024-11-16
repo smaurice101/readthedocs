@@ -3983,7 +3983,10 @@ For example, lets breakdown the following rule for prepcoccesed variables Voltag
 
 **classification_name=failure_prob:Voltage_preprocessed_AnomProb=55,n:Current_preprocessed_AnomProb=55,n**
 
-  A      B    A or B
+=====  =====  ======
+  Variable  Bounds
+------------  ------
+Variable   Upper Bound    Lower Bound
 =====  =====  ======
 False  False  False
 True   False  True
