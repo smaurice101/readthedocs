@@ -1,7 +1,7 @@
 TML Solution Components
 =====
 
-Below describes the entire TML technologgy solution stack.
+Below describes the entire TML technology solution stack.
 
 1. TML Components: Three Binaries
 ------------
