@@ -3996,41 +3996,69 @@ Classification Models: Details on the Processlogic field
    * - classification_name
      - n/a
      - n/a
-     - This simply tells TML that this is a classification model
+     - This simply tells TML that 
+
+       this is a classification model
    * - failure_prob
      - n/a
      - n/a
-     - This is simply the name for your generated classified variable.
+     - This is simply the name for 
+
+       your generated classified variable.
 
        You can put any name you want.
    * - Voltage_preprocessed_AnomProb=55,n
      - 55
      - n
-     - This sets the rule for the Voltage_preprocessed_AnomProb
+     - This sets the rule for the 
+  
+       Voltage_preprocessed_AnomProb
 
-       and sets the **failure_prob** to 1 IF the values of the variable
+       and sets the **failure_prob** 
+ 
+       to 1 IF the values of the variable
 
-       Voltage_preprocessed_AnomProb are between 55 and n, where **n** signifies
+       Voltage_preprocessed_AnomProb are 
 
-       no upper bound.  
+       between 55 and n, where **n** 
 
-       If rule was Voltage_preprocessed_AnomProb=55,95, then **failure_prob** will 
+       signifies no upper bound.  
 
-       be 1, if it is between 55 and 95, inclusive.
+       If rule was 
+
+       Voltage_preprocessed_AnomProb=55,95, 
+
+       then **failure_prob** will 
+
+       be 1, if it is between 55 and 95, 
+
+       inclusive.
    * - Current_preprocessed_AnomProb=55,n
      - 55
      - n
-     - This sets the rule for the Current_preprocessed_AnomProb
+     - This sets the rule for the 
 
-       and sets the **failure_prob** to 1 IF the values of the variable
+       Current_preprocessed_AnomProb
 
-       Current_preprocessed_AnomProb are between 55 and n, where **n** signifies
+       and sets the **failure_prob** 
 
-       no upper bound.  
+       to 1 IF the values of the variable
 
-       If rule was Current_preprocessed_AnomProb=55,95, then **failure_prob** will 
+       Current_preprocessed_AnomProb 
 
-       be 1, if it is between 55 and 95, inclusive.
+       are between 55 and n, where **n** 
+
+       signifies no upper bound.  
+
+       If rule was 
+
+       Current_preprocessed_AnomProb=55,95, 
+
+       then **failure_prob** will 
+
+       be 1, if it is between 55 and 95, 
+
+       inclusive.
 
 .. important:: 
    The 1 and 0's are then compared between the variables to see if they match.  For example, if 
@@ -4038,6 +4066,11 @@ Classification Models: Details on the Processlogic field
    Voltage_preprocessed_AnomProb AND Current_preprocessed_AnomProb both are 1, then the failure_prob
 
    variable is 1, otherwise 0.  
+
+.. tip:: 
+   If Current_preprocessed_AnomProb=-n,55, then this rule is if Current_preprocessed_AnomProb is less then 55, then set failure_prob to 1, otherwise 0.
+
+   Both -n and n indicate that the variable has NO lower bound or upper bound, respectively.
 
 Machine Learning Trained Model Sample JSON Output
 """""""""""""""""""""""""""""""""""""
