@@ -3968,17 +3968,28 @@ Classification Models: Details on the Processlogic field
 
    The **processlogic** define the rules to classify the dependent variable into 1 or 0 based on the rules.   The table below shows how to 
 
-   specify these rules for the variables you are using or processed in Step 4 Dag.  We will set rules on these processed variables: Voltage and Current.  
+   specify these rules for the variables you are using or processed in :ref:`STEP 4: Preprocesing Data: tml-system-step-4-kafka-preprocess-dag`.  We will set rules on the processed variables: Voltage and Current.  
 
 .. tip::
-   You should refer to :ref:`Preprocessed Variable Naming Standard` to properly specify the names of the processed variables.  If Voltage and Current. are processed with anomaly probability processing type (i.e. AnomProb), then the new processed variables for Voltage and Current will be:
+   You should refer to :ref:`Preprocessed Variable Naming Standard` to properly specify the names of the processed variables: Voltage and Current  If Voltage and Current are processed with anomaly probability processing type (i.e. AnomProb), then the new processed variables for Voltage and Current will be named:
 
    1. Voltage_preprocessed_AnomProb
 
    2. Current_preprocessed_AnomProb 
 
+   Similarly, if processing any variable, this naming standard will apply.
 
+For example, lets breakdown this rule for prepcoccesed variables Voltage and Current:
 
+**classification_name=failure_prob:Voltage_preprocessed_AnomProb=55,n:Current_preprocessed_AnomProb=55,n**
+
+  A      B    A or B
+=====  =====  ======
+False  False  False
+True   False  True
+False  True   True
+True   True   True
+=====  =====  ======
 
 
 Machine Learning Trained Model Sample JSON Output
