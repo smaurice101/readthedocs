@@ -96,6 +96,10 @@ c. *Viperviz* - Visualization binary for real-time dashboards - runs on MAC/Wind
 
 *MAADSTML* Python library : API to build TML solutions that connect to the Viper binary.  Refer to the MAADSTML API here :ref:`MAADSTML Python Library API`
 
+.. important::
+   All TML solutions use the the MAADSTML python library.  **This is a critical library, and controls the 3 binaries.**
+
+
 3. TML Component: Apache Kafka
 --------------------------
 
