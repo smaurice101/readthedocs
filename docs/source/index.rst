@@ -1,7 +1,7 @@
 Welcome to Transactional Machine Learning (TML) and TML Solution Studio (TSS) Documentation!
 ===================================
 
-TML Solution Studio (TSS): NO-CODE TML Solution Development
+TML Solution Studio (TSS): NO-CODE TML Solution Development Using Real-Time Data Streams
 ----------------------
 
 TSS is a revolutionary platform for building, enterprise-ready, process-driven, advanced, scalable, intelligent real-time TML solutions **really fast** with :ref:`Pre-Written 10 Apache Airflow DAGs To Speed Up TML Solution Builds` - within minutes - what can take orgaizations up to 6 months to build. 
