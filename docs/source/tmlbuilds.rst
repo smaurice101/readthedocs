@@ -3769,7 +3769,7 @@ Entity based machine learning is a core function of TML.  This section discusses
 .. important:: 
    TML generates training algorithms and stores them on disk in the **./models** or **./deploy** folder, and in the Kafka topic specified in the 
    **ml_data_topic** default_args json key.  TML accesses these trained algorithms, for predictions, automatically for each entity specified by topicid.  
-   **Everything is managed by the TML binary: Viper** (see :ref:`TML Components: Three Binaries`)
+   **Everything is managed by the TML binary: Viper** (see :ref:`1. TML Components: Three Binaries`)
 
    **TML manages the topicid, which represents individual entities in MariaDB.**  Note, a topicid is uniquely associated with a primary identifier for the device 
    or entity like its Device Serial Number (DSN).  So as data streams from all devices, there must be a json key that indicates a DSN from these devices.  TML 
