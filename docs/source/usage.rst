@@ -12,6 +12,10 @@ a. *Viper* - source - sink binary for Apache Kafka - runs on MAC/Windows/Linux
 b. *HPDE* - AutoML binary for real-time data - runs on MAC/Windows/Linux
 c. *Viperviz* - Visualization binary for real-time dashboards - runs on MAC/Windows/Linux
 
+.. important::
+   These 3 binaries perform all functions in every TML solution.  These binaries can be see as microservices that can be instantiated any number of times to scale your solution for 
+   **unlimited data processing**.
+
 .. list-table::
 
    * - **Binary**
