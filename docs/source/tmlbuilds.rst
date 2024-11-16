@@ -3961,7 +3961,7 @@ Here are the **core parameters** in the above dag 5:
        your model: constant, elasticity, elasticity2    
 
 Classification Models: Details on the Processlogic field
-================================
+--------------------------------
 
 .. important::
    If you are estimating a classification model, and want to predict probabilities, then you must define the **processlogic** field.  
@@ -3982,6 +3982,20 @@ Classification Models: Details on the Processlogic field
 For example, lets breakdown the following rule for prepcoccesed variables Voltage and Current - this rule would be the value of the **processlogic** field in Dag 5 above:
 
 **classification_name=failure_prob:Voltage_preprocessed_AnomProb=55,n:Current_preprocessed_AnomProb=55,n**
+
+.. list-table::
+   * - **Variable**
+     - **Upper Bound**
+     - **Lower Bound**
+     - **Explanation**
+   * - classification_name
+     - n/a
+     - n/a
+     - This simply tells TML that this is a classification model
+   * - classification_name
+     - n/a
+     - n/a
+     - This simply tells TML that this is a classification model
 
 Machine Learning Trained Model Sample JSON Output
 """""""""""""""""""""""""""""""""""""
