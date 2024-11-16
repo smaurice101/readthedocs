@@ -3983,17 +3983,6 @@ For example, lets breakdown the following rule for prepcoccesed variables Voltag
 
 **classification_name=failure_prob:Voltage_preprocessed_AnomProb=55,n:Current_preprocessed_AnomProb=55,n**
 
-=====  =====  ======
-  Variable  Bounds
-------------  ------
-Variable   Upper Bound    Lower Bound
-=====  =====  ======
-False  False  False
-True   False  True
-False  True   True
-True   True   True
-=====  =====  ======
-
 Machine Learning Trained Model Sample JSON Output
 """""""""""""""""""""""""""""""""""""
 
