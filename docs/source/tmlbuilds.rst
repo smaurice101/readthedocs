@@ -3900,7 +3900,9 @@ Here are the **core parameters** in the above dag 5:
 
        is greater than 55, then set dependent variable 
 
-       failure_prob to 1, otherwise set it to 0.
+       failure_prob to 1, otherwise set it to 0; the variable n and -n
+
+       indicates no upper bound, or lower bound, respectively.
 
        if you want less than 55, then use **classification_name = 
 
@@ -3957,6 +3959,18 @@ Here are the **core parameters** in the above dag 5:
      - You can give names to the coefficients in 
 
        your model: constant, elasticity, elasticity2    
+
+Classification Models: Details on the Processlogic field
+================================
+
+.. important::
+   If you are estimating a classification model, and want to predict probabilities, then you must define the **processlogic** field.  
+
+   The **processlogic** define the rules to classify the dependent variable into 1 or 0 based on the rules.   The table below shows how to 
+
+   specify these rules for the variables you are using.
+
+
 
 Machine Learning Trained Model Sample JSON Output
 """""""""""""""""""""""""""""""""""""
