@@ -14,6 +14,7 @@ Everytime you create a TML solution in the TSS - TSS will generate YAML files au
 Five YAML files are auto-generated for every TML solution:
 
 .. list-table::
+
    * - **YAML File**
      - **Description**
    * - TML Solution Yaml File
