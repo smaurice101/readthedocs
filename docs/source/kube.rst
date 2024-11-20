@@ -130,5 +130,7 @@ To show how simple it is to scale TML solutions in kubernetes, we will scale :re
          privategpt&offset=-1&groupid=&rollbackoffset=400&topictype=prediction&append=0&secure=1 <http://localhost:9005/tml-cisco-network-privategpt-monitor.html?topic=cisco-network-preprocess,cisco-network- 
          privategpt&offset=-1&groupid=&rollbackoffset=400&topictype=prediction&append=0&secure=1>`_
 
+This image shows 3 replicas of the TML solution: cybersecuritywithprivategpt-3f10
+
 .. figure:: kubectl.png
    :scale: 50%
