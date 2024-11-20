@@ -57,3 +57,13 @@ Five YAML files are auto-generated for every TML solution and are found in your 
 
        have Qdrant vector DB running.
   
+.. tip::
+   These YAMLs can be applied to your Kubernetes cluster as follows:
+
+   **kubectl apply -f mysql-storage.yaml -f mysql-db-deployment.yaml -f <TML solution name>.yaml**, where you replace <TML solution name> with your actual TML solution name.
+
+   If using AI:
+
+   **kubectl apply -f mysql-storage.yml -f mysql-db-deployment.yml -f privategpt.yml -f qdrant.yml -f <TML solution name>.yml**, where you replace <TML solution name> with your actual TML 
+   solution name.
+
