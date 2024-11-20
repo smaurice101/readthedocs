@@ -137,11 +137,11 @@ This image shows 3 replicas of the TML solution: cybersecuritywithprivategpt-3f1
 
    To inside the pods, you can type command: 
 
-    COMMAND: **kubectl exec -it <pod name> -- bash**
+    COMMAND: **kubectl exec -it <pod name> \-\- bash**
 
    To delete the pods type:
 
-    COMMAND: **kubectl delete all --all --all-namespaces**
+    COMMAND: **kubectl delete all \-\-all \-\-all-namespaces**
 
 .. figure:: kubectl.png
    :scale: 50%
