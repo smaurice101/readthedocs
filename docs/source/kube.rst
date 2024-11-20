@@ -11,10 +11,10 @@ Everytime you create a TML solution in the TSS - TSS will generate YAML files au
 .. important::
    You can scale your TML solution to process unlimited data with integration with PrivateGPT and Qdrant vector DB for fast AI. 
 
-   Note: If scaling your TML solution you should use KAFKA CLOUD for efficient processing of large amounts of real-time.  Because TML uses sliding time windows, instances of TML pods, 
+   Note: If scaling your TML solution you should use KAFKA CLOUD for efficient processing of large amounts of real-time data.  Because TML uses sliding time windows, instances of TML pods, 
    replicated by Kubernetes, will not duplicate the processing of sliding time windows.  For example, if you have 10 TML pods running, each TML pod will check if a sliding time has already 
    been processed by another TML pod, if so, it will not re-process that window.  This dramatically saves on processing time and leverages the fully capabilites of kubernetes to manage the 
-   date to pods that are not busy.
+   sending of data to pods that are not busy. 
 
 Five YAML files are auto-generated for every TML solution:
 
