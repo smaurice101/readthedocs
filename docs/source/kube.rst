@@ -98,3 +98,26 @@ Follow these steps to install minikube - which is a 1 node kubernetes cluster fo
             
       7.	PORT Forward 9005:
        a. RUN: kubectl port-forward <pod name> 9005:9005
+
+Scaling EXAMPLE: Scaling Cybersecurity with privateGPT solution
+--------------------------------------------
+
+To show how simple it is to scale TML solutions in kubernetes, we will scale :ref:`Cybersecurity Solution with PrivateGPT, MQTT, HiveMQ`
+
+.. tip::
+   If you do not have Kubernetes cluster access then install minikube locally: See this section :ref:`Installing minikube`
+
+.. note::
+   Here are the steps to scaling the cybersecurity solution with privateGPT:
+
+   1. Run the :ref:`Solution DAG Code: solution_preprocessing_ai_mqtt_dag-cybersecuritywithprivategpt-3f10` in the TSS.  
+   2. Go to the `solution documentation on readthedocs <https://cybersecuritywithprivategpt-3f10.readthedocs.io/en/latest/index.html>`_
+   3. Go to section: Scaling [cybersecuritywithprivategpt-3f10] With Kubernetes
+   4. Copy the following YML files and save to your local computer in Linux:
+     a. mysql-storage.yml
+     b. mysql-db-deployment.yml
+     c. privategpt.yml
+     d. cybersecuritywithprivategpt-3f10.yml
+   5. Now apply the YML files to your Kubernetes cluster:
+     a. kubectl apply -f mysql-storage.yaml -f mysql-db-deployment.yaml -f privategpt.yml -f cybersecuritywithprivategpt-3f10.yaml
+
