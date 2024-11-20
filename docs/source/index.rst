@@ -195,6 +195,7 @@ Contents
    tmlbook
    docker
    solutions
+   kube
    tmlbuilds
    examples
    git
