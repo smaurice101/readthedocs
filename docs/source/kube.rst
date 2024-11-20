@@ -130,11 +130,18 @@ To show how simple it is to scale TML solutions in kubernetes, we will scale :re
          privategpt&offset=-1&groupid=&rollbackoffset=400&topictype=prediction&append=0&secure=1 <http://localhost:9005/tml-cisco-network-privategpt-monitor.html?topic=cisco-network-preprocess,cisco-network- 
          privategpt&offset=-1&groupid=&rollbackoffset=400&topictype=prediction&append=0&secure=1>`_
 
-This image shows 3 replicas of the TML solution: cybersecuritywithprivategpt-3f10
+This image shows 3 replicas of the TML solution: cybersecuritywithprivategpt-3f10, along with a mysql pod and a privategpt pod.  
 
 .. tip::
    The number of replicas can be changed in the **cybersecuritywithprivategpt-3f10.yml** file: look for **replicas**.  You can increase or decrease the number of replicas based on the amout of real-time data you are processing.
 
+   To inside the pods, you can type command: 
+
+    COMMAND: **kubectl exec -it <pod name> -- bash**
+
+   To delete the pods type:
+
+    COMMAND: **kubectl delete all --all --all-namespaces**
 
 .. figure:: kubectl.png
    :scale: 50%
