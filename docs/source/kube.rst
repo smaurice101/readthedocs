@@ -132,6 +132,9 @@ To show how simple it is to scale TML solutions in kubernetes, we will scale :re
 
 This image shows 3 replicas of the TML solution: cybersecuritywithprivategpt-3f10, along with a mysql pod and a privategpt pod.  
 
+.. figure:: kubectl.png
+   :scale: 50%
+
 .. tip::
    The number of replicas can be changed in the **cybersecuritywithprivategpt-3f10.yml** file: look for **replicas**.  You can increase or decrease the number of replicas based on the amout of real-time data you are processing.
 
@@ -147,5 +150,3 @@ This image shows 3 replicas of the TML solution: cybersecuritywithprivategpt-3f1
 
     COMMAND: **kubectl describe pod <pod name>** (replace <pod name> with actual pod name)
 
-.. figure:: kubectl.png
-   :scale: 50%
