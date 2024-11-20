@@ -90,7 +90,7 @@ Follow these steps to install minikube - which is a 1 node kubernetes cluster fo
       5.	RUN Kubernetes: minikube start --driver=docker
        a. make sure docker engine is installed. If not run: sudo apt-get install docker.io
        b. RUN: sudo chmod 666 /var/run/docker.sock
-       c. Note: If you have a Nvidia GPU then use: minikube start --driver docker --container-runtime docker --gpus all
+       c. Note: If you have a Nvidia GPU then use: minikube start --driver docker \-\-container-runtime docker \-\-gpus all
 
       6.	Create POD inside Kubernetes running your Docker Container
        a. RUN: kubectl apply -f <YAML files>
