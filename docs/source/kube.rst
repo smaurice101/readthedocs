@@ -39,7 +39,7 @@ Five YAML files are auto-generated for every TML solution:
        This is a powerful way to incorporate fast AI 
 
        in your TML solution.
-   * - Qdrant Vector DB Yaml
+   * - Qdrant Vector DB Yaml (Optional)
      - If you are concurrently performing AI 
 
        in the provateGPT container by setting 
