@@ -61,7 +61,7 @@ Five YAML files are auto-generated for every TML solution and are found in your 
 .. tip::
    These YAMLs can be applied to your Kubernetes cluster as follows:
 
-   **kubectl apply -f mysql-storage.yaml -f mysql-db-deployment.yaml -f <TML solution name>.yaml**, where you replace <TML solution name> with your actual TML solution name.
+   **kubectl apply -f mysql-storage.yml -f mysql-db-deployment.yml -f <TML solution name>.yml**, where you replace <TML solution name> with your actual TML solution name.
 
    If using AI:
 
