@@ -114,9 +114,9 @@ To show how simple it is to scale TML solutions in kubernetes, we will scale :re
    2. Go to the `solution documentation on readthedocs <https://cybersecuritywithprivategpt-3f10.readthedocs.io/en/latest/index.html>`_
    3. Go to section: `Scaling [cybersecuritywithprivategpt-3f10] With Kubernetes <https://cybersecuritywithprivategpt-3f10.readthedocs.io/en/latest/kube.html#scaling-cybersecuritywithprivategpt-3f10-with-kubernetes>`_
    4. Copy the following YML files and save to your local computer in Linux:
-     a. mysql-storage.yml
-     b. mysql-db-deployment.yml
-     c. privategpt.yml
+     a. `mysql-storage.yml <https://cybersecuritywithprivategpt-3f10.readthedocs.io/en/latest/kube.html#mysql-storage-yml>`_
+     b. `mysql-db-deployment.yml <https://cybersecuritywithprivategpt-3f10.readthedocs.io/en/latest/kube.html#mysql-db-deployment-yml>`_
+     c. `privategpt.yml <https://cybersecuritywithprivategpt-3f10.readthedocs.io/en/latest/kube.html#privategpt-yml>`_
      d. `qdrant.yml <https://cybersecuritywithprivategpt-3f10.readthedocs.io/en/latest/kube.html#qdrant.yml>`_
      d. `cybersecuritywithprivategpt-3f10.yml <https://cybersecuritywithprivategpt-3f10.readthedocs.io/en/latest/kube.html#cybersecuritywithprivategpt-3f10-yml>`_
    5. Now apply the YML files to your Kubernetes cluster:
