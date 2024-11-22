@@ -120,12 +120,12 @@ To show how simple it is to scale TML solutions in kubernetes, we will scale :re
      d. `qdrant.yml <https://cybersecuritywithprivategpt-3f10.readthedocs.io/en/latest/kube.html#qdrant-yml>`_
      e. `cybersecuritywithprivategpt-3f10.yml <https://cybersecuritywithprivategpt-3f10.readthedocs.io/en/latest/kube.html#cybersecuritywithprivategpt-3f10-yml>`_
    5. Now apply the YML files to your Kubernetes cluster:
-     a. kubectl apply -f mysql-storage.yml -f mysql-db-deployment.yml -f privategpt.yml -f cybersecuritywithprivategpt-3f10.yml
-   6. Run: kubectl get pods
+     a. **kubectl apply -f mysql-storage.yml -f mysql-db-deployment.yml -f privategpt.yml -f cybersecuritywithprivategpt-3f10.yml**
+   6. Run: **kubectl get pods**
      a. You should see a list of pods - as shown in figure below.
    7. Run the Cybersecurity dashboard.
-     a. Run: kubectl get deployment
-     b. Run: kubectl port-forward <deployment name> 9005:9005
+     a. Run: **kubectl get deployment**
+     b. Run: **kubectl port-forward <deployment name> 9005:9005**
      c. Run the Dashboard - it should look like :ref:`The Dashboard with PrivateGPT`:
          `http://localhost:9005/tml-cisco-network-privategpt-monitor.html?topic=cisco-network-preprocess,cisco-network- 
          privategpt&offset=-1&groupid=&rollbackoffset=400&topictype=prediction&append=0&secure=1 <http://localhost:9005/tml-cisco-network-privategpt-monitor.html?topic=cisco-network-preprocess,cisco-network- 
