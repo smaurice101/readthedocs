@@ -338,6 +338,9 @@ Below is the complete definition of the **tml_system_step_1_getparams_dag**.  Us
      'MYSQLMAXLIFETIMEMINUTES' : '4',
      'MYSQLMAXCONN' : '4',
      'MYSQLMAXIDLE' : '10',
+     'MYSQLHOSTNAME' : '127.0.0.1:3306',   
+     'MYSQLDB' : 'tmlids',
+     'MYSQLUSER' : 'root',    
      'SASLMECHANISM' : 'PLAIN',
      'MINFORECASTACCURACY' : '55',
      'COMPRESSIONTYPE' : 'gzip',
@@ -399,7 +402,8 @@ Below is the complete definition of the **tml_system_step_1_getparams_dag**.  Us
            
         # copy folders
         shutil.copytree("/tss_readthedocs", "/{}".format(sname),dirs_exist_ok=True)
-        
+        #remove local logs
+        os.remove('/dagslocalbackup/logs.txt')    
             
     def updateviperenv():
         # update ALL
@@ -519,14 +523,20 @@ Below is the complete definition of the **tml_system_step_1_getparams_dag**.  Us
              data[r] = "KUBERNETES={}\n".format(default_args['KUBERNETES'])                
            if 'COMPANYNAME' in d: 
              data[r] = "COMPANYNAME={}\n".format(default_args['COMPANYNAME'])                
+           if 'MYSQLHOSTNAME' in d: 
+             data[r] = "MYSQLHOSTNAME={}\n".format(default_args['MYSQLHOSTNAME'])                
+           if 'MYSQLDB' in d: 
+             data[r] = "MYSQLDB={}\n".format(default_args['MYSQLDB'])                
+           if 'MYSQLUSER' in d: 
+             data[r] = "MYSQLUSER={}\n".format(default_args['MYSQLUSER'])                
     
            r += 1
          with open(mainfile, 'w', encoding='utf-8') as file: 
           file.writelines(data)
-    
+        
         subprocess.call("/tmux/starttml.sh", shell=True)
-        time.sleep(3)
-    
+        time.sleep(3)        
+        
     def getparams(**context):
       args = default_args    
       VIPERHOST = ""
@@ -538,6 +548,8 @@ Below is the complete definition of the **tml_system_step_1_getparams_dag**.  Us
       HPDEHOSTPREDICT = ""
       HPDEPORTPREDICT = ""
     
+      tsslogging.locallogs("INFO", "STEP 1: Build started") 
+        
       sname = args['solutionname']    
       desc = args['description']        
       stitle = args['solutiontitle']    
@@ -636,7 +648,7 @@ Below is the complete definition of the **tml_system_step_1_getparams_dag**.  Us
         task_instance.xcom_push(key="{}_SOLUTIONEXTERNALPORT".format(sname),value="_{}".format(os.environ['SOLUTIONEXTERNALPORT'])) 
         task_instance.xcom_push(key="{}_SOLUTIONVIPERVIZPORT".format(sname),value="_{}".format(os.environ['SOLUTIONVIPERVIZPORT']))  
         task_instance.xcom_push(key="{}_SOLUTIONAIRFLOWPORT".format(sname),value="_{}".format(os.environ['SOLUTIONAIRFLOWPORT'])) 
-        
+       # killports()
     
       if 'MQTTUSERNAME' in os.environ:
         task_instance.xcom_push(key="{}_MQTTUSERNAME".format(sname),value=os.environ['MQTTUSERNAME'])
@@ -694,6 +706,8 @@ Below is the complete definition of the **tml_system_step_1_getparams_dag**.  Us
       task_instance.xcom_push(key="{}_brokerhost".format(sname),value=brokerhost)
       task_instance.xcom_push(key="{}_brokerport".format(sname),value="_{}".format(brokerport))
       task_instance.xcom_push(key="{}_chip".format(sname),value=chip)
+        
+      tsslogging.locallogs("INFO", "STEP 1: completed - TML system parameters successfully gathered")
 
 DAG STEP 1: Parameter Explanation
 """""""""""""""""""""""""""""
@@ -799,151 +813,156 @@ Below is the complete definition of the **tml_system_step_2_kafka_createtopic_da
 .. code-block:: PYTHON
    :emphasize-lines: 15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33
 
-    from airflow import DAG
-    from airflow.operators.python import PythonOperator
-    from airflow.operators.bash import BashOperator
-    from datetime import datetime
-    from airflow.decorators import dag, task
-    import maadstml 
-    import sys
-    import tsslogging
-    import os
-    import subprocess
+from airflow import DAG
+from airflow.operators.python import PythonOperator
+from airflow.operators.bash import BashOperator
+from datetime import datetime
+from airflow.decorators import dag, task
+import maadstml 
+import sys
+import tsslogging
+import os
+import subprocess
+
+sys.dont_write_bytecode = True
+
+######################################## USER CHOOSEN PARAMETERS ########################################
+default_args = {
+ 'owner' : 'Sebastian Maurice', # <<< ********** You change as needed
+ 'companyname': 'Otics',  # <<< ********** You change as needed
+  'myname' : 'Sebastian',  # <<< ********** You change as needed
+  'myemail' : 'Sebastian.Maurice',  # <<< ********** You change as needed
+  'mylocation' : 'Toronto',  # <<< ********** You change as needed
+  'replication' : '1',  # <<< ********** You change as needed
+  'numpartitions': '1',  # <<< ********** You change as needed
+  'enabletls': '1',  # <<< ********** You change as needed
+  'brokerhost' : '',  # <<< ********** Leave as is
+  'brokerport' : '-999',  # <<< ********** Leave as is
+  'microserviceid' : '',  # <<< ********** You change as needed
+  'raw_data_topic' : 'iot-raw-data', # Separate multiple topics with comma <<< ********** You change topic names as needed
+  'preprocess_data_topic' : 'iot-preprocess,iot-preprocess2', # Separate multiple topics with comma <<< ********** You change topic names as needed
+  'ml_data_topic' : 'ml-data', # Separate multiple topics with comma <<< ********** You change topic names as needed
+  'prediction_data_topic' : 'prediction-data', # Separate multiple topics with comma <<< ********** You change topic names as needed
+  'pgpt_data_topic' : 'cisco-network-privategpt',  #  PrivateGPT will produce responses to this topic - change as  needed
+  'description' : 'Topics to store iot data',      
+}
+
+######################################## DO NOT MODIFY BELOW #############################################
+
+# Instantiate your DAG
+@dag(dag_id="tml_system_step_2_kafka_createtopic_dag", default_args=default_args, tags=["tml_system_step_2_kafka_createtopic_dag"], start_date=datetime(2023, 1, 1), schedule=None,catchup=False)
+def startkafkasetup():
+    def empty():
+        pass
+dag = startkafkasetup()
+
+def deletetopics(topic):
     
-    sys.dont_write_bytecode = True
+    buf = "/Kafka/kafka_2.13-3.0.0/bin/kafka-topics.sh --bootstrap-server localhost:9092 --topic {} --delete".format(topic)
+    res=subprocess.call(buf, shell=True)
+    print(buf)
+    print("Result=",res)
     
-    ######################################## USER CHOOSEN PARAMETERS ########################################
-    default_args = {
-     'owner' : 'Sebastian Maurice', # <<< ********** You change as needed
-     'companyname': 'Otics',  # <<< ********** You change as needed
-      'myname' : 'Sebastian',  # <<< ********** You change as needed
-      'myemail' : 'Sebastian.Maurice',  # <<< ********** You change as needed
-      'mylocation' : 'Toronto',  # <<< ********** You change as needed
-      'replication' : '1',  # <<< ********** You change as needed
-      'numpartitions': '1',  # <<< ********** You change as needed
-      'enabletls': '1',  # <<< ********** You change as needed
-      'brokerhost' : '',  # <<< ********** Leave as is
-      'brokerport' : '-999',  # <<< ********** Leave as is
-      'microserviceid' : '',  # <<< ********** You change as needed
-      'raw_data_topic' : 'iot-raw-data', # Separate multiple topics with comma <<< ********** You change topic names as needed
-      'preprocess_data_topic' : 'iot-preprocess,iot-preprocess2', # Separate multiple topics with comma <<< ********** You change topic names as needed
-      'ml_data_topic' : 'ml-data', # Separate multiple topics with comma <<< ********** You change topic names as needed
-      'prediction_data_topic' : 'prediction-data', # Separate multiple topics with comma <<< ********** You change topic names as needed
-      'pgpt_data_topic' : 'cisco-network-privategpt',  #  PrivateGPT will produce responses to this topic - change as  needed
-      'description' : 'Topics to store iot data',      
-    }
+    repo=tsslogging.getrepo()    
+    tsslogging.tsslogit("Deleting topic {} in {}".format(topic,os.path.basename(__file__)), "INFO" )                     
+    tsslogging.git_push("/{}".format(repo),"Entry from {}".format(os.path.basename(__file__)),"origin")  
     
-    ######################################## DO NOT MODIFY BELOW #############################################
+def setupkafkatopics(**context):
+ # Set personal data
+
+  tsslogging.locallogs("INFO", "STEP 2: Create topics started") 
     
-    # Instantiate your DAG
-    @dag(dag_id="tml_system_step_2_kafka_createtopic_dag", default_args=default_args, tags=["tml_system_step_2_kafka_createtopic_dag"], start_date=datetime(2023, 1, 1), schedule=None,catchup=False)
-    def startkafkasetup():
-        def empty():
-            pass
-    dag = startkafkasetup()
-    
-    def deletetopics(topic):
-        
-        buf = "/Kafka/kafka_2.13-3.0.0/bin/kafka-topics.sh --bootstrap-server localhost:9092 --topic {} --delete".format(topic)
-        res=subprocess.call(buf, shell=True)
-        print(buf)
-        print("Result=",res)
-        
-        repo=tsslogging.getrepo()    
-        tsslogging.tsslogit("Deleting topic {} in {}".format(topic,os.path.basename(__file__)), "INFO" )                     
-        tsslogging.git_push("/{}".format(repo),"Entry from {}".format(os.path.basename(__file__)),"origin")  
-        
-    def setupkafkatopics(**context):
-     # Set personal data
-      args = default_args
-      companyname=args['companyname']
-      myname=args['myname']
-      myemail=args['myemail']
-      mylocation=args['mylocation']
-      description=args['description']  
-    
-      # Replication factor for Kafka redundancy
-      replication=int(args['replication'])
-      # Number of partitions for joined topic
-      numpartitions=int(args['numpartitions'])
-      # Enable SSL/TLS communication with Kafka
-      enabletls=int(args['enabletls'])
-      # If brokerhost is empty then this function will use the brokerhost address in your
-      brokerhost=args['brokerhost']
-      # If this is -999 then this function uses the port address for Kafka in VIPER.ENV in the
-      # field 'KAFKA_CONNECT_BOOTSTRAP_SERVERS'
-      brokerport=int(args['brokerport'])
-      # If you are using a reverse proxy to reach VIPER then you can put it here - otherwise if
-      # empty then no reverse proxy is being used
-      microserviceid=args['microserviceid']
-    
-      raw_data_topic=args['raw_data_topic']
-      preprocess_data_topic=args['preprocess_data_topic']
-      ml_data_topic=args['ml_data_topic']
-      prediction_data_topic=args['prediction_data_topic']
-      
-      sd = context['dag'].dag_id
-      sname=context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_solutionname".format(sd))
-    
-      VIPERTOKEN = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_VIPERTOKEN".format(sname))
-      VIPERHOST = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_VIPERHOSTPRODUCE".format(sname))
-      VIPERPORT = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_VIPERPORTPRODUCE".format(sname))
-      mainbroker = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_brokerhost".format(sname))
-      HTTPADDR = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_HTTPADDR".format(sname))
-    
-      ti = context['task_instance'] 
-      ti.xcom_push(key="{}_companyname".format(sname), value=companyname)
-      ti.xcom_push(key="{}_myname".format(sname), value=myname)
-      ti.xcom_push(key="{}_myemail".format(sname), value=myemail)
-      ti.xcom_push(key="{}_mylocation".format(sname), value=mylocation)
-      ti.xcom_push(key="{}_replication".format(sname), value="_{}".format(replication))
-      ti.xcom_push(key="{}_numpartitions".format(sname), value="_{}".format(numpartitions))
-      ti.xcom_push(key="{}_enabletls".format(sname), value="_{}".format(enabletls))
-      ti.xcom_push(key="{}_microserviceid".format(sname), value=microserviceid)
-      ti.xcom_push(key="{}_raw_data_topic".format(sname), value=raw_data_topic)
-      ti.xcom_push(key="{}_preprocess_data_topic".format(sname), value=preprocess_data_topic)
-      ti.xcom_push(key="{}_ml_data_topic".format(sname), value=ml_data_topic)
-      ti.xcom_push(key="{}_prediction_data_topic".format(sname), value=prediction_data_topic)
-      
-    
-    
-      #############################################################################################################
-      #                         CREATE TOPIC TO STORE TRAINED PARAMS FROM ALGORITHM  
-    
-      topickeys = ['raw_data_topic','preprocess_data_topic','ml_data_topic','prediction_data_topic','pgpt_data_topic'] 
-      VIPERHOSTMAIN = "{}{}".format(HTTPADDR,VIPERHOST)    
-    
-      for k in topickeys:
-        producetotopic=args[k]
-        description=args['description']
-    
-        topicsarr = producetotopic.split(",")
-        for topic in topicsarr:  
-            if topic != '' and "127.0.0.1" in mainbroker:
-              try:  
-                deletetopics(topic)
-              except Exception as e:
-                print("ERROR: ",e)
-                continue 
-    
-        if '127.0.0.1' in mainbroker:
-            replication=1
-                
-        for topic in topicsarr:  
-          if topic == '':
-              continue
-          print("Creating topic=",topic)  
-          try:
-            result=maadstml.vipercreatetopic(VIPERTOKEN,VIPERHOSTMAIN,VIPERPORT[1:],topic,companyname,
-                                     myname,myemail,mylocation,description,enabletls,
-                                     brokerhost,brokerport,numpartitions,replication,
-                                     microserviceid='')
+  args = default_args
+  companyname=args['companyname']
+  myname=args['myname']
+  myemail=args['myemail']
+  mylocation=args['mylocation']
+  description=args['description']  
+
+  # Replication factor for Kafka redundancy
+  replication=int(args['replication'])
+  # Number of partitions for joined topic
+  numpartitions=int(args['numpartitions'])
+  # Enable SSL/TLS communication with Kafka
+  enabletls=int(args['enabletls'])
+  # If brokerhost is empty then this function will use the brokerhost address in your
+  brokerhost=args['brokerhost']
+  # If this is -999 then this function uses the port address for Kafka in VIPER.ENV in the
+  # field 'KAFKA_CONNECT_BOOTSTRAP_SERVERS'
+  brokerport=int(args['brokerport'])
+  # If you are using a reverse proxy to reach VIPER then you can put it here - otherwise if
+  # empty then no reverse proxy is being used
+  microserviceid=args['microserviceid']
+
+  raw_data_topic=args['raw_data_topic']
+  preprocess_data_topic=args['preprocess_data_topic']
+  ml_data_topic=args['ml_data_topic']
+  prediction_data_topic=args['prediction_data_topic']
+  
+  sd = context['dag'].dag_id
+  sname=context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_solutionname".format(sd))
+
+  VIPERTOKEN = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_VIPERTOKEN".format(sname))
+  VIPERHOST = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_VIPERHOSTPRODUCE".format(sname))
+  VIPERPORT = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_VIPERPORTPRODUCE".format(sname))
+  mainbroker = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_brokerhost".format(sname))
+  HTTPADDR = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_HTTPADDR".format(sname))
+
+  ti = context['task_instance'] 
+  ti.xcom_push(key="{}_companyname".format(sname), value=companyname)
+  ti.xcom_push(key="{}_myname".format(sname), value=myname)
+  ti.xcom_push(key="{}_myemail".format(sname), value=myemail)
+  ti.xcom_push(key="{}_mylocation".format(sname), value=mylocation)
+  ti.xcom_push(key="{}_replication".format(sname), value="_{}".format(replication))
+  ti.xcom_push(key="{}_numpartitions".format(sname), value="_{}".format(numpartitions))
+  ti.xcom_push(key="{}_enabletls".format(sname), value="_{}".format(enabletls))
+  ti.xcom_push(key="{}_microserviceid".format(sname), value=microserviceid)
+  ti.xcom_push(key="{}_raw_data_topic".format(sname), value=raw_data_topic)
+  ti.xcom_push(key="{}_preprocess_data_topic".format(sname), value=preprocess_data_topic)
+  ti.xcom_push(key="{}_ml_data_topic".format(sname), value=ml_data_topic)
+  ti.xcom_push(key="{}_prediction_data_topic".format(sname), value=prediction_data_topic)
+  
+
+
+  #############################################################################################################
+  #                         CREATE TOPIC TO STORE TRAINED PARAMS FROM ALGORITHM  
+
+  topickeys = ['raw_data_topic','preprocess_data_topic','ml_data_topic','prediction_data_topic','pgpt_data_topic'] 
+  VIPERHOSTMAIN = "{}{}".format(HTTPADDR,VIPERHOST)    
+
+  for k in topickeys:
+    producetotopic=args[k]
+    description=args['description']
+
+    topicsarr = producetotopic.split(",")
+    for topic in topicsarr:  
+        if topic != '' and "127.0.0.1" in mainbroker:
+          try:  
+            deletetopics(topic)
           except Exception as e:
-           repo=tsslogging.getrepo()    
-           tsslogging.tsslogit("Cannot create topic {} in {} - {}".format(topic,os.path.basename(__file__),e), "ERROR" )                     
-           tsslogging.git_push("/{}".format(repo),"Entry from {}".format(os.path.basename(__file__)),"origin")  
+            print("ERROR: ",e)
+            continue 
+
+    if '127.0.0.1' in mainbroker:
+        replication=1
             
-          print("Result=",result)
+    for topic in topicsarr:  
+      if topic == '':
+          continue
+      print("Creating topic=",topic)  
+      try:
+        result=maadstml.vipercreatetopic(VIPERTOKEN,VIPERHOSTMAIN,VIPERPORT[1:],topic,companyname,
+                                 myname,myemail,mylocation,description,enabletls,
+                                 brokerhost,brokerport,numpartitions,replication,
+                                 microserviceid='')
+      except Exception as e:
+       tsslogging.locallogs("ERROR", "STEP 2: Cannot create topic {} in {} - {}".format(topic,os.path.basename(__file__),e)) 
+    
+       repo=tsslogging.getrepo()    
+       tsslogging.tsslogit("Cannot create topic {} in {} - {}".format(topic,os.path.basename(__file__),e), "ERROR" )                     
+       tsslogging.git_push("/{}".format(repo),"Entry from {}".format(os.path.basename(__file__)),"origin")  
+        
+  tsslogging.locallogs("INFO", "STEP 2: Completed")
 
 DAG STEP 2: Parameter Explanation
 """"""""""""""""""""""""""""""
@@ -2871,8 +2890,7 @@ TML preprocesses real-time data for every entity along each sliding time window.
     identifiers=metadata.display_name~\
     datetime=datapoint.updated_at~\
     msgid=datapoint.id~\
-    latlong=lat:long', # <<< **** Specify your json criteria. Here is an example of a multiline json --  refer to https://tml-readthedocs.readthedocs.io/en/latest/
-      'identifier' : 'TML solution',   # <<< *** Change as needed   
+    latlong=lat:long' # <<< **** Specify your json criteria. Here is an example of a multiline json --  refer to https://tml-readthedocs.readthedocs.io/en/latest/
     }
     
     ######################################## DO NOT MODIFY BELOW #############################################
@@ -2974,6 +2992,7 @@ TML preprocesses real-time data for every entity along each sliding time window.
         return wn
     
     def dopreprocessing(**context):
+           tsslogging.locallogs("INFO", "STEP 4: Preprocessing started")
            sd = context['dag'].dag_id
            sname=context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_solutionname".format(sd))
            
@@ -3027,12 +3046,14 @@ TML preprocesses real-time data for every entity along each sliding time window.
             VIPERTOKEN = sys.argv[2]
             VIPERHOST = sys.argv[3] 
             VIPERPORT = sys.argv[4]                  
-    
+            tsslogging.locallogs("INFO", "STEP 4: Preprocessing started")
+                         
             while True:
               try: 
                 processtransactiondata()
                 time.sleep(1)
-              except Exception as e:     
+              except Exception as e:    
+               tsslogging.locallogs("ERROR", "STEP 4: Preprocessing DAG in {} {}".format(os.path.basename(__file__),e))
                tsslogging.tsslogit("Preprocessing DAG in {} {}".format(os.path.basename(__file__),e), "ERROR" )                     
                tsslogging.git_push("/{}".format(repo),"Entry from {}".format(os.path.basename(__file__)),"origin")    
                break
@@ -3483,12 +3504,14 @@ STEP 4b: Preprocesing 2 Data: tml-system-step-4b-kafka-preprocess-dag
             VIPERTOKEN = sys.argv[2]
             VIPERHOST = sys.argv[3] 
             VIPERPORT = sys.argv[4]                  
+            tsslogging.locallogs("INFO", "STEP 4b: Preprocessing 2 started")
     
             while True:
               try: 
                 processtransactiondata()
                 time.sleep(1)
               except Exception as e:     
+               tsslogging.locallogs("ERROR", "STEP 4b: Preprocessing2 DAG in {} {}".format(os.path.basename(__file__),e))
                tsslogging.tsslogit("Preprocessing2 DAG in {} {}".format(os.path.basename(__file__),e), "ERROR" )                     
                tsslogging.git_push("/{}".format(repo),"Entry from {}".format(os.path.basename(__file__)),"origin")    
                break
@@ -3751,12 +3774,14 @@ Another powerful feature of TML is performing machine learning at the entity lev
             HPDEHOST = sys.argv[5]
             HPDEPORT = sys.argv[6]
             
+            tsslogging.locallogs("INFO", "STEP 5: Machine learning started")
         
             while True:
              try:     
               performSupervisedMachineLearning()
               time.sleep(1)
              except Exception as e:
+              tsslogging.locallogs("ERROR", "STEP 5: Machine Learning DAG in {} {}".format(os.path.basename(__file__),e))
               tsslogging.tsslogit("Machine Learning DAG in {} {}".format(os.path.basename(__file__),e), "ERROR" )                     
               tsslogging.git_push("/{}".format(repo),"Entry from {}".format(os.path.basename(__file__)),"origin")    
               break
@@ -4333,7 +4358,7 @@ STEP 6: Entity Based Predictions: tml-system-step-6-kafka-predictions-dag
       'enabletls': '1',   # <<< *** 1=connection is encrypted, 0=no encryption
       'microserviceid' : '', # <<< *** leave blank
       'producerid' : 'iotsolution',    # <<< *** Change as needed   
-      'preprocess_data_topic' : 'iot-preprocess-data', # << *** data for the independent variables - You created this in STEP 2
+      'preprocess_data_topic' : 'iot-preprocess', # << *** data for the independent variables - You created this in STEP 2
       'ml_prediction_topic' : 'iot-ml-prediction-results-output', # topic to store the predictions - You created this in STEP 2
       'description' : 'TML solution',    # <<< *** Change as needed   
       'companyname' : 'Your company', # <<< *** Change as needed      
@@ -4515,12 +4540,13 @@ STEP 6: Entity Based Predictions: tml-system-step-6-kafka-predictions-dag
              VIPERPORT=sys.argv[4]
              HPDEHOSTPREDICT=sys.argv[5]
              HPDEPORTPREDICT=sys.argv[6]    
-            
+             tsslogging.locallogs("INFO", "STEP 6: Predictions started")
              while True:
               try:              
                 performPrediction()      
                 time.sleep(1)
               except Exception as e:
+                tsslogging.locallogs("ERROR", "STEP 6: Predictions DAG in {} {}".format(os.path.basename(__file__),e))
                 tsslogging.tsslogit("Predictions DAG in {} {}".format(os.path.basename(__file__),e), "ERROR" )                     
                 tsslogging.git_push("/{}".format(repo),"Entry from {}".format(os.path.basename(__file__)),"origin")
                 break
@@ -4968,8 +4994,8 @@ and :ref:`Machine Learning Trained Model Sample JSON Output`.
                  if i < 4:
                    subprocess.call(["tmux", "kill-window", "-t", "{}".format(wn)])        
                    subprocess.call(["kill", "-9", "$(lsof -i:{} -t)".format(mainport)])
-                 tsslogging.locallogs("WARN", "STEP 7: Cannot make a connection to Viperviz on port {}.  Going to try again...".format(mainport))
-                                        
+                 tsslogging.locallogs("WARN", "STEP 7: Cannot make a connection to Viperviz on port {}.  Going to try again...".format(mainport))            
+                        
             if vizgood==0:  
               tsslogging.locallogs("ERROR", "STEP 7: Network issue.  Cannot make a connection to Viperviz on port {}".format(mainport))
 
@@ -5230,19 +5256,21 @@ STEP 9: PrivateGPT and Qdrant Integration: tml-system-step-9-privategpt_qdrant-d
     #      buf="docker stop $(docker ps -q --filter ancestor={} )".format(pgptcontainername)
      #     subprocess.call(buf, shell=True)
           time.sleep(10)
-          buf = "docker run -d -p {}:{} --net=host --gpus all --env PORT={} --env GPU=1 --env COLLECTION={} --env WEB_CONCURRENCY={} --env CUDA_VISIBLE_DEVICES={} {}".format(pgptport,pgptport,pgptport,collection,concurrency,cuda,pgptcontainername)
+          if '-no-gpu-' in pgptcontainername:
+            buf = "docker run -d -p {}:{} --net=host --env PORT={} --env GPU=0 --env COLLECTION={} --env WEB_CONCURRENCY={} --env CUDA_VISIBLE_DEVICES={} {}".format(pgptport,pgptport,pgptport,collection,concurrency,cuda,pgptcontainername)       
+          else: 
+            buf = "docker run -d -p {}:{} --net=host --gpus all --env PORT={} --env GPU=1 --env COLLECTION={} --env WEB_CONCURRENCY={} --env CUDA_VISIBLE_DEVICES={} {}".format(pgptport,pgptport,pgptport,collection,concurrency,cuda,pgptcontainername)
           v=subprocess.call(buf, shell=True)
           return v,buf
      
     def qdrantcontainer():
         v=0
         buf=""
-        if int(default_args['concurrency']) > 1:
-          buf="docker stop $(docker ps -q --filter ancestor=qdrant/qdrant )"
-          subprocess.call(buf, shell=True)
-          time.sleep(4)
-          buf = "docker run -d -p 6333:6333 -v $(pwd)/qdrant_storage:/qdrant/storage:z qdrant/qdrant"
-          v=subprocess.call(buf, shell=True)
+        buf="docker stop $(docker ps -q --filter ancestor=qdrant/qdrant )"
+        subprocess.call(buf, shell=True)
+        time.sleep(4)
+        buf = "docker run -d -p 6333:6333 -v $(pwd)/qdrant_storage:/qdrant/storage:z qdrant/qdrant"
+        v=subprocess.call(buf, shell=True)
         return v,buf
     
     def pgptchat(prompt,context,docfilter,port,includesources,ip,endpoint):
@@ -5494,21 +5522,41 @@ STEP 9: PrivateGPT and Qdrant Integration: tml-system-step-9-privategpt_qdrant-d
             VIPERHOST = sys.argv[3]
             VIPERPORT = sys.argv[4]
     
-            tsslogging.locallogs("INFO", "STEP 9: Starting privateGPT")
-            v,buf=startpgptcontainer()
-            if v==1:
-              tsslogging.locallogs("WARN", "STEP 9: There seems to be an issue starting the privateGPT container.  Here is the run command - try to run it nanually for testing: {}".format(buf))
-            else:
-              tsslogging.locallogs("INFO", "STEP 9: Success starting privateGPT.  Here is the run command: {}".format(buf))
+            if "KUBE" not in os.environ:          
+              tsslogging.locallogs("INFO", "STEP 9: Starting privateGPT")
+              v,buf=startpgptcontainer()
+              if v==1:
+                tsslogging.locallogs("WARN", "STEP 9: There seems to be an issue starting the privateGPT container.  Here is the run command - try to run it nanually for testing: {}".format(buf))
+              else:
+                tsslogging.locallogs("INFO", "STEP 9: Success starting privateGPT.  Here is the run command: {}".format(buf))
              
-            v,buf=qdrantcontainer()
-            if buf != "":
-             if v==1:
-              tsslogging.locallogs("WARN", "STEP 9: There seems to be an issue starting the Qdrant container.  Here is the run command - try to run it nanually for testing: {}".format(buf))
-             else:
-              tsslogging.locallogs("INFO", "STEP 9: Success starting Qdrant.  Here is the run command: {}".format(buf))
+              v,buf=qdrantcontainer()
+              if buf != "":
+               if v==1:
+                tsslogging.locallogs("WARN", "STEP 9: There seems to be an issue starting the Qdrant container.  Here is the run command - try to run it nanually for testing: {}".format(buf))
+               else:
+                tsslogging.locallogs("INFO", "STEP 9: Success starting Qdrant.  Here is the run command: {}".format(buf))
             
-            time.sleep(10)  # wait for containers to start
+              time.sleep(10)  # wait for containers to start
+            elif  os.environ["KUBE"] == "0":
+              tsslogging.locallogs("INFO", "STEP 9: Starting privateGPT")
+              v,buf=startpgptcontainer()
+              if v==1:
+                tsslogging.locallogs("WARN", "STEP 9: There seems to be an issue starting the privateGPT container.  Here is the run command - try to run it nanually for testing: {}".format(buf))
+              else:
+                tsslogging.locallogs("INFO", "STEP 9: Success starting privateGPT.  Here is the run command: {}".format(buf))
+             
+              v,buf=qdrantcontainer()
+              if buf != "":
+               if v==1:
+                tsslogging.locallogs("WARN", "STEP 9: There seems to be an issue starting the Qdrant container.  Here is the run command - try to run it nanually for testing: {}".format(buf))
+               else:
+                tsslogging.locallogs("INFO", "STEP 9: Success starting Qdrant.  Here is the run command: {}".format(buf))
+            
+              time.sleep(10)  # wait for containers to start         
+            else:  
+              tsslogging.locallogs("INFO", "STEP 9: [KUBERNETES] Starting privateGPT - LOOKS LIKE THIS IS RUNNING IN KUBERNETES")
+              tsslogging.locallogs("INFO", "STEP 9: [KUBERNETES] Make sure you have applied the private GPT YAML files and have the privateGPT Pod running")
     
             while True:
              try:
