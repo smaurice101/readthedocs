@@ -112,7 +112,7 @@ To show how simple it is to scale TML solutions in kubernetes, we will scale :re
 
    1. Run the :ref:`Solution DAG Code: solution_preprocessing_ai_mqtt_dag-cybersecuritywithprivategpt-3f10` in the TSS.  
    2. Go to the `solution documentation on readthedocs <https://cybersecuritywithprivategpt-3f10.readthedocs.io/en/latest/index.html>`_
-   3. Go to section: Scaling [cybersecuritywithprivategpt-3f10] With Kubernetes
+   3. Go to section: :ref:`Scaling [cybersecuritywithprivategpt-3f10] With Kubernetes`
    4. Copy the following YML files and save to your local computer in Linux:
      a. mysql-storage.yml
      b. mysql-db-deployment.yml
