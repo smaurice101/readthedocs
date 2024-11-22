@@ -124,7 +124,7 @@ To show how simple it is to scale TML solutions in kubernetes, we will scale :re
      a. You should see a list of pods - as shown in figure below.
    7. Run the Cybersecurity dashboard.
      a. Run: **kubectl get deployment**
-     b. Run: **kubectl port-forward <deployment name> 9005:9005**
+     b. Run: **kubectl port-forward deployment/<deployment name> 9005:<SOLUTIONVIPERVIZPORT>**
      c. Run the Dashboard - it should look like :ref:`The Dashboard with PrivateGPT`:
          `http://localhost:9005/tml-cisco-network-privategpt-monitor.html?topic=cisco-network-preprocess,cisco-network- 
          privategpt&offset=-1&groupid=&rollbackoffset=400&topictype=prediction&append=0&secure=1 <http://localhost:9005/tml-cisco-network-privategpt-monitor.html?topic=cisco-network-preprocess,cisco-network- 
