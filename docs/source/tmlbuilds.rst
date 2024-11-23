@@ -339,6 +339,7 @@ Below is the complete definition of the **tml_system_step_1_getparams_dag**.  Us
      'MYSQLMAXCONN' : '4',
      'MYSQLMAXIDLE' : '10',
      'MYSQLHOSTNAME' : '127.0.0.1:3306',   
+     'KUBEMYSQLHOSTNAME' : 'mysql-service:3306', # this is the mysql service in kubernetes   
      'MYSQLDB' : 'tmlids',
      'MYSQLUSER' : 'root',    
      'SASLMECHANISM' : 'PLAIN',
@@ -524,7 +525,13 @@ Below is the complete definition of the **tml_system_step_1_getparams_dag**.  Us
            if 'COMPANYNAME' in d: 
              data[r] = "COMPANYNAME={}\n".format(default_args['COMPANYNAME'])                
            if 'MYSQLHOSTNAME' in d: 
-             data[r] = "MYSQLHOSTNAME={}\n".format(default_args['MYSQLHOSTNAME'])                
+             if "KUBE" in os.environ:
+               if os.environ["KUBE"] == "1":
+                data[r] = "MYSQLHOSTNAME={}\n".format(default_args['KUBEMYSQLHOSTNAME'])            
+               else: 
+                data[r] = "MYSQLHOSTNAME={}\n".format(default_args['MYSQLHOSTNAME'])            
+             else: 
+               data[r] = "MYSQLHOSTNAME={}\n".format(default_args['MYSQLHOSTNAME'])                
            if 'MYSQLDB' in d: 
              data[r] = "MYSQLDB={}\n".format(default_args['MYSQLDB'])                
            if 'MYSQLUSER' in d: 
@@ -801,6 +808,8 @@ DAG STEP 1: Parameter Explanation
       - Describe your solution in one-line.
     * - retries
       - Change are neede, i.e. 1 is usually fine.
+    * - KUBEMYSQLHOSTNAME
+      - If deploying in Kubernetes - the MySql service will be used.
 
 STEP 2: Create Kafka Topics: tml_system_step_2_kafka_createtopic_dag
 ^^^^^^^^^^^^^^^^^^^^^^^
