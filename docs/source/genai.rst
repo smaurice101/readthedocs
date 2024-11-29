@@ -105,7 +105,7 @@ NVIDIA Common Issues
 
     **docker: Error response from daemon: could not select device driver "" with capabilities: [[gpu]].**
 
-   The you need to install here: `Nvidia additional Install <https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/1.14.0/install-guide.html>`_
+   Then you need to install from here: `Nvidia additional Install <https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/1.14.0/install-guide.html>`_
 
    Specifically, the Keyrings.
 
