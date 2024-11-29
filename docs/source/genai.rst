@@ -78,7 +78,49 @@ Installing CUDA For NVIDIA GPU
 
 .. figure:: nvidia.png
    :scale: 50%
-    
+
+Confirming CUDA installation
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+To these steps to confirm CUDA is properly installed
+
+.. code-block::
+ 
+    Type: nvcc --version
+
+    You should see the output as:
+
+    nvcc: NVIDIA (R) Cuda compiler driver
+    Copyright (c) 2005-2023 NVIDIA Corporation
+    Built on Fri_Jan__6_16:45:21_PST_2023
+    Cuda compilation tools, release 12.0, V12.0.140
+    Build cuda_12.0.r12.0/compiler.32267302_0
+
+NVIDIA Common Issues
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. important::
+   
+   If you run Docker or Minikube with the **--gpus all ** flag and see an ERROR message like:
+
+    **docker: Error response from daemon: could not select device driver "" with capabilities: [[gpu]].**
+
+   The you need to install here: `Nvidia additional Install <https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/1.14.0/install-guide.html>`_
+
+   Specifically, the Keyrings.
+
+.. code-block::
+
+   curl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey | sudo gpg --dearmor -o /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg \
+  && curl -s -L https://nvidia.github.io/libnvidia-container/stable/deb/nvidia-container-toolkit.list | \
+    sed 's#deb https://#deb [signed-by=/usr/share/keyrings/nvidia-container-toolkit-keyring.gpg] https://#g' | \
+    sudo tee /etc/apt/sources.list.d/nvidia-container-toolkit.list \
+  && \
+    sudo apt-get update
+
+    sudo systemctl restart docker
+
+
 Accessing PrivateGPT With MAADSTML Python API
 -----------------
 
