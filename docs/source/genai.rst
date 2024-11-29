@@ -101,7 +101,7 @@ NVIDIA Common Issues
 
 .. important::
    
-   If you run Docker or Minikube with the **--gpus all ** flag and see an ERROR message like:
+   If you run Docker or Minikube with the **\-\-gpus all** flag and see an ERROR message like:
 
     **docker: Error response from daemon: could not select device driver "" with capabilities: [[gpu]].**
 
