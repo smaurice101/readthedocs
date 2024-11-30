@@ -120,6 +120,10 @@ Follow these steps to install minikube - which is a 1 node kubernetes cluster fo
 Confirming CUDA Installation in Kubernetes (minikube)
 -----------------------------------
 
+.. important::
+
+   Make sure to update the key rings: :ref:`NVIDIA Common Issues`
+
 To confirm your NVIDIA CUDA is properly installed in Kubernetes run the a test workload.
 
 nvidia-test-vector-add.yml
