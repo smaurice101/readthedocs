@@ -109,7 +109,7 @@ NVIDIA Common Issues
 
 .. code-block::
 
-   **sudo nvidia-ctk runtime configure --runtime=docker && sudo systemctl restart docker**
+   sudo nvidia-ctk runtime configure --runtime=docker && sudo systemctl restart docker
 
 .. attention::
 
