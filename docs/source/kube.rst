@@ -99,6 +99,54 @@ Follow these steps to install minikube - which is a 1 node kubernetes cluster fo
       7.	PORT Forward 9005:
        a. RUN: **kubectl port-forward <pod name> 9005:9005**
 
+Confirming CUDA Installation in Kubernetes (minikube)
+-----------------------------------
+
+To confirm your NVIDIA CUDA is properly installed in Kubernetes run the a test workload.
+
+nvidia-test-vector-add.yml
+^^^^^^^^^^^^^^^^^
+
+Apply this yaml file to the kubernetes cluster by running: **kubectl apply -f nvidia-test-vector-add.yml**
+
+.. code-block::
+
+      #source: nvidia-test-vector-add.yml
+      apiVersion: v1
+      kind: Pod
+      metadata:
+        name: cuda-vector-add
+      spec:
+        restartPolicy: OnFailure
+        containers:
+          - name: cuda-vector-add
+            image: k8s.gcr.io/cuda-vector-add:v0.1
+            resources:
+              limits:
+                nvidia.com/gpu: 1
+
+.. code-block::
+ 
+   kubectl apply -f nvidia-test-vector-add.yml
+
+
+If your NVIDIA install is correct, you should see the output after typing: **kubectl logs cuda-vector-add**
+
+.. code-block::
+
+   kubectl logs cuda-vector-add
+
+The results:
+
+.. code-block::
+
+    [Vector addition of 50000 elements]
+    Copy input data from the host memory to the CUDA device
+    CUDA kernel launch with 196 blocks of 256 threads
+    Copy output data from the CUDA device to the host memory
+    Test PASSED
+    Done
+
 Scaling EXAMPLE: Scaling Cybersecurity with privateGPT solution
 --------------------------------------------
 
