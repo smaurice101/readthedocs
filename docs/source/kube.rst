@@ -17,6 +17,15 @@ Everytime you create a TML solution in the TSS - TSS will generate YAML files au
    been processed by another TML pod, if so, it will not re-process that window.  This dramatically saves on processing time and leverages the fully capabilites of kubernetes to manage the 
    sending of data to pods that are not busy.** 
 
+Example Kubernetes Run
+-------------------
+
+.. figure:: kuberun.png
+   :scale: 70%
+
+Auto-Generated YAML Files
+-------------------
+
 Five YAML files are auto-generated for every TML solution and are found in your READTHEDOCS solution documentation:
 
 .. list-table::
