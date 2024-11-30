@@ -105,17 +105,13 @@ NVIDIA Common Issues
 
     **docker: Error response from daemon: could not select device driver "" with capabilities: [[gpu]].**
 
-   Specifically, the Keyrings.
+    Then run the following:
 
 .. code-block::
 
-   1. **sudo nvidia-ctk runtime configure --runtime=docker**
-
-   2. **sudo systemctl restart docker**
+   **sudo nvidia-ctk runtime configure --runtime=docker && sudo systemctl restart docker**
 
 .. attention::
-
-   Then run: **sudo nvidia-ctk runtime configure --runtime=docker && sudo systemctl restart docker**
 
    Also see section: :ref:`NVIDIA GPU On Windows WSL`
 
