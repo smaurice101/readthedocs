@@ -79,23 +79,6 @@ Installing CUDA For NVIDIA GPU
 .. figure:: nvidia.png
    :scale: 50%
 
-Confirming CUDA installation
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-To these steps to confirm CUDA is properly installed
-
-.. code-block::
- 
-    Type: nvcc --version
-
-    You should see the output as:
-
-    nvcc: NVIDIA (R) Cuda compiler driver
-    Copyright (c) 2005-2023 NVIDIA Corporation
-    Built on Fri_Jan__6_16:45:21_PST_2023
-    Cuda compilation tools, release 12.0, V12.0.140
-    Build cuda_12.0.r12.0/compiler.32267302_0
-
 NVIDIA Common Issues
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
