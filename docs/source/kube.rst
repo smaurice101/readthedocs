@@ -68,6 +68,24 @@ Five YAML files are auto-generated for every TML solution and are found in your 
    **kubectl apply -f mysql-storage.yml -f mysql-db-deployment.yml -f privategpt.yml -f qdrant.yml -f <TML solution name>.yml**, where you replace <TML solution name> with your actual TML 
    solution name.
 
+NVIDIA GPU On Windows WSL
+------------------
+
+.. important::
+
+   If you are installing Minikube in WSL you need to ensure:
+
+   1. You must install the Windows NVIDIA Drivers on your HOST operating system: `Get the Official NVidia drivers here <https://www.nvidia.com/en-us/drivers/>`_
+
+   2. THEN install wsl by opening Windows Powershell and Typing:  wsl --install
+
+   3.  Then update the wsl install in Linux Ubuntu by typing: ** sudo apt update && sudo apt upgrade
+
+   4. Install Docker by typing: **sudo apt install docker.io**
+
+   5. Now install minikube (as shown below)
+
+ 
 Installing minikube
 -------------------
 
