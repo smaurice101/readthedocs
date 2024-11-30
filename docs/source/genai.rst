@@ -120,6 +120,11 @@ NVIDIA Common Issues
 
     sudo systemctl restart docker
 
+.. attention::
+
+   Then run: **sudo nvidia-ctk runtime configure --runtime=docker && sudo systemctl restart docker**
+
+   For details see `here <https://minikube.sigs.k8s.io/docs/tutorials/nvidia/#why-does-minikube-not-support-nvidia-gpus-on-windows>`_
 
 Accessing PrivateGPT With MAADSTML Python API
 -----------------
