@@ -138,10 +138,10 @@ Follow these steps to install minikube - which is a 1 node kubernetes cluster fo
 
       6.	Create POD inside Kubernetes running your Docker Container
        a. RUN: **kubectl apply -f <YAML files>**
-       b. RUN: **kubectl get pods**
+       b. RUN: **kubectl get deployments**
             
       7.	PORT Forward 9005:
-       a. RUN: **kubectl port-forward <pod name> 9005:9005**
+       a. RUN: **kubectl port-forward deployment/<deployment name> 9005:9005**
 
 Confirming CUDA Installation in Kubernetes (minikube)
 -----------------------------------
