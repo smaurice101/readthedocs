@@ -77,6 +77,10 @@ Example Kubernetes Run From Applying YAML Files
 .. figure:: kuberun.png
    :scale: 70%
 
+.. attention::
+
+   The docker images for privatePT and other solution containers, using GPU, could take several minutes to pull and run. So be patient. 
+
 NVIDIA GPU On Windows WSL
 ------------------
 
