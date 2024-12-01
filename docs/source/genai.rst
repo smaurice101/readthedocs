@@ -96,7 +96,22 @@ NVIDIA Common Issues
 
 .. attention::
 
-   Also see section: :ref:`NVIDIA GPU On Windows WSL`
+   Make sure to STOP the TSS Container and other containers before running Kubernetes/Minikube.
+
+   If you get the following WARNING from Kubernetes:
+
+    Warning  FailedScheduling  13m    default-scheduler  0/1 nodes are available: 1 Insufficient nvidia.com/gpu. preemption: 0/1 nodes are available: 1 No preemption victims found for 
+    incoming pod.
+
+    Issue the commands below:
+
+.. code-block::
+
+   sudo apt update && sudo apt install -y nvidia-docker2
+
+   sudo nvidia-ctk runtime configure --runtime=docker && sudo systemctl restart docker
+
+Also see section: :ref:`NVIDIA GPU On Windows WSL`
 
 Accessing PrivateGPT With MAADSTML Python API
 -----------------
