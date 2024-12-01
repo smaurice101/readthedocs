@@ -130,10 +130,10 @@ Follow these steps to install minikube - which is a 1 node kubernetes cluster fo
        b. RUN: **sudo chmod +x kubectl**
        c. RUN: **sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl**
       
-      5.	RUN Kubernetes: **minikube start --driver=docker \-\-cni calico**
+      5.	RUN Kubernetes: **minikube start --driver=docker \-\-cni calico \-\-memory 8192**
        a. make sure docker engine is installed. If not run: **sudo apt-get install docker.io**
        b. RUN: **sudo chmod 666 /var/run/docker.sock**
-       c. Note: If you have a Nvidia GPU then use: **minikube start --driver docker \-\-container-runtime docker \-\-gpus all \-\-cni calico**
+       c. Note: If you have a Nvidia GPU then use: **minikube start --driver docker \-\-container-runtime docker \-\-gpus all \-\-cni calico \-\-memory 8192**
        d. Note **\-\-cni calico** uses the **calico** Container Networking Interface (CNI)
 
       6.	Create POD inside Kubernetes running your Docker Container
