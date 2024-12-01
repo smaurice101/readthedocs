@@ -92,7 +92,9 @@ NVIDIA Common Issues
 
 .. code-block::
 
-   sudo nvidia-ctk runtime configure --runtime=docker && sudo systemctl restart docker
+   sudo nvidia-ctk runtime configure --runtime=docker 
+
+   sudo systemctl restart docker
 
 .. attention::
 
@@ -109,7 +111,9 @@ NVIDIA Common Issues
 
    sudo apt update && sudo apt install -y nvidia-docker2
 
-   sudo nvidia-ctk runtime configure --runtime=docker && sudo systemctl restart docker
+   sudo nvidia-ctk runtime configure --runtime=docker
+  
+   sudo systemctl restart docker
 
 Also see section: :ref:`NVIDIA GPU On Windows WSL`
 
