@@ -109,7 +109,7 @@ NVIDIA GPU On Windows WSL
 
    11. sudo systemctl restart docker
 
-   9. Now install minikube (as shown below)
+   12. Now install minikube (as shown below)
 
  
 Installing minikube
