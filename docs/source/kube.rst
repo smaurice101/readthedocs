@@ -79,7 +79,7 @@ Example Kubernetes Run From Applying YAML Files
 
 .. attention::
 
-   The docker images for privatePT and other solution containers, using GPU, could take several minutes to pull and run. So be patient. 
+   The docker images for privateGPT and other solution containers, using GPU, can take several minutes to pull and run. So be patient. 
 
 NVIDIA GPU On Windows WSL
 ------------------
