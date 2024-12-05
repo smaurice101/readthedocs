@@ -52,6 +52,7 @@ All examples simply follow the steps here :ref:`Lets Start Building a TML Soluti
        MQTT Client File here is: `MQTT Client <https://github.com/smaurice101/raspberrypi/blob/main/tml-airflow/python/cyberwithprivategptmqtt.py>`_
 
        Data Used is here (unzip the file): `Demo Data <https://github.com/smaurice101/raspberrypi/blob/main/tml-airflow/data/cisco_network_data.zip>`_
+   * - 3b. To Scale this Solution Watch the YouTube Video: `here <https://www.youtube.com/watch?v=MEbmTXIQpVo>`_
 
 .. note::
    While we are using a local file for the demos, this is to make it easy for users to build and run these solutions themselves.  Ideally, in industry, we would use APIs like MQTT, REST and gRPC to ingest data from devices and stream it to TML solutions.  TSS allows you to build solutions with these APIs with pre-written DAGs here:
