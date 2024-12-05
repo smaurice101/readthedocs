@@ -25,6 +25,11 @@ Watch The TSS Youtube Videos
      - `Youtube Video <https://youtu.be/46k18ExfLLE>`_ See details here 
 
        :ref:`Lets Start Building a TML Solution`
+   * - **Scaling TML Solutions with Kubernetes** 
+
+     - `Youtube Video <https://www.youtube.com/watch?v=MEbmTXIQpVo>`_ See details here 
+
+       :ref:`Scaling TML Solutions with Kubernetes`
    * - **Running TML Projects in TSS:** 
      - `Youtube Video <https://youtu.be/MH-l0LBkxXc>`_ 
 
