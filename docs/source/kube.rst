@@ -256,11 +256,28 @@ Follow these steps to install minikube - which is a 1 node kubernetes cluster fo
                    sudo install minikube-linux-amd64 minikube
       
       4.	Now install kubectl
-       a. **curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl**
-       b. RUN: **sudo chmod +x kubectl**
-       c. RUN: **sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl**
+       a. .. code-block::
+ 
+              curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
+
+       b. RUN: 
+
+              .. code-block::
+
+                  sudo chmod +x kubectl
+
+       c. RUN: 
+
+              .. code-block:: 
+
+                  sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
       
-      5.	RUN Kubernetes: **minikube start --driver=docker \-\-cni calico \-\-memory 8192**
+      5.	RUN Kubernetes: 
+
+              .. code-block::
+
+                  minikube start --driver=docker \-\-cni calico \-\-memory 8192
+
        a. make sure docker engine is installed. If not run: **sudo apt-get install docker.io**
        b. RUN: **sudo chmod 666 /var/run/docker.sock**
        c. Note: If you have a Nvidia GPU then use: **minikube start --driver docker \-\-container-runtime docker \-\-gpus all \-\-cni calico \-\-memory 8192**
