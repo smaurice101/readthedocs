@@ -136,7 +136,7 @@ Step 3: You will need to PASTE this base64 encoded password in the **secrets.yml
 
    this is base64 encoding for "<enter password>"
 
-Your secrets.yml should look something similar this beiow:
+Your **secrets.yml** should look something similar this beiow:
 
   .. code-block:: YAML
 
