@@ -245,11 +245,13 @@ Follow these steps to install minikube - which is a 1 node kubernetes cluster fo
        a. Note minikube is a ONE node Kubernetes cluster – it is the SAME functionality as a production grade Kubernetes cluster
       2.	cd to kubernetes folder
       3. Now install Kubernetes (minikube):
-       a. RUN: .. code-block::
+       a. RUN: 
+              .. code-block::
 
                    wget https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
 
-       b. RUN: .. code-block::
+       b. RUN: 
+              .. code-block::
 
                    sudo install minikube-linux-amd64 minikube
       
