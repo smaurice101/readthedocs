@@ -272,23 +272,51 @@ Follow these steps to install minikube - which is a 1 node kubernetes cluster fo
 
                   sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
       
-      5.	RUN Kubernetes: 
+      5.	RUN Kubernetes - **IF YOU DO NOT HAVE A NVIDIA GPU**: 
 
               .. code-block::
 
-                  minikube start --driver=docker \-\-cni calico \-\-memory 8192
+                  minikube start --driver=docker --cni calico --memory 8192
 
-       a. make sure docker engine is installed. If not run: **sudo apt-get install docker.io**
-       b. RUN: **sudo chmod 666 /var/run/docker.sock**
-       c. Note: If you have a Nvidia GPU then use: **minikube start --driver docker \-\-container-runtime docker \-\-gpus all \-\-cni calico \-\-memory 8192**
-       d. Note **\-\-cni calico** uses the **calico** Container Networking Interface (CNI)
+       a. make sure docker engine is installed. If not run: 
+
+          .. code-block::
+ 
+              sudo apt-get install docker.io
+
+       b. RUN: 
+
+              .. code-block::
+     
+                  sudo chmod 666 /var/run/docker.sock
+
+       c. Note:  **IF YOU DO HAVE A NVIDIA GPU** then use: 
+
+             .. code-block::
+
+                 minikube start --driver docker --container-runtime docker --gpus all --cni calico --memory 8192
+
+      d. Note **\-\-cni calico** uses the **calico** Container Networking Interface (CNI)
 
       6.	Create POD inside Kubernetes running your Docker Container
-       a. RUN: **kubectl apply -f <YAML files>**
-       b. RUN: **kubectl get deployments**
+       a. RUN: 
+
+              .. code-block::
+ 
+                  kubectl apply -f <YAML files>
+
+       b. RUN: 
+
+              .. code-block::
+    
+                  kubectl get deployments
             
       7.	PORT Forward 9005:
-       a. RUN: **kubectl port-forward deployment/<deployment name> 9005:9005**
+       a. RUN: 
+
+              .. code-block::
+ 
+                  kubectl port-forward deployment/<deployment name> 9005:9005
 
 Confirming CUDA Installation in Kubernetes (minikube)
 -----------------------------------
