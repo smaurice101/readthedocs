@@ -132,7 +132,9 @@ Step 3: You will need to PASTE this base64 encoded password in the **secrets.yml
 .. attention::
    You cannot have blank fields in the secrets file.  If you DO NOT have a password just use:
 
-    **PGVudGVyIHBhc3N3b2Q+**
+    .. code-block::
+     
+        **PGVudGVyIHBhc3N3b2Q+**
 
    this is base64 encoding for "<enter password>"
 
