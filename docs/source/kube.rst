@@ -312,8 +312,9 @@ To show how simple it is to scale TML solutions in kubernetes, we will scale :re
      c. `privategpt.yml <https://cybersecuritywithprivategpt-3f10.readthedocs.io/en/latest/kube.html#privategpt-yml>`_
      d. `qdrant.yml <https://cybersecuritywithprivategpt-3f10.readthedocs.io/en/latest/kube.html#qdrant-yml>`_
      e. `cybersecuritywithprivategpt-3f10.yml <https://cybersecuritywithprivategpt-3f10.readthedocs.io/en/latest/kube.html#cybersecuritywithprivategpt-3f10-yml>`_
+     f. `secrets.yml <https://cybersecuritywithprivategpt-3f10.readthedocs.io/en/latest/kube.html#secrets-yml>`_
    5. Now apply the YML files to your Kubernetes cluster:
-     a. **kubectl apply -f mysql-storage.yml -f mysql-db-deployment.yml -f qdrant.yml -f privategpt.yml -f cybersecuritywithprivategpt-3f10.yml**
+     a. **kubectl apply -f secrets.yml -f mysql-storage.yml -f mysql-db-deployment.yml -f qdrant.yml -f privategpt.yml -f cybersecuritywithprivategpt-3f10.yml**
    6. Run: **kubectl get pods**
      a. You should see a list of pods - as shown in figure below.
    7. Run the Cybersecurity dashboard.
