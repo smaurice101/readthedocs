@@ -115,7 +115,7 @@ Repeat Step 1 for ALL your passwords:
 
  Step 3: You will need to PASTE this base64 encoded password in the **secrets.yml** file
 
- .. code-blockLL YAML
+.. code-block:: YAML
       
       ###################secrets.yml
       apiVersion: v1
