@@ -437,5 +437,5 @@ This image shows 3 replicas of the TML solution: cybersecuritywithprivategpt-3f1
     
                 kubectl describe pod <pod name> 
 
-             (replace <pod name> with actual pod name)
+            (replace <pod name> with actual pod name)
 
