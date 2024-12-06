@@ -101,7 +101,7 @@ All TML solution passwords must be base64 encoded and copied to your **secrets.y
 
     echo -n <ENTER YOUR PASSORD HERE> | base64 
 
-  Repeat Step 1 for ALL your passwords:
+Repeat Step 1 for ALL your passwords:
  
   1. GITPASSWORD (MANDATORY)
 
