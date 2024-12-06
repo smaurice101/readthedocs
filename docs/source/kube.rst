@@ -183,7 +183,10 @@ NVIDIA GPU On Windows WSL
 
    1. You must install the Windows NVIDIA Drivers on your HOST operating system: `Get the Official NVidia drivers here <https://www.nvidia.com/en-us/drivers/>`_
 
-   2. THEN install wsl by opening Windows Powershell and Typing:  **wsl --install**
+   2. THEN install wsl by opening Windows Powershell and Typing:  
+       .. code-block::
+ 
+           wsl --install
 
    3. Then update the wsl install in Linux Ubuntu by typing: **sudo apt update && sudo apt upgrade**
 
