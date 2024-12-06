@@ -195,12 +195,20 @@ NVIDIA GPU On Windows WSL
 
            sudo apt update && sudo apt upgrade
 
-   4. Install Docker by typing: **sudo apt install docker.io**
+   4. Install Docker by typing: 
+
+       .. code-block::
+
+           sudo apt install docker.io
 
    5. Install the CUDA Keyring: 
      a. wget https://developer.download.nvidia.com/compute/cuda/repos/<distro>/x86_64/cuda-keyring_1.1-1_all.deb
       1. Replace **<distro>** with your Linux Distro i.e. ubuntu2404 (`see here <https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html#ubuntu>`_)
-     b. sudo dpkg -i cuda-keyring_1.1-1_all.deb
+     b. 
+     
+     .. code-block::
+
+         sudo dpkg -i cuda-keyring_1.1-1_all.deb
 
    6. sudo apt-get update
 
