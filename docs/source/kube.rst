@@ -216,13 +216,21 @@ NVIDIA GPU On Windows WSL
 
           sudo apt-get install cuda-toolkit 
 
-   8. sudo apt update && sudo apt install -y nvidia-docker2
+   8. .. code-block:: 
 
-   9. sudo apt-get install -y nvidia-container-toolkit
+          sudo apt update && sudo apt install -y nvidia-docker2
 
-   10. sudo nvidia-ctk runtime configure --runtime=docker
+   9. .. code-block:: 
 
-   11. sudo systemctl restart docker
+          sudo apt-get install -y nvidia-container-toolkit
+
+   10. .. code-block::
+
+           sudo nvidia-ctk runtime configure --runtime=docker
+
+   11. .. code-block::
+ 
+           sudo systemctl restart docker
 
    12. Now install minikube (as shown below)
 
