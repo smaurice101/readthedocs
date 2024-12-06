@@ -90,6 +90,52 @@ Example Kubernetes Run From Applying YAML Files
 
    The docker images for privateGPT and other solution containers, using GPU, can take several minutes to pull and run. So be patient. 
 
+How To Store Secure Passwords in Kubernetes
+-------------------
+
+All TML solution passwords must be base64 encoded and copied to your **secrets.yml** file as shown in Steps below.
+
+ Step 1: Convert Your Plain Text Password to Base64
+
+ .. code-block::
+
+    echo -n <ENTER YOUR PASSORD HERE> | base64 
+
+  Repeat Step 1 for ALL your passwords:
+ 
+  1. GITPASSWORD (MANDATORY)
+
+  2. READTHEDOCS (MANDATORY)
+
+  3. KAFKACLOUDPASSWORD (OPTIONAL)
+
+  4. MQTTPASSWORD (OPTIONAL)
+
+ Step 2: You will need to COPY this base64 encoded password
+
+ Step 3: You will need to PASTE this base64 encoded password in the **secrets.yml** file
+
+.. code-blockLL YAML
+      
+      ###################secrets.yml
+      apiVersion: v1
+      kind: Secret
+      metadata:
+        name: tmlsecrets
+      type: Opaque
+      data:
+        readthedocs: <Paste your base64 encoded password>
+        githubtoken: <Paste your base64 encoded password>
+        mqttpass: <Paste your base64 encoded password>
+        kafkacloudpassword: <Paste your base64 encoded password>
+
+ Step 4: You will need to APPLY it to the Kubernetes cluster:
+
+  .. code-block::
+
+     kubectl create -f secrets.yml
+
+
 NVIDIA GPU On Windows WSL
 ------------------
 
