@@ -134,7 +134,7 @@ Step 3: You will need to PASTE this base64 encoded password in the **secrets.yml
 
     .. code-block::
      
-        **PGVudGVyIHBhc3N3b2Q+**
+        PGVudGVyIHBhc3N3b2Q+
 
    this is base64 encoding for "<enter password>"
 
