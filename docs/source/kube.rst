@@ -44,7 +44,7 @@ Five YAML files are auto-generated for every TML solution and are found in your 
 
        This ensures your passwords are securely accessed in 
 
-       Kubernetes.
+       Kubernetes.  See below for instructions.
    * - MySQL DB Deployment Yaml File
      - MySQL DB is used for TML configurations.  
 
