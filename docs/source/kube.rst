@@ -145,7 +145,7 @@ Step 5: Confirm the Secrets are Stored in Kubernetes:
 
   .. code-block::
 
-     kubectl describe secret/tmlsecrets
+     kubectl describe secrets/tmlsecrets
 
 That's it!  You now have stored secure - base64 encoded - passwords in Kubernetes.
 
