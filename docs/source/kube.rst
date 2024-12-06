@@ -138,7 +138,7 @@ Repeat Step 1 for ALL your passwords:
 
    this is base64 encoding for "<enter password>"
 
-Your **secrets.yml** should look something similar this beiow:
+Your **secrets.yml** should look something similar to this below:
 
   .. code-block:: YAML
 
