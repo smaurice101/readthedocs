@@ -296,7 +296,7 @@ Follow these steps to install minikube - which is a 1 node kubernetes cluster fo
 
                  minikube start --driver docker --container-runtime docker --gpus all --cni calico --memory 8192
 
-      d. Note **\-\-cni calico** uses the **calico** Container Networking Interface (CNI)
+          Note **\-\-cni calico** uses the **calico** Container Networking Interface (CNI)
 
       6.	Create POD inside Kubernetes running your Docker Container
        a. RUN: 
