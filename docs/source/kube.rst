@@ -39,6 +39,12 @@ Five YAML files are auto-generated for every TML solution and are found in your 
        will be auto-generated and found in your 
 
        readthedocs solution documentation.
+   * - Secrets Yaml File
+     - Secrets file is used to store base64 encoded passwords.
+
+       This ensures your passwords are securely accessed in 
+
+       Kubernetes.
    * - MySQL DB Deployment Yaml File
      - MySQL DB is used for TML configurations.  
 
