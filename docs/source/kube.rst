@@ -95,7 +95,7 @@ How To Store Secure Passwords in Kubernetes
 
 All TML solution passwords must be base64 encoded and copied to your **secrets.yml** file as shown in Steps below.
 
- Step 1: Convert Your Plain Text Password to Base64
+Step 1: Convert Your Plain Text Password to Base64
 
  .. code-block::
 
@@ -111,9 +111,9 @@ Repeat Step 1 for ALL your passwords:
 
   4. MQTTPASSWORD (OPTIONAL)
 
- Step 2: You will need to COPY this base64 encoded password
+Step 2: You will need to COPY this base64 encoded password
 
- Step 3: You will need to PASTE this base64 encoded password in the **secrets.yml** file
+Step 3: You will need to PASTE this base64 encoded password in the **secrets.yml** file
 
 .. code-block:: YAML
       
