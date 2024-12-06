@@ -135,6 +135,7 @@ Step 4: You will need to APPLY it to the Kubernetes cluster:
 
      kubectl create -f secrets.yml
 
+That's it!  You now have stored secure - base64 encoded - passwords in Kubernetes.
 
 NVIDIA GPU On Windows WSL
 ------------------
