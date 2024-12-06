@@ -129,7 +129,7 @@ Repeat Step 1 for ALL your passwords:
         mqttpass: <Paste your base64 encoded password>
         kafkacloudpassword: <Paste your base64 encoded password>
 
- Step 4: You will need to APPLY it to the Kubernetes cluster:
+Step 4: You will need to APPLY it to the Kubernetes cluster:
 
   .. code-block::
 
