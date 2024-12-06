@@ -136,6 +136,22 @@ Step 3: You will need to PASTE this base64 encoded password in the **secrets.yml
 
    this is base64 encoding for "<enter password>"
 
+Your secrets.yml should look something similar this beiow:
+
+  .. code-block:: YAML
+
+      ###################secrets.yml
+      apiVersion: v1
+      kind: Secret
+      metadata:
+        name: tmlsecrets
+      type: Opaque
+      data:
+        readthedocs: xMDIyNmNh5OTRmZDcxZGJiYTE5MjMxZDE5NGI4ZjBlOA==
+        githubtoken: wX2R2Z6V3poalhjYmR2aEJNNnZnU21DVU5lUDBQU3lucg==
+        mqttpass: HKm1SawJERFOCFkYWNzYQ==
+        kafkacloudpassword: PGVudGVyIHBhc3N3b2Q+
+
 Step 4: You will need to APPLY it to the Kubernetes cluster:
 
   .. code-block::
