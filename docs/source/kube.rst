@@ -99,7 +99,7 @@ Step 1: Convert Your Plain Text Password to Base64
 
  .. code-block::
 
-    echo -n '<ENTER YOUR PASSORD HERE>' | base64 
+    echo -n '<ENTER YOUR PLAIN TEXT PASSWORD HERE>' | base64 
 
 Repeat Step 1 for ALL your passwords:
  
