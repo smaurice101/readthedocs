@@ -45,6 +45,12 @@ Five YAML files are auto-generated for every TML solution and are found in your 
        This ensures your passwords are securely accessed in 
 
        Kubernetes.  See below for instructions.
+   * - Kafka Yaml File For On-Premise Kafka
+     - Users have the option of using Kafka Cloud 
+
+       or Kafka On-Premise.  If using Kafka On-premise
+
+       this Yaml MUST be applied to the cluster.
    * - MySQL DB Deployment Yaml File
      - MySQL DB is used for TML configurations.  
 
