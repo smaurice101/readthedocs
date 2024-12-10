@@ -201,8 +201,6 @@ Apply data preprocessing and auto machine learning to data streams and create tr
 Contents
 =======
 
-Introduction:
-
 .. toctree::
    :numbered:
 
@@ -210,12 +208,6 @@ Introduction:
    tmlbook
    docker
    solutions
-
-Scaling:
-
-.. toctree::
-   :numbered:
-
    kube
    tmlbuilds
    examples
