@@ -202,6 +202,7 @@ Contents
 --------
 
 .. toctree::
+   :numbered:
 
    quickstart
    tmlbook
