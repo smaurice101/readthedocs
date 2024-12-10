@@ -30,6 +30,13 @@ Watch The TSS Youtube Videos
      - `Youtube Video <https://www.youtube.com/watch?v=MEbmTXIQpVo>`_ See details here 
 
        :ref:`Scaling TML Solutions with Kubernetes`
+   * - **Storing Secure Passwords in Kubernetes**
+     - `Youtube Video <https://youtu.be/Xyw_XE9L22U>`_
+
+       Describes how to store secure passwords in Kubernetes
+
+       to make your TML solutions more secure and in
+       compliance with IT security standards.
    * - **Running TML Projects in TSS:** 
      - `Youtube Video <https://youtu.be/MH-l0LBkxXc>`_ 
 
