@@ -199,7 +199,10 @@ Apply data preprocessing and auto machine learning to data streams and create tr
   Strengthen your knowledge of the inner workings of TML solutions using data streams with auto machine learning integrated with Apache Kafka. You will be at the forefront of an exciting area of machine learning that is focused on speed of data and algorithm creation, scale, and automation.
 
 Contents
---------
+=======
+
+Introduction
+-----------
 
 .. toctree::
    :numbered:
@@ -208,6 +211,13 @@ Contents
    tmlbook
    docker
    solutions
+
+Scaling
+-----------
+
+.. toctree::
+   :numbered:
+
    kube
    tmlbuilds
    examples
