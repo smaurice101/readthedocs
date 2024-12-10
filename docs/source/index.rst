@@ -201,8 +201,7 @@ Apply data preprocessing and auto machine learning to data streams and create tr
 Contents
 =======
 
-Introduction
------------
+Introduction:
 
 .. toctree::
    :numbered:
@@ -212,8 +211,7 @@ Introduction
    docker
    solutions
 
-Scaling
------------
+Scaling:
 
 .. toctree::
    :numbered:
