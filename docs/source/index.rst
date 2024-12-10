@@ -206,6 +206,7 @@ Contents
 
    quickstart
    tmlbook
+   :caption: Table of Contents
    docker
    solutions
    kube
