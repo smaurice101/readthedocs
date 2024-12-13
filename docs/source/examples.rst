@@ -21,7 +21,8 @@ All examples simply follow the steps here :ref:`Lets Start Building a TML Soluti
 
        Data Used is here (unzip the file): `Demo Data <https://github.com/smaurice101/raspberrypi/blob/main/tml-airflow/data/IoTData.zip>`_
    * - 1b. :ref:`Real-Time IoT Data Preprocessing With Secondary Preprocessing and With Map Example`
-     
+
+
        This will process IoT data for anomalies, stream the results to a dashboard,
 
        but will also perform a **secondary processing** using 
