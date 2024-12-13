@@ -24,7 +24,7 @@ All examples simply follow the steps here :ref:`Lets Start Building a TML Soluti
      
        This will process IoT data for anomalies, stream the results to a dashboard,
 
-       but will also perform a secondary processing using 
+       but will also perform a **secondary processing** using 
 
        :ref:`STEP 4b: Preprocesing 2 Data: tml-system-step-4b-kafka-preprocess-dag`
 
