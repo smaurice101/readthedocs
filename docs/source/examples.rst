@@ -11,7 +11,7 @@ All examples simply follow the steps here :ref:`Lets Start Building a TML Soluti
    * - **TSS Starter Examples**
    * - 1. :ref:`Real-Time IoT Data Preprocessing Example`
        
-       This will process IoT for anomalies, stream the results to a dashboard,
+       This will process IoT data for anomalies, stream the results to a dashboard,
 
        build and push the container to docker hub, automatically create the
 
@@ -20,6 +20,19 @@ All examples simply follow the steps here :ref:`Lets Start Building a TML Soluti
        to GitHub.
 
        Data Used is here (unzip the file): `Demo Data <https://github.com/smaurice101/raspberrypi/blob/main/tml-airflow/data/IoTData.zip>`_
+   * - 1b. :ref:`Real-Time IoT Data Preprocessing With Secondary Preprocessing and With Map Example`
+     
+       This will process IoT data for anomalies, stream the results to a dashboard,
+
+       but will also perform a secondary processing using 
+
+       :ref:`STEP 4b: Preprocesing 2 Data: tml-system-step-4b-kafka-preprocess-dag`
+
+       to build and push the container to docker hub, automatically create the
+
+       solution documentation on Readthdocs, and auto-commit your solution
+
+       to GitHub.
    * - 2. :ref:`Real-Time IoT Data Preprocessing and Machine Learning Example`
       
        This will process IoT data, and perform entity level machine learning (TML)
