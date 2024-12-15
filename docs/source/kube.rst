@@ -84,7 +84,7 @@ Five YAML files are auto-generated for every TML solution and are found in your 
 
        For more details see section 
 
-       :ref:`Scaling with NGINX Ingress`
+       :ref:`Scaling with NGINX Ingress and Ingress Controller`
 
 .. tip::
    These YAMLs can be applied to your Kubernetes cluster as follows:
