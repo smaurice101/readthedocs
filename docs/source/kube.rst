@@ -234,7 +234,7 @@ In the above **nginx-ingress-iotsolution-restapi-3f10.yml** two NGINX paths are 
 
        RESTful and gRPC protocols to the TML solution hat will stream the data to Kafka.  
 
-       **In effect, you can process data from an unlimited number of devices with this architecture.**
+       **In effect, you can process real-time data from an unlimited number of devices with this solution.**
 
        
 .. note::
