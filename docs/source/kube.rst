@@ -211,7 +211,9 @@ In the above **nginx-ingress-iotsolution-3f10.yml** two NGINX paths are defined:
 .. attention::
    The **/ext** path is only available if you are ingesting real-time data using RESTful or gRPC protocols.**
 
-   For example see `Iot Solution Documentation usig gRPc <https://iotsolution-grpc-3f10.readthedocs.io/en/latest/kube.html#nginx-ingress-iotsolution-grpc-3f10-yml>`_
+   For example see `Iot Solution Documentation usig gRPC <https://iotsolution-grpc-3f10.readthedocs.io/en/latest/kube.html#nginx-ingress-iotsolution-grpc-3f10-yml>`_
+
+   And,  `Iot Solution Documentation usig REST <https://iotsolution-restapi-3f10.readthedocs.io/en/latest/kube.html#nginx-ingress-iotsolution-restapi-3f10-yml>`_
 
 .. list-table::
 
