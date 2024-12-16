@@ -235,6 +235,10 @@ In the above **nginx-ingress-iotsolution-3f10.yml** two NGINX paths are defined:
 
    The only port that is exposed is the Ngnix ingress controller port 80 for http or 443 for https.
        
+If you have applied the ingress YAML your kubernetes setup should look similar to the figure below:
+
+.. figure:: kubeall.png
+   :scale: 70%
 
 How To Store Secure Passwords in Kubernetes
 -------------------
