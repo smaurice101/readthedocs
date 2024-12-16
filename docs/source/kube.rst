@@ -232,9 +232,9 @@ In the above **nginx-ingress-iotsolution-restapi-3f10.yml** two NGINX paths are 
 
        be properly load balanced by the Ingress service.  This service is to handle connection from the MQTT,
 
-       RESTful and gRPC protocols to the TML solution hat will stream the data to Kafka.  **In effect, you can 
+       RESTful and gRPC protocols to the TML solution hat will stream the data to Kafka.  
 
-       process data from an unlimited number of devices with this architecture.**
+       **In effect, you can process data from an unlimited number of devices with this architecture.**
 
        
 .. note::
