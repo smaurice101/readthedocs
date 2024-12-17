@@ -27,7 +27,7 @@ Watch The TSS Youtube Videos
        :ref:`Lets Start Building a TML Solution`
    * - **Scaling TML Solutions with Kubernetes** 
 
-     - `Youtube Video <https://www.youtube.com/watch?v=MEbmTXIQpVo>`_ See details here 
+     - `Youtube Video <https://youtu.be/dAsn9RLMPO8>`_ See details here 
 
        :ref:`Scaling TML Solutions with Kubernetes`
    * - **Storing Secure Passwords in Kubernetes**
