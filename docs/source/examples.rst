@@ -22,7 +22,6 @@ All examples simply follow the steps here :ref:`Lets Start Building a TML Soluti
        Data Used is here (unzip the file): `Demo Data <https://github.com/smaurice101/raspberrypi/blob/main/tml-airflow/data/IoTData.zip>`_
    * - 2. :ref:`Real-Time IoT Data Preprocessing With Secondary Preprocessing and With Map Example`
 
-
        This will process IoT data for anomalies, stream the results to a dashboard,
 
        but will also perform a **secondary processing** using 
@@ -34,6 +33,26 @@ All examples simply follow the steps here :ref:`Lets Start Building a TML Soluti
        solution documentation on Readthdocs, and auto-commit your solution
 
        to GitHub.
+   * - 2b. :ref:`Real-Time IoT Data Preprocessing With RESTAPI, Secondary Preprocessing and With Map Example`
+
+       This solution is the same as 2, BUT this will solution will ingest real-time data from a RESTAPI client.
+
+       To run this solution you must:
+       
+        1. Download the `IoTData.zip demo data <https://github.com/smaurice101/raspberrypi/blob/main/tml-airflow/data/IoTData.zip>`_
+
+        2. Download and Run the client `RESTAPI file <https://github.com/smaurice101/raspberrypi/blob/main/tml-airflow/dags/tml_client_RESTAPI_step_3_kafka_producetotopic.py>`_
+
+   * - 2c. :ref:`Real-Time IoT Data Preprocessing With gRPC, Secondary Preprocessing and With Map Example`
+
+       This solution is the same as 2, BUT this will solution will ingest real-time data from a gRPC client.
+
+       To run this solution you must:
+       
+        1. Download the `IoTData.zip demo data <https://github.com/smaurice101/raspberrypi/blob/main/tml-airflow/data/IoTData.zip>`_
+
+        2. Download and Run the client `gRPC file <https://github.com/smaurice101/raspberrypi/blob/main/tml-airflow/dags/tml_client_gRPC_step_3_kafka_producetotopic.py>`_
+
    * - 3. :ref:`Real-Time IoT Data Preprocessing and Machine Learning Example`
       
        This will process IoT data, and perform entity level machine learning (TML)
