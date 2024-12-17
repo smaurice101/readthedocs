@@ -9,7 +9,7 @@ All TML solutions can be scaled with Kubernetes to perform unlimited processing 
 Everytime you create a TML solution in the TSS - TSS will generate YAML files automatically.  These YAML files can be used immediately to scale your solution.
 
 .. tip::
-   Watch the YouTube Video: `here <https://www.youtube.com/watch?v=MEbmTXIQpVo>`_.
+   Watch the YouTube Video: `here <https://youtu.be/dAsn9RLMPO8>`_.
 
 .. important::
    You can scale your TML solution to process unlimited data with integration with PrivateGPT and Qdrant vector DB for fast AI. 
