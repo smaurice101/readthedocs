@@ -278,6 +278,8 @@ Step 2: Apply the Server Certificates to Kubernetes Cluster
 
    If you have a different host, then you will need to re-generate these certificates for your new host, replace tls.crt and tls.key with your your new keys.  **Note these keys are in 
    base64 format for security.**  To replace with your own hosts, just update the the `san.cnf file <https://github.com/smaurice101/raspberrypi/blob/main/tml-airflow/certs/san.cnf>`_
+   then `re-generate the certificates and keys following these steps <https://github.com/smaurice101/raspberrypi/blob/main/tml-airflow/certs/san-keycreationprocess.md>`_, and update the 
+   tls.crt and tls.key below (in base64 format) and re-apply to cluster.
 
 .. code-block::
 
