@@ -6593,6 +6593,7 @@ Example TML Solution Container Reference Architecture
 -----------------------------------------------
 
 .. figure:: solutioncontainer.png
+   :scale: 70%
 
 The above image shows a typical TML solution container
 
@@ -6665,6 +6666,7 @@ STEP 0. Go into **tml-airflow** folder
 Assuming you have the TSS container running following the steps here :ref:`TSS Docker Run Command` and logged in using the instructions here :ref:`How To Use the TML Solution Container` go into **DAG code editor** then:
 
    .. figure:: sol11.png
+      :scale: 70%
 
 STEP 0. **tml-airflow -> dags -> tml-solutions**
 ----------------------------------
@@ -6672,11 +6674,13 @@ STEP 0. **tml-airflow -> dags -> tml-solutions**
  You will see the following as shown in figure below
 
    .. figure:: sol1.png
+      :scale: 70%
 
 STEP 1. **Click the file: CREATETMLPROJECT.txt** - you will see the following as shown in figure below:
 ----------------------------------
 
    .. figure:: sol2.png
+      :scale: 70%
 
 STEP 1. **Type the name of your project** 
 ----------------------------------
@@ -6688,6 +6692,7 @@ Creating a Project
    You should use lowecase letters.  DO NOT ENTER ANY SPACES - Enter any name like **myawesometmlproject** then **PRESS SAVE**
 
    .. figure:: sol3.png
+      :scale: 70%
 
 .. note:: 
    All projects will be "appended" with parts of your READTHEDOCS token.  This is to ensure project uniqness on READTHEDOCS.
@@ -6700,6 +6705,7 @@ To confirm everything went ok go to the Github account:
    i.e. **/raspberrypi/tml-airflow/dags/tml-solutions/** you should see a folder for **myawesometmlproject-3f10**
 
    .. figure:: sol4.png
+      :scale: 70%
 
 Deleting a Project
 ----------------------------------
@@ -6727,6 +6733,7 @@ STEP 2. Click the folder: **myawesometmlproject-3f10**
  You will see the figure below - VOILA!
 
    .. figure:: sol5.png
+      :scale: 70%
 
 STEP 2. Confirm Your New Project Was Created in TSS and Committed to Github
 ----------------------------------
@@ -6738,6 +6745,7 @@ Then enter a filter: myawesometmlproject Click Enter.
 You should see all your DAGs (note if they don't show up just wait 30 seconds or so) - you should see figure below:
 
    .. figure:: sol6.png
+      :scale: 70%
 
 .. important::
    What did you just do?
@@ -6757,6 +6765,7 @@ Stopping a Running Project
 To stop a running project use the '.' then project name.
 
 .. figure:: dotproject.png
+   :scale: 70%
 
 Copying A Previous Project
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -6769,10 +6778,12 @@ Copying A Previous Project
    c. Voila! You just copied an older projec to a new one and saved the time in entering paramters in the DAGs.
 
 .. figure:: sol7.png
+   :scale: 70%
 
 To confirm the new project was properly copied repeat STEPS 4 - 6.  You should see your **myawesometmlproject2-3f10** committed to Github:
 
 .. figure:: sol8.png
+   :scale: 70%
 
 .. important:: 
    The documentation link **WILL ONLY be functional AFTER you run your project in TSS.**
@@ -6780,13 +6791,16 @@ To confirm the new project was properly copied repeat STEPS 4 - 6.  You should s
 Here are your new DAGs:
 
 .. figure:: sol9.png
+   :scale: 70%
 
 .. figure:: sol55.png
+   :scale: 70%
 
 .. tip::
    Check the logs for status updates: Go to **/raspberrypi/tml-airflow/logs/logs.txt**
 
 .. figure:: sol10.png
+   :scale: 70%
 
 .. tip::
    For details on the editor go to `Codemirror <https://codemirror.net/5/doc/manual.html#commands>`_
