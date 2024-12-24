@@ -6656,6 +6656,7 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
          triggerbuild(sname)
          ti = context['task_instance']
          ti.xcom_push(key="{}_RTD".format(sname), value="DONE")
+         print("INFO: Your Documentation will be found here: https://{}.readthedocs.io/en/latest".format(sname))
         except Exception as e:
          print("ERROR=",e)
 
