@@ -8,7 +8,7 @@ TSS is a revolutionary platform for building, enterprise-ready, process-driven, 
 
 Here is the TSS Screen:
 
-.. figure:: tsscreen.png
+.. figure:: tssscreen.png
    :scale: 60%
 
 TML solutions can process any real-time data from devices and systems. The real-time data are ingested using RESTful, gRPC, MQTT APIs or localfile on the file system. **All TML solutions are containerized with Docker (scale with Kubernetes), come with automated documentation about the solution, automated commits to Github for real-time logging, and automated real-time dashboard for visualization using websockets.**
