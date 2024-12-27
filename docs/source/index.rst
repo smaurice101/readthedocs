@@ -6,7 +6,7 @@ TML Solution Studio (TSS): NO-CODE TML Solution Development Using Real-Time Data
 
 TSS is a revolutionary platform for building, enterprise-ready, process-driven, advanced, scalable, intelligent real-time TML solutions **really fast** with :ref:`Pre-Written 10 Apache Airflow DAGs To Speed Up TML Solution Builds` - within minutes - what can take organizations up to 6 months to build. 
 
-Here is the TSS Screen:
+Here are the TSS Screens:
 
 .. figure:: tssscreen.png
    :scale: 60%
