@@ -26,7 +26,7 @@ TML Processes Real-Time Data Using Sliding Time Windows
 
 .. attention::
 
-   * TML performs in-memory processing of data in the Kafka Topic using TWO components across all sliding time windows
+   * TML performs in-memory processing of data in the Kafka Topic using TWO components across all sliding time windows.
      See: :ref:`STEP 4: Preprocesing Data: tml-system-step-4-kafka-preprocess-dag`
    * REST API connect MAADSTML python script to MAADS-VIPER
    * 35+ different processing types: min, max, dataage, timediff, variance, anomaly prediction, outlier detection, etc…
@@ -44,7 +44,7 @@ TML Machine Learning  Using Sliding Time Windows
    * TML performs in-memory machine learning of data in the Kafka Topic by joining data streams using THREE components across all sliding time windows:   
    * REST API connect MAADSTML python script to MAADS-VIPER and MAADS-HPDE
    * 5 different algorithm types: logistic regression, linear regression, gradient boosting, neural networks, ridge regression
-   * Apache Kafka is the central source of both input and output data for estimated parameters – no external real-time database needed
+   * Apache Kafka is the central source of both input and output data for estimated parameters – no external real-time database needed.
      See :ref:`STEP 5: Entity Based Machine Learning : tml-system-step-5-kafka-machine-learning-dag`
    * TML auto-creates individual machine learning models for each Device at the “entity” level and joins datastreams 1-3 for each device and user specifies 
    * “Dependent” variable streams, and “Independent” variables streams
