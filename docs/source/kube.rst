@@ -487,6 +487,19 @@ NVIDIA GPU On Windows WSL
 
           sudo apt-get install cuda-toolkit 
 
+   7.1 If you run into issue you can run
+
+       .. code-block::
+
+          wget https://developer.download.nvidia.com/compute/cuda/repos/wsl-ubuntu/x86_64/cuda-keyring_1.1-1_all.deb
+          
+          sudo dpkg -i cuda-keyring_1.1-1_all.deb
+
+          sudo apt-get update
+
+          sudo apt-get -y install cuda-toolkit-12-5
+
+
    8. .. code-block:: 
 
           sudo apt update && sudo apt install -y nvidia-docker2
