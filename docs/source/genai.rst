@@ -205,7 +205,7 @@ The privateGPT is also integrated with `Qdrant Vector DB <https://qdrant.tech/>`
 .. tip::
    After running the container, to access the Qdrant dashboard enter the following URL in your browser:
 
-    .. code-block:::
+    .. code-block::
 
         http://localhost:6333/dashboard
    
