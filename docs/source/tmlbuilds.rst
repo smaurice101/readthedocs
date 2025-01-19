@@ -2120,8 +2120,7 @@ STEP 3c: Produce Data Using gRPC: tml-read-gRPC-step-3-kafka-producetotopic-dag
            sd = context['dag'].dag_id
            sname=context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_solutionname".format(sd))
     
-           VIPERTOKEN = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_VIPERTOKEN".format(sname))                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
-           VIPERHOST = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_VIPERHOSTPRODUCE".format(sname))
+           VIPERTOKEN = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_VIPERTOKEN".format(sname))                                                 VIPERHOST = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_VIPERHOSTPRODUCE".format(sname))
            VIPERPORT = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_VIPERPORTPRODUCE".format(sname))
            HTTPADDR = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_HTTPADDR".format(sname))
     
@@ -2400,7 +2399,7 @@ STEP 3d: Produce Data Using LOCALFILE: tml-read-LOCALFILE-step-3-kafka-produceto
       'producerid' : 'iotsolution',   # <<< *** Change as needed   
       'topics' : 'iot-raw-data', # *************** This is one of the topic you created in SYSTEM STEP 2
       'identifier' : 'TML solution',   # <<< *** Change as needed   
-      'inputfile' : '/rawdata/IoTData.txt',  # <<< ***** replace ?  to input file name to read. NOTE this data file should be JSON messages per line and stored in the HOST folder mapped to /rawdata folder 
+      'inputfile' : '/rawdatademo/IoTData.txt',  # <<< ***** replace ?  to input file name to read. NOTE this data file should be JSON messages per line and stored in the HOST folder mapped to /rawdata folder 
       'delay' : '7000', # << ******* 7000 millisecond maximum delay for VIPER to wait for Kafka to return confirmation message is received and written to topic
       'topicid' : '-999', # <<< ********* do not modify  
       'sleep' : 0.15, # << Control how fast data streams - if 0 - the data will stream as fast as possible - BUT this may cause connecion reset by peer 
@@ -2542,7 +2541,8 @@ Producing Data Using a Local File
 
 .. important:: 
     If you are producing data by reading from a local file, you must ensure that when you run the :ref:`TSS Docker Run Command` that you map a volume on your 
-    host system to the **rawdata** folder in the container.  For example, you need add 1. to the docker run command:
+    host system to the **rawdata** folder in the container; then change the **inputfile** to /rawdata/<your filename>  For example, you need add **-v <path to a 
+    local folder on your machine>:/rawdata**. to the docker run command:
 
      1. **-v <path to a local folder on your machine>:/rawdata**
 
