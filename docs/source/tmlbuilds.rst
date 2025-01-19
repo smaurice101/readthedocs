@@ -4472,11 +4472,17 @@ There are 5 file outputs from STEP 5 stored in the folder **fullpathtotrainingda
    * - **StreamConsumer_topicid53.csv**
      - Training dataset
    * - **StreamConsumer_topicid53_json_.info**
-     - Information about the trained algorithm.  This is shown below :ref:`Entity 53 Trained Algorithm Information`
+     - Information about the trained algorithm.  
+
+       This is shown below :ref:`Entity 53 Trained Algorithm Information`
    * - **StreamConsumer_topicid53_json_predictions.csv** 
      - The prediction data using the test data.
    * - **StreamConsumer_topicid53_jsonlgt**
-     - The ACTUAL alorithm used by Step 6 for predictions.  This file is encrypted.  **This is the MOST important file.**
+     - The ACTUAL alorithm used by Step 6 for predictions.  
+
+       This file is encrypted.  
+
+       **This is the MOST important file.**
    * - **StreamConsumer_topicid53_jsonlgt_.param**
      - Parameter estimates.
 
