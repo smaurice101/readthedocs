@@ -6094,8 +6094,8 @@ TML, PrivateGPT and Qdrant Example Scenarios:
 """""""""""""""""""""""""""""""""""""""""""""
 
 1. You can map local folders to the /rawdata folder and store your files (TEXT or PDF) as subfolders.  
- a. For example: docfolder='mylog1,mylog2', these two folders would be subfolders in the local folder mapped to /rawdata
-  i. The contents of these folders would be ingested into Qdrant Vector DB
+  a. For example: docfolder='mylog1,mylog2', these two folders would be subfolders in the local folder mapped to /rawdata
+   i. The contents of these folders would be ingested into Qdrant Vector DB
 
 2. These folder will automatically rel-loaded every **docfolderingestinterval** seconds.  
    For example, if you want to analyse log files, then if **docfolderingestinterval=60**, these folders will be ingested every 60 seconds
@@ -6103,9 +6103,10 @@ TML, PrivateGPT and Qdrant Example Scenarios:
 3. If **useidentifierinprompt** is 1, then TML will add the **Identifier** as part of the prompt.  For example, if you are analysing IP addresses
    for anomalies, and compute an anomaly score, you can further complement this score by looking in to log files, to see if this IP address has 
    authentication failures, which may indicate this IP address is a HACKING attempt.
- a. You can even add a placeholder for identifier in the prompt by adding **--identifier--**.  For example, **promot=Does the following --identifier-- have any errors in the logs?** TML will replace --identifier-- is the real-time IP address.
+  a. You can even add a placeholder for identifier in the prompt by adding **--identifier--**.  For example, **promot=Does the following --identifier-- have any 
+     errors in the logs?** TML will replace --identifier-- is the real-time IP address.
     
-
+This way, you can use TML, privateGPT and Qdrant for powerful analysis of documents, by cross-referencing and meshing information together to get greater real-time insights from your real-time data.
 
 STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
