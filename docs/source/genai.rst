@@ -3,6 +3,10 @@ TML and Generative AI
 
 TML uses the `privateGPT container <https://hub.docker.com/r/maadsdocker/tml-privategpt-with-gpu-nvidia-amd64>` for secure, fast, and distributed, AI. This container is dependent on the NVidia GPU.
 
+.. note::
+   The privateGPT container uses the `mistralai_mistral-7b-instruct-v0.2 >https://huggingface.co/TheBloke/Mistral-7B-Instruct-v0.2-GGUF>` from `Mistral AI 
+   <https://mistral.ai/>`
+
 TML solutions can be built to access GPT technology in real-time using the `MAADSTML python library <https://pypi.org/project/maadstml/>`_ functions:
 
 .. list-table::
@@ -43,7 +47,7 @@ These are the following:
 
  2. Use Qdrant vector DB, to use local documents, for querying with GenAI
 
- 3. Scale GenAI with privateGPT for secure, local, and quality analysis.  
+ 3. Scale GenAI with privateGPT for secure, local, and quality AI analysis.  
 
 Private GPT Container
 --------------------
