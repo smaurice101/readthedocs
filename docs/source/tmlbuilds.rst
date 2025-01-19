@@ -4466,6 +4466,7 @@ All entity level machine learning models are stored in the container folder spec
 There are 5 file outputs from STEP 5 stored in the folder **fullpathtotrainingdata**.  For example, for **Entity 53 associated wth DSN:AC000W020485383** here are the output files: 
 
 .. list-table::
+
    * - **Filename**
      - **Description**
    * - **StreamConsumer_topicid53.csv**
@@ -4942,7 +4943,7 @@ Machine Learning Prediction Sample JSON Output
 Here is the table explaining the fields in the prediction JSON.
 
 .. list-table::
-
+   
    * - **JSON Field**
      - **Description** 
    * - Hyperprediction
