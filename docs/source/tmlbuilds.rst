@@ -6091,16 +6091,20 @@ Using Qdrant VectorDB for Local Document Analysis
 Users can search local documents to cross-reference the Identifier field in the :ref:`privateGPT Processing Explanation` 
 
 TML, PrivateGPT and Qdrant Example Scenarios:
+"""""""""""""""""""""""""""""""""""""""""""""
 
 1. You can map local folders to the /rawdata folder and store your files (TEXT or PDF) as subfolders.  
  a. For example: docfolder='mylog1,mylog2', these two folders would be subfolders in the local folder mapped to /rawdata
   i. The contents of these folders would be ingested into Qdrant Vector DB
+
 2. These folder will automatically rel-loaded every **docfolderingestinterval** seconds.  
    For example, if you want to analyse log files, then if **docfolderingestinterval=60**, these folders will be ingested every 60 seconds
+
 3. If **useidentifierinprompt** is 1, then TML will add the **Identifier** as part of the prompt.  For example, if you are analysing IP addresses
    for anomalies, and compute an anomaly score, you can further complement this score by looking in to log files, to see if this IP address has 
    authentication failures, which may indicate this IP address is a HACKING attempt.
-
+ a. You can even add a placeholder for identifier in the prompt by adding **--identifier--**.  For example, **promot=Does the following --identifier-- have any errors in the logs?** TML will replace --identifier-- is the real-time IP address.
+    
 
 
 STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
