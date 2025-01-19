@@ -4453,6 +4453,62 @@ Machine Learning Trained Model Sample JSON Output: Explanations
    * - Offset
      - The offset of this json in Kafka: 59
 
+TML Physical Location of Machine Learning Models
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+All entity level machine learning models are stored in the container folder specified in **fullpathtotrainingdata** in Step 5.
+
+.. important::
+   Step 6 task uses the trained models in this folder for entity level predictions.
+
+   Therefore, in Step 6 below, the **pathtoalgos** must be the same as **fullpathtotrainingdata** in Step 5.
+
+There are 5 file outputs from STEP 5 stored in the folder **fullpathtotrainingdata**.  For example, for **Entity 53 associated wth DSN:AC000W020485383** here are the output files: 
+
+.. list-table::
+   * - **Filename**
+     - **Description**
+   * - **StreamConsumer_topicid53.csv**
+     - Training dataset
+   * - **StreamConsumer_topicid53_json_.info**
+     - Information about the trained algorithm.  This is shown below :ref:`Entity 53 Trained Algorithm Information`
+   * - **StreamConsumer_topicid53_json_predictions.csv** 
+     - The prediction data using the test data.
+   * - **StreamConsumer_topicid53_jsonlgt**
+     - The ACTUAL alorithm used by Step 6 for predictions.  This file is encrypted.  **This is the MOST important file.**
+   * - **StreamConsumer_topicid53_jsonlgt_.param**
+     - Parameter estimates.
+
+Entity 53 Trained Algorithm Information
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The JSON below is the information on the trained algorithm: **"Algo": "StreamConsumer_topicid53_jsonlgt"**, it's name is **"MachineLearningAlgorithm": "Logistic Regression"**.  The independent variables are in the **Fieldnames**, the **training dataset** is in the filename:
+**/Viper-ml/viperlogs/iotlogistic/StreamConsumer_topicid53.csv**
+
+Note that the training dataset is normalizied using minmax scaler.  The parameter estimates are in the field: **"ParameterEstimates"**
+
+.. code-block:: json
+    
+    {
+     "Algokey": "StreamConsumer_topicid53_json",
+     "Algo": "StreamConsumer_topicid53_jsonlgt",
+     "Forecastaccuracy": 1,
+     "DependentVariable": "failure_prob",
+     "Filename": "/Viper-ml/viperlogs/iotlogistic/StreamConsumer_topicid53.csv",
+     "Fieldnames": "Date,topicid53_Power_preprocessed_AnomProb",
+     "TestResultsFile": "/Viper-ml/viperlogs/iotlogistic/StreamConsumer_topicid53_json_predictions.csv",
+     "Deployed": 1,
+     "DeployedTo": "Local Machine Deploy Folder",
+     "Created": "2025-01-19T22:39:58.766388441Z",
+     "Fullpathtomodels": "/Viper-ml/viperlogs/iotlogistic",
+     "Identifier": "Power~Power-(mW)~iot-preprocess~uid:metadata.dsn,subtopic:metadata.property_name (Power),value:datapoint.value,ide> "AccuracyThreshold": 0.55,
+     "Minmax": "27.555:82.016",
+     "MachineLearningAlgorithm": "Logistic Regression",
+     "ParameterEstimates": "-3.4493501,9.3446499",
+     "HasConstantTerm": 1
+    }
+
+
 STEP 6: Entity Based Predictions: tml-system-step-6-kafka-predictions-dag
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
