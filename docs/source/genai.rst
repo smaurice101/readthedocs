@@ -49,6 +49,9 @@ These are the following:
 
  3. Scale GenAI with privateGPT for secure, local, and quality AI analysis.  
 
+.. tip::
+   Take a look here :ref:`TML, PrivateGPT and Qdrant Example Scenarios` for more information.
+
 Private GPT Container
 --------------------
 
