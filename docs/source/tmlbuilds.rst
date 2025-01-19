@@ -4489,8 +4489,11 @@ There are 5 file outputs from STEP 5 stored in the folder **fullpathtotrainingda
 Entity 53 Trained Algorithm Information
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The JSON below is the information on the trained algorithm: **"Algo": "StreamConsumer_topicid53_jsonlgt"**, it's name is **"MachineLearningAlgorithm": "Logistic Regression"**.  The independent variables are in the **Fieldnames**, the **training dataset** is in the filename:
-**/Viper-ml/viperlogs/iotlogistic/StreamConsumer_topicid53.csv**
+# The JSON below is the information on the trained algorithm: **"Algo": "StreamConsumer_topicid53_jsonlgt"**
+# It's name is **"MachineLearningAlgorithm": "Logistic Regression"**.  
+# The independent variables are in the **Fieldnames**, 
+# The **training dataset** is in the filename:
+  **/Viper-ml/viperlogs/iotlogistic/StreamConsumer_topicid53.csv**
 
 Note that the training dataset is normalizied using minmax scaler.  The parameter estimates are in the field: **"ParameterEstimates"**
 
