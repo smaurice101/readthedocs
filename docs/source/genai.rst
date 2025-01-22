@@ -1,7 +1,7 @@
 TML and Generative AI
 =================
 
-TML uses the `privateGPT container <https://hub.docker.com/r/maadsdocker/tml-privategpt-with-gpu-nvidia-amd64>`_ for secure, fast, and distributed, AI. This container is dependent on the NVidia GPU.
+TML uses privateGPT containers (discussed below) for secure, fast, and distributed, AI. This container is dependent on the NVidia GPU.
 
 .. note::
    TML Solution developers have 4 privateGPT container options.  These range from the small to large models with varying GPU memory requirements.
@@ -13,11 +13,11 @@ TML uses the `privateGPT container <https://hub.docker.com/r/maadsdocker/tml-pri
    * - TML-privateGPT Container
      - LLM Model
      - Embedding Model
-     - GPU Suggested Requirement
+     - GPU Suggested Requirements
    * - `Basic Model Verion 1 <https://hub.docker.com/r/maadsdocker/tml-privategpt-with-gpu-nvidia-amd64>`_
      - `TheBloke/Mistral-7B-Instruct-v0.1-GGUF <https://huggingface.co/TheBloke/Mistral-7B-Instruct-v0.1-GGUF>`_
      - `BAAI/bge-small-en-v1.5 <https://huggingface.co/BAAI/bge-small-en-v1.5>`_
-     - #. VRAM/GPU 
+     - VRAM/GPU 
 
 
    The privateGPT container uses the `mistralai_mistral-7b-instruct-v0.2 <https://huggingface.co/TheBloke/Mistral-7B-Instruct-v0.2-GGUF>`_ from `Mistral AI 
