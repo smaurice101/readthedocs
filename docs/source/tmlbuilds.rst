@@ -5344,7 +5344,7 @@ STEP 9: PrivateGPT and Qdrant Integration: tml-system-step-9-privategpt_qdrant-d
 
 .. code-block:: PYTHON
    :emphasize-lines: 17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,
-                     37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57
+                     37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58
 
     from airflow.operators.python import PythonOperator
     from airflow.operators.bash import BashOperator
@@ -6087,7 +6087,7 @@ STEP 9 DAG Core Parameter Explanation
    * - pgpthost
      - This is the host where privateGPT is running i.e. http://127.0.0.1
    * - pgptport
-     - This is the port provateGPT is listening on i.e. 8001
+     - This is the port privateGPT is listening on i.e. 8001
    * - prompt
      - This the prompt for privateGPT. For example, 
   
@@ -6383,6 +6383,22 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
         sname=context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_solutionname".format(sd))
     
         kube=0
+        step9prompt=''
+        step9context=''
+        step9keyattribute=''
+        step9keyprocesstype=''
+        step9hyperbatch=''
+        step9vectordbcollectionname=''
+        step9concurrency=''
+        cudavisibledevices=''
+        step9docfolder=''
+        step9docfolderingestinterval=''
+        step9useidentifierinprompt=''
+        step5processlogic=''
+        step5independentvariables=''
+        step9searchterms=''
+        step9streamall=''
+    
         if "KUBE" in os.environ:
               if os.environ["KUBE"] == "1":
                  kube=1
@@ -6482,7 +6498,7 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
         FROMHOST = ""
         TOHOST = ""    
         CLIENTPORT = ""
-        
+        snamertd = sname.replace("_", "-")
         PRODUCETYPE = context['ti'].xcom_pull(task_ids='step_3_solution_task_producetotopic',key="{}_PRODUCETYPE".format(sname))
         TOPIC = context['ti'].xcom_pull(task_ids='step_3_solution_task_producetotopic',key="{}_TOPIC".format(sname))
         PORT = context['ti'].xcom_pull(task_ids='step_3_solution_task_producetotopic',key="{}_PORT".format(sname))
@@ -6596,6 +6612,9 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
         modelsearchtuner = context['ti'].xcom_pull(task_ids='step_5_solution_task_ml',key="{}_modelsearchtuner".format(sname))
         dependentvariable = context['ti'].xcom_pull(task_ids='step_5_solution_task_ml',key="{}_dependentvariable".format(sname))
         independentvariables = context['ti'].xcom_pull(task_ids='step_5_solution_task_ml',key="{}_independentvariables".format(sname))
+        if independentvariables:
+          step5independentvariables = independentvariables
+    
         rollbackoffsets = context['ti'].xcom_pull(task_ids='step_5_solution_task_ml',key="{}_rollbackoffsets".format(sname))
         topicid = context['ti'].xcom_pull(task_ids='step_5_solution_task_ml',key="{}_topicid".format(sname))
         consumefrom = context['ti'].xcom_pull(task_ids='step_5_solution_task_ml',key="{}_consumefrom".format(sname))
@@ -6605,7 +6624,9 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
         coeftoprocess = context['ti'].xcom_pull(task_ids='step_5_solution_task_ml',key="{}_coeftoprocess".format(sname))
         coefsubtopicnames = context['ti'].xcom_pull(task_ids='step_5_solution_task_ml',key="{}_coefsubtopicnames".format(sname))
         processlogic = context['ti'].xcom_pull(task_ids='step_5_solution_task_ml',key="{}_processlogic".format(sname))
-    
+        if processlogic:
+          step5processlogic = processlogic
+         
         if modelruns: 
             subprocess.call(["sed", "-i", "-e",  "s/--preprocess_data_topic--/{}/g".format(preprocess_data_topic), "/{}/docs/source/details.rst".format(sname)])
             subprocess.call(["sed", "-i", "-e",  "s/--ml_data_topic--/{}/g".format(ml_data_topic), "/{}/docs/source/details.rst".format(sname)])
@@ -6719,17 +6740,57 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
         penabletls = context['ti'].xcom_pull(task_ids='step_9_solution_task_ai',key="{}_enabletls".format(sname))
         ppartition = context['ti'].xcom_pull(task_ids='step_9_solution_task_ai',key="{}_partition".format(sname))
         pprompt = context['ti'].xcom_pull(task_ids='step_9_solution_task_ai',key="{}_prompt".format(sname))
+        if pprompt:
+          step9prompt=pprompt
+    
+        pdocfolder = context['ti'].xcom_pull(task_ids='step_9_solution_task_ai',key="{}_docfolder".format(sname))
+        if pdocfolder:
+          step9docfolder=pdocfolder
+          doparse("/{}/docs/source/details.rst".format(sname), ["--docfolder--;{}".format(pdocfolder)])
+     
+        pdocfolderingestinterval = context['ti'].xcom_pull(task_ids='step_9_solution_task_ai',key="{}_docfolderingestinterval".format(sname))
+        if pdocfolderingestinterval:
+          step9docfolderingestinterval=pdocfolderingestinterval[1:]
+          doparse("/{}/docs/source/details.rst".format(sname), ["--docfolderingestinterval--;{}".format(step9docfolderingestinterval)])
+     
+        puseidentifierinprompt = context['ti'].xcom_pull(task_ids='step_9_solution_task_ai',key="{}_useidentifierinprompt".format(sname))
+        if puseidentifierinprompt:
+          step9useidentifierinprompt=puseidentifierinprompt[1:]
+          doparse("/{}/docs/source/details.rst".format(sname), ["--useidentifierinprompt--;{}".format(step9useidentifierinprompt)])
+     
         pcontext = context['ti'].xcom_pull(task_ids='step_9_solution_task_ai',key="{}_context".format(sname))
-        pjsonkeytogather = context['ti'].xcom_pull(task_ids='step_9_solution_task_ai',key="{}_jsonkeytogather".format(sname))
+        if pcontext:
+           step9context=pcontext
+        pjsonkeytogather = context['ti'].xcom_pull(task_ids='step_9_solution_task_ai',key="{}_jsonkeytogather".format(sname)) 
         pkeyattribute = context['ti'].xcom_pull(task_ids='step_9_solution_task_ai',key="{}_keyattribute".format(sname))
+        if pkeyattribute:
+          step9keyattribute=pkeyattribute
         pconcurrency = context['ti'].xcom_pull(task_ids='step_9_solution_task_ai',key="{}_concurrency".format(sname))
+        if pconcurrency:
+          step9concurrency=pconcurrency[1:]     
         pcuda = context['ti'].xcom_pull(task_ids='step_9_solution_task_ai',key="{}_cuda".format(sname))
+        if pcuda:
+         cudavisibledevices=pcuda[1:]     
         pcollection = context['ti'].xcom_pull(task_ids='step_9_solution_task_ai',key="{}_vectordbcollectionname".format(sname))    
+        if pcollection:
+          step9vectordbcollectionname=pcollection     
         pgpthost = context['ti'].xcom_pull(task_ids='step_9_solution_task_ai',key="{}_pgpthost".format(sname))
         pgptport = context['ti'].xcom_pull(task_ids='step_9_solution_task_ai',key="{}_pgptport".format(sname))
         pprocesstype = context['ti'].xcom_pull(task_ids='step_9_solution_task_ai',key="{}_keyprocesstype".format(sname))
+        if pprocesstype:
+          step9keyprocesstype=pprocesstype 
         hyperbatch = context['ti'].xcom_pull(task_ids='step_9_solution_task_ai',key="{}_hyperbatch".format(sname))
-              
+        if hyperbatch:
+          step9hyperbatch=hyperbatch[1:]
+        psearchterms = context['ti'].xcom_pull(task_ids='step_9_solution_task_ai',key="{}_searchterms".format(sname))
+        if psearchterms:
+          step9searchterms=psearchterms
+          doparse("/{}/docs/source/details.rst".format(sname), ["--searchterms--;{}".format(psearchterms)])
+        pstreamall = context['ti'].xcom_pull(task_ids='step_9_solution_task_ai',key="{}_streamall".format(sname))
+        if pstreamall:
+          step9streamall=pstreamall[1:]
+          doparse("/{}/docs/source/details.rst".format(sname), ["--streamall--;{}".format(step9streamall)])
+         
         if len(CLIENTPORT) > 1:
           doparse("/{}/docs/source/operating.rst".format(sname), ["--clientport--;{}".format(TMLCLIENTPORT[1:])])
           dockerrun = """docker run -d -p {}:{} -p {}:{} -p {}:{} -p {}:{} \\
@@ -7000,12 +7061,18 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
           kcmd2=tsslogging.genkubeyaml(sname,containername,TMLCLIENTPORT[1:],solutionairflowport[1:],solutionvipervizport[1:],solutionexternalport[1:],
                            sd,os.environ['GITUSERNAME'],os.environ['GITREPOURL'],chipmain,os.environ['DOCKERUSERNAME'],
                            externalport[1:],kafkacloudusername,mqttusername,airflowport[1:],vipervizport[1:],
-                           step4maxrows,step4bmaxrows,step5rollbackoffsets,step6maxrows,step1solutiontitle,step1description,step9rollbackoffset,kubebroker,kafkabroker,PRODUCETYPE)
+                           step4maxrows,step4bmaxrows,step5rollbackoffsets,step6maxrows,step1solutiontitle,step1description,
+                           step9rollbackoffset,kubebroker,kafkabroker,PRODUCETYPE,step9prompt,step9context,step9keyattribute,step9keyprocesstype,
+                           step9hyperbatch[1:],step9vectordbcollectionname,step9concurrency[1:],cudavisibledevices[1:],
+                           step9docfolder,step9docfolderingestinterval[1:],step9useidentifierinprompt[1:],step5processlogic,step5independentvariables,step9searchterms,step9streamall)
         else: 
           kcmd2=tsslogging.genkubeyamlnoext(sname,containername,TMLCLIENTPORT[1:],solutionairflowport[1:],solutionvipervizport[1:],solutionexternalport[1:],
                            sd,os.environ['GITUSERNAME'],os.environ['GITREPOURL'],chipmain,os.environ['DOCKERUSERNAME'],
                            externalport[1:],kafkacloudusername,mqttusername,airflowport[1:],vipervizport[1:],
-                           step4maxrows,step4bmaxrows,step5rollbackoffsets,step6maxrows,step1solutiontitle,step1description,step9rollbackoffset,kubebroker,kafkabroker)
+                           step4maxrows,step4bmaxrows,step5rollbackoffsets,step6maxrows,step1solutiontitle,step1description,step9rollbackoffset,
+                           kubebroker,kafkabroker,step9prompt,step9context,step9keyattribute,step9keyprocesstype,
+                           step9hyperbatch[1:],step9vectordbcollectionname,step9concurrency[1:],cudavisibledevices[1:],
+                           step9docfolder,step9docfolderingestinterval[1:],step9useidentifierinprompt[1:],step5processlogic,step5independentvariables,step9searchterms,step9streamall)                 
     
         doparse("/{}/docs/source/kube.rst".format(sname), ["--solutionnamecode--;{}".format(kcmd2)])
     
@@ -7057,7 +7124,7 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
         # Kick off shell script 
         #tsslogging.git_push("/{}".format(sname),"For solution details GOTO: https://{}.readthedocs.io".format(sname),sname)
         
-         subprocess.call("/tmux/gitp.sh {} 'For solution details GOTO: https://{}.readthedocs.io'".format(sname,sname), shell=True)
+         subprocess.call("/tmux/gitp.sh {} 'For solution details GOTO: https://{}.readthedocs.io'".format(sname,snamertd), shell=True)
         
          rtd = context['ti'].xcom_pull(task_ids='step_10_solution_task_document',key="{}_RTD".format(sname))
     
@@ -7094,7 +7161,7 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
          triggerbuild(sname)
          ti = context['task_instance']
          ti.xcom_push(key="{}_RTD".format(sname), value="DONE")
-         print("INFO: Your Documentation will be found here: https://{}.readthedocs.io/en/latest".format(sname))
+         print("INFO: Your Documentation will be found here: https://{}.readthedocs.io/en/latest".format(snamertd))
         except Exception as e:
          print("ERROR=",e)
 
