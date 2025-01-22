@@ -14,11 +14,34 @@ TML uses privateGPT containers (discussed below) for secure, fast, and distribut
      - LLM Model
      - Embedding Model
      - GPU Suggested Requirements
-   * - `Basic Model Verion 1 <https://hub.docker.com/r/maadsdocker/tml-privategpt-with-gpu-nvidia-amd64>`_
+   * - `Basic Model Version 1 <https://hub.docker.com/r/maadsdocker/tml-privategpt-with-gpu-nvidia-amd64>`_
      - `TheBloke/Mistral-7B-Instruct-v0.1-GGUF <https://huggingface.co/TheBloke/Mistral-7B-Instruct-v0.1-GGUF>`_
      - `BAAI/bge-small-en-v1.5 <https://huggingface.co/BAAI/bge-small-en-v1.5>`_
-     - #. VRAM
-       #. SSD
+     - #. Suggested VRAM/GPU should be around 20GB
+       #. SSD 2-3 TB
+       #. Suggested Machine: On-demand 1x NVIDIA A10 
+       #. Suggested Cost GPU/Hour: $0.75/GPU/h
+   * - `Mid Model Version 2 <https://hub.docker.com/r/maadsdocker/tml-privategpt-with-gpu-nvidia-amd64-v2>`_
+     - `mistralai/Mistral-7B-Instruct-v0.2 <https://huggingface.co/mistralai/Mistral-7B-Instruct-v0.2>`_
+     - `BAAI/bge-small-en-v1.5 <https://huggingface.co/BAAI/bge-small-en-v1.5>`_
+     - #. Suggested VRAM/GPU should be around 24GB
+       #. SSD 2-3 TB
+       #. Suggested Machine: On-demand 1x NVIDIA A10 
+       #. Suggested Cost GPU/Hour: $0.75/GPU/h
+   * - `Advanced Model Version 3 <https://hub.docker.com/r/maadsdocker/tml-privategpt-with-gpu-nvidia-amd64-v3>`_
+     - `mistralai/Mistral-7B-Instruct-v0.3 <https://huggingface.co/mistralai/Mistral-7B-Instruct-v0.3>`_
+     - `BAAI/bge-small-en-v1.5 <https://huggingface.co/BAAI/bge-small-en-v1.5>`_
+     - #. Suggested VRAM/GPU should be around 24GB
+       #. SSD 2-3 TB
+       #. Suggested Machine: On-demand 1x NVIDIA A10 
+       #. Suggested Cost GPU/Hour: $0.75/GPU/h
+   * - `Large Advanced Model Version 3 <https://hub.docker.com/r/maadsdocker/tml-privategpt-with-gpu-nvidia-amd64-v3-large>`_
+     - `mistralai/Mistral-7B-Instruct-v0.3 <https://huggingface.co/mistralai/Mistral-7B-Instruct-v0.3>`_
+     - `BAAI/bge-m3 <https://huggingface.co/BAAI/bge-m3>`_
+     - #. Suggested VRAM/GPU should be around 40GB
+       #. SSD 2-3 TB
+       #. Suggested Machine: On-demand 1x NVIDIA A10 
+       #. Suggested Cost GPU/Hour: $0.80 - $1.30/GPU/h
 
 TML solutions can be built to access GPT technology in real-time using the `MAADSTML python library <https://pypi.org/project/maadstml/>`_ functions:
 
