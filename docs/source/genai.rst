@@ -8,7 +8,7 @@ TML uses privateGPT containers (discussed below) for secure, fast, and distribut
 
    These models and containers are listed in the table below.
 
-.. list-table::
+.. list-tabel::
 
    * - TML-privateGPT Container
      - LLM Model
