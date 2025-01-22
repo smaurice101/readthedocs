@@ -10,10 +10,10 @@ TML uses privateGPT containers (discussed below) for secure, fast, and distribut
 
 .. list-table::
 
-   * - TML-privateGPT Container
-     - LLM Model
-     - Embedding Model
-     - GPU Suggested Requirements
+   * - **TML-privateGPT Container**
+     - **LLM Model**
+     - **Embedding Model**
+     - **GPU Suggested Requirements**
    * - `Basic Model Version 1 <https://hub.docker.com/r/maadsdocker/tml-privategpt-with-gpu-nvidia-amd64>`_
      - `TheBloke/Mistral-7B-Instruct-v0.1-GGUF <https://huggingface.co/TheBloke/Mistral-7B-Instruct-v0.1-GGUF>`_
      - `BAAI/bge-small-en-v1.5 <https://huggingface.co/BAAI/bge-small-en-v1.5>`_
