@@ -1,7 +1,11 @@
 TML and Generative AI
 =================
 
-TML uses privateGPT containers (discussed below) for secure, fast, and distributed, AI. These containers are dependent on the NVidia GPU.
+TML uses privateGPT containers (discussed below) for secure, fast, and distributed, AI. 
+
+.. attention::
+    #. These containers are dependent on the NVidia GPU.
+    #. They also require `Qdrant Vector DB <https://qdrant.tech/>`_
 
 .. note::
    TML Solution developers have 4 privateGPT container options.  These range from the small to large models with varying GPU memory requirements.
