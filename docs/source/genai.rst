@@ -40,7 +40,7 @@ TML uses privateGPT containers (discussed below) for secure, fast, and distribut
      - `BAAI/bge-m3 <https://huggingface.co/BAAI/bge-m3>`_
      - #. Suggested VRAM/GPU should be around 40GB
        #. SSD 2-3 TB
-       #. Suggested Machine: On-demand 1x NVIDIA A10 
+       #. Suggested Machine: On-demand 1x NVIDIA A6000 or A100
        #. Suggested Cost GPU/Hour: $0.80 - $1.30/GPU/h
 
 TML solutions can be built to access GPT technology in real-time using the `MAADSTML python library <https://pypi.org/project/maadstml/>`_ functions:
