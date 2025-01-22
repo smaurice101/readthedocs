@@ -18,6 +18,7 @@ TML uses privateGPT containers (discussed below) for secure, fast, and distribut
      - `TheBloke/Mistral-7B-Instruct-v0.1-GGUF <https://huggingface.co/TheBloke/Mistral-7B-Instruct-v0.1-GGUF>`_
      - `BAAI/bge-small-en-v1.5 <https://huggingface.co/BAAI/bge-small-en-v1.5>`_
      - #. VRAM
+       #. SSD
 
 TML solutions can be built to access GPT technology in real-time using the `MAADSTML python library <https://pypi.org/project/maadstml/>`_ functions:
 
