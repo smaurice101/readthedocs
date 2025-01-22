@@ -17,7 +17,7 @@ TML uses the `privateGPT container <https://hub.docker.com/r/maadsdocker/tml-pri
    * - `Basic Model Verion 1 <https://hub.docker.com/r/maadsdocker/tml-privategpt-with-gpu-nvidia-amd64>`_
      - `TheBloke/Mistral-7B-Instruct-v0.1-GGUF <https://huggingface.co/TheBloke/Mistral-7B-Instruct-v0.1-GGUF>`_
      - `BAAI/bge-small-en-v1.5 <https://huggingface.co/BAAI/bge-small-en-v1.5>`_
-     - *. VRAM/GPU 
+     - #. VRAM/GPU 
 
 
    The privateGPT container uses the `mistralai_mistral-7b-instruct-v0.2 <https://huggingface.co/TheBloke/Mistral-7B-Instruct-v0.2-GGUF>`_ from `Mistral AI 
