@@ -888,7 +888,7 @@ TML Dag Parameter Changes To Be Made For: solution_preprocessing_ml_dag-myawesom
       
        **Current Value:** 'processlogic' : ''
      
-       **New Value:**  processlogic': 'classification_name=failure_prob:Power_preprocessed_Trend=-n,0:Voltage_preprocessed_Trend=-n,0,Current_preprocessed_Trend=-n,0'
+       **New Value:**  processlogic': 'classification_name=failure_prob:Power_preprocessed_Trend=-n,0:Voltage_preprocessed_Trend=-n,0:Current_preprocessed_Trend=-n,0'
    * - **TML Dag:** tml_system_step_6_kafka_predictions_dag-myawesometmlsolutionml-3f10.py
       
        **Current Value:** 'consumefrom' : ''
