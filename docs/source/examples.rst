@@ -878,7 +878,7 @@ TML Dag Parameter Changes To Be Made For: solution_preprocessing_ml_dag-myawesom
       
        **Current Value:** 'independentvariables': ''
      
-       **New Value:** 'independentvariables': 'Power_preprocessed_AnomProb'
+       **New Value:** 'independentvariables': 'Power_preprocessed_Trend,Voltage_preprocessed_Trend,Current_preprocessed_Trend'
    * - **TML Dag:** tml_system_step_5_kafka_machine_learning_dag-myawesometmlsolutionml-3f10.py
       
        **Current Value:** 'fullpathtotrainingdata' : '/Viper-ml/viperlogs/<choose foldername>', 
@@ -888,7 +888,7 @@ TML Dag Parameter Changes To Be Made For: solution_preprocessing_ml_dag-myawesom
       
        **Current Value:** 'processlogic' : ''
      
-       **New Value:**  processlogic': 'classification_name=failure_prob:Power_preprocessed_AnomProb=55,n'
+       **New Value:**  processlogic': 'classification_name=failure_prob:Power_preprocessed_Trend=-n,0:Voltage_preprocessed_Trend=-n,0,Current_preprocessed_Trend=-n,0'
    * - **TML Dag:** tml_system_step_6_kafka_predictions_dag-myawesometmlsolutionml-3f10.py
       
        **Current Value:** 'consumefrom' : ''
