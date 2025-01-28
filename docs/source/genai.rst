@@ -12,6 +12,9 @@ TML uses privateGPT containers (discussed below) for secure, fast, and distribut
 
    These models and containers are listed in the table below.
 
+.. tip::
+   These models all follow a llama2 prompt style.  See `here <https://www.llama.com/docs/model-cards-and-prompt-formats/meta-llama-2/>`_ for more details.
+
 .. list-table::
 
    * - **TML-privateGPT Container**
