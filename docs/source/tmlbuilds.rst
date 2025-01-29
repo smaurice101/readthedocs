@@ -5403,6 +5403,8 @@ STEP 9: PrivateGPT and Qdrant Integration: tml-system-step-9-privategpt_qdrant-d
      'docfolderingestinterval': '900', # how often you want TML to RE-LOAD the files in docfolder - enter the number of SECONDS
      'useidentifierinprompt': '1', # If 1, this uses the identifier in the TML json output and appends it to prompt, If 0, it uses the prompt only    
      'searchterms': '192.168.--identifier--,authentication failure',
+     'temperature' : '0.1', # This value ranges between 0 and 1, it controls how conservative LLM model will be, if 0 very very, if 1 it will hallucinate
+     'vectorsearchtype' : 'Manhattan', # this is for the Qdrant Search algorithm.  it can be: Cosine, Euclid, Dot, or Manhattan
      'streamall': '1'
     }
     
@@ -5464,17 +5466,20 @@ STEP 9: PrivateGPT and Qdrant Integration: tml-system-step-9-privategpt_qdrant-d
           pgptcontainername = default_args['pgptcontainername']
           pgptport = int(default_args['pgptport'])
           cuda = int(default_args['CUDA_VISIBLE_DEVICES'])
+          temp = default_args['temperature']
+          vectorsearchtype = default_args['vectorsearchtype']
+     
           stopcontainers()
     #      buf="docker stop $(docker ps -q --filter ancestor={} )".format(pgptcontainername)
      #     subprocess.call(buf, shell=True)
           time.sleep(10)
           if '-no-gpu-' in pgptcontainername:       
-              buf = "docker run -d -p {}:{} --net=host --env PORT={} --env GPU=0 --env COLLECTION={} --env WEB_CONCURRENCY={} --env CUDA_VISIBLE_DEVICES={} {}".format(pgptport,pgptport,pgptport,collection,concurrency,cuda,pgptcontainername)       
+              buf = "docker run -d -p {}:{} --net=host --env PORT={} --env GPU=0 --env COLLECTION={} --env WEB_CONCURRENCY={} --env CUDA_VISIBLE_DEVICES={} --env temperature={} --env vectorsearchtype={} {}".format(pgptport,pgptport,pgptport,collection,concurrency,cuda,temperature,vectorsearchtype,pgptcontainername)       
           else: 
             if os.environ['TSS'] == "1":       
-              buf = "docker run -d -p {}:{} --net=host --gpus all -v /var/run/docker.sock:/var/run/docker.sock:z --env PORT={} --env TSS=1 --env GPU=1 --env COLLECTION={} --env WEB_CONCURRENCY={} --env CUDA_VISIBLE_DEVICES={} --env TOKENIZERS_PARALLELISM=false {}".format(pgptport,pgptport,pgptport,collection,concurrency,cuda,pgptcontainername)
+              buf = "docker run -d -p {}:{} --net=host --gpus all -v /var/run/docker.sock:/var/run/docker.sock:z --env PORT={} --env TSS=1 --env GPU=1 --env COLLECTION={} --env WEB_CONCURRENCY={} --env CUDA_VISIBLE_DEVICES={} --env TOKENIZERS_PARALLELISM=false --env temperature={} --env vectorsearchtype={} {}".format(pgptport,pgptport,pgptport,collection,concurrency,cuda,temperature,vectorsearchtype,pgptcontainername)
             else:
-              buf = "docker run -d -p {}:{} --net=bridge --gpus all -v /var/run/docker.sock:/var/run/docker.sock:z --env PORT={} --env TSS=0 --env GPU=1 --env COLLECTION={} --env WEB_CONCURRENCY={} --env CUDA_VISIBLE_DEVICES={} --env TOKENIZERS_PARALLELISM=false {}".format(pgptport,pgptport,pgptport,collection,concurrency,cuda,pgptcontainername)
+              buf = "docker run -d -p {}:{} --net=bridge --gpus all -v /var/run/docker.sock:/var/run/docker.sock:z --env PORT={} --env TSS=0 --env GPU=1 --env COLLECTION={} --env WEB_CONCURRENCY={} --env CUDA_VISIBLE_DEVICES={} --env TOKENIZERS_PARALLELISM=false --env temperature={} --env vectorsearchtype={} {}".format(pgptport,pgptport,pgptport,collection,concurrency,cuda,temperature,vectorsearchtype,pgptcontainername)
              
           v=subprocess.call(buf, shell=True)
           print("INFO STEP 9: PrivateGPT container.  Here is the run command: {}, v={}".format(buf,v))
@@ -5892,6 +5897,13 @@ STEP 9: PrivateGPT and Qdrant Integration: tml-system-step-9-privategpt_qdrant-d
               if os.environ['searchterms'] != '':
                 default_args['searchterms'] = os.environ['searchterms']
     
+           if 'step9temperature' in os.environ:
+              if os.environ['temperature'] != '':
+                default_args['temperature'] = os.environ['temperature']
+           if 'step9vectorsearchtype' in os.environ:
+              if os.environ['vectorsearchtype'] != '':
+                default_args['vectorsearchtype'] = os.environ['vectorsearchtype']
+    
            VIPERTOKEN = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_VIPERTOKEN".format(sname))
            VIPERHOST = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_VIPERHOSTPREPROCESSPGPT".format(sname))
            VIPERPORT = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_VIPERPORTPREPROCESSPGPT".format(sname))
@@ -5930,6 +5942,8 @@ STEP 9: PrivateGPT and Qdrant Integration: tml-system-step-9-privategpt_qdrant-d
            ti.xcom_push(key="{}_useidentifierinprompt".format(sname), value="_{}".format(default_args['useidentifierinprompt']))
            ti.xcom_push(key="{}_searchterms".format(sname), value="{}".format(default_args['searchterms']))
            ti.xcom_push(key="{}_streamall".format(sname), value="_{}".format(default_args['streamall']))
+           ti.xcom_push(key="{}_temperature".format(sname), value="_{}".format(default_args['temperature']))
+           ti.xcom_push(key="{}_vectorsearchtype".format(sname), value="{}".format(default_args['vectorsearchtype']))
         
     
            repo=tsslogging.getrepo()
@@ -5941,10 +5955,11 @@ STEP 9: PrivateGPT and Qdrant Integration: tml-system-step-9-privategpt_qdrant-d
            wn = windowname('ai',sname,sd)
            subprocess.run(["tmux", "new", "-d", "-s", "{}".format(wn)])
            subprocess.run(["tmux", "send-keys", "-t", "{}".format(wn), "cd /Viper-preprocess-pgpt", "ENTER"])
-           subprocess.run(["tmux", "send-keys", "-t", "{}".format(wn), "python {} 1 {} {}{} {} \"{}\" \"{}\" \"{}\" \"{}\" \"{}\" \"{}\" \"{}\" \"{}\" \"{}\" \"{}\" \"{}\" \"{}\" \"{}\" {}".format(fullpath,VIPERTOKEN, HTTPADDR, VIPERHOST, VIPERPORT[1:],
+           subprocess.run(["tmux", "send-keys", "-t", "{}".format(wn), "python {} 1 {} {}{} {} \"{}\" \"{}\" \"{}\" \"{}\" \"{}\" \"{}\" \"{}\" \"{}\" \"{}\" \"{}\" \"{}\" \"{}\" \"{}\" {} {} {}".format(fullpath,VIPERTOKEN, HTTPADDR, VIPERHOST, VIPERPORT[1:],
                            default_args['vectordbcollectionname'],default_args['concurrency'],default_args['CUDA_VISIBLE_DEVICES'],default_args['rollbackoffset'],
                            default_args['prompt'],default_args['context'],default_args['keyattribute'],default_args['keyprocesstype'],
-                           default_args['hyperbatch'],default_args['docfolder'],default_args['docfolderingestinterval'],default_args['useidentifierinprompt'],default_args['searchterms'],default_args['streamall']), "ENTER"])
+                           default_args['hyperbatch'],default_args['docfolder'],default_args['docfolderingestinterval'],
+                           default_args['useidentifierinprompt'],default_args['searchterms'],default_args['streamall'],default_args['temperature'],default_args['vectorsearchtype']), "ENTER"])
     
     if __name__ == '__main__':
         if len(sys.argv) > 1:
@@ -5976,6 +5991,8 @@ STEP 9: PrivateGPT and Qdrant Integration: tml-system-step-9-privategpt_qdrant-d
             useidentifierinprompt =  sys.argv[16]
             searchterms =  sys.argv[17]
             streamall =  sys.argv[18]
+            temperature = sys.argv[19]
+            vectorsearchtype = sys.argv[20]
             
             default_args['rollbackoffset']=rollbackoffset
             default_args['prompt'] = prompt
@@ -5993,6 +6010,8 @@ STEP 9: PrivateGPT and Qdrant Integration: tml-system-step-9-privategpt_qdrant-d
             default_args['useidentifierinprompt'] = useidentifierinprompt
             default_args['searchterms'] = searchterms
             default_args['streamall'] = streamall
+            default_args['temperature'] = temperature
+            default_args['vectorsearchtype'] = vectorsearchtype
     
             if "KUBE" not in os.environ:          
               v,buf=qdrantcontainer()
@@ -6170,6 +6189,22 @@ STEP 9 DAG Core Parameter Explanation
        If set to '1', all responses are streamed, if '0', 
  
        only response containing search terms are streamed.
+   * - temperature
+     - This determines how the LLM responds, it is a number
+
+       between 0 and 1. 
+
+       If 0, the response will be very conservative.
+
+       If 1, the LLM will hallucinate.  
+   * - vectorsearchtype
+     - This determines how similarity searches are performed
+
+       in the Qdrant vector DB. You must choose one of the
+
+       following: Cosine, Dot, Manhattan or Euclid.
+
+       `See Qdrant for more details <https://qdrant.tech/documentation/concepts/collections/>`_
 
 privateGPT Processing Explanation
 """""""""""""""""""""""""""""""""""
@@ -6398,6 +6433,8 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
         step5independentvariables=''
         step9searchterms=''
         step9streamall=''
+        step9temperature=''
+        step9vectorsearchtype=''
     
         if "KUBE" in os.environ:
               if os.environ["KUBE"] == "1":
@@ -6790,6 +6827,15 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
         if pstreamall:
           step9streamall=pstreamall
           doparse("/{}/docs/source/details.rst".format(sname), ["--streamall--;{}".format(pstreamall[1:])])
+        ptemperature = context['ti'].xcom_pull(task_ids='step_9_solution_task_ai',key="{}_temperature".format(sname))
+        if ptemperature:
+          step9temperature=ptemperature
+          doparse("/{}/docs/source/details.rst".format(sname), ["--temperature--;{}".format(ptemperature[1:])])
+         
+        pvectorsearchtype = context['ti'].xcom_pull(task_ids='step_9_solution_task_ai',key="{}_streamall".format(sname))
+        if pvectorsearchtype:
+          step9vectorsearchtype=pvectorsearchtype
+          doparse("/{}/docs/source/details.rst".format(sname), ["--vectorsearchtype--;{}".format(pvectorsearchtype)])
          
         if len(CLIENTPORT) > 1:
           doparse("/{}/docs/source/operating.rst".format(sname), ["--clientport--;{}".format(TMLCLIENTPORT[1:])])
@@ -7064,7 +7110,8 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
                            step4maxrows,step4bmaxrows,step5rollbackoffsets,step6maxrows,step1solutiontitle,step1description,
                            step9rollbackoffset,kubebroker,kafkabroker,PRODUCETYPE,step9prompt,step9context,step9keyattribute,step9keyprocesstype,
                            step9hyperbatch[1:],step9vectordbcollectionname,step9concurrency[1:],cudavisibledevices[1:],
-                           step9docfolder,step9docfolderingestinterval[1:],step9useidentifierinprompt[1:],step5processlogic,step5independentvariables,step9searchterms,step9streamall[1:])
+                           step9docfolder,step9docfolderingestinterval[1:],step9useidentifierinprompt[1:],step5processlogic,
+                           step5independentvariables,step9searchterms,step9streamall[1:],step9temperature[1:],step9vectorsearchtype)
         else: 
           kcmd2=tsslogging.genkubeyamlnoext(sname,containername,TMLCLIENTPORT[1:],solutionairflowport[1:],solutionvipervizport[1:],solutionexternalport[1:],
                            sd,os.environ['GITUSERNAME'],os.environ['GITREPOURL'],chipmain,os.environ['DOCKERUSERNAME'],
@@ -7072,7 +7119,8 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
                            step4maxrows,step4bmaxrows,step5rollbackoffsets,step6maxrows,step1solutiontitle,step1description,step9rollbackoffset,
                            kubebroker,kafkabroker,step9prompt,step9context,step9keyattribute,step9keyprocesstype,
                            step9hyperbatch[1:],step9vectordbcollectionname,step9concurrency[1:],cudavisibledevices[1:],
-                           step9docfolder,step9docfolderingestinterval[1:],step9useidentifierinprompt[1:],step5processlogic,step5independentvariables,step9searchterms,step9streamall[1:])                 
+                           step9docfolder,step9docfolderingestinterval[1:],step9useidentifierinprompt[1:],step5processlogic,
+                           step5independentvariables,step9searchterms,step9streamall[1:],step9temperature[1:],step9vectorsearchtype)                 
     
         doparse("/{}/docs/source/kube.rst".format(sname), ["--solutionnamecode--;{}".format(kcmd2)])
     
