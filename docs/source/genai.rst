@@ -37,7 +37,7 @@ TML uses privateGPT containers (discussed below) for secure, fast, and distribut
        #. Suggested Cost GPU/Hour: $0.75/GPU/h
    * - `Advanced Model Version 3 <https://hub.docker.com/r/maadsdocker/tml-privategpt-with-gpu-nvidia-amd64-v3>`_
      - `mistralai/Mistral-7B-Instruct-v0.3 <https://huggingface.co/mistralai/Mistral-7B-Instruct-v0.3>`_
-     - `BAAI/bge-small-en-v1.5 <https://huggingface.co/BAAI/bge-small-en-v1.5>`_
+     - `BAAI/bge-base-en-v1.5 <https://huggingface.co/BAAI/bge-base-en-v1.5>`_
      - #. Suggested VRAM/GPU should be around 24GB
        #. SSD 2-3 TB
        #. Suggested Machine: On-demand 1x NVIDIA A10 
