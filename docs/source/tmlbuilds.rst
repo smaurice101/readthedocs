@@ -6903,9 +6903,32 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
         doparse("/{}/docs/source/operating.rst".format(sname), ["--dockerrun--;{}".format(dockerrun),"--dockercontainer--;{} ({})".format(containername, hurl)])
         doparse("/{}/docs/source/details.rst".format(sname), ["--dockerrun--;{}".format(dockerrun),"--dockercontainer--;{} ({})".format(containername, hurl)])
         step9rollbackoffset=-1
+        step9llmmodel=''
+        step9embedding=''
+        step9vectorsize='' 
         if pgptcontainername != None:
             privategptrun = "docker run -d -p {}:{} --net=host --gpus all --env PORT={} --env GPU=1 --env COLLECTION={} --env WEB_CONCURRENCY={} --env CUDA_VISIBLE_DEVICES={} {}".format(pgptport[1:],pgptport[1:],pgptport[1:],pcollection,pconcurrency[1:],pcuda[1:],pgptcontainername)
+            if '-v2' in pgptcontainername:
+             step9llmmodel='mistral-7b-instruct-v0.2.Q4_K_M.gguf'
+             step9embedding='BAAI/bge-small-en-v1.5'
+             step9vectorsize='384' 
+            elif '-v3' in pgptcontainername:
+             step9llmmodel='Mistral-7B-Instruct-v0.3.Q4_K_M.gguf'
+             step9embedding='BAAI/bge-small-en-v1.5'
+             step9vectorsize='384'          
+            elif '-v3-large' in pgptcontainername:
+             step9llmmodel='Mistral-7B-Instruct-v0.3.Q4_K_M.gguf'
+             step9embedding='BAAI/bge-m3'
+             step9vectorsize='768'                   
+            else:  
+             step9llmmodel='mistral-7b-instruct-v0.1.Q4_K_M.gguf'
+             step9embedding='BAAI/bge-small-en-v1.5'
+             step9vectorsize='384'
     
+            doparse("/{}/docs/source/details.rst".format(sname), ["--llmmodel--;{}".format(step9llmmodel)])
+            doparse("/{}/docs/source/details.rst".format(sname), ["--embedding--;{}".format(step9embedding)])
+            doparse("/{}/docs/source/details.rst".format(sname), ["--vectorsize--;{}".format(step9vectorsize)])
+             
             doparse("/{}/docs/source/details.rst".format(sname), ["--pgptcontainername--;{}".format(pgptcontainername),"--privategptrun--;{}".format(privategptrun)])
     
             qdrantcontainer = "qdrant/qdrant"
@@ -7111,7 +7134,8 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
                            step9rollbackoffset,kubebroker,kafkabroker,PRODUCETYPE,step9prompt,step9context,step9keyattribute,step9keyprocesstype,
                            step9hyperbatch[1:],step9vectordbcollectionname,step9concurrency[1:],cudavisibledevices[1:],
                            step9docfolder,step9docfolderingestinterval[1:],step9useidentifierinprompt[1:],step5processlogic,
-                           step5independentvariables,step9searchterms,step9streamall[1:],step9temperature[1:],step9vectorsearchtype)
+                           step5independentvariables,step9searchterms,step9streamall[1:],step9temperature[1:],step9vectorsearchtype,
+                           step9llmmodel,step9embedding,step9vectorsize)
         else: 
           kcmd2=tsslogging.genkubeyamlnoext(sname,containername,TMLCLIENTPORT[1:],solutionairflowport[1:],solutionvipervizport[1:],solutionexternalport[1:],
                            sd,os.environ['GITUSERNAME'],os.environ['GITREPOURL'],chipmain,os.environ['DOCKERUSERNAME'],
@@ -7120,7 +7144,8 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
                            kubebroker,kafkabroker,step9prompt,step9context,step9keyattribute,step9keyprocesstype,
                            step9hyperbatch[1:],step9vectordbcollectionname,step9concurrency[1:],cudavisibledevices[1:],
                            step9docfolder,step9docfolderingestinterval[1:],step9useidentifierinprompt[1:],step5processlogic,
-                           step5independentvariables,step9searchterms,step9streamall[1:],step9temperature[1:],step9vectorsearchtype)                 
+                           step5independentvariables,step9searchterms,step9streamall[1:],step9temperature[1:],step9vectorsearchtype,
+                           step9llmmodel,step9embedding,step9vectorsize)
     
         doparse("/{}/docs/source/kube.rst".format(sname), ["--solutionnamecode--;{}".format(kcmd2)])
     
