@@ -21,7 +21,7 @@ TML uses privateGPT containers (discussed below) for secure, fast, and distribut
      - **LLM Model**
      - **Embedding Model**
      - **GPU Suggested Requirements**
-   * - `DeepSeek Basic Model Version 1 <https://hub.docker.com/r/maadsdocker/tml-privategpt-with-gpu-nvidia-amd64>`_
+   * - `DeepSeek Basic Model Version 1 <https://hub.docker.com/r/maadsdocker/tml-privategpt-with-gpu-nvidia-amd64-deepseek>`_
      - `DeepSeek-R1-Distill-Qwen-7B-Q5_K_M.gguf <https://huggingface.co/bartowski/DeepSeek-R1-Distill-Qwen-7B-GGUF/blob/main/DeepSeek-R1-Distill-Qwen-7B-Q5_K_M.gguf>`_
      - `BAAI/bge-small-en-v1.5 <https://huggingface.co/BAAI/bge-small-en-v1.5>`_
      - #. Suggested VRAM/GPU should be around 20GB
