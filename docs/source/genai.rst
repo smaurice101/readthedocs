@@ -35,6 +35,14 @@ TML uses privateGPT containers (discussed below) for secure, fast, and distribut
        #. SSD 2-3 TB
        #. Suggested Machine: On-demand 1x NVIDIA A10 
        #. Suggested Cost GPU/Hour: $0.75/GPU/h
+   * - `Deepseek Large Advanced Model Version 3 <https://hub.docker.com/r/maadsdocker/tml-privategpt-with-gpu-nvidia-amd64-deepseek-large>`_
+     - `DeepSeek-R1-Distill-Qwen-14B-Q5_K_M.gguf <https://huggingface.co/bartowski/DeepSeek-R1-Distill-Qwen-14B-GGUF>`_
+     - `BAAI/bge-m3 <https://huggingface.co/BAAI/bge-m3>`_
+     - #. Suggested VRAM/GPU should be around 40GB
+       #. SSD 2-3 TB
+       #. Suggested Machine: On-demand 1x NVIDIA A6000 or A100
+       #. Suggested Cost GPU/Hour: $0.80 - $1.30/GPU/h
+
    * - `Basic Model Version 1 <https://hub.docker.com/r/maadsdocker/tml-privategpt-with-gpu-nvidia-amd64>`_
      - `TheBloke/Mistral-7B-Instruct-v0.1-GGUF <https://huggingface.co/TheBloke/Mistral-7B-Instruct-v0.1-GGUF>`_
      - `BAAI/bge-small-en-v1.5 <https://huggingface.co/BAAI/bge-small-en-v1.5>`_
