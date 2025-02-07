@@ -26,11 +26,15 @@ TSS Pre-Requisites
 
    **The following prerequisites MUST be met before you run the TML Solution Studio Container:**
 
-   1. You MUST Install Docker - in Ubuntu run: 
+   1. You MUST Install Docker - in Linux Ubuntu run (if using Windows use `WSL <https://learn.microsoft.com/en- us/windows/wsl/install>`_): 
 
       .. code-block::
       
+         sudo apt-get update
          sudo apt install docker.io
+         sudo docker --version
+         sudo docker run hello-world
+         sudo docker ps
 
    2. You MUST have a `Github Account <https://github.com/>`_
 
