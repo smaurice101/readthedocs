@@ -30,7 +30,8 @@ TSS Pre-Requisites
 
       .. code-block::
       
-         sudo apt-get update
+         sudo apt update
+         sudo apt upgrade
          sudo apt install docker.io
          sudo docker --version
          sudo docker run hello-world
