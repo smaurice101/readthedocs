@@ -32,7 +32,7 @@ TSS Pre-Requisites
 
    3. You MUST Clone Github Repo: https://github.com/smaurice101/raspberrypi.git
 
-   4. You MUST Create Github **Personal Access Token** (Refer to :ref:`Generating Personal Access Tokens in Github`)
+   4. You MUST Create Github **Personal Access Token**. Refer to :ref:`Generating Personal Access Tokens in Github`
 
    5. You MUST have sign up for a `Docker Hub account: <https://hub.docker.com/>`_
 
