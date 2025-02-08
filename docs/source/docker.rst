@@ -78,7 +78,7 @@ TSS Docker Run Command
    save your local file for processing.
 
    Your file must contains JSON messages on each line.  See `Sample File <https://github.com/smaurice101/raspberrypi/blob/main/tml- 
-   airflow/data/IoTDatasample.txt>`_
+   airflow/data/IoTDatasample-small.txt>`_
 
 .. code-block::
 
