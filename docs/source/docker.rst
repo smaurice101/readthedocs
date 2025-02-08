@@ -60,8 +60,7 @@ TSS Contains a TML Dev Environment
    Another powerful feature is the TSS TML Development environment which is contained directly inside the TSS container.  TSS comes with all the TML solution 
    components installed like: 1. Apache Kafka, 2. TML binaries, 3. MariaDB config db 4. your TML DAG scripts, 5. Viperviz for visualization
 
-   Once you are satisfied with your solution - you can use the :ref:`STEP 8: Deploy TML Solution to Docker : tml-system-step-8-deploy-solution-to-docker-dag.py` 
-   to deploy your solution to Docker.
+   Once you are satisfied with your solution - you can use the :ref:` STEP 8: Deploy TML Solution to Docker : tml-system-step-8-deploy-solution-to-docker-dag` to deploy your solution to Docker.
 
 .. tip::
    TML developers can test each component or their entire TML solution inside the TSS before deploying the solution 
