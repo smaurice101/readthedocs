@@ -5,6 +5,9 @@ NOW AVAILABLE: `<https://hub.docker.com/r/maadsdocker/tml-solution-studio-with-a
 
 To Run the container go to: :ref:`TSS Docker Run Command`
 
+.. tip::
+   Watch the TSS `YouTube Video <https://www.youtube.com/watch?v=z3h2nJXVgUs>`_
+
 .. important::
    You MUST have the pre-requisites met before running this container: :ref:`TSS Pre-Requisites`
 
