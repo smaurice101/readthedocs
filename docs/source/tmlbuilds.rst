@@ -2548,27 +2548,31 @@ Producing Data Using a Local File
 
        For example, your TSS Docker Run should look similar to this - replace **/your_localmachine/foldername** with actual name:
 
-        docker run -d --net="host"
+    .. code-block::
 
-        --env MAINHOST=127.0.0.1
-        
-        --env AIRFLOWPORT=9000
-        
-        -v /var/run/docker.sock:/var/run/docker.sock:z
-        
-        **-v /your_localmachine/foldername:/rawdata:z**
-        
-        --env GITREPOURL=https://github.com/smaurice101/raspberrypi.git
-        
-        --env  GITUSERNAME=<your git username>
-        
-        --env GITPASSWORD=<Personal Access Token>
-        
-        --env DOCKERUSERNAME=<your Dockerhub account>
-        
-        --env DOCKERPASSWORD=<password>
-        
-        maadsdocker/tml-solution-studio-with-airflow
+        docker run -d --net="host" \
+        --env CHIP="AMD64" \
+        --env MAINHOST=127.0.0.1 \
+        --env TSS=1 \ 
+        --env SOLUTIONNAME=TSS \
+        --env AIRFLOWPORT=9000 \
+        --env VIPERVIZPORT=9005 \
+        --env EXTERNALPORT=-1 \
+        -v /var/run/docker.sock:/var/run/docker.sock:z \
+        -v /<your local dagsbackup folder>:/dagslocalbackup:z \
+        -v /your_localmachine/foldername:/rawdata:z \
+        --env READTHEDOCS='<Token>' \
+        --env GITREPOURL='<your git hub repo>' \
+        --env  GITUSERNAME='<your github username>' \
+        --env GITPASSWORD='<Personal Access Token>' \
+        --env DOCKERUSERNAME='<your docker hub account>' \
+        --env DOCKERPASSWORD='<password>' \
+        --env MQTTUSERNAME='<enter MQTT username>' \
+        --env MQTTPASSWORD='<enter MQTT password>' \
+        --env KAFKACLOUDUSERNAME='' \
+        --env KAFKACLOUDPASSWORD='<Enter your API secret>' \
+        --env UPDATE=1 \
+        maadsdocker/tml-solution-studio-with-airflow-amd64
 
      Then, 
 
