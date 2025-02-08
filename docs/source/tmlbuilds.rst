@@ -2544,35 +2544,36 @@ Producing Data Using a Local File
     host system to the **rawdata** folder in the container; then change the **inputfile** to /rawdata/<your filename>  For example, you need add **-v <path to a 
     local folder on your machine>:/rawdata**. to the docker run command:
 
-     1. **-v <path to a local folder on your machine>:/rawdata**
+     1. **-v /your_localmachine/foldername:/rawdata:z**
 
-       For example, your TSS Docker Run should look similar to this - replace **/your_localmachine/foldername** with actual name:
+       For example, your TSS Docker Run should look similar to this - replace **/your_localmachine/foldername** 
+       with actual name:
 
-    .. code-block::
+       .. code-block::
 
-        docker run -d --net="host" \
-        --env CHIP="AMD64" \
-        --env MAINHOST=127.0.0.1 \
-        --env TSS=1 \ 
-        --env SOLUTIONNAME=TSS \
-        --env AIRFLOWPORT=9000 \
-        --env VIPERVIZPORT=9005 \
-        --env EXTERNALPORT=-1 \
-        -v /var/run/docker.sock:/var/run/docker.sock:z \
-        -v /<your local dagsbackup folder>:/dagslocalbackup:z \
-        -v /your_localmachine/foldername:/rawdata:z \
-        --env READTHEDOCS='<Token>' \
-        --env GITREPOURL='<your git hub repo>' \
-        --env  GITUSERNAME='<your github username>' \
-        --env GITPASSWORD='<Personal Access Token>' \
-        --env DOCKERUSERNAME='<your docker hub account>' \
-        --env DOCKERPASSWORD='<password>' \
-        --env MQTTUSERNAME='<enter MQTT username>' \
-        --env MQTTPASSWORD='<enter MQTT password>' \
-        --env KAFKACLOUDUSERNAME='' \
-        --env KAFKACLOUDPASSWORD='<Enter your API secret>' \
-        --env UPDATE=1 \
-        maadsdocker/tml-solution-studio-with-airflow-amd64
+         docker run -d --net="host" \
+         --env CHIP="AMD64" \
+         --env MAINHOST=127.0.0.1 \
+         --env TSS=1 \ 
+         --env SOLUTIONNAME=TSS \
+         --env AIRFLOWPORT=9000 \
+         --env VIPERVIZPORT=9005 \
+         --env EXTERNALPORT=-1 \
+         -v /var/run/docker.sock:/var/run/docker.sock:z \
+         -v /<your local dagsbackup folder>:/dagslocalbackup:z \
+         -v /your_localmachine/foldername:/rawdata:z \
+         --env READTHEDOCS='<Token>' \
+         --env GITREPOURL='<your git hub repo>' \
+         --env  GITUSERNAME='<your github username>' \
+         --env GITPASSWORD='<Personal Access Token>' \
+         --env DOCKERUSERNAME='<your docker hub account>' \
+         --env DOCKERPASSWORD='<password>' \
+         --env MQTTUSERNAME='<enter MQTT username>' \
+         --env MQTTPASSWORD='<enter MQTT password>' \
+         --env KAFKACLOUDUSERNAME='' \
+         --env KAFKACLOUDPASSWORD='<Enter your API secret>' \
+         --env UPDATE=1 \
+         maadsdocker/tml-solution-studio-with-airflow-amd64
 
      Then, 
 
