@@ -117,6 +117,14 @@ These are the following:
 .. tip::
    Take a look here :ref:`TML, PrivateGPT and Qdrant Example Scenarios` for more information.
 
+TML and RAG: A Powerful Combination
+------------
+
+TML using :ref:`STEP 9: PrivateGPT and Qdrant Integration: tml-system-step-9-privategpt_qdrant-dag` can perform RAG (Retriveal-augmented Generation) with a few simple configurations.  
+
+.. figure:: rag.png
+   :scale: 70%
+
 Private GPT Container
 --------------------
 
@@ -138,6 +146,7 @@ The privateGPT container can be found on Docker hub.  The container will require
    You should see the private GPT website below.
 
 .. figure:: pgpt1.png
+    :scale: 70%
 
 .. note::
    
