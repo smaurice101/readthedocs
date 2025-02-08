@@ -128,7 +128,7 @@ Below is a figure to show Advanced RAG model (`inspiration from huggingface blog
    This would be very useful especially for Cybersecurity uses cases where you want to cross-reference source IP address with web log files to determine if there 
    are any "authentication failures" or "wrong passwords" in the log files associated to the source IP address.
 
-   Together with Qdrant vector DB, users can analyse local files with TML in real-time with no-code just configurations of Step 9, in few seconds. 
+   Together with `Qdrant vector DB <https://qdrant.tech/>`_, users can analyse local files with TML in real-time with no-code just configurations of Step 9, in few seconds. 
 
 .. figure:: rag.png
    :scale: 70%
