@@ -3,8 +3,6 @@ TML Solution Studio (TSS) Container
 
 NOW AVAILABLE: `<https://hub.docker.com/r/maadsdocker/tml-solution-studio-with-airflow-amd64>`_
 
-To Run the container go to: :ref:`TSS Docker Run Command`
-
 .. tip::
    Watch the TSS `YouTube Video <https://www.youtube.com/watch?v=z3h2nJXVgUs>`_
 
