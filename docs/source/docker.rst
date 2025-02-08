@@ -9,7 +9,6 @@ NOW AVAILABLE: `<https://hub.docker.com/r/maadsdocker/tml-solution-studio-with-a
 .. important::
    You MUST have the pre-requisites met before running this container: :ref:`TSS Pre-Requisites`
 
-
 .. figure:: tmlarch.png
    :scale: 70%
 
@@ -65,13 +64,14 @@ TSS Contains a TML Dev Environment
    to deploy your solution to Docker.
 
 .. tip::
-   TML developers can test each component or their entire TML solution inside the TSS before deploying the solution in the container.  This is a very convenient 
-   way to make sure all the solution components are working before shipping your TML product.
+   TML developers can test each component or their entire TML solution inside the TSS before deploying the solution 
+   in the container.  This is a very convenient way to make sure all the solution components are working before 
+   shipping your TML product.
 
 TSS Docker Run Command
 --------------------
 
-.. important::
+.. note::
    If you are producing data using a local file, you need to add an extra -v volume map to the /rawdata folder in the container: Refer to :ref:`Producing Data 
    Using a Local File`.
 
