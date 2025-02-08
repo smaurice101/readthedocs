@@ -120,13 +120,15 @@ These are the following:
 TML and RAG: A Powerful Combination
 ------------
 
-TML using :ref:`STEP 9: PrivateGPT and Qdrant Integration: tml-system-step-9-privategpt_qdrant-dag` can perform RAG (Retriveal-augmented Generation) with a few simple configurations.  
+TML using :ref:`STEP 9: PrivateGPT and Qdrant Integration: tml-system-step-9-privategpt_qdrant-dag` can perform RAG (Retrieval-augmented Generation) with a few simple configurations.  
 
-Below is a figure to show Advanced RAG model to ingest Engineering documents for real-time promting using one of the privateGPT containers. Together with Qdrant vector DB, users can analyse local files with TML in real-time. 
+Below is a figure to show Advanced RAG model (`inspiration from huggingface blog <https://huggingface.co/learn/cookbook/en/advanced_rag>`_) to ingest Engineering documents for real-time prompting using one of the privateGPT containers. Together with Qdrant vector DB, users can analyse local files with TML in real-time with no-code just configurations of Step 9.
 
 .. important::
    This would be very useful especially for Cybersecurity uses cases where you want to cross-reference source IP address with web log files to determine if there 
    are any "authentication failures" or "wrong passwords" in the log files associated to the source IP address.
+
+   Together with Qdrant vector DB, users can analyse local files with TML in real-time with no-code just configurations of Step 9, in few seconds. 
 
 .. figure:: rag.png
    :scale: 70%
