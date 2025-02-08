@@ -116,7 +116,7 @@ TSS Docker Run Command
        change to CHIP=ARM64 and run:
  
        **maadsdocker/tml-solution-studio-with-airflow-arm64** containter
-   * - --env MAINHOST=127.0.0.1
+   * - MAINHOST=127.0.0.1
      - This is the IP address for the TML solution 
 
        container.  It will normally listen 
@@ -126,7 +126,7 @@ TSS Docker Run Command
      - Do not modify.
    * - SOLUTIONNAME
      - Do not modify.
-   * - --env AIRFLOWPORT=9000 
+   * - AIRFLOWPORT=9000 
      - This is the AIRFLOWPORT.  This port 
 
        will be needed to access the TML 
@@ -143,22 +143,26 @@ TSS Docker Run Command
 
        For example, 9005
    * - -v /<your local dagsbackup folder>:/dagslocalbackup:z
-     - If you like, you can also backsup the dags to your local folder with this volume mapping
+     - If you like, you can also backsup the dags to your 
+
+       local folder with this volume mapping
    * - -v /var/run/docker.sock:/var/run/docker.sock:z 
      - This maps the docker volume to the container - 
 
        so TML studio can automatically build 
 
        your solution container.
-   * - --env READTHEDOCS=<Token>
-     - Create, copy and paste the Readthedocs token here.  Refer to :ref:`Set Up Readthedocs`
-   * - --env GITREPOURL=<your github repo> 
+   * - READTHEDOCS=<Token>
+     - Create, copy and paste the Readthedocs token here.  
+
+       Refer to :ref:`Set Up Readthedocs`
+   * - GITREPOURL=<your github repo> 
      - This is your Git repo you cloned from: 
 
        https://github.com/smaurice101/raspberrypi.git. 
-   * - --env GITUSERNAME=<your github username> 
+   * - GITUSERNAME=<your github username> 
      - This is the username to your repo.
-   * - --env GITPASSWORD=<Personal Access Token> 
+   * - GITPASSWORD=<Personal Access Token> 
      - This is the **Personal Access Token** for 
 
        your repo.   
@@ -166,15 +170,15 @@ TSS Docker Run Command
        Look at the image below to find out how 
 
        to generate this token.
-   * - --env DOCKERUSERNAME=<your docker hub account> 
+   * - DOCKERUSERNAME=<your docker hub account> 
      - This is your Docker Hub username.
-   * - --env DOCKERPASSWORD=<password> 
+   * - DOCKERPASSWORD=<password> 
      - This is your password to Dockerhub account.
-   * - --env MQTTUSERNAME=<your MQTT username> 
+   * - MQTTUSERNAME=<your MQTT username> 
      - This is your MQTT username.
-   * - --env MQTTPASSWORD=<MQTT password> 
+   * - MQTTPASSWORD=<MQTT password> 
      - This is your password to MQTT cluster.
-   * - --env UPDATE=1 
+   * - UPDATE=1 
      - This enables system updates if set to 1: meaning
 
        any updates to the system DAGS made by the TSS
@@ -187,9 +191,11 @@ TSS Docker Run Command
 
        You can Turn OFF system updates by setting to 0. 
    * - **maadsdocker/tml-solution-studio-with-airflow-amd64**
-     - This is the official TML Solution Studio container.  If using MAC change 
+     - This is the official TML Solution Studio container.  
 
-       **amd64** to **arm64**       
+       If using MAC change: **amd64** to **arm64**       
+
+       For example: maadsdocker/tml-solution-studio-with-airflow-**arm64**
 
 .. important::
    It is highly recommended you map your local folder to the **dagslocalbackup** folder: 
