@@ -113,9 +113,7 @@ TSS Docker Run Command
    * - CHIP
      - Specifies the container OS.  NOTE: If you are using MAC then 
  
-       change to CHIP=ARM64 and run:
- 
-       **maadsdocker/tml-solution-studio-with-airflow-arm64** containter
+       change to CHIP=ARM64
    * - MAINHOST=127.0.0.1
      - This is the IP address for the TML solution 
 
@@ -201,7 +199,9 @@ TSS Docker Run Command
 
        If using MAC change: **amd64** to **arm64**       
 
-       For example: maadsdocker/tml-solution-studio-with-airflow-**arm64**
+       **For example:**
+
+        maadsdocker/tml-solution-studio-with-airflow-**arm64**
 
         .. code-block::
 
