@@ -195,9 +195,11 @@ TSS Docker Run Command
 
        You can Turn OFF system updates by setting to 0. 
    * - **maadsdocker/tml-solution-studio-with-airflow-amd64**
-     - This is the official TML Solution Studio container.  
+     - This is the official TML Solution Studio container
 
-       If using MAC change: **amd64** to **arm64**       
+       for Window/Linux users with AMD64 chip architecture.
+
+       If using MAC/Linux change: **amd64** to **arm64**       
 
        **For example:**
 
