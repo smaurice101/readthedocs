@@ -198,13 +198,15 @@ TSS Docker Run Command
        For example: maadsdocker/tml-solution-studio-with-airflow-**arm64**
 
 .. important::
-   It is highly recommended you map your local folder to the **dagslocalbackup** folder: 
+   It is highly recommended you map your local folder 
 
-    **-v /<your local dagsbackup folder>:/dagslocalbackup:z**
+   to the **dagslocalbackup** folder: 
 
-    This ensures that if anything happens to Github you always have a local copy of all
+   **-v /<your local dagsbackup folder>:/dagslocalbackup:z**
 
-    of your solution dags.
+   This ensures that if anything happens to Github you 
+ 
+   always have a local copy of all of your solution dags.
 
 How To Use the TML Solution Container
 -------------------------
