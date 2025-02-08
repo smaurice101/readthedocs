@@ -200,7 +200,7 @@ TSS Docker Run Command
         .. code-block::
 
             docker run -d --net="host" \
-            --env CHIP="AMD64" \
+            --env CHIP="ARM64" \
             --env MAINHOST=127.0.0.1 \
             --env TSS=1 \
             --env SOLUTIONNAME=TSS \
@@ -220,7 +220,7 @@ TSS Docker Run Command
             --env KAFKACLOUDUSERNAME='' \
             --env KAFKACLOUDPASSWORD='<Enter your API secret>' \
             --env UPDATE=1 \
-            maadsdocker/tml-solution-studio-with-airflow-amd64
+            maadsdocker/tml-solution-studio-with-airflow-arm64
 
 .. important::
    It is highly recommended you map your local folder 
