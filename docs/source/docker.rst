@@ -68,18 +68,6 @@ TSS Contains a TML Dev Environment
    TML developers can test each component or their entire TML solution inside the TSS before deploying the solution in the container.  This is a very convenient 
    way to make sure all the solution components are working before shipping your TML product.
 
-TSS Logging
------------------
-
-The entire TSS solution build process is logged and committed to Github.  This makes it very convenient to check for any errors in the TSS build process, and because errors are commited to the remote branch, the errors become visible to others to help in quickly rectifying any issues.
-
-.. figure:: tsslogs.png
-
-.. tip::
-    The logs are committed to your Github folder: **/tml-airflow/logs/logs.txt**
-
-.. figure:: tsslogs2.png
-
 TSS Docker Run Command
 --------------------
 
@@ -273,3 +261,15 @@ This is a list of common commands for Docker and Tmux.
      - Press: **CTRL + b, d**
    * - To EXIT docker container
      - Type: **exit**
+
+TSS Logging
+-----------------
+
+The entire TSS solution build process is logged and committed to Github.  This makes it very convenient to check for any errors in the TSS build process, and because errors are commited to the remote branch, the errors become visible to others to help in quickly rectifying any issues.
+
+.. figure:: tsslogs.png
+
+.. tip::
+    The logs are committed to your Github folder: **/tml-airflow/logs/logs.txt**
+
+.. figure:: tsslogs2.png
