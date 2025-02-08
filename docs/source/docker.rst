@@ -93,7 +93,7 @@ TSS Docker Run Command
    --env EXTERNALPORT=-1 \
    -v /var/run/docker.sock:/var/run/docker.sock:z \ 
    -v /<your local dagsbackup folder>:/dagslocalbackup:z \
-   -v /<your local rawdata folder>:/rawdata:z \
+   -v /your_localmachine/foldername:/rawdata:z \
    --env READTHEDOCS='<Token>' \
    --env GITREPOURL='<your git hub repo>' \ 
    --env  GITUSERNAME='<your github username>' \ 
@@ -147,7 +147,7 @@ TSS Docker Run Command
      - If you like, you can also backsup the dags to your 
 
        local folder with this volume mapping
-   * - -v /<your local rawdata folder>:/rawdata:z
+   * - -v /your_localmachine/foldername:/rawdata:z
      - If you like, you can also map our local folder
   
        to the rawdata folder.  This is neede if you 
@@ -216,7 +216,7 @@ TSS Docker Run Command
             --env EXTERNALPORT=-1 \
             -v /var/run/docker.sock:/var/run/docker.sock:z \
             -v /<your local dagsbackup folder>:/dagslocalbackup:z \
-            -v /<your local rawdata folder>:/rawdata:z \
+            -v /your_localmachine/foldername:/rawdata:z \
             --env READTHEDOCS='<Token>' \
             --env GITREPOURL='<your git hub repo>' \
             --env  GITUSERNAME='<your github username>' \
