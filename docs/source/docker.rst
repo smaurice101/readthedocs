@@ -103,6 +103,7 @@ TSS Docker Run Command
    --env MQTTPASSWORD='<enter MQTT password>' \
    --env KAFKACLOUDUSERNAME='' \
    --env KAFKACLOUDPASSWORD='<Enter your API secret>' \
+   --env UPDATE=1 \
    maadsdocker/tml-solution-studio-with-airflow-amd64
 
 .. list-table::
@@ -173,6 +174,18 @@ TSS Docker Run Command
      - This is your MQTT username.
    * - --env MQTTPASSWORD=<MQTT password> 
      - This is your password to MQTT cluster.
+   * - --env UPDATE=1 
+     - This enables system updates if set to 1: meaning
+
+       any updates to the system DAGS made by the TSS
+
+       system maintainer will update all the user DAGS
+
+       in all of the projects.  This is a remote GitHub
+
+       pull that keeps users ALWAYS with the updated Dags.
+
+       You can Turn OFF system updates by setting to 0. 
    * - **maadsdocker/tml-solution-studio-with-airflow-amd64**
      - This is the official TML Solution Studio container.  If using MAC change 
 
