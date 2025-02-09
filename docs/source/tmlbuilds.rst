@@ -6837,7 +6837,7 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
           step9temperature=ptemperature
           doparse("/{}/docs/source/details.rst".format(sname), ["--temperature--;{}".format(ptemperature[1:])])
          
-        pvectorsearchtype = context['ti'].xcom_pull(task_ids='step_9_solution_task_ai',key="{}_streamall".format(sname))
+        pvectorsearchtype = context['ti'].xcom_pull(task_ids='step_9_solution_task_ai',key="{}_vectorsearchtype".format(sname))
         if pvectorsearchtype:
           step9vectorsearchtype=pvectorsearchtype
           doparse("/{}/docs/source/details.rst".format(sname), ["--vectorsearchtype--;{}".format(pvectorsearchtype)])
@@ -6852,6 +6852,7 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
               --env GITREPOURL={} \\
               --env SOLUTIONEXTERNALPORT={} \\
               -v /var/run/docker.sock:/var/run/docker.sock:z  \\
+              -v /your_localmachine/foldername:/rawdata:z \\
               --env CHIP={} \\
               --env SOLUTIONAIRFLOWPORT={}  \\
               --env SOLUTIONVIPERVIZPORT={} \\
@@ -6882,6 +6883,7 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
               --env GITREPOURL={} \\
               --env SOLUTIONEXTERNALPORT={} \\
               -v /var/run/docker.sock:/var/run/docker.sock:z \\
+              -v /your_localmachine/foldername:/rawdata:z \\
               --env CHIP={} \\
               --env SOLUTIONAIRFLOWPORT={} \\
               --env SOLUTIONVIPERVIZPORT={} \\
@@ -6913,22 +6915,9 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
         step9vectorsize='' 
         if pgptcontainername != None:
             privategptrun = "docker run -d -p {}:{} --net=host --gpus all --env PORT={} --env GPU=1 --env COLLECTION={} --env WEB_CONCURRENCY={} --env CUDA_VISIBLE_DEVICES={} {}".format(pgptport[1:],pgptport[1:],pgptport[1:],pcollection,pconcurrency[1:],pcuda[1:],pgptcontainername)
-            if '-v2' in pgptcontainername:
-             step9llmmodel='mistral-7b-instruct-v0.2.Q4_K_M.gguf'
-             step9embedding='BAAI/bge-small-en-v1.5'
-             step9vectorsize='384' 
-            elif '-v3' in pgptcontainername:
-             step9llmmodel='Mistral-7B-Instruct-v0.3.Q4_K_M.gguf'
-             step9embedding='BAAI/bge-small-en-v1.5'
-             step9vectorsize='384'          
-            elif '-v3-large' in pgptcontainername:
-             step9llmmodel='Mistral-7B-Instruct-v0.3.Q4_K_M.gguf'
-             step9embedding='BAAI/bge-m3'
-             step9vectorsize='768'                   
-            else:  
-             step9llmmodel='mistral-7b-instruct-v0.1.Q4_K_M.gguf'
-             step9embedding='BAAI/bge-small-en-v1.5'
-             step9vectorsize='384'
+            step9llmmodel='Refer to: https://tml.readthedocs.io/en/latest/genai.html'
+            step9embedding='Refer to: https://tml.readthedocs.io/en/latest/genai.html'
+            step9vectorsize='Refer to: https://tml.readthedocs.io/en/latest/genai.html'
     
             doparse("/{}/docs/source/details.rst".format(sname), ["--llmmodel--;{}".format(step9llmmodel)])
             doparse("/{}/docs/source/details.rst".format(sname), ["--embedding--;{}".format(step9embedding)])
@@ -7028,6 +7017,7 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
         tssdockerrun = ("docker run -d \-\-net=host \-\-env AIRFLOWPORT={} " \
                         " -v <change to your local folder>:/dagslocalbackup:z " \
                         " -v /var/run/docker.sock:/var/run/docker.sock:z " \
+                        " -v /your_localmachine/foldername:/rawdata:z " \
                         " \-\-env GITREPOURL={} " \
                         " \-\-env CHIP={} \-\-env TSS=1 \-\-env SOLUTIONNAME=TSS " \
                         " \-\-env EXTERNALPORT={} " \
@@ -7041,6 +7031,7 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
                         " \-\-env GITPASSWORD='<Enter personal access token>' " \
                         " \-\-env DOCKERPASSWORD='<Enter your docker hub password>' " \
                         " \-\-env MQTTPASSWORD='<Enter your mqtt password>' " \
+                        " \-\-env UPDATE=1 " \
                         " maadsdocker/tml-solution-studio-with-airflow-{}".format(airflowport[1:],os.environ['GITREPOURL'],
                                 chip,externalport[1:],vipervizport[1:],
                                 os.environ['GITUSERNAME'],os.environ['DOCKERUSERNAME'],mqttusername,kafkacloudusername,chip))
