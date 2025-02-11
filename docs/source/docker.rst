@@ -1,7 +1,7 @@
 TML Solution Studio (TSS) Container
 ======================================
 
-Before you can build TML solutions, you will need to run the TSS container for your OS.  
+Before you can build TML solutions, you will need to run the TSS container for your OS.  The TSS builds your TML solutions.
 
 .. list-table::
 
