@@ -4,8 +4,9 @@ TML Solution Studio (TSS) Container
 TSS Containers:
 
 .. list-table::
-   * - Linux Users: `<https://hub.docker.com/r/maadsdocker/tml-solution-studio-with-airflow-amd64>`_
-   * - Mac/Linux Users: `<https://hub.docker.com/r/maadsdocker/tml-solution-studio-with-airflow-arm64>`_
+   * - TSS Containers
+     - Linux Users: `<https://hub.docker.com/r/maadsdocker/tml-solution-studio-with-airflow-amd64>`_
+     - Mac/Linux Users: `<https://hub.docker.com/r/maadsdocker/tml-solution-studio-with-airflow-arm64>`_
 
 .. tip::
    Watch the TSS `YouTube Video <https://www.youtube.com/watch?v=z3h2nJXVgUs>`_
