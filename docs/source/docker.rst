@@ -1,8 +1,6 @@
 TML Solution Studio (TSS) Container
 ======================================
 
-TSS Containers:
-
 .. list-table::
 
    * - **TSS Containers**
