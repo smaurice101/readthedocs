@@ -314,7 +314,7 @@ Below is the complete definition of the **tml_system_step_1_getparams_dag**.  Us
      'WRITELASTCOMMIT' : '0',   ## <<<<<<<<< ******************** FOR DETAILS ON BELOW PARAMETER SEE: https://tml.readthedocs.io/en/latest/viper.html
      'NOWINDOWOVERLAP' : '0',
      'NUMWINDOWSFORDUPLICATECHECK' : '5',
-     'DATARETENTIONINMINUTES' : '30',
+     'DATARETENTIONINMINUTES' : '1440',
      'USEHTTP' : '0',
      'ONPREM' : '0',
      'WRITETOVIPERDB' : '0',
@@ -561,8 +561,10 @@ Below is the complete definition of the **tml_system_step_1_getparams_dag**.  Us
       HPDEPORTPREDICT = ""
     
       tsslogging.locallogs("INFO", "STEP 1: Build started") 
-        
-      sname = args['solutionname']    
+    
+      sd = context['dag'].dag_id 
+      pname = args['solutionname']    
+      sname = tsslogging.rtdsolution(pname,sd)
     
       if 'step1description' in os.environ:
         desc = os.environ['step1description']
@@ -693,7 +695,6 @@ Below is the complete definition of the **tml_system_step_1_getparams_dag**.  Us
             externalport = os.environ['EXTERNALPORT']
             
       tss = os.environ['TSS']          
-      sd = context['dag'].dag_id 
       task_instance = context['task_instance']
         
       if tss == "1":  
@@ -755,6 +756,7 @@ Below is the complete definition of the **tml_system_step_1_getparams_dag**.  Us
       task_instance.xcom_push(key="{}_HPDEHOSTPREDICT".format(sname),value=HPDEHOSTPREDICT)
       task_instance.xcom_push(key="{}_HPDEPORTPREDICT".format(sname),value="_{}".format(HPDEPORTPREDICT))
       task_instance.xcom_push(key="{}_solutionname".format(sd),value=sname)
+      task_instance.xcom_push(key="{}_projectname".format(sd),value=pname)
       task_instance.xcom_push(key="{}_solutiondescription".format(sname),value=desc)
       task_instance.xcom_push(key="{}_solutiontitle".format(sname),value=stitle)
     
