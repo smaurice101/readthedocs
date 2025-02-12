@@ -5289,6 +5289,7 @@ STEP 8: Deploy TML Solution to Docker : tml-system-step-8-deploy-solution-to-doc
          
            sd = context['dag'].dag_id
            sname=context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_solutionname".format(sd))
+           pname=context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_projectname".format(sd))
             
            repo=tsslogging.getrepo()    
            tsslogging.tsslogit("Docker DAG in {}".format(os.path.basename(__file__)), "INFO" )                     
@@ -5334,8 +5335,8 @@ STEP 8: Deploy TML Solution to Docker : tml-system-step-8-deploy-solution-to-doc
                
            os.environ['tssbuild']="1"
         
-           doparse("/{}/tml-airflow/dags/tml-solutions/{}/docker_run_stop-{}.py".format(repo,sname,sname), ["--solution-name--;{}".format(sname)])
-           doparse("/{}/tml-airflow/dags/tml-solutions/{}/docker_run_stop-{}.py".format(repo,sname,sname), ["--solution-dag--;{}".format(sd)])
+           doparse("/{}/tml-airflow/dags/tml-solutions/{}/docker_run_stop-{}.py".format(repo,pname,pname), ["--solution-name--;{}".format(sname)])
+           doparse("/{}/tml-airflow/dags/tml-solutions/{}/docker_run_stop-{}.py".format(repo,pname,pname), ["--solution-dag--;{}".format(sd)])
         
          except Exception as e:
             print("[ERROR] Step 8: ",e)
@@ -6429,6 +6430,7 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
         
         sd = context['dag'].dag_id
         sname=context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_solutionname".format(sd))
+    #    rtdsname = tsslogging.rtdprojects(sname,sd)
     
         kube=0
         step9prompt=''
@@ -6473,6 +6475,7 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
         airflowport = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_AIRFLOWPORT".format(sname))
         mqttusername = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_MQTTUSERNAME".format(sname))
         kafkacloudusername = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_KAFKACLOUDUSERNAME".format(sname))
+        projectname = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_projectname".format(sd))
         
         externalport = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_EXTERNALPORT".format(sname))
         solutionexternalport = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_SOLUTIONEXTERNALPORT".format(sname))
@@ -6501,6 +6504,10 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
         subprocess.call(["sed", "-i", "-e",  "s/--solutionname--/{}/g".format(sname), "/{}/docs/source/index.rst".format(sname)])
         subprocess.call(["sed", "-i", "-e",  "s/--solutiontitle--/{}/g".format(stitle), "/{}/docs/source/index.rst".format(sname)])
         subprocess.call(["sed", "-i", "-e",  "s/--solutiondescription--/{}/g".format(sdesc), "/{}/docs/source/index.rst".format(sname)])
+     
+        projecturl="https://github.com/{}/{}/tree/main/tml-airflow/dags/tml-solutions/{}".format(os.environ['GITUSERNAME'],tsslogging.getrepo(),projectname)
+     
+        doparse("/{}/docs/source/index.rst".format(sname), ["--projectname--;{}".format(projectname)])
     
         subprocess.call(["sed", "-i", "-e",  "s/--solutionname--/{}/g".format(sname), "/{}/docs/source/details.rst".format(sname)])
         subprocess.call(["sed", "-i", "-e",  "s/--sname--/{}/g".format(sname), "/{}/docs/source/details.rst".format(sname)])
