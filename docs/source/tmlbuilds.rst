@@ -5298,12 +5298,22 @@ Visualization DAG Parameter Explanation
        solution.  So, topic-ai, is for any solution template 
 
        that is AI related or has "_ai_" in the solution name.  
+   * - topic-ml-ai
+     - Based on the :ref:`TML Solution Templates` you are using 
+
+       you can specify different topics for the appropriate 
+
+       solution.  So, topic-ml-ai, is for any solution template 
+
+       that is AI related or has "_ml_ai_" in the solution name.  
    * - dashboardhtml
-     - This is dashboard will use the topics in the topic field. 
+     - This dashboard will use the topics in the topic field. 
    * - dashboardhtml-ml
-     - This is dashboard will use the topics in the topic-ml field. 
+     - This dashboard will use the topics in the topic-ml field. 
    * - dashboardhtml-ai
-     - This is dashboard will use the topics in the topic-ai field. 
+     - This dashboard will use the topics in the topic-ai field. 
+   * - dashboardhtml-ml-ai
+     - This is dashboard will use the topics in the topic-ml-ai field. 
    * - secure
      - If set to 1, then connection is 
 
