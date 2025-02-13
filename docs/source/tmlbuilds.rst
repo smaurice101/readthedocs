@@ -5273,6 +5273,32 @@ Visualization DAG Parameter Explanation
        multiple topics, you can specify topic: iot-preprocess,
 
        iot-preprocess2,iot-preprocess3
+   * - topic-ml
+     - Based on the :ref:`TML Solution Templates` you are using 
+
+       you can specify different topics for the appropriate 
+
+       solution.  So, topic-ml, is for any solution template 
+
+       that is ML related or has "_ml_" in the solution name.  
+
+       This gives users flexibility in using different dashboards
+
+       for different solutions.
+   * - topic-ai
+     - Based on the :ref:`TML Solution Templates` you are using 
+
+       you can specify different topics for the appropriate 
+
+       solution.  So, topic-ai, is for any solution template 
+
+       that is AI related or has "_ai_" in the solution name.  
+   * - dashboardhtml
+     - This is dashboard will use the topics in the topic field. 
+   * - dashboardhtml-ml
+     - This is dashboard will use the topics in the topic-ml field. 
+   * - dashboardhtml-ai
+     - This is dashboard will use the topics in the topic-ai field. 
    * - secure
      - If set to 1, then connection is 
 
