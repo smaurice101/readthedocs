@@ -3705,11 +3705,10 @@ Another powerful feature of TML is performing machine learning at the entity lev
 .. code-block:: PYTHON
    :emphasize-lines: 17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,
                      47,48,49,50,51,52
-
+    
     from airflow import DAG
     from airflow.operators.python import PythonOperator
-    from airflow.operators.bash import BashOperator
-    
+    from airflow.operators.bash import BashOperator    
     from datetime import datetime
     from airflow.decorators import dag, task
     import sys
@@ -3949,6 +3948,7 @@ Another powerful feature of TML is performing machine learning at the entity lev
             default_args['processlogic'] = processlogic
             independentvariables =  sys.argv[9]
             default_args['independentvariables'] = independentvariables
+            subprocess.run("rm -rf {}".format(default_args['fullpathtotrainingdata']), shell=True)
             
             tsslogging.locallogs("INFO", "STEP 5: Machine learning started")
         
