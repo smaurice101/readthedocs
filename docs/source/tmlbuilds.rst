@@ -5167,6 +5167,8 @@ and :ref:`Machine Learning Trained Model Sample JSON Output`.
       'topic-ml' : 'iot-preprocess,iot-preprocess2',    # <<< *** Separate multiple topics by a comma
       'dashboardhtml-ai': 'dashboard-ai.html', # <<< *** This one is you include AI dag
       'topic-ai' : 'iot-preprocess,iot-preprocess2',    # <<< *** Separate multiple topics by a comma  
+      'dashboardhtml-ml-ai': 'dashboard-ml-ai.html', # <<< *** This one is you include ML-AI dag
+      'topic-ml-ai' : 'iot-preprocess,iot-preprocess2',    # <<< *** Separate multiple topics by a comma    
       'secure': '1',   # <<< *** 1=connection is encrypted, 0=no encryption
       'offset' : '-1',    # <<< *** -1 indicates to read from the last offset always
       'append' : '0',   # << ** Do not append new data in the browser
@@ -5201,7 +5203,10 @@ and :ref:`Machine Learning Trained Model Sample JSON Output`.
             solutionvipervizport = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_SOLUTIONVIPERVIZPORT".format(sname)) 
             tss = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_TSS".format(sname)) 
     
-            if '_ai_' in sd:
+            if '_ml_ai_' in sd:
+              topic = default_args['topic-ml-ai']
+              dashboardhtml = default_args['dashboardhtml-ml-ai']  
+            elif '_ai_' in sd:
               topic = default_args['topic-ai']
               dashboardhtml = default_args['dashboardhtml-ai']
             elif '_ml_' in sd:  
