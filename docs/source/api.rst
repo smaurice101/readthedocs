@@ -2,6 +2,7 @@ MAADSTML Python Library API
 ==============
 
 **Multi-Agent Accelerator for Data Science Using Transactional Machine Learning (MAADSTML)**
+Source: `MAADSTML Python Library <https://pypi.org/project/maadstml/>`_
 
 *Revolutionizing Data Stream Science with Transactional Machine Learning*
 
