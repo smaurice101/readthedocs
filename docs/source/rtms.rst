@@ -1,7 +1,7 @@
 How TML Maintains Past Memory of Events Using Sliding Time Windows
 ============================================
 
-* The growth of **real-time data** according to IDC Research will reach **30% of global data in 2025 or roughly 90 ZB or 90 trillion gigabytes** mainly from IoT devices connected to the Internet
+* The growth of **real-time data** according to IDC Research **will reach 30% of global data in 2025 or roughly 90 ZB or 90 trillion gigabytes** mainly from IoT devices connected to the Internet
 
 * This raises concerns and opportunities to process real-time data with Transactional Machine Learning (TML)
 
