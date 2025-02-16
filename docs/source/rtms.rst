@@ -1,13 +1,13 @@
 How TML Maintains Past Memory of Events Using Sliding Time Windows
 ============================================
 
-* The growth of real-time data according to IDC Research will reach 30% of global data in 2025 or roughly 90 ZB or 90 trillion gigabytes mainly from IoT devices connected to the Internet
+* The growth of **real-time data** according to IDC Research will reach **30% of global data in 2025 or roughly 90 ZB or 90 trillion gigabytes** mainly from IoT devices connected to the Internet
 
 * This raises concerns and opportunities to process real-time data with Transactional Machine Learning (TML)
 
 * The major concern with real-time streaming data from connected devices is the risk of Cybersecurity attacks
 
-* Cyber crime is expected to cost the global economy $10.7 Trillion in 2025 and this number is growing
+* **Cyber crime is expected to cost the global economy $10.7 Trillion in 2025 and this number is growing**
 
 * This makes Cyber crime prevention and mitigation a Top Priority for global organizations regardless of size
 
