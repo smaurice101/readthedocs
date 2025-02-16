@@ -60,3 +60,22 @@ Past Memory Demonstration
 
 .. figure:: rtms2.png
    :scale: 70%
+
+Summary
+----------
+
+* This has shown how TML implements real-time memory using sliding time windows for every entity
+
+* For every entity: It quantified this memory in Three (3) scores:
+  
+  * **AttackScore**
+  * **PatternScore**
+  * **Real-Time Memory Score**
+
+* Within Cyber security context: The power of this method using sliding time windows is the ability to detect hacking attempts that are deliberate in evading “detection algorithms” from common industry tools
+
+* TML approach and method is a fast, low cost, method of maintaining memory of events as they occur or have occurred in the past that may be “occasional” events and VERY HARD TO DETECT from other commercial tools
+
+* The simplicity of maintaining and incorporating memory by TML for EVERY ENTITY- without the need to vector DB – makes it lightweight, fast, and able to run WITHOUT the need for GPU (only CPU is needed)
+
+* As attackers get more sophisticated in evading commercial algorithms’ detection methods – TML memory offers a continuous awareness of events that are current and have occurred in the past and correlates and quantifies these in a Score for triggering alerts and alarms immediately
