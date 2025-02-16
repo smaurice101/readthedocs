@@ -13,8 +13,8 @@ How TML Maintains Past Memory of Events Using Sliding Time Windows
 
 * TML presents a powerful method of detecting, mitigating and preventing cyber attacks at the entity level by “remembering” past events in past sliding time windows and quantifies this by computing three scores:
 
-   * Attack Score (AS): Quantifies the attack vector.  Higher number, more likely attack is occurring
+   * **Attack Score (AS):** Quantifies the attack vector.  Higher number, more likely attack is occurring
   
-   * Pattern Score (PS): Quantifies the pattern vector.  Higher number, more likely a pattern in the attack
+   * **Pattern Score (PS):** Quantifies the pattern vector.  Higher number, more likely a pattern in the attack
   
-   * Real-Time Memory Score (RTMS): Combines both the Attack and Pattern Scores for an OVERALL score
+   * **Real-Time Memory Score (RTMS):** Combines both the Attack and Pattern Scores for an OVERALL score
