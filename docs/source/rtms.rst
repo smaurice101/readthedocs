@@ -42,11 +42,11 @@ The Method
 
 #. As TML process these data in sliding time windows (for details on sliding time window go here: :ref:`TML Performs Entity Level Machine Learning and Processing`) it is computing in real-time the following Scores:
 
-   #. AttackScore is computing the occurrence of malicious events in past windows and how likely this is an attack
+   #. **AttackScore** is computing the occurrence of malicious events in past windows and how likely this is an attack
 
-   #. PatternScore uses a pattern threshold set by the users (we use 10 for demo) it counts the occurrence of  events (that user is searching for) in past windows
+   #. **PatternScore** uses a pattern threshold set by the users (we use 10 for demo) it counts the occurrence of  events (that user is searching for) in past windows
 
-   #. RTMS Score simply combines the Attack and Pattern scores for an overall score.  
+   #. **RTMS Score** simply combines the Attack and Pattern scores for an overall score.  
 
 .. note:: 
    NOTE: RTMS can exceed 1 because the pattern score can be greater than 1 i.e. events can exceed user pattern threshold
