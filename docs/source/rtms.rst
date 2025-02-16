@@ -30,7 +30,8 @@ The Method
 
 #. TML does a direct STRING search for these terms in the sliding time windows
   
-  * THIS METHOD DOES NOT NEED A VECTOR DB or PRIVATEGPT only TML Processing– this makes TML method very light weight and fast
+   .. note::
+      THIS METHOD DOES NOT NEED A VECTOR DB or PRIVATEGPT only TML Processing– this makes TML method very light weight and fast
 
 #. The Data TML searches, in real-time, are text files that are most likely log files 
 
