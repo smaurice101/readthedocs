@@ -4112,7 +4112,9 @@ Core Parameters in Step 4c
  
        Note, if you are directly streaming from LogStash
 
-       just enter the kafka topc name.
+       just enter the kafka topc name.  You can also
+
+       separate multiple topics with a comma.
    * - searchterms
      - These are the search terms you want to look for
 
@@ -4129,6 +4131,16 @@ Core Parameters in Step 4c
        in the raw_data_topic.  NOTE: if you DO NOT include 
 
        \-\-entity\-\- then TML will search the rtmsstream as usual.
+
+       **NOTE: You can specify search terms from differenct topics.**
+
+       For example, if rtmsstream=topic1,topic2 and 
+
+       searchterms=search1;search2 - then TML will apply 
+
+       search1 to topic1, and search2 to topic2.  This is 
+
+       convenient for more complex and varied logs.
    * - rememberpastwindows
      - This is the number of past sliding time windows you want
 
