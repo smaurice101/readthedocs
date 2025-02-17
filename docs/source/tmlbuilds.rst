@@ -3939,13 +3939,13 @@ Core Parameters in Step 4c
 
        AND, the first character must be &, for OR use |.
 
-       If you are cross-referencing entities use **--entity--**
+       If you are cross-referencing entities use **\-\-entity\-\-**
 
-       and TML will replace --entity-- with the actual entity
+       and TML will replace \-\-entity\-\- with the actual entity
 
        in the raw_data_topic.  NOTE: if you DO NOT include 
 
-       --entity-- then TML will search the rtmsstream as usual.
+       \-\-entity\-\- then TML will search the rtmsstream as usual.
    * - rememberpastwindows
      - This is the number of past sliding time windows you want
 
