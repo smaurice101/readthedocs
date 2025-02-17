@@ -3949,9 +3949,9 @@ Core Parameters in Step 4c
    * - rememberpastwindows
      - This is the number of past sliding time windows you want
 
-       TML to remember: **This is where TML captures memory of
+       TML to remember: 
 
-       past events.**
+       **This is where TML captures memory of past events.**
    * - patternscorethreshold
      - This is the threshold for patterns in the data. For example
 
