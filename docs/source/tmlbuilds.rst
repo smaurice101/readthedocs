@@ -115,28 +115,35 @@ DAG Solution Process Explanation
 
     After you have chosen an ingest data method and producing data, you are ready to **Preprocess Real-Time Data** - the next DAG performs this function:
 
-    4. :ref:`STEP 4: Preprocesing Data: tml-system-step-4-kafka-preprocess-dag` - Preprocessing is a very quick way to start generating insights from your real-time in few minutes.  All 
-       preprocessing is done **in-memory and no external databases are needed, only Kafka**.  After you have preprocessed your data, you can use this 
-       preprocessed data for **machine learning** - the next DAG performs this function.
+    4. :ref:`STEP 4: Preprocesing Data: tml-system-step-4-kafka-preprocess-dag` - Preprocessing is a very quick way to start generating insights from your real- 
+       time in few minutes.  All preprocessing is done **in-memory and no external databases are needed, only Kafka**.  After you have preprocessed your data, 
+       you can use this preprocessed data for **machine learning** - the next DAG performs this function.
     
-    4b. :ref:`STEP 4b: Preprocesing 2 Data: tml-system-step-4b-kafka-preprocess-dag` - This second preprocessing step is an important step that uses the preprocessed data for additional processing in machine learning.  In the conventional machine learning sense, **STEP 4 is like "feature engineering"** and STEP 4b is using the engineered features for a much deeper understanding of the data streaming variables.  
+    4b. :ref:`STEP 4b: Preprocesing 2 Data: tml-system-step-4b-kafka-preprocess-dag` - This second preprocessing step is an important step that uses the 
+        preprocessed data for additional processing in machine learning.  In the conventional machine learning sense, **STEP 4 is like "feature engineering"** 
+        and STEP 4b is using the engineered features for a much deeper understanding of the data streaming variables.  
 
-    4c. :ref:`STEP 4c: Preprocesing 3 Data: tml-system-step-4c-kafka-preprocess-dag` - This is the third preprocessing step that allows users to incoporate TEXT files with machine learning outputs and incoprtaing "past memory" with sliding time windows.  User can control how TML maintains past memory of past sliding time 
-windows.  For details see :ref:`How TML Maintains Past Memory of Events Using Sliding Time Windows`  
+    4c. :ref:`STEP 4c: Preprocesing 3 Data: tml-system-step-4c-kafka-preprocess-dag` - This is the third preprocessing step that allows users to incoporate TEXT 
+        files with machine learning outputs and incoprtaing "past memory" with sliding time windows.  User can control how TML maintains past memory of past 
+        sliding time windows.  For details see :ref:`How TML Maintains Past Memory of Events Using Sliding Time Windows`  
 
-    5. :ref:`STEP 5: Entity Based Machine Learning : tml-system-step-5-kafka-machine-learning-dag` - this is another powerful DAG automatically starts building entity based machine learning models for 
+    5. :ref:`STEP 5: Entity Based Machine Learning : tml-system-step-5-kafka-machine-learning-dag` - this is another powerful DAG automatically starts building 
+        entity based machine learning models for 
         your real-time data.  Note, TML will continuously build ML models are new data streams in.  All machine learning is done **in-memory and no external 
         databases are needed, only Kafka**.  As these models are trained on your real-time data - the next 
         DAG performs predictions.
     
-    6. :ref:`STEP 6: Entity Based Predictions: tml-system-step-6-kafka-predictions-dag` - These predictions get automatically generated in parallel to machine learning training process in DAG 5.  
+    6. :ref:`STEP 6: Entity Based Predictions: tml-system-step-6-kafka-predictions-dag` - These predictions get automatically generated in parallel to machine 
+        learning training process in DAG 5.  
         As predictions are being generated, you can stream these predictions to a real-time dashboard - the next DAG performs this function.
 
-    7. :ref:`STEP 7: Real-Time Visualization: tml-system-step-7-kafka-visualization-dag` - The visualization data are streamed directly from the TML solution container over websockets to the 
+    7. :ref:`STEP 7: Real-Time Visualization: tml-system-step-7-kafka-visualization-dag` - The visualization data are streamed directly from the TML solution 
+       container over websockets to the 
        client browser, this eliminates any need for third-party visualization software.  Now, that you have built the **ENTIRE TML SOLUTION END-END** you are 
        ready to deploy it to Docker - the next DAG performs this function.
 
-    8. :ref:`STEP 8: Deploy TML Solution to Docker : tml-system-step-8-deploy-solution-to-docker-dag` - The TML docker container is automatically built for you and pushed to Docker Hub.  If you have 
+    8. :ref:`STEP 8: Deploy TML Solution to Docker : tml-system-step-8-deploy-solution-to-docker-dag` - The TML docker container is automatically built for you 
+       and pushed to Docker Hub.  If you have 
        chosen to integrate GPT into you solution - you can initiate the PrivateGPT and Qdrant containers - the next DAG performs this function.
 
     9. :ref:`STEP 9: PrivateGPT and Qdrant Integration: tml-system-step-9-privategpt_qdrant-dag` - This DAG integrates your real-time solution seamlessly with 
