@@ -2390,7 +2390,7 @@ STEP 3d: Produce Data Using LOCALFILE: tml-read-LOCALFILE-step-3-kafka-produceto
 """""""""""""""""""""""""""""""""""""""""" 	
 
 .. code-block:: PYTHON
-   :emphasize-lines: 17,18,19,20,21,22,23,24,25,26,27,28
+   :emphasize-lines: 22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38
 
     from airflow import DAG
     from airflow.operators.python import PythonOperator
@@ -2704,7 +2704,17 @@ Core Parameter Explanation
    * - doctopic
      - This is the Kafka topic that will contain the data from
 
-       the files in docfolder. 
+       the files in docfolder.  NOTE: You can specify different
+
+       folder names to go to different topic.  For example,
+
+       if doctopic=topic1,topic2, and docfolder=folder1,folder2
+
+       TML will stream files in folder1 -> topic1, and files
+
+       in folder2 -> topic2. This is convenient if you have lots
+
+       of logs and want to analyse them separately.
    * - chunks 
      - This specifies how to read the files: line by line or in chunks.
 
