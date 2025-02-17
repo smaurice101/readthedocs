@@ -121,6 +121,9 @@ DAG Solution Process Explanation
     
     4b. :ref:`STEP 4b: Preprocesing 2 Data: tml-system-step-4b-kafka-preprocess-dag` - This second preprocessing step is an important step that uses the preprocessed data for additional processing in machine learning.  In the conventional machine learning sense, **STEP 4 is like "feature engineering"** and STEP 4b is using the engineered features for a much deeper understanding of the data streaming variables.  
 
+    4c. :ref:`STEP 4c: Preprocesing 3 Data: tml-system-step-4c-kafka-preprocess-dag` - This is the third preprocessing step that allows users to incoporate TEXT files with machine learning outputs and incoprtaing "past memory" with sliding time windows.  User can control how TML maintains past memory of past sliding time 
+windows.  For details see :ref:`How TML Maintains Past Memory of Events Using Sliding Time Windows`  
+
     5. :ref:`STEP 5: Entity Based Machine Learning : tml-system-step-5-kafka-machine-learning-dag` - this is another powerful DAG automatically starts building entity based machine learning models for 
         your real-time data.  Note, TML will continuously build ML models are new data streams in.  All machine learning is done **in-memory and no external 
         databases are needed, only Kafka**.  As these models are trained on your real-time data - the next 
