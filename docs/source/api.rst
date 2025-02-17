@@ -112,8 +112,14 @@ To install this library a request should be made to **support@otics.ca** for a u
 - **viperhpdetraining**
   - Users can do real-time machine learning (RTML) on the data in Kafka topics. This is very powerful and useful for "transactional learnings" on the fly using our HPDE technology.  HPDE will find the optimal algorithm for the data in less than 60 seconds.  
 
+- **viperpreprocessrtms**
+  - Users can use this function to mesh TEXT data with TML machine learning output to cross-reference entities with TEXT files like log files. This function is a 
+    very powerful function that incorporates "past memory" of real-time events using sliding time windows. For details see: How TML incorporates real-time memory 
+    using sliding time windows
+
 - **viperhpdetrainingbatch**
-  - Users can do real-time machine learning (RTML) on the data in Kafka topics. This is very powerful and useful for "transactional learnings" on the fly using our HPDE technology. 
+  - Users can do real-time machine learning (RTML) on the data in Kafka topics. This is very powerful and useful for "transactional learnings" on the fly using 
+    our HPDE technology. 
     HPDE will find the optimal algorithm for the data in less than 60 seconds.  Batch allows you to perform ML on multiple IDs at once.
 
 - **viperhpdepredict**
@@ -4771,6 +4777,106 @@ RETURNS: This will return a JSON of OK if the privateGPT server is running, or E
 - max_output_tokens determines tokens to return
 
 RETURNS: The file name the response was written to by video chatgpt. 
+
+**46. viperpreprocessrtms(vipertoken,host,port,topic,producerid,offset,maxrows=0,enabletls=0,delay=100,brokerhost='',brokerport=-999,microserviceid='',
+                              topicid=-999,rtmsstream='',searchterms='',rememberpastwindows='',identifier='',
+                              preprocesstopic='',patternscorethreshold='',array=0,saveasarray=0,rawdataoutput=0)**
+
+**Parameters:**	
+
+** : string, required
+
+*VIPERTOKEN* : string, required
+
+- A token given to you by VIPER administrator.
+
+*host* : string, required
+       
+- Indicates the url where the VIPER instance is located and listening.
+
+*port* : int, required
+
+- Port on which VIPER is listenting.
+
+*topic* : string, optional
+
+- This is the topic containing preprocessed data for entities
+
+*producerid* : string, required
+
+- Producerid for the topic.
+
+*offset* : int, required
+
+- This is the offset to start reading from ususally -1 
+
+*maxrows* : int, required
+
+- The number of offsets to rollback the datastream
+
+*enabletls* : int, required
+
+- if 0, no encryption, otherwise if 1 all data are encrypted
+
+*brokerhost* : string, optional
+
+- Address of Kafka broker - if none is specified it will use broker address in VIPER.ENV file
+
+*brokerport* : int, optional
+
+- Port Kafka is listening on - if none is specified it will use port in the VIPER.ENV file
+
+*delay* : int, optional
+
+- delay parameter to wait for Kafka to respond - in milliseconds.
+ 
+*microserviceid* : string, optional
+
+- If you are routing connections to VIPER through a microservice then indicate it here.
+
+*topicid* : int, required
+
+- Specifies how entities are processed.  
+
+*rtmsstream* : string, required
+
+- Specifies Kafka topic to stream the TEXT data into.  Separate multiple topics by comma.
+
+*searchterms* : string, required
+
+- Search terms to use to search the data in text data.  Separate by semi-colon for
+
+  for different searches for different rtmsstream topics. 
+
+*rememberpastwindows* : int, required
+
+- How many sliding time windows for TML to remember.
+
+*identifier* : string, optional
+
+- Identifies this analysis.
+
+*preprocesstopic* : string, required
+
+- Kafka topic to store the output.
+
+*patternscorethreshold* : int, required
+
+- Threshold number for the occurence of the search terms.
+
+*array* : int, optional
+
+- Process data as arrays
+
+*saveasarray* : int, optional
+
+- Save output as arrays.
+
+*rawdataoutput* : int, optional
+
+- Output raw data used in the TML processing
+
+RETURNS: Null 
 
 .. autosummary::
    :toctree: generated
