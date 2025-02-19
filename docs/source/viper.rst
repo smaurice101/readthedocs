@@ -459,7 +459,19 @@ This guide will provide common setup instructions for new users who want to run 
        to RE-PROCESS data that has 
 
        already been processed. 
+   * - RTMSMAXWINDOWS
+     - This number determines how far back you
+ 
+       want TML to rememeber sliding time windows.
 
+       For example, if RTMSMAXWINDOWS=10000, TML will
+
+       remember 10000 past sliding time windows to compute
+
+      the PatternScore.  This is a very powerful TML feature.
+
+      See :ref:`How TML Maintains Past Memory of Events Using Sliding Time Windows
+      
 1. **You are done! Start VIPER.**
 2. **Additional Documentation for Accessing VIPER Functionality**
 3. VIPER is accessed by two methods:
