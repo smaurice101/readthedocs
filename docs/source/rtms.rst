@@ -1,8 +1,19 @@
-How TML Maintains Past Memory of Events Using Sliding Time Windows
+How TML Maintains Past Memory of Events Using Sliding Time Windows in Real-Time
 ============================================
 
 .. tip::
    This capability is implemented in :ref:`STEP 4c: Preprocesing 3 Data: tml-system-step-4c-kafka-preprocess-dag`
+
+.. note::
+   While the Real-Time memory of sliding time windows (RTMS) is demonstrated for Cyber security, it can be applied to any usecase in Retail, Finance, IoT, Energy, 
+   Manufacturing et.. Anytime you want to analyse TEXT files and determine if events have occured in the past and quanitify their importance (or lack of 
+   importance) then this is a powerful feature for you.  
+
+   Also, if you want to cross-refence TML machine learning output of entites to text files i.e. log files, and "remember" their behaviour then this feature becomes 
+   very powerful for you.
+
+Importance of Real-Time Data and Cyber Crime
+---------------------------
 
 * The growth of **real-time data** according to IDC Research **will reach 30% of global data in 2025 or roughly 90 ZB or 90 trillion gigabytes** mainly from IoT devices connected to the Internet
 
