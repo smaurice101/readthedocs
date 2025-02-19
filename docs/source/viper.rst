@@ -468,9 +468,9 @@ This guide will provide common setup instructions for new users who want to run 
 
        remember 10000 past sliding time windows to compute
 
-      the PatternScore.  This is a very powerful TML feature.
+       the PatternScore.  This is a very powerful TML feature.
 
-      See :ref:`How TML Maintains Past Memory of Events Using Sliding Time Windows
+       See :ref:`How TML Maintains Past Memory of Events Using Sliding Time Windows
       
 1. **You are done! Start VIPER.**
 2. **Additional Documentation for Accessing VIPER Functionality**
