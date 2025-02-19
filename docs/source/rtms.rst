@@ -9,10 +9,10 @@ How TML Maintains Past Memory of Events Using Sliding Time Windows in Real-Time
    Manufacturing et.. Anytime you want to analyse TEXT files and determine if events have occured in the past and quantify their importance (or lack of 
    importance) then this is a powerful feature for you.  
 
-   Also, if you want to cross-refence TML machine learning output of every entity to text files i.e. log files, and "remember" their behaviour then this feature 
-   becomes very powerful for you. For example, you may be processing Entities in `Step 4 <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-4-preprocesing- 
-   data-tml-system-step-4-kafka-preprocess-dag>`_ and then want to determine if an entity is showing in the logs or whether it is hacking in to your company using 
-   a slow and "occasiona" attempt over time to EVADE detection algorithms, then RTMS can be very powerful.
+   Also, if you want to **cross-reference TML machine learning output of every entity to text files** i.e. log files, and "remember" their behaviour then this 
+   feature becomes very powerful for you. For example, you may be processing Entities in `Step 4 <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step- 
+   preprocesing-data-tml-system-step-4-kafka-preprocess-dag>`_ and then want to determine if an entity is showing in the logs or whether it is hacking in to your 
+   company using a slow and "occasiona" attempt over time to EVADE detection algorithms, then RTMS can be very powerful.
 
 Importance of Real-Time Data and Cyber Crime
 ---------------------------
