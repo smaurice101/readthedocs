@@ -83,29 +83,37 @@ TML using real-time data is similar to RAG but different in other ways.
 
 .. list-table::
 
-   * - Attribute
-     - TML RTMS
-     - AI RAG
+   * - **Attribute**
+     - **TML RTMS**
+     - **AI RAG**
    * - **Speed**
      - TML RTMS is much faster than RAG 
+
        because TML RTMS does NOT use vector DB.
+
        All TML RTMS processing is real-time.
      - AI RAG require vector DB for search. 
+
        Real-time is still difficult with RAG.
    * - **Prompting**
      - TML users direct text based search
      - With RAG you can use prompt
    * - **Combining ML and AI in Real-Time**
      - With TML you can combine TML output
+
        for each entity and cross-reference 
+
        with TEXT files
      - This is not currently possible with
        RAG       
    * - **Scalability**
      - TML RTMS scales with Kubernetes
+
        to process unlimited documents
+
        at a very low cost
      - Scaling RAG models is difficult
+
        and can be costly
 
 Summary
