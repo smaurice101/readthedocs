@@ -85,7 +85,7 @@ TML using real-time data is similar to RAG but different in other ways.
 
    * - **Attribute**
      - **TML RTMS**
-     - **AI RAG**
+     - **`AI RAG <https://tml.readthedocs.io/en/latest/genai.html#tml-and-rag-a-powerful-combination>`_**
    * - **Speed**
      - TML RTMS is much faster than RAG 
 
