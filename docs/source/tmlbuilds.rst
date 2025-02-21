@@ -4123,7 +4123,7 @@ Core Parameters in Step 4c
 
        terms must be separated by comman.  To specify 
 
-       AND, the first character must be &, for OR use |.
+       AND, the first character must be $, for OR use |.
 
        If you are cross-referencing entities use **\-\-entity\-\-**
 
@@ -4133,11 +4133,11 @@ Core Parameters in Step 4c
 
        \-\-entity\-\- then TML will search the rtmsstream as usual.
 
-       **NOTE: You can specify search terms from differenct topics.**
+       **NOTE: You can specify search terms from differenct topics using ~**
 
        For example, if rtmsstream=topic1,topic2 and 
 
-       searchterms=search1;search2 - then TML will apply 
+       searchterms=search1 ~ search2 - then TML will apply 
 
        search1 to topic1, and search2 to topic2.  This is 
 
