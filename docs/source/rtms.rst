@@ -79,13 +79,13 @@ Past Memory Demonstration
 TML RTMS vs AI RAG
 ------------
 
-TML using real-time data is similar to RAG but different in other ways.
+TML using real-time data is similar to `RAG <https://tml.readthedocs.io/en/latest/genai.html#tml-and-rag-a-powerful-combination>`_ but different in other ways.
 
 .. list-table::
 
    * - **Attribute**
      - **TML RTMS**
-     - **`AI RAG <https://tml.readthedocs.io/en/latest/genai.html#tml-and-rag-a-powerful-combination>`_**
+     - **AI RAG**
    * - **Speed**
      - TML RTMS is much faster than RAG 
 
