@@ -100,7 +100,7 @@ TSS Docker Run Command
    -v /<your local dagsbackup folder>:/dagslocalbackup:z \
    -v /your_localmachine/foldername:/rawdata:z \
    --env READTHEDOCS='<Token>' \
-   --env GITREPOURL=<your git hub repo> \ 
+   --env GITREPOURL=<your github repo URL> \ 
    --env  GITUSERNAME='<your github username>' \ 
    --env GITPASSWORD='<Personal Access Token>' \ 
    --env DOCKERUSERNAME='<your docker hub account>' \ 
