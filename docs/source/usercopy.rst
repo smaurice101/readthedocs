@@ -43,9 +43,9 @@ You Want to Copy SPECIFIC TML Projects From Another Users Git Repo
 To do this:
 
   - You need the other persons Git repo
-  - Enter **-1** after the repo, using comma as the separator.
+  - Enter **the specific projects**, using comma as the separator.
   - For example:
-    - Say you want to copy all TML Project from: **https://github.com/smaurice101/raspberrypitss**
+    - Say you want to copy ONLY **myawesometmlsolution-3f10** and **iotsolution-3f10** TML Projects from: **https://github.com/smaurice101/raspberrypitss**
     - Then Enter:
       
       .. code-block::
