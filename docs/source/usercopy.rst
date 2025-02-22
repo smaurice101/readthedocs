@@ -15,7 +15,10 @@ The process of copying from otheres Git repo is simple:
 
 Once you are in the **CREATETMLPROJECT.txt** file - you can do the following scenarios:
 
-- You want to copy ALL TML Projects from another users Git Repo.  To do this:
+You want to copy ALL TML Projects from another users Git Repo  
+------------------------------------------------------
+   
+To do this:
 
   - You need the other persons Git repo
   - Enter -1 after the repo
