@@ -26,3 +26,8 @@ Once you are in the **CREATETMLPROJECT.txt** file - you can do the following sce
       .. code-block::
 
          https://github.com/smaurice101/raspberrypitss,-1
+    
+    - Then enter 
+
+      .. figure:: usercopy2.png
+         :scale: 70%
