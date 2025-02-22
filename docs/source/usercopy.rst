@@ -31,3 +31,5 @@ Once you are in the **CREATETMLPROJECT.txt** file - you can do the following sce
 
       .. figure:: usercopy2.png
          :scale: 70%
+
+    **TSS will pull all TML projects from the other user's Git Repo and commit them to your repo.  TSS will take care of file changes.  Within few seconds, on your Git Repo you will see ALL of the other user's TML projects.**
