@@ -55,11 +55,14 @@ To do this:
 
          https://github.com/smaurice101/raspberrypitss,myawesometmlsolution-3f10,iotsolution-3f10
 
+      .. figure:: usercopy3.png
+         :scale: 70%
+
     Here you are copying TWO projects: myawesometmlsolution-3f10,iotsolution-3f10
 
     - Then press Save:
 
-      .. figure:: usercopy3.png
+      .. figure:: usercopy2.png
          :scale: 70%
 
     **TSS will pull ONLY those TML projects from the other user's Git Repo and commit them to your repo.  TSS will take care of file changes.  Within few seconds, on your Git Repo you will see those specific projects of the other user's TML projects.**
