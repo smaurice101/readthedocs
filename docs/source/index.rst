@@ -219,6 +219,7 @@ Contents
    examples
    git
    usage 
+   usercopy
    readthedocs
    hive
    gitsetup
