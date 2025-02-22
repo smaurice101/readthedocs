@@ -5,7 +5,7 @@ With TSS you have the ability to copy TML projects from others Git repo.  This i
 
 The process of copying from otheres Git repo is simple:
 
-#. Goto the TSS and select from the top menu item: Admin -> Dags Code Editor
+#. Goto the TSS and select from the top menu item: **Admin -> Dags Code Editor**
 
 #. Navigate to the File: **root/tml-airflow/dags/tml-solutions/CREATETMLPROJECT.txt**
    See figure below.
