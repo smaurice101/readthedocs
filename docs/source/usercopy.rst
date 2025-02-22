@@ -11,7 +11,7 @@ The process of copying from otheres Git repo is simple:
    See figure below.
 
    .. figure:: usercopy1.png
-      :scale: 70%
+      :scale: 60%
 
 Once you are in the **CREATETMLPROJECT.txt** file - you can do the following scenarios:
 
@@ -29,11 +29,14 @@ To do this:
       .. code-block::
 
          https://github.com/smaurice101/raspberrypitss,-1
-    
+
+      .. figure:: usercopy1.png
+         :scale: 60%
+
     - Then press Save:
 
       .. figure:: usercopy2.png
-         :scale: 70%
+         :scale: 60%
 
     **TSS will pull all TML projects from the other user's Git Repo and commit them to your repo.  TSS will take care of file changes.  Within few seconds, on your Git Repo you will see ALL of the other user's TML projects.**
 
@@ -56,7 +59,7 @@ To do this:
 
     - Then press Save:
 
-      .. figure:: usercopy2.png
+      .. figure:: usercopy3.png
          :scale: 70%
 
     **TSS will pull ONLY those TML projects from the other user's Git Repo and commit them to your repo.  TSS will take care of file changes.  Within few seconds, on your Git Repo you will see those specific projects of the other user's TML projects.**
