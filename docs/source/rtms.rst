@@ -266,9 +266,9 @@ Summary
 
 * For every entity: It quantified this memory in Three (3) scores:
   
-  * **AttackScore**
-  * **PatternScore**
-  * **Real-Time Memory Score**
+  * **AttackScore (AS)**
+  * **PatternScore (PS)**
+  * **Real-Time Memory Score (RTMS)**
 
 .. important::
    The power of TML maintaining memory and computing the 3 scores is to capture **attacker behaviours that try to EVADE detection algorithms**.  While the AttackScore may not indicate an attack, it may be picked up as a pattern in the PatternScore.
