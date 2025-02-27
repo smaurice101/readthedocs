@@ -159,11 +159,9 @@ Output Explanation
    * - hyperprediction
      - This is the RTMS Score
    * - Entity
-     - This is the entity being analysed.  This is an IP
+     - This is the entity being analysed.  This can be 
 
-       address, where 192.168 is removed.  In actuality
-
-       The entity is 192.168.6.26
+       anything you want.
    * - Maintopic
      - This is the topic that holds the entity
 
