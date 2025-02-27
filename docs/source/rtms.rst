@@ -101,31 +101,31 @@ TML Output of RTMS Scores
 .. code-block:: JSON
 
       {
-          "hyperprediction": "0.00",
-          "Entity": "5.18",
+          "hyperprediction": "0.28",
+          "Entity": "5.24",
           "Maintopic": "iot-preprocess",
-          "Topicid": "topicid27_rtms-stream-mylogs",
+          "Topicid": "topicid117_rtms-stream-mylogs",
           "Topic": "rtms-stream-mylogs",
           "Type": "External",
           "ProducerId": "RTMS",
-          "TimeStamp": "2025-02-27 03:38:52",
-          "Unixtime": 1740627532262825200,
-          "kafkakey": "OAA-V1egQJmN7-wW8ToLJBJtJ095zoXL93",
+          "TimeStamp": "2025-02-27 17:23:33",
+          "Unixtime": 1740677013186772700,
+          "kafkakey": "OAA-fOMleuaKxdS9iqZzL8uGxDMEIvcXUa",
           "Preprocesstype": "rtms",
-          "UserSearchValues": "failures,--entity-- password failure ~ |unknown--entity--",
-          "SearchTextFound": "(TRUNCATED STRING EXCEEDS 3000)[Topic=rtms-stream-mylogs][MessageFound=rning: Unrecognized packageExtended attribute.][UserSearch=package][Partition=0 Offset=2722];[Topic=rtms-stream-mylogs][MessageFound=rning: Unrecognized packageExtended attribute.][UserSearch=package][Partition=0 Offset=2723];[Topic=rtms-stream-mylogs][MessageFound=rning: Unrecognized packageExtended attribute.][UserSearch=package][Partition=0 Offset=2724];[Topic=rtms-stream-mylogs][MessageFound=rning: Unrecognized packageExtended attribute.][UserSearch=package][Partition=0 Offset=2725];[Topic=rtms-stream-mylogs][MessageFound=rning: Unrecognized packageExtended attribute.][UserSearch=package][Partition=0 Offset=2726];[Topic=rtms-stream-mylogs][MessageFound=rning: Unrecognized packageExtended attribute.][UserSearch=package][Partition=0 Offset=2727];[Topic=rtms-stream-mylogs][MessageFound=rning: Unrecognized packageExtended attribute.][UserSearch=package][Partition=0 Offset=2728];[Topic=rtms-stream-mylogs][MessageFound=rning: Unrecognized packageExtended attribute.][UserSearch=package][Partition=0 Offset=2729];[Topic=rtms-stream-mylogs][MessageFound=rning: Unrecognized packageExtended attribute.][UserSearch=package][Partition=0 Offset=2730];[Topic=rtms-stream-mylogs][MessageFound=rning: Unrecognized packageExtended attribute.][UserSearch=package][Partition=0 Offset=2731];[Topic=rtms-stream-mylogs][MessageFound=rning: Unrecognized packageExtended attribute.][UserSearch=package][Partition=0 Offset=2732];[Topic=rtms-stream-mylogs][MessageFound=rning: Unrecognized packageExtended attribute.][UserSearch=package][Partition=0 Offset=2733];[Topic=rtms-stream-mylogs][MessageFound=rning: Unrecognized packageExtended attribute.][UserSearch=package][Partition=0 Offset=2734];[Topic=rtms-stream-mylogs][MessageFound=rning: Unrecognized packageExtended attribute.][UserSearch=package][Partition=0 Offset=2735];[Topic=rtms-stream-mylogs][MessageFound=Unrecognized packageExtended attribute.][UserSearch=package][Partition=0 Offset=2736];[Topic=rtms-stream-mylogs][MessageFound=rning: Unrecognized packageExtended attribute.][UserSearch=package][Partition=0 Offset=2737];[Topic=rtms-stream-mylogs][MessageFound=rning: Unrecognized packageExtended attribute.][UserSearch=package][Partition=0 Offset=2738];[Topic=rtms-stream-mylogs][MessageFound=rning: Unrecognized packageExtended attribute.][UserSearch=package][Partition=0 Offset=2739];[Topic=rtms-stream-mylogs][MessageFound=CBS Read out cached package applicability for p][UserSearch=package][Partition=0 Offset=2740];[Topic=rtms-stream-mylogs][MessageFound=CBS Read out cached package applicability for p][UserSearch=package][Partition=0 Offset=2741];[Topic=rtms-stream-mylogs][MessageFound=CBS Read out cached package applicability for p][UserSearch=package][Partition=0 Offset=2742];[Topic=rtms-stream-mylogs][MessageFound=CBS Read out cached package applicability for p][UserSearch=package][Partition=0 Offset=2743];[Topic=rtms-stream-mylogs][MessageFound=CBS Read out cached package applicabi",
-          "FinalAttackScore": "0.00",
-          "FinalPatternScore": "0.05",
-          "ComputedAttackScore": "1.00",
-          "ComputedPatternScore": "1.00",
-          "RTMSSCORE": "0.00",
-          "NumAttackWindowsSearched": "1",
-          "NumPatternWindowsSearched": "1",
-          "Filename": "/rawdata/rtms/rtms-stream-mylogs_27.txt",
-          "TMLComment": "The RTMS score of 0.00 seems to show low activity or risk.  The AttackScore of 0.00 is less than PatternScore of 0.05,   which suggests likely no attack, but could be a pattern developing.  The number of sliding time windows that match occurences to your search terms for AttackScore is 0.00, the number of windows   searched for an occurence of a pattern is 1. TML will continue monitoring and these numbers may change over time.",
+          "UserSearchValues": "@authentication failure,192.168.--entity-- password failure ~ |unknown 192.168.--entity--",
+          "SearchTextFound": "(TRUNCATED STRING EXCEEDS 3000)[Topic=rtms-stream-mylogs][MessageFound=many authentication failures for root preauth][UserSearch=failures][Partition=0 Offset=21410];[Topic=rtms-stream-mylogs][MessageFound=more authentication failures logname= uid=0 euid][UserSearch=failures][Partition=0 Offset=21416];[Topic=rtms-stream-mylogs][MessageFound=more authentication failures logname= uid=0 euid][UserSearch=failures][Partition=0 Offset=21417];[Topic=rtms-stream-mylogs][MessageFound=many authentication failures for root preauth][UserSearch=failures][Partition=0 Offset=21419];[Topic=rtms-stream-mylogs][MessageFound=more authentication failures logname= uid=0 euid][UserSearch=failures][Partition=0 Offset=21420];[Topic=rtms-stream-mylogs][MessageFound=more authentication failures logname= uid=0 euid][UserSearch=failures][Partition=0 Offset=21422];[Topic=rtms-stream-mylogs][MessageFound=many authentication failures for admin preauth][UserSearch=failures][Partition=0 Offset=21446];;[Topic=rtms-stream-mylogs][MessageFound=many authentication failures for root preauth][UserSearch=failures][Partition=0 Offset=21410];[Topic=rtms-stream-mylogs][MessageFound=more authentication failures logname= uid=0 euid][UserSearch=failures][Partition=0 Offset=21416];[Topic=rtms-stream-mylogs][MessageFound=more authentication failures logname= uid=0 euid][UserSearch=failures][Partition=0 Offset=21417];[Topic=rtms-stream-mylogs][MessageFound=many authentication failures for root preauth][UserSearch=failures][Partition=0 Offset=21419];[Topic=rtms-stream-mylogs][MessageFound=more authentication failures logname= uid=0 euid][UserSearch=failures][Partition=0 Offset=21420];[Topic=rtms-stream-mylogs][MessageFound=more authentication failures logname= uid=0 euid][UserSearch=failures][Partition=0 Offset=21422];[Topic=rtms-stream-mylogs][MessageFound=many authentication failures for admin preauth][UserSearch=failures][Partition=0 Offset=21446];;[Topic=rtms-stream-mylogs][MessageFound=many authentication failures for root preauth][UserSearch=failures][Partition=0 Offset=8038];[Topic=rtms-stream-mylogs][MessageFound=more authentication failures logname= uid=0 euid][UserSearch=failures][Partition=0 Offset=8044];[Topic=rtms-stream-mylogs][MessageFound=more authentication failures logname= uid=0 euid][UserSearch=failures][Partition=0 Offset=8045];[Topic=rtms-stream-mylogs][MessageFound=many authentication failures for root preauth][UserSearch=failures][Partition=0 Offset=8047];[Topic=rtms-stream-mylogs][MessageFound=more authentication failures logname= uid=0 euid][UserSearch=failures][Partition=0 Offset=8048];[Topic=rtms-stream-mylogs][MessageFound=more authentication failures logname= uid=0 euid][UserSearch=failures][Partition=0 Offset=8050];[Topic=rtms-stream-mylogs][MessageFound=many authentication failures for admin preauth][UserSearch=failures][Partition=0 Offset=8074];;[Topic=rtms-stream-mylogs][MessageFound=many authentication failures for root preauth][UserSearch=failures][Partition=0 Offset=8038];[Topic=rtms-stream",
+          "FinalAttackScore": "0.08",
+          "FinalPatternScore": "2.50",
+          "ComputedAttackScore": "8.00",
+          "ComputedPatternScore": "75.00",
+          "RTMSSCORE": "0.28",
+          "NumAttackWindowsFound": "8",
+          "NumPatternWindowsFound": "75",
+          "Filename": "/rawdata/rtms/rtms-stream-mylogs_117.txt",
+          "TMLComment": "The RTMS score of 0.28 seems to show low activity or risk.  The AttackScore of 0.08 is less than PatternScore of 2.50,   which suggests likely no attack, but could be a pattern developing.  The number of sliding time windows that match occurences to your search terms for AttackScore is 0.08, the number of windows   searched for an occurence of a pattern is 75. TML will continue monitoring and these numbers may change over time.",
           "ActivityLevel": "Low",
-          "RememberPastWindows": "50",
-          "PatternThreshold": "20"
+          "RememberPastWindows": "100",
+          "PatternThreshold": "30"
       }
 
 Output Explanation
@@ -148,9 +148,9 @@ Output Explanation
    * - Topicid
      - TML gives entity an internal integer ID.
  
-       This entity (192.168.5.18) has an internal
+       This entity (192.168.5.24) has an internal
 
-       ID of 27.  The format is the:
+       ID of 17. The format is the:
    
        **topicid<internal entity number>_<name of RTMS topic searched>**
    * - Topic
