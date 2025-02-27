@@ -3906,7 +3906,7 @@ STEP 4c: Preprocesing 3 Data: tml-system-step-4c-kafka-preprocess-dag
       'rtmsstream' : 'rtms-stream-mylogs,rtms-stream-mylogs2', # Change as needed - STREAM containing log file data (or other data) for RTMS
                                                         # If entitystream is empty, TML uses the preprocess type only.
       'identifier' : 'RTMS Past Memory of Events', # <<< ** Change as needed
-      'searchterms' : '$authentication failures,--entity-- password failure ~ |unknown--entity--', # main Search terms, if AND add $, if OR use | s first characters, default OR
+      'searchterms' : '@authentication failures,--entity-- password failure ~ |unknown--entity--', # main Search terms, if AND add @, if OR use | s first characters, default OR
                                                                  # Must include --entity-- if correlating with entity - this will be replaced 
                                                                  # dynamically with the entities found in raw_data_topic
       'rememberpastwindows' : '500', # Past windows to remember
@@ -4132,7 +4132,7 @@ Core Parameters in Step 4c
 
        terms must be separated by comman.  To specify 
 
-       AND, the first character must be $, for OR use |.
+       AND, the first character must be @, for OR use |.
 
        If you are cross-referencing entities use **\-\-entity\-\-**
 
