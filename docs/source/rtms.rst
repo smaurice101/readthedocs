@@ -67,6 +67,12 @@ The Method
    NOTE: RTMS can exceed 1 because the pattern score can be greater than 1 i.e. events can exceed user pattern threshold.
    These score will obviously fluctuate in real-time time and alerts can be set up to trigger ALARMS of a cyber attack.
 
+High-Level Reference Architecture
+-----------------------
+
+.. figure:: rtms3.png
+   :scale: 70%
+
 Past Memory Demonstration
 -----------------------
 
