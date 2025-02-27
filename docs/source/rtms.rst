@@ -235,17 +235,17 @@ Output Explanation
    * - TMLComment
      - This is the suggested auto-generated TML comment.
    * - ActivityLevel
-     - based on the RTMS score this is what TML suggests.
+     - Based on the RTMS score this is what TML suggests.
    
        You can ofcourse use your own judgement.
    * - RememberPastWindows
-     - TML will remmember the sliding windows upto
+     - TML will remember the sliding windows upto
  
        this number.
    * - PatternThreshold
-     - This is a user threshld to alreat when a pattern
+     - This is a user threshold to alert when a pattern
 
-       if equal or greater than this number.
+       is equal to or greater than this number.
 
 .. tip:: 
    TML gives you are powerful capability to substiitute the **--entity--** placeholder with the **Entity** above. This makes it possible to search for each invidual entity in any log files.
