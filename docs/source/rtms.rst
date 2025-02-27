@@ -84,7 +84,7 @@ High-Level Reference Architecture
 .. figure:: rtms3.png
    :scale: 70%
 
-    **Enjoy the POWER of TML RTMS solution - that integrates real-time ML/AI entity level predictions with text files (like log files) to protect your global organizations - UNLIKE ANY OTHER TECHNOLOGY IN THE MARKET.**
+**Enjoy the POWER of TML RTMS solution - that integrates real-time ML/AI entity level predictions with text files (like log files) to protect your global organizations - UNLIKE ANY OTHER TECHNOLOGY IN THE MARKET.**
 
 Past Memory Demonstration
 -----------------------
