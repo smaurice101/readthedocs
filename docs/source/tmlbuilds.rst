@@ -3890,27 +3890,27 @@ STEP 4c: Preprocesing 3 Data: tml-system-step-4c-kafka-preprocess-dag
       'producerid' : 'rtmssolution',   # <<< *** Change as needed   
       'raw_data_topic' : 'iot-preprocess', # *************** INCLUDE ONLY ONE TOPIC - This is one of the topic you created in SYSTEM STEP 2
       'preprocess_data_topic' : 'iot-preprocess2', # *************** INCLUDE ONLY ONE TOPIC - This is one of the topic you created in SYSTEM STEP 2
-      'maxrows' : '350', # <<< ********** Number of offsets to rollback the data stream -i.e. rollback stream by 500 offsets
+      'maxrows' : '50', # <<< ********** Number of offsets to rollback the data stream -i.e. rollback stream by 500 offsets
       'offset' : '-1', # <<< Rollback from the end of the data streams  
       'brokerhost' : '',   # <<< *** Leave as is
       'brokerport' : '-999',  # <<< *** Leave as is   
       'delay' : '70', # Add a 70 millisecond maximum delay for VIPER to wait for Kafka to return confirmation message is received and written to topic     
       'array' : '0', # do not modify
       'saveasarray' : '1', # do not modify
-      'topicid' : '-1', # do not modify
+      'topicid' : '-999', # do not modify
       'rawdataoutput' : '1', # <<< 1 to output raw data used in the preprocessing, 0 do not output
       'asynctimeout' : '120', # <<< 120 seconds for connection timeout 
       'timedelay' : '0', # <<< connection delay
       'tmlfilepath' : '', # leave blank
       'usemysql' : '1', # do not modify
-      'rtmsstream' : 'rtms-data', # Change as needed - STREAM containing log file data (or other data) for RTMS
+      'rtmsstream' : 'rtms-stream-mylogs,rtms-stream-mylogs2', # Change as needed - STREAM containing log file data (or other data) for RTMS
                                                         # If entitystream is empty, TML uses the preprocess type only.
       'identifier' : 'RTMS Past Memory of Events', # <<< ** Change as needed
-      'searchterms' : '&authentication failures,--entity--', # main Search terms, if AND add &, if OR use | s first characters, default OR
+      'searchterms' : '$authentication failures,--entity-- password failure ~ |unknown--entity--', # main Search terms, if AND add $, if OR use | s first characters, default OR
                                                                  # Must include --entity-- if correlating with entity - this will be replaced 
                                                                  # dynamically with the entities found in raw_data_topic
-      'rememberpastwindows' : '50', # Past windows to remember
-      'patternscorethreshold' : '20', # check for the number of patterns for the items in searchterms
+      'rememberpastwindows' : '500', # Past windows to remember
+      'patternscorethreshold' : '30', # check for the number of patterns for the items in searchterms
     }
     
     ######################################## DO NOT MODIFY BELOW #############################################
@@ -3975,8 +3975,8 @@ STEP 4c: Preprocesing 3 Data: tml-system-step-4c-kafka-preprocess-dag
              try:
                     result=maadstml.viperpreprocessrtms(VIPERTOKEN,VIPERHOST,VIPERPORT,topic,producerid,offset,maxrows,enabletls,delay,brokerhost,
                                                       brokerport,microserviceid,topicid,rtmsstream,searchterms,rememberpastwindows,identifier,
-                                                      preprocesstopic,patternscorethreshold)
-                    #print(result)
+                                                      preprocesstopic,patternscorethreshold,array,saveasarray,rawdataoutput)
+    #                print(result)
              except Exception as e:
                     print("ERROR:",e)
     
@@ -3995,8 +3995,8 @@ STEP 4c: Preprocesing 3 Data: tml-system-step-4c-kafka-preprocess-dag
            pname=context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_projectname".format(sd))
            
            VIPERTOKEN = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_VIPERTOKEN".format(sname))
-           VIPERHOST = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_VIPERHOSTPREPROCESS2".format(sname))
-           VIPERPORT = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_VIPERPORTPREPROCESS2".format(sname))
+           VIPERHOST = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_VIPERHOSTPREPROCESS3".format(sname))
+           VIPERPORT = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_VIPERPORTPREPROCESS3".format(sname))
            HTTPADDR = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_HTTPADDR".format(sname))
     
            chip = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_chip".format(sname)) 
@@ -4013,6 +4013,13 @@ STEP 4c: Preprocesing 3 Data: tml-system-step-4c-kafka-preprocess-dag
            ti.xcom_push(key="{}_timedelay".format(sname), value="_{}".format(default_args['timedelay']))
            ti.xcom_push(key="{}_usemysql".format(sname), value="_{}".format(default_args['usemysql']))
            ti.xcom_push(key="{}_identifier".format(sname), value=default_args['identifier'])
+    
+           rtmsstream=default_args['rtmsstream']
+           if 'step4crtmsstream' in os.environ:
+             ti.xcom_push(key="{}_rtmsstream".format(sname), value=os.environ['step4crtmsstream'])
+             rtmsstream=os.environ['step4crtmsstream']
+           else:  
+             ti.xcom_push(key="{}_rtmsstream".format(sname), value=default_args['rtmsstream'])
     
            maxrows=default_args['maxrows']
            if 'step4cmaxrows' in os.environ:
@@ -4055,10 +4062,10 @@ STEP 4c: Preprocesing 3 Data: tml-system-step-4c-kafka-preprocess-dag
            else:
              fullpath="/{}/tml-airflow/dags/{}".format(repo,os.path.basename(__file__))  
                 
-           wn = windowname('preprocess2',sname,sd)     
+           wn = windowname('preprocess3',sname,sd)     
            subprocess.run(["tmux", "new", "-d", "-s", "{}".format(wn)])
-           subprocess.run(["tmux", "send-keys", "-t", "{}".format(wn), "cd /Viper-preprocess2", "ENTER"])
-           subprocess.run(["tmux", "send-keys", "-t", "{}".format(wn), "python {} 1 {} {}{} {} {} \"{}\" {} {} {}".format(fullpath,VIPERTOKEN,HTTPADDR,VIPERHOST,VIPERPORT[1:],maxrows,searchterms,rememberpastwindows,patternscorethreshold,raw_data_topic), "ENTER"])        
+           subprocess.run(["tmux", "send-keys", "-t", "{}".format(wn), "cd /Viper-preprocess3", "ENTER"])
+           subprocess.run(["tmux", "send-keys", "-t", "{}".format(wn), "python {} 1 {} {}{} {} {} \"{}\" {} {} \"{}\" \"{}\"".format(fullpath,VIPERTOKEN,HTTPADDR,VIPERHOST,VIPERPORT[1:],maxrows,searchterms,rememberpastwindows,patternscorethreshold,raw_data_topic,rtmsstream), "ENTER"])        
     
     if __name__ == '__main__':
         if len(sys.argv) > 1:
@@ -4086,6 +4093,8 @@ STEP 4c: Preprocesing 3 Data: tml-system-step-4c-kafka-preprocess-dag
             default_args['patternscorethreshold'] = patternscorethreshold
             rawdatatopic =  sys.argv[9]
             default_args['raw_data_topic'] = rawdatatopic
+            rtmsstream =  sys.argv[10]
+            default_args['rtmsstream'] = rtmsstream
              
             tsslogging.locallogs("INFO", "STEP 4c: Preprocessing 3 started")
     
@@ -4094,7 +4103,7 @@ STEP 4c: Preprocesing 3 Data: tml-system-step-4c-kafka-preprocess-dag
                 processtransactiondata()
                 time.sleep(1)
               except Exception as e:     
-               tsslogging.locallogs("ERROR", "STEP 4c: Preprocessing2 DAG in {} {}".format(os.path.basename(__file__),e))
+               tsslogging.locallogs("ERROR", "STEP 4c: Preprocessing3 DAG in {} {}".format(os.path.basename(__file__),e))
                tsslogging.tsslogit("Preprocessing3 DAG in {} {}".format(os.path.basename(__file__),e), "ERROR" )                     
                tsslogging.git_push("/{}".format(repo),"Entry from {}".format(os.path.basename(__file__)),"origin")    
                break
