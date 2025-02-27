@@ -211,7 +211,7 @@ Output Explanation
    * - ComputedAttackScore
      - This is the number of sliding time windows that contain
     
-        the search terms.
+       the search terms.
    * - ComputedPatternScore
      - The number of sliding time windows that contain the search term.
    * - RTMSSCORE
