@@ -135,9 +135,9 @@ Output Explanation
    * - Topicid
      - TML gives entity an internal integer ID.
  
-       This entity (192.168.6.26) has an internal
+       This entity (192.168.5.18) has an internal
 
-       ID of 5.  The format is the:
+       ID of 27.  The format is the:
    
        **topicid<internal entity number>_<name of RTMS topic searched>**
    * - Topic
