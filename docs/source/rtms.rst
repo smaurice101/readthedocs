@@ -213,9 +213,7 @@ Output Explanation
     
         the search terms.
    * - ComputedPatternScore
-     - The number of sliding time windows that contain the 
-
-       search term.
+     - The number of sliding time windows that contain the search term.
    * - RTMSSCORE
      - The RTMS score.
    * - NumAttackWindowsSearched
