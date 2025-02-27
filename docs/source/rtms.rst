@@ -141,7 +141,7 @@ TML Output of RTMS Scores
           "ComputedPatternScore": "0.00",
           "RTMSSCORE": "0.00",
           "NumAttackWindowsSearched": "1",
-          "NumPatternWindowsSearched": "0",
+          "NumPatternWindowsSearched": "1",
           "Filename": "/rawdata/rtms/rtms-stream-mylogs_5.txt",
           "TMLComment": "The RTMS score of 0.00 seems to show low activity or risk.  The AttackScore of 0.00 is greater than, or equal to, PatternScore of 0.00, which suggests likely pattern found but not significant.     The number of sliding time windows that match occurences to your search terms for AttackScore is 1, the number of windows searched for an occurence of a pattern is 0.     TML will continue monitoring and these numbers may change over time.",
           "ActivityLevel": "Low",
@@ -149,6 +149,113 @@ TML Output of RTMS Scores
           "PatternThreshold": "20"
       }
 
+Output Explanation
+==========================
+
+.. list-table::
+
+   * - **Field**
+     - **Explanation**
+   * - hyperprediction
+     - This is the RTMS Score
+   * - Entity
+     - This is the entity being analysed.  This is an IP
+
+       address, where 192.168 is removed.  In actuality
+
+       The entity is 192.168.6.26
+   * - Maintopic
+     - This is the topic that holds the entity
+
+       preprocessing from `Step 4 <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-4-preprocesing-data-tml-system-step-4-kafka-preprocess-dag>`_
+   * - Topicid
+     - TML gives entity an internal integer ID.
+ 
+       This entity (192.168.6.26) has an internal
+
+       ID of 5.  The format is the:
+   
+       **topicid<internal entity number>_<name of RTMS topic searched>**
+   * - Topic
+     - The RTMS topic searched - containing TEXT
+   * - Type
+     - Internal label
+   * - ProducerId
+     - Internal label
+   * - TimeStamp
+     - The time results were generated.
+   * - Unixtime
+     - The Unixtime of TimeStamp": 1740622429164065300,
+   * - kafkakey
+     - Unique key for this JSON in Kafka.
+
+       If you want to audit these results 
+
+       these keys identify each message uniquely.
+   * - Preprocesstype
+     - Type is **rtms**
+   * - UserSearchValues
+     - These are the user search values. See tip below.
+   * - SearchTextFound
+     - This is list of text that was found in the 
+ 
+       the Text files (log files) that contain your 
+
+       search terms.  The list is truncated to 3000.
+  
+       But, this will give you a good indication of
+ 
+       whats happening.
+   * - FinalAttackScore
+     - The Final attack score
+   * - FinalPatternScore
+     - The final pattern score
+   * - ComputedAttackScore
+     - This is the number of sliding time windows that contain
+    
+        the search terms.
+   * - ComputedPatternScore
+     - The number of sliding time windows that contain the 
+
+       search term.
+   * - RTMSSCORE
+     - The RTMS score.
+   * - NumAttackWindowsSearched
+     - The number of attack windows that contain the search
+     
+       terms.  This is upto **RememberPastWindows**
+   * - NumPatternWindowsSearched
+     - This the number of windows that contain the search terms.
+
+       Note: This in not restricted to RememberPastWindows, but
+
+       upto **RTMSMAXWINDOWS** in `Step 1 <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-1-get-tml-core-params-tml-system-step-1-getparams-dag>`_ 
+    
+       JSON field.
+   * - Filename
+     - This is a file of these results saved to:
+     
+       **/rawdata/rtms** folder in the container.
+   * - TMLComment
+     - This is the suggested auto-generated TML comment.
+   * - ActivityLevel
+     - based on the RTMS score this is what TML suggests.
+   
+       You can ofcourse use your own judgement.
+   * - RememberPastWindows
+     - TML will remmember the sliding windows upto
+ 
+       this number.
+   * - PatternThreshold
+     - This is a user threshld to alreat when a pattern
+
+       if equal or greater than this number.
+
+.. tip:: 
+   TML gives you are powerful capability to substiitute the **--entity--** placeholder with the **Entity** above. This makes it possible to search for each invidual entity in any log files.
+
+   
+   
 
 Summary
 ----------
