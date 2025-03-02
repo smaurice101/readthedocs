@@ -92,7 +92,7 @@ Past Memory Demonstration
 .. important::
    **It is important to note the following about the Attack and Pattern scores:**
 
-   * - **Pattern Score** will look for all occurences of search terms in each sliding time window.  Meaning there may be MULTIPLE occurencs of search terms in the SAME sliding time window.  This number can be greater than 1.
+   * - **Pattern Score** will look for all occurences of search terms in each sliding time window.  Meaning there may be MULTIPLE occurences of search terms in the SAME sliding time window.  This number can be greater than 1.
 
      * - **Pattern score** will check the number of windows GOING BACK as far as **RTMSMAXWINDOWS** parameter in `STEP 1 <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-1-get-tml-core-params-tml-system-step-1-getparams-dag>`_.  
 
