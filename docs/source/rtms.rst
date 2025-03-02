@@ -92,13 +92,13 @@ Past Memory Demonstration
 .. important::
    **It is important to note the following about the Attack and Pattern scores:**
 
-   * - **Pattern Score** will look for all occurences of search terms in each sliding time window.  Meaning there may be MULTIPLE occurences of search terms in the SAME sliding time window.  This number can be greater than 1.
+   * - **Pattern Score** will look for all occurrences of search terms in each sliding time window.  Meaning there may be MULTIPLE occurrences of search terms in the SAME sliding time window.  This number can be greater than 1.
 
      * - **Pattern score** will check the number of windows GOING BACK as far as **RTMSMAXWINDOWS** parameter in `STEP 1 <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-1-get-tml-core-params-tml-system-step-1-getparams-dag>`_.  
 
-     * - So, if this number is 1000, TML will check all 1000 sliding time windows for the occurence of the search terms.
+     * - So, if this number is 1000, TML will check all 1000 sliding time windows for the occurrence of the search terms.
 
-     * - The **patternscorethreshold** can be set in `Step 4c <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-4c-preprocesing-3-data-tml-system-step-4c-kafka-preprocess-dag>`_.  This is the maximum occurence of a pattern before raising an ALERT.  This means the **Pattern Score MAY BE GREATER THAN 1**.
+     * - The **patternscorethreshold** can be set in `Step 4c <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-4c-preprocesing-3-data-tml-system-step-4c-kafka-preprocess-dag>`_.  This is the maximum occurrence of a pattern before raising an ALERT.  This means the **Pattern Score MAY BE GREATER THAN 1**.
 
    * - **Attack Score** ONLY checks if window CONTAINS AN OCCURENCE of the search term.  This number is either 1 or 0.  The attack score is GOING BACK as far as the **rememberpastwindows** parameter in `Step 4c <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-4c-preprocesing-3-data-tml-system-step-4c-kafka-preprocess-dag>`_.
 
