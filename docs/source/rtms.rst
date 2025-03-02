@@ -100,6 +100,8 @@ Past Memory Demonstration
 
    * - **Attack Score** ONLY checks if window CONTAINS AN OCCURENCE of the search term.  This number is either 1 or 0.  The attack score is GOING BACK as far as the **rememberpastwindows** parameter in `Step 4c <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-4c-preprocesing-3-data-tml-system-step-4c-kafka-preprocess-dag>`_.
 
+   * - **User parameters:** **rememberpastwindows** and **RTMSMAXWINDOWS** are the core parameters that allows TML to **REMEMBER past events in real-time**.
+
 .. figure:: rtms1.png
    :scale: 70%
 
