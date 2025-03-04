@@ -247,7 +247,7 @@ Output Explanation
 .. note:: 
    If you DO NOT want to use entities simply set the **'raw_data_topic'** to an empty string ('') in `Step 4c <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-4c-preprocesing-3-data-tml-system-step-4c-kafka-preprocess-dag>`_.  This will force TML to search ONLY the TEXT file topics for your search terms.
 
-How TML Accomodates Evolving Threat
+How TML Accomodates Evolving Threats
 -------------------------
 
 To detect evolving or changing cyber threats, TML can apply new user search terms in real-time by reading a local file containing search terms.  For example, you can tell TML to read a file containing search terms that are updated every every 30 econds, or every day, by user's internal process. TML can read this file, and update the search terms immediately to this list.  This allows users to auto-update the threats that TML search for in real-time.
@@ -258,8 +258,7 @@ To update the search terms in real-time - you need to update two fields in `Step
      - Specify a folder of files containing search terms - each term must be on a new line
      - use semicolon to apply each folder to the rtmstream topic
      - Use @ =AND, | =OR to specify whether the terms in the file should be AND, OR
-     - For example, @mysearchfolder1,|mysearchfolder2, means all terms in mysearchfolder1 should be AND
-       - |mysearchfolder2, means all search terms should be OR'ed
+     - For example, @mysearchfolder1,|mysearchfolder2, means all terms in mysearchfolder1 should be AND |mysearchfolder2, means all search terms should be OR'ed
   
 #. **localsearchtermfolderinterval**:
    - This is the number of seconds between reading the localsearchtermfolder.  
