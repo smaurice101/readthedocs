@@ -259,13 +259,13 @@ To update the search terms in real-time - you need to update two fields in `Step
      - use semicolon to apply each folder to the rtmstream topic
      - Use @ =AND, | =OR to specify whether the terms in the file should be AND, OR
 
-     .. example::
+     .. note::
         For example, @mysearchfolder1,|mysearchfolder2, means all terms in mysearchfolder1 should be AND |mysearchfolder2, means all search terms should be OR'ed
   
 #. **localsearchtermfolderinterval**:
    - This is the number of seconds between reading the localsearchtermfolder.  
    
-   .. example::
+   .. note::
       For example, if 30, the files will be read every 30 seconds - and searchterms will be updated
 
 TML RTMS vs AI RAG
