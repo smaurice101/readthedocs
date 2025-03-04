@@ -4122,7 +4122,7 @@ Core Parameters in Step 4c
  
        Note, if you are directly streaming from LogStash
 
-       just enter the kafka topc name.  You can also
+       just enter the kafka topic name.  You can also
 
        separate multiple topics with a comma.
    * - searchterms
