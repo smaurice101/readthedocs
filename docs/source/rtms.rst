@@ -260,7 +260,10 @@ To update the search terms in real-time - you need to update two fields in `Step
      - Use @ =AND, | =OR to specify whether the terms in the file should be AND, OR
 
        For example, @mysearchfolder1,|mysearchfolder2, means all terms in mysearchfolder1 should be AND |mysearchfolder2, means all search terms should be OR'ed
-  
+
+       .. important::
+          **The search folders must exist in the local folder mapped to the /rawdata folder**.  For example, if you specify mysearchfolder1, TML assumes the search files are in /rawdata/mysearchfolder1 (see `here for details <https://tml.readthedocs.io/en/latest/tmlbuilds.html#producing-data-using-a-local-file>`_).
+
 #. **localsearchtermfolderinterval**:
    - This is the number of seconds between reading the localsearchtermfolder.  
    
