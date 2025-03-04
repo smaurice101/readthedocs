@@ -256,7 +256,7 @@ To update the search terms in real-time - you need to update two fields in `Step
 
 #.   **localsearchtermfolder**: 
      - Specify a folder of files containing search terms - each term must be on a new line
-     - use semicolon to apply each folder to the rtmstream topic
+     - use comma to apply each folder to the rtmstream topic
      - Use @ =AND, | =OR to specify whether the terms in the file should be AND, OR
 
        For example, @mysearchfolder1,|mysearchfolder2, means all terms in mysearchfolder1 should be AND |mysearchfolder2, means all search terms should be OR'ed
