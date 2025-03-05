@@ -278,7 +278,20 @@ To update the search terms in real-time - you need to update two fields in `Step
 
    With Regular expressions applied in real-time by TML RTMS, you have a MUCH WIDER search space to detect anomalous behaviours.
 
-  
+Regular Expressions Example
+-------------------
+
+To check whether usernames DO NOT follow the proper format in the log files - you can use:
+
+.. code-block::
+
+   ^[0-9A-Za-z]{6,16}$
+
+* - ^ indicates the start of a string, while $ indicates the end. Basically, this is ensuring that the entire string follows our rules, rather than only a subset of the string.
+* - [...] indicates a particular set of valid characters, otherwise called a character class; 0-9 allows numbers, A-Z allows uppercase letters, a-z allows lowercase. There are other indicators, and you can find a complete list in regex documentation.
+* - {6,16} indicates the allowed number of characters. If you just used {6}, you're testing for a length of exactly 6, while {6,} tests for minimum length.
+* - ^ denotes NOT or a negation of the results.  For example, any characters NOT satisfying **[0-9A-Za-z]{6,16}**
+
 TML RTMS vs AI RAG
 ------------
 
