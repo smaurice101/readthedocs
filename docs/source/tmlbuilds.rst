@@ -4294,6 +4294,13 @@ Core Parameters in Step 4c
 
        will update the search terms in real-time.
 
+.. tip::
+   You can use RegEX statements in the search terms.  This allows you to do build powerful RegEx expressions to filter log files.
+
+   If using Regex expressions, you must prefix the expression by **rgx:**.  For example, **rgx:p([a-z]+)ch**
+
+   Regex expressions should be the only statement between ~, this is important if your Regex has a comma.  
+
 STEP 5: Entity Based Machine Learning : tml-system-step-5-kafka-machine-learning-dag
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
