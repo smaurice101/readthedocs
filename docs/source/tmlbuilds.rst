@@ -3865,7 +3865,7 @@ STEP 4c: Preprocesing 3 Data: tml-system-step-4c-kafka-preprocess-dag
    for any search terms that could be unusual like: authentication failures, unknow users, etc.
 
 .. code-block:: PYTHON
-   :emphasize-lines: 17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44
+   :emphasize-lines: 17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51
 
     from airflow import DAG
     from airflow.operators.python import PythonOperator
@@ -3880,6 +3880,7 @@ STEP 4c: Preprocesing 3 Data: tml-system-step-4c-kafka-preprocess-dag
     import subprocess
     import time
     import random
+    import base64
     
     sys.dont_write_bytecode = True
     ######################################## USER CHOOSEN PARAMETERS ########################################
@@ -3903,12 +3904,21 @@ STEP 4c: Preprocesing 3 Data: tml-system-step-4c-kafka-preprocess-dag
       'timedelay' : '0', # <<< connection delay
       'tmlfilepath' : '', # leave blank
       'usemysql' : '1', # do not modify
-      'rtmsstream' : 'rtms-stream-mylogs,rtms-stream-mylogs2', # Change as needed - STREAM containing log file data (or other data) for RTMS
+      'rtmsstream' : 'rtms-stream-mylogs', # Change as needed - STREAM containing log file data (or other data) for RTMS
                                                         # If entitystream is empty, TML uses the preprocess type only.
       'identifier' : 'RTMS Past Memory of Events', # <<< ** Change as needed
-      'searchterms' : '@authentication failures,--entity-- password failure ~ |unknown--entity--', # main Search terms, if AND add @, if OR use | s first characters, default OR
+      'searchterms' : 'rgx:p([a-z]+)ch ~ @authentication failure,--entity-- password failure ~ |unknown--entity--', # main Search terms, if AND add @, if OR use | s first characters, default OR
                                                                  # Must include --entity-- if correlating with entity - this will be replaced 
                                                                  # dynamically with the entities found in raw_data_topic
+      'localsearchtermfolder': '', # Specify a folder of files containing search terms - each term must be on a new line - use comma
+                                   # to apply each folder to the rtmstream topic
+                                   # Use @ =AND, |=OR to specify whether the terms in the file should be AND, OR
+                                   # For example, @mysearchfolder1,|mysearchfolder2, means all terms in mysearchfolder1 should be AND
+                                   # |mysearchfolder2, means all search terms should be OR'ed
+                                   # if using RegEX statement, it must be prefixed with 'rgx:' - if it contains a comma
+                                   # your Regex must be the only statement separated by ~
+      'localsearchtermfolderinterval': '60', # This is the number of seconds between reading the localsearchtermfolder.  For example, if 60, 
+                                           # The files will be read every 60 seconds - and searchterms will be updated
       'rememberpastwindows' : '500', # Past windows to remember
       'patternscorethreshold' : '30', # check for the number of patterns for the items in searchterms
     }
@@ -3972,6 +3982,8 @@ STEP 4c: Preprocesing 3 Data: tml-system-step-4c-kafka-preprocess-dag
              rememberpastwindows = default_args['rememberpastwindows']  
              patternscorethreshold = default_args['patternscorethreshold']  
     
+             searchterms = str(base64.b64encode(searchterms.encode('utf-8')))
+    
              try:
                     result=maadstml.viperpreprocessrtms(VIPERTOKEN,VIPERHOST,VIPERPORT,topic,producerid,offset,maxrows,enabletls,delay,brokerhost,
                                                       brokerport,microserviceid,topicid,rtmsstream,searchterms,rememberpastwindows,identifier,
@@ -3986,9 +3998,104 @@ STEP 4c: Preprocesing 3 Data: tml-system-step-4c-kafka-preprocess-dag
         wn = "python-{}-{}-{},{}".format(wtype,randomNumber,sname,dagname)
         with open("/tmux/pythonwindows_{}.txt".format(sname), 'a', encoding='utf-8') as file: 
           file.writelines("{}\n".format(wn))
-        
+    
         return wn
     
+    def updatesearchterms(searchtermsfile):
+        # check if search terms exist    
+        stcurr = default_args['searchterms']
+        stcurrfile = default_args['searchtermsfile']  
+        mainsearchterms=""
+      
+        if stcurr != "":
+           stcurrarr = stcurr.split("~")
+           stcurrarrfile = stcurrfile.split("~")
+           if len(stcurrarr) < len(stcurrarrfile) and len(stcurrarr)==1:
+              for i in range(len(stcurrarrfile)-1):
+                if stcurr[0]=='@' or stcurr[0]=='|':
+                   stcurr = stcurr[1:]
+                stcurrarr.append(stcurr)
+                
+           if len(stcurrarr) == len(stcurrarrfile):
+               for st,stf in zip(stcurrarr,stcurrarrfile):
+                 if st != "":
+                    if st[0]=='@' or st[0]=='|':
+                       st=st[1:]
+                    starr = st.split(",")
+                    stfarr = stf.split(",")               
+                    for si in starr:
+                      stfarr.append(si)
+                    stfarr = set(stfarr)
+                    mainsearchterms = mainsearchterms + ','.join(stfarr) + "~"
+               mainsearchterms = mainsearchterms[:-1]    
+               return mainsearchterms         
+    
+        return searchtermsfile         
+    
+    def ingestfiles():
+        buf = default_args['localsearchtermfolder']
+        interval=int(default_args['localsearchtermfolderinterval'])
+        searchtermsfile = ""
+    
+        dirbuf = buf.split(",")
+        if len(dirbuf) == 0:
+           return
+          
+        while True:  
+          lg=""
+          searchtermsfile=""
+          for dr in dirbuf:        
+             filenames = []
+             linebuf="" 
+             if dr != "":
+                if dr[0]=='@':
+                  dr = dr[1:]
+                  lg="@"
+                elif dr[0]=='|':
+                  dr = dr[1:]
+                  lg="|"
+                else:  
+                  lg="|"
+    
+             if os.path.isdir("/rawdata/{}".format(dr)):            
+               a = [os.path.join("/rawdata/{}".format(dr), f) for f in os.listdir("/rawdata/{}".format(dr)) if 
+               os.path.isfile(os.path.join("/rawdata/{}".format(dr), f))]
+               filenames.extend(a)
+    
+             if len(filenames) > 0:
+               filenames = set(filenames)
+               
+               for fdr in filenames:            
+                 with open(fdr) as f:
+                  lines = [line.rstrip('\n').strip() for line in f]
+                  lines = set(lines)
+                  linebuf = linebuf + ','.join(lines) + ","
+    
+             if linebuf != "":
+               linebuf = linebuf[:-1]
+               searchtermsfile = searchtermsfile + lg + linebuf +"~"
+          if searchtermsfile != "":    
+            searchtermsfile = searchtermsfile[:-1]    
+            searchtermsfile=updatesearchterms(searchtermsfile)
+            default_args['searchterms']=searchtermsfile
+    
+          if interval==0:
+            break
+          else:  
+           time.sleep(interval)
+                        
+    def startdirread():
+      if 'localsearchtermfolder' not in default_args:
+         return
+        
+      if default_args['localsearchtermfolder'] != '' and default_args['localsearchtermfolderinterval'] != '':
+        print("INFO startdirread")  
+        try:  
+          t = threading.Thread(name='child procs', target=ingestfiles)
+          t.start()
+        except Exception as e:
+          print(e)
+          
     def dopreprocessing(**context):
            sd = context['dag'].dag_id
            sname=context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_solutionname".format(sd))
@@ -4013,6 +4120,9 @@ STEP 4c: Preprocesing 3 Data: tml-system-step-4c-kafka-preprocess-dag
            ti.xcom_push(key="{}_timedelay".format(sname), value="_{}".format(default_args['timedelay']))
            ti.xcom_push(key="{}_usemysql".format(sname), value="_{}".format(default_args['usemysql']))
            ti.xcom_push(key="{}_identifier".format(sname), value=default_args['identifier'])
+    
+           ti.xcom_push(key="{}_localsearchtermfolder".format(sname), value=default_args['localsearchtermfolder'])
+           ti.xcom_push(key="{}_localsearchtermfolderinterval".format(sname), value="_{}".format(default_args['localsearchtermfolderinterval']))
     
            rtmsstream=default_args['rtmsstream']
            if 'step4crtmsstream' in os.environ:
@@ -4061,7 +4171,7 @@ STEP 4c: Preprocesing 3 Data: tml-system-step-4c-kafka-preprocess-dag
             fullpath="/{}/tml-airflow/dags/tml-solutions/{}/{}".format(repo,pname,os.path.basename(__file__))  
            else:
              fullpath="/{}/tml-airflow/dags/{}".format(repo,os.path.basename(__file__))  
-                
+    
            wn = windowname('preprocess3',sname,sd)     
            subprocess.run(["tmux", "new", "-d", "-s", "{}".format(wn)])
            subprocess.run(["tmux", "send-keys", "-t", "{}".format(wn), "cd /Viper-preprocess3", "ENTER"])
@@ -4097,6 +4207,8 @@ STEP 4c: Preprocesing 3 Data: tml-system-step-4c-kafka-preprocess-dag
             default_args['rtmsstream'] = rtmsstream
              
             tsslogging.locallogs("INFO", "STEP 4c: Preprocessing 3 started")
+    
+            startdirread()
     
             while True:
               try: 
@@ -4165,7 +4277,23 @@ Core Parameters in Step 4c
        **patternscorethreshold=10**, then 10 or more occurences of 
 
        'authentication failures' will affect the patternscore. 
-    
+   * - localsearchtermfolder
+     - You can specify a folder containing search terms.  TML 
+
+       will read this folder based on the interval in seconds 
+
+       set in the field **localsearchtermfolderinterval**
+
+       This is convenient to update search terms in real-time
+
+       to manage evolving threats or frequently changing events.
+   * - localsearchtermfolderinterval
+     - The number of seconds between reading the search terms files
+
+       in the **localsearchtermfolder**.  TML RTMS solution
+
+       will update the search terms in real-time.
+
 STEP 5: Entity Based Machine Learning : tml-system-step-5-kafka-machine-learning-dag
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
