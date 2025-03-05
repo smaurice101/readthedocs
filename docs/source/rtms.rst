@@ -292,7 +292,7 @@ Regular Expressions Example
 * {6,16} indicates the allowed number of characters. If you just used {6}, you're testing for a length of exactly 6, while {6,} tests for minimum length.
 * ^ denotes NOT or a negation of the results.  For example, any characters NOT satisfying **[0-9A-Za-z]{6,16}**
 
-**To check whether passwords DO NOT follow the proper format (or any string) - you can use:
+**To check whether passwords DO NOT follow the proper format (or any string) - you can use:**
 
 .. code-block::
 
