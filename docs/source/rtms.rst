@@ -269,6 +269,16 @@ To update the search terms in real-time - you need to update two fields in `Step
    
       For example, if 30, the files will be read every 30 seconds - and searchterms will be updated
 
+.. tip::
+   You can use RegEX statements in the search terms.  This allows you to do build powerful RegEx expressions to filter log files.
+
+   If using Regex expressions, you must prefix the expression by **rgx:**.  For example, **rgx:p([a-z]+)ch**
+
+   Regex expressions should be the only statement between ~, this is important if your Regex has a comma.  
+
+   With Regular expressions applied in real-time by TML RTMS, you have a MUCH WIDER search space to detect anomalous behaviours.
+
+  
 TML RTMS vs AI RAG
 ------------
 
