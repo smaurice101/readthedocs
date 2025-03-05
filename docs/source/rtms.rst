@@ -281,7 +281,7 @@ To update the search terms in real-time - you need to update two fields in `Step
 Regular Expressions Example
 -------------------
 
-To check whether usernames DO NOT follow the proper format in the log files - you can use:
+**To check whether usernames DO NOT follow the proper format in the log files - you can use:**
 
 .. code-block::
 
@@ -291,6 +291,20 @@ To check whether usernames DO NOT follow the proper format in the log files - yo
 * [...] indicates a particular set of valid characters, otherwise called a character class; 0-9 allows numbers, A-Z allows uppercase letters, a-z allows lowercase. There are other indicators, and you can find a complete list in regex documentation.
 * {6,16} indicates the allowed number of characters. If you just used {6}, you're testing for a length of exactly 6, while {6,} tests for minimum length.
 * ^ denotes NOT or a negation of the results.  For example, any characters NOT satisfying **[0-9A-Za-z]{6,16}**
+
+**To check whether passwords DO NOT follow the proper format (or any string) - you can use:
+
+.. code-block::
+
+   ^(?=.*?[0-9])(?=.*?[A-Za-z]).{8,32}$
+
+* (...) is a capture group. You can use them for capturing particular characters in specific orders.
+* ?= is a positive lookahead. The search moves rightward through the string from the location in your regex you make this assertion in.
+* . signifies any character is possible, while * means 'zero or more' of them.
+* The extra question mark in ?=.*? makes the search lazy, which essentially means 'stop looking after the first time this requirement is met'.
+* Translated into plain English, the first part of our statement ^(?=.*?[0-9]) means 'from the start of the string, find a number that is preceded by zero or more of any character'.
+* Adding (?=.*?[A-Za-z]) means do the same for any letter, or 'from the start of the string, find a letter that is preceded by zero or more of any character'. This allows us to confirm the presence of a specified kind of character within the total set of what is allowed without regard to where it occurs in the string.
+* The last part of our statement .{8,32}$ builds on our understanding of . usage. We don't want to limit what kinds of characters the actual password is allowed to be. In contrast, if limiting to letters and numbers only, you'd use [0-9A-Za-z]{8,32}$.
 
 TML RTMS vs AI RAG
 ------------
