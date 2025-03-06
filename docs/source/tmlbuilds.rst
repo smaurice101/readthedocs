@@ -4017,16 +4017,17 @@ STEP 4c: Preprocesing 3 Data: tml-system-step-4c-kafka-preprocess-dag
            for a in stcurrarr:
               stcurrarrfile.append(a)
            stcurrarrfile = set(stcurrarrfile)
-           mainsearchterms = mainsearchterms + ','.join(stcurrarrfile) + "~"
-           mainsearchterms = mainsearchterms[:-1]
+           mainsearchterms = mainsearchterms + '~'.join(stcurrarrfile) 
+           #mainsearchterms = mainsearchterms[:-1]
         else:
            stcurrarrfile = stcurrfile.split("~")      
            stcurrarrfile = set(stcurrarrfile)
-           mainsearchterms = mainsearchterms + ','.join(stcurrarrfile) + "~"
-           mainsearchterms = mainsearchterms[:-1]
+           mainsearchterms = mainsearchterms + '~'.join(stcurrarrfile) 
+           #mainsearchterms = mainsearchterms[:-1]
           
           
         return  mainsearchterms
+    
     
     def ingestfiles():
         buf = default_args['localsearchtermfolder']
@@ -4064,14 +4065,14 @@ STEP 4c: Preprocesing 3 Data: tml-system-step-4c-kafka-preprocess-dag
                
                for fdr in filenames:            
                  with open(fdr) as f:
-                  lines = [line.rstrip('\n').strip() for line in f]
+                  lines = [line.rstrip('\n').strip().replace(","," ") for line in f]
                   lines = set(lines)
                   # check regex
                   for m in lines:
                     if 'rgx:' in m:
                       rgx.append(m)
                     else:  
-                      linebuf = linebuf + ','.join(lines) + ","
+                      linebuf = linebuf + m + ","
     
              if linebuf != "":
                linebuf = linebuf[:-1]
