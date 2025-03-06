@@ -361,6 +361,33 @@ Regular Expressions Example
 * \| — Sets alternation of two expressions on the left and right side of |
 * \* — Means that an expression matches zero or more of the preceding character
 
+.. code-block::
+
+   (([0-9]{1,4})\)([ .-]?)([0-9]{1,4})([ .-]?)([0-9]{1,4})
+
+* It describes a line in the (####)%####%#### format, where #### could be a sequence from one to four digits, and the % symbol stands for one of three possible separation symbols: space, dot/period, or hyphen.
+
+.. code-block::
+
+   [a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z]+-?[a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z]*
+
+* A RegEx to search for matches with one of the symbols listed in square brackets and divided by the | symbol that represents an alternative for matching the part to the left and the part to the right of the | symbol. An alternative will include options from a to z.
+
+A RegEx that points directly to a capture group:
+
+.. code-block::
+
+   \w+-?\w*
+
+* RegEx examples that work with capture groups — mechanisms that allow you to highlight and save matching text for further use. When a RegEx matches the text, any content within a capture group is saved in temporary variables. You can use those variables later in code.
+
+Link to a capture group (marked as \w):
+
+.. code-block::
+
+   \w+-?1*
+ 
+* A RegEx that includes a link to capture group №1:
 
 RegEx Cheat Sheets
 --------------------
