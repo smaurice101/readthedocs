@@ -358,7 +358,7 @@ Regular Expressions Example
 * (?:) — Makes a grouping that cannot be referenced
 * [a-z] — Sets possible options for characters
 * ? — Makes the expression optional
-* | — Sets alternation of two expressions on the left and right side of |
+* \| — Sets alternation of two expressions on the left and right side of |
 * \* — Means that an expression matches zero or more of the preceding character
 
 
