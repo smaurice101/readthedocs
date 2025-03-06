@@ -306,6 +306,23 @@ Regular Expressions Example
 * Adding (?=.*?[A-Za-z]) means do the same for any letter, or 'from the start of the string, find a letter that is preceded by zero or more of any character'. This allows us to confirm the presence of a specified kind of character within the total set of what is allowed without regard to where it occurs in the string.
 * The last part of our statement .{8,32}$ builds on our understanding of . usage. We don't want to limit what kinds of characters the actual password is allowed to be. In contrast, if limiting to letters and numbers only, you'd use [0-9A-Za-z]{8,32}$.
 
+RegEx Cheat Sheets
+--------------------
+
+Here are RegEx cheat sheets that may help to write more advanced regular for powerful searching of text files.
+
+.. tip::
+   To test your RegEx you can use this onine tool: `regexr <https://regexr.com/>`_
+
+.. figure:: regex.png
+   :scale: 70%
+
+.. figure:: regex2.png
+   :scale: 70%
+
+.. figure:: regex3.png
+   :scale: 70%
+
 TML RTMS vs AI RAG
 ------------
 
@@ -346,7 +363,6 @@ TML using real-time data is similar to `RAG <https://tml.readthedocs.io/en/lates
 
        and can be costly
    
-
 Summary
 ----------
 
