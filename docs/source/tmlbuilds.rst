@@ -366,7 +366,7 @@ Below is the complete definition of the **tml_system_step_1_getparams_dag**.  Us
      'SSL_CLIENT_KEY_FILE' : 'client.key.pem', 
      'SSL_SERVER_CERT_FILE' : 'server.cer.pem',  
      'KUBERNETES' : '0',
-     'RTMSMAXWINDOWS' : '10000', 
+     'RTMSMAXWINDOWS' : '500', 
     }
     
     ############################################################### DO NOT MODIFY BELOW ####################################################
