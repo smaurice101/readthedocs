@@ -306,6 +306,62 @@ Regular Expressions Example
 * Adding (?=.*?[A-Za-z]) means do the same for any letter, or 'from the start of the string, find a letter that is preceded by zero or more of any character'. This allows us to confirm the presence of a specified kind of character within the total set of what is allowed without regard to where it occurs in the string.
 * The last part of our statement .{8,32}$ builds on our understanding of . usage. We don't want to limit what kinds of characters the actual password is allowed to be. In contrast, if limiting to letters and numbers only, you'd use [0-9A-Za-z]{8,32}$.
 
+.. code-block::
+   
+   192\.168\.(224|225)\.\d{1,3}
+
+* Values in yellow—192 and 168—are literal strings to be matched.
+* Because the "." character is reserved in the regular expression language, to match a literal ".", you must escape it with a backslash . in your pattern definition.
+* The 3rd octet needs to match either "224" or "225" and regex allows that with the "|" character. The OR pattern is bound in parentheses (). If there are more than two selections, | can be used to separate additional values: (224|225|230).
+* The "\d" represents a single digit (0-9). In the rex command example, above, I used a "+" to represent one or more of the preceding pattern. In this case, I am going to be more specific. Placing "1,3" in curly braces {1,3}, represents between 1 and 3 digits, since it was preceded by a "\d". 
+
+.. code-block::
+
+   (?<pass>[^&]+)
+
+* ?<pass> specifies the name of the field that the captured value will be assigned to. In this case, the field name is "pass". This snippet in the regular expression matches anything that is not an ampersand.
+* The square brackets [^&]+ signify a class, meaning anything within them will be matched; the carat symbol (in the context of a class) means negation. So, we're matching any single character that is not an ampersand.
+* The plus sign extends that single character to one or more matches; this ensures that the expression stops when it gets to an ampersand, which would denote another value in the form_data.
+* The parenthesis () signifies a capture group, while the value captured inside is assigned to the field name.
+
+.. code-block::
+
+   4[0-9]{15}
+
+* This describes a string pattern starting with the digit 4 and having 15 digits in total that can have values from 0 to 9.
+
+.. code-block::
+
+   4[0-9]{12}(?:[0-9]{3})?
+
+* This is relevant for strings that begin with the digit 4 and have 12 more digits with possible values from 0 to 9. 
+* After this sequence, a string can have or not have three more digits with values from 0 to 9. Thus, we can find not only credit card numbers with 16 digits but those with 13 digits as well.
+
+.. code-block::
+
+   \S+@\S+\.\S+
+
+* A sequence of symbols without spaces before the @ symbol
+* The @ symbol
+* A sequence of symbols without spaces after the @ symbol
+* A . symbol
+* A sequence of symbols without spaces
+
+.. code-block::
+
+   (?:[a-z0-9!#$%&'*+\/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+\/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e- 
+   \x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]| 
+   [01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])
+
+**This regular expression is also relevant for strings that have an email address format but includes additional bypasses, cycles, and filters. Here’s a description of several constructions used in this RegEx:**
+
+* (?:) — Makes a grouping that cannot be referenced
+* [a-z] — Sets possible options for characters
+* ? — Makes the expression optional
+* | — Sets alternation of two expressions on the left and right side of |
+* \* — Means that an expression matches zero or more of the preceding character
+
+
 RegEx Cheat Sheets
 --------------------
 
