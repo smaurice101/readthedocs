@@ -8682,3 +8682,5 @@ Navigate to the File: root/tml-airflow/dags/tml-solutions/CREATETMLPROJECT.txt t
 
        For example, **.myproject** in CREATETMLPROJECT.txt
 
+.. tip::
+   Also see here :ref:`Copying TML Project(s) From Others Git Repo` for copying projects between TML users.
