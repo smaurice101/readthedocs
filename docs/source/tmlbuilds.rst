@@ -8650,6 +8650,10 @@ STEP 9: TML Solution Built in Less than 2 Minutes
 Project Action Commands Summary
 ------------------
 
+Goto the TSS and select from the top menu item: Admin -> Dags Code Editor
+
+Navigate to the File: root/tml-airflow/dags/tml-solutions/CREATETMLPROJECT.txt then perform the following as you wish:
+
 .. list-table::
 
    * - **Action Type**
@@ -8661,20 +8665,20 @@ Project Action Commands Summary
 
        special characters, 
 
-       just alphanumerics.
+       just alphanumerics in CREATETMLPROJECT.txt
    * - Delete Project 
      -  **-**
      - Type - then project name.  
  
-       For example, **-myproject**
+       For example, **-myproject** in CREATETMLPROJECT.txt
    * - Copy From a Previous Project 
      - **>**
      - Type > between projects.  For example, 
 
-       **oldproject>newproject**
+       **oldproject>newproject** in CREATETMLPROJECT.txt
    * - Stop a Running Project
      - **.**
      - Type . then your currently running project. 
 
-       For example, **.myproject**
+       For example, **.myproject** in CREATETMLPROJECT.txt
 
