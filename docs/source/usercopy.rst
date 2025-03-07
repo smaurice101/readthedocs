@@ -4,9 +4,9 @@ Copying TML Project(s) From Others Git Repo
 With TSS you have the ability to copy TML projects from others Git repo.  This is  convient if you want to share your TML projects with others.
 
 .. tip:: 
-   Also see here :ref:`Project Action Commands Summary` 
+   Also see here :ref:`Project Action Commands Summary` on projects in your own repo.
 
-The process of copying from otheres Git repo is simple:
+The process of copying from others Git repo is simple:
 
 #. Goto the TSS and select from the top menu item: **Admin -> Dags Code Editor**
 
