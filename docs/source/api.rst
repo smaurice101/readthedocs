@@ -4778,9 +4778,11 @@ RETURNS: This will return a JSON of OK if the privateGPT server is running, or E
 
 RETURNS: The file name the response was written to by video chatgpt. 
 
-**46. viperpreprocessrtms(vipertoken,host,port,topic,producerid,offset,maxrows=0,enabletls=0,delay=100,brokerhost='',brokerport=-999,microserviceid='',
+**46. maadstml.viperpreprocessrtms(vipertoken,host,port,topic,producerid,offset,maxrows=0,enabletls=0,delay=100,brokerhost='',brokerport=-999,microserviceid='',
                               topicid=-999,rtmsstream='',searchterms='',rememberpastwindows='',identifier='',
-                              preprocesstopic='',patternscorethreshold='',array=0,saveasarray=0,rawdataoutput=0)**
+                              preprocesstopic='',patternwindowthreshold='',array=0,saveasarray=0,rawdataoutput=0,
+                              rtmsscorethreshold='',rtmsscorethresholdtopic='',attackscorethreshold='',
+                              attackscorethresholdtopic='',patternscorethreshold='',patternscorethresholdtopic=''):**
 
 **Parameters:**	
 
@@ -4860,10 +4862,42 @@ RETURNS: The file name the response was written to by video chatgpt.
 
 - Kafka topic to store the output.
 
-*patternscorethreshold* : int, required
+*patternwindowthreshold* : int, required
 
-- Threshold number for the occurence of the search terms.
+- Threshold number of windows for the occurence 
 
+  of patterns of the search terms.
+
+*rtmsscorethreshold*: string, optional
+
+- Threshold number for RTMS score between 0-1
+
+*rtmsscorethresholdtopic*: string, optional
+
+- Name of a kafka topic that will contain messages greater
+
+  than rtmsthreshold
+
+*attackscorethreshold*: string, optional
+
+- Threshold number between 0-1
+                              
+*attackscorethresholdtopic*: string, optional
+
+- Name of a kafka topic that will contain messages greater
+
+  than attackthreshold
+
+*patternscorethreshold*: string, optional
+
+- Threshold number between 0-1
+
+*patternscorethresholdtopic*: string, optional
+
+- Name of a kafka topic that will contain messages greater
+
+  than patternthreshold
+							  
 *array* : int, optional
 
 - Process data as arrays
