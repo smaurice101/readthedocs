@@ -3905,10 +3905,10 @@ STEP 4c: Preprocesing 3 Data: tml-system-step-4c-kafka-preprocess-dag
       'timedelay' : '0', # <<< connection delay
       'tmlfilepath' : '', # leave blank
       'usemysql' : '1', # do not modify
-      'rtmsstream' : 'rtms-stream-mylogs,rtms-stream-mylogs2', # Change as needed - STREAM containing log file data (or other data) for RTMS
+      'rtmsstream' : 'rtms-stream-mylogs', # Change as needed - STREAM containing log file data (or other data) for RTMS
                                                         # If entitystream is empty, TML uses the preprocess type only.
       'identifier' : 'RTMS Past Memory of Events', # <<< ** Change as needed
-      'searchterms' : 'rgx:p([a-z]+)ch ~ @authentication failure,--entity-- password failure ~ |unknown--entity--', # main Search terms, if AND add @, if OR use | s first characters, default OR
+      'searchterms' : 'rgx:p([a-z]+)ch ~ |authentication failure,--entity-- password failure ~ |unknown--entity--', # main Search terms, if AND add @, if OR use | s first characters, default OR
                                                                  # Must include --entity-- if correlating with entity - this will be replaced 
                                                                  # dynamically with the entities found in raw_data_topic
       'localsearchtermfolder': '|mysearchfile1', # Specify a folder of files containing search terms - each term must be on a new line - use comma
@@ -3919,7 +3919,14 @@ STEP 4c: Preprocesing 3 Data: tml-system-step-4c-kafka-preprocess-dag
       'localsearchtermfolderinterval': '60', # This is the number of seconds between reading the localsearchtermfolder.  For example, if 60, 
                                            # The files will be read every 60 seconds - and searchterms will be updated
       'rememberpastwindows' : '500', # Past windows to remember
-      'patternscorethreshold' : '30', # check for the number of patterns for the items in searchterms
+      'patternwindowthreshold' : '30', # check for the number of patterns for the items in searchterms
+      'rtmsscorethreshold': '0.8',  # RTMS score threshold i.e. '0.8'   
+      'rtmsscorethresholdtopic': '',   # All rtms score greater than rtmsscorethreshold will be streamed to this topic
+      'attackscorethreshold': '0.8',   # Attack score threshold i.e. '0.8'   
+      'attackscorethresholdtopic': '',   # All attack score greater than attackscorethreshold will be streamed to this topic
+      'patternscorethreshold': '0.8',   # Pattern score threshold i.e. '0.8'   
+      'patternscorethresholdtopic': '',   # All pattern score greater thn patternscorethreshold will be streamed to this topic
+    
     }
     
     ######################################## DO NOT MODIFY BELOW #############################################
@@ -3979,14 +3986,22 @@ STEP 4c: Preprocesing 3 Data: tml-system-step-4c-kafka-preprocess-dag
              identifier = default_args['identifier']
              searchterms=default_args['searchterms']
              rememberpastwindows = default_args['rememberpastwindows']  
+             patternwindowthreshold = default_args['patternwindowthreshold']  
+    
+             rtmsscorethreshold = default_args['rtmsscorethreshold']  
+             rtmsscorethresholdtopic = default_args['rtmsscorethresholdtopic']  
+             attackscorethreshold = default_args['attackscorethreshold']  
+             attackscorethresholdtopic = default_args['attackscorethresholdtopic']  
              patternscorethreshold = default_args['patternscorethreshold']  
-    
+             patternscorethresholdtopic = default_args['patternscorethresholdtopic']  
+             
              searchterms = str(base64.b64encode(searchterms.encode('utf-8')))
-    
              try:
                     result=maadstml.viperpreprocessrtms(VIPERTOKEN,VIPERHOST,VIPERPORT,topic,producerid,offset,maxrows,enabletls,delay,brokerhost,
                                                       brokerport,microserviceid,topicid,rtmsstream,searchterms,rememberpastwindows,identifier,
-                                                      preprocesstopic,patternscorethreshold,array,saveasarray,rawdataoutput)
+                                                      preprocesstopic,patternwindowthreshold,array,saveasarray,rawdataoutput,
+                                                      rtmsscorethreshold,rtmsscorethresholdtopic,attackscorethreshold,
+                                                      attackscorethresholdtopic,patternscorethreshold,patternscorethresholdtopic)
     #                print(result)
              except Exception as e:
                     print("ERROR:",e)
@@ -4028,7 +4043,6 @@ STEP 4c: Preprocesing 3 Data: tml-system-step-4c-kafka-preprocess-dag
           
         return  mainsearchterms
     
-    
     def ingestfiles():
         buf = default_args['localsearchtermfolder']
         interval=int(default_args['localsearchtermfolderinterval'])
@@ -4065,7 +4079,7 @@ STEP 4c: Preprocesing 3 Data: tml-system-step-4c-kafka-preprocess-dag
                
                for fdr in filenames:            
                  with open(fdr) as f:
-                  lines = [line.rstrip('\n').strip().replace(","," ") for line in f]
+                  lines = [line.rstrip('\n').strip() for line in f]
                   lines = set(lines)
                   # check regex
                   for m in lines:
@@ -4128,6 +4142,10 @@ STEP 4c: Preprocesing 3 Data: tml-system-step-4c-kafka-preprocess-dag
            ti.xcom_push(key="{}_localsearchtermfolder".format(sname), value=default_args['localsearchtermfolder'])
            ti.xcom_push(key="{}_localsearchtermfolderinterval".format(sname), value="_{}".format(default_args['localsearchtermfolderinterval']))
     
+           ti.xcom_push(key="{}_rtmsscorethresholdtopic".format(sname), value=default_args['rtmsscorethresholdtopic'])
+           ti.xcom_push(key="{}_attackscorethresholdtopic".format(sname), value=default_args['attackscorethresholdtopic'])
+           ti.xcom_push(key="{}_patternscorethresholdtopic".format(sname), value=default_args['patternscorethresholdtopic'])
+    
            rtmsstream=default_args['rtmsstream']
            if 'step4crtmsstream' in os.environ:
              ti.xcom_push(key="{}_rtmsstream".format(sname), value=os.environ['step4crtmsstream'])
@@ -4163,13 +4181,35 @@ STEP 4c: Preprocesing 3 Data: tml-system-step-4c-kafka-preprocess-dag
            else:  
              ti.xcom_push(key="{}_rememberpastwindows".format(sname), value="_{}".format(default_args['rememberpastwindows']))
     
+           patternwindowthreshold=default_args['patternwindowthreshold']
+           if 'step4cpatternwindowthreshold' in os.environ:
+             ti.xcom_push(key="{}_patternwindowthreshold".format(sname), value="_{}".format(os.environ['step4cpatternwindowthreshold']))         
+             patternwindowthreshold=os.environ['step4cpatternwindowthreshold']
+           else:  
+             ti.xcom_push(key="{}_patternwindowthreshold".format(sname), value="_{}".format(default_args['patternwindowthreshold']))
+    
+           rtmsscorethreshold=default_args['rtmsscorethreshold']
+           if 'step4crtmsscorethreshold' in os.environ:
+             ti.xcom_push(key="{}_rtmsscorethreshold".format(sname), value="_{}".format(os.environ['step4crtmsscorethreshold']))         
+             rtmsscorethreshold=os.environ['step4crtmsscorethreshold']
+           else:  
+             ti.xcom_push(key="{}_rtmsscorethreshold".format(sname), value="_{}".format(default_args['rtmsscorethreshold']))
+    
+           attackscorethreshold=default_args['attackscorethreshold']
+           if 'step4cattackscorethreshold' in os.environ:
+             ti.xcom_push(key="{}_attackscorethreshold".format(sname), value="_{}".format(os.environ['step4cattackscorethreshold']))         
+             attackscorethreshold=os.environ['step4cattackscorethreshold']
+           else:  
+             ti.xcom_push(key="{}_attackscorethreshold".format(sname), value="_{}".format(default_args['attackscorethreshold']))
+    
            patternscorethreshold=default_args['patternscorethreshold']
            if 'step4cpatternscorethreshold' in os.environ:
              ti.xcom_push(key="{}_patternscorethreshold".format(sname), value="_{}".format(os.environ['step4cpatternscorethreshold']))         
              patternscorethreshold=os.environ['step4cpatternscorethreshold']
            else:  
              ti.xcom_push(key="{}_patternscorethreshold".format(sname), value="_{}".format(default_args['patternscorethreshold']))
-           
+    
+      
            repo=tsslogging.getrepo() 
            if sname != '_mysolution_':
             fullpath="/{}/tml-airflow/dags/tml-solutions/{}/{}".format(repo,pname,os.path.basename(__file__))  
@@ -4179,7 +4219,7 @@ STEP 4c: Preprocesing 3 Data: tml-system-step-4c-kafka-preprocess-dag
            wn = windowname('preprocess3',sname,sd)     
            subprocess.run(["tmux", "new", "-d", "-s", "{}".format(wn)])
            subprocess.run(["tmux", "send-keys", "-t", "{}".format(wn), "cd /Viper-preprocess3", "ENTER"])
-           subprocess.run(["tmux", "send-keys", "-t", "{}".format(wn), "python {} 1 {} {}{} {} {} \"{}\" {} {} \"{}\" \"{}\"".format(fullpath,VIPERTOKEN,HTTPADDR,VIPERHOST,VIPERPORT[1:],maxrows,searchterms,rememberpastwindows,patternscorethreshold,raw_data_topic,rtmsstream), "ENTER"])        
+           subprocess.run(["tmux", "send-keys", "-t", "{}".format(wn), "python {} 1 {} {}{} {} {} \"{}\" {} {} \"{}\" \"{}\" {} {} {}".format(fullpath,VIPERTOKEN,HTTPADDR,VIPERHOST,VIPERPORT[1:],maxrows,searchterms,rememberpastwindows,patternwindowthreshold,raw_data_topic,rtmsstream,rtmsscorethreshold,attackscorethreshold,patternscorethreshold), "ENTER"])        
     
     if __name__ == '__main__':
         if len(sys.argv) > 1:
@@ -4203,12 +4243,19 @@ STEP 4c: Preprocesing 3 Data: tml-system-step-4c-kafka-preprocess-dag
             default_args['searchterms'] = searchterms
             rememberpastwindows =  sys.argv[7]
             default_args['rememberpastwindows'] = rememberpastwindows
-            patternscorethreshold =  sys.argv[8]
-            default_args['patternscorethreshold'] = patternscorethreshold
+            patternwindowthreshold =  sys.argv[8]
+            default_args['patternwindowthreshold'] = patternwindowthreshold
             rawdatatopic =  sys.argv[9]
             default_args['raw_data_topic'] = rawdatatopic
             rtmsstream =  sys.argv[10]
             default_args['rtmsstream'] = rtmsstream
+    
+            rtmsscorethreshold =  sys.argv[11]
+            default_args['rtmsscorethreshold'] = rtmsscorethreshold
+            attackscorethreshold =  sys.argv[12]
+            default_args['attackscorethreshold'] = attackscorethreshold
+            patternscorethreshold =  sys.argv[13]
+            default_args['patternscorethreshold'] = patternscorethreshold
              
             tsslogging.locallogs("INFO", "STEP 4c: Preprocessing 3 started")
     
@@ -4273,7 +4320,7 @@ Core Parameters in Step 4c
        TML to remember: 
 
        **This is where TML captures memory of past events.**
-   * - patternscorethreshold
+   * - patternwindowthreshold
      - This is the threshold for patterns in the data. For example
 
        if you are looking for 'authentication failures' and 
@@ -4297,6 +4344,30 @@ Core Parameters in Step 4c
        in the **localsearchtermfolder**.  TML RTMS solution
 
        will update the search terms in real-time.
+   * - rtmsscorethreshold
+     - The score threshold for RTMS i.e. 0.8
+   * - rtmsscorethresholdtopic
+     - This topic will contain all messages exceeding
+       
+       rtmsscorethreshold.  This is convenient to setup
+
+       alerts on this topc.
+   * - attackscorethreshold
+     - The score threshold for Attack score i.e. 0.8
+   * - attackscorethresholdtopic
+     - This topic will contain all messages exceeding
+       
+       attackscorethreshold.  This is convenient to setup
+
+       alerts on this topc.
+   * - patternscorethreshold
+     - The score threshold for Pattern score i.e. 0.8
+   * - patternscorethresholdtopic
+     - This topic will contain all messages exceeding
+       
+       patternscorethreshold.  This is convenient to setup
+
+       alerts on this topc.
 
 .. tip::
    You can use RegEX statements in the search terms.  This allows you to do build powerful RegEx expressions to filter log files.
