@@ -3891,7 +3891,7 @@ STEP 4c: Preprocesing 3 Data: tml-system-step-4c-kafka-preprocess-dag
       'microserviceid' : '',  # <<< *** leave blank
       'producerid' : 'rtmssolution',   # <<< *** Change as needed   
       'raw_data_topic' : 'iot-preprocess', # *************** INCLUDE ONLY ONE TOPIC - This is one of the topic you created in SYSTEM STEP 2
-      'preprocess_data_topic' : 'iot-preprocess2', # *************** INCLUDE ONLY ONE TOPIC - This is one of the topic you created in SYSTEM STEP 2
+      'preprocess_data_topic' : 'rtms-preprocess', # *************** INCLUDE ONLY ONE TOPIC - This is one of the topic you created in SYSTEM STEP 2
       'maxrows' : '50', # <<< ********** Number of offsets to rollback the data stream -i.e. rollback stream by 500 offsets
       'offset' : '-1', # <<< Rollback from the end of the data streams  
       'brokerhost' : '',   # <<< *** Leave as is
@@ -3908,9 +3908,11 @@ STEP 4c: Preprocesing 3 Data: tml-system-step-4c-kafka-preprocess-dag
       'rtmsstream' : 'rtms-stream-mylogs', # Change as needed - STREAM containing log file data (or other data) for RTMS
                                                         # If entitystream is empty, TML uses the preprocess type only.
       'identifier' : 'RTMS Past Memory of Events', # <<< ** Change as needed
-      'searchterms' : 'rgx:p([a-z]+)ch ~ |authentication failure,--entity-- password failure ~ |unknown--entity--', # main Search terms, if AND add @, if OR use | s first characters, default OR
+      'searchterms' : 'rgx:p([a-z]+)ch ~~~ |authentication failure,--entity-- password failure ~~~ |unknown--entity--', 
+                                                                 # main Search terms, if AND add @, if OR use | as first characters, default OR
                                                                  # Must include --entity-- if correlating with entity - this will be replaced 
                                                                  # dynamically with the entities found in raw_data_topic
+                                                                 # Use THREE (3) ~~~ to separate searches 
       'localsearchtermfolder': '|mysearchfile1', # Specify a folder of files containing search terms - each term must be on a new line - use comma
                                    # to apply each folder to the rtmstream topic
                                    # Use @ =AND, |=OR to specify whether the terms in the file should be AND, OR
@@ -3920,12 +3922,12 @@ STEP 4c: Preprocesing 3 Data: tml-system-step-4c-kafka-preprocess-dag
                                            # The files will be read every 60 seconds - and searchterms will be updated
       'rememberpastwindows' : '500', # Past windows to remember
       'patternwindowthreshold' : '30', # check for the number of patterns for the items in searchterms
-      'rtmsscorethreshold': '0.8',  # RTMS score threshold i.e. '0.8'   
-      'rtmsscorethresholdtopic': '',   # All rtms score greater than rtmsscorethreshold will be streamed to this topic
-      'attackscorethreshold': '0.8',   # Attack score threshold i.e. '0.8'   
-      'attackscorethresholdtopic': '',   # All attack score greater than attackscorethreshold will be streamed to this topic
-      'patternscorethreshold': '0.8',   # Pattern score threshold i.e. '0.8'   
-      'patternscorethresholdtopic': '',   # All pattern score greater thn patternscorethreshold will be streamed to this topic
+      'rtmsscorethreshold': '0.6',  # RTMS score threshold i.e. '0.8'   
+      'rtmsscorethresholdtopic': 'rtmstopic',   # All rtms score greater than rtmsscorethreshold will be streamed to this topic
+      'attackscorethreshold': '0.6',   # Attack score threshold i.e. '0.8'   
+      'attackscorethresholdtopic': 'attacktopic',   # All attack score greater than attackscorethreshold will be streamed to this topic
+      'patternscorethreshold': '0.6',   # Pattern score threshold i.e. '0.8'   
+      'patternscorethresholdtopic': 'patterntopic',   # All pattern score greater thn patternscorethreshold will be streamed to this topic
     
     }
     
@@ -4024,20 +4026,20 @@ STEP 4c: Preprocesing 3 Data: tml-system-step-4c-kafka-preprocess-dag
     
         if len(regx) > 0:
             for r in regx:
-               mainsearchterms = mainsearchterms + r + "~"
+               mainsearchterms = mainsearchterms + r + "~~~"
           
         if stcurr != "":
-           stcurrarr = stcurr.split("~")
-           stcurrarrfile = stcurrfile.split("~")
+           stcurrarr = stcurr.split("~~~")
+           stcurrarrfile = stcurrfile.split("~~~")
            for a in stcurrarr:
               stcurrarrfile.append(a)
            stcurrarrfile = set(stcurrarrfile)
-           mainsearchterms = mainsearchterms + '~'.join(stcurrarrfile) 
+           mainsearchterms = mainsearchterms + '~~~'.join(stcurrarrfile) 
            #mainsearchterms = mainsearchterms[:-1]
         else:
-           stcurrarrfile = stcurrfile.split("~")      
+           stcurrarrfile = stcurrfile.split("~~~")      
            stcurrarrfile = set(stcurrarrfile)
-           mainsearchterms = mainsearchterms + '~'.join(stcurrarrfile) 
+           mainsearchterms = mainsearchterms + '~~~'.join(stcurrarrfile) 
            #mainsearchterms = mainsearchterms[:-1]
           
           
@@ -4090,7 +4092,7 @@ STEP 4c: Preprocesing 3 Data: tml-system-step-4c-kafka-preprocess-dag
     
              if linebuf != "":
                linebuf = linebuf[:-1]
-               searchtermsfile = searchtermsfile + lg + linebuf +"~"
+               searchtermsfile = searchtermsfile + lg + linebuf +"~~~"
           if searchtermsfile != "":    
             searchtermsfile = searchtermsfile[:-1]    
             searchtermsfile=updatesearchterms(searchtermsfile,rgx)
@@ -4215,7 +4217,7 @@ STEP 4c: Preprocesing 3 Data: tml-system-step-4c-kafka-preprocess-dag
             fullpath="/{}/tml-airflow/dags/tml-solutions/{}/{}".format(repo,pname,os.path.basename(__file__))  
            else:
              fullpath="/{}/tml-airflow/dags/{}".format(repo,os.path.basename(__file__))  
-    
+        
            wn = windowname('preprocess3',sname,sd)     
            subprocess.run(["tmux", "new", "-d", "-s", "{}".format(wn)])
            subprocess.run(["tmux", "send-keys", "-t", "{}".format(wn), "cd /Viper-preprocess3", "ENTER"])
@@ -4238,6 +4240,7 @@ STEP 4c: Preprocesing 3 Data: tml-system-step-4c-kafka-preprocess-dag
             VIPERPORT = sys.argv[4]                  
             maxrows =  sys.argv[5]
             default_args['maxrows'] = maxrows
+            subprocess.Popen("/tmux/rtmstrunc.sh", shell=True)
     
             searchterms =  sys.argv[6]
             default_args['searchterms'] = searchterms
@@ -4258,9 +4261,14 @@ STEP 4c: Preprocesing 3 Data: tml-system-step-4c-kafka-preprocess-dag
             default_args['patternscorethreshold'] = patternscorethreshold
              
             tsslogging.locallogs("INFO", "STEP 4c: Preprocessing 3 started")
+            try:
+             directory="/rawdata/rtms"
+             if not os.path.exists(directory):
+                os.makedirs(directory)
+            except Exception as e:
+               tsslogging.locallogs("ERROR", "STEP 4c: Cannot make directory /rawdata/rtms in {} {}".format(os.path.basename(__file__),e))         
     
             startdirread()
-    
             while True:
               try: 
                 processtransactiondata()
@@ -4305,11 +4313,13 @@ Core Parameters in Step 4c
 
        \-\-entity\-\- then TML will search the rtmsstream as usual.
 
-       **NOTE: You can specify search terms from differenct topics using ~**
+       **NOTE: You can specify search terms from different topics 
+  
+       using ~~~** THREE (3) times.
 
        For example, if rtmsstream=topic1,topic2 and 
 
-       searchterms=search1 ~ search2 - then TML will apply 
+       searchterms=search1 ~~~ search2 - then TML will apply 
 
        search1 to topic1, and search2 to topic2.  This is 
 
