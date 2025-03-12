@@ -3892,7 +3892,7 @@ STEP 4c: Preprocesing 3 Data: tml-system-step-4c-kafka-preprocess-dag
       'producerid' : 'rtmssolution',   # <<< *** Change as needed   
       'raw_data_topic' : 'iot-preprocess', # *************** INCLUDE ONLY ONE TOPIC - This is one of the topic you created in SYSTEM STEP 2
       'preprocess_data_topic' : 'rtms-preprocess', # *************** INCLUDE ONLY ONE TOPIC - This is one of the topic you created in SYSTEM STEP 2
-      'maxrows' : '50', # <<< ********** Number of offsets to rollback the data stream -i.e. rollback stream by 500 offsets
+      'maxrows' : '500', # <<< ********** Number of offsets to rollback the data stream -i.e. rollback stream by 500 offsets
       'offset' : '-1', # <<< Rollback from the end of the data streams  
       'brokerhost' : '',   # <<< *** Leave as is
       'brokerport' : '-999',  # <<< *** Leave as is   
