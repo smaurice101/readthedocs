@@ -3908,11 +3908,9 @@ STEP 4c: Preprocesing 3 Data: tml-system-step-4c-kafka-preprocess-dag
       'rtmsstream' : 'rtms-stream-mylogs', # Change as needed - STREAM containing log file data (or other data) for RTMS
                                                         # If entitystream is empty, TML uses the preprocess type only.
       'identifier' : 'RTMS Past Memory of Events', # <<< ** Change as needed
-      'searchterms' : 'rgx:p([a-z]+)ch ~~~ |authentication failure,--entity-- password failure ~~~ |unknown--entity--', 
-                                                                 # main Search terms, if AND add @, if OR use | as first characters, default OR
+      'searchterms' : 'rgx:p([a-z]+)ch ~~~ |authentication failure,--entity-- password failure ~~~ |unknown--entity--', # main Search terms, if AND add @, if OR use | s first characters, default OR
                                                                  # Must include --entity-- if correlating with entity - this will be replaced 
                                                                  # dynamically with the entities found in raw_data_topic
-                                                                 # Use THREE (3) ~~~ to separate searches 
       'localsearchtermfolder': '|mysearchfile1', # Specify a folder of files containing search terms - each term must be on a new line - use comma
                                    # to apply each folder to the rtmstream topic
                                    # Use @ =AND, |=OR to specify whether the terms in the file should be AND, OR
@@ -4060,7 +4058,8 @@ STEP 4c: Preprocesing 3 Data: tml-system-step-4c-kafka-preprocess-dag
           rgx = []      
           for dr in dirbuf:        
              filenames = []
-             linebuf="" 
+             linebuf=""
+             ibx = []
              if dr != "":
                 if dr[0]=='@':
                   dr = dr[1:]
@@ -4087,14 +4086,21 @@ STEP 4c: Preprocesing 3 Data: tml-system-step-4c-kafka-preprocess-dag
                   for m in lines:
                     if 'rgx:' in m:
                       rgx.append(m)
+                    elif '~~~' in m:
+                      ibx.append(m)
                     else:  
                       linebuf = linebuf + m + ","
     
              if linebuf != "":
                linebuf = linebuf[:-1]
                searchtermsfile = searchtermsfile + lg + linebuf +"~~~"
+             if len(ibx)>0:
+                ibxs = ''.join(ibx) 
+                ibxs=ibxs[3:]
+                searchtermsfile = searchtermsfile + ibxs +"~~~"
+    
           if searchtermsfile != "":    
-            searchtermsfile = searchtermsfile[:-1]    
+            searchtermsfile = searchtermsfile[:-3]    
             searchtermsfile=updatesearchterms(searchtermsfile,rgx)
             default_args['searchterms']=searchtermsfile
             print("INFO:", searchtermsfile)
@@ -4141,12 +4147,23 @@ STEP 4c: Preprocesing 3 Data: tml-system-step-4c-kafka-preprocess-dag
            ti.xcom_push(key="{}_usemysql".format(sname), value="_{}".format(default_args['usemysql']))
            ti.xcom_push(key="{}_identifier".format(sname), value=default_args['identifier'])
     
-           ti.xcom_push(key="{}_localsearchtermfolder".format(sname), value=default_args['localsearchtermfolder'])
-           ti.xcom_push(key="{}_localsearchtermfolderinterval".format(sname), value="_{}".format(default_args['localsearchtermfolderinterval']))
-    
            ti.xcom_push(key="{}_rtmsscorethresholdtopic".format(sname), value=default_args['rtmsscorethresholdtopic'])
            ti.xcom_push(key="{}_attackscorethresholdtopic".format(sname), value=default_args['attackscorethresholdtopic'])
            ti.xcom_push(key="{}_patternscorethresholdtopic".format(sname), value=default_args['patternscorethresholdtopic'])
+    
+           localsearchtermfolder=default_args['localsearchtermfolder']
+           if 'step4clocalsearchtermfolder' in os.environ:
+             ti.xcom_push(key="{}_localsearchtermfolder".format(sname), value=os.environ['step4clocalsearchtermfolder'])
+             localsearchtermfolder=os.environ['step4clocalsearchtermfolder']         
+           else:  
+            ti.xcom_push(key="{}_localsearchtermfolder".format(sname), value=default_args['localsearchtermfolder']) 
+    
+           localsearchtermfolderinterval=default_args['localsearchtermfolderinterval']
+           if 'step4clocalsearchtermfolderinterval' in os.environ:
+             ti.xcom_push(key="{}_localsearchtermfolderinterval".format(sname), value=os.environ['step4clocalsearchtermfolderinterval'])
+             localsearchtermfolderinterval=os.environ['step4clocalsearchtermfolderinterval']         
+           else:  
+            ti.xcom_push(key="{}_localsearchtermfolderinterval".format(sname), value="_{}".format(default_args['localsearchtermfolderinterval']))
     
            rtmsstream=default_args['rtmsstream']
            if 'step4crtmsstream' in os.environ:
@@ -4221,7 +4238,7 @@ STEP 4c: Preprocesing 3 Data: tml-system-step-4c-kafka-preprocess-dag
            wn = windowname('preprocess3',sname,sd)     
            subprocess.run(["tmux", "new", "-d", "-s", "{}".format(wn)])
            subprocess.run(["tmux", "send-keys", "-t", "{}".format(wn), "cd /Viper-preprocess3", "ENTER"])
-           subprocess.run(["tmux", "send-keys", "-t", "{}".format(wn), "python {} 1 {} {}{} {} {} \"{}\" {} {} \"{}\" \"{}\" {} {} {}".format(fullpath,VIPERTOKEN,HTTPADDR,VIPERHOST,VIPERPORT[1:],maxrows,searchterms,rememberpastwindows,patternwindowthreshold,raw_data_topic,rtmsstream,rtmsscorethreshold,attackscorethreshold,patternscorethreshold), "ENTER"])        
+           subprocess.run(["tmux", "send-keys", "-t", "{}".format(wn), "python {} 1 {} {}{} {} {} \"{}\" {} {} \"{}\" \"{}\" {} {} {} \"{}\" {}".format(fullpath,VIPERTOKEN,HTTPADDR,VIPERHOST,VIPERPORT[1:],maxrows,searchterms,rememberpastwindows,patternwindowthreshold,raw_data_topic,rtmsstream,rtmsscorethreshold,attackscorethreshold,patternscorethreshold,localsearchtermfolder,localsearchtermfolderinterval), "ENTER"])        
     
     if __name__ == '__main__':
         if len(sys.argv) > 1:
@@ -4259,6 +4276,11 @@ STEP 4c: Preprocesing 3 Data: tml-system-step-4c-kafka-preprocess-dag
             default_args['attackscorethreshold'] = attackscorethreshold
             patternscorethreshold =  sys.argv[13]
             default_args['patternscorethreshold'] = patternscorethreshold
+    
+            localsearchtermfolder =  sys.argv[14]
+            default_args['localsearchtermfolder'] = localsearchtermfolder
+            localsearchtermfolderinterval =  sys.argv[15]
+            default_args['localsearchtermfolderinterval'] = localsearchtermfolderinterval
              
             tsslogging.locallogs("INFO", "STEP 4c: Preprocessing 3 started")
             try:
