@@ -114,41 +114,41 @@ TML Output of RTMS Scores
 ---------------
 
 .. code-block:: JSON
-      
+            
       {
-      	"hyperprediction": "0.02",
+      	"hyperprediction": "0.00",
       	"Entity": "na",
       	"Maintopic": "na",
       	"Topicid": "topicid-1_rtms-stream-mylogs",
       	"Topic": "rtms-stream-mylogs",
       	"Type": "External",
       	"ProducerId": "RTMS",
-      	"TimeStamp": "2025-03-17 01:02:00",
-      	"Unixtime": 1742173320443898767,
-      	"kafkakey": "OAA-ErRqU8tMBafSxghU4GZICyarYoDMtE",
+      	"TimeStamp": "2025-03-17 02:53:50",
+      	"Unixtime": 1742180030630121998,
+      	"kafkakey": "OAA-P1p1gKt90r9EdYemRRyFur2tJbUiNL",
       	"Preprocesstype": "rtms",
-      	"UserSearchValues": "rgx:(?:[a-z0-9!#$%&'*+\\/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+\\/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])~~~rgx:^[0-9A-Za-z]{6,16}$~~~rgx:^(?=.*?[0-9])(?=.*?[A-Za-z]).{8,32}$~~~rgx:(?:[a-z0-9!#$%&'*+\\/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+\\/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])~~~rgx:^[0-9A-Za-z]{6,16}$~~~invalid user webmaster~~~Transport endpoint is not connected~~~hacking~~~ANONYMOUS FTP LOGIN~~~ |unknown--entity--~~~security compromised~~~Failed password for root~~~Kerberos authentication failed~~~|ip address suspicious,unknown device,suspicious login attempt,address location banned,too many login attempts~~~rgx:p([a-z]+)ch ~~~unauthorized vpn access --entity--~~~rgx:^(?=.*?[0-9])(?=.*?[A-Za-z]).{8,32}$~~~ALERT exited abnormally~~~getaddrinfo for ns.marryaldkfaczcz.com~~~ |authentication failure,--entity-- password failure ~~~Invalid ACPI-PCI IRQ routing table~~~gateway unlocked~~~cn710/cn710 ntpd[19103]~~~check pass; user unknown, system implementation error",
+      	"UserSearchValues": "rgx:(?:[a-z0-9!#$%&'*+\\/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+\\/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])~~~rgx:^(?=.*?[0-9])(?=.*?[A-Za-z]).{8,32}$~~~rgx:^[0-9A-Za-z]{6,16}$~~~cn710/cn710 ntpd[19103]~~~hacking~~~gateway unlocked~~~rgx:p([a-z]+)ch ~~~ |unknown--entity--~~~unauthorized vpn access --entity--~~~ANONYMOUS FTP LOGIN~~~Transport endpoint is not connected~~~Invalid ACPI-PCI IRQ routing table~~~security compromised~~~Failed password for root~~~invalid user webmaster~~~ALERT exited abnormally~~~ |authentication failure,--entity-- password failure ~~~|unknown device,address location banned,too many login attempts,ip address suspicious,suspicious login attempt~~~check pass; user unknown, system implementation error~~~Kerberos authentication failed~~~getaddrinfo for ns.marryaldkfaczcz.com",
       	"SearchTextFound": [
       		"Message Found: 1811605 initialized by client WindowsUpdateAgent. 2016-09-29 02:04:35  Info CBS unauthorized vpn access Read out cached package applicability for package: - using search term: unauthorized vpn access.",
-      		"Message Found: info for customer-187-141-143-180-sta.uninet-ide.com.mx 192.168.5.26 failed - unauthorized vpn access POSSIBLE BREAK-IN ATTEMPT! Dec 10 09:20:00 LabSZ sshd24673: Invalid user - using search term: unauthorized vpn access.",
-      		"Message Found: 13 port 36300 ssh2 Dec 10 11:04:43 LabSZ sshd25541: Received disconnect from (unauthorized vpn access)192.168.5.13: 11: Bye Bye preauth Dec 10 11:04:43 LabSZ sshd25544: - using search term: unauthorized vpn access.",
-      		"Message Found: itialized by client WindowsUpdateAgent. 2016-09-28 04:30:45  Info CBS Read out (unauthorized vpn access)cached package applicability for package: - using search term: unauthorized vpn access."
+      		"Message Found: info for customer-187-141-143-180-sta.uninet-ide.com.mx 192.168.5.26 failed - unauthorized vpn access POSSIBLE BREAK-IN ATTEMPT! Dec 10 09:20:00 LabSZ sshd24673: Invalid user - using search term: unauthorized vpn access."
       	],
-      	"FinalAttackScore": "0.02",
-      	"FinalPatternScore": "0.13",
-      	"RTMSSCORE": "0.02",
-      	"NumAttackWindowsFound": "11",
-      	"NumPatternWindowsFound": "4",
+      	"FinalAttackScore": "0.00",
+      	"FinalPatternScore": "0.07",
+      	"RTMSSCORE": "0.00",
+      	"NumAttackWindowsFound": "2",
+      	"NumPatternWindowsFound": "2",
       	"Filename": "/rawdata/rtms/rtms-stream-mylogs_unauthorizedvpnaccess--entity--.txt.log",
-      	"TMLComment": "The RTMS score of 0.02 seems to show low activity or risk.  The AttackScore of 0.02 is less than PatternScore of 0.13, which suggests likely no attack, but could be a pattern developing.  The number of windows searched for an occurence of a pattern is 72. TML will continue monitoring and these numbers may change over time.",
+      	"TMLComment": "The RTMS score of 0.00 seems to show low activity or risk.  The AttackScore of 0.00 is less than PatternScore of 0.07, which suggests likely no attack, but could be a pattern developing.  The number of windows searched for an occurence of a pattern is 4. TML will continue monitoring and these numbers may change over time.",
       	"ActivityLevel": "Low",
       	"RememberPastWindows": "500",
       	"RTMSMAXWINDOWS": "1000",
       	"PatternThreshold": "30",
       	"SearchEntity": "unauthorized vpn access --entity--;",
-      	"PartitionOffsetFound": "0:685642;0:685862;0:685902;0:685939;",
-      	"Hash": "71YgOkrYRjZXPbnY0v-AQeXNLVs="
-      }   
+      	"PartitionOffsetFound": "0:761381;0:761600;",
+      	"Hash": "BiyKabrdoIw5GOb8qJUV0kgXXf4=",
+      	"GithubRemoteUrl": "https://github.com/smaurice101/raspberrypitss/blob/main/tml-airflow/dags/tml-solutions/cybersecurityrtms-3f10/rtms/rtms-stream-mylogs_unauthorizedvpnaccess--entity--.txt.log"
+      }
+
 Output Explanation
 ==========================
 
@@ -162,6 +162,13 @@ Output Explanation
      - This is the entity being analysed.  This can be 
 
        anything you want.
+   * - GithubRemoteUrl
+     - This is the GitHub Url for te RTMS solution output 
+      
+       specific to your TML solution.  All RTMS outputs are 
+
+       logged to Github automatically.
+
    * - Maintopic
      - This is the topic that holds the entity
 
