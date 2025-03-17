@@ -7197,7 +7197,9 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
      'conf_copyright' : '2024, Otics Advanced Analytics, Incorporated - For Support email support@otics.ca',
      'conf_author' : 'Sebastian Maurice',
      'conf_release' : '0.1',
-     'conf_version' : '0.1.0'
+     'conf_version' : '0.1.0',
+     'dockerenv': '', # add any environmental variables for docker must be: variable1=value1, variable2=value2
+     'dockerinstructions': '', # add instructions on how to run the docker container
     }
     
     ############################################################### DO NOT MODIFY BELOW ####################################################
@@ -7338,6 +7340,8 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
         step4crtmsscorethreshold=''
         step4cattackscorethreshold=''
         step4cpatternscorethreshold=''
+        step4clocalsearchtermfolder=''
+        step4clocalsearchtermfolderinterval=''
      
         rtmsoutputurl=""
         mloutputurl=""
@@ -7627,6 +7631,8 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
             step4crtmsscorethreshold=rtmsscorethreshold
             step4cattackscorethreshold=attackscorethreshold
             step4cpatternscorethreshold=patternscorethreshold
+            step4clocalsearchtermfolder=localsearchtermfolder
+            step4clocalsearchtermfolderinterval=localsearchtermfolderinterval
     
         preprocess_data_topic = context['ti'].xcom_pull(task_ids='step_5_solution_task_ml',key="{}_preprocess_data_topic".format(sname))
         ml_data_topic = context['ti'].xcom_pull(task_ids='step_5_solution_task_ml',key="{}_ml_data_topic".format(sname))
@@ -7830,6 +7836,22 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
         if pvectorsearchtype:
           step9vectorsearchtype=pvectorsearchtype
           doparse("/{}/docs/source/details.rst".format(sname), ["--vectorsearchtype--;{}".format(pvectorsearchtype)])
+    
+        ebuf=""
+        if default_args['dockerenv'] != '':
+           buf=default_args['dockerenv']
+           darr = buf.split(",")
+           for d in darr:          
+              v=d.split("=")
+              if len(v)>1:
+                ebuf = ebuf + ' --env ' + d.strip() + '=' + v[1].strip()
+              else: 
+                ebuf = ebuf + ' --env ' + d.strip() + '='
+    
+        if default_args['dockerinstructions'] != '':
+           doparse("/{}/docs/source/operating.rst".format(sname), ["--dockerinstructions--;{}".format(default_args['dockerinstructions'])])     
+        else:
+           doparse("/{}/docs/source/operating.rst".format(sname), ["--dockerinstructions--;{}".format("Please ask the developer of this solution.")])     
          
         if len(CLIENTPORT) > 1:
           doparse("/{}/docs/source/operating.rst".format(sname), ["--clientport--;{}".format(TMLCLIENTPORT[1:])])
@@ -7855,13 +7877,13 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
               --env GITPASSWORD='<Enter Github Password>' \\
               --env KAFKACLOUDPASSWORD='<Enter API secret>' \\
               --env MQTTPASSWORD='<Enter mqtt password>' \\
-              --env READTHEDOCS='<Enter Readthedocs token>' \\
+              --env READTHEDOCS='<Enter Readthedocs token>' {} \\
               {}""".format(solutionexternalport[1:],solutionexternalport[1:],
                               solutionairflowport[1:],solutionairflowport[1:],solutionvipervizport[1:],solutionvipervizport[1:],
                               TMLCLIENTPORT[1:],TMLCLIENTPORT[1:],sname,sd,os.environ['GITUSERNAME'],
                               os.environ['GITREPOURL'],solutionexternalport[1:],chipmain,
                               solutionairflowport[1:],solutionvipervizport[1:],os.environ['DOCKERUSERNAME'],TMLCLIENTPORT[1:],
-                              externalport[1:],kafkacloudusername,vipervizport[1:],mqttusername,airflowport[1:],containername)       
+                              externalport[1:],kafkacloudusername,vipervizport[1:],mqttusername,airflowport[1:],ebuf,containername)       
         else:
           doparse("/{}/docs/source/operating.rst".format(sname), ["--clientport--;Not Applicable"])
           dockerrun = """docker run -d -p {}:{} -p {}:{} -p {}:{} \\
@@ -7885,13 +7907,13 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
               --env MQTTPASSWORD='<Enter mqtt password>' \\
               --env KAFKACLOUDPASSWORD='<Enter API secret>' \\
               --env GITPASSWORD='<Enter Github Password>' \\
-              --env READTHEDOCS='<Enter Readthedocs token>' \\
+              --env READTHEDOCS='<Enter Readthedocs token>' {} \\
               {}""".format(solutionexternalport[1:],solutionexternalport[1:],
                               solutionairflowport[1:],solutionairflowport[1:],solutionvipervizport[1:],solutionvipervizport[1:],
                               sname,sd,os.environ['GITUSERNAME'],
                               os.environ['GITREPOURL'],solutionexternalport[1:],chipmain,
                               solutionairflowport[1:],solutionvipervizport[1:],os.environ['DOCKERUSERNAME'],
-                              externalport[1:],kafkacloudusername,vipervizport[1:],mqttusername,airflowport[1:],containername)
+                              externalport[1:],kafkacloudusername,vipervizport[1:],mqttusername,airflowport[1:],ebuf,containername)
             
        # dockerrun = re.escape(dockerrun) 
         v=subprocess.call(["sed", "-i", "-e",  "s/--dockerrun--/{}/g".format(dockerrun), "/{}/docs/source/operating.rst".format(sname)])
@@ -8127,7 +8149,7 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
                            step5independentvariables,step9searchterms,step9streamall[1:],step9temperature[1:],step9vectorsearchtype,
                            step9llmmodel,step9embedding,step9vectorsize,step4cmaxrows,step4crawdatatopic,step4csearchterms,step4crememberpastwindows[1:],
                            step4cpatternwindowthreshold[1:],step4crtmsstream,projectname,step4crtmsscorethreshold[1:],step4cattackscorethreshold[1:],
-                           step4cpatternscorethreshold[1:])
+                           step4cpatternscorethreshold[1:],step4clocalsearchtermfolder,step4clocalsearchtermfolderinterval[1:])
         else: 
           kcmd2=tsslogging.genkubeyamlnoext(sname,containername,TMLCLIENTPORT[1:],solutionairflowport[1:],solutionvipervizport[1:],solutionexternalport[1:],
                            sd,os.environ['GITUSERNAME'],os.environ['GITREPOURL'],chipmain,os.environ['DOCKERUSERNAME'],
@@ -8139,7 +8161,7 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
                            step5independentvariables,step9searchterms,step9streamall[1:],step9temperature[1:],step9vectorsearchtype,
                            step9llmmodel,step9embedding,step9vectorsize,step4cmaxrows,step4crawdatatopic,step4csearchterms,step4crememberpastwindows[1:],
                            step4cpatternwindowthreshold[1:],step4crtmsstream,projectname,step4crtmsscorethreshold[1:],step4cattackscorethreshold[1:],
-                           step4cpatternscorethreshold[1:])
+                           step4cpatternscorethreshold[1:],step4clocalsearchtermfolder,step4clocalsearchtermfolderinterval[1:])
     
         doparse("/{}/docs/source/kube.rst".format(sname), ["--solutionnamecode--;{}".format(kcmd2)])
     
@@ -8256,6 +8278,20 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
      - This is the version number that will 
 
        be used in Readthedocs documentation
+   * - dockerenv
+     - Ideally, TML solution containers run in Kubernetes.
+ 
+       But, if you or other users run this container
+
+       you can specify the docker environmental variables
+
+       that can be modified at runtime.  The format must be
+
+       **variable1=value1,variable2=value2,...**
+   * - dockerinstructions
+     - You can specify instructions for users on how to 
+
+       to run your container. 
 
 Creating Your Own DAG
 --------------------
@@ -8327,12 +8363,15 @@ You may, sometimes, encounter an issue pushing to Github in the UI.   IF this ha
    **+gitresetpush** will rebase the commit to the head of the main branch, commit the changes and push it to main branch.
 
 .. figure:: gitreset2.png
+   :scale: 60%
 
 .. figure:: gitreset.png
+   :scale: 60%
 
 After the **+gitresetpull** -- you can then Push your changes.
 
 .. figure:: gitresetpush.png
+   :scale: 60%
 
 Example TML Solution Container Reference Architecture
 -----------------------------------------------
