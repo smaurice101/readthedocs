@@ -114,35 +114,41 @@ TML Output of RTMS Scores
 ---------------
 
 .. code-block:: JSON
-
+      
       {
-          "hyperprediction": "0.28",
-          "Entity": "5.24",
-          "Maintopic": "iot-preprocess",
-          "Topicid": "topicid117_rtms-stream-mylogs",
-          "Topic": "rtms-stream-mylogs",
-          "Type": "External",
-          "ProducerId": "RTMS",
-          "TimeStamp": "2025-02-27 17:23:33",
-          "Unixtime": 1740677013186772700,
-          "kafkakey": "OAA-fOMleuaKxdS9iqZzL8uGxDMEIvcXUa",
-          "Preprocesstype": "rtms",
-          "UserSearchValues": "@authentication failure,192.168.--entity-- password failure ~ |unknown 192.168.--entity--",
-          "SearchTextFound": "(TRUNCATED STRING EXCEEDS 3000)[Topic=rtms-stream-mylogs][MessageFound=many authentication failures for root preauth][UserSearch=failures][Partition=0 Offset=21410];[Topic=rtms-stream-mylogs][MessageFound=more authentication failures logname= uid=0 euid][UserSearch=failures][Partition=0 Offset=21416];[Topic=rtms-stream-mylogs][MessageFound=more authentication failures logname= uid=0 euid][UserSearch=failures][Partition=0 Offset=21417];[Topic=rtms-stream-mylogs][MessageFound=many authentication failures for root preauth][UserSearch=failures][Partition=0 Offset=21419];[Topic=rtms-stream-mylogs][MessageFound=more authentication failures logname= uid=0 euid][UserSearch=failures][Partition=0 Offset=21420];[Topic=rtms-stream-mylogs][MessageFound=more authentication failures logname= uid=0 euid][UserSearch=failures][Partition=0 Offset=21422];[Topic=rtms-stream-mylogs][MessageFound=many authentication failures for admin preauth][UserSearch=failures][Partition=0 Offset=21446];;[Topic=rtms-stream-mylogs][MessageFound=many authentication failures for root preauth][UserSearch=failures][Partition=0 Offset=21410];[Topic=rtms-stream-mylogs][MessageFound=more authentication failures logname= uid=0 euid][UserSearch=failures][Partition=0 Offset=21416];[Topic=rtms-stream-mylogs][MessageFound=more authentication failures logname= uid=0 euid][UserSearch=failures][Partition=0 Offset=21417];[Topic=rtms-stream-mylogs][MessageFound=many authentication failures for root preauth][UserSearch=failures][Partition=0 Offset=21419];[Topic=rtms-stream-mylogs][MessageFound=more authentication failures logname= uid=0 euid][UserSearch=failures][Partition=0 Offset=21420];[Topic=rtms-stream-mylogs][MessageFound=more authentication failures logname= uid=0 euid][UserSearch=failures][Partition=0 Offset=21422];[Topic=rtms-stream-mylogs][MessageFound=many authentication failures for admin preauth][UserSearch=failures][Partition=0 Offset=21446];;[Topic=rtms-stream-mylogs][MessageFound=many authentication failures for root preauth][UserSearch=failures][Partition=0 Offset=8038];[Topic=rtms-stream-mylogs][MessageFound=more authentication failures logname= uid=0 euid][UserSearch=failures][Partition=0 Offset=8044];[Topic=rtms-stream-mylogs][MessageFound=more authentication failures logname= uid=0 euid][UserSearch=failures][Partition=0 Offset=8045];[Topic=rtms-stream-mylogs][MessageFound=many authentication failures for root preauth][UserSearch=failures][Partition=0 Offset=8047];[Topic=rtms-stream-mylogs][MessageFound=more authentication failures logname= uid=0 euid][UserSearch=failures][Partition=0 Offset=8048];[Topic=rtms-stream-mylogs][MessageFound=more authentication failures logname= uid=0 euid][UserSearch=failures][Partition=0 Offset=8050];[Topic=rtms-stream-mylogs][MessageFound=many authentication failures for admin preauth][UserSearch=failures][Partition=0 Offset=8074];;[Topic=rtms-stream-mylogs][MessageFound=many authentication failures for root preauth][UserSearch=failures][Partition=0 Offset=8038];[Topic=rtms-stream",
-          "FinalAttackScore": "0.08",
-          "FinalPatternScore": "2.50",
-          "ComputedAttackScore": "8.00",
-          "ComputedPatternScore": "75.00",
-          "RTMSSCORE": "0.28",
-          "NumAttackWindowsFound": "8",
-          "NumPatternWindowsFound": "75",
-          "Filename": "/rawdata/rtms/rtms-stream-mylogs_117.txt",
-          "TMLComment": "The RTMS score of 0.28 seems to show low activity or risk.  The AttackScore of 0.08 is less than PatternScore of 2.50,   which suggests likely no attack, but could be a pattern developing.  The number of sliding time windows that match occurences to your search terms for AttackScore is 0.08, the number of windows   searched for an occurence of a pattern is 75. TML will continue monitoring and these numbers may change over time.",
-          "ActivityLevel": "Low",
-          "RememberPastWindows": "100",
-          "PatternThreshold": "30"
-      }
-
+      	"hyperprediction": "0.02",
+      	"Entity": "na",
+      	"Maintopic": "na",
+      	"Topicid": "topicid-1_rtms-stream-mylogs",
+      	"Topic": "rtms-stream-mylogs",
+      	"Type": "External",
+      	"ProducerId": "RTMS",
+      	"TimeStamp": "2025-03-17 01:02:00",
+      	"Unixtime": 1742173320443898767,
+      	"kafkakey": "OAA-ErRqU8tMBafSxghU4GZICyarYoDMtE",
+      	"Preprocesstype": "rtms",
+      	"UserSearchValues": "rgx:(?:[a-z0-9!#$%&'*+\\/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+\\/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])~~~rgx:^[0-9A-Za-z]{6,16}$~~~rgx:^(?=.*?[0-9])(?=.*?[A-Za-z]).{8,32}$~~~rgx:(?:[a-z0-9!#$%&'*+\\/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+\\/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])~~~rgx:^[0-9A-Za-z]{6,16}$~~~invalid user webmaster~~~Transport endpoint is not connected~~~hacking~~~ANONYMOUS FTP LOGIN~~~ |unknown--entity--~~~security compromised~~~Failed password for root~~~Kerberos authentication failed~~~|ip address suspicious,unknown device,suspicious login attempt,address location banned,too many login attempts~~~rgx:p([a-z]+)ch ~~~unauthorized vpn access --entity--~~~rgx:^(?=.*?[0-9])(?=.*?[A-Za-z]).{8,32}$~~~ALERT exited abnormally~~~getaddrinfo for ns.marryaldkfaczcz.com~~~ |authentication failure,--entity-- password failure ~~~Invalid ACPI-PCI IRQ routing table~~~gateway unlocked~~~cn710/cn710 ntpd[19103]~~~check pass; user unknown, system implementation error",
+      	"SearchTextFound": [
+      		"Message Found: 1811605 initialized by client WindowsUpdateAgent. 2016-09-29 02:04:35  Info CBS unauthorized vpn access Read out cached package applicability for package: - using search term: unauthorized vpn access.",
+      		"Message Found: info for customer-187-141-143-180-sta.uninet-ide.com.mx 192.168.5.26 failed - unauthorized vpn access POSSIBLE BREAK-IN ATTEMPT! Dec 10 09:20:00 LabSZ sshd24673: Invalid user - using search term: unauthorized vpn access.",
+      		"Message Found: 13 port 36300 ssh2 Dec 10 11:04:43 LabSZ sshd25541: Received disconnect from (unauthorized vpn access)192.168.5.13: 11: Bye Bye preauth Dec 10 11:04:43 LabSZ sshd25544: - using search term: unauthorized vpn access.",
+      		"Message Found: itialized by client WindowsUpdateAgent. 2016-09-28 04:30:45  Info CBS Read out (unauthorized vpn access)cached package applicability for package: - using search term: unauthorized vpn access."
+      	],
+      	"FinalAttackScore": "0.02",
+      	"FinalPatternScore": "0.13",
+      	"RTMSSCORE": "0.02",
+      	"NumAttackWindowsFound": "11",
+      	"NumPatternWindowsFound": "4",
+      	"Filename": "/rawdata/rtms/rtms-stream-mylogs_unauthorizedvpnaccess--entity--.txt.log",
+      	"TMLComment": "The RTMS score of 0.02 seems to show low activity or risk.  The AttackScore of 0.02 is less than PatternScore of 0.13, which suggests likely no attack, but could be a pattern developing.  The number of windows searched for an occurence of a pattern is 72. TML will continue monitoring and these numbers may change over time.",
+      	"ActivityLevel": "Low",
+      	"RememberPastWindows": "500",
+      	"RTMSMAXWINDOWS": "1000",
+      	"PatternThreshold": "30",
+      	"SearchEntity": "unauthorized vpn access --entity--;",
+      	"PartitionOffsetFound": "0:685642;0:685862;0:685902;0:685939;",
+      	"Hash": "71YgOkrYRjZXPbnY0v-AQeXNLVs="
+      }   
 Output Explanation
 ==========================
 
