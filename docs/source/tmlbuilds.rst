@@ -8287,7 +8287,9 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
 
        that can be modified at runtime.  The format must be
 
-       **variable1=value1,variable2=value2,...**
+       **variable1=value1***variable2=value2,...**, use 
+
+       THREE (3) stars to separate variable and value pairs.
    * - dockerinstructions
      - You can specify instructions for users on how to 
 
