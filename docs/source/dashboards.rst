@@ -14,17 +14,22 @@ You can create real-time dashboards using TML binary called **Viperviz**.  These
 Some sample dashboards samples are below.
 
 .. figure:: d1.png
+   :scale: 70%
 
 .. figure:: cyberdash2.png
+   :scale: 70%
 
 .. figure:: d2.png
+   :scale: 70%
 
 .. figure:: d3.png
+   :scale: 70%
 
 .. figure:: d4.png
-
+   :scale: 70%
 
 .. figure:: hdash1.png
+   :scale: 70%
 
 Running Dashboards
 -------------------
@@ -153,6 +158,7 @@ Dashboard Template
    You can modify it in TML Solution Studio (TSS) and commit changes to Github directly from the TSS.
 
 .. figure:: dashtemp.png
+   :scale: 70%
 
 Dashboard Template: Code Explanation
 ----------------------------
