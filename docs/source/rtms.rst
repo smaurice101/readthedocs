@@ -208,12 +208,8 @@ Output Explanation
      - The Final attack score
    * - FinalPatternScore
      - The final pattern score
-   * - ComputedAttackScore
-     - This is the number of sliding time windows that contain
-    
-       the search terms.
-   * - ComputedPatternScore
-     - The number of sliding time windows that contain the search term.
+   * - hash
+     - Internal message hash
    * - RTMSSCORE
      - The RTMS score.
    * - NumAttackWindowsSearched
