@@ -287,7 +287,7 @@ TSS Code Editor
 .. figure:: ts4.png
    :scale: 70%
 
-TSS Demo Github and Readthedocs Site Credentials
+TSS Demo Github, Docker and Readthedocs Site Credentials
 ----------------------
 
 .. important::
@@ -297,6 +297,8 @@ TSS Demo Github and Readthedocs Site Credentials
     - **GITHUB REPO URL:** https://github.com/tsstmldemo/tsstmldemo
     - **Personal Access Token:** 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 
     - **Readthedocs Token:** aefa71df39ad764ac2785b3167b77e8c1d7c553a
+    - **Docker Username:** tsstmldocker
+    - **Docker Password:** TssTml0828!?
 
     **Note: The above credentials are for demo purposes ONLY and are shared with anyone.**  They ARE NOT meant to be used permanently.  If you like TSS/TML and plan to use it seriously, then personal accounts and credentials must be used.  Refer to `TSS Pre-requisites <https://tml.readthedocs.io/en/latest/docker.html#tss-pre-requisites>`_ on how to set these up.
 
