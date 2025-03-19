@@ -297,7 +297,7 @@ TSS Demo Github and Readthedocs Site Credentials
     - **Personal Access Token:** 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 
     - **Readthedocs Token:** aefa71df39ad764ac2785b3167b77e8c1d7c553a
 
-    **Note: The above credentials are for demo purposes ONLY and are shared with anyone.**  They ARE NOT meant to be used permanently.  If you like TSS/TML and plan to use it seriously, then personal accounts and credentials must be used.  Refer to `TSS Pre-requistes <https://tml.readthedocs.io/en/latest/docker.html#tss-pre-requisites>`_ on how how set these up.
+    **Note: The above credentials are for demo purposes ONLY and are shared with anyone.**  They ARE NOT meant to be used permanently.  If you like TSS/TML and plan to use it seriously, then personal accounts and credentials must be used.  Refer to `TSS Pre-requisites <https://tml.readthedocs.io/en/latest/docker.html#tss-pre-requisites>`_ on how to set these up.
 
 Readthedocs Documentation URL
 -------------------------
