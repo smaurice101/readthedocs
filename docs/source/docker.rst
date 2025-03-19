@@ -261,6 +261,7 @@ How To Use the TML Solution Container
 After you enter the URL you will the following website:
 
 .. figure:: ts1.png
+   :scale: 70%
 
 .. tip::
 
@@ -269,10 +270,12 @@ After you enter the URL you will the following website:
 After you have signed in successfully you will see the following screen with example DAGs:
 
 .. figure:: ts2.png
+   :scale: 70%
 
 If you scroll down you will see the **TML DAGs** - as defined here: :ref:`DAG Table`.  These are the DAGs you will use to build your TML Solutions:
 
 .. figure:: ts3.png
+   :scale: 70%
 
 TSS Code Editor
 -----------------
@@ -282,6 +285,24 @@ TSS Code Editor
    solution process flows defined here: :ref:`Apache Airflow DAGs`
 
 .. figure:: ts4.png
+   :scale: 70%
+
+Readthedocs Documentation URL
+-------------------------
+
+.. important::
+   The TSS is integrated with `Readthedocs <https://app.readthedocs.org/>`_  for automated documention via Github.
+
+   All TML auto-generated documentaton can be found on readthedocs.  The format of the URL is: https://<solution name>.readthedocs.io.  
+
+   For example, if you created a project name **cybersecurityrtms-3f10**, then the url will be:  
+
+   `https://<solution name>.readthedocs.io <https://cybersecurityrtms-3f10.readthedocs.io>`_
+
+    The **solution name** can be found in the Step 1 task under your project name.  As shown in the figure below, the TML solution name is **cybersecurityrtms-3f10**
+
+.. figure:: rtdurlformat.png
+   :scale: 70%
 
 Common Docker and TMUX Commands
 --------------------
@@ -329,8 +350,10 @@ TSS Logging
 The entire TSS solution build process is logged and committed to Github.  This makes it very convenient to check for any errors in the TSS build process, and because errors are commited to the remote branch, the errors become visible to others to help in quickly rectifying any issues.
 
 .. figure:: tsslogs.png
+   :scale: 70%
 
 .. tip::
     The logs are committed to your Github folder: **/tml-airflow/logs/logs.txt**
 
 .. figure:: tsslogs2.png
+   :scale: 70%
