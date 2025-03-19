@@ -293,6 +293,7 @@ TSS Demo Github and Readthedocs Site Credentials
 .. important::
    To make it easier for users to run a TML solution quickly, a TML Demo Github site is provided here:
 
+    - **GITHUB USERNAME:** tsstmldemo
     - **GITHUB REPO URL:** https://github.com/tsstmldemo/tsstmldemo
     - **Personal Access Token:** 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 
     - **Readthedocs Token:** aefa71df39ad764ac2785b3167b77e8c1d7c553a
