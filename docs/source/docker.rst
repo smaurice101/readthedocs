@@ -297,7 +297,7 @@ Readthedocs Documentation URL
 
    For example, if you created a project name **cybersecurityrtms-3f10**, then the url will be:  
 
-   `https://<solution name>.readthedocs.io <https://cybersecurityrtms-3f10.readthedocs.io>`_
+   `https://cybersecurityrtms-3f10.readthedocs.io <https://cybersecurityrtms-3f10.readthedocs.io>`_
 
     The **solution name** can be found in the Step 1 task under your project name.  As shown in the figure below, the TML solution name is **cybersecurityrtms-3f10**
 
