@@ -287,6 +287,18 @@ TSS Code Editor
 .. figure:: ts4.png
    :scale: 70%
 
+TSS Demo Github and Readthedocs Site
+----------------------
+
+.. important::
+   To make it easier for users to run a TML solution quickly, a TML Demo Github site is provided here:
+
+    - **GITHUB REPO URL:** https://github.com/tsstmldemo/tsstmldemo
+    - **Personal Access Token:** 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 
+    - **Readthedocs Token:** aefa71df39ad764ac2785b3167b77e8c1d7c553a
+
+    **Note: The above credentials are for demo purposes ONLY and are shared with anyone.**  They NOT meant to be used permanently.  If you like TSS/TML and plan to use it seriously, then personal accounts and credentials must be used.  Refer to `TSS Pre-requistes <https://tml.readthedocs.io/en/latest/docker.html#tss-pre-requisites>`_
+
 Readthedocs Documentation URL
 -------------------------
 
