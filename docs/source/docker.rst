@@ -295,7 +295,7 @@ TSS Demo Github, Docker and Readthedocs Site Credentials
 
     - **GITHUB USERNAME:** tsstmldemo
     - **GITHUB REPO URL:** https://github.com/tsstmldemo/tsstmldemo
-    - **GITHUB Personal Access Token:** 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 
+    - **GITHUB Personal Access Token:** <This will be retrieved for you from the OS IF using tsstmldemo repo> 
     - **Readthedocs Token:** aefa71df39ad764ac2785b3167b77e8c1d7c553a
     - **Docker Username:** tsstmldocker
     - **Docker Password:** TssTml0828!?
