@@ -6,7 +6,7 @@ TML uses privateGPT containers (discussed below) for secure, fast, and distribut
 .. attention::
     #. These containers are dependent on the NVidia GPU.
     #. They also require `Qdrant Vector DB <https://qdrant.tech/>`_
-       #. Here is the Qdrant Docker Run Command:
+       - Here is the Qdrant Docker Run Command:
           .. code-block::
 
              docker run -d -p 6333:6333 -v $(pwd)/qdrant_storage:/qdrant/storage:z qdrant/qdrant
