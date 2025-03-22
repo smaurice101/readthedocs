@@ -117,36 +117,39 @@ TML Output of RTMS Scores
             
       {
       	"hyperprediction": "0.00",
-      	"Entity": "na",
-      	"Maintopic": "na",
-      	"Topicid": "topicid-1_rtms-stream-mylogs",
+      	"Entity": "5.13",
+      	"Maintopic": "iot-preprocess",
+      	"Topicid": "topicid11_rtms-stream-mylogs",
       	"Topic": "rtms-stream-mylogs",
       	"Type": "External",
       	"ProducerId": "RTMS",
-      	"TimeStamp": "2025-03-17 02:53:50",
-      	"Unixtime": 1742180030630121998,
-      	"kafkakey": "OAA-P1p1gKt90r9EdYemRRyFur2tJbUiNL",
+      	"TimeStamp": "2025-03-21 22:02:33",
+      	"Unixtime": 1742594553898529164,
+      	"kafkakey": "OAA-FugjuhNmEisRHHUUeJNCupWxGnVjRu",
       	"Preprocesstype": "rtms",
-      	"UserSearchValues": "rgx:(?:[a-z0-9!#$%&'*+\\/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+\\/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])~~~rgx:^(?=.*?[0-9])(?=.*?[A-Za-z]).{8,32}$~~~rgx:^[0-9A-Za-z]{6,16}$~~~cn710/cn710 ntpd[19103]~~~hacking~~~gateway unlocked~~~rgx:p([a-z]+)ch ~~~ |unknown--entity--~~~unauthorized vpn access --entity--~~~ANONYMOUS FTP LOGIN~~~Transport endpoint is not connected~~~Invalid ACPI-PCI IRQ routing table~~~security compromised~~~Failed password for root~~~invalid user webmaster~~~ALERT exited abnormally~~~ |authentication failure,--entity-- password failure ~~~|unknown device,address location banned,too many login attempts,ip address suspicious,suspicious login attempt~~~check pass; user unknown, system implementation error~~~Kerberos authentication failed~~~getaddrinfo for ns.marryaldkfaczcz.com",
+      	"UserSearchValues": "rgx:^[0-9A-Za-z]{6,16}$~~~rgx:(?:[a-z0-9!#$%&'*+\\/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+\\/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])~~~rgx:^(?=.*?[0-9])(?=.*?[A-Za-z]).{8,32}$~~~ |authentication failure,--entity-- password failure ~~~security compromised~~~hacking~~~rgx:p([a-z]+)ch ~~~Transport endpoint is not connected~~~cn710/cn710 ntpd[19103]~~~ |unknown--entity--~~~ANONYMOUS FTP LOGIN~~~check pass; user unknown, system implementation error~~~getaddrinfo for ns.marryaldkfaczcz.com~~~Failed password for root~~~ALERT exited abnormally~~~Kerberos authentication failed~~~gateway unlocked~~~invalid user webmaster~~~|unknown device,suspicious login attempt,address location banned,too many login attempts,ip address suspicious~~~unauthorized vpn access --entity--~~~Invalid ACPI-PCI IRQ routing table",
       	"SearchTextFound": [
-      		"Message Found: 1811605 initialized by client WindowsUpdateAgent. 2016-09-29 02:04:35  Info CBS unauthorized vpn access Read out cached package applicability for package: - using search term: unauthorized vpn access.",
-      		"Message Found: info for customer-187-141-143-180-sta.uninet-ide.com.mx 192.168.5.26 failed - unauthorized vpn access POSSIBLE BREAK-IN ATTEMPT! Dec 10 09:20:00 LabSZ sshd24673: Invalid user - using search term: unauthorized vpn access."
+      		"Message Found: m 84.102.20.2 () at Sun Jul 24 02:38:22 2005 Jul 24 02:38:23 combo ftpd16781: ANONYMOUS FTP LOGIN FROM 84.102.20.2  (anonymous) Jul 24 02:38:23 combo ftpd16782: ANONYMOUS FTP - using search term: anonymous ftp login. Date Found: 21 Mar 2025 22:02:02.2893 UTC",
+      		"Message Found: MOUS FTP LOGIN FROM 84.102.20.2  (anonymous) Jul 24 02:38:23 combo ftpd16782: ANONYMOUS FTP LOGIN FROM 84.102.20.2  (anonymous) Jul 24 04:20:19 combo su(pam_unix)17283: - using search term: anonymous ftp login. Date Found: 21 Mar 2025 22:02:02.2893 UTC",
+      		"Message Found: m 84.102.20.2 () at Sun Jul 24 02:38:22 2005 Jul 24 02:38:23 combo ftpd16781: ANONYMOUS FTP LOGIN FROM 84.102.20.2  (anonymous) Jul 24 02:38:23 combo ftpd16782: ANONYMOUS FTP - using search term: anonymous ftp login. Date Found: 21 Mar 2025 22:02:26.8650 UTC",
+      		"Message Found: MOUS FTP LOGIN FROM 84.102.20.2  (anonymous) Jul 24 02:38:23 combo ftpd16782: ANONYMOUS FTP LOGIN FROM 84.102.20.2  (anonymous) Jul 24 04:20:19 combo su(pam_unix)17283: - using search term: anonymous ftp login. Date Found: 21 Mar 2025 22:02:26.8651 UTC"
       	],
       	"FinalAttackScore": "0.00",
-      	"FinalPatternScore": "0.07",
+      	"FinalPatternScore": "0.13",
       	"RTMSSCORE": "0.00",
       	"NumAttackWindowsFound": "2",
-      	"NumPatternWindowsFound": "2",
-      	"Filename": "/rawdata/rtms/rtms-stream-mylogs_unauthorizedvpnaccess--entity--.txt.log",
-      	"TMLComment": "The RTMS score of 0.00 seems to show low activity or risk.  The AttackScore of 0.00 is less than PatternScore of 0.07, which suggests likely no attack, but could be a pattern developing.  The number of windows searched for an occurence of a pattern is 4. TML will continue monitoring and these numbers may change over time.",
+      	"NumPatternWindowsFound": "4",
+      	"Filename": "/rawdata/rtms2/rtms-stream-mylogs_11_anonymousftplogin.txt.log",
+      	"TMLComment": "The RTMS score of 0.00 seems to show low activity or risk.  The AttackScore of 0.00 is less than PatternScore of 0.13, which suggests likely no attack, but could be a pattern developing.  The number of windows searched for an occurence of a pattern is 4. TML will continue monitoring and these numbers may change over time.",
       	"ActivityLevel": "Low",
       	"RememberPastWindows": "500",
       	"RTMSMAXWINDOWS": "1000",
       	"PatternThreshold": "30",
-      	"SearchEntity": "unauthorized vpn access --entity--;",
-      	"PartitionOffsetFound": "0:761381;0:761600;",
-      	"Hash": "BiyKabrdoIw5GOb8qJUV0kgXXf4=",
-      	"GithubRemoteUrl": "https://github.com/smaurice101/raspberrypitss/blob/main/tml-airflow/dags/tml-solutions/cybersecurityrtms-3f10/rtms/rtms-stream-mylogs_unauthorizedvpnaccess--entity--.txt.log"
+      	"SearchEntity": "ANONYMOUS FTP LOGIN;",
+      	"PartitionOffsetFound": "0:593;",
+      	"Hash": "RfQNB0BDpTPM69W8ydktp4EcEpY=",
+      	"GithubRemoteUrl": "https://github.com/smaurice101/raspberrypitss/blob/main/tml-airflow/dags/tml-solutions/cybersecurityrtms-3f10/rtms2/rtms-stream-mylogs_11_anonymousftplogin.txt.log",
+      	"rtmsfolder": "rtms2"
       }
 
 Output Explanation
@@ -167,7 +170,9 @@ Output Explanation
       
        specific to your TML solution.  All RTMS outputs are 
 
-       logged to Github automatically.
+       logged to Github automatically AND to Kafka topic.
+
+       The log files are important for testing and validation.
 
    * - Maintopic
      - This is the topic that holds the entity
@@ -216,7 +221,7 @@ Output Explanation
    * - FinalPatternScore
      - The final pattern score
    * - hash
-     - Internal message hash
+     - Unique internal message hash
    * - RTMSSCORE
      - The RTMS score.
    * - NumAttackWindowsSearched
