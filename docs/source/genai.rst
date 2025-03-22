@@ -187,7 +187,7 @@ Installing CUDA For NVIDIA GPU
    To confirm your GPU card is recognized in Linux type: **nvidia-smi** - You should see an image similar to below.
 
 .. figure:: nvidia.png
-   :scale: 50%
+   :scale: 70%
 
 NVIDIA Common Issues
 ^^^^^^^^^^^^^^^^^^^^^^^^
