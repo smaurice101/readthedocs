@@ -8399,7 +8399,7 @@ Example Of Setting Docker Instructions in Step 10
      step4crememberpastwindows=500***step4cpatternwindowthreshold=30***step4crtmsscorethreshold=0.6***step4cattackscorethreshold=0.6***\
      step4cpatternscorethreshold=0.6***step4crtmsstream=rtms-stream-mylogs***step4clocalsearchtermfolder=|mysearchfile1,|mysearchfile2***\
      step4clocalsearchtermfolderinterval=60***step4crtmsfoldername=rtms2***step3localfiledocfolder=mylogs,mylogs2***step4crtmsmaxwindows=1000000', # add any environmental variables for docker must be: variable1=value1***variable2=value2
-     'dockerinstructions': To run this docker container Enter the following CORE parameters:
+     'dockerinstructions': """To run this docker container Enter the following CORE parameters:
     
           1. KAFKABROKERHOST=127.0.0.1:9092 - this uses the Local Kafka installed in your TML solution container.
              You can specify a Kafka Cloud URL if using AWS MSK or Confluent Kafka Cloud, simply replace this field.
@@ -8475,7 +8475,7 @@ Example Of Setting Docker Instructions in Step 10
     
           - PLEASE NOTE: THE GITHUB AND READTHEDOCS ACCOUNTS ARE PUBLIC AND SHARED ACCOUNTS BY OTHERS.
     
-          - THEY ARE MEANT ONLY FOR QUICK DEMOS.  IDEALLY, PERSONAL GITHUB AND READTHEDOCS ACCONTS SHOULD BE USED.
+          - THEY ARE MEANT ONLY FOR QUICK DEMOS.  IDEALLY, PERSONAL GITHUB AND READTHEDOCS ACCONTS SHOULD BE USED."""
     }
 
 Creating Your Own DAG
