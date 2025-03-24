@@ -8470,7 +8470,7 @@ Example Of Setting Docker Instructions in Step 10
               text log files.  These are read in STEP 3 LOCALFILE task.
     
           26. step4crtmsmaxwindows=1000000, this is the maximum number of windows for LONG-TERM 
-              pattern matching.  Here, TML will go-back 10,000,000 sliding time windows, 
+              pattern matching.  Here, TML will go-back 1,000,000 sliding time windows, 
               which in effect could be months of analysis.  Yoi can easily increase this number.
     
           - PLEASE NOTE: THE GITHUB AND READTHEDOCS ACCOUNTS ARE PUBLIC AND SHARED ACCOUNTS BY OTHERS.
