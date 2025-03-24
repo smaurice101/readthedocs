@@ -366,7 +366,6 @@ Below is the complete definition of the **tml_system_step_1_getparams_dag**.  Us
      'SSL_CLIENT_KEY_FILE' : 'client.key.pem', 
      'SSL_SERVER_CERT_FILE' : 'server.cer.pem',  
      'KUBERNETES' : '0',
-     'RTMSMAXWINDOWS' : '100000', 
     }
     
     ############################################################### DO NOT MODIFY BELOW ####################################################
@@ -422,7 +421,12 @@ Below is the complete definition of the **tml_system_step_1_getparams_dag**.  Us
               cloudusername = os.environ['KAFKACLOUDUSERNAME']
         if 'KAFKACLOUDPASSWORD' in os.environ:
               cloudpassword = os.environ['KAFKACLOUDPASSWORD']
-    
+        if 'KAFKABROKERHOST' in os.environ:
+              default_args['brokerhost'] = os.environ['KAFKABROKERHOST']
+              default_args['brokerport']=''
+        if 'SASLMECHANISM' in os.environ:
+           default_args['SASLMECHANISM']=os.environ['SASLMECHANISM']     
+         
         if '127.0.0.1' in default_args['brokerhost']:
           cloudusername = ""
           cloudpassword = ""
@@ -439,7 +443,7 @@ Below is the complete definition of the **tml_system_step_1_getparams_dag**.  Us
               else: 
                  default_args['brokerhost']="kafka-service"
                
-        filepaths = ['/Viper-produce/viper.env','/Viper-preprocess/viper.env','/Viper-preprocess-pgpt/viper.env','/Viper-preprocess2/viper.env','/Viper-ml/viper.env','/Viper-predict/viper.env','/Viperviz/viper.env']
+        filepaths = ['/Viper-produce/viper.env','/Viper-preprocess/viper.env','/Viper-preprocess-pgpt/viper.env','/Viper-preprocess2/viper.env','/Viper-preprocess3/viper.env','/Viper-ml/viper.env','/Viper-predict/viper.env','/Viperviz/viper.env']
         for mainfile in filepaths:
          with open(mainfile, 'r', encoding='utf-8') as file: 
            data = file.readlines() 
@@ -572,7 +576,25 @@ Below is the complete definition of the **tml_system_step_1_getparams_dag**.  Us
       HPDEPORTPREDICT = ""
     
       tsslogging.locallogs("INFO", "STEP 1: Build started") 
+      try: 
+        f = open("/tmux/step1solution.txt", "w")
+        f.write(default_args['solutionname'])
+        f.close()
+      except Exception as e:
+        pass
     
+      if os.environ['TSS']==1:
+        try: 
+          shutil.rmtree("/rawdata/rtms") 
+        except Exception as e:
+           pass
+        try: 
+           with open("/tmux/step5.txt", "r") as f:
+               dirbuf=f.read()
+               shutil.rmtree(dirbuf) 
+        except Exception as e:
+          pass
+     
       sd = context['dag'].dag_id 
       pname = args['solutionname']    
       sname = tsslogging.rtdsolution(pname,sd)
@@ -608,6 +630,10 @@ Below is the complete definition of the **tml_system_step_1_getparams_dag**.  Us
           output = f.read()
           VIPERHOSTPREPROCESS2 = output.split(",")[0]
           VIPERPORTPREPROCESS2 = output.split(",")[1]        
+        with open('/Viper-preprocess3/viper.txt', 'r') as f:
+          output = f.read()
+          VIPERHOSTPREPROCESS3 = output.split(",")[0]
+          VIPERPORTPREPROCESS3 = output.split(",")[1]             
         with open('/Viper-preprocess-pgpt/viper.txt', 'r') as f:
           output = f.read()
           VIPERHOSTPREPROCESSPGPT = output.split(",")[0]
@@ -753,6 +779,8 @@ Below is the complete definition of the **tml_system_step_1_getparams_dag**.  Us
       task_instance.xcom_push(key="{}_VIPERPORTPREPROCESS".format(sname),value="_{}".format(VIPERPORTPREPROCESS))
       task_instance.xcom_push(key="{}_VIPERHOSTPREPROCESS2".format(sname),value=VIPERHOSTPREPROCESS2)
       task_instance.xcom_push(key="{}_VIPERPORTPREPROCESS2".format(sname),value="_{}".format(VIPERPORTPREPROCESS2))
+      task_instance.xcom_push(key="{}_VIPERHOSTPREPROCESS3".format(sname),value=VIPERHOSTPREPROCESS3)
+      task_instance.xcom_push(key="{}_VIPERPORTPREPROCESS3".format(sname),value="_{}".format(VIPERPORTPREPROCESS3))
     
       task_instance.xcom_push(key="{}_VIPERHOSTPREPROCESSPGPT".format(sname),value=VIPERHOSTPREPROCESSPGPT)
       task_instance.xcom_push(key="{}_VIPERPORTPREPROCESSPGPT".format(sname),value="_{}".format(VIPERPORTPREPROCESSPGPT))
@@ -997,11 +1025,12 @@ Below is the complete definition of the **tml_system_step_2_kafka_createtopic_da
     
       topickeys = ['raw_data_topic','preprocess_data_topic','ml_data_topic','prediction_data_topic','pgpt_data_topic'] 
       VIPERHOSTMAIN = "{}{}".format(HTTPADDR,VIPERHOST)    
-    
+      ptarr = ""
       for k in topickeys:
         producetotopic=args[k]
         description=args['description']
-    
+        if producetotopic != "":
+          ptarr = ptarr + producetotopic.strip() + ","
         topicsarr = producetotopic.split(",")
         for topic in topicsarr:  
             if topic != '' and "127.0.0.1" in mainbroker:
@@ -1011,20 +1040,20 @@ Below is the complete definition of the **tml_system_step_2_kafka_createtopic_da
                 print("ERROR: ",e)
                 continue 
     
-        if '127.0.0.1' in mainbroker:
+      if '127.0.0.1' in mainbroker:
             replication=1
                 
-        for topic in topicsarr:  
-          if topic == '':
-              continue
-          print("Creating topic=",topic)  
-          try:
-            result=maadstml.vipercreatetopic(VIPERTOKEN,VIPERHOSTMAIN,VIPERPORT[1:],topic,companyname,
+        #for topic in topicsarr:  
+      if ptarr != '':          
+         ptarr=ptarr[:-1]
+         print("Creating topic=",ptarr)      
+         try:
+            result=maadstml.vipercreatetopic(VIPERTOKEN,VIPERHOSTMAIN,VIPERPORT[1:],ptarr,companyname,
                                      myname,myemail,mylocation,description,enabletls,
                                      brokerhost,brokerport,numpartitions,replication,
                                      microserviceid='')
-          except Exception as e:
-           tsslogging.locallogs("ERROR", "STEP 2: Cannot create topic {} in {} - {}".format(topic,os.path.basename(__file__),e)) 
+         except Exception as e:
+           tsslogging.locallogs("ERROR", "STEP 2: Cannot create topic {} in {} - {}".format(ptarr,os.path.basename(__file__),e)) 
         
            repo=tsslogging.getrepo()    
            tsslogging.tsslogit("Cannot create topic {} in {} - {}".format(topic,os.path.basename(__file__),e), "ERROR" )                     
@@ -3892,7 +3921,7 @@ STEP 4c: Preprocesing 3 Data: tml-system-step-4c-kafka-preprocess-dag
       'producerid' : 'rtmssolution',   # <<< *** Change as needed   
       'raw_data_topic' : 'iot-preprocess', # *************** INCLUDE ONLY ONE TOPIC - This is one of the topic you created in SYSTEM STEP 2
       'preprocess_data_topic' : 'rtms-preprocess', # *************** INCLUDE ONLY ONE TOPIC - This is one of the topic you created in SYSTEM STEP 2
-      'maxrows' : '300', # <<< ********** Number of offsets to rollback the data stream -i.e. rollback stream by 500 offsets
+      'maxrows' : '200', # <<< ********** Number of offsets to rollback the data stream -i.e. rollback stream by 500 offsets
       'offset' : '-1', # <<< Rollback from the end of the data streams  
       'brokerhost' : '',   # <<< *** Leave as is
       'brokerport' : '-999',  # <<< *** Leave as is   
@@ -3911,7 +3940,7 @@ STEP 4c: Preprocesing 3 Data: tml-system-step-4c-kafka-preprocess-dag
       'searchterms' : 'rgx:p([a-z]+)ch ~~~ |authentication failure,--entity-- password failure ~~~ |unknown--entity--', # main Search terms, if AND add @, if OR use | s first characters, default OR
                                                                  # Must include --entity-- if correlating with entity - this will be replaced 
                                                                  # dynamically with the entities found in raw_data_topic
-      'localsearchtermfolder': '|mysearchfile1', # Specify a folder of files containing search terms - each term must be on a new line - use comma
+      'localsearchtermfolder': '|mysearchfile1,|mysearchfile2', # Specify a folder of files containing search terms - each term must be on a new line - use comma
                                    # to apply each folder to the rtmstream topic
                                    # Use @ =AND, |=OR to specify whether the terms in the file should be AND, OR
                                    # For example, @mysearchfolder1,|mysearchfolder2, means all terms in mysearchfolder1 should be AND
@@ -3926,7 +3955,8 @@ STEP 4c: Preprocesing 3 Data: tml-system-step-4c-kafka-preprocess-dag
       'attackscorethresholdtopic': 'attacktopic',   # All attack score greater than attackscorethreshold will be streamed to this topic
       'patternscorethreshold': '0.6',   # Pattern score threshold i.e. '0.8'   
       'patternscorethresholdtopic': 'patterntopic',   # All pattern score greater thn patternscorethreshold will be streamed to this topic
-    
+      'rtmsfoldername': 'rtms',
+      'rtmsmaxwindows': '10000'
     }
     
     ######################################## DO NOT MODIFY BELOW #############################################
@@ -3994,14 +4024,15 @@ STEP 4c: Preprocesing 3 Data: tml-system-step-4c-kafka-preprocess-dag
              attackscorethresholdtopic = default_args['attackscorethresholdtopic']  
              patternscorethreshold = default_args['patternscorethreshold']  
              patternscorethresholdtopic = default_args['patternscorethresholdtopic']  
-             
+             rtmsmaxwindows=default_args['rtmsmaxwindows']
+    
              searchterms = str(base64.b64encode(searchterms.encode('utf-8')))
              try:
                     result=maadstml.viperpreprocessrtms(VIPERTOKEN,VIPERHOST,VIPERPORT,topic,producerid,offset,maxrows,enabletls,delay,brokerhost,
                                                       brokerport,microserviceid,topicid,rtmsstream,searchterms,rememberpastwindows,identifier,
                                                       preprocesstopic,patternwindowthreshold,array,saveasarray,rawdataoutput,
                                                       rtmsscorethreshold,rtmsscorethresholdtopic,attackscorethreshold,
-                                                      attackscorethresholdtopic,patternscorethreshold,patternscorethresholdtopic)
+                                                      attackscorethresholdtopic,patternscorethreshold,patternscorethresholdtopic,rtmsmaxwindows)
     #                print(result)
              except Exception as e:
                     print("ERROR:",e)
@@ -4054,7 +4085,10 @@ STEP 4c: Preprocesing 3 Data: tml-system-step-4c-kafka-preprocess-dag
           
         while True:  
           lg=""
-          searchtermsfile=""
+          buf = default_args['localsearchtermfolder']
+          interval=int(default_args['localsearchtermfolderinterval'])
+          searchtermsfile = ""
+          dirbuf = buf.split(",")      
           rgx = []      
           for dr in dirbuf:        
              filenames = []
@@ -4084,12 +4118,13 @@ STEP 4c: Preprocesing 3 Data: tml-system-step-4c-kafka-preprocess-dag
                   lines = set(lines)
                   # check regex
                   for m in lines:
-                    if 'rgx:' in m:
-                      rgx.append(m)
-                    elif '~~~' in m:
-                      ibx.append(m)
-                    else:  
-                      linebuf = linebuf + m + ","
+                    if len(m) > 0:
+                      if 'rgx:' in m:
+                        rgx.append(m)
+                      elif '~~~' in m:                  
+                        ibx.append(m)
+                      else:  
+                        linebuf = linebuf + m + ","
     
              if linebuf != "":
                linebuf = linebuf[:-1]
@@ -4228,17 +4263,43 @@ STEP 4c: Preprocesing 3 Data: tml-system-step-4c-kafka-preprocess-dag
            else:  
              ti.xcom_push(key="{}_patternscorethreshold".format(sname), value="_{}".format(default_args['patternscorethreshold']))
     
-      
+           rtmsfoldername=default_args['rtmsfoldername']
+           if 'step4crtmsfoldername' in os.environ:
+             ti.xcom_push(key="{}_rtmsfoldername".format(sname), value="{}".format(os.environ['step4crtmsfoldername']))         
+             rtmsfoldername=os.environ['step4crtmsfoldername']
+           else:  
+             ti.xcom_push(key="{}_rtmsfoldername".format(sname), value="{}".format(default_args['rtmsfoldername']))
+           os.environ["step4crtmsfoldername"] = rtmsfoldername
+           try: 
+             f = open("/tmux/rtmsfoldername.txt", "w")
+             f.write(rtmsfoldername)
+             f.close()
+           except Exception as e:
+             pass
+    
            repo=tsslogging.getrepo() 
            if sname != '_mysolution_':
             fullpath="/{}/tml-airflow/dags/tml-solutions/{}/{}".format(repo,pname,os.path.basename(__file__))  
            else:
              fullpath="/{}/tml-airflow/dags/{}".format(repo,os.path.basename(__file__))  
-        
+    
+           if 'step4crtmsmaxwindows' in os.environ:
+              rtmsmaxwindows=os.environ['step4crtmsmaxwindows']
+              default_args['rtmsmaxwindows']=rtmsmaxwindows
+           else: 
+              rtmsmaxwindows = default_args['rtmsmaxwindows']
+           ti.xcom_push(key="{}_rtmsmaxwindows".format(sname), value="_{}".format(rtmsmaxwindows))         
+           try: 
+             f = open("/tmux/rtmsmax.txt", "w")
+             f.write(rtmsmaxwindows)
+             f.close()
+           except Exception as e:
+             pass
+            
            wn = windowname('preprocess3',sname,sd)     
            subprocess.run(["tmux", "new", "-d", "-s", "{}".format(wn)])
            subprocess.run(["tmux", "send-keys", "-t", "{}".format(wn), "cd /Viper-preprocess3", "ENTER"])
-           subprocess.run(["tmux", "send-keys", "-t", "{}".format(wn), "python {} 1 {} {}{} {} {} \"{}\" {} {} \"{}\" \"{}\" {} {} {} \"{}\" {}".format(fullpath,VIPERTOKEN,HTTPADDR,VIPERHOST,VIPERPORT[1:],maxrows,searchterms,rememberpastwindows,patternwindowthreshold,raw_data_topic,rtmsstream,rtmsscorethreshold,attackscorethreshold,patternscorethreshold,localsearchtermfolder,localsearchtermfolderinterval), "ENTER"])        
+           subprocess.run(["tmux", "send-keys", "-t", "{}".format(wn), "python {} 1 {} {}{} {} {} \"{}\" {} {} \"{}\" \"{}\" {} {} {} \"{}\" {} \"{}\" {}".format(fullpath,VIPERTOKEN,HTTPADDR,VIPERHOST,VIPERPORT[1:],maxrows,searchterms,rememberpastwindows,patternwindowthreshold,raw_data_topic,rtmsstream,rtmsscorethreshold,attackscorethreshold,patternscorethreshold,localsearchtermfolder,localsearchtermfolderinterval,rtmsfoldername,rtmsmaxwindows), "ENTER"])
     
     if __name__ == '__main__':
         if len(sys.argv) > 1:
@@ -4281,14 +4342,18 @@ STEP 4c: Preprocesing 3 Data: tml-system-step-4c-kafka-preprocess-dag
             default_args['localsearchtermfolder'] = localsearchtermfolder
             localsearchtermfolderinterval =  sys.argv[15]
             default_args['localsearchtermfolderinterval'] = localsearchtermfolderinterval
-             
+            rtmsfoldername =  sys.argv[16]
+            default_args['rtmsfoldername'] = rtmsfoldername
+            rtmsmaxwindows =  sys.argv[17]
+            default_args['rtmsmaxwindows'] = rtmsmaxwindows
+    
             tsslogging.locallogs("INFO", "STEP 4c: Preprocessing 3 started")
             try:
-             directory="/rawdata/rtms"
+             directory="/rawdata/{}".format(rtmsfoldername)         
              if not os.path.exists(directory):
                 os.makedirs(directory)
             except Exception as e:
-               tsslogging.locallogs("ERROR", "STEP 4c: Cannot make directory /rawdata/rtms in {} {}".format(os.path.basename(__file__),e))         
+               tsslogging.locallogs("ERROR", "STEP 4c: Cannot make directory /rawdata/{} in {} {}".format(rtmsfoldername,os.path.basename(__file__),e))         
     
             startdirread()
             while True:
@@ -7173,7 +7238,7 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
    Watch the YouTube to see how to configure this Dag: `YouTube Video <https://youtu.be/iue3ljO_bBU>`_ 
 
 .. code-block:: PYTHON
-   :emphasize-lines: 18,19,20,21,22,23,24
+   :emphasize-lines: 18,19,20,21,22,23,24,25,26,27
 
     from airflow import DAG
     from airflow.operators.python import PythonOperator
@@ -7342,7 +7407,11 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
         step4cpatternscorethreshold=''
         step4clocalsearchtermfolder=''
         step4clocalsearchtermfolderinterval=''
-     
+        step4crtmsfoldername=''
+        step3localfileinputfile=''
+        step3localfiledocfolder=''
+        step4crtmsmaxwindows=''
+    
         rtmsoutputurl=""
         mloutputurl=""
      
@@ -7371,7 +7440,6 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
         mqttusername = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_MQTTUSERNAME".format(sname))
         kafkacloudusername = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_KAFKACLOUDUSERNAME".format(sname))
         projectname = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_projectname".format(sd))
-        
         externalport = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_EXTERNALPORT".format(sname))
         solutionexternalport = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_SOLUTIONEXTERNALPORT".format(sname))
         
@@ -7466,7 +7534,10 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
         setupurls(projectname,PRODUCETYPE,sname)
     
         if PRODUCETYPE=='LOCALFILE':
+          inputfile = context['ti'].xcom_pull(task_ids='step_3_solution_task_producetotopic',key="{}_inputfile".format(sname))
+          step3localfileinputfile=inputfile
           docfolderprocess = context['ti'].xcom_pull(task_ids='step_3_solution_task_producetotopic',key="{}_docfolder".format(sname))
+          step3localfiledocfolder=docfolderprocess
           doctopic = context['ti'].xcom_pull(task_ids='step_3_solution_task_producetotopic',key="{}_doctopic".format(sname))
           chunks = context['ti'].xcom_pull(task_ids='step_3_solution_task_producetotopic',key="{}_chunks".format(sname))
           docingestinterval = context['ti'].xcom_pull(task_ids='step_3_solution_task_producetotopic',key="{}_docingestinterval".format(sname))
@@ -7474,6 +7545,7 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
           doparse("/{}/docs/source/details.rst".format(sname), ["--doctopic--;{}".format(doctopic)])
           doparse("/{}/docs/source/details.rst".format(sname), ["--chunks--;{}".format(chunks[1:])])
           doparse("/{}/docs/source/details.rst".format(sname), ["--docingestinterval--;{}".format(docingestinterval[1:])])
+          doparse("/{}/docs/source/details.rst".format(sname), ["--inputfile--;{}".format(inputfile)])
          
         subprocess.call(["sed", "-i", "-e",  "s/--PRODUCETYPE--/{}/g".format(PRODUCETYPE), "/{}/docs/source/details.rst".format(sname)])
         subprocess.call(["sed", "-i", "-e",  "s/--TOPIC--/{}/g".format(TOPIC), "/{}/docs/source/details.rst".format(sname)])
@@ -7592,14 +7664,20 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
         rtmsscorethreshold = context['ti'].xcom_pull(task_ids='step_4c_solution_task_preprocess',key="{}_rtmsscorethreshold".format(sname))
         attackscorethreshold = context['ti'].xcom_pull(task_ids='step_4c_solution_task_preprocess',key="{}_attackscorethreshold".format(sname))
         patternscorethreshold = context['ti'].xcom_pull(task_ids='step_4c_solution_task_preprocess',key="{}_patternscorethreshold".format(sname))
+        rtmsmaxwindows = context['ti'].xcom_pull(task_ids='step_4c_solution_task_preprocess',key="{}_rtmsmaxwindows".format(sname))
+        step4crtmsmaxwindows=rtmsmaxwindows
+        subprocess.call(["sed", "-i", "-e",  "s/--rtmsmaxwindows--/{}/g".format(rtmsmaxwindows[1:]), "/{}/docs/source/details.rst".format(sname)])
     
         localsearchtermfolder = context['ti'].xcom_pull(task_ids='step_4c_solution_task_preprocess',key="{}_localsearchtermfolder".format(sname))
         localsearchtermfolderinterval = context['ti'].xcom_pull(task_ids='step_4c_solution_task_preprocess',key="{}_localsearchtermfolderinterval".format(sname))
+        rtmsfoldername = context['ti'].xcom_pull(task_ids='step_4c_solution_task_preprocess',key="{}_rtmsfoldername".format(sname))
     
         if searchterms:
             doparse("/{}/docs/source/details.rst".format(sname), ["--rtmsscorethresholdtopic--;{}".format(rtmsscorethresholdtopic)])
             doparse("/{}/docs/source/details.rst".format(sname), ["--attackscorethresholdtopic--;{}".format(attackscorethresholdtopic)])
             doparse("/{}/docs/source/details.rst".format(sname), ["--patternscorethresholdtopic--;{}".format(patternscorethresholdtopic)])
+            doparse("/{}/docs/source/details.rst".format(sname), ["--rtmsfoldername--;{}".format(rtmsfoldername)])
+    
             doparse("/{}/docs/source/details.rst".format(sname), ["--rtmsscorethreshold--;{}".format(rtmsscorethreshold[1:])])
             doparse("/{}/docs/source/details.rst".format(sname), ["--attackscorethreshold--;{}".format(attackscorethreshold[1:])])
             doparse("/{}/docs/source/details.rst".format(sname), ["--patternscorethreshold--;{}".format(patternscorethreshold[1:])])
@@ -7618,10 +7696,11 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
             subprocess.call(["sed", "-i", "-e",  "s/--identifier3--/{}/g".format(identifier), "/{}/docs/source/details.rst".format(sname)])
             subprocess.call(["sed", "-i", "-e",  "s/--maxrows3--/{}/g".format(maxrows4c[1:]), "/{}/docs/source/details.rst".format(sname)])
             doparse("/{}/docs/source/details.rst".format(sname), ["--rtmssearchterms--;{}".format(searchterms)])
-            rtmsoutputurl="https:\/\/github.com/{}/{}/tree/main/tml-airflow/dags/tml-solutions/{}/rtms".format(os.environ["GITUSERNAME"], tsslogging.getrepo(),projectname)
+            rtmsoutputurl="https:\/\/github.com/{}/{}/tree/main/tml-airflow/dags/tml-solutions/{}/{}".format(os.environ["GITUSERNAME"], tsslogging.getrepo(),projectname,rtmsfoldername)
             doparse("/{}/docs/source/details.rst".format(sname), ["--rtmsoutputurl--;{}".format(rtmsoutputurl)])
             doparse("/{}/docs/source/details.rst".format(sname), ["--localsearchtermfolder--;{}".format(localsearchtermfolder)])
             doparse("/{}/docs/source/details.rst".format(sname), ["--localsearchtermfolderinterval--;{}".format(localsearchtermfolderinterval[1:])])
+            doparse("/{}/docs/source/details.rst".format(sname), ["--rtmsfoldername--;{}".format(rtmsfoldername)])
     
             step4crawdatatopic=raw_data_topic
             step4csearchterms=searchterms
@@ -7633,7 +7712,8 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
             step4cpatternscorethreshold=patternscorethreshold
             step4clocalsearchtermfolder=localsearchtermfolder
             step4clocalsearchtermfolderinterval=localsearchtermfolderinterval
-    
+            step4crtmsfoldername=rtmsfoldername
+     
         preprocess_data_topic = context['ti'].xcom_pull(task_ids='step_5_solution_task_ml',key="{}_preprocess_data_topic".format(sname))
         ml_data_topic = context['ti'].xcom_pull(task_ids='step_5_solution_task_ml',key="{}_ml_data_topic".format(sname))
         modelruns = context['ti'].xcom_pull(task_ids='step_5_solution_task_ml',key="{}_modelruns".format(sname))
@@ -7838,19 +7918,21 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
           doparse("/{}/docs/source/details.rst".format(sname), ["--vectorsearchtype--;{}".format(pvectorsearchtype)])
     
         ebuf=""
-        if default_args['dockerenv'] != '':
+        if 'dockerenv' in default_args:
+         if default_args['dockerenv'] != '':
            buf=default_args['dockerenv']
-           darr = buf.split(",")
+           darr = buf.split("***")
+           ebuf="\n"
            for d in darr:          
               v=d.split("=")
               if len(v)>1:
-                ebuf = ebuf + ' --env ' + d.strip() + '=' + v[1].strip()
+                ebuf = ebuf + '          --env ' + v[0].strip() + '=\"' + v[1].strip() + '\" \\ \n'
               else: 
-                ebuf = ebuf + ' --env ' + d.strip() + '='
-    
-        if default_args['dockerinstructions'] != '':
+                ebuf = ebuf + '          --env ' + v[0].strip() + '=' + ' \\ \n'
+           ebuf = ebuf[:-1]
+         if default_args['dockerinstructions'] != '':
            doparse("/{}/docs/source/operating.rst".format(sname), ["--dockerinstructions--;{}".format(default_args['dockerinstructions'])])     
-        else:
+         else:
            doparse("/{}/docs/source/operating.rst".format(sname), ["--dockerinstructions--;{}".format("Please ask the developer of this solution.")])     
          
         if len(CLIENTPORT) > 1:
@@ -7859,61 +7941,64 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
               --env TSS=0 \\
               --env SOLUTIONNAME={} \\
               --env SOLUTIONDAG={} \\
-              --env GITUSERNAME={} \\
-              --env GITREPOURL={} \\
+              --env GITUSERNAME=<Enter Github Username> \\
+              --env GITPASSWORD='<Enter Github Password>' \\          
+              --env GITREPOURL=<Enter Github Repo URL> \\
               --env SOLUTIONEXTERNALPORT={} \\
               -v /var/run/docker.sock:/var/run/docker.sock:z  \\
               -v /your_localmachine/foldername:/rawdata:z \\
               --env CHIP={} \\
               --env SOLUTIONAIRFLOWPORT={}  \\
               --env SOLUTIONVIPERVIZPORT={} \\
-              --env DOCKERUSERNAME='{}' \\
+              --env DOCKERUSERNAME='' \\
               --env CLIENTPORT={}  \\
               --env EXTERNALPORT={} \\
-              --env KAFKACLOUDUSERNAME='{}' \\
+              --env KAFKABROKERHOST=127.0.0.1:9092 \\          
+              --env KAFKACLOUDUSERNAME='<Enter API key>' \\
+              --env KAFKACLOUDPASSWORD='<Enter API secret>' \\          
+              --env SASLMECHANISM=PLAIN \\          
               --env VIPERVIZPORT={} \\
-              --env MQTTUSERNAME='{}' \\
+              --env MQTTUSERNAME='' \\
+              --env MQTTPASSWORD='' \\          
               --env AIRFLOWPORT={}  \\
-              --env GITPASSWORD='<Enter Github Password>' \\
-              --env KAFKACLOUDPASSWORD='<Enter API secret>' \\
-              --env MQTTPASSWORD='<Enter mqtt password>' \\
-              --env READTHEDOCS='<Enter Readthedocs token>' {} \\
+              --env READTHEDOCS='<Enter Readthedocs token>' \\{} 
               {}""".format(solutionexternalport[1:],solutionexternalport[1:],
                               solutionairflowport[1:],solutionairflowport[1:],solutionvipervizport[1:],solutionvipervizport[1:],
-                              TMLCLIENTPORT[1:],TMLCLIENTPORT[1:],sname,sd,os.environ['GITUSERNAME'],
-                              os.environ['GITREPOURL'],solutionexternalport[1:],chipmain,
-                              solutionairflowport[1:],solutionvipervizport[1:],os.environ['DOCKERUSERNAME'],TMLCLIENTPORT[1:],
-                              externalport[1:],kafkacloudusername,vipervizport[1:],mqttusername,airflowport[1:],ebuf,containername)       
+                              TMLCLIENTPORT[1:],TMLCLIENTPORT[1:],sname,sd,
+                              solutionexternalport[1:],chipmain,
+                              solutionairflowport[1:],solutionvipervizport[1:],TMLCLIENTPORT[1:],
+                              externalport[1:],vipervizport[1:],airflowport[1:],ebuf,containername)       
         else:
           doparse("/{}/docs/source/operating.rst".format(sname), ["--clientport--;Not Applicable"])
           dockerrun = """docker run -d -p {}:{} -p {}:{} -p {}:{} \\
               --env TSS=0 \\
               --env SOLUTIONNAME={} \\
               --env SOLUTIONDAG={} \\
-              --env GITUSERNAME={}  \\
-              --env GITREPOURL={} \\
+              --env GITUSERNAME=<Enter Github Username> \\
+              --env GITPASSWORD='<Enter Github Password>' \\          
+              --env GITREPOURL=<Enter Github Repo URL> \\
               --env SOLUTIONEXTERNALPORT={} \\
               -v /var/run/docker.sock:/var/run/docker.sock:z \\
               -v /your_localmachine/foldername:/rawdata:z \\
               --env CHIP={} \\
               --env SOLUTIONAIRFLOWPORT={} \\
               --env SOLUTIONVIPERVIZPORT={} \\
-              --env DOCKERUSERNAME='{}' \\
+              --env DOCKERUSERNAME='' \\
               --env EXTERNALPORT={} \\
-              --env KAFKACLOUDUSERNAME='{}' \\
+              --env KAFKABROKERHOST=127.0.0.1:9092 \\                    
+              --env KAFKACLOUDUSERNAME='<Enter API key>' \\
+              --env KAFKACLOUDPASSWORD='<Enter API secret>' \\          
+              --env SASLMECHANISM=PLAIN \\                    
               --env VIPERVIZPORT={} \\
-              --env MQTTUSERNAME='{}' \\
+              --env MQTTUSERNAME='' \\
+              --env MQTTPASSWORD='' \\          
               --env AIRFLOWPORT={} \\
-              --env MQTTPASSWORD='<Enter mqtt password>' \\
-              --env KAFKACLOUDPASSWORD='<Enter API secret>' \\
-              --env GITPASSWORD='<Enter Github Password>' \\
-              --env READTHEDOCS='<Enter Readthedocs token>' {} \\
+              --env READTHEDOCS='<Enter Readthedocs token>' \\{} 
               {}""".format(solutionexternalport[1:],solutionexternalport[1:],
                               solutionairflowport[1:],solutionairflowport[1:],solutionvipervizport[1:],solutionvipervizport[1:],
-                              sname,sd,os.environ['GITUSERNAME'],
-                              os.environ['GITREPOURL'],solutionexternalport[1:],chipmain,
-                              solutionairflowport[1:],solutionvipervizport[1:],os.environ['DOCKERUSERNAME'],
-                              externalport[1:],kafkacloudusername,vipervizport[1:],mqttusername,airflowport[1:],ebuf,containername)
+                              sname,sd,solutionexternalport[1:],chipmain,
+                              solutionairflowport[1:],solutionvipervizport[1:],
+                              externalport[1:],vipervizport[1:],airflowport[1:],ebuf,containername)
             
        # dockerrun = re.escape(dockerrun) 
         v=subprocess.call(["sed", "-i", "-e",  "s/--dockerrun--/{}/g".format(dockerrun), "/{}/docs/source/operating.rst".format(sname)])
@@ -8137,6 +8222,8 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
          
         step1solutiontitle=stitle
         step1description=sdesc
+        with open("/tmux/cname.txt", "r") as f:
+          containername=f.read()
     
         if len(CLIENTPORT) > 1:
           kcmd2=tsslogging.genkubeyaml(sname,containername,TMLCLIENTPORT[1:],solutionairflowport[1:],solutionvipervizport[1:],solutionexternalport[1:],
@@ -8149,7 +8236,8 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
                            step5independentvariables,step9searchterms,step9streamall[1:],step9temperature[1:],step9vectorsearchtype,
                            step9llmmodel,step9embedding,step9vectorsize,step4cmaxrows,step4crawdatatopic,step4csearchterms,step4crememberpastwindows[1:],
                            step4cpatternwindowthreshold[1:],step4crtmsstream,projectname,step4crtmsscorethreshold[1:],step4cattackscorethreshold[1:],
-                           step4cpatternscorethreshold[1:],step4clocalsearchtermfolder,step4clocalsearchtermfolderinterval[1:])
+                           step4cpatternscorethreshold[1:],step4clocalsearchtermfolder,step4clocalsearchtermfolderinterval[1:],step4crtmsfoldername,
+                           step3localfileinputfile,step3localfiledocfolder,step4crtmsmaxwindows[1:])
         else: 
           kcmd2=tsslogging.genkubeyamlnoext(sname,containername,TMLCLIENTPORT[1:],solutionairflowport[1:],solutionvipervizport[1:],solutionexternalport[1:],
                            sd,os.environ['GITUSERNAME'],os.environ['GITREPOURL'],chipmain,os.environ['DOCKERUSERNAME'],
@@ -8161,7 +8249,8 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
                            step5independentvariables,step9searchterms,step9streamall[1:],step9temperature[1:],step9vectorsearchtype,
                            step9llmmodel,step9embedding,step9vectorsize,step4cmaxrows,step4crawdatatopic,step4csearchterms,step4crememberpastwindows[1:],
                            step4cpatternwindowthreshold[1:],step4crtmsstream,projectname,step4crtmsscorethreshold[1:],step4cattackscorethreshold[1:],
-                           step4cpatternscorethreshold[1:],step4clocalsearchtermfolder,step4clocalsearchtermfolderinterval[1:])
+                           step4cpatternscorethreshold[1:],step4clocalsearchtermfolder,step4clocalsearchtermfolderinterval[1:],step4crtmsfoldername,
+                           step3localfileinputfile,step3localfiledocfolder,step4crtmsmaxwindows[1:])
     
         doparse("/{}/docs/source/kube.rst".format(sname), ["--solutionnamecode--;{}".format(kcmd2)])
     
