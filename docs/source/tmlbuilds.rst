@@ -8384,7 +8384,7 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
 
        to run your container. 
 
-Example Of Setting Docker Instrunctions in Step 10
+Example Of Setting Docker Instructions in Step 10
 """"""""""""""""""""""""""""""""""""""""
 
 .. code-block::
