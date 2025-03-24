@@ -8389,7 +8389,7 @@ Example Of Setting Docker Instructions in Step 10
 
 .. code-block::
 
-    default_args = {    
+    default_args = {
      'conf_project' : 'Transactional Machine Learning (TML)',
      'conf_copyright' : '2024, Otics Advanced Analytics, Incorporated - For Support email support@otics.ca',
      'conf_author' : 'Sebastian Maurice',
@@ -8399,65 +8399,83 @@ Example Of Setting Docker Instructions in Step 10
      step4crememberpastwindows=500***step4cpatternwindowthreshold=30***step4crtmsscorethreshold=0.6***step4cattackscorethreshold=0.6***\
      step4cpatternscorethreshold=0.6***step4crtmsstream=rtms-stream-mylogs***step4clocalsearchtermfolder=|mysearchfile1,|mysearchfile2***\
      step4clocalsearchtermfolderinterval=60***step4crtmsfoldername=rtms2***step3localfiledocfolder=mylogs,mylogs2***step4crtmsmaxwindows=1000000', # add any environmental variables for docker must be: variable1=value1***variable2=value2
-     'dockerinstructions': """To run this docker container Enter the following CORE parameters: 
+     'dockerinstructions': To run this docker container Enter the following CORE parameters:
     
-          #. KAFKABROKERHOST=127.0.0.1:9092 - this uses the Local Kafka installed in your TML solution container.  
+          1. KAFKABROKERHOST=127.0.0.1:9092 - this uses the Local Kafka installed in your TML solution container.
              You can specify a Kafka Cloud URL if using AWS MSK or Confluent Kafka Cloud, simply replace this field.
-             
-          #. Enter KAFKACLOUDUSERNAME and  KAFKACLOUDPASSWORD IF using Kafka Cloud from AWS MSK and Confluent, if using local kafka (127.0.0.1:9092), these MUST be empty.
-          
-          #. SASLMECHANISM=PLAIN is set for Local Kafka and Confluent Kafka Cloud.  If using AWS MSK, this MUST be changed to SCRAM512.
-          
-          #. Enter GITUSERNAME 
-          
-          #. Enter GITPASSWORD 
-          
-          #. Enter READTHEDOCS 
-          
-          #. Update volume mapping: /your_localmachine/foldername:/rawdata:z 
-          
-          #. IF YOU ARE DISTRUBUTING THIS CONTAINER TO OTHERS THEN SEND THEM THIS DOCKER RUN BUT THEY WILL NEED TO ENTER THE ABOVE CORE PARAMETERS. 
-             TO MAKE IT EASY FOR OTHERS TO RUN YOUR SOLUTION YOU CAN USE THE TSSTMLDEMO GITHUB AND READTHEDOCS ACCOUNT - UPDATE THE FOLLOWING: 
-          
-          #.  GITUSERNAME=tsstmldemo 
-          
-          #. GITREPOURL=https://github.com/tsstmldemo/tsstmldemo 
-          
-          #. GITPASSWORD=<Will be retrieved from OS IF using tsstmldemo> 
-          
-          #. READTHEDOCS=aefa71df39ad764ac2785b3167b77e8c1d7c553a 
     
-          #. step4cmaxrows=100 this means the number of offsets to rollback.  Change to higher or lower number.  Higher number more data will be processed and more memory consumed.
+          2. Enter KAFKACLOUDUSERNAME and  KAFKACLOUDPASSWORD IF using Kafka Cloud from AWS MSK 
+             and Confluent, if using local kafka (127.0.0.1:9092), these MUST be empty.
     
-          #. step4crawdatatopic=iot-preprocess, this is the Step 4 preprocessing topic of the entities.  If this is empty string, no entities are cross-refenced with the log files.  Only log files will be processed.
+          3. SASLMECHANISM=PLAIN is set for Local Kafka and Confluent Kafka Cloud.  
+             If using AWS MSK, this MUST be changed to SCRAM512.
     
-          #. step4csearchterms=rgx:p([a-z]+)ch ~~~ |authentication failure,--entity-- password failure, these are the fixed search terms.  You can specify dynamic search terms in the field step4clocalsearchtermfolder
+          4. Enter GITUSERNAME
     
-          #. step4crememberpastwindows=500, this is the past, short-term windows for TML to remember.  TML RTMS will go back 500 sliding time windows.
+          5. Enter GITPASSWORD
     
-          #. step4cpatternwindowthreshold=30, this is the maximum pattern threshold before raising an alarm.
+          6. Enter READTHEDOCS
     
-          #. step4crtmsscorethreshold=0.6, this is the RTMS score threshold.  This is used to send messages that exceed this RTMS threshold to its own rtms topic.
+          7. Update volume mapping: /your_localmachine/foldername:/rawdata:z
     
-          #. step4cattackscorethreshold=0.6, this is the Attack score threshold.  This is used to send messages that exceed this attack threshold to its own attack topic.
+          8. IF YOU ARE DISTRUBUTING THIS CONTAINER TO OTHERS THEN SEND THEM THIS DOCKER RUN BUT THEY WILL NEED TO ENTER THE ABOVE CORE PARAMETERS.
+             TO MAKE IT EASY FOR OTHERS TO RUN YOUR SOLUTION YOU CAN USE THE TSSTMLDEMO GITHUB AND READTHEDOCS ACCOUNT - UPDATE THE FOLLOWING:
     
-          #. step4cpatternscorethreshold=0.6, this is the Pattern score threshold.  This is used to send messages that exceed this pattern threshold to its own pattern topic.
+          9.  GITUSERNAME=tsstmldemo
     
-          #. step4crtmsstream=rtms-stream-mylogs, this is the kafka topic that stores ALL the results from RTMS.
+          10. GITREPOURL=https://github.com/tsstmldemo/tsstmldemo
     
-          #. step4clocalsearchtermfolder=|mysearchfile1,|mysearchfile2, this is name of the folders that contain text files for searches. A | for OR, and @ for AND.  TML will read the search terms in real-time and immediately start applying them to the streamed data.
+          11. GITPASSWORD=<Will be retrieved from OS IF using tsstmldemo>
     
-          #. step4clocalsearchtermfolderinterval=60, this is the number in seconds that the files in the folders specified in step4clocalsearchtermfolder, will be read.  So, 60 means, read files every 60 seconds.
+          12. READTHEDOCS=aefa71df39ad764ac2785b3167b77e8c1d7c553a
     
-          #. step4crtmsfoldername=rtms2, TML RTMS will output logs of the search results to GitHub.  This is convenient for testing and validation.  NOTE: Only the latest 950 files will be sent to GitHub because GitHub has a maximum file limit of 1000.  
+          13. step4cmaxrows=100 this means the number of offsets to rollback.  Change to higher or lower number.  
+              Higher number more data will be processed and more memory consumed.
     
-          #. step3localfiledocfolder=mylogs,mylogs2, these are the folders that contain your log text log files.  These are read in STEP 3 LOCALFILE task. 
+          14. step4crawdatatopic=iot-preprocess, this is the Step 4 preprocessing topic of the entities.  
+              If this is empty string, no entities are cross-refenced with the log files.  Only log files will be processed.
     
-          #. step4crtmsmaxwindows=1000000, this is the maximum number of windows for LONG-TERM pattern matching.  Here, TML will go-back 10,000,000 sliding time windows, which in effect could be months of analysis.  Yoi can easily increase this number.
-          
-          - PLEASE NOTE: THE GITHUB AND READTHEDOCS ACCOUNTS ARE PUBLIC AND SHARED ACCOUNTS BY OTHERS.  
-          
-          - THEY ARE MEANT ONLY FOR QUICK DEMOS.  IDEALLY, PERSONAL GITHUB AND READTHEDOCS ACCONTS SHOULD BE USED.""", # add instructions on how to run the docker container  
+          15. step4csearchterms=rgx:p([a-z]+)ch ~~~ |authentication failure,--entity-- password failure, these are 
+              the fixed search terms.  You can specify dynamic search terms in the field step4clocalsearchtermfolder
+    
+          16. step4crememberpastwindows=500, this is the past, short-term windows for TML to remember.  
+              TML RTMS will go back 500 sliding time windows.
+    
+          17. step4cpatternwindowthreshold=30, this is the maximum pattern threshold before raising an alarm.
+    
+          18. step4crtmsscorethreshold=0.6, this is the RTMS score threshold.  This is used to send 
+              messages that exceed this RTMS threshold to its own rtms topic.
+    
+          19. step4cattackscorethreshold=0.6, this is the Attack score threshold.  This is used to send messages 
+              that exceed this attack threshold to its own attack topic.
+    
+          20. step4cpatternscorethreshold=0.6, this is the Pattern score threshold.  This is used to send 
+              messages that exceed this pattern threshold to its own pattern topic.
+    
+          21. step4crtmsstream=rtms-stream-mylogs, this is the kafka topic that stores ALL the results from RTMS.
+    
+          22. step4clocalsearchtermfolder=|mysearchfile1,|mysearchfile2, this is name of the folders that 
+              contain text files for searches. A | for OR, and @ for AND.  TML will read the search terms 
+              in real-time and immediately start applying them to the streamed data.
+    
+          23. step4clocalsearchtermfolderinterval=60, this is the number in seconds that the files 
+              in the folders specified in step4clocalsearchtermfolder, will be read.  So, 60 means, 
+              read files every 60 seconds.
+    
+          24. step4crtmsfoldername=rtms2, TML RTMS will output logs of the search results to GitHub.  
+              This is convenient for testing and validation.  NOTE: Only the latest 950 files will 
+              be sent to GitHub because GitHub has a maximum file limit of 1000.
+    
+          25. step3localfiledocfolder=mylogs,mylogs2, these are the folders that contain your log 
+              text log files.  These are read in STEP 3 LOCALFILE task.
+    
+          26. step4crtmsmaxwindows=1000000, this is the maximum number of windows for LONG-TERM 
+              pattern matching.  Here, TML will go-back 10,000,000 sliding time windows, 
+              which in effect could be months of analysis.  Yoi can easily increase this number.
+    
+          - PLEASE NOTE: THE GITHUB AND READTHEDOCS ACCOUNTS ARE PUBLIC AND SHARED ACCOUNTS BY OTHERS.
+    
+          - THEY ARE MEANT ONLY FOR QUICK DEMOS.  IDEALLY, PERSONAL GITHUB AND READTHEDOCS ACCONTS SHOULD BE USED.
     }
 
 Creating Your Own DAG
