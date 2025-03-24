@@ -8395,7 +8395,7 @@ Example Of Setting Docker Instructions in Step 10
      'conf_author' : 'Sebastian Maurice',
      'conf_release' : '0.1',
      'conf_version' : '0.1.0',
-     'dockerenv': 'step1rtmsmaxwindows=10000***step4cmaxrows=100***step4crawdatatopic=iot-preprocess***step4csearchterms=rgx:p([a-z]+)ch ~~~ |authentication failure,--entity-- password failure ***\
+     'dockerenv': 'step4cmaxrows=100***step4crawdatatopic=iot-preprocess***step4csearchterms=rgx:p([a-z]+)ch ~~~ |authentication failure,--entity-- password failure ***\
      step4crememberpastwindows=500***step4cpatternwindowthreshold=30***step4crtmsscorethreshold=0.6***step4cattackscorethreshold=0.6***\
      step4cpatternscorethreshold=0.6***step4crtmsstream=rtms-stream-mylogs***step4clocalsearchtermfolder=|mysearchfile1,|mysearchfile2***\
      step4clocalsearchtermfolderinterval=60***step4crtmsfoldername=rtms2***step3localfiledocfolder=mylogs,mylogs2***step4crtmsmaxwindows=1000000', # add any environmental variables for docker must be: variable1=value1***variable2=value2
@@ -8414,7 +8414,7 @@ Example Of Setting Docker Instructions in Step 10
           
           #. Enter READTHEDOCS 
           
-          #. Update volume mapping: /your_localmachine/foldername:/rawdata:z  \
+          #. Update volume mapping: /your_localmachine/foldername:/rawdata:z 
           
           #. IF YOU ARE DISTRUBUTING THIS CONTAINER TO OTHERS THEN SEND THEM THIS DOCKER RUN BUT THEY WILL NEED TO ENTER THE ABOVE CORE PARAMETERS. 
              TO MAKE IT EASY FOR OTHERS TO RUN YOUR SOLUTION YOU CAN USE THE TSSTMLDEMO GITHUB AND READTHEDOCS ACCOUNT - UPDATE THE FOLLOWING: 
@@ -8426,12 +8426,39 @@ Example Of Setting Docker Instructions in Step 10
           #. GITPASSWORD=<Will be retrieved from OS IF using tsstmldemo> 
           
           #. READTHEDOCS=aefa71df39ad764ac2785b3167b77e8c1d7c553a 
+    
+          #. step4cmaxrows=100 this means the number of offsets to rollback.  Change to higher or lower number.  Higher number more data will be processed and more memory consumed.
+    
+          #. step4crawdatatopic=iot-preprocess, this is the Step 4 preprocessing topic of the entities.  If this is empty string, no entities are cross-refenced with the log files.  Only log files will be processed.
+    
+          #. step4csearchterms=rgx:p([a-z]+)ch ~~~ |authentication failure,--entity-- password failure, these are the fixed search terms.  You can specify dynamic search terms in the field step4clocalsearchtermfolder
+    
+          #. step4crememberpastwindows=500, this is the past, short-term windows for TML to remember.  TML RTMS will go back 500 sliding time windows.
+    
+          #. step4cpatternwindowthreshold=30, this is the maximum pattern threshold before raising an alarm.
+    
+          #. step4crtmsscorethreshold=0.6, this is the RTMS score threshold.  This is used to send messages that exceed this RTMS threshold to its own rtms topic.
+    
+          #. step4cattackscorethreshold=0.6, this is the Attack score threshold.  This is used to send messages that exceed this attack threshold to its own attack topic.
+    
+          #. step4cpatternscorethreshold=0.6, this is the Pattern score threshold.  This is used to send messages that exceed this pattern threshold to its own pattern topic.
+    
+          #. step4crtmsstream=rtms-stream-mylogs, this is the kafka topic that stores ALL the results from RTMS.
+    
+          #. step4clocalsearchtermfolder=|mysearchfile1,|mysearchfile2, this is name of the folders that contain text files for searches. A | for OR, and @ for AND.  TML will read the search terms in real-time and immediately start applying them to the streamed data.
+    
+          #. step4clocalsearchtermfolderinterval=60, this is the number in seconds that the files in the folders specified in step4clocalsearchtermfolder, will be read.  So, 60 means, read files every 60 seconds.
+    
+          #. step4crtmsfoldername=rtms2, TML RTMS will output logs of the search results to GitHub.  This is convenient for testing and validation.  NOTE: Only the latest 950 files will be sent to GitHub because GitHub has a maximum file limit of 1000.  
+    
+          #. step3localfiledocfolder=mylogs,mylogs2, these are the folders that contain your log text log files.  These are read in STEP 3 LOCALFILE task. 
+    
+          #. step4crtmsmaxwindows=1000000, this is the maximum number of windows for LONG-TERM pattern matching.  Here, TML will go-back 10,000,000 sliding time windows, which in effect could be months of analysis.  Yoi can easily increase this number.
           
           - PLEASE NOTE: THE GITHUB AND READTHEDOCS ACCOUNTS ARE PUBLIC AND SHARED ACCOUNTS BY OTHERS.  
           
           - THEY ARE MEANT ONLY FOR QUICK DEMOS.  IDEALLY, PERSONAL GITHUB AND READTHEDOCS ACCONTS SHOULD BE USED.""", # add instructions on how to run the docker container  
     }
-
 
 Creating Your Own DAG
 --------------------
