@@ -8384,6 +8384,55 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
 
        to run your container. 
 
+Example Of Setting Docker Instrunctions in Step 10
+""""""""""""""""""""""""""""""""""""""""
+
+.. code-block::
+
+    default_args = {    
+     'conf_project' : 'Transactional Machine Learning (TML)',
+     'conf_copyright' : '2024, Otics Advanced Analytics, Incorporated - For Support email support@otics.ca',
+     'conf_author' : 'Sebastian Maurice',
+     'conf_release' : '0.1',
+     'conf_version' : '0.1.0',
+     'dockerenv': 'step1rtmsmaxwindows=10000***step4cmaxrows=100***step4crawdatatopic=iot-preprocess***step4csearchterms=rgx:p([a-z]+)ch ~~~ |authentication failure,--entity-- password failure ***\
+     step4crememberpastwindows=500***step4cpatternwindowthreshold=30***step4crtmsscorethreshold=0.6***step4cattackscorethreshold=0.6***\
+     step4cpatternscorethreshold=0.6***step4crtmsstream=rtms-stream-mylogs***step4clocalsearchtermfolder=|mysearchfile1,|mysearchfile2***\
+     step4clocalsearchtermfolderinterval=60***step4crtmsfoldername=rtms2***step3localfiledocfolder=mylogs,mylogs2***step4crtmsmaxwindows=1000000', # add any environmental variables for docker must be: variable1=value1***variable2=value2
+     'dockerinstructions': """To run this docker container Enter the following CORE parameters: 
+    
+          #. KAFKABROKERHOST=127.0.0.1:9092 - this uses the Local Kafka installed in your TML solution container.  
+             You can specify a Kafka Cloud URL if using AWS MSK or Confluent Kafka Cloud, simply replace this field.
+             
+          #. Enter KAFKACLOUDUSERNAME and  KAFKACLOUDPASSWORD IF using Kafka Cloud from AWS MSK and Confluent, if using local kafka (127.0.0.1:9092), these MUST be empty.
+          
+          #. SASLMECHANISM=PLAIN is set for Local Kafka and Confluent Kafka Cloud.  If using AWS MSK, this MUST be changed to SCRAM512.
+          
+          #. Enter GITUSERNAME 
+          
+          #. Enter GITPASSWORD 
+          
+          #. Enter READTHEDOCS 
+          
+          #. Update volume mapping: /your_localmachine/foldername:/rawdata:z  \
+          
+          #. IF YOU ARE DISTRUBUTING THIS CONTAINER TO OTHERS THEN SEND THEM THIS DOCKER RUN BUT THEY WILL NEED TO ENTER THE ABOVE CORE PARAMETERS. 
+             TO MAKE IT EASY FOR OTHERS TO RUN YOUR SOLUTION YOU CAN USE THE TSSTMLDEMO GITHUB AND READTHEDOCS ACCOUNT - UPDATE THE FOLLOWING: 
+          
+          #.  GITUSERNAME=tsstmldemo 
+          
+          #. GITREPOURL=https://github.com/tsstmldemo/tsstmldemo 
+          
+          #. GITPASSWORD=<Will be retrieved from OS IF using tsstmldemo> 
+          
+          #. READTHEDOCS=aefa71df39ad764ac2785b3167b77e8c1d7c553a 
+          
+          - PLEASE NOTE: THE GITHUB AND READTHEDOCS ACCOUNTS ARE PUBLIC AND SHARED ACCOUNTS BY OTHERS.  
+          
+          - THEY ARE MEANT ONLY FOR QUICK DEMOS.  IDEALLY, PERSONAL GITHUB AND READTHEDOCS ACCONTS SHOULD BE USED.""", # add instructions on how to run the docker container  
+    }
+
+
 Creating Your Own DAG
 --------------------
 
