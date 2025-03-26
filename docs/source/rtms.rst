@@ -322,6 +322,34 @@ Output Explanation
      - This is a user threshold to alert when a pattern
 
        is equal to or greater than this number.
+   * - privateGPT_AI_response
+     - This is the real-time response from the privateGPT container 
+
+       running LLM models from Deepseek or Mistral AI.
+
+       See `here <https://tml.readthedocs.io/en/latest/genai.html#privategpt-special-containers`_ >for details.
+   * - prompt
+     - The prompt provided by the user.
+   * - context
+     - The context provided by the user.
+   * - pgptcontainer
+     - The privateGPT container used from `here <https://tml.readthedocs.io/en/latest/genai.html#privategpt-special-containers>`_.
+   * - pgpt_consumefrom
+     - The kafka topic that Step 9 task will consume from.
+   * - pgpt_data_topic
+     - The kafka topic Step 9 task will output results to.
+   * - contextwindowsize
+     - The context window for the LLM.  This is basically
+
+       the maximum number of words LLM will process.
+   * - temperature
+     - This is the LLM temperature parameter.  
+
+       Close to 0, the LLM will be more conservative 
+    
+       in responses; close to 1, it will hallucinate.
+   * - pgptrollbackoffset
+     - The amount of offsets to rollback the **pgpt_consumefrom** topic.
 
 .. tip:: 
    TML gives you are powerful capability to substiitute the **--entity--** placeholder with the **Entity** above. This makes it possible to search for each invidual entity in any log files.
