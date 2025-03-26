@@ -152,7 +152,9 @@ TML Output of RTMS Scores
 Integrating RTMS with Real-Time AI Using PrivateGPT Containers
 -----------------
 
-Below is output from Step 9 task, that takes messages in the "SearchTextFound", and send it to the PrivateGPT containers
+Below is output from `Step 9 task <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-9-privategpt-and-qdrant-integration-tml-system-step-9-privategpt-qdrant-dag>`_, that takes messages in the "SearchTextFound", and send it to the `PrivateGPT special containers <https://github.com/smaurice101/readthedocs/blob/main/docs/source/genai.rst#privategpt-special-containers>`_
+
+By using AI, users can prompt for any anomalies and resolutions suggested by AI.  This is all done in real-time using local privateGPT containers, that makes this integration 100% FREE, SECURE and SCALABLE. 
 
 .. code-block::
 
