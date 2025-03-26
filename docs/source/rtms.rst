@@ -127,7 +127,6 @@ TML Output of RTMS Scores
       	"Unixtime": 1742657629034578889,
       	"kafkakey": "OAA-N1rvV8-f7VZLG0ZxwSJlqLDrrFmHs1",
       	"Preprocesstype": "rtms",
-      	"UserSearchValues": "rgx:^(?=.*?[0-9])(?=.*?[A-Za-z]).{8,32}$~~~rgx:^[0-9A-Za-z]{6,16}$~~~rgx:(?:[a-z0-9!#$%&'*+\\/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+\\/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])~~~ALERT exited abnormally~~~Transport endpoint is not connected~~~Invalid ACPI-PCI IRQ routing table~~~gateway unlocked~~~invalid user webmaster~~~Failed password for root~~~|ip address suspicious,suspicious login attempt,too many login attempts,unknown device,address location banned~~~ |authentication failure,--entity-- password failure ~~~check pass; user unknown, system implementation error~~~security compromised~~~rgx:p([a-z]+)ch ~~~unauthorized vpn access --entity--~~~getaddrinfo for ns.marryaldkfaczcz.com~~~cn710/cn710 ntpd[19103]~~~Kerberos authentication failed~~~ANONYMOUS FTP LOGIN~~~hacking~~~ |unknown--entity--",
       	"SearchTextFound": [
       		"Message Found: m 84.102.20.2 () at Sun Jul 24 02:38:22 2005 Jul 24 02:38:23 combo ftpd16781: ANONYMOUS FTP LOGIN FROM 84.102.20.2  (anonymous) Jul 24 02:38:23 combo ftpd16782: ANONYMOUS FTP - using search term: anonymous ftp login. Date Found: 22 Mar 2025 15:33:37UTC",
       		"Message Found: MOUS FTP LOGIN FROM 84.102.20.2  (anonymous) Jul 24 02:38:23 combo ftpd16782: ANONYMOUS FTP LOGIN FROM 84.102.20.2  (anonymous) Jul 24 04:20:19 combo su(pam_unix)17283: - using search term: anonymous ftp login. Date Found: 22 Mar 2025 15:33:37UTC"
@@ -148,6 +147,75 @@ TML Output of RTMS Scores
       	"Hash": "l8-ckFLfU4H5DveB9bSj7lThjws=",
       	"GithubRemoteUrl": "https://github.com/smaurice101/raspberrypitss/blob/main/tml-airflow/dags/tml-solutions/cybersecurityrtms-3f10/rtms2/rtms-stream-mylogs_10_anonymousftplogin.txt.log",
       	"rtmsfolder": "rtms2"
+      }
+
+Integrating RTMS with Real-Time AI Using PrivateGPT Containers
+-----------------
+
+Below is output from Step 9 task, that takes messages in the "SearchTextFound", and send it to the PrivateGPT containers
+
+.. code-block::
+
+      {
+      	"ActivityLevel": "Low",
+      	"Consumerid": "StreamConsumerpred3",
+      	"CurrentRTMSMAXWINDOW": 626,
+      	"CurrentRememberPastWindow": 125,
+      	"Entity": "5.11",
+      	"Filename": "/rawdata/rtms2/rtms-stream-mylogs_6_anonymousftplogin.txt.log",
+      	"FinalAttackScore": "0.01",
+      	"FinalPatternScore": "0.43",
+      	"Generated": "2025-03-26T19:40:03.345+00:00",
+      	"GithubRemoteUrl": "https://github.com/smaurice101/raspberrypitss/blob/main/tml-airflow/dags/tml-solutions/cybersecurityrtms-3f10/rtms2/rtms-stream-mylogs_6_anonymousftplogin.txt.log",
+      	"Hash": "epK0pPdLpWMBmqa_GkT-ayG3fHg=",
+      	"LastOffsetProcessed": 2401,
+      	"LastPartitionProcessed": 0,
+      	"Maintopic": "iot-preprocess",
+      	"NumAttackWindowsFound": "4",
+      	"NumPatternWindowsFound": "13",
+      	"Offset": 81,
+      	"Partition": 0,
+      	"PartitionOffsetFound": "0:2207;0:2295;",
+      	"PatternThreshold": "30",
+      	"Preprocesstype": "rtms",
+      	"ProducerId": "RTMS",
+      	"RTMSMAXWINDOWS": "1000000",
+      	"RTMSSCORE": "0.01",
+      	"RememberPastWindows": "500",
+      	"SearchEntity": "ANONYMOUS FTP LOGIN;",
+      	"SearchTextFound": [
+      		"Message Found: ApplicableState: 112  CurrentState:112 2016-09-29 02:04:22  Info CBS Session: 30546354_3183ANONYMOUS FTP LOGIN714279 initialized by client WindowsUpdateAgent. 2016-09-29 02:04:22  Info CBS - using search term: anonymous ftp login. Date Found: 26 Mar 2025 02:49:10 UTC",
+      		"Message Found: from 84.102.20.2 () at Sun Jul 24 02:38:22 2005 Jul 24 02:38:23 combo ftpd16781: ANONYMOUS FTP LOGIN FROM 84.102.20.2  (anonymous) Jul 24 02:38:23 combo ftpd16782: ANONYMOUS FTP - using search term: anonymous ftp login. Date Found: 26 Mar 2025 02:49:10 UTC",
+      		"Message Found: ANONYMOUS FTP LOGIN FROM 84.102.20.2  (anonymous) Jul 24 02:38:23 combo ftpd16782: ANONYMOUS FTP LOGIN FROM 84.102.20.2  (anonymous) Jul 24 04:20:19 combo su(pam_unix)17283: - using search term: anonymous ftp login. Date Found: 26 Mar 2025 02:49:10 UTC",
+      		"Message Found: from 84.102.20.2 () at Sun Jul 24 02:38:22 2005 Jul 24 02:38:23 combo ftpd16781: ANONYMOUS FTP LOGIN FROM 84.102.20.2  (anonymous) Jul 24 02:38:23 combo ftpd16782: ANONYMOUS FTP - using search term: anonymous ftp login. Date Found: 26 Mar 2025 18:04:06 UTC",
+      		"Message Found: ANONYMOUS FTP LOGIN FROM 84.102.20.2  (anonymous) Jul 24 02:38:23 combo ftpd16782: ANONYMOUS FTP LOGIN FROM 84.102.20.2  (anonymous) Jul 24 04:20:19 combo su(pam_unix)17283: - using search term: anonymous ftp login. Date Found: 26 Mar 2025 18:04:06 UTC",
+      		"Message Found: from 84.102.20.2 () at Sun Jul 24 02:38:22 2005 Jul 24 02:38:23 combo ftpd16781: ANONYMOUS FTP LOGIN FROM 84.102.20.2  (anonymous) Jul 24 02:38:23 combo ftpd16782: ANONYMOUS FTP - using search term: anonymous ftp login. Date Found: 26 Mar 2025 18:21:21 UTC",
+      		"Message Found: ANONYMOUS FTP LOGIN FROM 84.102.20.2  (anonymous) Jul 24 02:38:23 combo ftpd16782: ANONYMOUS FTP LOGIN FROM 84.102.20.2  (anonymous) Jul 24 04:20:19 combo su(pam_unix)17283: - using search term: anonymous ftp login. Date Found: 26 Mar 2025 18:21:21 UTC",
+      		"Message Found: ApplicableState: 112  CurrentState:112 2016-09-29 02:04:22  Info CBS Session: 30546354_3183ANONYMOUS FTP LOGIN714279 initialized by client WindowsUpdateAgent. 2016-09-29 02:04:22  Info CBS - using search term: anonymous ftp login. Date Found: 26 Mar 2025 19:23:07 UTC",
+      		"Message Found: from 84.102.20.2 () at Sun Jul 24 02:38:22 2005 Jul 24 02:38:23 combo ftpd16781: ANONYMOUS FTP LOGIN FROM 84.102.20.2  (anonymous) Jul 24 02:38:23 combo ftpd16782: ANONYMOUS FTP - using search term: anonymous ftp login. Date Found: 26 Mar 2025 19:23:07 UTC",
+      		"Message Found: ANONYMOUS FTP LOGIN FROM 84.102.20.2  (anonymous) Jul 24 02:38:23 combo ftpd16782: ANONYMOUS FTP LOGIN FROM 84.102.20.2  (anonymous) Jul 24 04:20:19 combo su(pam_unix)17283: - using search term: anonymous ftp login. Date Found: 26 Mar 2025 19:23:07 UTC",
+      		"Message Found: ApplicableState: 112  CurrentState:112 2016-09-29 02:04:22  Info CBS Session: 30546354_3183ANONYMOUS FTP LOGIN714279 initialized by client WindowsUpdateAgent. 2016-09-29 02:04:22  Info CBS - using search term: anonymous ftp login. Date Found: 26 Mar 2025 19:37:49 UTC",
+      		"Message Found: from 84.102.20.2 () at Sun Jul 24 02:38:22 2005 Jul 24 02:38:23 combo ftpd16781: ANONYMOUS FTP LOGIN FROM 84.102.20.2  (anonymous) Jul 24 02:38:23 combo ftpd16782: ANONYMOUS FTP - using search term: anonymous ftp login. Date Found: 26 Mar 2025 19:37:49 UTC",
+      		"Message Found: ANONYMOUS FTP LOGIN FROM 84.102.20.2  (anonymous) Jul 24 02:38:23 combo ftpd16782: ANONYMOUS FTP LOGIN FROM 84.102.20.2  (anonymous) Jul 24 04:20:19 combo su(pam_unix)17283: - using search term: anonymous ftp login. Date Found: 26 Mar 2025 19:37:49 UTC"
+      	],
+      	"TMLComment": "The RTMS score of 0.01 seems to show low activity or risk.  The AttackScore of 0.01 is less than PatternScore of 0.43, which suggests likely no attack, but could be a pattern developing.  The number of windows searched for an occurence of a pattern is 626. TML will continue monitoring and these numbers may change over time.",
+      	"TimeStamp": "2025-03-26 19:38:06",
+      	"Topic": "rtms-stream-mylogs",
+      	"Topicid": "topicid6_rtms-stream-mylogs",
+      	"Type": "External",
+      	"Unixtime": 1743017886768513500,
+      	"hyperprediction": "0.01",
+      	"kafkakey": "OAA-iXoPrNYQxy7KGT15cgSwT6LgLSUJF4",
+      	"rtmsfolder": "rtms2",
+      	"privateGPT_AI_response": "Based on the provided log messages, there are multiple instances of \"ANONYMOUS FTP LOGIN\" from the IP address 84.102.20.2 using the anonymous login method. Anonymous FTP is an insecure way to access a server as anyone can connect without providing any authentication credentials. This makes it easier for attackers to gain unauthorized access to the system. The log messages also indicate that these FTP sessions were initialized by \"WindowsUpdateAgent\" on September 29, 2016, and there are additional instances of anonymous FTP login attempts on July 24, 2005. The fact that these logs were found in a search with the term \"anonymous ftp login\" further suggests that these log entries could be indicative of potential suspicious activity. To mitigate this risk, it is recommended to disable anonymous FTP access on the server and enforce authentication for all FTP connections. Additionally, it would be a good practice to review the server's access logs regularly to identify any unauthorized or suspicious activity. It may also be worth investigating why \"WindowsUpdateAgent\" was initiating these FTP sessions in 2016 and if there were any vulnerabilities that could have been exploited at that time. It is important to note that the log messages alone do not definitively indicate a cyber attack, but they do suggest potential security risks that warrant further investigation. It would be prudent for an experienced IT professional or security team to review these logs and take appropriate actions based on their findings.",
+      	"prompt": "[INST] Are there any errors or suspicious activity in the log messages found? Give a detailed response, and any resolutions that need to be done.[/INST]",
+      	"context": "This data are from network log files. This log file data have been filtered using the search terms shown in the messages. The filtered messages may indicate potential suspicious log entries that could indicate a cyber attack.",
+      	"pgptcontainer": "maadsdocker/tml-privategpt-with-gpu-nvidia-amd64-v2",
+      	"pgpt_consumefrom": "rtms-preprocess",
+      	"pgpt_data_topic": "rtms-pgpt-ai",
+      	"contextwindowsize": 8192,
+      	"temperature": "0.1",
+      	"pgptrollbackoffset": 5
       }
 
 Output Explanation
