@@ -7323,7 +7323,7 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
    Watch the YouTube to see how to configure this Dag: `YouTube Video <https://youtu.be/iue3ljO_bBU>`_ 
 
 .. code-block:: PYTHON
-   :emphasize-lines: 18,19,20,21,22,23,24,25,26,27
+   :emphasize-lines: 18,19,20,21,22,23,24,25,26,27,28
 
     from airflow import DAG
     from airflow.operators.python import PythonOperator
@@ -7482,6 +7482,11 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
         step9streamall=''
         step9temperature=''
         step9vectorsearchtype=''
+        step9pcontextwindowsize=''
+        step9pgptcontainername=''
+        step9pgpthost=''
+        step9pport=''
+     
         step4crawdatatopic=''
         step4csearchterms=''
         step4crememberpastwindows=''
@@ -7496,7 +7501,6 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
         step3localfileinputfile=''
         step3localfiledocfolder=''
         step4crtmsmaxwindows=''
-    
         rtmsoutputurl=""
         mloutputurl=""
      
@@ -7936,12 +7940,18 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
         pconsumefrom = context['ti'].xcom_pull(task_ids='step_9_solution_task_ai',key="{}_consumefrom".format(sname))
         pgpt_data_topic = context['ti'].xcom_pull(task_ids='step_9_solution_task_ai',key="{}_pgpt_data_topic".format(sname))
         pgptcontainername = context['ti'].xcom_pull(task_ids='step_9_solution_task_ai',key="{}_pgptcontainername".format(sname))
+        step9pgptcontainername=pgptcontainername
         poffset = context['ti'].xcom_pull(task_ids='step_9_solution_task_ai',key="{}_offset".format(sname))
         prollbackoffset = context['ti'].xcom_pull(task_ids='step_9_solution_task_ai',key="{}_rollbackoffset".format(sname))
         ptopicid = context['ti'].xcom_pull(task_ids='step_9_solution_task_ai',key="{}_topicid".format(sname))
         penabletls = context['ti'].xcom_pull(task_ids='step_9_solution_task_ai',key="{}_enabletls".format(sname))
         ppartition = context['ti'].xcom_pull(task_ids='step_9_solution_task_ai',key="{}_partition".format(sname))
         pprompt = context['ti'].xcom_pull(task_ids='step_9_solution_task_ai',key="{}_prompt".format(sname))
+        pcontextwindowsize = context['ti'].xcom_pull(task_ids='step_9_solution_task_ai',key="{}_contextwindowsize".format(sname))
+        if pcontextwindowsize:
+           step9pcontextwindowsize=pcontextwindowsize
+           doparse("/{}/docs/source/details.rst".format(sname), ["--contextwindowsize--;{}".format(contextwindowsize[1:])])
+         
         if pprompt:
           step9prompt=pprompt
     
@@ -7977,7 +7987,11 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
         if pcollection:
           step9vectordbcollectionname=pcollection     
         pgpthost = context['ti'].xcom_pull(task_ids='step_9_solution_task_ai',key="{}_pgpthost".format(sname))
+        step9pgpthost=pgpthost
+    
         pgptport = context['ti'].xcom_pull(task_ids='step_9_solution_task_ai',key="{}_pgptport".format(sname))
+        step9pgptport=pgptport
+     
         pprocesstype = context['ti'].xcom_pull(task_ids='step_9_solution_task_ai',key="{}_keyprocesstype".format(sname))
         if pprocesstype:
           step9keyprocesstype=pprocesstype 
@@ -8322,7 +8336,8 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
                            step9llmmodel,step9embedding,step9vectorsize,step4cmaxrows,step4crawdatatopic,step4csearchterms,step4crememberpastwindows[1:],
                            step4cpatternwindowthreshold[1:],step4crtmsstream,projectname,step4crtmsscorethreshold[1:],step4cattackscorethreshold[1:],
                            step4cpatternscorethreshold[1:],step4clocalsearchtermfolder,step4clocalsearchtermfolderinterval[1:],step4crtmsfoldername,
-                           step3localfileinputfile,step3localfiledocfolder,step4crtmsmaxwindows[1:])
+                           step3localfileinputfile,step3localfiledocfolder,step4crtmsmaxwindows[1:],step9pcontextwindowsize[1:],
+                           step9pgptcontainername,step9pgpthost,step9pgptport[1:])
         else: 
           kcmd2=tsslogging.genkubeyamlnoext(sname,containername,TMLCLIENTPORT[1:],solutionairflowport[1:],solutionvipervizport[1:],solutionexternalport[1:],
                            sd,os.environ['GITUSERNAME'],os.environ['GITREPOURL'],chipmain,os.environ['DOCKERUSERNAME'],
@@ -8335,7 +8350,8 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
                            step9llmmodel,step9embedding,step9vectorsize,step4cmaxrows,step4crawdatatopic,step4csearchterms,step4crememberpastwindows[1:],
                            step4cpatternwindowthreshold[1:],step4crtmsstream,projectname,step4crtmsscorethreshold[1:],step4cattackscorethreshold[1:],
                            step4cpatternscorethreshold[1:],step4clocalsearchtermfolder,step4clocalsearchtermfolderinterval[1:],step4crtmsfoldername,
-                           step3localfileinputfile,step3localfiledocfolder,step4crtmsmaxwindows[1:])
+                           step3localfileinputfile,step3localfiledocfolder,step4crtmsmaxwindows[1:],step9pcontextwindowsize[1:],
+                           step9pgptcontainername,step9pgpthost,step9pgptport[1:])
     
         doparse("/{}/docs/source/kube.rst".format(sname), ["--solutionnamecode--;{}".format(kcmd2)])
     
