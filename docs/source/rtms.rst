@@ -327,7 +327,7 @@ Output Explanation
 
        running LLM models from Deepseek or Mistral AI.
 
-       See `here <https://tml.readthedocs.io/en/latest/genai.html#privategpt-special-containers`_ >for details.
+       See `here <https://tml.readthedocs.io/en/latest/genai.html#privategpt-special-containers>`_ for details.
    * - prompt
      - The prompt provided by the user.
    * - context
