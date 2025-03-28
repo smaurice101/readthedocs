@@ -6321,7 +6321,8 @@ STEP 9: PrivateGPT and Qdrant Integration: tml-system-step-9-privategpt_qdrant-d
      'temperature' : '0.1', # This value ranges between 0 and 1, it controls how conservative LLM model will be, if 0 very very, if 1 it will hallucinate
      'vectorsearchtype' : 'Manhattan', # this is for the Qdrant Search algorithm.  it can be: Cosine, Euclid, Dot, or Manhattan
      'streamall': '1',
-     'contextwindowsize': '8192' # Size of the context window.  This controls the number of tokens to process by LLM model
+     'contextwindowsize': '8192', # Size of the context window.  This controls the number of tokens to process by LLM model
+     'vectordimension': '768' # this is the size of the embeddings array specific to the embegging model being used
     }
     
     ############################################################### DO NOT MODIFY BELOW ####################################################
@@ -7211,6 +7212,20 @@ STEP 9 DAG Core Parameter Explanation
        privateGPT for processing.  You can increase this number, but it will 
 
        consume more memory.
+   * - vectordimension
+     - This is the size of the embedding array.
+
+       It is specific to the embedding model being used. 
+
+       For example, 384, 768, 1024 etc. see the figure below.
+
+Vector Dimensions
+""""""""""""""""""""""""""
+
+This shows the different dimensions for embedding models.
+
+.. figure:: vecdim.png
+   :scale: 70%
 
 privateGPT Processing Explanation
 """""""""""""""""""""""""""""""""""
