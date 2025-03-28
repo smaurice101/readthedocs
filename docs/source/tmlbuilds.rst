@@ -7222,7 +7222,7 @@ STEP 9 DAG Core Parameter Explanation
 Vector Dimensions
 """"""""""""""""""""""""""
 
-This shows the different dimensions for embedding models.
+This shows the different dimensions for embedding models. See `here <https://huggingface.co/BAAI/bge-small-en-v1.5>`_ for more details.
 
 .. figure:: vecdim.png
    :scale: 70%
