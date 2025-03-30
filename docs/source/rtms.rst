@@ -556,32 +556,32 @@ TML using real-time data is similar to `RAG <https://tml.readthedocs.io/en/lates
 
        and can be costly
 
-How RTMS Integrates with Mitre Att&ck Framework
+How RTMS Integrates with MITRE ATT&CK Framework
 ----------------------------------------------
 
-The `Mitre Att&ck framework for the Entreprise and Cloud <https://attack.mitre.org/>`_ is used by `80% of global enterprises <https://cltc.berkeley.edu/publication/mitre-attck/#:~:text=While%20some%20enterprises%20adopt%20other,respondents%20indicating%20they%20leverage%20both.>`_.  TML/RTMS is fully integrated with Mitre Att&ck framework for Entreprise level threat detection and classification for improved threat insights to help in further fortifying organizations' threat and security technologies and processes.
+The `MITRE ATT&CK framework for the Entreprise and Cloud <https://attack.mitre.org/>`_ is used by `80% of global enterprises <https://cltc.berkeley.edu/publication/mitre-attck/#:~:text=While%20some%20enterprises%20adopt%20other,respondents%20indicating%20they%20leverage%20both.>`_.  **TML/RTMS is fully integrated with MITRE ATT&CK framework for Entreprise** level threat detection and classification for improved threat insights to help in further fortifying organizations' threat and security technologies and processes.
 
 .. important::
-   A key challenge by majority of organizations is the difficulty and inability to map events to specifc Mitre Att&ck tactics and techniques.  Specifically, in a research report (`source <https://cltc.berkeley.edu/publication/mitre-attck/#:~:text=While%20some%20enterprises%20adopt%20other,respondents%20indicating%20they%20leverage%20both.>`_)
+   A key challenge by majority of organizations is the difficulty and inability to map events to specifc MITRE ATT&CK tactics and techniques.  Specifically, in a research report (`source <https://cltc.berkeley.edu/publication/mitre-attck/#:~:text=While%20some%20enterprises%20adopt%20other,respondents%20indicating%20they%20leverage%20both.>`_)
 
     **"about 45 percent of survey respondents said their greatest challenge is the framework’s inoperability with their security products and 43 percent said they 
     find it difficult to map event-specific data to tactics and techniques."**
 
-   **RTMS eliminates this challenge of mapping events to Mitre Att&ck tactics and techniques by automating the classifications in real-time using our AI containers.**
+   RTMS eliminates this challenge of mapping events to MITRE ATT&CK tactics and techniques by automating the classifications in real-time using our AI containers.
 
-When RTMS searches logs for suspicious activity the messages it finds are sent to our `privateGPT AI container <https://tml.readthedocs.io/en/latest/genai.html#privategpt-special-containers>`_, the AI determines a mitigation plan, and Mitre Att&ck classification of the messages.  The Attack, Pattern and RTMS scores are provided for the "grouped" Mitre Att&ck tactics and techniques.  See figure below of Mitre tactics and techniques.
+When RTMS searches logs for suspicious activity the messages it finds are sent to our `privateGPT AI container <https://tml.readthedocs.io/en/latest/genai.html#privategpt-special-containers>`_, the AI determines a mitigation plan, and MITRE ATT&CK classification of the messages.  The Attack, Pattern and RTMS scores are provided for the "grouped" MITRE ATT&CK tactics and techniques.  See figure below of Mitre tactics and techniques.
 
 .. figure:: mitre.png
    :scale: 70%
    
 
-**The RTMS scoring and classification of messages, in accordance with Mitre Att&ck framework, can offer organizations around the world invaluable insights into their organizations that can help them to:**
+**The RTMS scoring and classification of messages, in accordance with MITRE ATT&CK framework, can offer organizations around the world invaluable insights into their organizations that can help them to:**
 
  - **determine gaps in deployed security solutions in their enterprise,** 
  -	**for security policy implementation**
  -	**for threat modeling**
 
-TML/RTMS with Mitre integration is a truly unique and powerful technological approach, in real-time, to give organizations **faster identifications of developing threats, but also offering invaluable guidance to fortify their security processes and technologies** that aligns with a global standard like Mitre Att&ck.
+TML/RTMS with MITRE ATT&CK integration is a truly unique and powerful technological approach, in real-time, to give organizations **faster identifications of developing threats, but also offering invaluable guidance to fortify their security processes and technologies** that aligns with a global standard like MITRE ATT&CK.
 
 Summary
 ----------
