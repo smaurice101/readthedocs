@@ -562,7 +562,7 @@ How RTMS Integrates with Mitre Att&ck Framework
 The `Mitre Att&ck framework for the Entreprise and Cloud <https://attack.mitre.org/>`_ is used by `80% of global enterprises <https://cltc.berkeley.edu/publication/mitre-attck/#:~:text=While%20some%20enterprises%20adopt%20other,respondents%20indicating%20they%20leverage%20both.>`_.  TML/RTMS is fully integrated with Mitre Att&ck framework for Entreprise level threat detection and classification for improved threat insights to help in further fortifying organizations' threat and security technologies and processes.
 
 .. important::
-   A key challenge by majority of organizations is the difficulty and inability to map events to specifc Mitre Att&ck tactics and techniques.  Specifically, in a research report(`source <https://cltc.berkeley.edu/publication/mitre-attck/#:~:text=While%20some%20enterprises%20adopt%20other,respondents%20indicating%20they%20leverage%20both.>`_)
+   A key challenge by majority of organizations is the difficulty and inability to map events to specifc Mitre Att&ck tactics and techniques.  Specifically, in a research report (`source <https://cltc.berkeley.edu/publication/mitre-attck/#:~:text=While%20some%20enterprises%20adopt%20other,respondents%20indicating%20they%20leverage%20both.>`_)
 
     **"about 45 percent of survey respondents said their greatest challenge is the framework’s inoperability with their security products and 43 percent said they 
     find it difficult to map event-specific data to tactics and techniques."**
