@@ -6322,7 +6322,8 @@ STEP 9: PrivateGPT and Qdrant Integration: tml-system-step-9-privategpt_qdrant-d
      'vectorsearchtype' : 'Manhattan', # this is for the Qdrant Search algorithm.  it can be: Cosine, Euclid, Dot, or Manhattan
      'streamall': '1',
      'contextwindowsize': '8192', # Size of the context window.  This controls the number of tokens to process by LLM model
-     'vectordimension': '768' # this is the size of the embeddings array specific to the embegging model being used
+     'vectordimension': '768',
+     'mitrejson': '/rawdata/mitre.json'
     }
     
     ############################################################### DO NOT MODIFY BELOW ####################################################
@@ -6347,7 +6348,7 @@ STEP 9: PrivateGPT and Qdrant Integration: tml-system-step-9-privategpt_qdrant-d
         response = response.replace("null","-1").replace("\\n"," ")
         r1=json.loads(response)
         c1=r1['choices'][0]['message']['content']
-        c1=c1.replace('"','\\"').replace("'","\'").replace("\\n"," ")
+        c1=c1.replace('"','\\"').replace("'","\'").replace("\\n"," ").replace("&","and")
         c1 = re.sub(' +', ' ', c1)
         if '=' in c1 and ('Answer:' in c1 or 'A:' in c1):
           r1['choices'][0]['message']['content'] = "The analysis of the document(s) did not find a proper result."
@@ -6394,6 +6395,7 @@ STEP 9: PrivateGPT and Qdrant Integration: tml-system-step-9-privategpt_qdrant-d
           temp = default_args['temperature']
           vectorsearchtype = default_args['vectorsearchtype']
           cw = default_args['contextwindowsize']
+          vectordimension=default_args['vectordimension'] 
      
           stopcontainers()
           time.sleep(10)
@@ -6401,9 +6403,9 @@ STEP 9: PrivateGPT and Qdrant Integration: tml-system-step-9-privategpt_qdrant-d
               buf = "docker run -d -p {}:{} --net=host --env PORT={} --env GPU=0 --env COLLECTION={} --env WEB_CONCURRENCY={} --env CUDA_VISIBLE_DEVICES={} --env temperature={} --env vectorsearchtype=\"{}\" {}".format(pgptport,pgptport,pgptport,collection,concurrency,cuda,temperature,vectorsearchtype,pgptcontainername)       
           else: 
             if os.environ['TSS'] == "1":       
-              buf = "docker run -d -p {}:{} --net=host --gpus all -v /var/run/docker.sock:/var/run/docker.sock:z --env PORT={} --env TSS=1 --env GPU=1 --env COLLECTION={} --env WEB_CONCURRENCY={} --env CUDA_VISIBLE_DEVICES={} --env TOKENIZERS_PARALLELISM=false --env temperature={} --env vectorsearchtype=\"{}\" --env contextwindowsize={} {}".format(pgptport,pgptport,pgptport,collection,concurrency,cuda,temperature,vectorsearchtype,cw,pgptcontainername)
+              buf = "docker run -d -p {}:{} --net=host --gpus all -v /var/run/docker.sock:/var/run/docker.sock:z --env PORT={} --env TSS=1 --env GPU=1 --env COLLECTION={} --env WEB_CONCURRENCY={} --env CUDA_VISIBLE_DEVICES={} --env TOKENIZERS_PARALLELISM=false --env temperature={} --env vectorsearchtype=\"{}\" --env contextwindowsize={} --env vectordimension={} {}".format(pgptport,pgptport,pgptport,collection,concurrency,cuda,temperature,vectorsearchtype,cw,vectordimension,pgptcontainername)
             else:
-              buf = "docker run -d -p {}:{} --net=bridge --gpus all -v /var/run/docker.sock:/var/run/docker.sock:z --env PORT={} --env TSS=0 --env GPU=1 --env COLLECTION={} --env WEB_CONCURRENCY={} --env CUDA_VISIBLE_DEVICES={} --env TOKENIZERS_PARALLELISM=false --env temperature={} --env vectorsearchtype=\"{}\" --env contextwindowsize={} {}".format(pgptport,pgptport,pgptport,collection,concurrency,cuda,temperature,vectorsearchtype,cw,pgptcontainername)
+              buf = "docker run -d -p {}:{} --net=host --gpus all -v /var/run/docker.sock:/var/run/docker.sock:z --env PORT={} --env TSS=0 --env GPU=1 --env COLLECTION={} --env WEB_CONCURRENCY={} --env CUDA_VISIBLE_DEVICES={} --env TOKENIZERS_PARALLELISM=false --env temperature={} --env vectorsearchtype=\"{}\" --env contextwindowsize={} --env vectordimension={} {}".format(pgptport,pgptport,pgptport,collection,concurrency,cuda,temperature,vectorsearchtype,cw,vectordimension,pgptcontainername)
              
           v=subprocess.call(buf, shell=True)
           print("INFO STEP 9: PrivateGPT container.  Here is the run command: {}, v={}".format(buf,v))
@@ -6430,7 +6432,8 @@ STEP 9: PrivateGPT and Qdrant Integration: tml-system-step-9-privategpt_qdrant-d
         return v,buf
     
     def pgptchat(prompt,context,docfilter,port,includesources,ip,endpoint):
-    
+      prompt=prompt.replace("&","and") 
+     
       print("Pgptchat=",prompt)
       response=maadstml.pgptchat(prompt,context,docfilter,port,includesources,ip,endpoint)
       return response
@@ -6511,20 +6514,26 @@ STEP 9: PrivateGPT and Qdrant Integration: tml-system-step-9-privategpt_qdrant-d
        if 'step9prompt' in os.environ:
           if os.environ['step9prompt'] != '':
             prompt = os.environ['step9prompt']
+            prompt=prompt.replace("&","and")
             default_args['prompt'] = prompt
           else:
            prompt = default_args['prompt']
+           prompt=prompt.replace("&","and")
        else: 
           prompt = default_args['prompt']
+          prompt=prompt.replace("&","and")
     
        if 'step9context' in os.environ:
           if os.environ['step9context'] != '':
             context = os.environ['step9context']
+            context=context.replace("&","and")
             default_args['context'] = context
           else:
             context = default_args['context']  
+            context=context.replace("&","and")
        else: 
          context = default_args['context']
+         context=context.replace("&","and")
     
        jsonkeytogather = default_args['jsonkeytogather']
        if default_args['docfolder'] != '':
@@ -6739,6 +6748,12 @@ STEP 9: PrivateGPT and Qdrant Integration: tml-system-step-9-privategpt_qdrant-d
        maxc = 300
        pgptendpoint="/v1/completions"
     
+       prompt = default_args['prompt']
+       prompt=prompt.replace("&","and")
+     
+       context = default_args['context']
+       context=context.replace("&","and")
+     
        mcontext = False
        usingqdrant = ''
        if docfolder != '':
@@ -6779,11 +6794,13 @@ STEP 9: PrivateGPT and Qdrant Integration: tml-system-step-9-privategpt_qdrant-d
                m = mess
                m1 = attribute #default_args['keyattribute']
     
+            m=m.replace("&","and")
             response=pgptchat(m,mcontext,docidstrarr,mainport,False,mainip,pgptendpoint)
             response=response.strip()
             # Produce data to Kafka
             sf="false"
             response,sf,contentmessage=checkresponse(response,m1)
+            tactic,technique,jbm=tsslogging.getmitre(response,default_args['mitrejson'])
             if usingqdrant != '':
                if default_args['streamall']=="0": # Only stream if search terms found in response
                   if sf=="false":
@@ -6793,11 +6810,11 @@ STEP 9: PrivateGPT and Qdrant Integration: tml-system-step-9-privategpt_qdrant-d
               if default_args['jsonkeytogather'].lower()=="searchtextfound":
                  jmess = mess[3]
                  response1 = jmess[:-1] + ",\"privateGPT_AI_response\":\"" + contentmessage.strip().rstrip().lstrip() + \
-                           "\"," + "\"prompt\":\"" + default_args['prompt'] + "\",\"context\":\""+default_args['context'] + \
+                           "\"," + "\"prompt\":\"" + prompt + "\",\"context\":\""+context + \
                            "\",\"pgptcontainer\":\"" + default_args['pgptcontainername'] + "\",\"pgpt_consumefrom\":\"" + \
                             default_args['consumefrom'] + "\", \"pgpt_data_topic\":\"" + default_args['pgpt_data_topic'] + \
                             "\",\"contextwindowsize\":" + default_args['contextwindowsize'] + ",\"temperature\":\""+default_args['temperature'] + \
-                            "\",\"pgptrollbackoffset\":"+default_args['rollbackoffset'] + "}"           
+                            "\",\"pgptrollbackoffset\":"+default_args['rollbackoffset'] + jbm + "}"           
                  writetortmslogfile(mess[2],response1)
               else: 
                  response1 = response[:-1] + "," + "\"prompt\":\"" + m.strip() + "\",\"identifier\":\"" + m1.strip() + "\",\"searchfound\":\"" + sf.strip() + "\"}"
@@ -6894,6 +6911,10 @@ STEP 9: PrivateGPT and Qdrant Integration: tml-system-step-9-privategpt_qdrant-d
               if os.environ['step9pgptport'] != '':
                 default_args['pgptport'] = os.environ['step9pgptport']
     
+           if 'step9vectordimension' in os.environ:
+              if os.environ['step9vectordimension'] != '':
+                default_args['vectordimension'] = os.environ['step9vectordimension']
+    
            VIPERTOKEN = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_VIPERTOKEN".format(sname))
            VIPERHOST = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_VIPERHOSTPREPROCESSPGPT".format(sname))
            VIPERPORT = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_VIPERPORTPREPROCESSPGPT".format(sname))
@@ -6932,6 +6953,8 @@ STEP 9: PrivateGPT and Qdrant Integration: tml-system-step-9-privategpt_qdrant-d
            ti.xcom_push(key="{}_temperature".format(sname), value="_{}".format(default_args['temperature']))
            ti.xcom_push(key="{}_vectorsearchtype".format(sname), value="{}".format(default_args['vectorsearchtype']))
            ti.xcom_push(key="{}_contextwindowsize".format(sname), value="_{}".format(default_args['contextwindowsize']))
+           ti.xcom_push(key="{}_vectordimension".format(sname), value="_{}".format(default_args['vectordimension']))
+           ti.xcom_push(key="{}_mitrejson".format(sname), value="{}".format(default_args['mitrejson']))
     
            repo=tsslogging.getrepo()
            if sname != '_mysolution_':
@@ -6942,13 +6965,13 @@ STEP 9: PrivateGPT and Qdrant Integration: tml-system-step-9-privategpt_qdrant-d
            wn = windowname('ai',sname,sd)
            subprocess.run(["tmux", "new", "-d", "-s", "{}".format(wn)])
            subprocess.run(["tmux", "send-keys", "-t", "{}".format(wn), "cd /Viper-preprocess-pgpt", "ENTER"])
-           subprocess.run(["tmux", "send-keys", "-t", "{}".format(wn), "python {} 1 {} {}{} {} \"{}\" \"{}\" \"{}\" \"{}\" \"{}\" \"{}\" \"{}\" \"{}\" \"{}\" \"{}\" \"{}\" \"{}\" \"{}\" {} {} {} {} \"{}\" \"{}\" {}".format(fullpath,VIPERTOKEN, HTTPADDR, VIPERHOST, VIPERPORT[1:],
+           subprocess.run(["tmux", "send-keys", "-t", "{}".format(wn), "python {} 1 {} {}{} {} \"{}\" \"{}\" \"{}\" \"{}\" \"{}\" \"{}\" \"{}\" \"{}\" \"{}\" \"{}\" \"{}\" \"{}\" \"{}\" {} {} {} {} \"{}\" \"{}\" {} {}".format(fullpath,VIPERTOKEN, HTTPADDR, VIPERHOST, VIPERPORT[1:],
                            default_args['vectordbcollectionname'],default_args['concurrency'],default_args['CUDA_VISIBLE_DEVICES'],default_args['rollbackoffset'],
                            default_args['prompt'],default_args['context'],default_args['keyattribute'],default_args['keyprocesstype'],
                            default_args['hyperbatch'],default_args['docfolder'],default_args['docfolderingestinterval'],
                            default_args['useidentifierinprompt'],default_args['searchterms'],default_args['streamall'],default_args['temperature'],
                            default_args['vectorsearchtype'], default_args['contextwindowsize'], default_args['pgptcontainername'], 
-                           default_args['pgpthost'],default_args['pgptport']), "ENTER"])
+                           default_args['pgpthost'],default_args['pgptport'],default_args['vectordimension']), "ENTER"])
     
     if __name__ == '__main__':
         if len(sys.argv) > 1:
@@ -6981,6 +7004,9 @@ STEP 9: PrivateGPT and Qdrant Integration: tml-system-step-9-privategpt_qdrant-d
     
             pgpthost = sys.argv[23]
             pgptport = sys.argv[24]
+            vectordimension=sys.argv[25]
+            
+            default_args['vectordimension']=vectordimension
             
             default_args['rollbackoffset']=rollbackoffset
             default_args['prompt'] = prompt
@@ -7074,7 +7100,7 @@ STEP 9: PrivateGPT and Qdrant Integration: tml-system-step-9-privategpt_qdrant-d
               count = count + 1
               if count > 10:
                 break 
-              
+
 STEP 9 DAG Core Parameter Explanation
 """""""""""""""""""""""""""""""""""""
 
@@ -7218,6 +7244,14 @@ STEP 9 DAG Core Parameter Explanation
        It is specific to the embedding model being used. 
 
        For example, 384, 768, 1024 etc. see the figure below.
+   * - mitrejson
+     - You can use the `mitre.json <https://github.com/smaurice101/raspberrypi/blob/main/tml-airflow/data/mitre.json>`_ 
+
+       and save it to your mapped **/rawdata** folder.  
+
+       RTMS will ask AI to classifiy the messages in accordance
+
+       with the `MITRE ATT&CK classification matrix <https://attack.mitre.org/>`_.
 
 Vector Dimensions
 """"""""""""""""""""""""""
