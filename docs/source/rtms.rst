@@ -555,7 +555,22 @@ TML using real-time data is similar to `RAG <https://tml.readthedocs.io/en/lates
      - Scaling RAG models is difficult
 
        and can be costly
-   
+
+How RTMS Integrates with Mitre Att&ck Framework
+----------------------------------------------
+
+The `Mitre Att&ck framework for the Entreprise and Cloud <https://attack.mitre.org/>`_ is used by `80% of global enterprises <https://cltc.berkeley.edu/publication/mitre-attck/#:~:text=While%20some%20enterprises%20adopt%20other,respondents%20indicating%20they%20leverage%20both.>`_
+
+When RTMS searches logs for suspicious activity the messages it finds are sent to our `privateGPT AI container <https://tml.readthedocs.io/en/latest/genai.html#privategpt-special-containers>`_ for mitigation plan, and Mitre Att&ck classification of the messages.  The Attack, Pattern and RTMS scores are provided for the "grouped" Mitre Att&ck tactics and techniques.  
+
+The scoring and classification of messages, in accordance with Mitre Att&ck framework, can offer organizations around the world valuable insights into their organizations to:
+
+ - determine gaps in deployed security solutions in their enterprise, 
+ -	for security policy implementation
+ -	for threat modeling.
+
+TML/RTMS with Mitre integration is a truly unique and powerful technological approach, in real-time, to give organizations faster identifications of developing threats, but also offering invaluable guidance too fortify their security processes and technologies that aligns with a global standard like Mitre Att&ck.
+
 Summary
 ----------
 
@@ -568,7 +583,15 @@ Summary
   * **Real-Time Memory Score (RTMS)**
 
 .. important::
-   The power of TML maintaining memory and computing the 3 scores is to capture **attacker behaviours that try to EVADE detection algorithms**.  While the AttackScore may not indicate an attack, it may be picked up as a pattern in the PatternScore.
+   The power of TML maintaining memory and computing the 3 scores is to capture **attacker behaviours that try to EVADE detection algorithms**.  While the AttackScore may not indicate an attack, it may be picked up as a pattern in the PatternScore.  
+
+  Also, TML/RTMS solution will automatically classify (using AI) messages in accourdance with the `Mitre Att&ck framework matrix for the Enterprise <https://attack.mitre.org/>`_. 
+
+  The Mitre Att&ck classifications could provide tremendous help for Enterprises to:
+   - determine gaps in deployed security solutions in their enterprise,  
+   - for security policy implementation
+   -for threat modeling.
+ 
 
 * Within Cyber security context: The power of this method using sliding time windows is the ability to detect hacking attempts that are deliberate in evading “detection algorithms” from common industry tools
 
