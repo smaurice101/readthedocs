@@ -567,13 +567,13 @@ When RTMS searches logs for suspicious activity the messages it finds are sent t
    :scale: 70%
    
 
-The scoring and classification of messages, in accordance with Mitre Att&ck framework, can offer organizations around the world invaluable insights into their organizations that can help them to:
+**The RTMS scoring and classification of messages, in accordance with Mitre Att&ck framework, can offer organizations around the world invaluable insights into their organizations that can help them to:**
 
- - determine gaps in deployed security solutions in their enterprise, 
- -	for security policy implementation
- -	for threat modeling.
+ - **determine gaps in deployed security solutions in their enterprise,** 
+ -	**for security policy implementation**
+ -	**for threat modeling**
 
-TML/RTMS with Mitre integration is a truly unique and powerful technological approach, in real-time, to give organizations faster identifications of developing threats, but also offering invaluable guidance to fortify their security processes and technologies that aligns with a global standard like Mitre Att&ck.
+TML/RTMS with Mitre integration is a truly unique and powerful technological approach, in real-time, to give organizations **faster identifications of developing threats, but also offering invaluable guidance to fortify their security processes and technologies** that aligns with a global standard like Mitre Att&ck.
 
 Summary
 ----------
