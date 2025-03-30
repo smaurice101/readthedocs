@@ -567,7 +567,7 @@ The `Mitre Att&ck framework for the Entreprise and Cloud <https://attack.mitre.o
     **"about 45 percent of survey respondents said their greatest challenge is the framework’s inoperability with their security products and 43 percent said they 
     find it difficult to map event-specific data to tactics and techniques."**
 
-  With **RTMS - we eliminate this challenge of mapping events to Mitre Att&ck tactics and techniques by automating the classifications in real-time using our AI containers.
+   **RTMS eliminates this challenge of mapping events to Mitre Att&ck tactics and techniques by automating the classifications in real-time using our AI containers.**
 
 When RTMS searches logs for suspicious activity the messages it finds are sent to our `privateGPT AI container <https://tml.readthedocs.io/en/latest/genai.html#privategpt-special-containers>`_, the AI determines a mitigation plan, and Mitre Att&ck classification of the messages.  The Attack, Pattern and RTMS scores are provided for the "grouped" Mitre Att&ck tactics and techniques.  See figure below of Mitre tactics and techniques.
 
