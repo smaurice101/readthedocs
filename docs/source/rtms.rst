@@ -567,7 +567,7 @@ When RTMS searches logs for suspicious activity the messages it finds are sent t
    :scale: 70%
    
 
-The scoring and classification of messages, in accordance with Mitre Att&ck framework, can offer organizations around the world valuable insights into their organizations that can help them to:
+The scoring and classification of messages, in accordance with Mitre Att&ck framework, can offer organizations around the world invaluable insights into their organizations that can help them to:
 
  - determine gaps in deployed security solutions in their enterprise, 
  -	for security policy implementation
