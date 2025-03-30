@@ -559,17 +559,21 @@ TML using real-time data is similar to `RAG <https://tml.readthedocs.io/en/lates
 How RTMS Integrates with Mitre Att&ck Framework
 ----------------------------------------------
 
-The `Mitre Att&ck framework for the Entreprise and Cloud <https://attack.mitre.org/>`_ is used by `80% of global enterprises <https://cltc.berkeley.edu/publication/mitre-attck/#:~:text=While%20some%20enterprises%20adopt%20other,respondents%20indicating%20they%20leverage%20both.>`_
+The `Mitre Att&ck framework for the Entreprise and Cloud <https://attack.mitre.org/>`_ is used by `80% of global enterprises <https://cltc.berkeley.edu/publication/mitre-attck/#:~:text=While%20some%20enterprises%20adopt%20other,respondents%20indicating%20they%20leverage%20both.>`_.  TML/RTMS is fully integrated with Mitre Att&ck framework for Entreprise level threat detection and classification for improved threat insights to help in further fortifying organizations' threat and security technologies and processes.
 
-When RTMS searches logs for suspicious activity the messages it finds are sent to our `privateGPT AI container <https://tml.readthedocs.io/en/latest/genai.html#privategpt-special-containers>`_ for mitigation plan, and Mitre Att&ck classification of the messages.  The Attack, Pattern and RTMS scores are provided for the "grouped" Mitre Att&ck tactics and techniques.  
+When RTMS searches logs for suspicious activity the messages it finds are sent to our `privateGPT AI container <https://tml.readthedocs.io/en/latest/genai.html#privategpt-special-containers>`_, the AI determines a mitigation plan, and Mitre Att&ck classification of the messages.  The Attack, Pattern and RTMS scores are provided for the "grouped" Mitre Att&ck tactics and techniques.  See figure below of Mitre tactics and techniques.
 
-The scoring and classification of messages, in accordance with Mitre Att&ck framework, can offer organizations around the world valuable insights into their organizations to:
+.. figure:: mitre.png
+   :scale: 70%
+   
+
+The scoring and classification of messages, in accordance with Mitre Att&ck framework, can offer organizations around the world valuable insights into their organizations that can help them to:
 
  - determine gaps in deployed security solutions in their enterprise, 
  -	for security policy implementation
  -	for threat modeling.
 
-TML/RTMS with Mitre integration is a truly unique and powerful technological approach, in real-time, to give organizations faster identifications of developing threats, but also offering invaluable guidance too fortify their security processes and technologies that aligns with a global standard like Mitre Att&ck.
+TML/RTMS with Mitre integration is a truly unique and powerful technological approach, in real-time, to give organizations faster identifications of developing threats, but also offering invaluable guidance to fortify their security processes and technologies that aligns with a global standard like Mitre Att&ck.
 
 Summary
 ----------
