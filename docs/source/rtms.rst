@@ -580,6 +580,9 @@ When RTMS searches logs for suspicious activity the messages it finds are sent t
 
 TML/RTMS with MITRE ATT&CK integration is a truly unique and powerful technological approach, in real-time, to give organizations **faster identifications of developing threats, but also offering invaluable guidance to fortify their security processes and technologies** that aligns with a global standard like MITRE ATT&CK.
 
+.. tip::
+   The MITRE ATT&CK JSON used by RTMS for cross-referencing with AI output is `here <https://github.com/smaurice101/raspberrypi/blob/main/tml-airflow/data/mitre.json>`_
+
 .. note::
    An example of this classification is `here <https://tml.readthedocs.io/en/latest/rtms.html#integrating-rtms-with-real-time-ai-using-privategpt-containers-and-mitre-att-ck-classification>`_.  Look at the last JSON fields:
   
