@@ -586,7 +586,7 @@ TML/RTMS with MITRE ATT&CK integration is a truly unique and powerful technologi
    * **"tactic":** "Initial_Access",
    * **"technique":** "Phishing"
 
-   **The above are MITRE ATT&CK tactic and technique, that are automatically classified by RTMS AI agent for all messages.**  RTMS further groups on these tactic and techniques to compute the grouped ATTACK, PATTERN and RTMS scores.  This is a poweful approach to further help organization's fortify their security processes and technolgies to dramatically reduce the threat of cyber attacks.
+   **The above are MITRE ATT&CK tactic and technique, that are automatically classified by RTMS AI agent for all messages.**  RTMS further groups on these tactic and techniques to compute the **grouped ATTACK, PATTERN and RTMS scores**.  This is a powerful approach to further help organization's fortify their security processes and technologies to dramatically reduce the threat of cyber attacks.
 
 Summary
 ----------
