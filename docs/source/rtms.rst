@@ -583,8 +583,10 @@ TML/RTMS with MITRE ATT&CK integration is a truly unique and powerful technologi
 .. note::
    An example of this classification is here: :ref:`https://tml.readthedocs.io/en/latest/rtms.html#integrating-rtms-with-real-time-ai-using-privategpt-containers-and-mitre-att-ck-classification`.  Look at the last JSON fields:
   
-   * - "tactic": "Initial_Access",
-   * - "technique": "Phishing"
+   * **"tactic":** "Initial_Access",
+   * **"technique":** "Phishing"
+
+   **The above are MITRE ATT&CK tactic and technique, that are automatically classified by RTMS AI agent for all messages.**  RTMS further groups on these tactic and techniques to compute the grouped ATTACK, PATTERN and RTMS scores.  This is a poweful approach to further help organization's fortify their security processes and technolgies to dramatically reduce the threat of cyber attacks.
 
 Summary
 ----------
