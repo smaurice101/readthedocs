@@ -580,6 +580,9 @@ When RTMS searches logs for suspicious activity the messages it finds are sent t
 
 TML/RTMS with MITRE ATT&CK integration is a truly unique and powerful technological approach, in real-time, to give organizations **faster identifications of developing threats, but also offering invaluable guidance to fortify their security processes and technologies** that aligns with a global standard like MITRE ATT&CK.
 
+.. note::
+   An example of this classification is here: :ref:`https://tml.readthedocs.io/en/latest/rtms.html#integrating-rtms-with-real-time-ai-using-privategpt-containers-and-mitre-att-ck-classification`
+
 Summary
 ----------
 
