@@ -149,74 +149,6 @@ TML Output of RTMS Scores
       	"rtmsfolder": "rtms2"
       }
 
-Integrating RTMS with Real-Time AI Using PrivateGPT Containers and MITRE ATT&CK Classification
------------------
-
-Below is output from `Step 9 task <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-9-privategpt-and-qdrant-integration-tml-system-step-9-privategpt-qdrant-dag>`_, that takes messages in the "SearchTextFound", and send it to the `PrivateGPT special containers <https://github.com/smaurice101/readthedocs/blob/main/docs/source/genai.rst#privategpt-special-containers>`_
-
-By using AI, users can prompt for any anomalies and resolutions suggested by AI.  This is all done in real-time using local privateGPT containers, that makes this integration 100% FREE, SECURE and SCALABLE. 
-
-Also, RTMS automatically classified the messages in accordance with `MITRE ATT&CK classification matrix <https://attack.mitre.org/>`_:
-
- - **TACTIC**: Initial_Access
- - **TECHNIQUE**: Phishing
-
-.. code-block::
-
-      {
-      	"ActivityLevel": "Low",
-      	"Consumerid": "StreamConsumerpred3",
-      	"CurrentRTMSMAXWINDOW": 1,
-      	"CurrentRememberPastWindow": 1,
-      	"Entity": "5.17",
-      	"Filename": "/rawdata/rtms2/rtms-stream-mylogs_17_anonymousftplogin.txt.log",
-      	"FinalAttackScore": "0.00",
-      	"FinalPatternScore": "0.10",
-      	"Generated": "2025-03-30T20:44:51.607 00:00",
-      	"GithubRemoteUrl": "https://github.com/smaurice101/raspberrypitss/blob/main/tml-airflow/dags/tml-solutions/cybersecurityrtms-3f10-ai/rtms2/rtms-stream-mylogs_17_anonymousftplogin.txt.log",
-      	"Hash": "gDhw-DJfSysWEAbErkKFt7Ktm38=",
-      	"LastOffsetProcessed": 50029,
-      	"LastPartitionProcessed": 0,
-      	"Maintopic": "iot-preprocess",
-      	"NumAttackWindowsFound": "1",
-      	"NumPatternWindowsFound": "3",
-      	"Offset": 1708,
-      	"Partition": 0,
-      	"PartitionOffsetFound": "0:49835:0:49923:",
-      	"PatternThreshold": "30",
-      	"Preprocesstype": "rtms",
-      	"ProducerId": "RTMS",
-      	"RTMSMAXWINDOWS": "1000000",
-      	"RTMSSCORE": "0.00",
-      	"RememberPastWindows": "500",
-      	"SearchEntity": "ANONYMOUS FTP LOGIN:",
-      	"SearchTextFound": [
-      		"Message Found: ApplicableState: 112  CurrentState:112 2016-09-29 02:04:22  Info CBS Session: 30546354_3183ANONYMOUS FTP LOGIN714279 initialized by client WindowsUpdateAgent. 2016-09-29 02:04:22  Info CBS - using search term: anonymous ftp login. Date Found: 30 Mar 2025 20:40:02 UTC",
-      		"Message Found: from 84.102.20.2 () at Sun Jul 24 02:38:22 2005 Jul 24 02:38:23 combo ftpd16781: ANONYMOUS FTP LOGIN FROM 84.102.20.2  (anonymous) Jul 24 02:38:23 combo ftpd16782: ANONYMOUS FTP - using search term: anonymous ftp login. Date Found: 30 Mar 2025 20:40:02 UTC",
-      		"Message Found: ANONYMOUS FTP LOGIN FROM 84.102.20.2  (anonymous) Jul 24 02:38:23 combo ftpd16782: ANONYMOUS FTP LOGIN FROM 84.102.20.2  (anonymous) Jul 24 04:20:19 combo su(pam_unix)17283: - using search term: anonymous ftp login. Date Found: 30 Mar 2025 20:40:02 UTC"
-      	],
-      	"TMLComment": "The RTMS score of 0.00 seems to show low activity or risk.  The AttackScore of 0.00 is less than PatternScore of 0.10, which suggests likely no attack, but could be a pattern developing.  The number of windows searched for an occurence of a pattern is 1. TML will continue monitoring and these numbers may change over time.",
-      	"TimeStamp": "2025-03-30 20:40:20",
-      	"Topic": "rtms-stream-mylogs",
-      	"Topicid": "topicid17_rtms-stream-mylogs",
-      	"Type": "External",
-      	"Unixtime": 1743367220717241000,
-      	"hyperprediction": "0.00",
-      	"kafkakey": "OAA-nkLUEpO9WXmNMO6sbEYYrNTTju4LKz",
-      	"rtmsfolder": "rtms2",
-      	"privateGPT_AI_response": "Based on the provided log messages, there are repeated instances of \"ANONYMOUS FTP LOGIN\" attempts from the IP address 84.102.20.2. Anonymous FTP access is generally considered insecure because it allows users to connect without providing a username or password. This can make your system vulnerable to attacks, as anyone can try to access your FTP server using no credentials at all. The repeated attempts from the same IP address suggest that there might be an automated script or bot trying to exploit this vulnerability. The search term \"anonymous ftp login\" in some of the log messages also indicates that the system is actively looking for such entries, which could be a sign of heightened security awareness or an attempt to investigate and mitigate potential threats. The MITRE ATTandCK classification for these messages would likely fall under the following techniques: - Initial Access: Brute Force (T1102.001) - Anonymous login attempts can be considered a form of brute force attack, as the attacker is trying to gain access using generic or weak credentials. - Initial Access: Phishing (T1566.001) - In some cases, an anonymous FTP login attempt could be part of a phishing campaign, where the attacker tries to trick users into revealing sensitive information or granting unauthorized access. To mitigate this risk, it is recommended to: - Disable anonymous FTP access on your server and require authentication for all connections. - Implement strong password policies and enforce regular password changes. - Use a firewall to block or limit access to the FTP port from untrusted sources. - Monitor your logs regularly for suspicious activity and configure alerts for specific events, such as failed login attempts or unusual traffic patterns. - Keep your software up-to-date with the latest security patches and updates.",
-      	"prompt": "[INST] Are there any errors or suspicious activity in the log messages found? Give a detailed response, and any resolutions that need to be done. Also, Can you give me the MITRE ATTandCK classification for these messages?[/INST]",
-      	"context": "This data are from network log files. This log file data have been filtered using the search terms shown in the messages. The filtered messages may indicate potential suspicious log entries that could indicate a cyber attack.",
-      	"pgptcontainer": "maadsdocker/tml-privategpt-with-gpu-nvidia-amd64-v2",
-      	"pgpt_consumefrom": "rtms-preprocess",
-      	"pgpt_data_topic": "rtms-pgpt-ai",
-      	"contextwindowsize": 8192,
-      	"temperature": "0.1",
-      	"pgptrollbackoffset": 5,
-      	"tactic": "Initial_Access",
-      	"technique": "Phishing"
-      }
-
 Output Explanation
 ==========================
 
@@ -590,6 +522,74 @@ TML/RTMS with MITRE ATT&CK integration is a truly unique and powerful technologi
    * **"technique":** "Phishing"
 
    **The above are MITRE ATT&CK tactic and technique, that are automatically classified by RTMS AI agent for all messages.**  RTMS further groups on these tactic and techniques to compute the **grouped ATTACK, PATTERN and RTMS scores**.  This is a powerful approach to further help organization's fortify their security processes and technologies to dramatically reduce the threat of cyber attacks.
+
+Integrating RTMS with Real-Time AI Using PrivateGPT Containers and MITRE ATT&CK Classification
+-----------------
+
+Below is output from `Step 9 task <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-9-privategpt-and-qdrant-integration-tml-system-step-9-privategpt-qdrant-dag>`_, that takes messages in the "SearchTextFound", and send it to the `PrivateGPT special containers <https://github.com/smaurice101/readthedocs/blob/main/docs/source/genai.rst#privategpt-special-containers>`_
+
+By using AI, users can prompt for any anomalies and resolutions suggested by AI.  This is all done in real-time using local privateGPT containers, that makes this integration 100% FREE, SECURE and SCALABLE. 
+
+Also, RTMS automatically classified the messages in accordance with `MITRE ATT&CK classification matrix <https://attack.mitre.org/>`_:
+
+ - **TACTIC**: Initial_Access
+ - **TECHNIQUE**: Phishing
+
+.. code-block::
+
+      {
+      	"ActivityLevel": "Low",
+      	"Consumerid": "StreamConsumerpred3",
+      	"CurrentRTMSMAXWINDOW": 1,
+      	"CurrentRememberPastWindow": 1,
+      	"Entity": "5.17",
+      	"Filename": "/rawdata/rtms2/rtms-stream-mylogs_17_anonymousftplogin.txt.log",
+      	"FinalAttackScore": "0.00",
+      	"FinalPatternScore": "0.10",
+      	"Generated": "2025-03-30T20:44:51.607 00:00",
+      	"GithubRemoteUrl": "https://github.com/smaurice101/raspberrypitss/blob/main/tml-airflow/dags/tml-solutions/cybersecurityrtms-3f10-ai/rtms2/rtms-stream-mylogs_17_anonymousftplogin.txt.log",
+      	"Hash": "gDhw-DJfSysWEAbErkKFt7Ktm38=",
+      	"LastOffsetProcessed": 50029,
+      	"LastPartitionProcessed": 0,
+      	"Maintopic": "iot-preprocess",
+      	"NumAttackWindowsFound": "1",
+      	"NumPatternWindowsFound": "3",
+      	"Offset": 1708,
+      	"Partition": 0,
+      	"PartitionOffsetFound": "0:49835:0:49923:",
+      	"PatternThreshold": "30",
+      	"Preprocesstype": "rtms",
+      	"ProducerId": "RTMS",
+      	"RTMSMAXWINDOWS": "1000000",
+      	"RTMSSCORE": "0.00",
+      	"RememberPastWindows": "500",
+      	"SearchEntity": "ANONYMOUS FTP LOGIN:",
+      	"SearchTextFound": [
+      		"Message Found: ApplicableState: 112  CurrentState:112 2016-09-29 02:04:22  Info CBS Session: 30546354_3183ANONYMOUS FTP LOGIN714279 initialized by client WindowsUpdateAgent. 2016-09-29 02:04:22  Info CBS - using search term: anonymous ftp login. Date Found: 30 Mar 2025 20:40:02 UTC",
+      		"Message Found: from 84.102.20.2 () at Sun Jul 24 02:38:22 2005 Jul 24 02:38:23 combo ftpd16781: ANONYMOUS FTP LOGIN FROM 84.102.20.2  (anonymous) Jul 24 02:38:23 combo ftpd16782: ANONYMOUS FTP - using search term: anonymous ftp login. Date Found: 30 Mar 2025 20:40:02 UTC",
+      		"Message Found: ANONYMOUS FTP LOGIN FROM 84.102.20.2  (anonymous) Jul 24 02:38:23 combo ftpd16782: ANONYMOUS FTP LOGIN FROM 84.102.20.2  (anonymous) Jul 24 04:20:19 combo su(pam_unix)17283: - using search term: anonymous ftp login. Date Found: 30 Mar 2025 20:40:02 UTC"
+      	],
+      	"TMLComment": "The RTMS score of 0.00 seems to show low activity or risk.  The AttackScore of 0.00 is less than PatternScore of 0.10, which suggests likely no attack, but could be a pattern developing.  The number of windows searched for an occurence of a pattern is 1. TML will continue monitoring and these numbers may change over time.",
+      	"TimeStamp": "2025-03-30 20:40:20",
+      	"Topic": "rtms-stream-mylogs",
+      	"Topicid": "topicid17_rtms-stream-mylogs",
+      	"Type": "External",
+      	"Unixtime": 1743367220717241000,
+      	"hyperprediction": "0.00",
+      	"kafkakey": "OAA-nkLUEpO9WXmNMO6sbEYYrNTTju4LKz",
+      	"rtmsfolder": "rtms2",
+      	"privateGPT_AI_response": "Based on the provided log messages, there are repeated instances of \"ANONYMOUS FTP LOGIN\" attempts from the IP address 84.102.20.2. Anonymous FTP access is generally considered insecure because it allows users to connect without providing a username or password. This can make your system vulnerable to attacks, as anyone can try to access your FTP server using no credentials at all. The repeated attempts from the same IP address suggest that there might be an automated script or bot trying to exploit this vulnerability. The search term \"anonymous ftp login\" in some of the log messages also indicates that the system is actively looking for such entries, which could be a sign of heightened security awareness or an attempt to investigate and mitigate potential threats. The MITRE ATTandCK classification for these messages would likely fall under the following techniques: - Initial Access: Brute Force (T1102.001) - Anonymous login attempts can be considered a form of brute force attack, as the attacker is trying to gain access using generic or weak credentials. - Initial Access: Phishing (T1566.001) - In some cases, an anonymous FTP login attempt could be part of a phishing campaign, where the attacker tries to trick users into revealing sensitive information or granting unauthorized access. To mitigate this risk, it is recommended to: - Disable anonymous FTP access on your server and require authentication for all connections. - Implement strong password policies and enforce regular password changes. - Use a firewall to block or limit access to the FTP port from untrusted sources. - Monitor your logs regularly for suspicious activity and configure alerts for specific events, such as failed login attempts or unusual traffic patterns. - Keep your software up-to-date with the latest security patches and updates.",
+      	"prompt": "[INST] Are there any errors or suspicious activity in the log messages found? Give a detailed response, and any resolutions that need to be done. Also, Can you give me the MITRE ATTandCK classification for these messages?[/INST]",
+      	"context": "This data are from network log files. This log file data have been filtered using the search terms shown in the messages. The filtered messages may indicate potential suspicious log entries that could indicate a cyber attack.",
+      	"pgptcontainer": "maadsdocker/tml-privategpt-with-gpu-nvidia-amd64-v2",
+      	"pgpt_consumefrom": "rtms-preprocess",
+      	"pgpt_data_topic": "rtms-pgpt-ai",
+      	"contextwindowsize": 8192,
+      	"temperature": "0.1",
+      	"pgptrollbackoffset": 5,
+      	"tactic": "Initial_Access",
+      	"technique": "Phishing"
+      }
 
 Summary
 ----------
