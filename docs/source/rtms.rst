@@ -591,6 +591,15 @@ Also, RTMS automatically classified the messages in accordance with `MITRE ATT&C
       	"technique": "Phishing"
       }
 
+RTMS MITRE ATT&CK Dashboard
+--------------------------
+
+This is a simple out-of-the-box dashboard to give users a quick view in to RTMS output grouped entity classifications in accordance with ATT&CK.
+
+.. figure:: mitredash.png
+   :scale: 70%
+
+
 Summary
 ----------
 
