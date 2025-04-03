@@ -609,11 +609,11 @@ Below shows the RTMS solutions architecture.  We can now discuss in details how 
 
     #. Run the RTMS Docker container.  This is the EASIEST way.  
        - `Go here to het the Docker Run command for RTMS <https://cybersecurityrtms-3f10-ai.readthedocs.io/en/latest/operating.html#your-solution-docker-run-command>`_
-       - You MUST change the following environmental variables in the Docker Run Command:
+       - **You MUST change the following environmental variables in the Docker Run Command:**
          #. Change **-\-\env GITUSERNAME=**<Enter Github Username> (For quick testing use: **tsstmldemo**)
          #. Change **-\-\env GITREPOURL=**<Enter Github Repo URL> (For quick testing use: **https://github.com/tsstmldemo/tsstmldemo**)
          #. Change **-v /your_localmachine/foldername:/rawdata:z** 
-            - create a folder in your local machine and mapped it here.  For example, if you are in Linux, create a folder /rtms/rawdata, then the volume mapping is **-v /rtms/rawdata/foldername:/rawdata:z
+            - create a folder in your local machine and mapped it here.  For example, if you are in Linux, create a folder /rtms/rawdata, then the volume mapping is **-v /rtms/rawdata/foldername:/rawdata:z**
             - Create TWO folders and store your Log files in there: (Get sample log files from `here <https://github.com/smaurice101/raspberrypi/tree/main/tml-airflow/data>`_ if you like)
               - /rtms/rawdata/mylogs
               - /rtms/rawdata/mylogs2
@@ -621,8 +621,9 @@ Below shows the RTMS solutions architecture.  We can now discuss in details how 
               - /rtms/rawdata/mysearchfile1
               - /rtms/rawdata/mysearchfile1
          #. Change **--env READTHEDOCS='<Enter Readthedocs token>'** ((For quick testing use: **'aefa71df39ad764ac2785b3167b77e8c1d7c553a'**)
+           - This will create new solution documentation that can be found here: `https://cybersecurityrtms-aefa-ai.readthedocs.io/en/latest/ <https://cybersecurityrtms-aefa-ai.readthedocs.io/en/latest/>`_
 
-Now that you know the basic setuop to run the solution - just change it with your own files and fodlers...as you want!
+Now that you know the basic setup to run the RTMS solution - just change it with your own files and folders...as you want!
 
 RTMS Solution Architecture
 -------------------------
