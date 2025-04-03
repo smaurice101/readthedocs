@@ -566,18 +566,18 @@ RTMS automatically classified the messages in accordance with `MITRE ATT&CK clas
       }
 
 **Note in the below JSON from RTMS:**
- #. RTMS has found three IP addreses: 5.10,5.14,6.100 (add prefix 192.168 in front of 5.10, 5.14, 6.100)
+ #. **RTMS has found three IP addreses:** 5.10,5.14,6.100 (add prefix 192.168 in front of 5.10, 5.14, 6.100)
  #. These three entities are using a **Brute Force** attack
  #. The **Maintype=RTMSScore** is **Mainvalue=0.258** - this is the average score for the three entities. See `here <https://tml.readthedocs.io/en/latest/rtms.html#past-memory-demonstration>`_ from more details.
- #. The source Kafka topic that RTMS is reading from is: rtms-pgpt-ai
- #. The sink Kafka topic that RTMS produces the results to is: rtms-pgpt-ai-mitre
+ #. The source Kafka topic that RTMS is reading from is: **rtms-pgpt-ai**
+ #. The sink Kafka topic that RTMS produces the results to is: **rtms-pgpt-ai-mitre**
  #. The messages that are found are in the **PartitionOffsetFound**
- #. The hyperprediction": "0.258" is the same as Mainvalue
- #. NumAttackWindowsFound: "5,4,3", are the number of sliding time windows RTMS is searching
- #. NumPatternWindowsFound: "988,367", are the number of occurences of the messages that match the search terms
- #. SearchEntity: "|authentication failure:--entity-- password failure:,Failed password for root:", these are the search terms
- #. rtmsfolder: "rtms2", this is a local folder as well as Github folder and Kafka topic, where results are saved
- #. CurrentRTMSMAXWINDOW: "14,13,18,19", this the current RTMS pattern window.
+ #. The **hyperprediction**: "0.258" is the same as Mainvalue
+ #. **NumAttackWindowsFound**: "5,4,3", are the number of sliding time windows RTMS is searching
+ #. **NumPatternWindowsFound**: "988,367", are the number of occurences of the messages that match the search terms
+ #. **SearchEntity**: "|authentication failure:--entity-- password failure:,Failed password for root:", these are the search terms
+ #. **rtmsfolder**: "rtms2", this is a local folder as well as Github folder and Kafka topic, where results are saved
+ #. **CurrentRTMSMAXWINDOW**: "14,13,18,19", this the current RTMS pattern window.
 
 RTMS MITRE ATT&CK Dashboard
 --------------------------
@@ -606,9 +606,8 @@ Summary
 
   The Mitre Att&ck classifications could provide tremendous help for Enterprises to:
    - determine gaps in deployed security solutions in their enterprise,  
-   - for security policy implementation
-   -for threat modeling.
- 
+   - improve security policy implementation
+   - improve threat modeling.
 
 * Within Cyber security context: The power of this method using sliding time windows is the ability to detect hacking attempts that are deliberate in evading “detection algorithms” from common industry tools
 
