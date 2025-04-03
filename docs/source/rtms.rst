@@ -625,6 +625,8 @@ Below shows the RTMS solutions architecture.  We can now discuss in details how 
 Now that you know the basic setuop to run the solution - just change it with your own files and fodlers...as you want!
 
 RTMS Solution Architecture
+-------------------------
+
 .. figure:: rtmsarch.png
    :scale: 70%
 
