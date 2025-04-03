@@ -639,7 +639,6 @@ Here is a description of the solution architecture:
    * - **Description**
    * - `Step 1 <https://github.com/smaurice101/raspberrypitss/blob/main/tml-airflow/dags/tml-solutions/cybersecurityrtms-3f10/tml_system_step_1_getparams_dag-cybersecurityrtms-3f10.py>`_   
      - Gets all the RTMS TML system parameters and setups up the components of the entire solution.
-
    * - `Step 2 <https://github.com/smaurice101/raspberrypitss/blob/main/tml-airflow/dags/tml-solutions/cybersecurityrtms-3f10/tml_system_step_2_kafka_createtopic_dag-cybersecurityrtms-3f10.py>`_   
      - Creates all the Kafka topics needed for the solution to run.
    * - `Step 3 <https://github.com/smaurice101/raspberrypitss/blob/main/tml-airflow/dags/tml-solutions/cybersecurityrtms-3f10/tml_read_LOCALFILE_step_3_kafka_producetotopic_dag-cybersecurityrtms-3f10.py>`_   
