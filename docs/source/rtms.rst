@@ -445,7 +445,7 @@ Here are RegEx cheat sheets that may help to write more advanced regular for pow
 .. figure:: regex3.png
    :scale: 70%
 
-TML RTMS vs AI RAG
+TML Real-Time Message Scoring (RTMS) vs AI RAG
 ------------
 
 TML using real-time data is similar to `RAG <https://tml.readthedocs.io/en/latest/genai.html#tml-and-rag-a-powerful-combination>`_ but different in other ways.
@@ -586,6 +586,52 @@ This is a simple out-of-the-box dashboard to give users a quick view in to RTMS 
 
 .. figure:: mitredash.png
    :scale: 70%
+
+RTMS Solution: Steps to Run It Yourself 
+--------------------------
+
+Below shows the RTMS solutions architecture.  We can now discuss in details how users and can build and run this RTMS solution.
+
+.. note::
+   The entire RTMS solution is built using the `TSS <https://tml.readthedocs.io/en/latest/docker.html>`_ using the solution dag:
+
+    - <`solution_preprocessing_ai_dag-cybersecurityrtms-3f10 <https://github.com/smaurice101/raspberrypitss/blob/main/tml-airflow/dags/tml-solutions/cybersecurityrtms-3f10/solution_template_processing_ai_dag-cybersecurityrtms-3f10.py>`_
+
+.. tip:: 
+
+   There are TWO ways to run this RTMS solution for yourself:
+
+    #. Copy to your repo and run in your TSS environment.  To do this you MUST:
+     - `Follow these Steps to copy projects from others repo <https://tml.readthedocs.io/en/latest/usercopy.html#you-want-to-copy-specific-tml-projects-from-another-users-git-repo>`_
+     - .. code-block:
+
+          https://github.com/smaurice101/raspberrypitss,cybersecurityrtms-3f10
+
+    #. Run the RTMS Docker container.  This is the EASIEST way.  
+       - `Go here to het the Docker Run command for RTMS <https://cybersecurityrtms-3f10-ai.readthedocs.io/en/latest/operating.html#your-solution-docker-run-command>`_
+       - You MUST change the following environmental variables in the Docker Run Command:
+         #. Change **-\-\env GITUSERNAME=**<Enter Github Username> (For quick testing use: **tsstmldemo**)
+         #. Change **-\-\env GITREPOURL=**<Enter Github Repo URL> (For quick testing use: **https://github.com/tsstmldemo/tsstmldemo**)
+         #. Change **-v /your_localmachine/foldername:/rawdata:z** 
+            - create a folder in your local machine and mapped it here.  For example, if you are in Linux, create a folder /rtms/rawdata, then the volume mapping is **-v /rtms/rawdata/foldername:/rawdata:z
+            - Create TWO folders and store your Log files in there: (Get sample log files from `here <https://github.com/smaurice101/raspberrypi/tree/main/tml-airflow/data>`_ if you like)
+              - /rtms/rawdata/mylogs
+              - /rtms/rawdata/mylogs2
+            - Create TWO folders and store your search terms in there: (Get sample search files from `here <https://github.com/smaurice101/raspberrypi/blob/main/tml-airflow/data/searchdoc.txt>`_ if you like)
+              - /rtms/rawdata/mysearchfile1
+              - /rtms/rawdata/mysearchfile1
+         #. Change **--env READTHEDOCS='<Enter Readthedocs token>'** ((For quick testing use: **'aefa71df39ad764ac2785b3167b77e8c1d7c553a'**)
+
+Now that you know the basic setuop to run the solution - just change it with your own files and fodlers...as you want!
+
+RTMS Solution Architecture
+.. figure:: rtmsarch.png
+   :scale: 70%
+
+.. list-table::
+
+   
+
 
 Summary
 ----------
