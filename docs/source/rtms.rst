@@ -602,7 +602,7 @@ Below shows the RTMS solutions architecture.  We can now discuss in details how 
    There are TWO ways to run this RTMS solution for yourself:
 
     #. Copy to your repo and run in your TSS environment.  To do this you MUST:
-     - `Follow these Steps to copy projects from others repo <https://tml.readthedocs.io/en/latest/usercopy.html#you-want-to-copy-specific-tml-projects-from-another-users-git-repo>`_
+     - `Follow these Steps to copy projects from others repo <https://tml.readthedocs.io/en/latest/usercopy.html#you-want-to-copy-specific-tml-projects-from-another-users-git-repo>`_ and copy and paste the below in your TSS **CREATETMLPROJECT.txt:**
 
        .. code-block::
 
