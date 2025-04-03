@@ -568,8 +568,8 @@ RTMS automatically classified the messages in accordance with `MITRE ATT&CK clas
 **Note in the below JSON from RTMS:**
  #. **RTMS has found three IP addreses:** 5.10,5.14,6.100 (add prefix 192.168 in front of 5.10, 5.14, 6.100)
  #. These three entities are using a **Brute Force** attack
- #. The **Maintype=RTMSScore** is **Mainvalue=0.258** - this is the average score for the three entities. See `here <https://tml.readthedocs.io/en/latest/rtms.html#past-memory-demonstration>`_ from more details.
- #. The source Kafka topic that RTMS is reading from is: **rtms-pgpt-ai**
+ #. The **Maintype=RTMSScore** and **Mainvalue=0.258** - this is the average score for the three entities. See `here <https://tml.readthedocs.io/en/latest/rtms.html#past-memory-demonstration>`_ from more details.
+ #. The source Kafka topic that RTMS is consuming from is: **rtms-pgpt-ai**
  #. The sink Kafka topic that RTMS produces the results to is: **rtms-pgpt-ai-mitre**
  #. The messages that are found are in the **PartitionOffsetFound**
  #. The **hyperprediction**: "0.258" is the same as Mainvalue
@@ -586,7 +586,6 @@ This is a simple out-of-the-box dashboard to give users a quick view in to RTMS 
 
 .. figure:: mitredash.png
    :scale: 70%
-
 
 Summary
 ----------
