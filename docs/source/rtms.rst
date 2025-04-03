@@ -530,24 +530,10 @@ Below is output from `Step 9 task <https://tml.readthedocs.io/en/latest/tmlbuild
 
 By using AI, users can prompt for any anomalies and resolutions suggested by AI.  This is all done in real-time using local privateGPT containers, that makes this integration 100% FREE, SECURE and SCALABLE. 
 
-Also, RTMS automatically classified the messages in accordance with `MITRE ATT&CK classification matrix <https://attack.mitre.org/>`_:
+RTMS Grouped MITRE ATT&CK JSON
+"""""""""""""""""""""""""""""""
 
- - **TACTIC**: Credential_Access-Initial_Access
- - **TECHNIQUE**: Brute_Force
-
-Note in the below JSON from RTMS:
- #. RTMS has found three IP addreses: 5.10,5.14,6.100 (add prefix 192.168 in front of 5.10, 5.14, 6.100)
- #. These three entities are using a **Brute Force** attack
- #. The **Maintype=RTMSScore** is **Mainvalue=0.258** - this is the average score for the three entities. See `here <https://tml.readthedocs.io/en/latest/rtms.html#past-memory-demonstration>`_ from more details.
- #. The source Kafka topic that RTMS is reading from is: rtms-pgpt-ai
- #. The sink Kafka topic that RTMS produces the results to is: rtms-pgpt-ai-mitre
- #. The messages that are found are in the **PartitionOffsetFound**
- #. The hyperprediction": "0.258" is the same as Mainvalue
- #. NumAttackWindowsFound: "5,4,3", are the number of sliding time windows RTMS is searching
- #. NumPatternWindowsFound: "988,367", are the number of occurences of the messages that match the search terms
- #. SearchEntity: "|authentication failure:--entity-- password failure:,Failed password for root:", these are the search terms
- #. rtmsfolder: "rtms2", this is a local folder as well as Github folder and Kafka topic, where results are saved
- #. CurrentRTMSMAXWINDOW: "14,13,18,19", this the current RTMS pattern window.
+RTMS automatically classified the messages in accordance with `MITRE ATT&CK classification matrix <https://attack.mitre.org/>`_:
 
 .. code-block::
 
@@ -575,6 +561,23 @@ Note in the below JSON from RTMS:
       	"CurrentRTMSMAXWINDOW": "14,13,18,19",
       	"Maintopic": "rtms-pgpt-ai-mitre"
       }
+
+ - **TACTIC**: Credential_Access-Initial_Access
+ - **TECHNIQUE**: Brute_Force
+
+Note in the below JSON from RTMS:
+ #. RTMS has found three IP addreses: 5.10,5.14,6.100 (add prefix 192.168 in front of 5.10, 5.14, 6.100)
+ #. These three entities are using a **Brute Force** attack
+ #. The **Maintype=RTMSScore** is **Mainvalue=0.258** - this is the average score for the three entities. See `here <https://tml.readthedocs.io/en/latest/rtms.html#past-memory-demonstration>`_ from more details.
+ #. The source Kafka topic that RTMS is reading from is: rtms-pgpt-ai
+ #. The sink Kafka topic that RTMS produces the results to is: rtms-pgpt-ai-mitre
+ #. The messages that are found are in the **PartitionOffsetFound**
+ #. The hyperprediction": "0.258" is the same as Mainvalue
+ #. NumAttackWindowsFound: "5,4,3", are the number of sliding time windows RTMS is searching
+ #. NumPatternWindowsFound: "988,367", are the number of occurences of the messages that match the search terms
+ #. SearchEntity: "|authentication failure:--entity-- password failure:,Failed password for root:", these are the search terms
+ #. rtmsfolder: "rtms2", this is a local folder as well as Github folder and Kafka topic, where results are saved
+ #. CurrentRTMSMAXWINDOW: "14,13,18,19", this the current RTMS pattern window.
 
 RTMS MITRE ATT&CK Dashboard
 --------------------------
