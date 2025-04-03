@@ -532,63 +532,48 @@ By using AI, users can prompt for any anomalies and resolutions suggested by AI.
 
 Also, RTMS automatically classified the messages in accordance with `MITRE ATT&CK classification matrix <https://attack.mitre.org/>`_:
 
- - **TACTIC**: Initial_Access
- - **TECHNIQUE**: Phishing
+ - **TACTIC**: Credential_Access-Initial_Access
+ - **TECHNIQUE**: Brute_Force
+
+Note in the below JSON from RTMS:
+ #. RTMS has found three IP addreses: 5.10,5.14,6.100 (add prefix 192.168 in front of 5.10, 5.14, 6.100)
+ #. These three entities are using a **Brute Force** attack
+ #. The **Maintype=RTMSScore** is **Mainvalue=0.258** - this is the average score for the three entities. See `here <https://tml.readthedocs.io/en/latest/rtms.html#past-memory-demonstration>`_ from more details.
+ #. The source Kafka topic that RTMS is reading from is: rtms-pgpt-ai
+ #. The sink Kafka topic that RTMS produces the results to is: rtms-pgpt-ai-mitre
+ #. The messages that are found are in the **PartitionOffsetFound**
+ #. The hyperprediction": "0.258" is the same as Mainvalue
+ #. NumAttackWindowsFound: "5,4,3", are the number of sliding time windows RTMS is searching
+ #. NumPatternWindowsFound: "988,367", are the number of occurences of the messages that match the search terms
+ #. SearchEntity: "|authentication failure:--entity-- password failure:,Failed password for root:", these are the search terms
+ #. rtmsfolder: "rtms2", this is a local folder as well as Github folder and Kafka topic, where results are saved
+ #. CurrentRTMSMAXWINDOW: "14,13,18,19", this the current RTMS pattern window.
 
 .. code-block::
 
       {
-      	"ActivityLevel": "Low",
-      	"Consumerid": "StreamConsumerpred3",
-      	"CurrentRTMSMAXWINDOW": 1,
-      	"CurrentRememberPastWindow": 1,
-      	"Entity": "5.17",
-      	"Filename": "/rawdata/rtms2/rtms-stream-mylogs_17_anonymousftplogin.txt.log",
-      	"FinalAttackScore": "0.00",
-      	"FinalPatternScore": "0.10",
-      	"Generated": "2025-03-30T20:44:51.607 00:00",
-      	"GithubRemoteUrl": "https://github.com/smaurice101/raspberrypitss/blob/main/tml-airflow/dags/tml-solutions/cybersecurityrtms-3f10-ai/rtms2/rtms-stream-mylogs_17_anonymousftplogin.txt.log",
-      	"Hash": "gDhw-DJfSysWEAbErkKFt7Ktm38=",
-      	"LastOffsetProcessed": 50029,
-      	"LastPartitionProcessed": 0,
-      	"Maintopic": "iot-preprocess",
-      	"NumAttackWindowsFound": "1",
-      	"NumPatternWindowsFound": "3",
-      	"Offset": 1708,
-      	"Partition": 0,
-      	"PartitionOffsetFound": "0:49835:0:49923:",
-      	"PatternThreshold": "30",
-      	"Preprocesstype": "rtms",
-      	"ProducerId": "RTMS",
-      	"RTMSMAXWINDOWS": "1000000",
-      	"RTMSSCORE": "0.00",
-      	"RememberPastWindows": "500",
-      	"SearchEntity": "ANONYMOUS FTP LOGIN:",
-      	"SearchTextFound": [
-      		"Message Found: ApplicableState: 112  CurrentState:112 2016-09-29 02:04:22  Info CBS Session: 30546354_3183ANONYMOUS FTP LOGIN714279 initialized by client WindowsUpdateAgent. 2016-09-29 02:04:22  Info CBS - using search term: anonymous ftp login. Date Found: 30 Mar 2025 20:40:02 UTC",
-      		"Message Found: from 84.102.20.2 () at Sun Jul 24 02:38:22 2005 Jul 24 02:38:23 combo ftpd16781: ANONYMOUS FTP LOGIN FROM 84.102.20.2  (anonymous) Jul 24 02:38:23 combo ftpd16782: ANONYMOUS FTP - using search term: anonymous ftp login. Date Found: 30 Mar 2025 20:40:02 UTC",
-      		"Message Found: ANONYMOUS FTP LOGIN FROM 84.102.20.2  (anonymous) Jul 24 02:38:23 combo ftpd16782: ANONYMOUS FTP LOGIN FROM 84.102.20.2  (anonymous) Jul 24 04:20:19 combo su(pam_unix)17283: - using search term: anonymous ftp login. Date Found: 30 Mar 2025 20:40:02 UTC"
-      	],
-      	"TMLComment": "The RTMS score of 0.00 seems to show low activity or risk.  The AttackScore of 0.00 is less than PatternScore of 0.10, which suggests likely no attack, but could be a pattern developing.  The number of windows searched for an occurence of a pattern is 1. TML will continue monitoring and these numbers may change over time.",
-      	"TimeStamp": "2025-03-30 20:40:20",
-      	"Topic": "rtms-stream-mylogs",
-      	"Topicid": "topicid17_rtms-stream-mylogs",
+      	"hyperprediction": "0.258",
+      	"Topic": "rtms-pgpt-ai",
       	"Type": "External",
-      	"Unixtime": 1743367220717241000,
-      	"hyperprediction": "0.00",
-      	"kafkakey": "OAA-nkLUEpO9WXmNMO6sbEYYrNTTju4LKz",
+      	"ProducerId": "iotsolution",
+      	"TimeStamp": "2025-04-02 16:33:07",
+      	"Unixtime": 1743611587347966363,
+      	"kafkakey": "OAA-0t2TfpR9ztCudMuj2vj00nSQiq4kVE",
+      	"Preprocesstype": "Avg",
+      	"PreprocessIdentifier": "Mitre ATTCK",
+      	"Numberofmessages": 4,
+      	"tactic": "Credential_Access-Initial_Access",
+      	"technique": "Brute_Force",
+      	"Maintype": "RTMSSCORE",
+      	"Mainvalue": "0.258",
+      	"Entity": "5.10,5.14,6.100",
+      	"PartitionOffsetFound": "0:6092:0:6093:0:6094:0:6095:0:6096:0:6097:0:6098:0:6099:0:6100:0:6101:0:6102:0:6103:0:6104:0:6105:0:6106:0:6107:0:6108:0:6109:0:6110:0:6111:0:6112:0:6113:0:6114:0:6115:0:6116:0:6117:0:6118:0:6119:0:6120:0:6121:0:6122:0:6123:0:6124:0:6125:0:6126:0:6127:0:6128:0:6129:0:6130:0:6131:0:6132:0:6133:0:6134:0:6135:0:6136:0:6137:0:6138:0:6139:0:6140:0:6141:0:6142:0:6143:0:6144:0:6145:0:6146:0:6147:0:6148:0:6149:0:6150:0:6151:0:6152:0:6153:0:6154:0:6155:0:6156:0:6157:0:6158:0:6159:0:6160:0:6161:0:6162:0:6260:0:6261:0:6262:0:6263:0:6264:0:6266:0:6267:0:6268:0:6269:0:6270:0:6271:0:6272:0:6273:0:6274:0:6275:0:6276:0:6277:0:6278:0:6279:,0:7772:0:7777:0:7779:0:7780:0:7782:0:7784:0:7785:0:7786:0:7787:0:7788:0:7789:0:7790:0:7791:0:7792:0:7793:0:7802:0:7803:0:7805:0:7806:0:7807:0:7808:0:7810:0:7811:0:7812:0:7813:0:7814:0:7815:0:7816:0:7817:0:7818:0:7819:0:7820:0:7821:0:7822:0:7823:0:7824:0:7825:0:7826:0:7827:0:7828:0:7829:0:7830:0:7831:0:7832:0:7833:0:7834:0:7835:0:7836:0:7837:0:7838:0:7839:0:7840:0:7841:,0:7772:0:7773:0:7774:0:7775:0:7776:0:7777:0:7778:0:7779:0:7780:0:7781:0:7782:0:7783:0:7784:0:7785:0:7786:0:7787:0:7788:0:7789:0:7790:0:7791:0:7792:0:7793:0:7794:0:7795:0:7796:0:7797:0:7798:0:7799:0:7800:0:7801:0:7802:0:7803:0:7804:0:7805:0:7806:0:7807:0:7808:0:7809:0:7810:0:7811:0:7812:0:7813:0:7814:0:7815:0:7816:0:7817:0:7818:0:7819:0:7820:0:7821:0:7822:0:7823:0:7824:0:7825:0:7826:0:7827:0:7828:0:7829:0:7830:0:7831:0:7832:0:7833:0:7834:0:7835:0:7836:0:7837:0:7838:0:7839:0:7840:0:7841:0:7943:0:7944:0:7945:0:7946:0:7947:0:7949:0:7950:0:7951:0:7952:0:7953:0:7954:0:7955:0:7956:0:7957:0:7958:0:7959:0:7960:0:7961:0:7962:0:7965:0:7966:0:7967:0:7968:0:7971:0:7972:0:7973:0:7974:0:7975:0:7976:0:7977:0:7979:0:7980:0:7983:0:7984:0:7985:0:7986:0:7987:0:7991:0:7997:0:7998:0:7999:0:8000:0:8002:0:8003:0:8004:0:8007:0:8008:",
+      	"NumAttackWindowsFound": "5,4,3",
+      	"NumPatternWindowsFound": "988,367",
+      	"SearchEntity": "|authentication failure:--entity-- password failure:,Failed password for root:",
       	"rtmsfolder": "rtms2",
-      	"privateGPT_AI_response": "Based on the provided log messages, there are repeated instances of \"ANONYMOUS FTP LOGIN\" attempts from the IP address 84.102.20.2. Anonymous FTP access is generally considered insecure because it allows users to connect without providing a username or password. This can make your system vulnerable to attacks, as anyone can try to access your FTP server using no credentials at all. The repeated attempts from the same IP address suggest that there might be an automated script or bot trying to exploit this vulnerability. The search term \"anonymous ftp login\" in some of the log messages also indicates that the system is actively looking for such entries, which could be a sign of heightened security awareness or an attempt to investigate and mitigate potential threats. The MITRE ATTandCK classification for these messages would likely fall under the following techniques: - Initial Access: Brute Force (T1102.001) - Anonymous login attempts can be considered a form of brute force attack, as the attacker is trying to gain access using generic or weak credentials. - Initial Access: Phishing (T1566.001) - In some cases, an anonymous FTP login attempt could be part of a phishing campaign, where the attacker tries to trick users into revealing sensitive information or granting unauthorized access. To mitigate this risk, it is recommended to: - Disable anonymous FTP access on your server and require authentication for all connections. - Implement strong password policies and enforce regular password changes. - Use a firewall to block or limit access to the FTP port from untrusted sources. - Monitor your logs regularly for suspicious activity and configure alerts for specific events, such as failed login attempts or unusual traffic patterns. - Keep your software up-to-date with the latest security patches and updates.",
-      	"prompt": "[INST] Are there any errors or suspicious activity in the log messages found? Give a detailed response, and any resolutions that need to be done. Also, Can you give me the MITRE ATTandCK classification for these messages?[/INST]",
-      	"context": "This data are from network log files. This log file data have been filtered using the search terms shown in the messages. The filtered messages may indicate potential suspicious log entries that could indicate a cyber attack.",
-      	"pgptcontainer": "maadsdocker/tml-privategpt-with-gpu-nvidia-amd64-v2",
-      	"pgpt_consumefrom": "rtms-preprocess",
-      	"pgpt_data_topic": "rtms-pgpt-ai",
-      	"contextwindowsize": 8192,
-      	"temperature": "0.1",
-      	"pgptrollbackoffset": 5,
-      	"tactic": "Initial_Access",
-      	"technique": "Phishing"
+      	"CurrentRTMSMAXWINDOW": "14,13,18,19",
+      	"Maintopic": "rtms-pgpt-ai-mitre"
       }
 
 RTMS MITRE ATT&CK Dashboard
