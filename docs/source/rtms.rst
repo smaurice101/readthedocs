@@ -643,25 +643,28 @@ Here is a description of the solution architecture:
    * - `Step 2 <https://github.com/smaurice101/raspberrypitss/blob/main/tml-airflow/dags/tml-solutions/cybersecurityrtms-3f10/tml_system_step_2_kafka_createtopic_dag-cybersecurityrtms-3f10.py>`_   
      - Creates all the Kafka topics needed for the solution to run.
    * - `Step 3 <https://github.com/smaurice101/raspberrypitss/blob/main/tml-airflow/dags/tml-solutions/cybersecurityrtms-3f10/tml_read_LOCALFILE_step_3_kafka_producetotopic_dag-cybersecurityrtms-3f10.py>`_   
-     - Gets all the RTMS TML system parameters and setups up the components of the entire solution.
+     - TML Consumes from all data sources: Log files, numeric data, etc.:
+       - The mire.json is used to extract Tactic/Techniques from AI (privateGPT) response
+       - TML consumes data from kafka cluster
+       - TML consumes data from filesystem
+       - TML consumes data from databases
    * - `Step 4 <https://github.com/smaurice101/raspberrypitss/blob/main/tml-airflow/dags/tml-solutions/cybersecurityrtms-3f10/tml_system_step_4_kafka_preprocess_dag-cybersecurityrtms-3f10.py>`_   
-     - Gets all the RTMS TML system parameters and setups up the components of the entire solution.
+     - **This is the main Entity processor:**
+       - It processes entity data that is then by the RTMS Step 4c         
    * - `Step 4a <https://github.com/smaurice101/raspberrypitss/blob/main/tml-airflow/dags/tml-solutions/cybersecurityrtms-3f10/tml_system_step_4a_kafka_preprocess_dag-cybersecurityrtms-3f10.py>`_   
-     - Gets all the RTMS TML system parameters and setups up the components of the entire solution.
+     - It groups the entities according to the MITRE ATT&CK framework
    * - `Step 4c <https://github.com/smaurice101/raspberrypitss/blob/main/tml-airflow/dags/tml-solutions/cybersecurityrtms-3f10/tml_system_step_4c_kafka_preprocess_dag-cybersecurityrtms-3f10.py>`_   
-     - Gets all the RTMS TML system parameters and setups up the components of the entire solution.
+     - **This is the main RTMS processor:**
+       - It calculates Attack, Pattern, RTMS scores
+       - It analyses all the current and past sliding time windows for all entities
    * - `Step 7 <https://github.com/smaurice101/raspberrypitss/blob/main/tml-airflow/dags/tml-solutions/cybersecurityrtms-3f10/tml_system_step_7_kafka_visualization_dag-cybersecurityrtms-3f10.py>`_   
-     - Gets all the RTMS TML system parameters and setups up the components of the entire solution.
+     - This generates the dashboard and connects to the `Viperviz binary <https://tml.readthedocs.io/en/latest/usage.html#tml-components-three-binaries>`_.
    * - `Step 8 <https://github.com/smaurice101/raspberrypitss/blob/main/tml-airflow/dags/tml-solutions/cybersecurityrtms-3f10/tml_system_step_8_deploy_solution_to_docker_dag-cybersecurityrtms-3f10.py>`_   
-     - Gets all the RTMS TML system parameters and setups up the components of the entire solution.
+     - This step containerizes the entire RTMS solution, while optimizig it, and pushes it to `Docker hub <https://hub.docker.com/r/maadsdocker/cybersecurityrtms-3f10-ai-amd64>`_
    * - `Step 9 <https://github.com/smaurice101/raspberrypitss/blob/main/tml-airflow/dags/tml-solutions/cybersecurityrtms-3f10/tml_system_step_9_privategpt_qdrant_dag-cybersecurityrtms-3f10.py>`_   
-     - Gets all the RTMS TML system parameters and setups up the components of the entire solution.
+     - This connects to the `privateGPT containers <https://tml.readthedocs.io/en/latest/genai.html#privategpt-special-containers>`_ and RTMS sends the filtered messages to privateGPT for MITRE ATT&CK classifications.  The mitre.json is used to extract the `MITRE classification <https://github.com/smaurice101/raspberrypi/blob/main/tml-airflow/data/mitre.json>`_ from the privateGPT responses.  **Note, the mitre.json should be saved in your local folder mapped to /rawdata**
    * - `Step 10 <https://github.com/smaurice101/raspberrypitss/blob/main/tml-airflow/dags/tml-solutions/cybersecurityrtms-3f10/tml_system_step_10_documentation_dag-cybersecurityrtms-3f10.py>`_   
-     - Gets all the RTMS TML system parameters and setups up the components of the entire solution.
-
-
-
-
+     - This updates the RTMS documentation in the Github repo and triggers Readthedocs site to start generating the RTMS documentation. To find your documentation see `here <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-10-create-tml-solution-documentation-tml-system-step-10-documentation-dag>`_
 
 Summary
 ----------
