@@ -535,8 +535,8 @@ RTMS Grouped MITRE ATT&CK JSON
 
 RTMS automatically classified the messages in accordance with `MITRE ATT&CK classification matrix <https://attack.mitre.org/>`_:
 
- **TACTIC**: Credential_Access-Initial_Access
- **TECHNIQUE**: Brute_Force
+ - **TACTIC**: Credential_Access-Initial_Access
+ - **TECHNIQUE**: Brute_Force
 
 .. code-block::
 
