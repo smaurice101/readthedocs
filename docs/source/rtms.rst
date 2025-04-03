@@ -611,8 +611,8 @@ Below shows the RTMS solutions architecture.  We can now discuss in details how 
     2. Run the `RTMS Docker container <https://hub.docker.com/r/maadsdocker/cybersecurityrtms-3f10-ai-amd64>`_:  This is the **EASIEST** and FASTEST way for anyone to run this solution in test or production.  Note you can also scale this solution with Kubernetes - `all YAML scripts are auto generated for you here <https://cybersecurityrtms-3f10-ai.readthedocs.io/en/latest/kube.html#scaling-cybersecurityrtms-3f10-ai-with-kubernetes>`_.  
        - `Go here to het the Docker Run command for RTMS <https://cybersecurityrtms-3f10-ai.readthedocs.io/en/latest/operating.html#your-solution-docker-run-command>`_
        - **You MUST change the following environmental variables in the Docker Run Command:**
-         #. Change **-\-\env GITUSERNAME=**<Enter Github Username> (For quick testing use: **tsstmldemo**)
-         #. Change **-\-\env GITREPOURL=**<Enter Github Repo URL> (For quick testing use: **https://github.com/tsstmldemo/tsstmldemo**)
+         #. Change **-\-\env GITUSERNAME=** <Enter Github Username> (For quick testing use: **tsstmldemo**)
+         #. Change **-\-\env GITREPOURL=** <Enter Github Repo URL> (For quick testing use: **https://github.com/tsstmldemo/tsstmldemo**)
          #. Change **-v /your_localmachine/foldername:/rawdata:z** 
             - create a folder in your local machine and mapped it here.  For example, if you are in Linux, create a folder /rtms/rawdata, then the volume mapping is **-v /rtms/rawdata/foldername:/rawdata:z**
             - Create TWO folders and store your Log files in there: (Get sample log files from `here <https://github.com/smaurice101/raspberrypi/tree/main/tml-airflow/data>`_ if you like)
