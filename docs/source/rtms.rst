@@ -535,6 +535,9 @@ RTMS Grouped MITRE ATT&CK JSON
 
 RTMS automatically classified the messages in accordance with `MITRE ATT&CK classification matrix <https://attack.mitre.org/>`_:
 
+ **TACTIC**: Credential_Access-Initial_Access
+ **TECHNIQUE**: Brute_Force
+
 .. code-block::
 
       {
@@ -562,10 +565,7 @@ RTMS automatically classified the messages in accordance with `MITRE ATT&CK clas
       	"Maintopic": "rtms-pgpt-ai-mitre"
       }
 
- - **TACTIC**: Credential_Access-Initial_Access
- - **TECHNIQUE**: Brute_Force
-
-Note in the below JSON from RTMS:
+**Note in the below JSON from RTMS:**
  #. RTMS has found three IP addreses: 5.10,5.14,6.100 (add prefix 192.168 in front of 5.10, 5.14, 6.100)
  #. These three entities are using a **Brute Force** attack
  #. The **Maintype=RTMSScore** is **Mainvalue=0.258** - this is the average score for the three entities. See `here <https://tml.readthedocs.io/en/latest/rtms.html#past-memory-demonstration>`_ from more details.
