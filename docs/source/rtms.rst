@@ -631,9 +631,36 @@ RTMS Solution Architecture
 .. figure:: rtmsarch.png
    :scale: 70%
 
+Here is a description of the solution architecture:
+
 .. list-table::
 
-   
+   * - **TSS Steps**
+   * - **Description**
+   * - `Step 1 <https://github.com/smaurice101/raspberrypitss/blob/main/tml-airflow/dags/tml-solutions/cybersecurityrtms-3f10/tml_system_step_1_getparams_dag-cybersecurityrtms-3f10.py>`_   
+     - Gets all the RTMS TML system parameters and setups up the components of the entire solution.
+
+   * - `Step 2 <https://github.com/smaurice101/raspberrypitss/blob/main/tml-airflow/dags/tml-solutions/cybersecurityrtms-3f10/tml_system_step_2_kafka_createtopic_dag-cybersecurityrtms-3f10.py>`_   
+     - Creates all the Kafka topics needed for the solution to run.
+   * - `Step 3 <https://github.com/smaurice101/raspberrypitss/blob/main/tml-airflow/dags/tml-solutions/cybersecurityrtms-3f10/tml_read_LOCALFILE_step_3_kafka_producetotopic_dag-cybersecurityrtms-3f10.py>`_   
+     - Gets all the RTMS TML system parameters and setups up the components of the entire solution.
+   * - `Step 4 <https://github.com/smaurice101/raspberrypitss/blob/main/tml-airflow/dags/tml-solutions/cybersecurityrtms-3f10/tml_system_step_4_kafka_preprocess_dag-cybersecurityrtms-3f10.py>`_   
+     - Gets all the RTMS TML system parameters and setups up the components of the entire solution.
+   * - `Step 4a <https://github.com/smaurice101/raspberrypitss/blob/main/tml-airflow/dags/tml-solutions/cybersecurityrtms-3f10/tml_system_step_4a_kafka_preprocess_dag-cybersecurityrtms-3f10.py>`_   
+     - Gets all the RTMS TML system parameters and setups up the components of the entire solution.
+   * - `Step 4c <https://github.com/smaurice101/raspberrypitss/blob/main/tml-airflow/dags/tml-solutions/cybersecurityrtms-3f10/tml_system_step_4c_kafka_preprocess_dag-cybersecurityrtms-3f10.py>`_   
+     - Gets all the RTMS TML system parameters and setups up the components of the entire solution.
+   * - `Step 7 <https://github.com/smaurice101/raspberrypitss/blob/main/tml-airflow/dags/tml-solutions/cybersecurityrtms-3f10/tml_system_step_7_kafka_visualization_dag-cybersecurityrtms-3f10.py>`_   
+     - Gets all the RTMS TML system parameters and setups up the components of the entire solution.
+   * - `Step 8 <https://github.com/smaurice101/raspberrypitss/blob/main/tml-airflow/dags/tml-solutions/cybersecurityrtms-3f10/tml_system_step_8_deploy_solution_to_docker_dag-cybersecurityrtms-3f10.py>`_   
+     - Gets all the RTMS TML system parameters and setups up the components of the entire solution.
+   * - `Step 9 <https://github.com/smaurice101/raspberrypitss/blob/main/tml-airflow/dags/tml-solutions/cybersecurityrtms-3f10/tml_system_step_9_privategpt_qdrant_dag-cybersecurityrtms-3f10.py>`_   
+     - Gets all the RTMS TML system parameters and setups up the components of the entire solution.
+   * - `Step 10 <https://github.com/smaurice101/raspberrypitss/blob/main/tml-airflow/dags/tml-solutions/cybersecurityrtms-3f10/tml_system_step_10_documentation_dag-cybersecurityrtms-3f10.py>`_   
+     - Gets all the RTMS TML system parameters and setups up the components of the entire solution.
+
+
+
 
 
 Summary
