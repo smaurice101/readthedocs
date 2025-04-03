@@ -601,14 +601,14 @@ Below shows the RTMS solutions architecture.  We can now discuss in details how 
 
    There are TWO ways to run this RTMS solution for yourself:
 
-    #. Copy to your repo and run in your TSS environment.  To do this you MUST:
+    1. Copy to your repo and run in your TSS environment.  To do this you MUST:
      - `Follow these Steps to copy projects from others repo <https://tml.readthedocs.io/en/latest/usercopy.html#you-want-to-copy-specific-tml-projects-from-another-users-git-repo>`_ and copy and paste the below in your TSS **CREATETMLPROJECT.txt:**
 
        .. code-block::
 
            https://github.com/smaurice101/raspberrypitss,cybersecurityrtms-3f10
 
-    #. Run the `RTMS Docker container <https://hub.docker.com/r/maadsdocker/cybersecurityrtms-3f10-ai-amd64>`_:  This is the **EASIEST** and FASTEST way for anyone to run this solution in test or production.  Note you can also scale this solution with Kubernetes - `all YAML scripts are auto generated for you here <https://cybersecurityrtms-3f10-ai.readthedocs.io/en/latest/kube.html#scaling-cybersecurityrtms-3f10-ai-with-kubernetes>`_.  
+    2. Run the `RTMS Docker container <https://hub.docker.com/r/maadsdocker/cybersecurityrtms-3f10-ai-amd64>`_:  This is the **EASIEST** and FASTEST way for anyone to run this solution in test or production.  Note you can also scale this solution with Kubernetes - `all YAML scripts are auto generated for you here <https://cybersecurityrtms-3f10-ai.readthedocs.io/en/latest/kube.html#scaling-cybersecurityrtms-3f10-ai-with-kubernetes>`_.  
        - `Go here to het the Docker Run command for RTMS <https://cybersecurityrtms-3f10-ai.readthedocs.io/en/latest/operating.html#your-solution-docker-run-command>`_
        - **You MUST change the following environmental variables in the Docker Run Command:**
          #. Change **-\-\env GITUSERNAME=**<Enter Github Username> (For quick testing use: **tsstmldemo**)
