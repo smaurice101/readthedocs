@@ -603,6 +603,7 @@ Below shows the RTMS solutions architecture.  We can now discuss in details how 
 
     #. Copy to your repo and run in your TSS environment.  To do this you MUST:
      - `Follow these Steps to copy projects from others repo <https://tml.readthedocs.io/en/latest/usercopy.html#you-want-to-copy-specific-tml-projects-from-another-users-git-repo>`_
+
        .. code-block:
 
            https://github.com/smaurice101/raspberrypitss,cybersecurityrtms-3f10
