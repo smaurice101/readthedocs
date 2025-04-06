@@ -49,7 +49,7 @@ PrivateGPT Special Containers
 
    * - `Basic Model Version 1 <https://hub.docker.com/r/maadsdocker/tml-privategpt-with-gpu-nvidia-amd64>`_
 
-        * (If using Linux/MAC then use ARM64 container)
+        * (If using Linux/MAC then use `ARM64 container <https://hub.docker.com/r/maadsdocker/tml-privategpt-with-gpu-nvidia-arm64>`_)
      - `TheBloke/Mistral-7B-Instruct-v0.1-GGUF <https://huggingface.co/TheBloke/Mistral-7B-Instruct-v0.1-GGUF>`_
      - `BAAI/bge-small-en-v1.5 <https://huggingface.co/BAAI/bge-small-en-v1.5>`_
      - #. Suggested VRAM/GPU should be around 20GB
@@ -58,7 +58,7 @@ PrivateGPT Special Containers
        #. Suggested Cost GPU/Hour: $0.75/GPU/h
    * - `Mid Model Version 2 <https://hub.docker.com/r/maadsdocker/tml-privategpt-with-gpu-nvidia-amd64-v2>`_
 
-        * (If using Linux/MAC then use ARM64 container)
+        * (If using Linux/MAC then use `ARM64 container <https://hub.docker.com/r/maadsdocker/tml-privategpt-with-gpu-nvidia-arm64-v2>`_)
      - `mistralai/Mistral-7B-Instruct-v0.2 <https://huggingface.co/mistralai/Mistral-7B-Instruct-v0.2>`_
      - `BAAI/bge-small-en-v1.5 <https://huggingface.co/BAAI/bge-small-en-v1.5>`_
      - #. Suggested VRAM/GPU should be around 24GB
@@ -67,7 +67,7 @@ PrivateGPT Special Containers
        #. Suggested Cost GPU/Hour: $0.75/GPU/h
    * - `Advanced Model Version 3 <https://hub.docker.com/r/maadsdocker/tml-privategpt-with-gpu-nvidia-amd64-v3>`_
 
-        * (If using Linux/MAC then use ARM64 container)
+        * (If using Linux/MAC then use `ARM64 container <https://hub.docker.com/r/maadsdocker/tml-privategpt-with-gpu-nvidia-arm64-v3>`_)
      - `mistralai/Mistral-7B-Instruct-v0.3 <https://huggingface.co/mistralai/Mistral-7B-Instruct-v0.3>`_
      - `BAAI/bge-base-en-v1.5 <https://huggingface.co/BAAI/bge-base-en-v1.5>`_
      - #. Suggested VRAM/GPU should be around 24GB
@@ -76,7 +76,7 @@ PrivateGPT Special Containers
        #. Suggested Cost GPU/Hour: $0.75/GPU/h
    * - `Large Advanced Model Version 3 <https://hub.docker.com/r/maadsdocker/tml-privategpt-with-gpu-nvidia-amd64-v3-large>`_
 
-        * (If using Linux/MAC then use ARM64 container)
+        * (If using Linux/MAC then use `ARM64 container <https://hub.docker.com/r/maadsdocker/tml-privategpt-with-gpu-nvidia-amd64-v3-large>`_)
      - `mistralai/Mistral-7B-Instruct-v0.3 <https://huggingface.co/mistralai/Mistral-7B-Instruct-v0.3>`_
      - `BAAI/bge-m3 <https://huggingface.co/BAAI/bge-m3>`_
      - #. Suggested VRAM/GPU should be around 40GB
