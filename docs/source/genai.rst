@@ -6,7 +6,7 @@ TML uses privateGPT containers (discussed below) for secure, fast, and distribut
 .. attention::
     #. **These containers are dependent on the NVidia GPU card up to 5090.**
     #. Containers are compatible with CUDA versions upto 12.8.**
-    # Containers will run on AMD64 and ARM64 chip architectures.
+    #. Containers will run on AMD64 and ARM64 chip architectures.
     #. They also require `Qdrant Vector DB <https://qdrant.tech/>`_
        - Here is the Qdrant Docker Run Command to Install Qdrant Vector DB locally with TML integration:
           .. code-block::
