@@ -37,16 +37,6 @@ PrivateGPT Special Containers
        #. SSD 2-3 TB
        #. Suggested Machine: On-demand 1x NVIDIA A10 
        #. Suggested Cost GPU/Hour: $0.75/GPU/h
-   * - `Deepseek Large Advanced Model Version 3 <https://hub.docker.com/r/maadsdocker/tml-privategpt-with-gpu-nvidia-amd64-deepseek-large>`_
-
-        * (If using Linux/MAC then use ARM64 container)
-     - `DeepSeek-R1-Distill-Qwen-14B-Q5_K_M.gguf <https://huggingface.co/bartowski/DeepSeek-R1-Distill-Qwen-14B-GGUF>`_
-     - `BAAI/bge-m3 <https://huggingface.co/BAAI/bge-m3>`_
-     - #. Suggested VRAM/GPU should be around 40GB
-       #. SSD 2-3 TB
-       #. Suggested Machine: On-demand 1x NVIDIA A6000 or A100
-       #. Suggested Cost GPU/Hour: $0.80 - $1.30/GPU/h
-
    * - `Basic Model Version 1 <https://hub.docker.com/r/maadsdocker/tml-privategpt-with-gpu-nvidia-amd64>`_
 
         * (If using Linux/MAC then use `ARM64 container <https://hub.docker.com/r/maadsdocker/tml-privategpt-with-gpu-nvidia-arm64>`_)
