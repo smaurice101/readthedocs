@@ -632,7 +632,7 @@ RTMS Solution Architecture
 .. figure:: rtmsarch.png
    :scale: 70%
 
-Here is a description of the solution architecture:
+Here is a description of the solution architecture and RTMS solution development using the `TSS <https://tml.readthedocs.io/en/latest/docker.html#tml-solution-studio-tss-container>`_:
 
 .. list-table::
 
