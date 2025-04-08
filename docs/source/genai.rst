@@ -34,7 +34,7 @@ PrivateGPT Special Containers
         * LLM: `DeepSeek-R1-Distill-Llama-8B-Q5_K_M.gguf <https://huggingface.co/bartowski/DeepSeek-R1-Distill-Llama-8B-GGUF/blob/main/DeepSeek-R1-Distill-Llama-8B-Q5_K_M.gguf>`_       
         * Embedding: `BAAI/bge-base-en-v1.5 <https://huggingface.co/BAAI/bge-base-en-v1.5>`_
         * Vector Dimension: 768
-        * **Docker Run Command:**
+        * **Docker Run Command for AMD64 Container:**
        .. code-block::
 
             docker run -d -p 8001:8001 --gpus all --net=host \
@@ -57,7 +57,7 @@ PrivateGPT Special Containers
         * LLM: `TheBloke/Mistral-7B-Instruct-v0.1-GGUF <https://huggingface.co/TheBloke/Mistral-7B-Instruct-v0.1-GGUF>`_
         * Embedding: `BAAI/bge-small-en-v1.5 <https://huggingface.co/BAAI/bge-small-en-v1.5>`_
         * Vector Dimension: 384
-        * **Docker Run Command:**
+        * **Docker Run Command for AMD64 Container:**
        .. code-block::
 
             docker run -d -p 8001:8001 --net=host --gpus all \
@@ -80,7 +80,7 @@ PrivateGPT Special Containers
         * LLM: `mistralai/Mistral-7B-Instruct-v0.2 <https://huggingface.co/mistralai/Mistral-7B-Instruct-v0.2>`_
         * Embedding: `BAAI/bge-small-en-v1.5 <https://huggingface.co/BAAI/bge-small-en-v1.5>`_
         * Vector Dimension: 384
-        * **Docker Run Command:**
+        * **Docker Run Command for AMD64 Container:**
        .. code-block::
 
             docker run -d -p 8001:8001 --net=host --gpus all \
@@ -103,7 +103,7 @@ PrivateGPT Special Containers
         * LLM: `mistralai/Mistral-7B-Instruct-v0.3 <https://huggingface.co/mistralai/Mistral-7B-Instruct-v0.3>`_
         * Embedding: `BAAI/bge-base-en-v1.5 <https://huggingface.co/BAAI/bge-base-en-v1.5>`_
         * Vector Dimension: 768
-        * **Docker Run Command:**
+        * **Docker Run Command for AMD64 Container:**
        .. code-block::
 
             docker run -d -p 8001:8001 --net=host --gpus all \
@@ -126,6 +126,7 @@ PrivateGPT Special Containers
         * LLM: `mistralai/Mistral-7B-Instruct-v0.3 <https://huggingface.co/mistralai/Mistral-7B-Instruct-v0.3>`_
         * Embedding: `BAAI/bge-m3 <https://huggingface.co/BAAI/bge-m3>`_
         * Vector Dimension: 1024
+        * **Docker Run Command for AMD64 Container:**
        .. code-block::
 
             docker run -d -p 8001:8001 --net=host --gpus all \
