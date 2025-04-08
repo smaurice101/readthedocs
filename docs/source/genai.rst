@@ -67,6 +67,19 @@ PrivateGPT Special Containers
         * LLM: `mistralai/Mistral-7B-Instruct-v0.2 <https://huggingface.co/mistralai/Mistral-7B-Instruct-v0.2>`_
         * Embedding: `BAAI/bge-small-en-v1.5 <https://huggingface.co/BAAI/bge-small-en-v1.5>`_
         * Vector Dimension: 384
+        * **Docker Run Command:**
+       .. code-block::
+
+            docker run -d -p 8001:8001 --net=host --gpus all 
+            --env PORT=8001 --env TSS=0 --env GPU=1 
+            --env COLLECTION=tml --env WEB_CONCURRENCY=2 
+            --env CUDA_VISIBLE_DEVICES=0 --env TOKENIZERS_PARALLELISM=false 
+            --env temperature=0.1 --env vectorsearchtype=cosine 
+            --env contextwindowsize=4096 --env vectordimension=384 
+            --env mainmodel="mistralai/Mistral-7B-Instruct-v0.2" 
+            --env mainembedding="BAAI/bge-small-en-v1.5" 
+            maadsdocker/tml-privategpt-with-gpu-nvidia-amd64-v2:latest
+
      - #. Suggested VRAM/GPU should be around 24GB
        #. SSD 2-3 TB
        #. Suggested Machine: On-demand 1x NVIDIA A10 
