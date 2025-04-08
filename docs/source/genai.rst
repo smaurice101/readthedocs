@@ -28,7 +28,7 @@ PrivateGPT Special Containers
 
    * - **TML-privateGPT Container**
      - **GPU Suggested Requirements**
-   * - `DeepSeek Medium Model Version 2 <https://hub.docker.com/r/maadsdocker/tml-privategpt-with-gpu-nvidia-amd64-deepseek-medium>`_
+   * - `AMD64: DeepSeek Medium Model Version 2 <https://hub.docker.com/r/maadsdocker/tml-privategpt-with-gpu-nvidia-amd64-deepseek-medium>`_
 
         * `ARM64 container <https://hub.docker.com/r/maadsdocker/tml-privategpt-with-gpu-nvidia-arm64-deepseek-medium>`_
         * LLM: `DeepSeek-R1-Distill-Llama-8B-Q5_K_M.gguf <https://huggingface.co/bartowski/DeepSeek-R1-Distill-Llama-8B-GGUF/blob/main/DeepSeek-R1-Distill-Llama-8B-Q5_K_M.gguf>`_       
@@ -37,7 +37,7 @@ PrivateGPT Special Containers
        #. SSD 2-3 TB
        #. Suggested Machine: On-demand 1x NVIDIA A10 
        #. Suggested Cost GPU/Hour: $0.75/GPU/h
-   * - `Basic Model Version 1 <https://hub.docker.com/r/maadsdocker/tml-privategpt-with-gpu-nvidia-amd64>`_
+   * - `AMD64: Basic Model Version 1 <https://hub.docker.com/r/maadsdocker/tml-privategpt-with-gpu-nvidia-amd64>`_
 
         * `ARM64 container <https://hub.docker.com/r/maadsdocker/tml-privategpt-with-gpu-nvidia-arm64>`_
         * LLM: `TheBloke/Mistral-7B-Instruct-v0.1-GGUF <https://huggingface.co/TheBloke/Mistral-7B-Instruct-v0.1-GGUF>`_
@@ -46,7 +46,7 @@ PrivateGPT Special Containers
        #. SSD 2-3 TB
        #. Suggested Machine: On-demand 1x NVIDIA A10 
        #. Suggested Cost GPU/Hour: $0.75/GPU/h
-   * - `Mid Model Version 2 <https://hub.docker.com/r/maadsdocker/tml-privategpt-with-gpu-nvidia-amd64-v2>`_
+   * - `AMD64: Mid Model Version 2 <https://hub.docker.com/r/maadsdocker/tml-privategpt-with-gpu-nvidia-amd64-v2>`_
 
         * `ARM64 container <https://hub.docker.com/r/maadsdocker/tml-privategpt-with-gpu-nvidia-arm64-v2>`_
         * LLM: `mistralai/Mistral-7B-Instruct-v0.2 <https://huggingface.co/mistralai/Mistral-7B-Instruct-v0.2>`_
@@ -55,7 +55,7 @@ PrivateGPT Special Containers
        #. SSD 2-3 TB
        #. Suggested Machine: On-demand 1x NVIDIA A10 
        #. Suggested Cost GPU/Hour: $0.75/GPU/h
-   * - `Advanced Model Version 3 <https://hub.docker.com/r/maadsdocker/tml-privategpt-with-gpu-nvidia-amd64-v3>`_
+   * - `AMD64: Advanced Model Version 3 <https://hub.docker.com/r/maadsdocker/tml-privategpt-with-gpu-nvidia-amd64-v3>`_
 
         * `ARM64 container <https://hub.docker.com/r/maadsdocker/tml-privategpt-with-gpu-nvidia-arm64-v3>`_
         * LLM: `mistralai/Mistral-7B-Instruct-v0.3 <https://huggingface.co/mistralai/Mistral-7B-Instruct-v0.3>`_
@@ -64,7 +64,7 @@ PrivateGPT Special Containers
        #. SSD 2-3 TB
        #. Suggested Machine: On-demand 1x NVIDIA A10 
        #. Suggested Cost GPU/Hour: $0.75/GPU/h
-   * - `Large Advanced Model Version 3 <https://hub.docker.com/r/maadsdocker/tml-privategpt-with-gpu-nvidia-amd64-v3-large>`_
+   * - `AMD64: Large Advanced Model Version 3 <https://hub.docker.com/r/maadsdocker/tml-privategpt-with-gpu-nvidia-amd64-v3-large>`_
 
         * `ARM64 container <https://hub.docker.com/r/maadsdocker/tml-privategpt-with-gpu-nvidia-arm64-v3-large>`_
         * LLM: `mistralai/Mistral-7B-Instruct-v0.3 <https://huggingface.co/mistralai/Mistral-7B-Instruct-v0.3>`_
