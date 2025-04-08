@@ -33,6 +33,7 @@ PrivateGPT Special Containers
         * `ARM64 container <https://hub.docker.com/r/maadsdocker/tml-privategpt-with-gpu-nvidia-arm64-deepseek-medium>`_
         * LLM: `DeepSeek-R1-Distill-Llama-8B-Q5_K_M.gguf <https://huggingface.co/bartowski/DeepSeek-R1-Distill-Llama-8B-GGUF/blob/main/DeepSeek-R1-Distill-Llama-8B-Q5_K_M.gguf>`_       
         * Embedding: `BAAI/bge-base-en-v1.5 <https://huggingface.co/BAAI/bge-base-en-v1.5>`_
+        * Vector Dimension: 768
      - #. Suggested VRAM/GPU should be around 20GB
        #. SSD 2-3 TB
        #. Suggested Machine: On-demand 1x NVIDIA A10 
@@ -42,6 +43,7 @@ PrivateGPT Special Containers
         * `ARM64 container <https://hub.docker.com/r/maadsdocker/tml-privategpt-with-gpu-nvidia-arm64>`_
         * LLM: `TheBloke/Mistral-7B-Instruct-v0.1-GGUF <https://huggingface.co/TheBloke/Mistral-7B-Instruct-v0.1-GGUF>`_
         * Embedding: `BAAI/bge-small-en-v1.5 <https://huggingface.co/BAAI/bge-small-en-v1.5>`_
+        * Vector Dimension: 384
      - #. Suggested VRAM/GPU should be around 20GB
        #. SSD 2-3 TB
        #. Suggested Machine: On-demand 1x NVIDIA A10 
@@ -51,6 +53,7 @@ PrivateGPT Special Containers
         * `ARM64 container <https://hub.docker.com/r/maadsdocker/tml-privategpt-with-gpu-nvidia-arm64-v2>`_
         * LLM: `mistralai/Mistral-7B-Instruct-v0.2 <https://huggingface.co/mistralai/Mistral-7B-Instruct-v0.2>`_
         * Embedding: `BAAI/bge-small-en-v1.5 <https://huggingface.co/BAAI/bge-small-en-v1.5>`_
+        * Vector Dimension: 384
      - #. Suggested VRAM/GPU should be around 24GB
        #. SSD 2-3 TB
        #. Suggested Machine: On-demand 1x NVIDIA A10 
@@ -60,6 +63,7 @@ PrivateGPT Special Containers
         * `ARM64 container <https://hub.docker.com/r/maadsdocker/tml-privategpt-with-gpu-nvidia-arm64-v3>`_
         * LLM: `mistralai/Mistral-7B-Instruct-v0.3 <https://huggingface.co/mistralai/Mistral-7B-Instruct-v0.3>`_
         * Embedding: `BAAI/bge-base-en-v1.5 <https://huggingface.co/BAAI/bge-base-en-v1.5>`_
+        * Vector Dimension: 768
      - #. Suggested VRAM/GPU should be around 24GB
        #. SSD 2-3 TB
        #. Suggested Machine: On-demand 1x NVIDIA A10 
@@ -69,6 +73,7 @@ PrivateGPT Special Containers
         * `ARM64 container <https://hub.docker.com/r/maadsdocker/tml-privategpt-with-gpu-nvidia-arm64-v3-large>`_
         * LLM: `mistralai/Mistral-7B-Instruct-v0.3 <https://huggingface.co/mistralai/Mistral-7B-Instruct-v0.3>`_
         * Embedding: `BAAI/bge-m3 <https://huggingface.co/BAAI/bge-m3>`_
+        * Vector Dimension: 1024
      - #. Suggested VRAM/GPU should be around 40GB
        #. SSD 2-3 TB
        #. Suggested Machine: On-demand 1x NVIDIA A6000 or A100
