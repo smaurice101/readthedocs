@@ -34,7 +34,7 @@ PrivateGPT Special Containers
         * LLM: `DeepSeek-R1-Distill-Llama-8B-Q5_K_M.gguf <https://huggingface.co/bartowski/DeepSeek-R1-Distill-Llama-8B-GGUF/blob/main/DeepSeek-R1-Distill-Llama-8B-Q5_K_M.gguf>`_       
         * Embedding: `BAAI/bge-base-en-v1.5 <https://huggingface.co/BAAI/bge-base-en-v1.5>`_
         * Vector Dimension: 768
-
+        * Docker Run Command:
        .. code-block::
 
                docker run -d -p 8001:8001 --gpus all --net=host --env PORT=8001 --env GPU=1 --env WEB_CONCURRENCY=2 --env COLLECTION=tml-medium --env 
