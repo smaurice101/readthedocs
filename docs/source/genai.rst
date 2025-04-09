@@ -241,8 +241,15 @@ The privateGPT container can be found on Docker hub.  The container will require
 
 .. code-block::
 
-   docker run -d -p 8001:8001 --gpus all --net=host --env PORT=8001 --env GPU=1 --env WEB_CONCURRENCY=1 --env COLLECTION=tml-cisco --env CUDA_VISIBLE_DEVICES=0 
-   maadsdocker/tml-privategpt-with-gpu-nvidia-amd64
+   docker run -d -p 8001:8001 --net=host --gpus all \
+   --env PORT=8001 --env TSS=0 --env GPU=1 \
+   --env COLLECTION=tml --env WEB_CONCURRENCY=2 \
+   --env CUDA_VISIBLE_DEVICES=0 --env TOKENIZERS_PARALLELISM=false \
+   --env temperature=0.1 --env vectorsearchtype=cosine \
+   --env contextwindowsize=4096 --env vectordimension=384 \
+   --env mainmodel="TheBloke/Mistral-7B-Instruct-v0.1-GGUF" \
+   --env mainembedding="BAAI/bge-small-en-v1.5" \
+   maadsdocker/tml-privategpt-with-gpu-nvidia-amd64:latest
 
 .. tip::
 
@@ -265,7 +272,7 @@ PrivateGPT Container With NO GPU
 
    If you do not have a Nvidia GPU you can use the docker container with NO GPU: 
 
-   docker run -d -p 8001:8001 --env PORT=8001 --env GPU=0 --env CUDA_VISIBLE_DEVICES=0 maadsdocker/tml-privategpt-no-gpu-amd64
+   docker run -d -p 8001:8001 --env PORT=8001 --env GPU=0 --env CUDA_VISIBLE_DEVICES=0  maadsdocker/tml-privategpt-no-gpu-amd64
 
 Installing CUDA For NVIDIA GPU
 ^^^^^^^^^^^^^^^^^^
