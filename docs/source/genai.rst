@@ -233,7 +233,7 @@ The incorporation of RAG with TML for real-time cybersecurity analysis of log fi
 Private GPT Container
 --------------------
 
-The privateGPT container can be found on Docker hub.  The container will require a NVIDIA GPU.
+More privateGPT containers can be found here: :ref:`PrivateGPT Special Containers`.  The container will require a NVIDIA GPU.
 
 .. code-block::
 
