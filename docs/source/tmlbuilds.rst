@@ -119,7 +119,7 @@ DAG Solution Process Explanation
        time in few minutes.  All preprocessing is done **in-memory and no external databases are needed, only Kafka**.  After you have preprocessed your data, 
        you can use this preprocessed data for **machine learning** - the next DAG performs this function.
 
-    4a. :ref:`STEP 4a: Preprocesing Data: tml-system-step-4a-kafka-preprocess-dag` - This preprocessing step uses jsoncriteria to extract data from Stpe 4.  
+    4a. :ref:`STEP 4a: Preprocesing Data: tml-system-step-4a-kafka-preprocess-dag` - This preprocessing step uses jsoncriteria to extract data from Step 4.  
 
     4b. :ref:`STEP 4b: Preprocesing 2 Data: tml-system-step-4b-kafka-preprocess-dag` - This second preprocessing step is an important step that uses the 
         preprocessed data for additional processing in machine learning.  In the conventional machine learning sense, **STEP 4 is like "feature engineering"** 
