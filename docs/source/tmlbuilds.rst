@@ -3670,7 +3670,9 @@ STEP 4a: Preprocesing Data: tml-system-step-4a-kafka-preprocess-dag
 
 .. note::
    This Step 4a is similar to Step 4b, only difference is it allows for jsoncriteria.
-    
+
+.. code-block::
+
     from airflow import DAG
     from airflow.operators.python import PythonOperator
     from airflow.operators.bash import BashOperator
