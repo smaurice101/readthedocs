@@ -316,6 +316,10 @@ Readthedocs Documentation URL
 
     The **solution name** can be found in the Step 1 task under your project name.  As shown in the figure below, the TML solution name is **cybersecurityrtms-3f10**
 
+.. tip::
+
+   You also add **-a stdout** to your solution Docker Run command.  This will allow you to see the **READTHEDOCS URL** to your documentation.
+
 .. figure:: rtdurlformat.png
    :scale: 70%
 
