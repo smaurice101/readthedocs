@@ -344,6 +344,8 @@ This is a list of common commands for Docker and Tmux.
      - From **docker ps** copy the Container ID
    
        Type: **docker stop <paste container ID>**
+   * - Stop ALL Running Docker containers
+     - Type: **docker stop $(docker ps -a -q)**          
    * - Go inside the Docker containers
      - From **docker ps** copy the Container ID
    
