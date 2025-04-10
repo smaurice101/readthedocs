@@ -323,6 +323,16 @@ NVIDIA Common Issues
   
    sudo systemctl restart docker
 
+To Enable GPU in Kubernetes
+---------------------------
+
+You can apply the following YML file to the Kubernetes cluster to enable GPU support.
+
+.. code-block::
+
+   kubectl create -f https://raw.githubusercontent.com/NVIDIA/k8s-device-plugin/v0.12.3/nvidia-device-plugin.yml
+
+
 Also see section: :ref:`NVIDIA GPU On Windows WSL`
 
 Accessing PrivateGPT With MAADSTML Python API
