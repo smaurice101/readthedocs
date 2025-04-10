@@ -649,6 +649,17 @@ The results:
     Test PASSED
     Done
 
+Minikube Setup Command
+--------------------------
+
+Here are quick minikube (1-node Kubernetes) cluster setup commands:
+
+.. code-block::
+
+   minikube start --driver docker --container-runtime docker --gpus all --cni calico --memory 8192 &
+   minikube addons enable ingress &
+   minikube addons enable ingress-dns
+
 Scaling EXAMPLE: Scaling Cybersecurity with privateGPT solution
 --------------------------------------------
 
