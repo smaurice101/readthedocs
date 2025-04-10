@@ -364,8 +364,10 @@ This is a list of common commands for Docker and Tmux.
      - Press: **CTRL + b, d**
    * - To EXIT docker container
      - Type: **exit**
-   * - **To Prune Docker and Recover memory**
+   * - **To Prune Docker System and Recover memory**
      - System Prune type: **docker system prune**
+   * - To remove ALL containers
+     - Type: **docker rm $(docker ps -a -q)**
 
 TSS Logging
 -----------------
