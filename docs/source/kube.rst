@@ -658,7 +658,9 @@ Here are quick minikube (1-node Kubernetes) cluster setup commands:
 
    minikube start --driver docker --container-runtime docker --gpus all --cni calico --memory 16384 &
    minikube addons enable ingress &
-   minikube addons enable ingress-dns
+   minikube addons enable ingress-dns &
+   
+Now apply your solution YML files.
 
 Scaling EXAMPLE: Scaling Cybersecurity with privateGPT solution
 --------------------------------------------
