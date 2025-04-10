@@ -656,9 +656,19 @@ Here are quick minikube (1-node Kubernetes) cluster setup commands:
 
 .. code-block::
 
-   minikube start --driver docker --container-runtime docker --gpus all --cni calico --memory 16384 &
-   minikube addons enable ingress &
-   minikube addons enable ingress-dns &
+   minikube start --driver docker --container-runtime docker --gpus all --cni calico --memory 16384
+
+Start Ingress Controller:
+
+.. code-block::
+
+   minikube addons enable ingress
+
+Start DNS Controller: 
+
+.. code-block::
+
+   minikube addons enable ingress-dns
    
 Now apply your solution YML files.
 
