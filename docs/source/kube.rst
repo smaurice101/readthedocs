@@ -656,7 +656,7 @@ Here are quick minikube (1-node Kubernetes) cluster setup commands:
 
 .. code-block::
 
-   minikube start --driver docker --container-runtime docker --gpus all --cni calico --memory 8192 &
+   minikube start --driver docker --container-runtime docker --gpus all --cni calico --memory 16384 &
    minikube addons enable ingress &
    minikube addons enable ingress-dns
 
