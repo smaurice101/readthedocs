@@ -672,6 +672,43 @@ Start DNS Controller:
    
 Now apply your solution YML files.
 
+Mounting Local Filesystem in Minikube
+---------------------------------
+
+To mount a local folder on the filesystem you must start miikube with the **--mount** and **--mount-string** parameters:
+
+.. code-block::
+
+   minikube start --driver docker --mount-string "/mnt/c/:/rawdata" --mount true --container-runtime docker --gpus all --cni calico -- 
+   memory 16384
+
+* **--mount-string "/mnt/c/:/rawdata"** - this will mount the local folder **/mnt/c** (Linux) to the minikube VM folder **/rawdata**
+* **--mount true** - this sets the mount to true
+
+Now, in the YAML file all you need to do is specify the volume and volune mounts:
+
+.. code-block::
+
+   apiVersion: apps/v1
+   kind: Deployment
+   ...
+   spec:
+     replicas: 1
+     ...
+     template:
+       ...
+       spec:
+         containers:
+         ...
+         volumeMounts:
+         - name: some-name
+           mountPath: /rawdata
+       ...
+       volumes:
+       - name: some-name
+         hostPath:
+           path: /rawdata
+
 Scaling EXAMPLE: Scaling Cybersecurity with privateGPT solution
 --------------------------------------------
 
