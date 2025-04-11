@@ -682,8 +682,8 @@ To mount a local folder on the filesystem you must start miikube with the **--mo
    minikube start --driver docker --mount-string "/mnt/c/:/rawdata" --mount true --container-runtime docker --gpus all --cni calico -- 
    memory 16384
 
-* **--mount-string "/mnt/c/:/rawdata"** - this will mount the local folder **/mnt/c** (Linux) to the minikube VM folder **/rawdata**
-* **--mount true** - this sets the mount to true
+* **-\-\mount-string "/mnt/c/:/rawdata"** - this will mount the local folder **/mnt/c** (Linux) to the minikube VM folder **/rawdata**
+* **-\-\mount true** - this sets the mount to true
 
 Now, in the YAML file all you need to do is specify the volume and volune mounts:
 
