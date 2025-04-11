@@ -675,7 +675,7 @@ Now apply your solution YML files.
 Mounting Local Filesystem in Minikube
 ---------------------------------
 
-To mount a local folder on the filesystem you must start miikube with the **--mount** and **--mount-string** parameters:
+To mount a local folder on the filesystem you must start miikube with the **-\-\mount** and **-\-\mount-string** parameters:
 
 .. code-block::
 
