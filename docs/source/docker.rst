@@ -30,7 +30,7 @@ TML Solution Container Global Deployment
 
 There are TWO ways to deploy TML solution containers:
 
-#. **Docker Container:** Anyone around the world can run the container using the Docker Run Command
+#. **Docker Container:** Anyone around the world can run the container using the Solution's Docker Run Command
 #. **Kubernetes:** Anyone around the world can run the `TML Solution containers in kubernetes <https://tml.readthedocs.io/en/latest/kube.html>`_
 
 For 1: see figure below
