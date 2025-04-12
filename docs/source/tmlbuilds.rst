@@ -7682,6 +7682,7 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
         stepurl2="https://github.com/{}/{}/tree/main/tml-airflow/dags/tml-solutions/{}/tml_system_step_2_kafka_createtopic_dag-{}.py".format(os.environ['GITUSERNAME'],tsslogging.getrepo(),projectname,projectname)
         stepurl3="https://github.com/{}/{}/tree/main/tml-airflow/dags/tml-solutions/{}/tml_read_{}_step_3_kafka_producetotopic_dag-{}.py".format(os.environ['GITUSERNAME'],tsslogging.getrepo(),projectname,ptype,projectname)
         stepurl4="https://github.com/{}/{}/tree/main/tml-airflow/dags/tml-solutions/{}/tml_system_step_4_kafka_preprocess_dag-{}.py".format(os.environ['GITUSERNAME'],tsslogging.getrepo(),projectname,projectname)
+        stepurl4a="https://github.com/{}/{}/tree/main/tml-airflow/dags/tml-solutions/{}/tml_system_step_4a_kafka_preprocess_dag-{}.py".format(os.environ['GITUSERNAME'],tsslogging.getrepo(),projectname,projectname)
         stepurl4b="https://github.com/{}/{}/tree/main/tml-airflow/dags/tml-solutions/{}/tml_system_step_4b_kafka_preprocess_dag-{}.py".format(os.environ['GITUSERNAME'],tsslogging.getrepo(),projectname,projectname)
         stepurl4c="https://github.com/{}/{}/tree/main/tml-airflow/dags/tml-solutions/{}/tml_system_step_4c_kafka_preprocess_dag-{}.py".format(os.environ['GITUSERNAME'],tsslogging.getrepo(),projectname,projectname)
         stepurl5="https://github.com/{}/{}/tree/main/tml-airflow/dags/tml-solutions/{}/tml_system_step_5_kafka_machine_learning_dag-{}.py".format(os.environ['GITUSERNAME'],tsslogging.getrepo(),projectname,projectname)
@@ -7697,6 +7698,7 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
         doparse("/{}/docs/source/details.rst".format(sname), ["--step2url--;{}".format(stepurl2)])
         doparse("/{}/docs/source/details.rst".format(sname), ["--step3url--;{}".format(stepurl3)])
         doparse("/{}/docs/source/details.rst".format(sname), ["--step4url--;{}".format(stepurl4)])
+        doparse("/{}/docs/source/details.rst".format(sname), ["--step4aurl--;{}".format(stepurl4a)])
         doparse("/{}/docs/source/details.rst".format(sname), ["--step4burl--;{}".format(stepurl4b)])
         doparse("/{}/docs/source/details.rst".format(sname), ["--step4curl--;{}".format(stepurl4c)])
         doparse("/{}/docs/source/details.rst".format(sname), ["--step5url--;{}".format(stepurl5)])
@@ -7760,8 +7762,8 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
         step9pcontextwindowsize=''
         step9pgptcontainername=''
         step9pgpthost=''
-        step9pport=''
-     
+        step9pgptport=''
+        step9vectordimension=''
         step4crawdatatopic=''
         step4csearchterms=''
         step4crememberpastwindows=''
@@ -7778,11 +7780,27 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
         step4crtmsmaxwindows=''
         rtmsoutputurl=""
         mloutputurl=""
-     
+    
+        step2raw_data_topic=""
+        step2preprocess_data_topic=""
+        step4raw_data_topic=""
+        step4preprocess_data_topic=''
+        step4preprocesstypes=""
+        step4jsoncriteria=""
+        step4ajsoncriteria=""
+        step4amaxrows=""
+        step4apreprocesstypes=""
+        step4araw_data_topic=""
+        step4apreprocess_data_topic=""
+        step4bpreprocesstypes=""
+        step4bjsoncriteria=""
+        step4bmaxrows=""
+        step4braw_data_topic=""
+        step4bpreprocess_data_topic=""
+    
         if "KUBE" in os.environ:
               if os.environ["KUBE"] == "1":
                  kube=1
-                 tsslogging.locallogs("INFO", "STEP 10: In Kubernetes documentation done")
                  return
         
         tsslogging.locallogs("INFO", "STEP 10: Started to build the documentation")
@@ -7857,7 +7875,9 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
         enabletls = context['ti'].xcom_pull(task_ids='step_2_solution_task_createtopic',key="{}_enabletls".format(sname))
         microserviceid = context['ti'].xcom_pull(task_ids='step_2_solution_task_createtopic',key="{}_microserviceid".format(sname))
         raw_data_topic = context['ti'].xcom_pull(task_ids='step_2_solution_task_createtopic',key="{}_raw_data_topic".format(sname))
+        step2raw_data_topic=raw_data_topic
         preprocess_data_topic = context['ti'].xcom_pull(task_ids='step_2_solution_task_createtopic',key="{}_preprocess_data_topic".format(sname))
+        step2preprocess_data_topic=preprocess_data_topic
         ml_data_topic = context['ti'].xcom_pull(task_ids='step_2_solution_task_createtopic',key="{}_ml_data_topic".format(sname))
         prediction_data_topic = context['ti'].xcom_pull(task_ids='step_2_solution_task_createtopic',key="{}_prediction_data_topic".format(sname))
     
@@ -7938,7 +7958,11 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
         subprocess.call(["sed", "-i", "-e",  "s/--ingestdatamethod--/{}/g".format(PRODUCETYPE), "/{}/docs/source/details.rst".format(sname)])
                 
         raw_data_topic = context['ti'].xcom_pull(task_ids='step_4_solution_task_preprocess',key="{}_raw_data_topic".format(sname))
+        if raw_data_topic:
+          step4raw_data_topic=raw_data_topic
         preprocess_data_topic = context['ti'].xcom_pull(task_ids='step_4_solution_task_preprocess',key="{}_preprocess_data_topic".format(sname))    
+        if preprocess_data_topic:
+          step4preprocess_data_topic=preprocess_data_topic
         preprocessconditions = context['ti'].xcom_pull(task_ids='step_4_solution_task_preprocess',key="{}_preprocessconditions".format(sname))
         delay = context['ti'].xcom_pull(task_ids='step_4_solution_task_preprocess',key="{}_delay".format(sname))
         array = context['ti'].xcom_pull(task_ids='step_4_solution_task_preprocess',key="{}_array".format(sname))
@@ -7949,10 +7973,16 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
         timedelay = context['ti'].xcom_pull(task_ids='step_4_solution_task_preprocess',key="{}_timedelay".format(sname))
         usemysql = context['ti'].xcom_pull(task_ids='step_4_solution_task_preprocess',key="{}_usemysql".format(sname))
         preprocesstypes = context['ti'].xcom_pull(task_ids='step_4_solution_task_preprocess',key="{}_preprocesstypes".format(sname))
+        if preprocesstypes:
+          step4preprocesstypes=preprocesstypes
         pathtotmlattrs = context['ti'].xcom_pull(task_ids='step_4_solution_task_preprocess',key="{}_pathtotmlattrs".format(sname))
         identifier = context['ti'].xcom_pull(task_ids='step_4_solution_task_preprocess',key="{}_identifier".format(sname))
         jsoncriteria = context['ti'].xcom_pull(task_ids='step_4_solution_task_preprocess',key="{}_jsoncriteria".format(sname))
+        if jsoncriteria:
+          step4jsoncriteria=jsoncriteria
         maxrows4 = context['ti'].xcom_pull(task_ids='step_4_solution_task_preprocess',key="{}_maxrows".format(sname))
+        if maxrows4:
+          step4maxrows=maxrows4
     
         if preprocess_data_topic:
             subprocess.call(["sed", "-i", "-e",  "s/--raw_data_topic--/{}/g".format(raw_data_topic), "/{}/docs/source/details.rst".format(sname)])
@@ -7971,8 +8001,56 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
             subprocess.call(["sed", "-i", "-e",  "s/--jsoncriteria--/{}/g".format(jsoncriteria), "/{}/docs/source/details.rst".format(sname)])
             subprocess.call(["sed", "-i", "-e",  "s/--maxrows--/{}/g".format(maxrows4[1:]), "/{}/docs/source/details.rst".format(sname)])
     
+        raw_data_topic = context['ti'].xcom_pull(task_ids='step_4a_solution_task_preprocess',key="{}_raw_data_topic".format(sname))
+        if raw_data_topic:
+          step4araw_data_topic=raw_data_topic
+        preprocess_data_topic = context['ti'].xcom_pull(task_ids='step_4a_solution_task_preprocess',key="{}_preprocess_data_topic".format(sname))    
+        if preprocess_data_topic:
+          step4apreprocess_data_topic=preprocess_data_topic
+        preprocessconditions = context['ti'].xcom_pull(task_ids='step_4a_solution_task_preprocess',key="{}_preprocessconditions".format(sname))
+        delay = context['ti'].xcom_pull(task_ids='step_4a_solution_task_preprocess',key="{}_delay".format(sname))
+        array = context['ti'].xcom_pull(task_ids='step_4a_solution_task_preprocess',key="{}_array".format(sname))
+        saveasarray = context['ti'].xcom_pull(task_ids='step_4a_solution_task_preprocess',key="{}_saveasarray".format(sname))
+        topicid = context['ti'].xcom_pull(task_ids='step_4a_solution_task_preprocess',key="{}_topicid".format(sname))
+        rawdataoutput = context['ti'].xcom_pull(task_ids='step_4a_solution_task_preprocess',key="{}_rawdataoutput".format(sname))
+        asynctimeout = context['ti'].xcom_pull(task_ids='step_4a_solution_task_preprocess',key="{}_asynctimeout".format(sname))
+        timedelay = context['ti'].xcom_pull(task_ids='step_4a_solution_task_preprocess',key="{}_timedelay".format(sname))
+        usemysql = context['ti'].xcom_pull(task_ids='step_4a_solution_task_preprocess',key="{}_usemysql".format(sname))
+        preprocesstypes = context['ti'].xcom_pull(task_ids='step_4a_solution_task_preprocess',key="{}_preprocesstypes".format(sname))
+        if preprocesstypes:
+          step4apreprocesstypes=preprocesstypes
+        pathtotmlattrs = context['ti'].xcom_pull(task_ids='step_4a_solution_task_preprocess',key="{}_pathtotmlattrs".format(sname))
+        identifier = context['ti'].xcom_pull(task_ids='step_4a_solution_task_preprocess',key="{}_identifier".format(sname))
+        jsoncriteria = context['ti'].xcom_pull(task_ids='step_4a_solution_task_preprocess',key="{}_jsoncriteria".format(sname))
+        if jsoncriteria:
+         step4ajsoncriteria=jsoncriteria
+        maxrows4 = context['ti'].xcom_pull(task_ids='step_4a_solution_task_preprocess',key="{}_maxrows".format(sname))
+        if maxrows4:
+          step4amaxrows=maxrows4
+    
+        if preprocess_data_topic:
+            subprocess.call(["sed", "-i", "-e",  "s/--raw_data_topic1--/{}/g".format(raw_data_topic), "/{}/docs/source/details.rst".format(sname)])
+            subprocess.call(["sed", "-i", "-e",  "s/--preprocess_data_topic1--/{}/g".format(preprocess_data_topic), "/{}/docs/source/details.rst".format(sname)])
+            subprocess.call(["sed", "-i", "-e",  "s/--preprocessconditions1--/{}/g".format(preprocessconditions), "/{}/docs/source/details.rst".format(sname)])
+            subprocess.call(["sed", "-i", "-e",  "s/--delay1--/{}/g".format(delay[1:]), "/{}/docs/source/details.rst".format(sname)])
+            subprocess.call(["sed", "-i", "-e",  "s/--array1--/{}/g".format(array[1:]), "/{}/docs/source/details.rst".format(sname)])
+            subprocess.call(["sed", "-i", "-e",  "s/--saveasarray1--/{}/g".format(saveasarray[1:]), "/{}/docs/source/details.rst".format(sname)])
+            subprocess.call(["sed", "-i", "-e",  "s/--topicid1--/{}/g".format(topicid[1:]), "/{}/docs/source/details.rst".format(sname)])
+            subprocess.call(["sed", "-i", "-e",  "s/--rawdataoutput1--/{}/g".format(rawdataoutput[1:]), "/{}/docs/source/details.rst".format(sname)])
+            subprocess.call(["sed", "-i", "-e",  "s/--asynctimeout1--/{}/g".format(asynctimeout[1:]), "/{}/docs/source/details.rst".format(sname)])
+            subprocess.call(["sed", "-i", "-e",  "s/--timedelay1--/{}/g".format(timedelay[1:]), "/{}/docs/source/details.rst".format(sname)])
+            subprocess.call(["sed", "-i", "-e",  "s/--preprocesstypes1--/{}/g".format(preprocesstypes), "/{}/docs/source/details.rst".format(sname)])
+            subprocess.call(["sed", "-i", "-e",  "s/--pathtotmlattrs1--/{}/g".format(pathtotmlattrs), "/{}/docs/source/details.rst".format(sname)])
+            subprocess.call(["sed", "-i", "-e",  "s/--identifier1--/{}/g".format(identifier), "/{}/docs/source/details.rst".format(sname)])
+            subprocess.call(["sed", "-i", "-e",  "s/--jsoncriteria1--/{}/g".format(jsoncriteria), "/{}/docs/source/details.rst".format(sname)])
+            subprocess.call(["sed", "-i", "-e",  "s/--maxrows1--/{}/g".format(maxrows4[1:]), "/{}/docs/source/details.rst".format(sname)])
+    
         raw_data_topic = context['ti'].xcom_pull(task_ids='step_4b_solution_task_preprocess',key="{}_raw_data_topic".format(sname))
+        if raw_data_topic:
+           step4braw_data_topic=raw_data_topic
         preprocess_data_topic = context['ti'].xcom_pull(task_ids='step_4b_solution_task_preprocess',key="{}_preprocess_data_topic".format(sname))    
+        if preprocess_data_topic:
+            step4bpreprocess_data_topic=preprocess_data_topic
         preprocessconditions = context['ti'].xcom_pull(task_ids='step_4b_solution_task_preprocess',key="{}_preprocessconditions".format(sname))
         delay = context['ti'].xcom_pull(task_ids='step_4b_solution_task_preprocess',key="{}_delay".format(sname))
         array = context['ti'].xcom_pull(task_ids='step_4b_solution_task_preprocess',key="{}_array".format(sname))
@@ -7983,10 +8061,16 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
         timedelay = context['ti'].xcom_pull(task_ids='step_4b_solution_task_preprocess',key="{}_timedelay".format(sname))
         usemysql = context['ti'].xcom_pull(task_ids='step_4b_solution_task_preprocess',key="{}_usemysql".format(sname))
         preprocesstypes = context['ti'].xcom_pull(task_ids='step_4b_solution_task_preprocess',key="{}_preprocesstypes".format(sname))
+        if preprocesstypes:
+           step4bpreprocesstypes=preprocesstypes
         pathtotmlattrs = context['ti'].xcom_pull(task_ids='step_4b_solution_task_preprocess',key="{}_pathtotmlattrs".format(sname))
         identifier = context['ti'].xcom_pull(task_ids='step_4b_solution_task_preprocess',key="{}_identifier".format(sname))
         jsoncriteria = context['ti'].xcom_pull(task_ids='step_4b_solution_task_preprocess',key="{}_jsoncriteria".format(sname))
+        if jsoncriteria:
+           step4bjsoncriteria=jsoncriteria
         maxrows4b = context['ti'].xcom_pull(task_ids='step_4b_solution_task_preprocess',key="{}_maxrows".format(sname))
+        if maxrows4b:
+           step4bmaxrows=maxrows4b
     
         if preprocess_data_topic:
             subprocess.call(["sed", "-i", "-e",  "s/--raw_data_topic2--/{}/g".format(raw_data_topic), "/{}/docs/source/details.rst".format(sname)])
@@ -8029,8 +8113,9 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
         attackscorethreshold = context['ti'].xcom_pull(task_ids='step_4c_solution_task_preprocess',key="{}_attackscorethreshold".format(sname))
         patternscorethreshold = context['ti'].xcom_pull(task_ids='step_4c_solution_task_preprocess',key="{}_patternscorethreshold".format(sname))
         rtmsmaxwindows = context['ti'].xcom_pull(task_ids='step_4c_solution_task_preprocess',key="{}_rtmsmaxwindows".format(sname))
-        step4crtmsmaxwindows=rtmsmaxwindows
-        subprocess.call(["sed", "-i", "-e",  "s/--rtmsmaxwindows--/{}/g".format(rtmsmaxwindows[1:]), "/{}/docs/source/details.rst".format(sname)])
+        if rtmsmaxwindows:
+          step4crtmsmaxwindows=rtmsmaxwindows
+          subprocess.call(["sed", "-i", "-e",  "s/--rtmsmaxwindows--/{}/g".format(rtmsmaxwindows[1:]), "/{}/docs/source/details.rst".format(sname)])
     
         localsearchtermfolder = context['ti'].xcom_pull(task_ids='step_4c_solution_task_preprocess',key="{}_localsearchtermfolder".format(sname))
         localsearchtermfolderinterval = context['ti'].xcom_pull(task_ids='step_4c_solution_task_preprocess',key="{}_localsearchtermfolderinterval".format(sname))
@@ -8215,7 +8300,14 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
         pconsumefrom = context['ti'].xcom_pull(task_ids='step_9_solution_task_ai',key="{}_consumefrom".format(sname))
         pgpt_data_topic = context['ti'].xcom_pull(task_ids='step_9_solution_task_ai',key="{}_pgpt_data_topic".format(sname))
         pgptcontainername = context['ti'].xcom_pull(task_ids='step_9_solution_task_ai',key="{}_pgptcontainername".format(sname))
-        step9pgptcontainername=pgptcontainername
+        if pgptcontainername:
+          step9pgptcontainername=pgptcontainername
+          doparse("/{}/docs/source/kube.rst".format(sname), ["--kubeprivategpt--;{}".format(pgptcontainername)])
+          mainmodel = context['ti'].xcom_pull(task_ids='step_9_solution_task_ai',key="{}_mainmodel".format(sname))
+          mainembedding = context['ti'].xcom_pull(task_ids='step_9_solution_task_ai',key="{}_mainembedding".format(sname))
+          doparse("/{}/docs/source/kube.rst".format(sname), ["--kubemainmodel--;{}".format(mainmodel)])
+          doparse("/{}/docs/source/kube.rst".format(sname), ["--kubemainembedding--;{}".format(mainembedding)])
+         
         poffset = context['ti'].xcom_pull(task_ids='step_9_solution_task_ai',key="{}_offset".format(sname))
         prollbackoffset = context['ti'].xcom_pull(task_ids='step_9_solution_task_ai',key="{}_rollbackoffset".format(sname))
         ptopicid = context['ti'].xcom_pull(task_ids='step_9_solution_task_ai',key="{}_topicid".format(sname))
@@ -8223,9 +8315,21 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
         ppartition = context['ti'].xcom_pull(task_ids='step_9_solution_task_ai',key="{}_partition".format(sname))
         pprompt = context['ti'].xcom_pull(task_ids='step_9_solution_task_ai',key="{}_prompt".format(sname))
         pcontextwindowsize = context['ti'].xcom_pull(task_ids='step_9_solution_task_ai',key="{}_contextwindowsize".format(sname))
+        pvectordimension = context['ti'].xcom_pull(task_ids='step_9_solution_task_ai',key="{}_vectordimension".format(sname))
+        pmitrejson = context['ti'].xcom_pull(task_ids='step_9_solution_task_ai',key="{}_mitrejson".format(sname))
+    
+        if pmitrejson:
+           doparse("/{}/docs/source/details.rst".format(sname), ["--mitrejson--;{}".format(pmitrejson)])
+    
         if pcontextwindowsize:
            step9pcontextwindowsize=pcontextwindowsize
-           doparse("/{}/docs/source/details.rst".format(sname), ["--contextwindowsize--;{}".format(contextwindowsize[1:])])
+           doparse("/{}/docs/source/details.rst".format(sname), ["--contextwindowsize--;{}".format(pcontextwindowsize[1:])])
+           doparse("/{}/docs/source/kube.rst".format(sname), ["--kubecontextwindowsize--;{}".format(pcontextwindowsize[1:])])
+    
+        if pvectordimension:
+           step9vectordimension=pvectordimension
+           doparse("/{}/docs/source/details.rst".format(sname), ["--vectordimension--;{}".format(pvectordimension[1:])])
+           doparse("/{}/docs/source/kube.rst".format(sname), ["--kubevectordimension--;{}".format(pvectordimension[1:])])
          
         if pprompt:
           step9prompt=pprompt
@@ -8255,17 +8359,23 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
         pconcurrency = context['ti'].xcom_pull(task_ids='step_9_solution_task_ai',key="{}_concurrency".format(sname))
         if pconcurrency:
           step9concurrency=pconcurrency     
+          doparse("/{}/docs/source/kube.rst".format(sname), ["--kubeconcur--;{}".format(pconcurrency[1:])])
+         
         pcuda = context['ti'].xcom_pull(task_ids='step_9_solution_task_ai',key="{}_cuda".format(sname))
         if pcuda:
          cudavisibledevices=pcuda     
         pcollection = context['ti'].xcom_pull(task_ids='step_9_solution_task_ai',key="{}_vectordbcollectionname".format(sname))    
         if pcollection:
           step9vectordbcollectionname=pcollection     
+          doparse("/{}/docs/source/kube.rst".format(sname), ["--kubecollection--;{}".format(pcollection)])
+    
         pgpthost = context['ti'].xcom_pull(task_ids='step_9_solution_task_ai',key="{}_pgpthost".format(sname))
-        step9pgpthost=pgpthost
+        if pgpthost:
+          step9pgpthost=pgpthost
     
         pgptport = context['ti'].xcom_pull(task_ids='step_9_solution_task_ai',key="{}_pgptport".format(sname))
-        step9pgptport=pgptport
+        if pgptport:
+          step9pgptport=pgptport
      
         pprocesstype = context['ti'].xcom_pull(task_ids='step_9_solution_task_ai',key="{}_keyprocesstype".format(sname))
         if pprocesstype:
@@ -8285,11 +8395,13 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
         if ptemperature:
           step9temperature=ptemperature
           doparse("/{}/docs/source/details.rst".format(sname), ["--temperature--;{}".format(ptemperature[1:])])
+          doparse("/{}/docs/source/kube.rst".format(sname), ["--kubetemperature--;{}".format(ptemperature[1:])])
          
         pvectorsearchtype = context['ti'].xcom_pull(task_ids='step_9_solution_task_ai',key="{}_vectorsearchtype".format(sname))
         if pvectorsearchtype:
           step9vectorsearchtype=pvectorsearchtype
           doparse("/{}/docs/source/details.rst".format(sname), ["--vectorsearchtype--;{}".format(pvectorsearchtype)])
+          doparse("/{}/docs/source/kube.rst".format(sname), ["--kubevectorsearchtype--;{}".format(pvectorsearchtype)])
     
         ebuf=""
         if 'dockerenv' in default_args:
@@ -8300,7 +8412,11 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
            for d in darr:          
               v=d.split("=")
               if len(v)>1:
-                ebuf = ebuf + '          --env ' + v[0].strip() + '=\"' + v[1].strip() + '\" \\ \n'
+                if 'jsoncriteria' in v[0].strip():
+                  d=d[d.index("=")+1:]
+                  ebuf = ebuf + '          --env ' + v[0].strip() + '=\"' + d + '\" \\ \n'             
+                else:
+                  ebuf = ebuf + '          --env ' + v[0].strip() + '=\"' + v[1].strip() + '\" \\ \n'
               else: 
                 ebuf = ebuf + '          --env ' + v[0].strip() + '=' + ' \\ \n'
            ebuf = ebuf[:-1]
@@ -8311,7 +8427,7 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
          
         if len(CLIENTPORT) > 1:
           doparse("/{}/docs/source/operating.rst".format(sname), ["--clientport--;{}".format(TMLCLIENTPORT[1:])])
-          dockerrun = """docker run -d -p {}:{} -p {}:{} -p {}:{} -p {}:{} \\
+          dockerrun = """docker run -d --net=host -p {}:{} -p {}:{} -p {}:{} -p {}:{} \\
               --env TSS=0 \\
               --env SOLUTIONNAME={} \\
               --env SOLUTIONDAG={} \\
@@ -8344,7 +8460,7 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
                               externalport[1:],vipervizport[1:],airflowport[1:],ebuf,containername)       
         else:
           doparse("/{}/docs/source/operating.rst".format(sname), ["--clientport--;Not Applicable"])
-          dockerrun = """docker run -d -p {}:{} -p {}:{} -p {}:{} \\
+          dockerrun = """docker run -d --net=host -p {}:{} -p {}:{} -p {}:{} \\
               --env TSS=0 \\
               --env SOLUTIONNAME={} \\
               --env SOLUTIONDAG={} \\
@@ -8376,15 +8492,29 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
             
        # dockerrun = re.escape(dockerrun) 
         v=subprocess.call(["sed", "-i", "-e",  "s/--dockerrun--/{}/g".format(dockerrun), "/{}/docs/source/operating.rst".format(sname)])
-        
-        doparse("/{}/docs/source/operating.rst".format(sname), ["--dockerrun--;{}".format(dockerrun),"--dockercontainer--;{} ({})".format(containername, hurl)])
-        doparse("/{}/docs/source/details.rst".format(sname), ["--dockerrun--;{}".format(dockerrun),"--dockercontainer--;{} ({})".format(containername, hurl)])
+    
+        if istss1==1:
+          doparse("/{}/docs/source/operating.rst".format(sname), ["--dockerrun--;{}".format(dockerrun),"--dockercontainer--;{} ({})".format(containername, hurl)])
+          doparse("/{}/docs/source/details.rst".format(sname), ["--dockerrun--;{}".format(dockerrun),"--dockercontainer--;{} ({})".format(containername, hurl)])   
+        else:
+          try:
+            with open("/tmux/step1solutionold.txt", "r") as f:
+              msname=f.read()
+              mbuf="Refer to the original solution container and documenation here: https://{}.readthedocs.io/en/latest/operating.html".format(msname.strip())
+              doparse("/{}/docs/source/operating.rst".format(sname), ["--dockerrun--;{}".format(dockerrun),"--dockercontainer--;{}".format(mbuf)])
+          except Exception as e:
+            pass
+           
         step9rollbackoffset=-1
         step9llmmodel=''
         step9embedding=''
         step9vectorsize='' 
         if pgptcontainername != None:
-            privategptrun = "docker run -d -p {}:{} --net=host --gpus all --env PORT={} --env GPU=1 --env COLLECTION={} --env WEB_CONCURRENCY={} --env CUDA_VISIBLE_DEVICES={} {}".format(pgptport[1:],pgptport[1:],pgptport[1:],pcollection,pconcurrency[1:],pcuda[1:],pgptcontainername)
+            if os.environ['TSS'] == "1":
+               privategptrun = "docker run -d -p {}:{} --net=host --gpus all -v /var/run/docker.sock:/var/run/docker.sock:z --env PORT={} --env TSS=1 --env GPU=1 --env COLLECTION={} --env WEB_CONCURRENCY={} --env CUDA_VISIBLE_DEVICES={} --env TOKENIZERS_PARALLELISM=false --env temperature={} --env vectorsearchtype=\"{}\" --env contextwindowsize={} --env vectordimension={} {}".format(pgptport[1:],pgptport[1:],pgptport[1:],pcollection,pconcurrency[1:],pcuda[1:],ptemperature[1:], pvectorsearchtype, pcontextwindowsize[1:], pvectordimension[1:],pgptcontainername)
+            else:
+               privategptrun = "docker run -d -p {}:{} --net=host --gpus all -v /var/run/docker.sock:/var/run/docker.sock:z --env PORT={} --env TSS=0 --env GPU=1 --env COLLECTION={} --env WEB_CONCURRENCY={} --env CUDA_VISIBLE_DEVICES={} --env TOKENIZERS_PARALLELISM=false --env temperature={} --env vectorsearchtype=\"{}\" --env contextwindowsize={} --env vectordimension={} {}".format(pgptport[1:],pgptport[1:],pgptport[1:],pcollection,pconcurrency[1:],pcuda[1:],ptemperature[1:], pvectorsearchtype, pcontextwindowsize[1:], pvectordimension[1:],pgptcontainername)
+             
             step9llmmodel='Refer to: https://tml.readthedocs.io/en/latest/genai.html'
             step9embedding='Refer to: https://tml.readthedocs.io/en/latest/genai.html'
             step9vectorsize='Refer to: https://tml.readthedocs.io/en/latest/genai.html'
@@ -8612,7 +8742,11 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
                            step4cpatternwindowthreshold[1:],step4crtmsstream,projectname,step4crtmsscorethreshold[1:],step4cattackscorethreshold[1:],
                            step4cpatternscorethreshold[1:],step4clocalsearchtermfolder,step4clocalsearchtermfolderinterval[1:],step4crtmsfoldername,
                            step3localfileinputfile,step3localfiledocfolder,step4crtmsmaxwindows[1:],step9pcontextwindowsize[1:],
-                           step9pgptcontainername,step9pgpthost,step9pgptport[1:])
+                           step9pgptcontainername,step9pgpthost,step9pgptport[1:],step9vectordimension[1:],
+                           step2raw_data_topic,step2preprocess_data_topic,step4raw_data_topic,step4preprocesstypes,
+                           step4jsoncriteria,step4ajsoncriteria,step4amaxrows[1:],step4apreprocesstypes,step4araw_data_topic,
+                           step4apreprocess_data_topic,step4bpreprocesstypes,step4bjsoncriteria,step4braw_data_topic,
+                           step4bpreprocess_data_topic,step4preprocess_data_topic)
         else: 
           kcmd2=tsslogging.genkubeyamlnoext(sname,containername,TMLCLIENTPORT[1:],solutionairflowport[1:],solutionvipervizport[1:],solutionexternalport[1:],
                            sd,os.environ['GITUSERNAME'],os.environ['GITREPOURL'],chipmain,os.environ['DOCKERUSERNAME'],
@@ -8626,7 +8760,11 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
                            step4cpatternwindowthreshold[1:],step4crtmsstream,projectname,step4crtmsscorethreshold[1:],step4cattackscorethreshold[1:],
                            step4cpatternscorethreshold[1:],step4clocalsearchtermfolder,step4clocalsearchtermfolderinterval[1:],step4crtmsfoldername,
                            step3localfileinputfile,step3localfiledocfolder,step4crtmsmaxwindows[1:],step9pcontextwindowsize[1:],
-                           step9pgptcontainername,step9pgpthost,step9pgptport[1:])
+                           step9pgptcontainername,step9pgpthost,step9pgptport[1:],step9vectordimension[1:],
+                           step2raw_data_topic,step2preprocess_data_topic,step4raw_data_topic,step4preprocesstypes,
+                           step4jsoncriteria,step4ajsoncriteria,step4amaxrows[1:],step4apreprocesstypes,step4araw_data_topic,
+                           step4apreprocess_data_topic,step4bpreprocesstypes,step4bjsoncriteria,step4braw_data_topic,
+                           step4bpreprocess_data_topic,step4preprocess_data_topic)
     
         doparse("/{}/docs/source/kube.rst".format(sname), ["--solutionnamecode--;{}".format(kcmd2)])
     
