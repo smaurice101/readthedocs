@@ -409,7 +409,10 @@ Below is the complete definition of the **tml_system_step_1_getparams_dag**.  Us
         # copy folders
         shutil.copytree("/tss_readthedocs", "/{}".format(sname),dirs_exist_ok=True)
         #remove local logs
-        os.remove('/dagslocalbackup/logs.txt')    
+        try:
+          os.remove('/dagslocalbackup/logs.txt')    
+        except Exception as e:
+          pass 
             
     def updateviperenv():
         # update ALL
@@ -445,7 +448,7 @@ Below is the complete definition of the **tml_system_step_1_getparams_dag**.  Us
               else: 
                  default_args['brokerhost']="kafka-service"
                
-        filepaths = ['/Viper-produce/viper.env','/Viper-preprocess/viper.env','/Viper-preprocess-pgpt/viper.env','/Viper-preprocess2/viper.env','/Viper-preprocess3/viper.env','/Viper-ml/viper.env','/Viper-predict/viper.env','/Viperviz/viper.env']
+        filepaths = ['/Viper-produce/viper.env','/Viper-preprocess/viper.env','/Viper-preprocess1/viper.env','/Viper-preprocess-pgpt/viper.env','/Viper-preprocess2/viper.env','/Viper-preprocess3/viper.env','/Viper-ml/viper.env','/Viper-predict/viper.env','/Viperviz/viper.env']
         for mainfile in filepaths:
          with open(mainfile, 'r', encoding='utf-8') as file: 
            data = file.readlines() 
@@ -578,14 +581,22 @@ Below is the complete definition of the **tml_system_step_1_getparams_dag**.  Us
       HPDEPORTPREDICT = ""
     
       tsslogging.locallogs("INFO", "STEP 1: Build started") 
+    
       try: 
-        f = open("/tmux/step1solution.txt", "w")
-        f.write(default_args['solutionname'])
-        f.close()
+        if os.environ['TSS']=="1":
+         if 'READTHEDOCS' in os.environ:
+          if  len(os.environ['READTHEDOCS']) < 4:
+            sys.exit()
+          f = open("/tmux/rd4.txt", "w") 
+          rd=os.environ['READTHEDOCS']
+          f.write(rd[:4])
+          f.close()
+         else:
+           sys.exit() 
       except Exception as e:
         pass
     
-      if os.environ['TSS']==1:
+      if os.environ['TSS']=="1":
         try: 
           shutil.rmtree("/rawdata/rtms") 
         except Exception as e:
@@ -600,7 +611,20 @@ Below is the complete definition of the **tml_system_step_1_getparams_dag**.  Us
       sd = context['dag'].dag_id 
       pname = args['solutionname']    
       sname = tsslogging.rtdsolution(pname,sd)
+      try: 
+        f = open("/tmux/step1projectname.txt", "w")
+        f.write(pname)
+        f.close()
+      except Exception as e:
+        pass
     
+      try: 
+        f = open("/tmux/step1solution.txt", "w")
+        f.write(sname)
+        f.close()
+      except Exception as e:
+        pass
+     
       if 'step1description' in os.environ:
         desc = os.environ['step1description']
       else: 
@@ -628,6 +652,10 @@ Below is the complete definition of the **tml_system_step_1_getparams_dag**.  Us
           output = f.read()
           VIPERHOSTPREPROCESS = output.split(",")[0]
           VIPERPORTPREPROCESS = output.split(",")[1]    
+        with open('/Viper-preprocess1/viper.txt', 'r') as f:
+          output = f.read()
+          VIPERHOSTPREPROCESS1 = output.split(",")[0]
+          VIPERPORTPREPROCESS1 = output.split(",")[1]         
         with open('/Viper-preprocess2/viper.txt', 'r') as f:
           output = f.read()
           VIPERHOSTPREPROCESS2 = output.split(",")[0]
@@ -779,6 +807,9 @@ Below is the complete definition of the **tml_system_step_1_getparams_dag**.  Us
       task_instance.xcom_push(key="{}_VIPERPORTPRODUCE".format(sname),value="_{}".format(VIPERPORT))
       task_instance.xcom_push(key="{}_VIPERHOSTPREPROCESS".format(sname),value=VIPERHOSTPREPROCESS)
       task_instance.xcom_push(key="{}_VIPERPORTPREPROCESS".format(sname),value="_{}".format(VIPERPORTPREPROCESS))
+      task_instance.xcom_push(key="{}_VIPERHOSTPREPROCESS1".format(sname),value=VIPERHOSTPREPROCESS1)
+      task_instance.xcom_push(key="{}_VIPERPORTPREPROCESS1".format(sname),value="_{}".format(VIPERPORTPREPROCESS1))
+     
       task_instance.xcom_push(key="{}_VIPERHOSTPREPROCESS2".format(sname),value=VIPERHOSTPREPROCESS2)
       task_instance.xcom_push(key="{}_VIPERPORTPREPROCESS2".format(sname),value="_{}".format(VIPERPORTPREPROCESS2))
       task_instance.xcom_push(key="{}_VIPERHOSTPREPROCESS3".format(sname),value=VIPERHOSTPREPROCESS3)
@@ -991,6 +1022,12 @@ Below is the complete definition of the **tml_system_step_2_kafka_createtopic_da
       # If you are using a reverse proxy to reach VIPER then you can put it here - otherwise if
       # empty then no reverse proxy is being used
       microserviceid=args['microserviceid']
+    
+      if 'step2raw_data_topic' in os.environ:
+         args['raw_data_topic']=os.environ['step2raw_data_topic']
+    
+      if 'step2preprocess_data_topic' in os.environ:
+         args['preprocess_data_topic']=os.environ['step2preprocess_data_topic']
     
       raw_data_topic=args['raw_data_topic']
       preprocess_data_topic=args['preprocess_data_topic']
@@ -2451,13 +2488,13 @@ STEP 3d: Produce Data Using LOCALFILE: tml-read-LOCALFILE-step-3-kafka-produceto
       'producerid' : 'iotsolution',   # <<< *** Change as needed   
       'topics' : 'iot-raw-data', # *************** This is one of the topic you created in SYSTEM STEP 2
       'identifier' : 'TML solution',   # <<< *** Change as needed   
-      'inputfile' : '/rawdatademo/IoTData.txt',  # <<< ***** replace ?  to input file name to read. NOTE this data file should be JSON messages per line and stored in the HOST folder mapped to /rawdata folder 
+      'inputfile' : '',#'/rawdatademo/cisco_network_data.txt',  # <<< ***** replace ?  to input file name to read. NOTE this data file should be JSON messages per line and stored in the HOST folder mapped to /rawdata folder 
       'delay' : '7000', # << ******* 7000 millisecond maximum delay for VIPER to wait for Kafka to return confirmation message is received and written to topic
       'topicid' : '-999', # <<< ********* do not modify  
       'sleep' : 0.15, # << Control how fast data streams - if 0 - the data will stream as fast as possible - BUT this may cause connecion reset by peer 
-      'docfolder' : '', # You can read TEXT files or any file in these folders that are inside the volume mapped to /rawdata
-      'doctopic' : '',  # This is the topic that will contain the docfolder file data
-      'chunks' : 0, # if 0 the files in docfolder are read line by line, otherwise they are read by chunks i.e. 512
+      'docfolder' : 'mylogs,mylogs2', # You can read TEXT files or any file in these folders that are inside the volume mapped to /rawdata
+      'doctopic' : 'rtms-stream-mylogs,rtms-stream-mylogs2',  # This is the topic that will contain the docfolder file data
+      'chunks' :3000, # if 0 the files in docfolder are read line by line, otherwise they are read by chunks i.e. 512
       'docingestinterval' : 0, # specify the frequency in seconds to read files in docfolder - if 0 the files are read ONCE
     }
     
@@ -2486,20 +2523,23 @@ STEP 3d: Produce Data Using LOCALFILE: tml-read-LOCALFILE-step-3-kafka-produceto
                        data = data[:len(data)-ct]
               else:
                 data = file_object.readline().decode('utf-8')            
-              data=data.replace('"','').replace("'","").replace("\\n"," ").replace('\n'," ").replace("\\r"," ").replace('\r'," ").strip()
+              data=data.replace('"','').replace("'","").replace("\\n"," ").replace('\n'," ").replace("\\r"," ").replace('\r'," ").replace(';'," ").replace('&'," ").strip()
               if not data:
                    break
               yield data          
             except Exception as e:
                break
     
-    def readallfiles(fd,cs=1024):
-      fdata = []  
-      #with open(filename,"r") as f:
+    def readallfiles(fd,tr,cs=1024):
+      args=default_args
+      producerid='userfilestream'
+      print("fd=",fd.name)
       for piece in read_in_chunks(fd,cs):
             piece=re.sub(' +', ' ', piece)
-            fdata.append(piece)
-      return fdata    
+            pj='{"RTMSMessage":"' + piece + '"}'
+            
+            producetokafka(pj, "", "",producerid,tr,"",args)
+      return []    
     
     def ingestfiles():
         args = default_args
@@ -2517,48 +2557,28 @@ STEP 3d: Produce Data Using LOCALFILE: tml-read-LOCALFILE-step-3-kafka-produceto
           if len(dirbuf) != len(maintopicbuf):
             tsslogging.locallogs("ERROR", "STEP 3: Produce LOCALFILE in {} You specified multiple doctopics, then must match docfolder".format(os.path.basename(__file__)))
             return
-          while True:
+        elif len(maintopicbuf) == 1 and len(dirbuf) > 1:
+           for i in range(len(dirbuf)-1):
+             maintopicbuf.append(maintopic)
+        else:
+           return
+      
+        while True:
            for dr,tr in zip(dirbuf,maintopicbuf):
              filenames = []
              if os.path.isdir("/rawdata/{}".format(dr)):
                a = [os.path.join("/rawdata/{}".format(dr), f) for f in os.listdir("/rawdata/{}".format(dr)) if 
                os.path.isfile(os.path.join("/rawdata/{}".format(dr), f))]
                filenames.extend(a)
-    
+               print("filename=",filenames)
                if len(filenames) > 0:
                  with ExitStack() as stack:
                    files = [stack.enter_context(open(i, "rb")) for i in filenames]
-                   contents = [readallfiles(file,chunks) for file in files]
-                   for d in contents:
-                      dstr = ','.join(d)
-                      #jd = '{"message":"' + dstr + '"}'
-                      producetokafka(dstr, "", "",producerid,tr,"",args)
+                   contents = [readallfiles(file,tr,chunks) for file in files]
            if interval==0:
              break
            else:  
             time.sleep(interval)         
-        else:
-         while True:
-          filenames = []
-          for dr in dirbuf:
-            if os.path.isdir("/rawdata/{}".format(dr)):
-              a = [os.path.join("/rawdata/{}".format(dr), f) for f in os.listdir("/rawdata/{}".format(dr)) if 
-              os.path.isfile(os.path.join("/rawdata/{}".format(dr), f))]
-              filenames.extend(a)
-    
-          if len(filenames) > 0:
-            with ExitStack() as stack:
-              files = [stack.enter_context(open(i, "rb")) for i in filenames]
-              contents = [readallfiles(file,chunks) for file in files]
-              for d in contents:
-                  dstr = ','.join(d)
-                  #jd = '{"message":"' + dstr + '"}'
-                  producetokafka(dstr, "", "",producerid,maintopic,"",args)
-          if interval==0:
-            break
-          else:  
-           time.sleep(interval)
-    
           
     def startdirread():
       if 'docfolder' not in default_args and 'doctopic' not in default_args and 'chunks' not in default_args and 'docingestinterval' not in default_args:
@@ -2584,6 +2604,7 @@ STEP 3d: Produce Data Using LOCALFILE: tml-read-LOCALFILE-step-3-kafka-produceto
      try:
         result=maadstml.viperproducetotopic(VIPERTOKEN,VIPERHOST,VIPERPORT,maintopic,producerid,enabletls,delay,'','', '',0,inputbuf,substream,
                                             topicid,identifier)
+    #    print("result=",result)
      except Exception as e:
         print("ERROR:",e)
     
@@ -2600,6 +2621,10 @@ STEP 3d: Produce Data Using LOCALFILE: tml-read-LOCALFILE-step-3-kafka-produceto
       maintopic = args['topics']
       producerid = args['producerid']
     
+      startdirread()
+      
+      if maintopic=='' or inputfile=='':
+         return
       k=0
       try:
         file1 = open(inputfile, 'r')
@@ -2673,7 +2698,16 @@ STEP 3d: Produce Data Using LOCALFILE: tml-read-LOCALFILE-step-3-kafka-produceto
       ti.xcom_push(key="{}_PORT".format(sname),value="_{}".format(VIPERPORT))
       ti.xcom_push(key="{}_HTTPADDR".format(sname),value=HTTPADDR)
     
+      inputfile=default_args['inputfile']
+      if 'step3localfileinputfile' in os.environ:
+           default_args['inputfile']=os.environ['step3localfileinputfile']
+           ti.xcom_push(key="{}_inputfile".format(sname),value=default_args['inputfile'])
+      else:
+           ti.xcom_push(key="{}_inputfile".format(sname),value=default_args['inputfile'])
+      
+      docfolder=''
       if 'docfolder' in default_args and 'doctopic' in default_args:
+        docfolder=default_args['docfolder']
         ti.xcom_push(key="{}_docfolder".format(sname),value=default_args['docfolder'])
         ti.xcom_push(key="{}_doctopic".format(sname),value=default_args['doctopic'])
         ti.xcom_push(key="{}_chunks".format(sname),value="_{}".format(default_args['chunks']))
@@ -2683,6 +2717,10 @@ STEP 3d: Produce Data Using LOCALFILE: tml-read-LOCALFILE-step-3-kafka-produceto
         ti.xcom_push(key="{}_doctopic".format(sname),value='')
         ti.xcom_push(key="{}_chunks".format(sname),value='')
         ti.xcom_push(key="{}_docingestinterval".format(sname),value='')
+    
+      if 'step3localfiledocfolder' in os.environ:
+           default_args['docfolder']=os.environ['step3localfiledocfolder']
+           ti.xcom_push(key="{}_docfolder".format(sname),value=default_args['docfolder'])
             
       chip = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_chip".format(sname))   
     
@@ -2696,7 +2734,7 @@ STEP 3d: Produce Data Using LOCALFILE: tml-read-LOCALFILE-step-3-kafka-produceto
       wn = windowname('produce',sname,sd)  
       subprocess.run(["tmux", "new", "-d", "-s", "{}".format(wn)])
       subprocess.run(["tmux", "send-keys", "-t", "{}".format(wn), "cd /Viper-produce", "ENTER"])
-      subprocess.run(["tmux", "send-keys", "-t", "{}".format(wn), "python {} 1 {} {}{} {} ".format(fullpath,VIPERTOKEN,HTTPADDR,VIPERHOST,VIPERPORT[1:]), "ENTER"])        
+      subprocess.run(["tmux", "send-keys", "-t", "{}".format(wn), "python {} 1 {} {}{} {} \"{}\" \"{}\"".format(fullpath,VIPERTOKEN,HTTPADDR,VIPERHOST,VIPERPORT[1:],inputfile,docfolder), "ENTER"])        
             
     if __name__ == '__main__':
         
@@ -2705,6 +2743,10 @@ STEP 3d: Produce Data Using LOCALFILE: tml-read-LOCALFILE-step-3-kafka-produceto
              VIPERTOKEN = sys.argv[2]
              VIPERHOST = sys.argv[3] 
              VIPERPORT = sys.argv[4]          
+             inputfile = sys.argv[5]          
+             default_args['inputfile']=inputfile
+             docfolder = sys.argv[6]                   
+             default_args['docfolder']=docfolder
              readdata()
 
 Core Parameter Explanation
@@ -3358,7 +3400,16 @@ TML preprocesses real-time data for every entity along each sliding time window.
            HTTPADDR = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_HTTPADDR".format(sname))
     
            chip = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_chip".format(sname)) 
-                    
+    
+           if 'step4raw_data_topic' in os.environ:
+             default_args['raw_data_topic']=os.environ['step4raw_data_topic']
+           if 'step4preprocesstypes' in os.environ:
+               default_args['preprocesstypes']=os.environ['step4preprocesstypes']
+           if 'step4jsoncriteria' in os.environ:
+               default_args['jsoncriteria']=os.environ['step4jsoncriteria']
+           if 'step4preprocess_data_topic'  in os.environ:
+               default_args['preprocess_data_topic']=os.environ['step4preprocess_data_topic']
+             
            ti = context['task_instance']    
            ti.xcom_push(key="{}_raw_data_topic".format(sname), value=default_args['raw_data_topic'])
            ti.xcom_push(key="{}_preprocess_data_topic".format(sname), value=default_args['preprocess_data_topic'])
@@ -3393,7 +3444,7 @@ TML preprocesses real-time data for every entity along each sliding time window.
            wn = windowname('preprocess',sname,sd)     
            subprocess.run(["tmux", "new", "-d", "-s", "{}".format(wn)])
            subprocess.run(["tmux", "send-keys", "-t", "{}".format(wn), "cd /Viper-preprocess", "ENTER"])
-           subprocess.run(["tmux", "send-keys", "-t", "{}".format(wn), "python {} 1 {} {}{} {} {}".format(fullpath,VIPERTOKEN,HTTPADDR,VIPERHOST,VIPERPORT[1:],maxrows), "ENTER"])        
+           subprocess.run(["tmux", "send-keys", "-t", "{}".format(wn), "python {} 1 {} {}{} {} {} \"{}\" \"{}\" \"{}\" \"{}\"".format(fullpath,VIPERTOKEN,HTTPADDR,VIPERHOST,VIPERPORT[1:],maxrows,default_args['raw_data_topic'],default_args['preprocesstypes'],default_args['jsoncriteria'],default_args['preprocess_data_topic']), "ENTER"])        
     
     if __name__ == '__main__':
         if len(sys.argv) > 1:
@@ -3412,6 +3463,10 @@ TML preprocesses real-time data for every entity along each sliding time window.
             VIPERPORT = sys.argv[4]                  
             maxrows =  sys.argv[5]
             default_args['maxrows'] = maxrows
+            default_args['raw_data_topic'] =  sys.argv[6]
+            default_args['preprocesstypes'] =  sys.argv[7]
+            default_args['jsoncriteria'] =  sys.argv[8]
+            default_args['preprocess_data_topic'] =  sys.argv[9]
              
             tsslogging.locallogs("INFO", "STEP 4: Preprocessing started")
                          
@@ -3822,7 +3877,16 @@ STEP 4a: Preprocesing Data: tml-system-step-4a-kafka-preprocess-dag
            HTTPADDR = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_HTTPADDR".format(sname))
     
            chip = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_chip".format(sname)) 
-                    
+    
+           if 'step4ajsoncriteria' in os.environ:
+              default_args['jsoncriteria']=os.environ['step4ajsoncriteria']
+           if 'step4apreprocesstypes' in os.environ:
+              default_args['preprocesstypes']=os.environ['step4apreprocesstypes']
+           if 'step4araw_data_topic' in os.environ:
+             default_args['raw_data_topic']=os.environ['step4araw_data_topic']         
+           if 'step4apreprocess_data_topic' in os.environ:
+              default_args['preprocess_data_topic']=os.environ['step4apreprocess_data_topic']
+    
            ti = context['task_instance']    
            ti.xcom_push(key="{}_raw_data_topic".format(sname), value=default_args['raw_data_topic'])
            ti.xcom_push(key="{}_preprocess_data_topic".format(sname), value=default_args['preprocess_data_topic'])
@@ -3841,9 +3905,9 @@ STEP 4a: Preprocesing Data: tml-system-step-4a-kafka-preprocess-dag
            ti.xcom_push(key="{}_jsoncriteria".format(sname), value=default_args['jsoncriteria'])
     
            maxrows=default_args['maxrows']
-           if 'step4maxrows' in os.environ:
-             ti.xcom_push(key="{}_maxrows".format(sname), value="_{}".format(os.environ['step4maxrows']))                
-             maxrows=os.environ['step4maxrows']
+           if 'step4amaxrows' in os.environ:
+             ti.xcom_push(key="{}_maxrows".format(sname), value="_{}".format(os.environ['step4amaxrows']))                
+             maxrows=os.environ['step4amaxrows']
            else:  
              ti.xcom_push(key="{}_maxrows".format(sname), value="_{}".format(default_args['maxrows']))
              
@@ -3857,7 +3921,7 @@ STEP 4a: Preprocesing Data: tml-system-step-4a-kafka-preprocess-dag
            wn = windowname('preprocess1',sname,sd)     
            subprocess.run(["tmux", "new", "-d", "-s", "{}".format(wn)])
            subprocess.run(["tmux", "send-keys", "-t", "{}".format(wn), "cd /Viper-preprocess1", "ENTER"])
-           subprocess.run(["tmux", "send-keys", "-t", "{}".format(wn), "python {} 1 {} {}{} {} {}".format(fullpath,VIPERTOKEN,HTTPADDR,VIPERHOST,VIPERPORT[1:],maxrows), "ENTER"])        
+           subprocess.run(["tmux", "send-keys", "-t", "{}".format(wn), "python {} 1 {} {}{} {} {} \"{}\" \"{}\" \"{}\" \"{}\"".format(fullpath,VIPERTOKEN,HTTPADDR,VIPERHOST,VIPERPORT[1:],maxrows,default_args['jsoncriteria'],default_args['preprocesstypes'],default_args['raw_data_topic'],default_args['preprocess_data_topic']), "ENTER"])        
     
     if __name__ == '__main__':
         if len(sys.argv) > 1:
@@ -3876,6 +3940,11 @@ STEP 4a: Preprocesing Data: tml-system-step-4a-kafka-preprocess-dag
             VIPERPORT = sys.argv[4]                  
             maxrows =  sys.argv[5]
             default_args['maxrows'] = maxrows
+    
+            default_args['jsoncriteria'] =  sys.argv[6]
+            default_args['preprocesstypes'] =  sys.argv[7]
+            default_args['raw_data_topic'] =  sys.argv[8]
+            default_args['preprocess_data_topic'] =  sys.argv[9]
              
             tsslogging.locallogs("INFO", "STEP 4a: Preprocessing started")
                          
@@ -4040,6 +4109,18 @@ STEP 4b: Preprocesing 2 Data: tml-system-step-4b-kafka-preprocess-dag
            HTTPADDR = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_HTTPADDR".format(sname))
     
            chip = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_chip".format(sname)) 
+    
+           if 'step4bpreprocesstypes' in os.environ:
+              default_args['preprocesstypes']=os.environ['step4bpreprocesstypes']
+             
+           if 'step4bjsoncriteria' in os.environ:
+              default_args['jsoncriteria']=os.environ['step4bjsoncriteria']
+             
+           if 'step4braw_data_topic' in os.environ:
+              default_args['raw_data_topic']=os.environ['step4braw_data_topic']
+             
+           if 'step4bpreprocess_data_topic' in os.environ:
+             default_args['preprocess_data_topic']=os.environ['step4bpreprocess_data_topic']
                     
            ti = context['task_instance']    
            ti.xcom_push(key="{}_raw_data_topic".format(sname), value=default_args['raw_data_topic'])
@@ -4074,7 +4155,7 @@ STEP 4b: Preprocesing 2 Data: tml-system-step-4b-kafka-preprocess-dag
            wn = windowname('preprocess2',sname,sd)     
            subprocess.run(["tmux", "new", "-d", "-s", "{}".format(wn)])
            subprocess.run(["tmux", "send-keys", "-t", "{}".format(wn), "cd /Viper-preprocess2", "ENTER"])
-           subprocess.run(["tmux", "send-keys", "-t", "{}".format(wn), "python {} 1 {} {}{} {} {}".format(fullpath,VIPERTOKEN,HTTPADDR,VIPERHOST,VIPERPORT[1:],maxrows), "ENTER"])        
+           subprocess.run(["tmux", "send-keys", "-t", "{}".format(wn), "python {} 1 {} {}{} {} {} \"{}\" \"{}\" \"{}\" \"{}\"".format(fullpath,VIPERTOKEN,HTTPADDR,VIPERHOST,VIPERPORT[1:],maxrows,default_args['preprocesstypes'],default_args['jsoncriteria'],default_args['raw_data_topic'],default_args['preprocess_data_topic']), "ENTER"])        
     
     if __name__ == '__main__':
         if len(sys.argv) > 1:
@@ -4093,7 +4174,12 @@ STEP 4b: Preprocesing 2 Data: tml-system-step-4b-kafka-preprocess-dag
             VIPERPORT = sys.argv[4]                  
             maxrows =  sys.argv[5]
             default_args['maxrows'] = maxrows
-             
+    
+            default_args['preprocesstypes'] =  sys.argv[6]
+            default_args['jsoncriteria'] =  sys.argv[7]
+            default_args['raw_data_topic'] =  sys.argv[8]
+            default_args['preprocess_data_topic'] =  sys.argv[9]
+                   
             tsslogging.locallogs("INFO", "STEP 4b: Preprocessing 2 started")
     
             while True:
@@ -4135,6 +4221,7 @@ STEP 4c: Preprocesing 3 Data: tml-system-step-4c-kafka-preprocess-dag
     import random
     import base64
     import threading
+    import shutil
     
     sys.dont_write_bytecode = True
     ######################################## USER CHOOSEN PARAMETERS ########################################
@@ -4306,8 +4393,9 @@ STEP 4c: Preprocesing 3 Data: tml-system-step-4c-kafka-preprocess-dag
         dirbuf = buf.split(",")
         if len(dirbuf) == 0:
            return
-          
+    
         while True:  
+         try: 
           lg=""
           buf = default_args['localsearchtermfolder']
           interval=int(default_args['localsearchtermfolderinterval'])
@@ -4343,12 +4431,14 @@ STEP 4c: Preprocesing 3 Data: tml-system-step-4c-kafka-preprocess-dag
                   # check regex
                   for m in lines:
                     if len(m) > 0:
-                      if 'rgx:' in m:
+                      if 'rgx:' in m and m[:4]=="rgx:":
                         rgx.append(m)
-                      elif '~~~' in m:                  
+                      elif '~~~' in m and m[:3]=="~~~":                  
                         ibx.append(m)
                       else:  
-                        linebuf = linebuf + m + ","
+                        m=m.replace(",", " ")
+                        if m[0] != "~":
+                          linebuf = linebuf + m + ","
     
              if linebuf != "":
                linebuf = linebuf[:-1]
@@ -4368,7 +4458,11 @@ STEP 4c: Preprocesing 3 Data: tml-system-step-4c-kafka-preprocess-dag
             break
           else:  
            time.sleep(interval)
-                        
+         except Exception as e: 
+           print("ERROR: ingesting files:",e)
+           continue
+           
+          
     def startdirread():
       if 'localsearchtermfolder' not in default_args:
          return
@@ -4572,6 +4666,11 @@ STEP 4c: Preprocesing 3 Data: tml-system-step-4c-kafka-preprocess-dag
             default_args['rtmsmaxwindows'] = rtmsmaxwindows
     
             tsslogging.locallogs("INFO", "STEP 4c: Preprocessing 3 started")
+            try:
+              shutil.rmtree("/rawdata/{}".format(rtmsfoldername),ignore_errors=True)
+            except Exception as e:
+               pass
+              
             try:
              directory="/rawdata/{}".format(rtmsfoldername)         
              if not os.path.exists(directory):
@@ -6279,7 +6378,8 @@ and :ref:`Machine Learning Trained Model Sample JSON Output`.
                  if i < 4:
                    subprocess.call(["tmux", "kill-window", "-t", "{}".format(wn)])        
                    subprocess.call(["kill", "-9", "$(lsof -i:{} -t)".format(mainport)])
-                 tsslogging.locallogs("WARN", "STEP 7: Cannot make a connection to Viperviz on port {}.  Going to try again...".format(mainport))            
+                 tsslogging.locallogs("WARN", "STEP 7: Cannot make a connection to Viperviz on port {}.  Going to try again...".format(mainport))
+                
                         
             if vizgood==0:  
               tsslogging.locallogs("ERROR", "STEP 7: Network issue.  Cannot make a connection to Viperviz on port {}".format(mainport))
@@ -6428,7 +6528,14 @@ STEP 8: Deploy TML Solution to Docker : tml-system-step-8-deploy-solution-to-doc
           
            print("Containername=",cname)
            tsslogging.locallogs("INFO", "STEP 8: Starting docker push for: {}".format(cname))
-                
+           if os.environ['TSS'] == "1":
+             try: 
+               f = open("/tmux/cname.txt", "w")
+               f.write(cname)
+               f.close()
+             except Exception as e:
+               pass
+         
            ti = context['task_instance']
            ti.xcom_push(key="{}_containername".format(sname),value=cname)
            ti.xcom_push(key="{}_solution_dag_to_trigger".format(sname), value=sd)
@@ -6569,7 +6676,7 @@ STEP 9: PrivateGPT and Qdrant Integration: tml-system-step-9-privategpt_qdrant-d
             
         GPTONLINE=1
                     
-        response = response.replace("null","-1").replace("\\n"," ")
+        response = response.replace("null","-1").replace("\\n","").replace("\n","")
         r1=json.loads(response)
         c1=r1['choices'][0]['message']['content']
         c1=c1.replace('"','\\"').replace("'","\'").replace("\\n"," ").replace("&","and")
@@ -6609,6 +6716,20 @@ STEP 9: PrivateGPT and Qdrant Integration: tml-system-step-9-privategpt_qdrant-d
           print("INFO STEP 9: PrivateGPT container {} not found.  It may need to be pulled.".format(pgptcontainername))
           tsslogging.locallogs("WARN", "STEP 9: PrivateGPT container not found. It may need to be pulled if it does not start: docker pull {}".format(pgptcontainername))
     
+    def llmattrs(pgptcontainername):
+      if '-deepseek-medium' in pgptcontainername:
+         return "DeepSeek-R1-Distill-Llama-8B-Q5_K_M.gguf","BAAI/bge-base-en-v1.5"
+      elif pgptcontainername=='maadsdocker/tml-privategpt-with-gpu-nvidia-amd64':
+         return "TheBloke/Mistral-7B-Instruct-v0.1-GGUF","BAAI/bge-small-en-v1.5"
+      elif 'maadsdocker/tml-privategpt-with-gpu-nvidia-amd64-v2' == pgptcontainername:
+         return "mistralai/Mistral-7B-Instruct-v0.2","BAAI/bge-small-en-v1.5"
+      elif 'maadsdocker/tml-privategpt-with-gpu-nvidia-amd64-v3' == pgptcontainername:
+         return "mistralai/Mistral-7B-Instruct-v0.3","BAAI/bge-base-en-v1.5"
+      elif 'maadsdocker/tml-privategpt-with-gpu-nvidia-amd64-v3-large' == pgptcontainername:
+         return "mistralai/Mistral-7B-Instruct-v0.3","BAAI/bge-m3"
+      
+      return "",""
+    
     def startpgptcontainer():
           print("Starting PGPT container: {}".format(default_args['pgptcontainername'])) 
           collection = default_args['vectordbcollectionname']
@@ -6626,16 +6747,17 @@ STEP 9: PrivateGPT and Qdrant Integration: tml-system-step-9-privategpt_qdrant-d
           if '-no-gpu-' in pgptcontainername:       
               buf = "docker run -d -p {}:{} --net=host --env PORT={} --env GPU=0 --env COLLECTION={} --env WEB_CONCURRENCY={} --env CUDA_VISIBLE_DEVICES={} --env temperature={} --env vectorsearchtype=\"{}\" {}".format(pgptport,pgptport,pgptport,collection,concurrency,cuda,temperature,vectorsearchtype,pgptcontainername)       
           else: 
+            mainmodel,mainembedding=llmattrs(pgptcontainername)
             if os.environ['TSS'] == "1":       
-              buf = "docker run -d -p {}:{} --net=host --gpus all -v /var/run/docker.sock:/var/run/docker.sock:z --env PORT={} --env TSS=1 --env GPU=1 --env COLLECTION={} --env WEB_CONCURRENCY={} --env CUDA_VISIBLE_DEVICES={} --env TOKENIZERS_PARALLELISM=false --env temperature={} --env vectorsearchtype=\"{}\" --env contextwindowsize={} --env vectordimension={} {}".format(pgptport,pgptport,pgptport,collection,concurrency,cuda,temperature,vectorsearchtype,cw,vectordimension,pgptcontainername)
+              buf = "docker run -d -p {}:{} --net=host --gpus all -v /var/run/docker.sock:/var/run/docker.sock:z --env PORT={} --env TSS=1 --env GPU=1 --env COLLECTION={} --env WEB_CONCURRENCY={} --env CUDA_VISIBLE_DEVICES={} --env TOKENIZERS_PARALLELISM=false --env temperature={} --env vectorsearchtype=\"{}\" --env contextwindowsize={} --env vectordimension={} --env mainmodel=\"{}\" --env mainembedding=\"{}\" {}".format(pgptport,pgptport,pgptport,collection,concurrency,cuda,temperature,vectorsearchtype,cw,vectordimension,mainmodel,mainembedding,pgptcontainername)
             else:
-              buf = "docker run -d -p {}:{} --net=host --gpus all -v /var/run/docker.sock:/var/run/docker.sock:z --env PORT={} --env TSS=0 --env GPU=1 --env COLLECTION={} --env WEB_CONCURRENCY={} --env CUDA_VISIBLE_DEVICES={} --env TOKENIZERS_PARALLELISM=false --env temperature={} --env vectorsearchtype=\"{}\" --env contextwindowsize={} --env vectordimension={} {}".format(pgptport,pgptport,pgptport,collection,concurrency,cuda,temperature,vectorsearchtype,cw,vectordimension,pgptcontainername)
+              buf = "docker run -d -p {}:{} --net=host --gpus all -v /var/run/docker.sock:/var/run/docker.sock:z --env PORT={} --env TSS=0 --env GPU=1 --env COLLECTION={} --env WEB_CONCURRENCY={} --env CUDA_VISIBLE_DEVICES={} --env TOKENIZERS_PARALLELISM=false --env temperature={} --env vectorsearchtype=\"{}\" --env contextwindowsize={} --env vectordimension={}  --env mainmodel=\"{}\" --env mainembedding=\"{}\" {}".format(pgptport,pgptport,pgptport,collection,concurrency,cuda,temperature,vectorsearchtype,cw,vectordimension,mainmodel,mainembedding,pgptcontainername)
              
           v=subprocess.call(buf, shell=True)
           print("INFO STEP 9: PrivateGPT container.  Here is the run command: {}, v={}".format(buf,v))
           tsslogging.locallogs("INFO", "STEP 9: PrivateGPT container.  Here is the run command: {}, v={}".format(buf,v))
     
-          return v,buf
+          return v,buf,mainmodel,mainembedding
      
     def qdrantcontainer():
         v=0
@@ -6989,6 +7111,8 @@ STEP 9: PrivateGPT and Qdrant Integration: tml-system-step-9-privategpt_qdrant-d
          mainip = default_args['pgpthost']
        else: 
          mainip = "http://" + os.environ['qip']
+         if os.environ['qip']=="":
+              mainip=default_args['pgpthost']    
     
        mainport = default_args['pgptport']
     
@@ -7186,6 +7310,10 @@ STEP 9: PrivateGPT and Qdrant Integration: tml-system-step-9-privategpt_qdrant-d
            else:
              fullpath="/{}/tml-airflow/dags/{}".format(repo,os.path.basename(__file__))
     
+           mainmodel,mainembedding=llmattrs(default_args['pgptcontainername'])
+           ti.xcom_push(key="{}_mainmodel".format(sname), value="{}".format(mainmodel))
+           ti.xcom_push(key="{}_mainembedding".format(sname), value="{}".format(mainembedding))
+     
            wn = windowname('ai',sname,sd)
            subprocess.run(["tmux", "new", "-d", "-s", "{}".format(wn)])
            subprocess.run(["tmux", "send-keys", "-t", "{}".format(wn), "cd /Viper-preprocess-pgpt", "ENTER"])
@@ -7268,7 +7396,7 @@ STEP 9: PrivateGPT and Qdrant Integration: tml-system-step-9-privategpt_qdrant-d
               time.sleep(5)  # wait for containers to start
              
               tsslogging.locallogs("INFO", "STEP 9: Starting privateGPT")
-              v,buf=startpgptcontainer()
+              v,buf,mainmodel,mainembedding=startpgptcontainer()
               if v==1:
                 tsslogging.locallogs("WARN", "STEP 9: There seems to be an issue starting the privateGPT container.  Here is the run command - try to run it nanually for testing: {}".format(buf))
               else:
@@ -7287,7 +7415,7 @@ STEP 9: PrivateGPT and Qdrant Integration: tml-system-step-9-privategpt_qdrant-d
               time.sleep(5)  # wait for containers to start         
              
               tsslogging.locallogs("INFO", "STEP 9: Starting privateGPT")
-              v,buf=startpgptcontainer()
+              v,buf,mainmodel,mainembedding=startpgptcontainer()
               if v==1:
                 tsslogging.locallogs("WARN", "STEP 9: There seems to be an issue starting the privateGPT container.  Here is the run command - try to run it nanually for testing: {}".format(buf))
               else:
@@ -7324,7 +7452,7 @@ STEP 9: PrivateGPT and Qdrant Integration: tml-system-step-9-privategpt_qdrant-d
               count = count + 1
               if count > 10:
                 break 
-
+          
 STEP 9 DAG Core Parameter Explanation
 """""""""""""""""""""""""""""""""""""
 
