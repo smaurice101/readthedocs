@@ -25,6 +25,26 @@ This is the main container that you need to use to build TML solutions.  Below i
    Docker - auto solution documentation - integrated with AI - integrated with Github - integrated with Apache Airflow - integrated with Apache Kafka - in just a 
    few hours.
 
+TML Solution Container Global Deployment 
+------------------------------
+
+There are TWO ways to deploy TML solution containers:
+
+#. Docker Container: Anyone around the world can run the container using the Docker Run Command
+#. Kubernetes: Anyone around the world can run the `TML Solution containers in kubernetes <https://tml.readthedocs.io/en/latest/kube.html>`_
+
+For 1: see figure below
+
+.. figure:: tmldeploy.png
+   :scale: 70%
+
+TML solution developer creates the TML solution container, any user around the world can run this solution with their own:
+1.	Github username/repo
+2.	Readthedocs token
+3.	Docker username
+
+This means that ONE TML solution container is used by others with their OWN data, configurations parameters, and credentials without creating thousands of containers … think of this as FORKING in Github.
+
 TSS Pre-Requisites
 -------------------
 
