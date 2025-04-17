@@ -107,6 +107,14 @@ Watch The TSS Youtube Videos
        Describes key parameter configurations in: 
       
        :ref:`STEP 4: Preprocesing Data: tml-system-step-4-kafka-preprocess-dag`
+   * - **TML Step 4a and 4c for RTMS Dag Configurations**: 
+     - `YouTube Video <https://www.youtube.com/watch?v=Ru013nA_650>`_ 
+
+       Describes key parameter configurations for the `RTMS solution <https://tml.readthedocs.io/en/latest/rtms.html>`_: 
+      
+       :ref:`STEP 4a: Preprocesing Data: tml-system-step-4a-kafka-preprocess-dag`
+       :ref:`STEP 4c: Preprocesing 3 Data: tml-system-step-4c-kafka-preprocess-dag`
+
    * - **TML Step 4b Dag Configurations**: 
      - `YouTube Video <https://youtu.be/UA_gm2eqaAU>`_ 
 
