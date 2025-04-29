@@ -45,6 +45,7 @@ PrivateGPT Special Containers
             --env vectordimension=768 \
             --env mainmodel="DeepSeek-R1-Distill-Llama-8B-Q5_K_M.gguf" \
             --env mainembedding="BAAI/bge-base-en-v1.5" \
+            -v /var/run/docker.sock:/var/run/docker.sock:z \
             maadsdocker/tml-privategpt-with-gpu-nvidia-amd64-deepseek-medium
 
      - #. Suggested VRAM/GPU should be around 20GB
@@ -68,6 +69,7 @@ PrivateGPT Special Containers
             --env vectordimension=768 \
             --env mainmodel="DeepSeek-R1-Distill-Llama-8B-Q5_K_M.gguf (Legacy)" \
             --env mainembedding="BAAI/bge-base-en-v1.5" \
+            -v /var/run/docker.sock:/var/run/docker.sock:z \
             maadsdocker/tml-privategpt-with-gpu-nvidia-amd64-deepseek-medium-legacy
 
      - #. Suggested VRAM/GPU should be around 20GB
@@ -91,6 +93,7 @@ PrivateGPT Special Containers
             --env contextwindowsize=4096 --env vectordimension=384 \
             --env mainmodel="TheBloke/Mistral-7B-Instruct-v0.1-GGUF" \
             --env mainembedding="BAAI/bge-small-en-v1.5" \
+            -v /var/run/docker.sock:/var/run/docker.sock:z \
             maadsdocker/tml-privategpt-with-gpu-nvidia-amd64:latest
 
      - #. Suggested VRAM/GPU should be around 20GB
@@ -114,6 +117,7 @@ PrivateGPT Special Containers
             --env contextwindowsize=4096 --env vectordimension=384 \
             --env mainmodel="mistralai/Mistral-7B-Instruct-v0.2" \
             --env mainembedding="BAAI/bge-small-en-v1.5" \
+            -v /var/run/docker.sock:/var/run/docker.sock:z \
             maadsdocker/tml-privategpt-with-gpu-nvidia-amd64-v2:latest
 
      - #. Suggested VRAM/GPU should be around 24GB
@@ -137,6 +141,7 @@ PrivateGPT Special Containers
             --env contextwindowsize=4096 --env vectordimension=768 \
             --env mainmodel="mistralai/Mistral-7B-Instruct-v0.3" \
             --env mainembedding="BAAI/bge-base-en-v1.5" \
+            -v /var/run/docker.sock:/var/run/docker.sock:z \
             maadsdocker/tml-privategpt-with-gpu-nvidia-amd64-v3
 
      - #. Suggested VRAM/GPU should be around 24GB
@@ -160,6 +165,7 @@ PrivateGPT Special Containers
             --env contextwindowsize=4096 --env vectordimension=1024 \
             --env mainmodel="mistralai/Mistral-7B-Instruct-v0.3" \
             --env mainembedding="BAAI/bge-m3" \
+            -v /var/run/docker.sock:/var/run/docker.sock:z \
             maadsdocker/tml-privategpt-with-gpu-nvidia-amd64-v3-large
 
      - #. Suggested VRAM/GPU should be around 40GB
