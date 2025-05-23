@@ -13,7 +13,7 @@ Real-Time Memory Scoring (RTMS): How TML Maintains Past Memory of Events Using S
    feature becomes very powerful for you. For example, you may be processing Entities in `Step 4 <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-4-preprocesing-data-tml-system-step-4-kafka-preprocess-dag>`_ and then want to determine if an entity is showing up in the logs or whether it is hacking in to your 
    company using a slow and "occasional" attempt over time to EVADE detection algorithms, then RTMS can be very powerful to detect this complex behaviour.
 
-Importance of Real-Time Data and Cyber Crime
+Importance of RTMS For Cyber Crime Detection
 ---------------------------
 
 * The growth of **real-time data** according to IDC Research **will reach 30% of global data in 2025 or roughly 90 ZB or 90 trillion gigabytes** mainly from IoT devices connected to the Internet
@@ -34,7 +34,7 @@ Importance of Real-Time Data and Cyber Crime
   
    * **Real-Time Memory Score (RTMS):** Combines both the Attack and Pattern Scores for an OVERALL score
 
-The Method
+The RTMS Method
 -------------------
 
 #. User tells TML to keep a memory of past sliding time windows
@@ -86,7 +86,7 @@ High-Level Reference Architecture
 
 **Enjoy the POWER of TML RTMS solution - that integrates real-time ML/AI entity level predictions with text files (like log files) to protect your global organizations - UNLIKE ANY OTHER TECHNOLOGY IN THE MARKET.**
 
-Past Memory Demonstration
+Maintaining Past Memory of Real-Time Data Without a Database: Demonstration
 -----------------------
 
 .. important::
