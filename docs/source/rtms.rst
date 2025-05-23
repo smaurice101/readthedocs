@@ -1,4 +1,4 @@
-How TML Maintains Past Memory of Events Using Sliding Time Windows in Real-Time
+Real-Time Memory Scoring (RTMS): How TML Maintains Past Memory of Events Using Sliding Time Windows in Real-Time
 ============================================
 
 .. tip::
