@@ -5,7 +5,7 @@ Real-Time Memory Scoring (RTMS): How TML Maintains Past Memory of Events Using S
    This capability is implemented in :ref:`STEP 4c: Preprocesing 3 Data: tml-system-step-4c-kafka-preprocess-dag`
 
 .. note::
-   While the Real-Time memory of sliding time windows (RTMS) is demonstrated for Cyber security, **it can be applied to any usecase in Retail, Finance, IoT, Energy, 
+   While the RTMS is demonstrated for Cyber security, **it can be applied to any usecase in Retail, Finance, IoT, Energy, 
    Manufacturing etc..** Anytime you want to analyse TEXT files and determine if events have occured in the past and quantify their importance (or lack of 
    importance) then this is a powerful feature for you.  
 
