@@ -5,7 +5,6 @@ TML and Agentic AI
 - Agents are now able to reason and perform the appropriate tasks on their own - without human intervention
 - The maket for Agentic AI is expected to aggressively grow in the next 5 years with a CAGR of 41%
 - This growth will be driven by demand for automation of simple and complex tasks
-- 
 
 .. figure:: agentic1.png
    :scale: 70%
