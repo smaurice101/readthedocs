@@ -31,5 +31,18 @@ TML and Agentic AI: A Powerful Combination for Real-Time Data
 
 - TML solutions are already a “Single” agent
 
-- The more advanced use of TML and Agents is in a multi-agent framework
- - This will be the new capability on TML
+- The more advanced use of TML and Agents is in a **multi-agent framework**
+ - This will be the powerful capability in TML
+
+Building TML and Agentic AI Solutions with TML Solution Studio (TSS)
+==============================================
+
+- All TML solutions are built with the TSS
+- TSS enforces a process driven approach to build TML solution in a few minutes
+- The image on the left shows an example of a TML solution build process
+- Every TML solution are built with NO-CODE
+- Each TML solution takes less than 5 minutes to develop
+- The output of a TSS solution build is a docker container
+
+.. figure:: agentic2.png
+   :scale: 70%
