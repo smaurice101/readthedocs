@@ -37,7 +37,7 @@ TML and Agentic AI: A Powerful Combination for Real-Time Data
 Building TML and Agentic AI Solutions with TML Solution Studio (TSS)
 ==============================================
 
-- All TML solutions are built with the TSS
+- All TML solutions are built with the `TSS <https://tml.readthedocs.io/en/latest/docker.html>`_
 - TSS enforces a process driven approach to build TML solution in a few minutes
 - The image on the left shows an example of a TML solution build process
 - Every TML solution are built with NO-CODE
@@ -46,3 +46,21 @@ Building TML and Agentic AI Solutions with TML Solution Studio (TSS)
 
 .. figure:: agentic2.png
    :scale: 70%
+
+TML and (Multi) Agentic AI Architecture
+========================
+
+- The TML and Agentic Architecture is very simple: Agents can be configured in the `TSS <https://tml.readthedocs.io/en/latest/docker.html>`_
+- With NO-CODE - users can advanced agent based solutions that process real-time data and perform tasks in real-time
+- The AI integration is with the `TML privateGPT containers <https://tml.readthedocs.io/en/latest/genai.html#privategpt-special-containers>`_
+ - Using local GenAI containers drastically reduces the cost of Agentic solution for large scale data processing
+
+.. figure:: agentic3.png
+   :scale: 70%
+
+Advantages of TML with Agentic AI
+========================
+
+- Real-Time entity-based Agent computing can offer finer-grained insights that could improve the quality of real-time decisions for many uses in IoT,       Cybersecurity, Finance, Manufacturing, Energy etc.
+- By processing data from multiple data sources by individual agents, and then combining the output (supervisor agent) increases the level intelligences extracted from the data leading to higher dimensional, entity-level, intelligence in real-time
+- Ability to perform complex workflow tasks in real-time offers greater, and faster, visibility on critical operational functions
