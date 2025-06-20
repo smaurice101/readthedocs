@@ -241,6 +241,7 @@ Contents
    jsonprocessing
    viper
    genai
+   agentic
    alone
    
    
