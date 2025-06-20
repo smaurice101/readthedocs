@@ -21,3 +21,15 @@ In the above Figure:
 * Mutli-agents allow for a community of agents with more advanced capabilities
 
 * For more information read this `blog <https://www.linkedin.com/pulse/agentic-ai-5-basic-research-facts-multiagents-from-my-maurice-ph-d--sv4fc/?trackingId=O7arqnVYn4wfmc4R7Yg%2BmA%3D%3D>`_
+
+TML and Agentic AI: A Powerful Combination for Real-Time Data
+==================================================
+
+- Real-time agent-based systems for entity level processing and machine learning is a ground-breaking capability currently “unparalleled” in the global AI market
+
+- Integrating Agentic AI in TML solutions opens up tremendous opportunities for real-time workflow solutions that can incorporate multiple data sources that can be   processed by Multiple Agents at the same time
+
+- TML solutions are already a “Single” agent
+
+- The more advanced use of TML and Agents is in a multi-agent framework
+ - This will be the new capability on TML
