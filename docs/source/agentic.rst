@@ -57,6 +57,11 @@ TML and (Multi) Agentic AI Architecture
 .. figure:: agentic3.png
    :scale: 70%
 
+Complex real-time workflows can be implemented using TML and Agentic AI as shown below.  In fact, developing these complex workflow and implementing them for organization could be a large part of the future jobs.
+
+.. figure:: agent4.png
+   :scale: 70%
+
 Advantages of TML with Agentic AI
 ========================
 
