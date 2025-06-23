@@ -187,6 +187,7 @@ For TML and Agentic AI solutions users must you the following container
         * **Docker Run Command for AMD64 Container:**
 
         .. code-block::
+
            docker run -d -p 8001:8001 --net=host --gpus all --env PORT=8001 
            --env TSS=0 
            --env GPU=1 
