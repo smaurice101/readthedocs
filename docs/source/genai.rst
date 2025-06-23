@@ -173,6 +173,53 @@ PrivateGPT Special Containers
        #. Suggested Machine: On-demand 1x NVIDIA A6000 or A100
        #. Suggested Cost GPU/Hour: $0.80 - $1.30/GPU/h
 
+TML and Agentic AI Special Container
+============================
+
+For TML and Agentic AI solutions users must you the following container
+
+   * - `AMD64: Agentic AI Llama3 with Ollama Server <https://hub.docker.com/r/maadsdocker/tml-privategpt-with-gpu-nvidia-amd64-llama3-tools>`_
+
+        * `ARM64 container <https://hub.docker.com/r/maadsdocker/tml-privategpt-with-gpu-nvidia-arm64-llama3-tools>`_
+        * LLM: `Llama 3.1 <https://huggingface.co/meta-llama/Llama-3.1-8B>`_ OR `Llama 3.2 <https://huggingface.co/meta-llama/Llama-3.2-1B>`_
+        * Embedding: `nomic-embed-text <https://ollama.com/library/nomic-embed-text>`_
+        * Vector Dimension: n/a
+        * **Docker Run Command for AMD64 Container:**
+
+        .. code-block::
+           docker run -d -p 8001:8001 --net=host --gpus all --env PORT=8001 
+           --env TSS=0 
+           --env GPU=1 
+           --env COLLECTION=tml 
+           --env WEB_CONCURRENCY=2 
+           --env CUDA_VISIBLE_DEVICES=0 
+           --env TOKENIZERS_PARALLELISM=false 
+           --env temperature=0.1 
+           --env vectorsearchtype=cosine 
+           --env contextwindowsize=4096 
+           --env vectordimension=384 
+           --env mainembedding="nomic-embed-text" 
+           -v /var/run/docker.sock:/var/run/docker.sock:z 
+           --env LLAMAMODEL=llama3.2 
+           --env OLLAMASERVERPORT="http://localhost:11434" 
+           maadsdocker/tml-privategpt-with-gpu-nvidia-amd64-llama3-tools
+
+     - #. Suggested VRAM/GPU should be around 20GB
+       #. SSD 2-3 TB
+       #. Suggested Machine: On-demand 1x NVIDIA A10 
+       #. Suggested Cost GPU/Hour: $0.75/GPU/h
+
+.. tip::
+   You can switch between Llama 3.1 and Llama 3.2 models by updating the:
+   -  **--env LLAMAMODEL=llama3.2**
+   Ollama server host and port can be updated by updating the:
+   - --env OLLAMASERVERPORT="http://localhost:11434" 
+
+
+
+TML API for GenAI Using MAADSTML Python Library
+==================================
+
 TML solutions can be built to access GPT technology in real-time using the `MAADSTML python library <https://pypi.org/project/maadstml/>`_ functions:
 
 .. list-table::
