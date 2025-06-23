@@ -57,7 +57,10 @@ TML and (Multi) Agentic AI Architecture
 .. figure:: agentic3.png
    :scale: 70%
 
-Complex real-time workflows can be implemented using TML and Agentic AI as shown below.  In fact, developing these complex workflow and implementing them for organization could be a large part of the future jobs.
+Implementing Complex Workflows with TML and (Multi) Agentic AI
+""""""""""""""""""""""""""""""
+
+Implementing complex real-time workflows to automate complex tasks is possible with TML and Agentic AI, as shown below.  In fact, this is would be a new skill set for Busniness analysts but focused on Agentic AI
 
 .. figure:: agentic4.png
    :scale: 70%
