@@ -52,6 +52,8 @@ TML and (Multi) Agentic AI Architecture
 - The TML and Agentic Architecture is very simple: Agents can be configured in the `TSS <https://tml.readthedocs.io/en/latest/docker.html>`_
 - With NO-CODE - users can advanced agent based solutions that process real-time data and perform tasks in real-time
 - The AI integration is with the `TML privateGPT Agentic AI containers <https://tml.readthedocs.io/en/latest/genai.html#tml-and-agentic-ai-special-container>`_
+  - This local container uses `Ollama server <https://ollama.com/>`_ for API based Agentic workflow automation
+  - Two LLM models can be used: `Llama 3.1 <https://huggingface.co/meta-llama/Llama-3.1-8B>`_ or `Llama 3.2 <https://huggingface.co/meta-llama/Llama-3.2-1B>`_
  - Using local GenAI containers drastically reduces the cost of Agentic solution for large scale data processing
 
 .. figure:: agentic3.png
