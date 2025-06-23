@@ -212,8 +212,10 @@ For TML and Agentic AI solutions users must you the following container
 
 .. tip::
    You can switch between Llama 3.1 and Llama 3.2 models by updating the:
+
    -  **--env LLAMAMODEL=llama3.2**
    Ollama server host and port can be updated by updating the:
+
    - --env OLLAMASERVERPORT="http://localhost:11434" 
 
 
