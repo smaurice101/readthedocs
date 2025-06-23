@@ -60,10 +60,13 @@ TML and (Multi) Agentic AI Architecture
 Implementing Complex Workflows with TML and (Multi) Agentic AI
 """"""""""""""""""""""""""""""
 
-Implementing complex real-time workflows to automate complex tasks is possible with TML and Agentic AI, as shown below.  In fact, this is would be a new skill set for Busniness analysts but focused on Agentic AI
+Implementing complex real-time workflows to automate complex tasks is possible with TML and Agentic AI, as shown below.  In fact, this is would be a new skill set for Busniness analysts but focused on Agentic AI solutions:
 
 .. figure:: agentic4.png
    :scale: 70%
+
+TML and TSS use `LangGraph <https://www.langchain.com/langgraph>`_ for (multi) Agent based code. TML agents agents can execute tools autonomous.  Tools are out of the box, or users can build their own custom tools and integrate with their TML solutions, easily.
+
 
 Advantages of TML with Agentic AI
 ========================
