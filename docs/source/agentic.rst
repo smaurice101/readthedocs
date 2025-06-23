@@ -65,7 +65,7 @@ Implementing complex real-time workflows to automate complex tasks is possible w
 .. figure:: agentic4.png
    :scale: 70%
 
-TML and TSS use `LangGraph <https://www.langchain.com/langgraph>`_ for (multi) Agent based code. TML agents agents can execute tools autonomous.  Tools are out of the box, or users can build their own custom tools and integrate with their TML solutions, easily.
+TML and TSS use `LangGraph <https://www.langchain.com/langgraph>`_ for (multi) Agent based code. TML agents can execute tools autonomously.  Tools are out of the box, or users can build their own custom tools and integrate with their TML solutions, easily.
 
 
 Advantages of TML with Agentic AI
