@@ -188,21 +188,21 @@ For TML and Agentic AI solutions users must you the following container
 
         .. code-block::
 
-           docker run -d -p 8001:8001 --net=host --gpus all --env PORT=8001 
-           --env TSS=0 
-           --env GPU=1 
-           --env COLLECTION=tml 
-           --env WEB_CONCURRENCY=2 
-           --env CUDA_VISIBLE_DEVICES=0 
-           --env TOKENIZERS_PARALLELISM=false 
-           --env temperature=0.1 
-           --env vectorsearchtype=cosine 
-           --env contextwindowsize=4096 
-           --env vectordimension=384 
-           --env mainembedding="nomic-embed-text" 
-           -v /var/run/docker.sock:/var/run/docker.sock:z 
-           --env LLAMAMODEL=llama3.2 
-           --env OLLAMASERVERPORT="http://localhost:11434" 
+           docker run -d -p 8001:8001 --net=host --gpus all --env PORT=8001 \
+           --env TSS=0 \
+           --env GPU=1 \
+           --env COLLECTION=tml \
+           --env WEB_CONCURRENCY=2 \
+           --env CUDA_VISIBLE_DEVICES=0 \
+           --env TOKENIZERS_PARALLELISM=false \
+           --env temperature=0.1 \
+           --env vectorsearchtype=cosine \
+           --env contextwindowsize=4096 \
+           --env vectordimension=384 \
+           --env mainembedding="nomic-embed-text" \
+           -v /var/run/docker.sock:/var/run/docker.sock:z \
+           --env LLAMAMODEL=llama3.2 \
+           --env OLLAMASERVERPORT="http://localhost:11434" \
            maadsdocker/tml-privategpt-with-gpu-nvidia-amd64-llama3-tools
 
      - #. Suggested VRAM/GPU should be around 20GB
