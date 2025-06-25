@@ -214,11 +214,17 @@ For TML and Agentic AI solutions users must you the following container
    You can switch between Llama 3.1 and Llama 3.2 models by updating the:
 
    -  **--env LLAMAMODEL=llama3.2**
+
+   - You can also use ANY other TOOLS models from Ollama.com (see figure below)
+
    Ollama server host and port can be updated by updating the:
 
    - --env OLLAMASERVERPORT="http://localhost:11434" 
 
+To use models other models go to `Ollama.com <https://ollama.com/search?q=tools>`_ and search **tools**
 
+.. figure:: agentic5.png
+   :scale: 70%
 
 TML API for GenAI Using MAADSTML Python Library
 ==================================
