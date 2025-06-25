@@ -181,7 +181,7 @@ For TML and Agentic AI solutions users must you the following container
    * - `AMD64: Agentic AI Llama3 with Ollama Server <https://hub.docker.com/r/maadsdocker/tml-privategpt-with-gpu-nvidia-amd64-llama3-tools>`_
 
         * `ARM64 container <https://hub.docker.com/r/maadsdocker/tml-privategpt-with-gpu-nvidia-arm64-llama3-tools>`_
-        * LLM: `Llama 3.1 <https://huggingface.co/meta-llama/Llama-3.1-8B>`_ OR `Llama 3.2 <https://huggingface.co/meta-llama/Llama-3.2-1B>`_
+        * LLM: `Llama 3.1 <https://huggingface.co/meta-llama/Llama-3.1-8B>`_ OR `Llama 3.2 <https://huggingface.co/meta-llama/Llama-3.2-1B>`_ OR ANY OTHER TOOL' MODELS
         * Embedding: `nomic-embed-text <https://ollama.com/library/nomic-embed-text>`_
         * Vector Dimension: n/a
         * **Docker Run Command for AMD64 Container:**
