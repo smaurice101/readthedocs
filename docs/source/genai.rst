@@ -229,10 +229,10 @@ To use models other models go to `Ollama.com <https://ollama.com/search?q=tools>
 EXAMPLE: TML Agentic AI For Drones
 ===================================
 
-Below is an example solution architecture applying TML and Agentic AI to Drones.
+Below is an example solution architecture applying TML and Agentic AI to Drones using MAVLink as the communication prootocol.
 
 .. figure:: agentic6.png
-
+   :scale: 70%
 
 TML API for GenAI Using MAADSTML Python Library
 ==================================
