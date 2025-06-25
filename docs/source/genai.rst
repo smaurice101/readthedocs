@@ -224,7 +224,7 @@ For TML and Agentic AI solutions users must you the following container
 To use models other models go to `Ollama.com <https://ollama.com/search?q=tools>`_ and search **tools**
 
 .. figure:: agentic5.png
-   :scale: 70%
+   :scale: 50%
 
 TML API for GenAI Using MAADSTML Python Library
 ==================================
