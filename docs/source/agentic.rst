@@ -77,3 +77,11 @@ Advantages of TML with Agentic AI
 - By processing data from multiple data sources by individual agents, and then combining the output (supervisor agent) increases the level intelligences extracted from the data leading to higher dimensional, entity-level, intelligence in real-time
 - Ability to perform complex workflow tasks in real-time offers greater, and faster, visibility on critical operational functions
 - COST: Drastic reduction in costs using TML and Agentic AI.  Because TML uses `local Agentic AI container <https://tml.readthedocs.io/en/latest/genai.html#tml-and-agentic-ai-special-container>`_ API calls are FREE.  This leads to a drastic reduction in costs for TML and Agentic AI solutions, immediately.
+
+EXAMPLE: TML Agentic AI For Drones
+===================================
+
+Below is an example solution architecture applying TML and Agentic AI to Drones using MAVLink as the communication prootocol.
+
+.. figure:: agentic6.png
+   :scale: 70%
