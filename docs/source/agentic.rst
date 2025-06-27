@@ -21,6 +21,13 @@ In the above Figure:
 
 * For more information read this `blog <https://www.linkedin.com/pulse/agentic-ai-5-basic-research-facts-multiagents-from-my-maurice-ph-d--sv4fc/?trackingId=O7arqnVYn4wfmc4R7Yg%2BmA%3D%3D>`_
 
+What is an Agent?
+======================
+
+.. important::
+
+   A computer system that is situated in some environment, and that is capable of autonomous action in this environment in order to meet its design objectives      [Wooldridge and Jennings 1995].	
+
 TML and Agentic AI: A Powerful Combination for Real-Time Data
 ==================================================
 
