@@ -40,6 +40,14 @@ TML and Agentic AI: A Powerful Combination for Real-Time Data
 - The more advanced use of TML and Agents is in a **multi-agent framework**
    - This will be the powerful capability in TML
 
+TML and Multi-Agentic AI Process Flow in Real-Time: GenAI Reasoning and Actions
+==============================================
+
+The figure below shows the TML and Multi-Agentic AI process flow for real-time data processing.  Integrating multi-agentic framework with TML for real-time data processing with GenAI reasoning and actions offers tremendous opportunities for machines to perform advanced reasoning and actions for real-time decision making by humans.
+
+.. figure:: agentic7.png
+   :scale: 70%
+
 Building TML and Agentic AI Solutions with TML Solution Studio (TSS)
 ==============================================
 
