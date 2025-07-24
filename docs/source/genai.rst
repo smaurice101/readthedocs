@@ -28,54 +28,6 @@ PrivateGPT Special Containers
 
    * - **TML-privateGPT Container**
      - **GPU Suggested Requirements**
-   * - `AMD64: DeepSeek Medium Model Version 2 <https://hub.docker.com/r/maadsdocker/tml-privategpt-with-gpu-nvidia-amd64-deepseek-medium>`_
-
-        * `ARM64 container <https://hub.docker.com/r/maadsdocker/tml-privategpt-with-gpu-nvidia-arm64-deepseek-medium>`_
-        * LLM: `DeepSeek-R1-Distill-Llama-8B-Q5_K_M.gguf <https://huggingface.co/bartowski/DeepSeek-R1-Distill-Llama-8B-GGUF/blob/main/DeepSeek-R1-Distill-Llama-8B-Q5_K_M.gguf>`_       
-        * Embedding: `BAAI/bge-base-en-v1.5 <https://huggingface.co/BAAI/bge-base-en-v1.5>`_
-        * Vector Dimension: 768
-        * **Docker Run Command for AMD64 Container:**
-       .. code-block::
-
-            docker run -d -p 8001:8001 --gpus all --net=host \
-            --env PORT=8001 --env GPU=1 \
-            --env WEB_CONCURRENCY=2 --env COLLECTION=tml-medium \
-            --env CUDA_VISIBLE_DEVICES=0  --env temperature=0.1 \
-            --env vectorsearchtype="Cosine" --env contextwindowsize=4096 \
-            --env vectordimension=768 \
-            --env mainmodel="DeepSeek-R1-Distill-Llama-8B-Q5_K_M.gguf" \
-            --env mainembedding="BAAI/bge-base-en-v1.5" \
-            -v /var/run/docker.sock:/var/run/docker.sock:z \
-            maadsdocker/tml-privategpt-with-gpu-nvidia-amd64-deepseek-medium
-
-     - #. Suggested VRAM/GPU should be around 20GB
-       #. SSD 2-3 TB
-       #. Suggested Machine: On-demand 1x NVIDIA A10 
-       #. Suggested Cost GPU/Hour: $0.75/GPU/h
-   * - `AMD64: DeepSeek Medium Model Version 2 - LEGACY (For Low Grade GPUs) <https://hub.docker.com/r/maadsdocker/tml-privategpt-with-gpu-nvidia-amd64-deepseek-medium-legacy>`_
-
-        * `ARM64 container <https://hub.docker.com/r/maadsdocker/tml-privategpt-with-gpu-nvidia-arm64-deepseek-medium-legacy>`_
-        * LLM: `DeepSeek-R1-Distill-Llama-8B-Q5_K_M.gguf <https://huggingface.co/bartowski/DeepSeek-R1-Distill-Llama-8B-GGUF/blob/main/DeepSeek-R1-Distill-Llama-8B-Q5_K_M.gguf>`_       
-        * Embedding: `BAAI/bge-base-en-v1.5 <https://huggingface.co/BAAI/bge-base-en-v1.5>`_
-        * Vector Dimension: 768
-        * **Docker Run Command for AMD64 Container:**
-       .. code-block::
-
-            docker run -d -p 8001:8001 --gpus all --net=host \
-            --env PORT=8001 --env GPU=1 \
-            --env WEB_CONCURRENCY=2 --env COLLECTION=tml-medium \
-            --env CUDA_VISIBLE_DEVICES=0  --env temperature=0.1 \
-            --env vectorsearchtype="Cosine" --env contextwindowsize=4096 \
-            --env vectordimension=768 \
-            --env mainmodel="DeepSeek-R1-Distill-Llama-8B-Q5_K_M.gguf (Legacy)" \
-            --env mainembedding="BAAI/bge-base-en-v1.5" \
-            -v /var/run/docker.sock:/var/run/docker.sock:z \
-            maadsdocker/tml-privategpt-with-gpu-nvidia-amd64-deepseek-medium-legacy
-
-     - #. Suggested VRAM/GPU should be around 20GB
-       #. SSD 2-3 TB
-       #. Suggested Machine: On-demand 1x NVIDIA A10 
-       #. Suggested Cost GPU/Hour: $0.75/GPU/h
    * - `AMD64: Basic Model Version 1 <https://hub.docker.com/r/maadsdocker/tml-privategpt-with-gpu-nvidia-amd64>`_
 
         * `ARM64 container <https://hub.docker.com/r/maadsdocker/tml-privategpt-with-gpu-nvidia-arm64>`_
