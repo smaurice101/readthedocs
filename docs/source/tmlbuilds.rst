@@ -9155,11 +9155,11 @@ The table below shows the main TML configuration parameters that are environment
    * - step3localfileinputfile 	
      - (TML DATA PRODUCING) Complete file path to local file on disk: If reading a local file for TML analysis
 
-        `Used in this DAG: Step 3 <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-3d-produce-data-using-localfile-tml-read-localfile-step-3-kafka-producetotopic-dag>`_
+        `Used in this DAG: Step 3 <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-3d-produce-data-using-localfile-tml-read-localfile-step-3-kafka-              producetotopic-dag>`_
    * - step3localfiledocfolder 	
      - (TML DATA PRODUCING) Complete file folder on disk: If reading  local folder for TML analysis
 
-        `Used in this DAG: Step 3 <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-3d-produce-data-using-localfile-tml-read-localfile-step-3-kafka-producetotopic-dag>`_
+        `Used in this DAG: Step 3 <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-3d-produce-data-using-localfile-tml-read-localfile-step-3-kafka-              producetotopic-dag>`_
    * - step4maxrows 	
      - (TML DATA PREPROCESSING) This is a CRITICAL parameter and determines the WIDTH of the sliding time window.
 
@@ -9265,7 +9265,7 @@ The table below shows the main TML configuration parameters that are environment
 
        `Used in this DAG: Step 4 <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-4-preprocesing-data-dag-tml-system-step-4-kafka-preprocess-dag>`_
    * - step4preprocess_data_topic 	
-     - (TML DATA PREPROCESSING) This is the peprocess data topic created in: step2preprocess_data_topic.  TML will write       preprocessing output to this topic.
+     - (TML DATA PREPROCESSING) This is the peprocess data topic created in: step2preprocess_data_topic.  TML will write       preprocessing output to this             topic.
 
        `Used in this DAG: Step 4 <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-4-preprocesing-data-dag-tml-system-step-4-kafka-preprocess-dag>`_
    * - step4preprocesstypes 	
@@ -9341,13 +9341,13 @@ The table below shows the main TML configuration parameters that are environment
 
       `Youtube Video <https://www.youtube.com/watch?v=oVIne8JCowI>`_
 
-      `Used in this DAG: Step 5 <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-5-entity-based-machine-learning-tml-system-step-5-kafka-machine-learning-dag>`_
+      `Used in this DAG: Step 5 <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-5-entity-based-machine-learning-tml-system-step-5-kafka-machine-              learning-dag>`_
    * - step5processlogic 	
      - (TML ENTITY MACHINE LEARNING) For classification model – specify HOW to classify the Dependent Variable
 
       `Youtube Video <https://www.youtube.com/watch?v=oVIne8JCowI>`_
 
-      `Used in this DAG: Step 5 <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-5-entity-based-machine-learning-tml-system-step-5-kafka-machine-learning-dag>`_
+      `Used in this DAG: Step 5 <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-5-entity-based-machine-learning-tml-system-step-5-kafka-machine-              learning-dag>`_
    * - step5independentvariables 	
      - (TML ENTITY MACHINE LEARNING) Specify the independent variables.
 
@@ -9355,7 +9355,7 @@ The table below shows the main TML configuration parameters that are environment
 
       `Used in this DAG: Step 5 <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-5-entity-based-machine-learning-tml-system-step-5-kafka-machine-
    * - step6maxrows 	
-     - (TML ENTITY MACHINE LEARNING PREDICTIONS) This is the number of predictions to make.  TML will rollback the datastream and use this new data for independent variables for the trained model and make predictions.
+     - (TML ENTITY MACHINE LEARNING PREDICTIONS) This is the number of predictions to make.  TML will rollback the datastream and use this new data for                 independent variables for the trained model and make predictions.
 
       `Youtube video <https://www.youtube.com/watch?v=S0qQD8n56JU>`_
 
@@ -9365,127 +9365,127 @@ The table below shows the main TML configuration parameters that are environment
 
       `Youtube video <https://www.youtube.com/watch?v=dGzsqx8MtIY>`_
 
-      `Used in this DAG: Step 9 <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-9-privategpt-and-qdrant-integration-tml-system-step-9-privategpt-qdrant-dag>`_
+      `Used in this DAG: Step 9 <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-9-privategpt-and-qdrant-integration-tml-system-step-9-privategpt-             qdrant-dag>`_
    * - step9prompt 	
      - (TML GenAI) This is the user prompt for privateGPT
 
       `Youtube video <https://www.youtube.com/watch?v=dGzsqx8MtIY>`_
 
-      `Used in this DAG: Step 9 <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-9-privategpt-and-qdrant-integration-tml-system-step-9-privategpt-qdrant-dag>`_
+      `Used in this DAG: Step 9 <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-9-privategpt-and-qdrant-integration-tml-system-step-9-privategpt-             qdrant-dag>`_
    * - step9context 	
      - (TML GenAI) This is the user context for privateGPT
 
       `Youtube video <https://www.youtube.com/watch?v=dGzsqx8MtIY>`_
 
-      `Used in this DAG: Step 9 <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-9-privategpt-and-qdrant-integration-tml-system-step-9-privategpt-qdrant-dag>`_
+      `Used in this DAG: Step 9 <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-9-privategpt-and-qdrant-integration-tml-system-step-9-privategpt-             qdrant-dag>`_
    * - step9keyattribute	
      - (TML GenAI) These are the JSON attributes that privateGPT will extract data from.
 
       `Youtube video <https://www.youtube.com/watch?v=dGzsqx8MtIY>`_
 
-      `Used in this DAG: Step 9 <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-9-privategpt-and-qdrant-integration-tml-system-step-9-privategpt-qdrant-dag>`_
+      `Used in this DAG: Step 9 <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-9-privategpt-and-qdrant-integration-tml-system-step-9-privategpt-             qdrant-dag>`_
    * - step9keyprocesstype	
      - (TML GenAI) These are the key process types.
 
       `Youtube video <https://www.youtube.com/watch?v=dGzsqx8MtIY>`_
 
-      `Used in this DAG: Step 9 <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-9-privategpt-and-qdrant-integration-tml-system-step-9-privategpt-qdrant-dag>`_
+      `Used in this DAG: Step 9 <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-9-privategpt-and-qdrant-integration-tml-system-step-9-privategpt-q            qdrant-dag>`_
    * - step9hyperbatch	
      - (TML GenAI) This tells privateGPT to batch the input data used for processing.
 
       `Youtube video <https://www.youtube.com/watch?v=dGzsqx8MtIY>`_
 
-      `Used in this DAG: Step 9 <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-9-privategpt-and-qdrant-integration-tml-system-step-9-privategpt-qdrant-dag>`_
+      `Used in this DAG: Step 9 <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-9-privategpt-and-qdrant-integration-tml-system-step-9-privategpt-             qdrant-dag>`_
    * - step9vectordbcollectionname	
      - (TML GenAI) This the collection name in the Vector Database i.e. Qdrant
 
       `Youtube video <https://www.youtube.com/watch?v=dGzsqx8MtIY>`_
 
-      `Used in this DAG: Step 9 <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-9-privategpt-and-qdrant-integration-tml-system-step-9-privategpt-qdrant-dag>`_
+      `Used in this DAG: Step 9 <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-9-privategpt-and-qdrant-integration-tml-system-step-9-privategpt-             qdrant-dag>`_
    * - step9concurrency 	
      - (TML GenAI) This tells privateGPT to accept connections currently
 
       `Youtube video <https://www.youtube.com/watch?v=dGzsqx8MtIY>`_
 
-      `Used in this DAG: Step 9 <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-9-privategpt-and-qdrant-integration-tml-system-step-9-privategpt-qdrant-dag>`_
+      `Used in this DAG: Step 9 <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-9-privategpt-and-qdrant-integration-tml-system-step-9-privategpt-             qdrant-dag>`_
    * - CUDA_VISIBLE_DEVICES	
      - (TML GenAI) CUDA visible GPUs
 
       `Youtube video <https://www.youtube.com/watch?v=dGzsqx8MtIY>`_
 
-      `Used in this DAG: Step 9 <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-9-privategpt-and-qdrant-integration-tml-system-step-9-privategpt-qdrant-dag>`_
+      `Used in this DAG: Step 9 <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-9-privategpt-and-qdrant-integration-tml-system-step-9-privategpt-             qdrant-dag>`_
    * - step9docfolder 	
      - (TML GenAI) TML will read document folders for RAG and insert into Vector DB i.e. Qdrant
 
       `Youtube video <https://www.youtube.com/watch?v=dGzsqx8MtIY>`_
 
-      `Used in this DAG: Step 9 <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-9-privategpt-and-qdrant-integration-tml-system-step-9-privategpt-qdrant-dag>`_
+      `Used in this DAG: Step 9 <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-9-privategpt-and-qdrant-integration-tml-system-step-9-privategpt-             qdrant-dag>`_
    * - step9docfolderingestinterval 	
      - (TML GenAI) This tells TML how often to read the document folder and insert into Ve tor DB
 
       `Youtube video <https://www.youtube.com/watch?v=dGzsqx8MtIY>`_
 
-      `Used in this DAG: Step 9 <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-9-privategpt-and-qdrant-integration-tml-system-step-9-privategpt-qdrant-dag>`_
+      `Used in this DAG: Step 9 <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-9-privategpt-and-qdrant-integration-tml-system-step-9-privategpt-             qdrant-dag>`_
    * - step9useidentifierinprompt 	
      - (TML GenAI) The identifier in the TML json output.
 
       `Youtube video <https://www.youtube.com/watch?v=dGzsqx8MtIY>`_
 
-      `Used in this DAG: Step 9 <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-9-privategpt-and-qdrant-integration-tml-system-step-9-privategpt-qdrant-dag>`_
+      `Used in this DAG: Step 9 <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-9-privategpt-and-qdrant-integration-tml-system-step-9-privategpt-             qdrant-dag>`_
    * - step9searchterms 	
      - (TML GenAI) The search terms to look for in the data to process.
 
       `Youtube video <https://www.youtube.com/watch?v=dGzsqx8MtIY>`_
 
-      `Used in this DAG: Step 9 <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-9-privategpt-and-qdrant-integration-tml-system-step-9-privategpt-qdrant-dag>`_
+      `Used in this DAG: Step 9 <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-9-privategpt-and-qdrant-integration-tml-system-step-9-privategpt-             qdrant-dag>`_
    * - step9streamall 	
      - (TML GenAI) TML will stream all of the data to privateGPT container.
 
       `Youtube video <https://www.youtube.com/watch?v=dGzsqx8MtIY>`_
 
-      `Used in this DAG: Step 9 <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-9-privategpt-and-qdrant-integration-tml-system-step-9-privategpt-qdrant-dag>`_
+      `Used in this DAG: Step 9 <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-9-privategpt-and-qdrant-integration-tml-system-step-9-privategpt-             qdrant-dag>`_
    * - step9temperature 	
      - (TML GenAI) The temperature for the LLM in privateGPT container.
 
       `Youtube video <https://www.youtube.com/watch?v=dGzsqx8MtIY>`_
 
-      `Used in this DAG: Step 9 <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-9-privategpt-and-qdrant-integration-tml-system-step-9-privategpt-qdrant-dag>`_
+      `Used in this DAG: Step 9 <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-9-privategpt-and-qdrant-integration-tml-system-step-9-privategpt-             qdrant-dag>`_
    * - step9vectorsearchtype 	
      - (TML GenAI) The vector search type for Qdrant.
 
       `Youtube video <https://www.youtube.com/watch?v=dGzsqx8MtIY>`_
 
-      `Used in this DAG: Step 9 <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-9-privategpt-and-qdrant-integration-tml-system-step-9-privategpt-qdrant-dag>`_
+      `Used in this DAG: Step 9 <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-9-privategpt-and-qdrant-integration-tml-system-step-9-privategpt-             qdrant-dag>`_
    * - step9contextwindowsize 	
      - (TML GenAI) The context window size for the LLM in privateGPT container.
 
       `Youtube video <https://www.youtube.com/watch?v=dGzsqx8MtIY>`_
 
-      `Used in this DAG: Step 9 <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-9-privategpt-and-qdrant-integration-tml-system-step-9-privategpt-qdrant-dag>`_
+      `Used in this DAG: Step 9 <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-9-privategpt-and-qdrant-integration-tml-system-step-9-privategpt-             qdrant-dag>`_
    * - step9pgptcontainername 	
      - (TML GenAI)  The privateGPT container name. All private containers are HERE.
 
       `Youtube video <https://www.youtube.com/watch?v=dGzsqx8MtIY>`_
 
-      `Used in this DAG: Step 9 <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-9-privategpt-and-qdrant-integration-tml-system-step-9-privategpt-qdrant-dag>`_
+      `Used in this DAG: Step 9 <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-9-privategpt-and-qdrant-integration-tml-system-step-9-privategpt-             qdrant-dag>`_
    * - step9pgpthost 	
      - (TML GenAI) The privateGPT HOST IP.
 
       `Youtube video <https://www.youtube.com/watch?v=dGzsqx8MtIY>`_
 
-      `Used in this DAG: Step 9 <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-9-privategpt-and-qdrant-integration-tml-system-step-9-privategpt-qdrant-dag>`_
+      `Used in this DAG: Step 9 <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-9-privategpt-and-qdrant-integration-tml-system-step-9-privategpt-             qdrant-dag>`_
    * - step9pgptport 	
      - (TML GenAI) The privateGPT HOST Port
 
       `Youtube video <https://www.youtube.com/watch?v=dGzsqx8MtIY>`_
 
-      `Used in this DAG: Step 9 <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-9-privategpt-and-qdrant-integration-tml-system-step-9-privategpt-qdrant-dag>`_
+      `Used in this DAG: Step 9 <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-9-privategpt-and-qdrant-integration-tml-system-step-9-privategpt-             qdrant-dag>`_
    * - step9vectordimension 	
      - (TML GenAI) The vector dimension for TML RAG solutions.
 
       `Youtube video <https://www.youtube.com/watch?v=dGzsqx8MtIY>`_
 
-      `Used in this DAG: Step 9 <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-9-privategpt-and-qdrant-integration-tml-system-step-9-privategpt-qdrant-dag>`_
+      `Used in this DAG: Step 9 <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-9-privategpt-and-qdrant-integration-tml-system-step-9-privategpt-             qdrant-dag>`_
    * - step1solutiontitle 	
      - (CONFIG) The TML solution title
 
