@@ -9123,40 +9123,6 @@ Example Of Setting Docker Instructions in Step 10
           - THEY ARE MEANT ONLY FOR QUICK DEMOS.  IDEALLY, PERSONAL GITHUB AND READTHEDOCS ACCONTS SHOULD BE USED."""
     }
 
-TML Configuration Parameter Table
----------------------
-
-The table below shows the main TML configuration parameters that are environmental variables accessible by the TML solution in the container.
-
-.. list-table::
-
-   * - **Environment Variable**
-     - **Description**
-   * - GITUSERNAME	
-     - All users need a Github username
-   * - GITREPOURL	
-     - All users need a Github repo
-   * - GITPASSWORD	
-     - All users need a Github token
-   * - KAFKACLOUDUSERNAME	
-     - OPTIONAL API KEY: If using Kafka Cloud from Confluent or AWS
-   * - KAFKACLOUDPASSWORD	
-     - OPTIONAL API SECRET: If using Kafka Cloud from Confluent or AWS
-   * - MQTTUSERNAME	
-     - OPTIONAL: HiveMQ username - If using HiveMQ
-   * - MQTTPASSWORD	
-     - OPTIONAL HiveMQ: HiveMQ password - If using HiveMQ
-   * - READTHEDOCS	
-     - Readthedocs token
-   * - KAFKABROKERHOST	
-     - (KAFKA) If using CLOUD Kafka – this is the brokerhost from Confluent or AWS
-
-       If using LOCAL (on-premise) this is set at: 127.0.0.1:9092
-   * - step3localfileinputfile 	
-     - (TML DATA PRODUCING) Complete file path to local file on disk: If reading a local file for TML analysis
-
-        `Used in this DAG: Step 3 <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-3d-produce-data-using-localfile-tml-read-localfile-step-3-kafka-              producetotopic-dag>`_
-
 Creating Your Own DAG
 --------------------
 
