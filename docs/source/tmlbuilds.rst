@@ -9379,7 +9379,7 @@ The table below shows the main TML configuration parameters that are environment
 
       `Used in this DAG: Step 9 <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-9-privategpt-and-qdrant-integration-tml-system-step-9-privategpt-qdrant-dag>`_
    * - step9keyattribute	
-      - (TML GenAI) These are the JSON attributes that privateGPT will extract data from.
+     - (TML GenAI) These are the JSON attributes that privateGPT will extract data from.
 
       `Youtube video <https://www.youtube.com/watch?v=dGzsqx8MtIY>`_
 
