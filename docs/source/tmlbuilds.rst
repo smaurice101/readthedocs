@@ -3246,7 +3246,7 @@ TML preprocesses real-time data for every entity along each sliding time window.
 
        for each entity.  
 
-STEP 4: Preprocesing Data: tml-system-step-4-kafka-preprocess-dag
+STEP 4: Preprocesing Data Dag: tml-system-step-4-kafka-preprocess-dag
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code-block:: PYTHON
