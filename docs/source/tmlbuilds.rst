@@ -9123,6 +9123,385 @@ Example Of Setting Docker Instructions in Step 10
           - THEY ARE MEANT ONLY FOR QUICK DEMOS.  IDEALLY, PERSONAL GITHUB AND READTHEDOCS ACCONTS SHOULD BE USED."""
     }
 
+TML Configuration Parameter Table
+---------------------
+
+The table below shows the main TML configuration parameters that are environmental variables accessible by the TML solution in the container.
+
+.. list-table::
+
+   * - **Video Name**
+     - **YouTube URL**
+   * - **Environment Variable**
+     - **Description**
+   * - GITUSERNAME	
+     - All users need a Github username
+   * - GITREPOURL	
+     - All users need a Github repo
+   * - GITPASSWORD	
+     - All users need a Github token
+   * - KAFKACLOUDUSERNAME	
+     - OPTIONAL API KEY: If using Kafka Cloud from Confluent or AWS
+   * - KAFKACLOUDPASSWORD	
+     - OPTIONAL API SECRET: If using Kafka Cloud from Confluent or AWS
+   * - MQTTUSERNAME	
+     - OPTIONAL: HiveMQ username - If using HiveMQ
+   * - MQTTPASSWORD	
+     - OPTIONAL HiveMQ: HiveMQ password - If using HiveMQ
+   * - READTHEDOCS	
+     - Readthedocs token
+   * - KAFKABROKERHOST	
+     - (KAFKA) If using CLOUD Kafka – this is the brokerhost from Confluent or AWS
+
+       If using LOCAL (on-premise) this is set at: 127.0.0.1:9092
+   * - step3localfileinputfile 	
+     - (TML DATA PRODUCING) Complete file path to local file on disk: If reading a local file for TML analysis
+
+        Used in this DAG: Step 3
+   * - step3localfiledocfolder 	
+     - (TML DATA PRODUCING) Complete file folder on disk: If reading  local folder for TML analysis
+
+       Used in this DAG: Step 3
+   * - step4maxrows 	
+     - (TML DATA PREPROCESSING) This is a CRITICAL parameter and determines the WIDTH of the sliding time window.
+
+       `Youtube video <https://www.youtube.com/watch?v=mLvi__oNyCA>`_
+
+       `Used in this DAG: Step 4 <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-4-preprocesing-data-dag-tml-system-step-4-kafka-preprocess-dag>`_
+   * - step4bmaxrows 	
+     - (TML DATA PREPROCESSING) This is a CRITICAL parameter and determines the WIDTH of the sliding time window.
+
+       `Youtube Video <https://www.youtube.com/watch?v=UA_gm2eqaAU>`_
+
+       `Used in this DAG: Step 4b <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-4b-preprocesing-2-data-tml-system-step-4b-kafka-preprocess-dag>`_
+   * - step4cmaxrows 	
+     - (RTMS Parameter) This is a CRITICAL parameter and determines the WIDTH of the sliding time window.
+
+      `Youtube Video <https://www.youtube.com/watch?v=Ru013nA_650>`_
+
+      `Used in this DAG: Step 4c <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-4c-preprocesing-3-data-tml-system-step-4c-kafka-preprocess-dag>`_
+   * - step4crawdatatopic 	
+     - (RTMS Parameter) This is a CRITICAL parameter and determines the WIDTH of the sliding time window.
+
+      `Used in this DAG: Step 4c <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-4c-preprocesing-3-data-tml-system-step-4c-kafka-preprocess-dag>`_
+   * - step4csearchterms 	(RTMS Parameter) This is a CRITICAL parameter and determines the WIDTH of the sliding time window.
+
+      `Youtube Video <https://www.youtube.com/watch?v=Ru013nA_650>`_
+
+      `Used in this DAG: Step 4c <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-4c-preprocesing-3-data-tml-system-step-4c-kafka-preprocess-dag>`_
+   * - step4crememberpastwindows 	
+     - (RTMS Parameter) This is a CRITICAL parameter and determines the WIDTH of the sliding time window.
+
+      `Youtube Video <https://www.youtube.com/watch?v=Ru013nA_650>`_
+
+      `Used in this DAG: Step 4c <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-4c-preprocesing-3-data-tml-system-step-4c-kafka-preprocess-dag>`_
+
+   * - step4cpatternwindowthreshold 	(RTMS Parameter) This is a CRITICAL parameter and determines the WIDTH of the sliding time window.
+
+      `Youtube Video <https://www.youtube.com/watch?v=Ru013nA_650>`_
+
+      `Used in this DAG: Step 4c <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-4c-preprocesing-3-data-tml-system-step-4c-kafka-preprocess-dag>`_
+
+   * - step4crtmsscorethreshold 	(RTMS Parameter) This is a CRITICAL parameter and determines the WIDTH of the sliding time window.
+
+      `Youtube Video <https://www.youtube.com/watch?v=Ru013nA_650>`_
+
+      `Used in this DAG: Step 4c <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-4c-preprocesing-3-data-tml-system-step-4c-kafka-preprocess-dag>`_
+
+   * - step4cattackscorethreshold 	(RTMS Parameter) This is a CRITICAL parameter and determines the WIDTH of the sliding time window.
+
+      `Youtube Video <https://www.youtube.com/watch?v=Ru013nA_650>`_
+
+      `Used in this DAG: Step 4c <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-4c-preprocesing-3-data-tml-system-step-4c-kafka-preprocess-dag>`_
+
+   * - step4cpatternscorethreshold 	(RTMS Parameter) This is a CRITICAL parameter and determines the WIDTH of the sliding time window.
+
+      `Youtube Video <https://www.youtube.com/watch?v=Ru013nA_650>`_
+
+      `Used in this DAG: Step 4c <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-4c-preprocesing-3-data-tml-system-step-4c-kafka-preprocess-dag>`_
+
+   * - step4crtmsstream 	(RTMS Parameter) This is a CRITICAL parameter and determines the WIDTH of the sliding time window.
+
+      `Youtube Video <https://www.youtube.com/watch?v=Ru013nA_650>`_
+
+      `Used in this DAG: Step 4c <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-4c-preprocesing-3-data-tml-system-step-4c-kafka-preprocess-dag>`_
+
+   * - step4clocalsearchtermfolder 	(RTMS Parameter) This is a CRITICAL parameter and determines the WIDTH of the sliding time window.
+
+      `Youtube Video <https://www.youtube.com/watch?v=Ru013nA_650>`_
+
+      `Used in this DAG: Step 4c <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-4c-preprocesing-3-data-tml-system-step-4c-kafka-preprocess-dag>`_
+
+   * - step4clocalsearchtermfolderinterval 	(RTMS Parameter) This is a CRITICAL parameter and determines the WIDTH of the sliding time window.
+
+      `Youtube Video <https://www.youtube.com/watch?v=Ru013nA_650>`_
+
+      `Used in this DAG: Step 4c <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-4c-preprocesing-3-data-tml-system-step-4c-kafka-preprocess-dag>`_
+
+   * - step4crtmsfoldername 	(RTMS Parameter) This is a CRITICAL parameter and determines the WIDTH of the sliding time window.
+
+      `Youtube Video <https://www.youtube.com/watch?v=Ru013nA_650>`_
+
+      `Used in this DAG: Step 4c <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-4c-preprocesing-3-data-tml-system-step-4c-kafka-preprocess-dag>`_
+
+   * - step4crtmsmaxwindows 	(RTMS Parameter) This is a CRITICAL parameter and determines the WIDTH of the sliding time window.
+
+      `Youtube Video <https://www.youtube.com/watch?v=Ru013nA_650>`_
+
+      `Used in this DAG: Step 4c <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-4c-preprocesing-3-data-tml-system-step-4c-kafka-preprocess-dag>`_
+
+   * - step2raw_data_topic 	
+     - (TML DATA INGESTION) This is the Kafka Topic containing Raw Data to be processed.  TML will autocreate this topic in Kafka.
+
+      `Youtube Video <https://www.youtube.com/watch?v=h9HL_xarNgw>`_
+
+      `Used in this DAG: Step 2 <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-2-create-kafka-topics-tml-system-step-2-kafka-createtopic-dag>`_
+
+   * - step2preprocess_data_topic 	
+     - (TML DATA INGESTION) TML stores the preprocessing results in this Kafka topic. TML will autocreate this topic in Kafka.
+
+      `Youtube Video <https://www.youtube.com/watch?v=h9HL_xarNgw>`_
+
+      `Used in this DAG: Step 2 <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-2-create-kafka-topics-tml-system-step-2-kafka-createtopic-dag>`_
+   * - step4raw_data_topic 	
+     - (TML DATA PREPROCESSING) This is the raw data topic created in: step2preprocess_data_topic.  TML will read data from this topic.
+
+       `Used in this DAG: Step 4 <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-4-preprocesing-data-dag-tml-system-step-4-kafka-preprocess-dag>`_
+   * - step4preprocess_data_topic 	(TML DATA PREPROCESSING) This is the peprocess data topic created in: step2preprocess_data_topic.  TML will write       preprocessing output to this topic.
+
+       `Used in this DAG: Step 4 <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-4-preprocesing-data-dag-tml-system-step-4-kafka-preprocess-dag>`_
+   * - step4preprocesstypes 	(TML DATA PREPROCESSING) Users choose how to process the raw data, using the TML processing type.  All processing types are listed HERE
+
+       `Used in this DAG: Step 4 <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-4-preprocesing-data-dag-tml-system-step-4-kafka-preprocess-dag>`_
+   * - step4jsoncriteria 	
+     - (TML DATA PREPROCESSING) This is a CRITICAL variable and tells TML how to extract data from the JSON.
+
+      `See JSON PROCESSING <https://tml.readthedocs.io/en/latest/jsonprocessing.html>_
+
+       `Youtube video <https://www.youtube.com/watch?v=mLvi__oNyCA>`_
+
+       `Used in this DAG: Step 4 <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-4-preprocesing-data-dag-tml-system-step-4-kafka-preprocess-dag>`_
+   * - step4ajsoncriteria 	
+     - (TML DATA PREPROCESSING) This is a CRITICAL variable and tells TML how to extract data from the JSON.
+
+      `See JSON PROCESSING <https://tml.readthedocs.io/en/latest/jsonprocessing.html>_
+
+      `YOUTUBE Video <https://www.youtube.com/watch?v=Ru013nA_650>`_
+
+      `Used in this DAG: Step 4a <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-4a-preprocesing-data-tml-system-step-4a-kafka-preprocess-dag>`_
+   * - step4amaxrows 	
+     - (TML DATA PREPROCESSING) This sets the WIDTH of the sliding time window
+
+      `YOUTUBE Video <https://www.youtube.com/watch?v=Ru013nA_650>`_
+
+      `Used in this DAG: Step 4a <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-4a-preprocesing-data-tml-system-step-4a-kafka-preprocess-dag>`_
+
+   * - step4apreprocesstypes 	
+     - (TML DATA PREPROCESSING) Users can choose the TML processing types.
+
+      `YOUTUBE Video <https://www.youtube.com/watch?v=Ru013nA_650>`_
+
+      `Used in this DAG: Step 4a <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-4a-preprocesing-data-tml-system-step-4a-kafka-preprocess-dag>`_
+   * - step4araw_data_topic 	
+     - (TML DATA PREPROCESSING) This the raw data Kafka topic TML will consume from for processing
+
+      `YOUTUBE Video <https://www.youtube.com/watch?v=Ru013nA_650>`_
+
+      `Used in this DAG: Step 4a <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-4a-preprocesing-data-tml-system-step-4a-kafka-preprocess-dag>`_
+   * - step4apreprocess_data_topic 	
+     - (TML DATA PREPROCESSING) TML will produce the preprocessing output to this Kafka topic.
+
+      `YOUTUBE Video <https://www.youtube.com/watch?v=Ru013nA_650>`_
+
+      `Used in this DAG: Step 4a <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-4a-preprocesing-data-tml-system-step-4a-kafka-preprocess-dag>`_
+   * - step4bpreprocesstypes 	
+     - (TML DATA PREPROCESSING) This is the TML preprocessing types for Step 4b.
+
+      `Youtube Video <https://www.youtube.com/watch?v=UA_gm2eqaAU>`_
+
+      `Used in this DAG: Step 4b <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-4b-preprocesing-2-data-tml-system-step-4b-kafka-preprocess-dag>`_
+   * - step4bjsoncriteria 	
+     - (TML DATA PREPROCESSING) This tells TML how to extract data from the JSON in Step 4b.
+
+      `Youtube Video <https://www.youtube.com/watch?v=UA_gm2eqaAU>`_
+
+      `Used in this DAG: Step 4b <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-4b-preprocesing-2-data-tml-system-step-4b-kafka-preprocess-dag>`_
+
+   * - step4braw_data_topic 	
+     - (TML DATA PREPROCESSING) This is the raw data topic to consume from in Step 4b.
+
+      `Youtube Video <https://www.youtube.com/watch?v=UA_gm2eqaAU>`_
+
+      `Used in this DAG: Step 4b <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-4b-preprocesing-2-data-tml-system-step-4b-kafka-preprocess-dag>`_
+   * - step4bpreprocess_data_topic 	
+     - (TML DATA PREPROCESSING) This is the preprocess data topic to produce preprocessing output in Step 4b.
+
+      `Youtube Video <https://www.youtube.com/watch?v=UA_gm2eqaAU>`_
+
+      `Used in this DAG: Step 4b <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-4b-preprocesing-2-data-tml-system-step-4b-kafka-preprocess-dag>`_
+   * - step5rollbackoffsets 	
+     - (TML ENTITY MACHINE LEARNING) This is the number of offsets to rollback the data stream to create the TRAINING Dataset
+
+      `Youtube Video <https://www.youtube.com/watch?v=oVIne8JCowI>`_
+
+      `Used in this DAG: Step 5 <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-5-entity-based-machine-learning-tml-system-step-5-kafka-machine-learning-dag>`_
+   * - step5processlogic 	
+     - (TML ENTITY MACHINE LEARNING) For classification model – specify HOW to classify the Dependent Variable
+
+      `Youtube Video <https://www.youtube.com/watch?v=oVIne8JCowI>`_
+
+      `Used in this DAG: Step 5 <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-5-entity-based-machine-learning-tml-system-step-5-kafka-machine-learning-dag>`_
+   * - step5independentvariables 	
+     - (TML ENTITY MACHINE LEARNING) Specify the independent variables.
+
+      `Youtube Video <https://www.youtube.com/watch?v=oVIne8JCowI>`_
+
+      `Used in this DAG: Step 5 <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-5-entity-based-machine-learning-tml-system-step-5-kafka-machine-
+   * - step6maxrows 	
+     - (TML ENTITY MACHINE LEARNING PREDICTIONS) This is the number of predictions to make.  TML will rollback the datastream and use this new data for independent variables for the trained model and make predictions.
+
+      `Youtube video <https://www.youtube.com/watch?v=S0qQD8n56JU>`_
+
+      `Used in this DAG: Step 6 <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-6-entity-based-predictions-tml-system-step-6-kafka-predictions-dag>`_
+   * - step9rollbackoffset 	
+     - (TML GenAI) The amount of data that privateGPT for analysis.
+
+      `Youtube video <https://www.youtube.com/watch?v=dGzsqx8MtIY>`_
+
+      `Used in this DAG: Step 9 <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-9-privategpt-and-qdrant-integration-tml-system-step-9-privategpt-qdrant-dag>`_
+   * - step9prompt 	
+     - (TML GenAI) This is the user prompt for privateGPT
+
+      `Youtube video <https://www.youtube.com/watch?v=dGzsqx8MtIY>`_
+
+      `Used in this DAG: Step 9 <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-9-privategpt-and-qdrant-integration-tml-system-step-9-privategpt-qdrant-dag>`_
+   * - step9context 	
+     - (TML GenAI) This is the user context for privateGPT
+
+      `Youtube video <https://www.youtube.com/watch?v=dGzsqx8MtIY>`_
+
+      `Used in this DAG: Step 9 <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-9-privategpt-and-qdrant-integration-tml-system-step-9-privategpt-qdrant-dag>`_
+   * - step9keyattribute	
+      - (TML GenAI) These are the JSON attributes that privateGPT will extract data from.
+
+      `Youtube video <https://www.youtube.com/watch?v=dGzsqx8MtIY>`_
+
+      `Used in this DAG: Step 9 <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-9-privategpt-and-qdrant-integration-tml-system-step-9-privategpt-qdrant-dag>`_
+   * - step9keyprocesstype	
+     - (TML GenAI) These are the key process types.
+
+      `Youtube video <https://www.youtube.com/watch?v=dGzsqx8MtIY>`_
+
+      `Used in this DAG: Step 9 <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-9-privategpt-and-qdrant-integration-tml-system-step-9-privategpt-qdrant-dag>`_
+   * - step9hyperbatch	
+     - (TML GenAI) This tells privateGPT to batch the input data used for processing.
+
+      `Youtube video <https://www.youtube.com/watch?v=dGzsqx8MtIY>`_
+
+      `Used in this DAG: Step 9 <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-9-privategpt-and-qdrant-integration-tml-system-step-9-privategpt-qdrant-dag>`_
+   * - step9vectordbcollectionname	
+     - (TML GenAI) This the collection name in the Vector Database i.e. Qdrant
+
+      `Youtube video <https://www.youtube.com/watch?v=dGzsqx8MtIY>`_
+
+      `Used in this DAG: Step 9 <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-9-privategpt-and-qdrant-integration-tml-system-step-9-privategpt-qdrant-dag>`_
+   * - step9concurrency 	
+     - (TML GenAI) This tells privateGPT to accept connections currently
+
+      `Youtube video <https://www.youtube.com/watch?v=dGzsqx8MtIY>`_
+
+      `Used in this DAG: Step 9 <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-9-privategpt-and-qdrant-integration-tml-system-step-9-privategpt-qdrant-dag>`_
+   * - CUDA_VISIBLE_DEVICES	
+     - (TML GenAI) CUDA visible GPUs
+
+      `Youtube video <https://www.youtube.com/watch?v=dGzsqx8MtIY>`_
+
+      `Used in this DAG: Step 9 <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-9-privategpt-and-qdrant-integration-tml-system-step-9-privategpt-qdrant-dag>`_
+   * - step9docfolder 	
+     - (TML GenAI) TML will read document folders for RAG and insert into Vector DB i.e. Qdrant
+
+      `Youtube video <https://www.youtube.com/watch?v=dGzsqx8MtIY>`_
+
+      `Used in this DAG: Step 9 <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-9-privategpt-and-qdrant-integration-tml-system-step-9-privategpt-qdrant-dag>`_
+   * - step9docfolderingestinterval 	
+     - (TML GenAI) This tells TML how often to read the document folder and insert into Ve tor DB
+
+      `Youtube video <https://www.youtube.com/watch?v=dGzsqx8MtIY>`_
+
+      `Used in this DAG: Step 9 <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-9-privategpt-and-qdrant-integration-tml-system-step-9-privategpt-qdrant-dag>`_
+   * - step9useidentifierinprompt 	
+     - (TML GenAI) The identifier in the TML json output.
+
+      `Youtube video <https://www.youtube.com/watch?v=dGzsqx8MtIY>`_
+
+      `Used in this DAG: Step 9 <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-9-privategpt-and-qdrant-integration-tml-system-step-9-privategpt-qdrant-dag>`_
+   * - step9searchterms 	
+     - (TML GenAI) The search terms to look for in the data to process.
+
+      `Youtube video <https://www.youtube.com/watch?v=dGzsqx8MtIY>`_
+
+      `Used in this DAG: Step 9 <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-9-privategpt-and-qdrant-integration-tml-system-step-9-privategpt-qdrant-dag>`_
+   * - step9streamall 	
+     - (TML GenAI) TML will stream all of the data to privateGPT container.
+
+      `Youtube video <https://www.youtube.com/watch?v=dGzsqx8MtIY>`_
+
+      `Used in this DAG: Step 9 <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-9-privategpt-and-qdrant-integration-tml-system-step-9-privategpt-qdrant-dag>`_
+   * - step9temperature 	
+     - (TML GenAI) The temperature for the LLM in privateGPT container.
+
+      `Youtube video <https://www.youtube.com/watch?v=dGzsqx8MtIY>`_
+
+      `Used in this DAG: Step 9 <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-9-privategpt-and-qdrant-integration-tml-system-step-9-privategpt-qdrant-dag>`_
+   * - step9vectorsearchtype 	
+     - (TML GenAI) The vector search type for Qdrant.
+
+      `Youtube video <https://www.youtube.com/watch?v=dGzsqx8MtIY>`_
+
+      `Used in this DAG: Step 9 <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-9-privategpt-and-qdrant-integration-tml-system-step-9-privategpt-qdrant-dag>`_
+   * - step9contextwindowsize 	
+     - (TML GenAI) The context window size for the LLM in privateGPT container.
+
+      `Youtube video <https://www.youtube.com/watch?v=dGzsqx8MtIY>`_
+
+      `Used in this DAG: Step 9 <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-9-privategpt-and-qdrant-integration-tml-system-step-9-privategpt-qdrant-dag>`_
+   * - step9pgptcontainername 	
+     - (TML GenAI)  The privateGPT container name. All private containers are HERE.
+
+      `Youtube video <https://www.youtube.com/watch?v=dGzsqx8MtIY>`_
+
+      `Used in this DAG: Step 9 <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-9-privategpt-and-qdrant-integration-tml-system-step-9-privategpt-qdrant-dag>`_
+   * - step9pgpthost 	
+     - (TML GenAI) The privateGPT HOST IP.
+
+      `Youtube video <https://www.youtube.com/watch?v=dGzsqx8MtIY>`_
+
+      `Used in this DAG: Step 9 <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-9-privategpt-and-qdrant-integration-tml-system-step-9-privategpt-qdrant-dag>`_
+   * - step9pgptport 	
+     - (TML GenAI) The privateGPT HOST Port
+
+      `Youtube video <https://www.youtube.com/watch?v=dGzsqx8MtIY>`_
+
+      `Used in this DAG: Step 9 <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-9-privategpt-and-qdrant-integration-tml-system-step-9-privategpt-qdrant-dag>`_
+   * - step9vectordimension 	
+     - (TML GenAI) The vector dimension for TML RAG solutions.
+
+      `Youtube video <https://www.youtube.com/watch?v=dGzsqx8MtIY>`_
+
+      `Used in this DAG: Step 9 <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-9-privategpt-and-qdrant-integration-tml-system-step-9-privategpt-qdrant-dag>`_
+   * - step1solutiontitle 	
+     - (CONFIG) The TML solution title
+
+      `Youtube video <https://www.youtube.com/watch?v=N2ghgJuZAiU>`_
+
+      `Used in this DAG: Step 1 <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-1-get-tml-core-params-tml-system-step-1-getparams-dag>`_
+   * - step1description 	
+     - (CONFIG) The TML solution description.
+
+      `Youtube video <https://www.youtube.com/watch?v=N2ghgJuZAiU>`_
+
+      `Used in this DAG: Step 1 <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-1-get-tml-core-params-tml-system-step-1-getparams-dag>`_
+
 Creating Your Own DAG
 --------------------
 
