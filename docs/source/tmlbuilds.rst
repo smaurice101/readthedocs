@@ -9130,8 +9130,6 @@ The table below shows the main TML configuration parameters that are environment
 
 .. list-table::
 
-   * - **Video Name**
-     - **YouTube URL**
    * - **Environment Variable**
      - **Description**
    * - GITUSERNAME	
