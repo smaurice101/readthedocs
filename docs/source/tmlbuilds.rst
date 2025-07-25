@@ -9182,7 +9182,8 @@ The table below shows the main TML configuration parameters that are environment
      - (RTMS Parameter) This is a CRITICAL parameter and determines the WIDTH of the sliding time window.
 
       `Used in this DAG: Step 4c <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-4c-preprocesing-3-data-tml-system-step-4c-kafka-preprocess-dag>`_
-   * - step4csearchterms 	(RTMS Parameter) This is a CRITICAL parameter and determines the WIDTH of the sliding time window.
+   * - step4csearchterms 	(RTMS Parameter) 
+     - This is a CRITICAL parameter and determines the WIDTH of the sliding time window.
 
       `Youtube Video <https://www.youtube.com/watch?v=Ru013nA_650>`_
 
@@ -9193,68 +9194,66 @@ The table below shows the main TML configuration parameters that are environment
       `Youtube Video <https://www.youtube.com/watch?v=Ru013nA_650>`_
 
       `Used in this DAG: Step 4c <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-4c-preprocesing-3-data-tml-system-step-4c-kafka-preprocess-dag>`_
-
-   * - step4cpatternwindowthreshold 	(RTMS Parameter) This is a CRITICAL parameter and determines the WIDTH of the sliding time window.
-
-      `Youtube Video <https://www.youtube.com/watch?v=Ru013nA_650>`_
-
-      `Used in this DAG: Step 4c <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-4c-preprocesing-3-data-tml-system-step-4c-kafka-preprocess-dag>`_
-
-   * - step4crtmsscorethreshold 	(RTMS Parameter) This is a CRITICAL parameter and determines the WIDTH of the sliding time window.
+   * - step4cpatternwindowthreshold 	
+     - (RTMS Parameter) This is a CRITICAL parameter and determines the WIDTH of the sliding time window.
 
       `Youtube Video <https://www.youtube.com/watch?v=Ru013nA_650>`_
 
       `Used in this DAG: Step 4c <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-4c-preprocesing-3-data-tml-system-step-4c-kafka-preprocess-dag>`_
-
-   * - step4cattackscorethreshold 	(RTMS Parameter) This is a CRITICAL parameter and determines the WIDTH of the sliding time window.
-
-      `Youtube Video <https://www.youtube.com/watch?v=Ru013nA_650>`_
-
-      `Used in this DAG: Step 4c <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-4c-preprocesing-3-data-tml-system-step-4c-kafka-preprocess-dag>`_
-
-   * - step4cpatternscorethreshold 	(RTMS Parameter) This is a CRITICAL parameter and determines the WIDTH of the sliding time window.
+   * - step4crtmsscorethreshold 	
+     - (RTMS Parameter) This is a CRITICAL parameter and determines the WIDTH of the sliding time window.
 
       `Youtube Video <https://www.youtube.com/watch?v=Ru013nA_650>`_
 
       `Used in this DAG: Step 4c <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-4c-preprocesing-3-data-tml-system-step-4c-kafka-preprocess-dag>`_
-
-   * - step4crtmsstream 	(RTMS Parameter) This is a CRITICAL parameter and determines the WIDTH of the sliding time window.
-
-      `Youtube Video <https://www.youtube.com/watch?v=Ru013nA_650>`_
-
-      `Used in this DAG: Step 4c <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-4c-preprocesing-3-data-tml-system-step-4c-kafka-preprocess-dag>`_
-
-   * - step4clocalsearchtermfolder 	(RTMS Parameter) This is a CRITICAL parameter and determines the WIDTH of the sliding time window.
+   * - step4cattackscorethreshold 	
+     - (RTMS Parameter) This is a CRITICAL parameter and determines the WIDTH of the sliding time window.
 
       `Youtube Video <https://www.youtube.com/watch?v=Ru013nA_650>`_
 
       `Used in this DAG: Step 4c <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-4c-preprocesing-3-data-tml-system-step-4c-kafka-preprocess-dag>`_
-
-   * - step4clocalsearchtermfolderinterval 	(RTMS Parameter) This is a CRITICAL parameter and determines the WIDTH of the sliding time window.
-
-      `Youtube Video <https://www.youtube.com/watch?v=Ru013nA_650>`_
-
-      `Used in this DAG: Step 4c <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-4c-preprocesing-3-data-tml-system-step-4c-kafka-preprocess-dag>`_
-
-   * - step4crtmsfoldername 	(RTMS Parameter) This is a CRITICAL parameter and determines the WIDTH of the sliding time window.
+   * - step4cpatternscorethreshold 	
+     - (RTMS Parameter) This is a CRITICAL parameter and determines the WIDTH of the sliding time window.
 
       `Youtube Video <https://www.youtube.com/watch?v=Ru013nA_650>`_
 
       `Used in this DAG: Step 4c <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-4c-preprocesing-3-data-tml-system-step-4c-kafka-preprocess-dag>`_
-
-   * - step4crtmsmaxwindows 	(RTMS Parameter) This is a CRITICAL parameter and determines the WIDTH of the sliding time window.
+   * - step4crtmsstream 	
+     - (RTMS Parameter) This is a CRITICAL parameter and determines the WIDTH of the sliding time window.
 
       `Youtube Video <https://www.youtube.com/watch?v=Ru013nA_650>`_
 
       `Used in this DAG: Step 4c <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-4c-preprocesing-3-data-tml-system-step-4c-kafka-preprocess-dag>`_
+   * - step4clocalsearchtermfolder 	
+     - (RTMS Parameter) This is a CRITICAL parameter and determines the WIDTH of the sliding time window.
 
+      `Youtube Video <https://www.youtube.com/watch?v=Ru013nA_650>`_
+
+      `Used in this DAG: Step 4c <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-4c-preprocesing-3-data-tml-system-step-4c-kafka-preprocess-dag>`_
+   * - step4clocalsearchtermfolderinterval 	
+     - (RTMS Parameter) This is a CRITICAL parameter and determines the WIDTH of the sliding time window.
+
+      `Youtube Video <https://www.youtube.com/watch?v=Ru013nA_650>`_
+
+      `Used in this DAG: Step 4c <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-4c-preprocesing-3-data-tml-system-step-4c-kafka-preprocess-dag>`_
+   * - step4crtmsfoldername 	
+     - (RTMS Parameter) This is a CRITICAL parameter and determines the WIDTH of the sliding time window.
+
+      `Youtube Video <https://www.youtube.com/watch?v=Ru013nA_650>`_
+
+      `Used in this DAG: Step 4c <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-4c-preprocesing-3-data-tml-system-step-4c-kafka-preprocess-dag>`_
+   * - step4crtmsmaxwindows 	
+     - (RTMS Parameter) This is a CRITICAL parameter and determines the WIDTH of the sliding time window.
+
+      `Youtube Video <https://www.youtube.com/watch?v=Ru013nA_650>`_
+
+      `Used in this DAG: Step 4c <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-4c-preprocesing-3-data-tml-system-step-4c-kafka-preprocess-dag>`_
    * - step2raw_data_topic 	
      - (TML DATA INGESTION) This is the Kafka Topic containing Raw Data to be processed.  TML will autocreate this topic in Kafka.
 
       `Youtube Video <https://www.youtube.com/watch?v=h9HL_xarNgw>`_
 
       `Used in this DAG: Step 2 <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-2-create-kafka-topics-tml-system-step-2-kafka-createtopic-dag>`_
-
    * - step2preprocess_data_topic 	
      - (TML DATA INGESTION) TML stores the preprocessing results in this Kafka topic. TML will autocreate this topic in Kafka.
 
@@ -9265,10 +9264,12 @@ The table below shows the main TML configuration parameters that are environment
      - (TML DATA PREPROCESSING) This is the raw data topic created in: step2preprocess_data_topic.  TML will read data from this topic.
 
        `Used in this DAG: Step 4 <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-4-preprocesing-data-dag-tml-system-step-4-kafka-preprocess-dag>`_
-   * - step4preprocess_data_topic 	(TML DATA PREPROCESSING) This is the peprocess data topic created in: step2preprocess_data_topic.  TML will write       preprocessing output to this topic.
+   * - step4preprocess_data_topic 	
+     - (TML DATA PREPROCESSING) This is the peprocess data topic created in: step2preprocess_data_topic.  TML will write       preprocessing output to this topic.
 
        `Used in this DAG: Step 4 <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-4-preprocesing-data-dag-tml-system-step-4-kafka-preprocess-dag>`_
-   * - step4preprocesstypes 	(TML DATA PREPROCESSING) Users choose how to process the raw data, using the TML processing type.  All processing types are listed HERE
+   * - step4preprocesstypes 	
+     - (TML DATA PREPROCESSING) Users choose how to process the raw data, using the TML processing type.  All processing types are listed HERE
 
        `Used in this DAG: Step 4 <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-4-preprocesing-data-dag-tml-system-step-4-kafka-preprocess-dag>`_
    * - step4jsoncriteria 	
@@ -9293,7 +9294,6 @@ The table below shows the main TML configuration parameters that are environment
       `YOUTUBE Video <https://www.youtube.com/watch?v=Ru013nA_650>`_
 
       `Used in this DAG: Step 4a <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-4a-preprocesing-data-tml-system-step-4a-kafka-preprocess-dag>`_
-
    * - step4apreprocesstypes 	
      - (TML DATA PREPROCESSING) Users can choose the TML processing types.
 
@@ -9324,7 +9324,6 @@ The table below shows the main TML configuration parameters that are environment
       `Youtube Video <https://www.youtube.com/watch?v=UA_gm2eqaAU>`_
 
       `Used in this DAG: Step 4b <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-4b-preprocesing-2-data-tml-system-step-4b-kafka-preprocess-dag>`_
-
    * - step4braw_data_topic 	
      - (TML DATA PREPROCESSING) This is the raw data topic to consume from in Step 4b.
 
