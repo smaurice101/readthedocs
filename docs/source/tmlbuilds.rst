@@ -9127,7 +9127,7 @@ Creating Your Own DAG
 --------------------
 
 .. note::
-   This is for advanced users who are advanced users of Python.
+   This is for advanced TML developer who are also advanced Python developers.
 
 You can easily create your own custom DAG and add it to the solution templates.  Follow these guideline.
 
