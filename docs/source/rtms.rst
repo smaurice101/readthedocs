@@ -25,7 +25,7 @@ Importance of RTMS For Cyber Crime Detection
 
 * The major concern with real-time streaming data from connected devices is the risk of Cybersecurity attacks
 
-* **Cyber crime is expected to cost the global economy $10.7 Trillion in 2025 and this number is growing**
+* **Cyber crime is expected to cost the global economy `$10.7 Trillion in 2025 <https://www.weforum.org/stories/2023/01/global-rules-crack-down-cybercrime/#:~:text=The%20cost%20of%20cybercrime%20could,how%20to%20regulate%20cyber%20threats.>`_ and this number is growing**
 
 * This makes Cyber crime prevention and mitigation a Top Priority for global organizations regardless of size
 
