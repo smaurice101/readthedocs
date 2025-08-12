@@ -196,11 +196,13 @@ TML and Vision Models: Sample Code
 
 .. code-block:: PYTHON
 
+        import base64
+        import requests
+
         def base64encodeimage(imagefile):
              with open(imagefile, "rb") as image_file:
                  data = base64.b64encode(image_file.read())
-        
-        
+                
              return data
         
         def base64ToString(b):
