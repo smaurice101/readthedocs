@@ -189,7 +189,10 @@ You can use the `Llava vision models <https://ollama.com/blog/vision-models>`_ b
 
 .. note::
 
-    All images must be base64 decoded
+    All images must be base64 decoded - see code below.
+
+TML and Vision Models: Sample Code
+------------------------
 
 .. code-block:: PYTHON
 
