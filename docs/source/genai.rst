@@ -178,6 +178,15 @@ To use models other models go to `Ollama.com <https://ollama.com/search?q=tools>
 .. figure:: agentic5.png
    :scale: 50%
 
+TML and Vision Models
+=========================
+
+You can use the `Llava vision models <https://ollama.com/blog/vision-models>`_ by setting the **\-\-env LLAMAMODEL=** with the following:
+
+ - **\-\-env LLAMAMODEL=llava:7b**
+ - **\-\-env LLAMAMODEL=llava:13b**
+ - **\-\-env LLAMAMODEL=llava:34b**
+
 TML API for GenAI Using MAADSTML Python Library
 ==================================
 
