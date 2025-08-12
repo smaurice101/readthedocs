@@ -187,6 +187,42 @@ You can use the `Llava vision models <https://ollama.com/blog/vision-models>`_ b
  - **\-\-env LLAMAMODEL=llava:13b**
  - **\-\-env LLAMAMODEL=llava:34b**
 
+.. note::
+
+    All images must be base64 decoded
+
+.. code-block: PYTHON
+
+        def base64encodeimage(imagefile):
+             #imagefile='C:\\MAADS\\Companies\\firstgenesis\\Chevron\\imagefolder2\\filestoprocess\\image_converted_23.png'
+             with open(imagefile, "rb") as image_file:
+                 data = base64.b64encode(image_file.read())
+        
+        
+             return data
+        
+        def base64ToString(b):
+            return b.decode("utf-8") 
+        
+        
+        def describeimage(imgname):
+        
+            imgdata=base64encodeimage(imgname)
+            
+            headers = {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            }
+        
+            data = '{\n  "model": "llava:7b",\n  "prompt":"What is in this picture?",\n  "stream": false,\n  "images": ["'+base64ToString(imgdata)+'"]\n}'
+        
+            response = requests.post('http://localhost:11434/api/generate', headers=headers, data=data)
+        
+            print(response.text)
+            
+            return response
+        
+        describeimage("./image2.png")
+
 TML API for GenAI Using MAADSTML Python Library
 ==================================
 
