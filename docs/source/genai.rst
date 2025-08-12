@@ -189,7 +189,8 @@ You can use the `Llava vision models <https://ollama.com/blog/vision-models>`_ b
 
 .. note::
 
-    All images must be base64 decoded - see code below.
+    All images must be base64 decoded - see code below in section :ref:`TML and Vision Models: Sample Code`
+
 
     You must have the Ollama server container running:
 
