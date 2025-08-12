@@ -194,7 +194,6 @@ You can use the `Llava vision models <https://ollama.com/blog/vision-models>`_ b
 .. code-block:: PYTHON
 
         def base64encodeimage(imagefile):
-             #imagefile='C:\\MAADS\\Companies\\firstgenesis\\Chevron\\imagefolder2\\filestoprocess\\image_converted_23.png'
              with open(imagefile, "rb") as image_file:
                  data = base64.b64encode(image_file.read())
         
