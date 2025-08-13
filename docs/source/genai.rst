@@ -257,6 +257,28 @@ TML and Vision Models: Sample Code
         
         describeimage("./image2.png")
 
+TML and Video ChatGPT
+============================
+
+Users can call video chatGPT container as follows:
+
+Docker Run Command
+------------------
+
+.. code-block::
+
+    docker run --gpus all -d -p 7900:7900 --net=host --env CUDA_VISIBLE_DEVICES=0 --env VIDEOGPTPORT=7900 -v /mnt/c/maads/privategpt/Video_ChatGPT/video_chatgpt/demo/demo_sample_videos:/VideoChatGPT/videofile:z --env VIDEOGPTFOLDER=/VideoChatGPT/videofile maadsdocker/tml-videochatgpt-nvidia-gpu-amd64
+
+
+.. note::
+        NOTE: Details on the Docker run command:
+        
+        * -p 7900:7900: This is port forwarding port 7900 host port to the container port 7900
+        * VIDEOGPTPORT=7900: This enables the API to connect to video chatgpt on port 7900
+        * -v /mnt/c/maads/privategpt/Video_ChatGPT/video_chatgpt/demo/demo_sample_videos:/VideoChatGPT/videofile:z: All your video files need to be stored on the host machine, the Docker container maps this host folder to the container folder for video retrieval
+        * VIDEOGPTFOLDER=/VideoChatGPT/videofile : This is the container video folder
+        * NOTE: You need to drop the mp4 files on your host folder that is mapped to the container folder.
+
 TML API for GenAI Using MAADSTML Python Library
 ==================================
 
