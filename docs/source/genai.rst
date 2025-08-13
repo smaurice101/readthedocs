@@ -267,7 +267,11 @@ Docker Run Command
 
 .. code-block::
 
-    docker run --gpus all -d -p 7900:7900 --net=host --env CUDA_VISIBLE_DEVICES=0 --env VIDEOGPTPORT=7900 -v /mnt/c/maads/privategpt/Video_ChatGPT/video_chatgpt/demo/demo_sample_videos:/VideoChatGPT/videofile:z --env VIDEOGPTFOLDER=/VideoChatGPT/videofile maadsdocker/tml-videochatgpt-nvidia-gpu-amd64
+    docker run --gpus all -d -p 7900:7900 \
+    \-\-net=host --env CUDA_VISIBLE_DEVICES=0 \
+    \-\-env VIDEOGPTPORT=7900 \
+    -v /mnt/c/maads/privategpt/Video_ChatGPT/video_chatgpt/demo/demo_sample_videos:/VideoChatGPT/videofile:z \
+    \-\-env VIDEOGPTFOLDER=/VideoChatGPT/videofile maadsdocker/tml-videochatgpt-nvidia-gpu-amd64
 
 
 .. note::
