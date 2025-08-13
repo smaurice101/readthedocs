@@ -187,15 +187,17 @@ You can use the `Llava vision models <https://ollama.com/blog/vision-models>`_ b
  - **\-\-env LLAMAMODEL=llava:13b**
  - **\-\-env LLAMAMODEL=llava:34b**
 
-The general reference architecture shows how TML connects to Ollama server container in real-time to process images:
+The general reference architecture shows how TML connects to Ollama server container and Video ChatGPT in real-time to process images and Videos:
 
-.. figure:: ollama.png
+.. note::
+   VideoChatGPT uses Vicuna v1.1
+
+.. figure:: ollama2.png
     :scale: 70%
 
 .. note::
 
     All images must be base64 decoded - see code below in section :ref:`TML and Vision Models: Sample Code`
-
 
     You must have the Ollama server container running:
 
