@@ -187,7 +187,7 @@ You can use the `Llava vision models <https://ollama.com/blog/vision-models>`_ b
  - **\-\-env LLAMAMODEL=llava:13b**
  - **\-\-env LLAMAMODEL=llava:34b**
 
-The general reference architecture shows how TML connects to Ollama server container.
+The general reference architecture shows how TML connects to Ollama server container in real-time to process images:
 
 .. figure:: ollama.png
     :scale: 70%
