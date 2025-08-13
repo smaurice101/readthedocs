@@ -307,13 +307,13 @@ Video ChatGPT Sample Code
         
             prompt='What is this video about? Is there anythin strange about this video?'  # prompts to ask video chatgot about the video
         
-        #Call video chatgpt
-            ret=maadstml.videochatloadresponse(url,port,filename,prompt,responsefolder,temperature,max_output_tokens)
-        
+        #Load video chatgpt
+            ret=maadstml.videochatloadresponse(url,port,filename,prompt,responsefolder,temperature,max_output_tokens)        
             print(ret)
-            CALL Video chat gpt container - you can put this in a loop and analyse several videos at once with multiple containers
-            videofilename = 'sample_6.mp4'
-
+            
+        #CALL Video chat gpt container - you can put this in a loop and analyse several videos at once with multiple containers
+        videofilename = 'sample_6.mp4'
+    
         ret = videochat(videofilename) # returns the response file name
         print(ret)
 
