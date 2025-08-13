@@ -299,7 +299,7 @@ Video ChatGPT Sample Code
             
             filename=videofilename          # Video file name 
             
-            responsefolder='chevron-videos'   # folder, video chatgpt will write out the responses to
+            responsefolder='sample-videos'   # folder, video chatgpt will write out the responses to
             
             temperature=0.1                   # temperature - varies between 0-1, closer to 0 more conservative the responses
             
