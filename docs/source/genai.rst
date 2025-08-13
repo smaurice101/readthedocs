@@ -268,11 +268,10 @@ Docker Run Command
 .. code-block::
 
     docker run --gpus all -d -p 7900:7900 \
-    \-\-net=host --env CUDA_VISIBLE_DEVICES=0 \
-    \-\-env VIDEOGPTPORT=7900 \
+    --net=host --env CUDA_VISIBLE_DEVICES=0 \
+    --env VIDEOGPTPORT=7900 \
     -v /mnt/c/maads/privategpt/Video_ChatGPT/video_chatgpt/demo/demo_sample_videos:/VideoChatGPT/videofile:z \
-    \-\-env VIDEOGPTFOLDER=/VideoChatGPT/videofile maadsdocker/tml-videochatgpt-nvidia-gpu-amd64
-
+    --env VIDEOGPTFOLDER=/VideoChatGPT/videofile maadsdocker/tml-videochatgpt-nvidia-gpu-amd64
 
 .. note::
         NOTE: Details on the Docker run command:
@@ -282,6 +281,41 @@ Docker Run Command
         * -v /mnt/c/maads/privategpt/Video_ChatGPT/video_chatgpt/demo/demo_sample_videos:/VideoChatGPT/videofile:z: All your video files need to be stored on the host machine, the Docker container maps this host folder to the container folder for video retrieval
         * VIDEOGPTFOLDER=/VideoChatGPT/videofile : This is the container video folder
         * NOTE: You need to drop the mp4 files on your host folder that is mapped to the container folder.
+
+Video ChatGPT Sample Code
+-----------------------
+
+.. code-block::
+
+        import maadstml # import the maadstml python library: pip install maadstml
+        
+        ################### NOTE: This will only work if Video Chatgpt is running on a machine with NVidia GPU and Cuda toolkit installed
+        
+        def videochat(videofilename):
+        
+            url='http://127.0.0.1'            # IP video chatgpt is listening on
+            
+            port='7900'                       # Port Video chatgpt is listening on 
+            
+            filename=videofilename          # Video file name 
+            
+            responsefolder='chevron-videos'   # folder, video chatgpt will write out the responses to
+            
+            temperature=0.1                   # temperature - varies between 0-1, closer to 0 more conservative the responses
+            
+            max_output_tokens=512             #  max tokens or words returned
+        
+            prompt='What is this video about? Is there anythin strange about this video?'  # prompts to ask video chatgot about the video
+        
+        #Call video chatgpt
+            ret=maadstml.videochatloadresponse(url,port,filename,prompt,responsefolder,temperature,max_output_tokens)
+        
+            print(ret)
+            CALL Video chat gpt container - you can put this in a loop and analyse several videos at once with multiple containers
+            videofilename = 'sample_6.mp4'
+
+        ret = videochat(videofilename) # returns the response file name
+        print(ret)
 
 TML API for GenAI Using MAADSTML Python Library
 ==================================
