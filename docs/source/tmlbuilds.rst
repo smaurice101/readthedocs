@@ -5702,10 +5702,10 @@ TML uses the binaries `Viper and HPDE <https://tml.readthedocs.io/en/latest/usag
 
 Below describes how TML (Viper/HPDE) optimizes ML models for each sliding time window:
 
-1.	TML processes each sliding time window which can be expanded to increase the model training data sets for ML models
- a.	More training data allows TML to learn the patterns effectively, BUT because TML does ALL of this processing IN-MEMORY having too large of a training dataset  will slow down TML processing/ML
+1.	**TML processes each sliding time window** which can be expanded to increase the model training data sets for ML models
+ a.	More training data allows TML to learn the patterns effectively, **BUT because TML does ALL of this processing IN-MEMORY having too large of a training dataset  will slow down TML processing/ML**
 
-2.	TML applies several different algorithms to the streaming data:
+2.	**TML applies several different algorithms to the streaming data:**
 
 .. list-table::
 
@@ -5722,11 +5722,11 @@ Below describes how TML (Viper/HPDE) optimizes ML models for each sliding time w
    * - Neural networks	
      - Neural networks non-linear real-time data
 
-3.	TML performs real-time data normalization: All data are put on the same scale, between 0-1 – this prevents large variables (with large numbers) from dominating small variables (with small numbers, like decimals)
+3.	**TML performs real-time data normalization:** All data are put on the same scale, between 0-1 – this prevents large variables (with large numbers) from dominating small variables (with small numbers, like decimals)
 
-4.	TML performs real-time hyper parameter tuning in the algorithms in 2 above.  This is IMPORTANT to ensure algorithms are properly calibrated for the best prediction accuracy (algorithm MAPE) 
+4.	**TML performs real-time hyper parameter tuning in the algorithms in 2 above.  This is IMPORTANT to ensure algorithms are properly calibrated for the best prediction accuracy (algorithm MAPE)**
 
-5.	TML performs constant machine learning of the streamed data by constantly trying different algorithms for EVERY sliding time window.  This is how TML is able to learn highly complex, NON-LINEAR, data in real-Time.  So if the underlying pattern changes in the subsequent sliding time windows, these new patterns will be learned by TML immediately.
+5.	**TML performs constant machine learning of the streamed data by constantly trying different algorithms for EVERY sliding time window.**  This is how TML is able to learn highly complex, NON-LINEAR, data in real-Time.  So if the underlying pattern changes in the subsequent sliding time windows, these new patterns will be learned by TML immediately.
 
 
 STEP 6: Entity Based Predictions: tml-system-step-6-kafka-predictions-dag
