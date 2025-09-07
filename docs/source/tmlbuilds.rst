@@ -5695,6 +5695,38 @@ Note that the training dataset is normalizied using minmax scaler.  The paramete
      "HasConstantTerm": 1
     }
 
+How TML Optimizes ML Models and Acheives High Forecast Accuracy
+============================================================
+
+TML uses the binaries `Viper and HPDE <https://tml.readthedocs.io/en/latest/usage.html#tml-components-three-binaries>`_ to optimize ML models for high forecast accuracy.  All ML models estimated by Viper and HPDE are applied to data in each sliding time window.
+
+Below describes how TML (Viper/HPDE) optimizes ML models for each sliding time window:
+
+1.	Sliding time window can be expanded to increase the model training data sets for ML models
+ a.	For Gas production model: I configured TML training dataset to be 300 data points for each variable in the model (dependent and independent variables)
+ b.	More training data allows TML to learn the patters effectively, BUT because TML does ALL of this processing IN-MEMORY having too large of a training dataset  will slow down TML processing/ML
+
+2.	TML applies several different algorithms to the streaming data:
+
+* - Algorithm	
+  - Description
+* - Logistic Regression
+  - Performs classification regression and predicts probabilities
+* - Linear Regression	
+  - Performs linear regression using OLS algorithm
+* - Gradient Boosting
+  - Gradient boosting for non-linear real-time data
+* - Ridge Regression	
+  - Ridge Regression for non-linear real-time data
+* - Neural networks	
+  - Neural networks non-linear real-time data
+
+3.	TML performs real-time Data normalization: All data in the Gas production model are normalized and put on the same scale, between 0-1 – this prevents large variables (with large numbers) from dominating small variables (with small numbers, like decimals)
+
+4.	TML performs real-time hyper parameter tuning in the algorithms in 2 above.  This is IMPORTANT to ensure algorithms are properly calibrated for the best prediction accuracy (algorithm MAPE) 
+
+5.	TML performs constant machine learning of the streamed data by constantly trying different algorithms for EVERY sliding time window.  This is how TML is able to learn highly complex, NON-LINEAR, data in real-Time.  So if the underlying pattern changes in the subsequent sliding time windows, these new patterns will be learned by TML immediately.
+
 
 STEP 6: Entity Based Predictions: tml-system-step-6-kafka-predictions-dag
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
