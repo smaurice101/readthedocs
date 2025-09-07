@@ -5708,18 +5708,20 @@ Below describes how TML (Viper/HPDE) optimizes ML models for each sliding time w
 
 2.	TML applies several different algorithms to the streaming data:
 
-* - Algorithm	
-  - Description
-* - Logistic Regression
-  - Performs classification regression and predicts probabilities
-* - Linear Regression	
-  - Performs linear regression using OLS algorithm
-* - Gradient Boosting
-  - Gradient boosting for non-linear real-time data
-* - Ridge Regression	
-  - Ridge Regression for non-linear real-time data
-* - Neural networks	
-  - Neural networks non-linear real-time data
+.. list-table::
+
+ * - Algorithm	
+   - Description
+ * - Logistic Regression
+   - Performs classification regression and predicts probabilities
+ * - Linear Regression	
+   - Performs linear regression using OLS algorithm
+ * - Gradient Boosting
+   - Gradient boosting for non-linear real-time data
+ * - Ridge Regression	
+   - Ridge Regression for non-linear real-time data
+ * - Neural networks	
+   - Neural networks non-linear real-time data
 
 3.	TML performs real-time Data normalization: All data in the Gas production model are normalized and put on the same scale, between 0-1 – this prevents large variables (with large numbers) from dominating small variables (with small numbers, like decimals)
 
