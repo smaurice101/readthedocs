@@ -56,7 +56,7 @@ The figure below shows how the TML agentic AI solution processes real-time data 
 * Individual agents monitor the Kafka topics containing real-time data
 * The individual agents are prompted with questions to analyse the real-time data
 * The individual agent responses are writte to a Vector DB
-* The Team Lead agents summarizes the individual agent responses by querying the vector DB
+* The Team Lead agent summarizes the individual agents' responses by querying the vector DB
 * The Supervisor agent takes the Team Lead's response summary and generates ACTION
 * The autonomous actions could be send email, update file or update some operational technology
 * Human or machine decision maker then receives the outcome of this ACTION.
