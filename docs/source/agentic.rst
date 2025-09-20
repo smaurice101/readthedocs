@@ -56,7 +56,7 @@ The figure below shows how the TML agentic AI solution processes real-time data 
 * Individual agents monitor the Kafka topics containing TML processed real-time data
 * The individual agents are prompted with questions to analyse the real-time data
 * The individual agent responses are writte to a Vector DB
-* The Team Lead agent summarizes the individual agents' responses by querying the vector DB
+* The Team Lead agent summarizes the individual agents' responses by querying the vector DB.  This allows for a "meshing" of the information from individual agents.
 * The Supervisor agent takes the Team Lead's response summary and generates ACTION
 * The autonomous actions could be send email, update file or update some operational technology
 * Human or machine decision maker then receives the outcome of this ACTION.
@@ -105,9 +105,9 @@ Sample Output from TML Multi-Agentic AI Solution
 
 Below is sample output from a TML agentic solution monitoring IoT device topics. Some things to note:
 
-* Topic_Agent are the agents monitoring the Kafka topic for any anomalies.  In this example we habe 3 topic agents monitoring, in real-time, three different topics.
-* Team_Lead_Agent analyzes all of the respnses from the Topic_Agents and summarizes the information for hand off to the supervisor agent
-* Supervisor_Agent, based on the Team_Lead_Agent summary, decides what tool to route the information to for an ACTION.  In this example the supervisor routes the request to the send_email agent who sends an email to a human(s).
+* **Topic_Agent** are the agents monitoring the Kafka topic for any anomalies.  In this example we habe 3 topic agents monitoring, in real-time, three different topics.
+* **Team_Lead_Agent** analyzes all of the respnses from the Topic_Agents and summarizes the information for hand off to the supervisor agent
+* **Supervisor_Agent**, based on the Team_Lead_Agent summary, decides what tool to route the information to for an ACTION.  In this example the supervisor routes the request to the send_email agent who sends an email to a human(s).
 
 .. code-block::
 
