@@ -103,7 +103,11 @@ TML and TSS use `LangGraph <https://www.langchain.com/langgraph>`_ for (multi) A
 Sample Output from TML Multi-Agentic AI Solution
 """""""""""""""""""""""""""""""""""""
 
-Below is sample output from a TML agentic solution monitoring IoT device topics.
+Below is sample output from a TML agentic solution monitoring IoT device topics. Some things to note:
+
+* Topic_Agent are the agents monitoring the Kafka topic for any anomalies.  In this example we habe 3 topic agents monitoring, in real-time, three different topics.
+* Team_Lead_Agent analyzes all of the respnses from the Topic_Agents and summarizes the information for hand off to the supervisor agent
+* Supervisor_Agent, based on the Team_Lead_Agent summary, decides what tool to route the information to for an ACTION.  In this example the supervisor routes the request to the send_email agent who sends an email to a human(s).
 
 .. code-block::
 
@@ -137,7 +141,7 @@ Below is sample output from a TML agentic solution monitoring IoT device topics.
       	},
       	{
       		"Date": "2025-09-20 20:36:21.033379+00:00",
-      		"Team_Lead_Agent": "topic",
+      		"Team_Lead_Agent": "teamtopic",
       		"Pompt": "does the data indicate any anomalies or irregular behaviour? give a detailed response - use the mainuid to indicate device name. specifically, look in the hyperprediction field, these numbers representprobability prediction failure for iot devices.  the device name can be found in the mainuid parameter in the identifier field. if a numberin hyperprediction is greater than 0.70 then there is a problem in this device.",
       		"Response": "yes, the data indicates an anomaly or irregular behavior for one of the iot devices. the device with identifier ac000w020486693 has a high likelihood of failure, as indicated by its hyperprediction value being greater than 0.70. this suggests that there is a problem with this particular device.upon closer inspection, it appears that the model used to predict device failures has identified this device as having a significant probability of failing (89.8% in this case).",
       		"Model": "llama3.1",
@@ -146,7 +150,7 @@ Below is sample output from a TML agentic solution monitoring IoT device topics.
       	},
       	{
       		"Date": "2025-09-20 20:36:27.926185+00:00",
-      		"Supervisor_Agent": "topic",
+      		"Supervisor_Agent": "supervisortopic",
       		"Prompt": "here is the team lead's response: yes, the data indicates an anomaly or irregular behavior for one of the iot devices. the device with identifier ac000w020486693 has a high likelihood of failure, as indicated by its hyperprediction value being greater than 0.70. this suggests that there is a problem with this particular device.upon closer inspection, it appears that the model used to predict device failures has identified this device as having a significant probability of failing (89.8% in this case)..  generate an approprate action using one of the tools.",
       		"Response": "The email has been sent to Sebastian regarding the anomaly detected on IoT device ac000w020486693.",
       		"Model": "llama3.1",
