@@ -64,42 +64,6 @@ The figure below shows how the TML agentic AI solution processes real-time data 
 .. figure:: tml-agentic-process.png
    :scale: 70%
 
-Building TML and Agentic AI Solutions with TML Solution Studio (TSS)
-==============================================
-
-- All TML solutions are built with the `TSS <https://tml.readthedocs.io/en/latest/docker.html>`_
-- TSS enforces a process driven approach to build TML solution in a few minutes
-- The image on the left shows an example of a TML solution build process
-- Every TML solution are built with NO-CODE
-- Each TML solution takes less than 5 minutes to develop
-- The output of a TSS solution build is a docker container
-
-.. figure:: agentic2.png
-   :scale: 70%
-
-TML and (Multi) Agentic AI Architecture
-========================
-
-- The TML and Agentic Architecture is very simple: Agents can be configured in the `TSS <https://tml.readthedocs.io/en/latest/docker.html>`_
-- With NO-CODE - users can advanced agent based solutions that process real-time data and perform tasks in real-time
-- The AI integration is with the `TML privateGPT Agentic AI containers <https://tml.readthedocs.io/en/latest/genai.html#tml-and-agentic-ai-special-container>`_
-   * This local container uses `Ollama server <https://ollama.com/>`_ for API based Agentic workflow automation
-   * Two LLM models can be used: `Llama 3.1 <https://huggingface.co/meta-llama/Llama-3.1-8B>`_ or `Llama 3.2 <https://huggingface.co/meta-llama/Llama-3.2-1B>`_
-- Using local GenAI containers drastically reduces the cost of Agentic solution for large scale data processing
-
-.. figure:: agentic3.png
-   :scale: 70%
-
-Implementing Complex Workflows with TML and (Multi) Agentic AI
-""""""""""""""""""""""""""""""
-
-Implementing complex real-time workflows to automate complex tasks is possible with TML and Agentic AI, as shown below.  In fact, this is would be a new skill set for Busniness analysts but focused on Agentic AI solutions:
-
-.. figure:: agentic4.png
-   :scale: 70%
-
-TML and TSS use `LangGraph <https://www.langchain.com/langgraph>`_ for (multi) Agent based code. TML agents can execute tools autonomously.  Tools are out of the box, or users can build their own custom tools and integrate with their TML solutions, easily.
-
 Sample Output from TML Multi-Agentic AI Solution
 """""""""""""""""""""""""""""""""""""
 
@@ -158,6 +122,42 @@ Below is sample output from a TML agentic solution monitoring IoT device topics.
       		"Temperature": "0.0"
       	}
       ]
+
+Building TML and Agentic AI Solutions with TML Solution Studio (TSS)
+==============================================
+
+- All TML solutions are built with the `TSS <https://tml.readthedocs.io/en/latest/docker.html>`_
+- TSS enforces a process driven approach to build TML solution in a few minutes
+- The image on the left shows an example of a TML solution build process
+- Every TML solution are built with NO-CODE
+- Each TML solution takes less than 5 minutes to develop
+- The output of a TSS solution build is a docker container
+
+.. figure:: agentic2.png
+   :scale: 70%
+
+TML and (Multi) Agentic AI Architecture
+========================
+
+- The TML and Agentic Architecture is very simple: Agents can be configured in the `TSS <https://tml.readthedocs.io/en/latest/docker.html>`_
+- With NO-CODE - users can advanced agent based solutions that process real-time data and perform tasks in real-time
+- The AI integration is with the `TML privateGPT Agentic AI containers <https://tml.readthedocs.io/en/latest/genai.html#tml-and-agentic-ai-special-container>`_
+   * This local container uses `Ollama server <https://ollama.com/>`_ for API based Agentic workflow automation
+   * Two LLM models can be used: `Llama 3.1 <https://huggingface.co/meta-llama/Llama-3.1-8B>`_ or `Llama 3.2 <https://huggingface.co/meta-llama/Llama-3.2-1B>`_
+- Using local GenAI containers drastically reduces the cost of Agentic solution for large scale data processing
+
+.. figure:: agentic3.png
+   :scale: 70%
+
+Implementing Complex Workflows with TML and (Multi) Agentic AI
+""""""""""""""""""""""""""""""
+
+Implementing complex real-time workflows to automate complex tasks is possible with TML and Agentic AI, as shown below.  In fact, this is would be a new skill set for Busniness analysts but focused on Agentic AI solutions:
+
+.. figure:: agentic4.png
+   :scale: 70%
+
+TML and TSS use `LangGraph <https://www.langchain.com/langgraph>`_ for (multi) Agent based code. TML agents can execute tools autonomously.  Tools are out of the box, or users can build their own custom tools and integrate with their TML solutions, easily.
 
 Advantages of TML with Agentic AI
 ========================
