@@ -79,7 +79,7 @@ Below is sample output from a TML agentic solution, that implements the above so
       	{
       		"Date": "2025-09-20 20:35:39.393392+00:00",
       		"Topic_Agent": "a",
-      		"Prompt": "this json is an output of a machine learning model.the json field hyperprediction is a probability prediction of an iot device failure.if the probability is greater than 0.70 then there is a high likelihood of the device failing.  each devive entity is in the mainuid parameter.can you tell which device has a high likelihood of failure?",
+      		"Prompt": "this json is an output of a machine learning model.the json field:: hyperprediction is a probability prediction of an iot device failure.if the probability is greater than 0.70 then there is a high likelihood of the device failing.  each devive entity is in the mainuid parameter.can you tell which device has a high likelihood of failure?",
       		"Response": "based on the json output, i can see that there are two devices with their respective predictions.the device with a high likelihood of failure is the one with hyperprediction value greater than 0.70.looking at the json, i find that:**device ac000w020486693 has a high likelihood of failure**here's why:* in the first object (device) in the array:+ hyperprediction: 0.898 (greater than 0.70)+ mainuid: ac000w020486693this device has a probability prediction of 89.8% that it will fail.let me know if you'd like to analyze anything else!",
       		"Model": "llama3.1",
       		"Embedding": "nomic-embed-text",
