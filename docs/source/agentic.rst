@@ -67,7 +67,7 @@ The figure below shows how the TML agentic AI solution processes real-time data 
 Sample Output from TML Multi-Agentic AI Solution
 """""""""""""""""""""""""""""""""""""
 
-Below is sample output from a TML agentic solution monitoring IoT device topics. Some things to note:
+Below is sample output from a TML agentic solution, that implements the above solution reference architecture, for monitoring IoT device topics. Some things to note:
 
 * **Topic_Agent** are the agents monitoring the Kafka topic for any anomalies.  In this example we habe 3 topic agents monitoring, in real-time, three different topics.
 * **Team_Lead_Agent** analyzes all of the respnses from the Topic_Agents and summarizes the information for hand off to the supervisor agent
