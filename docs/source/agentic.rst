@@ -53,7 +53,7 @@ TML and Multi-Agentic AI Solution Reference
 
 The figure below shows how the TML agentic AI solution processes real-time data with multi-agents:
 
-* Individual agents monitor the Kafka topics containing real-time data
+* Individual agents monitor the Kafka topics containing TML processed real-time data
 * The individual agents are prompted with questions to analyse the real-time data
 * The individual agent responses are writte to a Vector DB
 * The Team Lead agent summarizes the individual agents' responses by querying the vector DB
