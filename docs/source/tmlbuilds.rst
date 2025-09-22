@@ -8492,7 +8492,7 @@ STEP 9b DAG Core Parameter Explanation
    * - agenttoolfunctions
      - This is the key field that will link the tools (python functions) to the 
 
-        supervisor agent that will execure the tools.  The tools are feined in ref:`STEP 9b: Agent Tool` 
+        supervisor agent that will execure the tools.  The tools are feined in ref:`STEP 9b: Agents' Tools` 
 
         FORMAT: <tool_function:agent_name:system_prompt,tool_function2:agent_name2:sysemt_prompt2,....>
 
@@ -8549,7 +8549,7 @@ STEP 9b DAG Core Parameter Explanation
    * - vectordbpath
      - This is the path to the vector store on disk.
 
-STEP 9b: Agent Tool
+STEP 9b: Agents' Tools
 -----------------------
 
 Below code allows users to incorporate any tools they want to their TML multi-agentic solutions.
