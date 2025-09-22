@@ -8464,14 +8464,73 @@ STEP 9b DAG Core Parameter Explanation
 
    * - **Step 9b DAG parameter**
      - **Explanation**
-   * - pgptcontainername
-     - Enter the privateGPT container to use.  For example:
+   * - ollamacontainername
+     - Use this Ollama container:
 
-       - maadsdocker/tml-privategpt-with-gpu-nvidia-amd64
+       - `maadsdocker/tml-privategpt-with-gpu-nvidia-amd64-llama3-tools<https://hub.docker.com/r/maadsdocker/tml-privategpt-with-gpu-nvidia-amd64-llama3-tools>`_
 
-       - maadsdocker/tml-privategpt-no-gpu-amd64
+       This Containers will run your LLM locally.
+   * - rollbackoffset
+     - This determines how much data to process.
+   * - agents_topic_prompt
+     - This is the field where you tell the agent which topic to monitor and the prompt.
+       
+        FORMAT: <consumefrom - topic agent will monitor:prompt you want for the agent to answer>
 
-       Containers can be found in `Docker Hub under MAADSDOCKER account name <https://hub.docker.com/r/maadsdocker>`_
+        For example: "testtopic:Do you seee any issues in the real-time json data?"
+
+        Seperate multiple topics by a comma.
+   * - teamlead_topic
+     - This topic will contain all of the team lead responses.
+   * - teamleadprompt
+     - Enter the prompt for the Team Lead agent.
+   * - supervisor_topic
+     - All supervisor responses are stored in this topic.
+   * - supervisorprompt
+     - Enter the prompt for the supervisor.
+   * - agenttoolfunctions
+     - This is the key field that will link the tools (python functions) to the 
+
+        supervisor agent that will execure the tools.  The tools are feined in ref:`STEP 9b: Agent Tool` 
+
+        FORMAT: <tool_function:agent_name:system_prompt,tool_function2:agent_name2:sysemt_prompt2,....>
+
+        For example if connecting to the send_email tools then agenttoolfunctions is:
+
+        """send_email:send_email: You are an email-sending agent. Use smtp parameters to send emails when there is an anomaly in the data, make sure to
+               indicate the device name in the mainuid field. do not write a smtp script, actually send the email using the SMTP parameters
+               smtp_server='{}'
+               smtp_port={}
+               username='{}'
+               password='{}'
+               sender='{}'
+               recipient='{}'
+               subject=''
+               body=''""".format(SMTP_SERVER,SMTP_PORT,SMTP_USERNAME,SMTP_PASSWORD,SMTP_USERNAME,recipient)
+                    
+        The variables SMTP_SERVER,SMTP_PORT,SMTP_USERNAME,SMTP_PASSWORD,SMTP_USERNAME,recipient should be defined
+
+        as environmental variables when starting the TSS container.
+   * - agent_team_supervisor_topic
+     - This topic will contain responses from the individual agents, team lead, and supervisor.  See ref:`Sample Output from TML Multi-Agentic AI Solution`
+   * - mainip
+     - This is the IP to the Ollama container.
+   * - mainport
+     - This is the port Ollama server is listening on i.e. 11434
+   * - embedding
+     - This is the embedding used in the Vector DB.  TML uses **from llama_index.core.indices.vector_store.base import VectorStoreIndex**
+
+       TML recommends the embedding: nomic-embed-text
+   * - temperature
+     - This is the temperature for the Ollama model.  A temperature of 0 means LLM will be conservative, 1 means it may hallucinate.
+   * - ollama-model
+     - The Ollama LLM model to use.  Any Ollama model with tools training can be used.
+   * - deletevectordbcount
+     - This count determines how much data to save in the vector DB.  A higher number will cause more data in the 
+
+       vector DB which would give the LLM more memory to base its responses.
+   * - vectordbpath
+     - This is the path to the vector store on disk.
 
 STEP 9b: Agent Tool
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
