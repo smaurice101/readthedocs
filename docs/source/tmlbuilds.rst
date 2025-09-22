@@ -281,6 +281,17 @@ DAG Table
        AI for fast AI analysis of your streaming data.  No data is sent outside 
 
        your network, the privateGPT container runs locally.
+   * - :ref:`STEP 9b: Multi-Agentic Agentic A: tml-system-step-9b-agenticai-dag`
+     
+       **Description:** This DAG integrates your real-time solution seamlessly with 
+
+       Multi-Agentic AI see :ref:`TML and Agentic AI`.  
+
+       This is a very powerful, secure, and low-cost way of harnessing the power of 
+
+       Multi-Agentic AI for fast Agent-Based analysis of your streaming data.  No data is sent outside 
+
+       your network, the agentic AI solution container runs locally.
    * - :ref:`STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag`
       
        **Description:** This DAG will automatically create 
