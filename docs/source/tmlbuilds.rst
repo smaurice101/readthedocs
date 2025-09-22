@@ -7768,6 +7768,9 @@ This way, you can use TML, privateGPT and Qdrant for powerful analysis of docume
 STEP 9b: Multi-Agentic Agentic A: tml-system-step-9b-agenticai-dag
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+This DAG implements **multi-agentic AI to real-time data processing**.  Take a look at ref:`TML and Agentic AI` for more information.
+
+
 .. code-block:: PYTHON
    :emphasize-lines: 17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,
                      37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64
@@ -7978,8 +7981,7 @@ STEP 9b: Multi-Agentic Agentic A: tml-system-step-9b-agenticai-dag
          if cfound==0:
             print("INFO STEP 9b: Ollama container {} not found.  It may need to be pulled.".format(ollamacontainername))
             tsslogging.locallogs("WARN", "STEP 9b: Ollama container not found. It may need to be pulled if it does not start: docker pull {}".format(ollamacontainername))
-      
-      
+            
       
       def startpgptcontainer():
             print("Starting Ollama container: {}".format(default_args['ollamacontainername'])) 
@@ -8454,7 +8456,23 @@ STEP 9b: Multi-Agentic Agentic A: tml-system-step-9b-agenticai-dag
                 count = count + 1
                 if count > 10:
                   break 
-          
+
+STEP 9b DAG Core Parameter Explanation
+"""""""""""""""""""""""""""""""""""""
+
+.. list-table::
+
+   * - **Step 9b DAG parameter**
+     - **Explanation**
+   * - pgptcontainername
+     - Enter the privateGPT container to use.  For example:
+
+       - maadsdocker/tml-privategpt-with-gpu-nvidia-amd64
+
+       - maadsdocker/tml-privategpt-no-gpu-amd64
+
+       Containers can be found in `Docker Hub under MAADSDOCKER account name <https://hub.docker.com/r/maadsdocker>`_
+
 STEP 9b: Agent Tool
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
