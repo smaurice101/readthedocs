@@ -5751,7 +5751,7 @@ Below describes how TML (Viper/HPDE) optimizes ML models for each sliding time w
 
 
 STEP 6: Entity Based Predictions: tml-system-step-6-kafka-predictions-dag
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+========================================
 
 .. tip:: 
    Watch the YouTube video to see how this dag is configured.  `YouTube Video <https://youtu.be/S0qQD8n56JU>`_ 
@@ -6151,7 +6151,7 @@ Here are the **core parameters** in the above dag 6:
        of training datasets for auditing and governance.
 
 Machine Learning Prediction Sample JSON Output
-"""""""""""""""""""""""""""""""""""""
+--------------------------------
 
 .. code-block:: JSON
 
@@ -6318,7 +6318,7 @@ Here is the table explaining the fields in the prediction JSON.
        term: 1 - indicates it does.
 
 STEP 7: Real-Time Visualization: tml-system-step-7-kafka-visualization-dag
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+==========================================
 
 Fields to visualize can be determined from :ref:`Preprocessed Sample JSON Output` and :ref:`Machine Learning Prediction Sample JSON Output`
 and :ref:`Machine Learning Trained Model Sample JSON Output`.
@@ -6442,7 +6442,7 @@ and :ref:`Machine Learning Trained Model Sample JSON Output`.
               tsslogging.locallogs("ERROR", "STEP 7: Network issue.  Cannot make a connection to Viperviz on port {}".format(mainport))
 
 Visualization DAG Parameter Explanation
-""""""""""""""""""""""""""""""""""""""
+---------------------------------
 
 .. list-table::
 
@@ -6532,7 +6532,7 @@ Visualization DAG Parameter Explanation
        offset - 500
 
 STEP 8: Deploy TML Solution to Docker : tml-system-step-8-deploy-solution-to-docker-dag
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+=========================================
 
 .. code-block:: PYTHON
 
@@ -6637,7 +6637,7 @@ STEP 8: Deploy TML Solution to Docker : tml-system-step-8-deploy-solution-to-doc
             tsslogging.git_push("/{}".format(repo),"Entry from {}".format(os.path.basename(__file__)),"origin")
 
 STEP 9: PrivateGPT and Qdrant Integration: tml-system-step-9-privategpt_qdrant-dag
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+====================================
 
 .. tip::
    Watch the `YouTube video <https://youtu.be/dGzsqx8MtIY>`_ to learn how to configure the key paramaters in the Step 9 dag.
@@ -7511,7 +7511,7 @@ STEP 9: PrivateGPT and Qdrant Integration: tml-system-step-9-privategpt_qdrant-d
                 break 
           
 STEP 9 DAG Core Parameter Explanation
-"""""""""""""""""""""""""""""""""""""
+-------------------------------------
 
 .. list-table::
 
@@ -7663,7 +7663,7 @@ STEP 9 DAG Core Parameter Explanation
        with the `MITRE ATT&CK classification matrix <https://attack.mitre.org/>`_.
 
 Vector Dimensions
-""""""""""""""""""""""""""
+========================
 
 This shows the different dimensions for embedding models. See `here <https://huggingface.co/BAAI/bge-small-en-v1.5>`_ for more details.
 
@@ -7671,7 +7671,7 @@ This shows the different dimensions for embedding models. See `here <https://hug
    :scale: 70%
 
 privateGPT Processing Explanation
-"""""""""""""""""""""""""""""""""""
+============================
 
 Consider the following JSON. This JSON is the output from :ref:`STEP 4: Preprocesing Data: tml-system-step-4-kafka-preprocess-dag`
 
@@ -7742,12 +7742,12 @@ Consider the following JSON. This JSON is the output from :ref:`STEP 4: Preproce
    This way of using processed data with privateGPT for further analysis, offers a tremendously powerful way to leverage GenAI technology with real-time data streams at no cost: since all API calls are done to the privateGPT container that is running locally.  Also, no data are sent outside your environment, this further makes this solution very secure giving you 100% data control. 
 
 Using Qdrant VectorDB for Local Document Analysis
-"""""""""""""""""""""""""""""""""""""
+===================================
 
 Users can search local documents to cross-reference the Identifier field in the :ref:`privateGPT Processing Explanation` 
 
 TML, PrivateGPT and Qdrant Example Scenarios
-"""""""""""""""""""""""""""""""""""""""""""""
+=================================
 
 1. You can map local folders to the /rawdata folder and store your files (TEXT or PDF) as subfolders.  
   a. For example: docfolder='mylog1,mylog2', these two folders would be subfolders in the local folder mapped to /rawdata
@@ -7766,7 +7766,7 @@ TML, PrivateGPT and Qdrant Example Scenarios
 This way, you can use TML, privateGPT and Qdrant for powerful analysis of documents, by cross-referencing and meshing information together to get greater real-time insights from your real-time data.
 
 STEP 9b: Multi-Agentic Agentic A: tml-system-step-9b-agenticai-dag
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+======================================
 
 This DAG implements **multi-agentic AI to real-time data processing**.  Take a look at ref:`TML and Agentic AI` for more information.
 
@@ -8459,7 +8459,7 @@ This DAG implements **multi-agentic AI to real-time data processing**.  Take a l
                   break 
 
 STEP 9b DAG Core Parameter Explanation
-"""""""""""""""""""""""""""""""""""""
+---------------------------------
 
 .. list-table::
 
@@ -8550,7 +8550,7 @@ STEP 9b DAG Core Parameter Explanation
      - This is the path to the vector store on disk.
 
 STEP 9b: Agent Tool
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+-----------------------
 
 Below code allows users to incorporate any tools they want to their TML multi-agentic solutions.
 
@@ -8655,7 +8655,7 @@ Below code allows users to incorporate any tools they want to their TML multi-ag
 
 
 STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+==========================
 
 .. note::
     TSS will automatically generate documentation for your solution at `READTHEDOCS <https://readthedocs.org/>`_. Each TML solution you create will have its own 
@@ -10123,7 +10123,7 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
        to run your container. 
 
 Example Of Setting Docker Instructions in Step 10
-""""""""""""""""""""""""""""""""""""""""
+------------------------------
 
 .. code-block::
 
