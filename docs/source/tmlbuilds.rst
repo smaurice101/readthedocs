@@ -151,6 +151,9 @@ DAG Solution Process Explanation
     9. :ref:`STEP 9: PrivateGPT and Qdrant Integration: tml-system-step-9-privategpt_qdrant-dag` - This DAG integrates your real-time solution seamlessly with 
        GenAI using the privateGPT container see :ref:`TML and Generative AI`.  
 
+    9b. :ref:`STEP 9b: Multi-Agentic Agentic A: tml-system-step-9b-agenticai-dag` - This DAG integrates Multi-Agentic AI 
+       with your real-time solution seamlessly see :ref:`TML and Agentic AI`.  
+
     10. :ref:`STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag`.  
 
     **YOU ARE DONE!  You just build an advanced, scalable, end-end real-time solution and deployed it to Docker, integrated with AI and with online 
@@ -7751,7 +7754,7 @@ TML, PrivateGPT and Qdrant Example Scenarios
     
 This way, you can use TML, privateGPT and Qdrant for powerful analysis of documents, by cross-referencing and meshing information together to get greater real-time insights from your real-time data.
 
-STEP 9: PrivateGPT and Qdrant Integration: tml-system-step-9-privategpt_qdrant-dag
+STEP 9b: Multi-Agentic Agentic A: tml-system-step-9b-agenticai-dag
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code-block:: PYTHON
