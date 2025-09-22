@@ -238,6 +238,13 @@ DAG Table
        engineered variables in STEP 4. The processed variables are named
 
        in a standard way following the procedure here :ref:`Preprocessed Variable Naming Standard`
+   * - :ref:`STEP 4c: Preprocesing 3 Data: tml-system-step-4c-kafka-preprocess-dag`
+        
+       Description: Step 4c is a very powerful task that will incorporate real-time memory 
+
+       using sliding time windows: for details see How TML Maintains Past Memory of 
+
+       Events Using Sliding Time Windows.  THIS IS `RTMS SOLUTION<https://tml.readthedocs.io/en/latest/rtms.html>`_.
    * - :ref:`STEP 5: Entity Based Machine Learning : tml-system-step-5-kafka-machine-learning-dag`
       
        **Description:** This DAG perform entity level machine 
