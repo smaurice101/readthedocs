@@ -8498,8 +8498,14 @@ STEP 9b DAG Core Parameter Explanation
 
         For example if connecting to the send_email tools then agenttoolfunctions is:
 
-        """send_email:send_email: You are an email-sending agent. Use smtp parameters to send emails when there is an anomaly in the data, make sure to
-               indicate the device name in the mainuid field. do not write a smtp script, actually send the email using the SMTP parameters
+         """send_email:send_email: You are an email-sending agent. Use smtp parameters 
+
+               to send emails when there is an anomaly in the data, make sure to
+
+               indicate the device name in the mainuid field. do not write a 
+               
+               smtp script, actually send the email using the SMTP parameters
+               
                smtp_server='{}'
                smtp_port={}
                username='{}'
@@ -8507,9 +8513,13 @@ STEP 9b DAG Core Parameter Explanation
                sender='{}'
                recipient='{}'
                subject=''
-               body=''""".format(SMTP_SERVER,SMTP_PORT,SMTP_USERNAME,SMTP_PASSWORD,SMTP_USERNAME,recipient)
+               body=''
+
+         """.format(SMTP_SERVER,SMTP_PORT,SMTP_USERNAME,SMTP_PASSWORD,SMTP_USERNAME,recipient)
                     
-        The variables SMTP_SERVER,SMTP_PORT,SMTP_USERNAME,SMTP_PASSWORD,SMTP_USERNAME,recipient should be defined
+        The variables SMTP_SERVER,SMTP_PORT,SMTP_USERNAME,
+
+        SMTP_PASSWORD,SMTP_USERNAME,recipient should be defined
 
         as environmental variables when starting the TSS container.
    * - agent_team_supervisor_topic
