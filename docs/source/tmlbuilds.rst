@@ -8523,17 +8523,23 @@ STEP 9b DAG Core Parameter Explanation
 
         as environmental variables when starting the TSS container.
    * - agent_team_supervisor_topic
-     - This topic will contain responses from the individual agents, team lead, and supervisor.  See ref:`Sample Output from TML Multi-Agentic AI Solution`
+     - This topic will contain responses from the individual agents, 
+
+       team lead, and supervisor.  See ref:`Sample Output from TML Multi-Agentic AI Solution`
    * - mainip
      - This is the IP to the Ollama container.
    * - mainport
      - This is the port Ollama server is listening on i.e. 11434
    * - embedding
-     - This is the embedding used in the Vector DB.  TML uses **from llama_index.core.indices.vector_store.base import VectorStoreIndex**
+     - This is the embedding used in the Vector DB.  
+
+       TML Multi-Agentic AI solution uses **from llama_index.core.indices.vector_store.base import VectorStoreIndex**
 
        TML recommends the embedding: nomic-embed-text
    * - temperature
-     - This is the temperature for the Ollama model.  A temperature of 0 means LLM will be conservative, 1 means it may hallucinate.
+     - This is the temperature for the Ollama model.  
+
+       A temperature of 0 means LLM will be conservative, 1 means it may hallucinate.
    * - ollama-model
      - The Ollama LLM model to use.  Any Ollama model with tools training can be used.
    * - deletevectordbcount
