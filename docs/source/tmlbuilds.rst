@@ -7780,7 +7780,7 @@ This DAG implements **multi-agentic AI to real-time data processing**.  Take a l
                      37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,
                      53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,
                      74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,
-                     94,95,96,97,98
+                     94,95
       
       from airflow.operators.python import PythonOperator
       from airflow.operators.bash import BashOperator
@@ -8338,8 +8338,8 @@ This DAG implements **multi-agentic AI to real-time data processing**.  Take a l
                   default_args['agent_team_supervisor_topic'] = os.environ['step9bagent_team_supervisor_topic']
       
              VIPERTOKEN = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_VIPERTOKEN".format(sname))
-             VIPERHOST = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_VIPERHOSTPREPROCESSPGPT".format(sname))
-             VIPERPORT = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_VIPERPORTPREPROCESSPGPT".format(sname))
+             VIPERHOST = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_VIPERHOSTPREPROCESSAGENTICAI".format(sname))
+             VIPERPORT = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_VIPERPORTPREPROCESSAGENTICAI".format(sname))
              HTTPADDR = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_HTTPADDR".format(sname))
       
       
@@ -8517,7 +8517,7 @@ This DAG implements **multi-agentic AI to real-time data processing**.  Take a l
                 time.sleep(5)
                 count = count + 1
                 if count > 10:
-                  break           
+                  break 
 
 STEP 9b DAG Core Parameter Explanation
 ---------------------------------
