@@ -7808,18 +7808,24 @@ This DAG implements **multi-agentic AI to real-time data processing**.  Take a l
     sys.dont_write_bytecode = True
     
     ######################################################USER CHOSEN PARAMETERS ###########################################################
-    if SMTP_SERVER in os.environ:
+    SMTP_SERVER=''
+    SMTP_PORT=0
+    SMTP_USERNAME=''
+    SMTP_PASSWORD=''
+    recipient=''
+
+    if 'SMTP_SERVER' in os.environ:
        SMTP_SERVER=os.environ['SMTP_SERVER']
-    if SMTP_PORT in os.environ:
+    if 'SMTP_PORT' in os.environ:
        SMTP_PORT=int(os.environ['SMTP_PORT'])
-    if SMTP_USERNAME in os.environ:
+    if 'SMTP_USERNAME' in os.environ:
        SMTP_USERNAME=os.environ['SMTP_USERNAME']
-    if SMTP_PASSWORD in os.environ:
+    if 'SMTP_PASSWORD' in os.environ:
        SMTP_PASSWORD=os.environ['SMTP_PASSWORD']
        base64_bytes = SMTP_PASSWORD.encode('ascii')
        message_bytes = base64.b64decode(base64_bytes)
        SMTP_PASSWORD = message_bytes.decode('ascii')   
-    if recipient in os.environ:
+    if 'recipient' in os.environ:
        recipient=os.environ['recipient']
     
     default_args = {
