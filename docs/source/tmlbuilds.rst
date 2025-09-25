@@ -7886,7 +7886,7 @@ This DAG implements **multi-agentic AI to real-time data processing**.  Take a l
         temperature=float(default_args['temperature'])
         embeddingmodel=default_args['embedding'] #"nomic-embed-text"
         mainip=default_args['mainip']
-        mainport=default_args['mainport']
+        mainport=int(default_args['mainport'])
     
         if 'KUBE' in os.environ:
           if os.environ['KUBE'] == "1":
