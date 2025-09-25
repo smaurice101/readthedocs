@@ -8677,7 +8677,15 @@ Below code allows users to incorporate any tools they want to their TML multi-ag
         '''Find the company with the most employees.'''
         print(query)
         return max(query)
-
+    
+    @tool
+    def average(query: list) -> int:
+        '''Find the average.'''
+        average=0.0
+        if len(query) !=0:
+          average = sum(query) / len(query)
+          average = round(average, 2)        
+        return average
 
 STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
 ==========================
