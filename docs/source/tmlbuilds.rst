@@ -842,7 +842,10 @@ Below is the complete definition of the **tml_system_step_1_getparams_dag**.  Us
       
         task_instance.xcom_push(key="{}_VIPERHOSTPREPROCESSPGPT".format(sname),value=VIPERHOSTPREPROCESSPGPT)
         task_instance.xcom_push(key="{}_VIPERPORTPREPROCESSPGPT".format(sname),value="_{}".format(VIPERPORTPREPROCESSPGPT))
-          
+      
+        task_instance.xcom_push(key="{}_VIPERHOSTPREPROCESSAGENTICAI".format(sname),value=VIPERHOSTPREPROCESSAGENTICAI)
+        task_instance.xcom_push(key="{}_VIPERPORTPREPROCESSAGENTICAI".format(sname),value="_{}".format(VIPERPORTPREPROCESSAGENTICAI))
+         
         task_instance.xcom_push(key="{}_VIPERHOSTML".format(sname),value=VIPERHOSTML)
         task_instance.xcom_push(key="{}_VIPERPORTML".format(sname),value="_{}".format(VIPERPORTML))
         task_instance.xcom_push(key="{}_VIPERHOSTPREDICT".format(sname),value=VIPERHOSTPREDICT)
