@@ -8845,7 +8845,7 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
         stepurl8="https://github.com/{}/{}/tree/main/tml-airflow/dags/tml-solutions/{}/tml_system_step_8_deploy_solution_to_docker_dag-{}.py".format(os.environ['GITUSERNAME'],tsslogging.getrepo(),projectname,projectname)
         stepurl9="https://github.com/{}/{}/tree/main/tml-airflow/dags/tml-solutions/{}/tml_system_step_9_privategpt_qdrant_dag-{}.py".format(os.environ['GITUSERNAME'],tsslogging.getrepo(),projectname,projectname)
         stepurl9b="https://github.com/{}/{}/tree/main/tml-airflow/dags/tml-solutions/{}/tml_system_step_9b_agenticai_dag-{}.py".format(os.environ['GITUSERNAME'],tsslogging.getrepo(),projectname,projectname)
-        stepurl10="https://github.com/{}/{}/tree/main/tml-airflow/dags/tml-solutions/{}/tml_system_step_10_documentation_dag-{}.py".format(os.environ['GITUSERNAME'],tsslogging.getrepo(),projectname,projectname)
+        stepurl10="https://github.com/{}/{}/tree/main/tml-airflow/dags/tml-solutions/{}/tml_system_step_10_documentation_dag_tml-multi-agenticai-iot-3f10-{}.py".format(os.environ['GITUSERNAME'],tsslogging.getrepo(),projectname,projectname)
     
         print("stepurl1=",stepurl1)
         
@@ -8880,7 +8880,57 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
             file.writelines(data)
           except Exception as e:
              pass
-        
+    
+    def updateollamaandpgpt(op,ollamacontainername,concurrency,collection,temp,rollback,ollama,deletevector,vectordbpath,topicid,enabletls,partition,mainip,
+                           mainport,embedding,agents_topic_prompt,teamlead_topic,teamleadprompt,supervisor_topic,supervisorprompt,agenttoolfunctions,agent_team_supervisor_topic,
+                           pvectorsearchtype,ptemperature,pcollection,pconcurrency,pvectordimension,pcontextwindowsize,mainmodel,mainembedding,pgptcontainername):
+          print("update==",op)
+          if ollamacontainername != None:
+           doparse("/{}/ollama.yml".format(op), ["--ollamacontainername--;{}".format(ollamacontainername)])
+           doparse("/{}/ollama.yml".format(op), ["--agenticai-kubeconcur--;{}".format(concurrency[1:])])
+           doparse("/{}/ollama.yml".format(op),  ["--agenticai-kubecollection--;{}".format(collection)])
+           doparse("/{}/ollama.yml".format(op),  ["--agenticai-kubetemperature--;{}".format(temp[1:])])
+           doparse("/{}/ollama.yml".format(op),  ["--agenticai-rollbackoffset--;{}".format(rollback[1:])])
+           doparse("/{}/ollama.yml".format(op),  ["--agenticai-ollama-model--;{}".format(ollama)])
+           doparse("/{}/ollama.yml".format(op),  ["--agenticai-deletevectordbcount--;{}".format(deletevector[1:])])
+           doparse("/{}/ollama.yml".format(op),  ["--agenticai-vectordbpath--;{}".format(vectordbpath)])
+           doparse("/{}/ollama.yml".format(op),  ["--agenticai-topicid--;{}".format(topicid[1:])])
+           doparse("/{}/ollama.yml".format(op),  ["--agenticai-enabletls--;{}".format(enabletls[1:])])
+           doparse("/{}/ollama.yml".format(op),  ["--agenticai-partition--;{}".format(partition[1:])])
+           doparse("/{}/ollama.yml".format(op),  ["--agenticai-vectordbcollectionname--;{}".format(collection)])
+           doparse("/{}/ollama.yml".format(op),  ["--agenticai-ollamacontainername--;{}".format(ollamacontainername)])
+           doparse("/{}/ollama.yml".format(op),  ["--agenticai-mainip--;{}".format(mainip)])
+           doparse("/{}/ollama.yml".format(op),  ["--agenticai-mainport--;{}".format(mainport[1:])])
+           doparse("/{}/ollama.yml".format(op),  ["--agenticai-embedding--;{}".format(embedding)])
+           doparse("/{}/ollama.yml".format(op),  ["--agenticai-agents_topic_prompt--;{}".format(agents_topic_prompt.strip().replace('\n','').replace("\\n","").replace("'","").replace(";",","))])
+           doparse("/{}/ollama.yml".format(op),  ["--agenticai-teamlead_topic--;{}".format(teamlead_topic)])
+           doparse("/{}/ollama.yml".format(op),  ["--agenticai-teamleadprompt--;{}".format(teamleadprompt.strip().replace('\n','').replace("\\n","").replace("'","").replace(";",","))])
+           doparse("/{}/ollama.yml".format(op),  ["--agenticai-supervisor_topic--;{}".format(supervisor_topic)])
+           doparse("/{}/ollama.yml".format(op),  ["--agenticai-supervisorprompt--;{}".format(supervisorprompt.strip().replace('\n','').replace("\\n","").replace("'","").replace(";",","))])
+           doparse("/{}/ollama.yml".format(op),  ["--agenticai-agenttoolfunctions--;{}".format(agenttoolfunctions.strip().replace('\n','').replace("\\n","").replace("'","").replace(";","=="))])
+           doparse("/{}/ollama.yml".format(op),  ["--agenticai-agent_team_supervisor_topic--;{}".format(agent_team_supervisor_topic)])
+    
+          if pgptcontainername != None:
+           doparse("/{}/privategpt.yml".format(op), ["--kubevectorsearchtype--;{}".format(pvectorsearchtype)])
+           doparse("/{}/privategpt.yml".format(op), ["--kubetemperature--;{}".format(ptemperature[1:])])
+           doparse("/{}/privategpt.yml".format(op), ["--kubecollection--;{}".format(pcollection)])
+           doparse("/{}/privategpt.yml".format(op), ["--kubeconcur--;{}".format(pconcurrency[1:])])
+           doparse("/{}/privategpt.yml".format(op), ["--kubevectordimension--;{}".format(pvectordimension[1:])])
+           doparse("/{}/privategpt.yml".format(op), ["--kubecontextwindowsize--;{}".format(pcontextwindowsize[1:])])
+           doparse("/{}/privategpt.yml".format(op), ["--kubemainmodel--;{}".format(mainmodel)])
+           doparse("/{}/privategpt.yml".format(op), ["--kubemainembedding--;{}".format(mainembedding)])
+           doparse("/{}/privategpt.yml".format(op), ["--kubeprivategpt--;{}".format(pgptcontainername)])
+    
+    def copyymls(projectname,sname,ingressyml,solutionyml):
+        orepo=tsslogging.getrepo()
+        op=f"/{orepo}/tml-airflow/dags/tml-solutions/{projectname}/ymls" 
+        os.makedirs(op, exist_ok=True) 
+        op=f"/{orepo}/tml-airflow/dags/tml-solutions/{projectname}/ymls/{sname}" 
+        os.makedirs(op, exist_ok=True) 
+    
+        tsslogging.writeoutymls(op,ingressyml,solutionyml,sname)
+        return op
+      
     def generatedoc(**context):    
         istss1=1
         if 'TSS' in os.environ:
@@ -8954,6 +9004,23 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
         step4braw_data_topic=""
         step4bpreprocess_data_topic=""
     
+        step9brollback=""
+        step9bdeletevectordbcount=""
+        step9bvectordbpath=""
+        step9btemperature=""
+        step9bvectordbcollectionname=""
+        step9bollamacontainername=""
+        step9bCUDA_VISIBLE_DEVICES=""
+        step9bmainip=""
+        step9bmainport=""
+        step9bembedding=""
+        step9bagents_topic_prompt=""
+        step9bteamlead_topic=""
+        step9bteamleadprompt=""
+        step9bsupervisor_topic=""
+        step9bagenttoolfunctions=""
+        step9bagent_team_supervisor_topic=""
+        step9bconcurrency=""
         if "KUBE" in os.environ:
               if os.environ["KUBE"] == "1":
                  kube=1
@@ -9456,11 +9523,15 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
         pconsumefrom = context['ti'].xcom_pull(task_ids='step_9_solution_task_ai',key="{}_consumefrom".format(sname))
         pgpt_data_topic = context['ti'].xcom_pull(task_ids='step_9_solution_task_ai',key="{}_pgpt_data_topic".format(sname))
         pgptcontainername = context['ti'].xcom_pull(task_ids='step_9_solution_task_ai',key="{}_pgptcontainername".format(sname))
-        if pgptcontainername:
+        pmainmodel=""
+        pmainembedding=""
+        if pgptcontainername != None:
           step9pgptcontainername=pgptcontainername
           doparse("/{}/docs/source/kube.rst".format(sname), ["--kubeprivategpt--;{}".format(pgptcontainername)])
           mainmodel = context['ti'].xcom_pull(task_ids='step_9_solution_task_ai',key="{}_mainmodel".format(sname))
+          pmainmodel=mainmodel
           mainembedding = context['ti'].xcom_pull(task_ids='step_9_solution_task_ai',key="{}_mainembedding".format(sname))
+          pmainembedding=mainembedding
           doparse("/{}/docs/source/kube.rst".format(sname), ["--kubemainmodel--;{}".format(mainmodel)])
           doparse("/{}/docs/source/kube.rst".format(sname), ["--kubemainembedding--;{}".format(mainembedding)])
          
@@ -9489,6 +9560,7 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
          
         if pprompt:
           step9prompt=pprompt
+          step9prompt=step9prompt.strip().replace('\n','').replace("\\n","").replace(";",",").replace("''","")
     
         pdocfolder = context['ti'].xcom_pull(task_ids='step_9_solution_task_ai',key="{}_docfolder".format(sname))
         if pdocfolder:
@@ -9560,7 +9632,7 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
           doparse("/{}/docs/source/kube.rst".format(sname), ["--kubevectorsearchtype--;{}".format(pvectorsearchtype)])
     
         ollama= context['ti'].xcom_pull(task_ids='step_9b_solution_task_agenticai',key="{}_ollama-model".format(sname))
-        if ollama: # Step 9b executing
+        if ollama != None: # Step 9b executing
           step9bollama=ollama
           doparse("/{}/docs/source/details.rst".format(sname), ["--agenticai-ollama-model--;{}".format(ollama)])
           rollback= context['ti'].xcom_pull(task_ids='step_9b_solution_task_agenticai',key="{}_rollbackoffset".format(sname))
@@ -9569,7 +9641,7 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
     
           deletevector= context['ti'].xcom_pull(task_ids='step_9b_solution_task_agenticai',key="{}_deletevectordbcount".format(sname))
           doparse("/{}/docs/source/details.rst".format(sname), ["--agenticai-deletevectordbcount--;{}".format(deletevector[1:])])
-          step9bdeletevector=deletevector[1:]
+          step9bdeletevectordbcount=deletevector[1:]
     
           vectordbpath= context['ti'].xcom_pull(task_ids='step_9b_solution_task_agenticai',key="{}_vectordbpath".format(sname))
           doparse("/{}/docs/source/details.rst".format(sname), ["--agenticai-vectordbpath--;{}".format(vectordbpath)])
@@ -9577,7 +9649,7 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
     
           temp= context['ti'].xcom_pull(task_ids='step_9b_solution_task_agenticai',key="{}_temperature".format(sname))
           doparse("/{}/docs/source/details.rst".format(sname), ["--agenticai-temperature--;{}".format(temp[1:])])
-          step9btemp=temp[1:]
+          step9btemperature=temp[1:]
     
           topicid= context['ti'].xcom_pull(task_ids='step_9b_solution_task_agenticai',key="{}_topicid".format(sname))
           doparse("/{}/docs/source/details.rst".format(sname), ["--agenticai-topicid--;{}".format(topicid[1:])])
@@ -9593,7 +9665,7 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
     
           collection= context['ti'].xcom_pull(task_ids='step_9b_solution_task_agenticai',key="{}_vectordbcollectionname".format(sname))
           doparse("/{}/docs/source/details.rst".format(sname), ["--agenticai-vectordbcollectionname--;{}".format(collection)])
-          step9bcollection=collection
+          step9bvectordbcollectionname=collection
     
           ollamacontainername= context['ti'].xcom_pull(task_ids='step_9b_solution_task_agenticai',key="{}_ollamacontainername".format(sname))
           doparse("/{}/docs/source/details.rst".format(sname), ["--agenticai-ollamacontainername--;{}".format(ollamacontainername)])
@@ -9622,6 +9694,7 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
           teamleadprompt= context['ti'].xcom_pull(task_ids='step_9b_solution_task_agenticai',key="{}_teamleadprompt".format(sname))
           doparse("/{}/docs/source/details.rst".format(sname), ["--agenticai-teamleadprompt--;{}".format(teamleadprompt)])
           step9bteamleadprompt=teamleadprompt
+          step9bteamleadprompt=step9bteamleadprompt.replace('\n',' ').replace("\\n","").strip().replace(";",",").replace("''","")
     
           supervisor_topic= context['ti'].xcom_pull(task_ids='step_9b_solution_task_agenticai',key="{}_supervisor_topic".format(sname))
           doparse("/{}/docs/source/details.rst".format(sname), ["--agenticai-supervisor_topic--;{}".format(supervisor_topic)])
@@ -9630,45 +9703,51 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
           supervisorprompt= context['ti'].xcom_pull(task_ids='step_9b_solution_task_agenticai',key="{}_supervisorprompt".format(sname))
           doparse("/{}/docs/source/details.rst".format(sname), ["--agenticai-supervisorprompt--;{}".format(supervisorprompt)])
           step9bsupervisorprompt=supervisorprompt
+          step9bsupervisorprompt=step9bsupervisorprompt.replace('\n','').replace("\\n","").strip().replace(";",",").replace("''","")
     
           agenttoolfunctions= context['ti'].xcom_pull(task_ids='step_9b_solution_task_agenticai',key="{}_agenttoolfunctions".format(sname))
-          doparse("/{}/docs/source/details.rst".format(sname), ["--agenticai-agenttoolfunctions--;{}".format(agenttoolfunctions)])
+          doparse("/{}/docs/source/details.rst".format(sname), ["--agenticai-agenttoolfunctions--;{}".format(agenttoolfunctions)])      
           step9bagenttoolfunctions=agenttoolfunctions
+          step9bagenttoolfunctions=step9bagenttoolfunctions.replace('\n','').replace("\\n","").strip().replace(";",",").replace("''","")
+    
     
           agent_team_supervisor_topic= context['ti'].xcom_pull(task_ids='step_9b_solution_task_agenticai',key="{}_agent_team_supervisor_topic".format(sname))
           doparse("/{}/docs/source/details.rst".format(sname), ["--agenticai-agent_team_supervisor_topic--;{}".format(agent_team_supervisor_topic)])
           step9bagent_team_supervisor_topic=agent_team_supervisor_topic
     
+          agenttopic= context['ti'].xcom_pull(task_ids='step_9b_solution_task_agenticai',key="{}_agenttopic".format(sname))
+          doparse("/{}/docs/source/details.rst".format(sname), ["--agenticai-agenttopic--;{}".format(agenttopic)])
+         
           concurrency= context['ti'].xcom_pull(task_ids='step_9b_solution_task_agenticai',key="{}_concurrency".format(sname))
           doparse("/{}/docs/source/details.rst".format(sname), ["--agenticai-concurrency--;{}".format(concurrency[1:])])
           step9bconcurrency=concurrency[1:]
     
           cuda= context['ti'].xcom_pull(task_ids='step_9b_solution_task_agenticai',key="{}_cuda".format(sname))
           doparse("/{}/docs/source/details.rst".format(sname), ["--agenticai-cuda--;{}".format(cuda[1:])])
-          step9bcuda=cuda[1:]
+          step9bCUDA_VISIBLE_DEVICES=cuda[1:]
     
           doparse("/{}/docs/source/kube.rst".format(sname), ["--ollamacontainername--;{}".format(ollamacontainername)])
-          doparse("/{}/docs/source/kube.rst".format(sname), ["--agenticai-kubeconcur--;{}".format(concurrency)])
+          doparse("/{}/docs/source/kube.rst".format(sname), ["--agenticai-kubeconcur--;{}".format(concurrency[1:])])
           doparse("/{}/docs/source/kube.rst".format(sname), ["--agenticai-kubecollection--;{}".format(collection)])
-          doparse("/{}/docs/source/kube.rst".format(sname), ["--agenticai-kubetemperature--;{}".format(temp)])
-          doparse("/{}/docs/source/kube.rst".format(sname), ["--agenticai-rollbackoffset--;{}".format(rollback)])
+          doparse("/{}/docs/source/kube.rst".format(sname), ["--agenticai-kubetemperature--;{}".format(temp[1:])])
+          doparse("/{}/docs/source/kube.rst".format(sname), ["--agenticai-rollbackoffset--;{}".format(rollback[1:])])
           doparse("/{}/docs/source/kube.rst".format(sname), ["--agenticai-ollama-model--;{}".format(ollama)])
-          doparse("/{}/docs/source/kube.rst".format(sname), ["--agenticai-deletevectordbcount--;{}".format(deletevector)])
+          doparse("/{}/docs/source/kube.rst".format(sname), ["--agenticai-deletevectordbcount--;{}".format(deletevector[1:])])
           doparse("/{}/docs/source/kube.rst".format(sname), ["--agenticai-vectordbpath--;{}".format(vectordbpath)])
-          doparse("/{}/docs/source/kube.rst".format(sname), ["--agenticai-topicid--;{}".format(topicid)])
-          doparse("/{}/docs/source/kube.rst".format(sname), ["--agenticai-enabletls--;{}".format(enabletls)])
-          doparse("/{}/docs/source/kube.rst".format(sname), ["--agenticai-partition--;{}".format(partition)])
+          doparse("/{}/docs/source/kube.rst".format(sname), ["--agenticai-topicid--;{}".format(topicid[1:])])
+          doparse("/{}/docs/source/kube.rst".format(sname), ["--agenticai-enabletls--;{}".format(enabletls[1:])])
+          doparse("/{}/docs/source/kube.rst".format(sname), ["--agenticai-partition--;{}".format(partition[1:])])
           doparse("/{}/docs/source/kube.rst".format(sname), ["--agenticai-vectordbcollectionname--;{}".format(collection)])
           doparse("/{}/docs/source/kube.rst".format(sname), ["--agenticai-ollamacontainername--;{}".format(ollamacontainername)])
           doparse("/{}/docs/source/kube.rst".format(sname), ["--agenticai-mainip--;{}".format(mainip)])
-          doparse("/{}/docs/source/kube.rst".format(sname), ["--agenticai-mainport--;{}".format(mainport)])
+          doparse("/{}/docs/source/kube.rst".format(sname), ["--agenticai-mainport--;{}".format(mainport[1:])])
           doparse("/{}/docs/source/kube.rst".format(sname), ["--agenticai-embedding--;{}".format(embedding)])
-          doparse("/{}/docs/source/kube.rst".format(sname), ["--agenticai-agents_topic_prompt--;{}".format(agents_topic_prompt)])
+          doparse("/{}/docs/source/kube.rst".format(sname), ["--agenticai-agents_topic_prompt--;{}".format(agents_topic_prompt.strip().replace('\n','').replace("\\n","").replace("'","").replace(";",","))])
           doparse("/{}/docs/source/kube.rst".format(sname), ["--agenticai-teamlead_topic--;{}".format(teamlead_topic)])
-          doparse("/{}/docs/source/kube.rst".format(sname), ["--agenticai-teamleadprompt--;{}".format(teamleadprompt)])
+          doparse("/{}/docs/source/kube.rst".format(sname), ["--agenticai-teamleadprompt--;{}".format(teamleadprompt.strip().replace('\n','').replace("\\n","").replace("'","").replace(";",",") )])
           doparse("/{}/docs/source/kube.rst".format(sname), ["--agenticai-supervisor_topic--;{}".format(supervisor_topic)])
-          doparse("/{}/docs/source/kube.rst".format(sname), ["--agenticai-supervisorprompt--;{}".format(supervisorprompt)])
-          doparse("/{}/docs/source/kube.rst".format(sname), ["--agenticai-agenttoolfunctions--;{}".format(agenttoolfunctions)])
+          doparse("/{}/docs/source/kube.rst".format(sname), ["--agenticai-supervisorprompt--;{}".format(supervisorprompt.strip().replace('\n','').replace("\\n","").replace("'","").replace(";",","))])
+          doparse("/{}/docs/source/kube.rst".format(sname), ["--agenticai-agenttoolfunctions--;{}".format(agenttoolfunctions.strip().replace('\n','').replace("\\n","").replace("'","").replace(";","=="))])
           doparse("/{}/docs/source/kube.rst".format(sname), ["--agenticai-agent_team_supervisor_topic--;{}".format(agent_team_supervisor_topic)])
     
         ebuf=""
@@ -9806,6 +9885,7 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
             doparse("/{}/docs/source/details.rst".format(sname), ["--topicid--;{}".format(ptopicid[1:])])
             doparse("/{}/docs/source/details.rst".format(sname), ["--enabletls--;{}".format(penabletls[1:])])
             doparse("/{}/docs/source/details.rst".format(sname), ["--partition--;{}".format(ppartition[1:])])
+            pprompt=pprompt.replace("\\n"," ")
             doparse("/{}/docs/source/details.rst".format(sname), ["--prompt--;{}".format(pprompt)])
             doparse("/{}/docs/source/details.rst".format(sname), ["--context--;{}".format(pcontext)])
             doparse("/{}/docs/source/details.rst".format(sname), ["--jsonkeytogather--;{}".format(pjsonkeytogather)])
@@ -9821,7 +9901,7 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
             doparse("/{}/docs/source/details.rst".format(sname), ["--keyprocesstype--;{}".format(pprocesstype)])
             doparse("/{}/docs/source/details.rst".format(sname), ["--hyperbatch--;{}".format(hyperbatch[1:])])
         
-        
+        snamerp=sname.replace("_","-")
         rbuf = "https://{}.readthedocs.io".format(sname)
         doparse("/{}/docs/source/details.rst".format(sname), ["--readthedocs--;{}".format(rbuf)])
         
@@ -9946,20 +10026,36 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
        
         doparse("/{}/docs/source/kube.rst".format(sname), ["--solutionnamefile--;{}.yml".format(sname)])
         doparse("/{}/docs/source/kube.rst".format(sname), ["--solutionname--;{}".format(sname)])
-        if pgptcontainername == None:
-                if '127.0.0.1' in brokerhost:
-                  kcmd = "kubectl apply -f kafka.yml -f secrets.yml -f mysql-storage.yml -f mysql-db-deployment.yml -f {}.yml".format(sname)
-                else: 
-                  kcmd = "kubectl apply -f secrets.yml -f mysql-storage.yml -f mysql-db-deployment.yml -f {}.yml".format(sname)
-                
-                doparse("/{}/docs/source/kube.rst".format(sname), ["--kubectl--;{}".format(kcmd)])
-        else:
+        if pgptcontainername != None and ollama != None:
+                if '127.0.0.1' in brokerhost:            
+                  kcmd = "kubectl apply -f kafka.yml -f secrets.yml -f mysql-storage.yml -f mysql-db-deployment.yml -f qdrant.yml -f privategpt.yml -f ollama.yml -f {}.yml".format(sname)
+                else:
+                  kcmd = "kubectl apply -f secrets.yml -f mysql-storage.yml -f mysql-db-deployment.yml -f qdrant.yml -f privategpt.yml -f ollama.yml -f {}.yml".format(sname)
+                 
+                doparse("/{}/docs/source/kube.rst".format(sname), ["--kubectl--;{}".format(kcmd)])      
+        elif pgptcontainername != None:
                 if '127.0.0.1' in brokerhost:            
                   kcmd = "kubectl apply -f kafka.yml -f secrets.yml -f mysql-storage.yml -f mysql-db-deployment.yml -f qdrant.yml -f privategpt.yml -f {}.yml".format(sname)
                 else:
                   kcmd = "kubectl apply -f secrets.yml -f mysql-storage.yml -f mysql-db-deployment.yml -f qdrant.yml -f privategpt.yml -f {}.yml".format(sname)
                  
                 doparse("/{}/docs/source/kube.rst".format(sname), ["--kubectl--;{}".format(kcmd)])
+        elif ollama != None:
+                if '127.0.0.1' in brokerhost:
+                  kcmd = "kubectl apply -f kafka.yml -f secrets.yml -f mysql-storage.yml -f mysql-db-deployment.yml -f {}.yml -f ollama.yml".format(sname)
+                else: 
+                  kcmd = "kubectl apply -f secrets.yml -f mysql-storage.yml -f mysql-db-deployment.yml -f {}.yml -f ollama.yml".format(sname)
+                
+                doparse("/{}/docs/source/kube.rst".format(sname), ["--kubectl--;{}".format(kcmd)])          
+        else:
+                if '127.0.0.1' in brokerhost:
+                  kcmd = "kubectl apply -f kafka.yml -f secrets.yml -f mysql-storage.yml -f mysql-db-deployment.yml -f {}.yml".format(sname)
+                else: 
+                  kcmd = "kubectl apply -f secrets.yml -f mysql-storage.yml -f mysql-db-deployment.yml -f {}.yml".format(sname)
+                
+                doparse("/{}/docs/source/kube.rst".format(sname), ["--kubectl--;{}".format(kcmd)])
+      
+          
         if maxrows4:
           step4maxrows=maxrows4[1:]
         else:
@@ -9999,7 +10095,9 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
             containername=f.read()
         except Exception as e:   
             pass
-     
+    
+    #    step9bagenttoolfunctions=""
+        step9bagents_topic_prompt=step9bagents_topic_prompt.replace("\\n","").replace('\n','').strip().replace(";","==").replace("'","")
         if len(CLIENTPORT) > 1:
           kcmd2=tsslogging.genkubeyaml(sname,containername,TMLCLIENTPORT[1:],solutionairflowport[1:],solutionvipervizport[1:],solutionexternalport[1:],
                            sd,os.environ['GITUSERNAME'],os.environ['GITREPOURL'],chipmain,os.environ['DOCKERUSERNAME'],
@@ -10018,8 +10116,7 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
                            step4jsoncriteria,step4ajsoncriteria,step4amaxrows[1:],step4apreprocesstypes,step4araw_data_topic,
                            step4apreprocess_data_topic,step4bpreprocesstypes,step4bjsoncriteria,step4braw_data_topic,
                            step4bpreprocess_data_topic,step4preprocess_data_topic,
-                           step9brollbackoffset,
-                           step9brollbackoffset,
+                           step9brollback,
                            step9bdeletevectordbcount,
                            step9bvectordbpath,
                            step9btemperature,
@@ -10053,8 +10150,7 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
                            step4jsoncriteria,step4ajsoncriteria,step4amaxrows[1:],step4apreprocesstypes,step4araw_data_topic,
                            step4apreprocess_data_topic,step4bpreprocesstypes,step4bjsoncriteria,step4braw_data_topic,
                            step4bpreprocess_data_topic,step4preprocess_data_topic,
-                           step9brollbackoffset,
-                           step9brollbackoffset,
+                           step9brollback,
                            step9bdeletevectordbcount,
                            step9bvectordbpath,
                            step9btemperature,
@@ -10097,6 +10193,7 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
             data.append("viper-produce")
             data.append("viper-preprocess")
             data.append("viper-preprocess-pgpt")
+            data.append("viper-preprocess-agenticai")        
             data.append("viper-ml")
             data.append("viper-predict")
             tmuxwindows = ", ".join(data)
@@ -10106,10 +10203,10 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
            pass 
     
         doparse("/{}/docs/source/operating.rst".format(sname), ["--tmuxwindows--;{}".format(tmuxwindows)])
-        try:
-         if os.environ['TSS'] == "1":
+        #try:
+        if os.environ['TSS'] == "1":
           doparse("/{}/docs/source/operating.rst".format(sname), ["--tssgen--;TSS Development Environment Container"])
-         else:
+        else:
            if "KUBE" not in os.environ:
              doparse("/{}/docs/source/operating.rst".format(sname), ["--tssgen--;TML Solution Container"])
            else:
@@ -10121,10 +10218,32 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
         # Kick off shell script 
         #tsslogging.git_push("/{}".format(sname),"For solution details GOTO: https://{}.readthedocs.io".format(sname),sname)
         
-         subprocess.call("/tmux/gitp.sh {} 'For solution details GOTO: https://{}.readthedocs.io'".format(sname,snamertd), shell=True)
         
-         rtd = context['ti'].xcom_pull(task_ids='step_10_solution_task_document',key="{}_RTD".format(sname))
+        rtd = context['ti'].xcom_pull(task_ids='step_10_solution_task_document',key="{}_RTD".format(sname))
+         #try:
+        sp=f"{sname}/docs/source"
+        orepo=tsslogging.getrepo()
+        op=f"/{orepo}/tml-airflow/dags/tml-solutions/{projectname}" 
+        files,opath=tsslogging.dorst2pdf(sp,op)
+        tsslogging.mergepdf(opath,files,f"{sname}")
+      
+        gb="https://github.com/{}/{}/tree/main/tml-airflow/dags/tml-solutions/{}/pdf_documentation/{}.pdf".format(os.environ['GITUSERNAME'],tsslogging.getrepo(),projectname,sname)
+        print("INFO: Your PDF Documentation will be found here: {}".format(gb))
     
+        # gityml
+        gityml="https://github.com/{}/{}/tree/main/tml-airflow/dags/tml-solutions/{}/ymls/{}".format(os.environ['GITUSERNAME'],tsslogging.getrepo(),projectname,sname)
+        doparse("/{}/docs/source/kube.rst".format(sname), ["--gityml--;{}".format(gityml)])
+    
+        oppt=copyymls(projectname,sname,kcmd3,kcmd2)
+        updateollamaandpgpt(oppt,step9bollamacontainername,step9bconcurrency,step9bvectordbcollectionname,step9btemperature,step9brollback,step9bollama,step9bdeletevectordbcount,step9bvectordbpath,step9btopicid,step9benabletls,step9bpartition,step9bmainip,
+                           step9bmainport,step9bembedding,step9bagents_topic_prompt,step9bteamlead_topic,step9bteamleadprompt,step9bsupervisor_topic,step9bsupervisorprompt,step9bagenttoolfunctions,step9bagent_team_supervisor_topic,
+                           pvectorsearchtype,ptemperature,pcollection,pconcurrency,pvectordimension,pcontextwindowsize,pmainmodel,pmainembedding,pgptcontainername)
+      
+        subprocess.call("/tmux/gitp.sh {} 'For solution details GOTO: https://{}.readthedocs.io'".format(sname,snamertd), shell=True)
+    
+         #except Exception as e:
+          # print("Error=",e) 
+        try:  
          if rtd == None: 
             URL = 'https://readthedocs.org/api/v3/projects/'
             TOKEN = os.environ['READTHEDOCS']
@@ -10161,6 +10280,7 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
          print("INFO: Your Documentation will be found here: https://{}.readthedocs.io/en/latest".format(snamertd))
         except Exception as e:
          print("ERROR=",e)
+
 .. list-table::
 
    * - **Json Key**
