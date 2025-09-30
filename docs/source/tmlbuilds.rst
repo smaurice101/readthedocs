@@ -9022,6 +9022,11 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
         step9bagent_team_supervisor_topic=""
         step9bconcurrency=""
         step9bollama=""
+        step9btopicid=""
+        step9benabletls=""
+        step9bpartition=""
+        step9bsupervisorprompt=""
+
         if "KUBE" in os.environ:
               if os.environ["KUBE"] == "1":
                  kube=1
