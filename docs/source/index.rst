@@ -20,6 +20,12 @@ TML solutions can process any real-time data from devices and systems. The real-
 
 TML solutions can be deployed on the cloud (**with Internet**) or on-premise (**without Internet**) to process unlimited real-time data globally.  TML solutions can run on any cloud infrastructure - anywhere.
 
+PDF Version
+""""""""""""
+
+.. tip::
+   A PDF version of this documentation can be found `here <https://github.com/smaurice101/raspberrypi/blob/main/tml-airflow/tml-documentation/tml-complete-documentation.pdf>`_.
+
 Watch The TSS Youtube Videos
 """""""""""""""""""""""""""""""
 
