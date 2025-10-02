@@ -7820,7 +7820,7 @@ This DAG implements **multi-agentic AI to real-time data processing**.  Take a l
       SMTP_SERVER=''
       SMTP_PORT=0
       SMTP_USERNAME=''
-      SMTP_PASSWORD='' # this should be base64 encoded 
+      SMTP_PASSWORD=''
       recipient=''
       
       if 'SMTP_SERVER' in os.environ:
@@ -7840,7 +7840,7 @@ This DAG implements **multi-agentic AI to real-time data processing**.  Take a l
       default_args = {
        'owner': 'Sebastian Maurice',   # <<< *** Change as needed
        'ollamacontainername' : 'maadsdocker/tml-privategpt-with-gpu-nvidia-amd64-llama3-tools', #'maadsdocker/tml-privategpt-no-gpu-amd64',  # enter a valid container https://hub.docker.com/r/maadsdocker/tml-privategpt-no-gpu-amd64
-       'rollbackoffset' : '5',  # <<< *** Change as needed
+       'rollbackoffset' : '25',  # <<< *** Change as needed
        'offset' : '-1', # leave as is
        'enabletls' : '1', # change as needed
        'brokerhost' : '', # <<< *** Leave as is
@@ -7850,21 +7850,44 @@ This DAG implements **multi-agentic AI to real-time data processing**.  Take a l
        'delay' : '100', # change as needed
        'companyname' : 'otics',  # <<< *** Change as needed
        'consumerid' : 'streamtopic',  # <<< *** Leave as is
-       'agenttopic' : '', # this topic contains the individual agent responses
+       'agenttopic' : 'agent-responses', # this topic containes the individual agent responses 
        'agents_topic_prompt' : """
-      <consumefrom - topic agent will monitor:prompt you want for the agent to answer;consumefrom - topic2 agent will monitor:prompt you want for the agent to answer>
+              iot-preprocess:Are there any issues or anomalies in the JSON data values in the hyperprediction field? Specifically, the hypreprediction field indicates the value of the Preprocesstype field,
+              if the Preprocesstype is Avg, then the hyprepredictions are the average values of the first value in the Identifier field, which is Current for the 
+              device name in the mainuid field.
+              For example, if the hypreprediction=154646, and if Preprocesstype=Avg, and the first value in Identifier=Current, and mainuid=AC000W020496398 
+              then 154646 is the average of electrical current for device name AC000W020496398.  Determine if the trends electrical current values are normal or abnormal by looking at other similar jsons.
+              Do NOT focus on data quality, just focus on the hyperprediction, Identifier, and mainuid fields.;ml-data:Are there 
+              any issues in the JSON data values in the hyperprediction field? Specifically, the hypreprediction field contains the failure probability of IoT devices.  The mainuid field contains the device name.  
+              For example, if the failure probability of IoT devices in hyperprediction field is greater than 0.70, then this device, in the mainuid field, has a high probability of failure and should be investigated.
+              Do NOT focus on data quality, just focus on the trends on hyperprediction field values.   
       """, # <topic agent will monitor:prompt you want for the agent>
-       'teamlead_topic' : '', # Enter the team lead topic - all team lead responses will be written to this topic
+       'teamlead_topic' : 'team-lead-responses', # Enter the team lead topic - all team lead responses will be written to this topic
        'teamleadprompt' : """
-      Enter the prompt for the Team lead agent
+            Are there any issues or major concerns in the data? The data are from IoT devices that are being monitored by individual agents. If you find issues or concerns, then
+            highlight the devices name (i.e. in the mainuid field) with details on whether the device failure probabilities are increasing or greater than 0.70.
       """, # Enter the team lead prompt 
-       'supervisor_topic' : '', # Enter the supervisor topic - all supervisor responses will be written to this topic
-       'supervisorprompt' : '', # Enter the supervisor prompt 
+       'supervisor_topic' : 'supervisor-responses', # Enter the supervisor topic - all supervisor responses will be written to this topic
+       'supervisorprompt' : """
+             Are there any major issues or concerns in the data?  This data is IoT data being monitored for potential failure from IoT devices.  
+             If you find a major concern or major issues in the failure probabilities of IoT devices indicated in the hyperprediction values, 
+             then use the send_email tool to send an email message that 
+             highlights devices with the issues that need investigation Do NOT send too many emails, and do not send duplicate emails with same device names.""", # Enter the supervisor prompt 
        'agenttoolfunctions' : """
-      tool_function:agent_name:system_prompt;tool_function2:agent_name2:sysemt_prompt2,....
-      """,  # enter the tools : tool_function is the name of the funtions in the agenttools python file
-       'agent_team_supervisor_topic': '', # this topic will hold the responses from agents, team lead and supervisor
-       'producerid' : 'agentic-ai',   # <<< *** Leave as is
+              send_email:send_email: You are an email-sending agent. Use smtp parameters to send emails when there is an anomaly in the data, make sure to
+                           indicate the device name in the mainuid field. do not write a smtp script, actually send the email using the SMTP parameters
+                           smtp_server='{}'
+                           smtp_port={}
+                           username='{}'
+                           password='{}'
+                           sender='{}'
+                           recipient='{}'
+                           subject=''
+                           body='';
+              average:average:You are an average agent.  Take average of the device failure probabilities.             
+      """.format(SMTP_SERVER,SMTP_PORT,SMTP_USERNAME,SMTP_PASSWORD,SMTP_USERNAME,recipient),  # enter the tools : tool_function is the name of the funtions in the agenttools python file
+       'agent_team_supervisor_topic': 'all-agents-responses', # this topic will hold the responses from agents, team lead and supervisor
+      'producerid' : 'agentic-ai',   # <<< *** Leave as is
        'identifier' : 'This is analysing TML output with Agentic AI',
        'mainip': 'http://127.0.0.1', # Ollama server container listening on this host
        'mainport' : '11434', # Ollama listening on this port
@@ -8090,7 +8113,6 @@ This DAG implements **multi-agentic AI to real-time data processing**.  Take a l
                         consumerid,companyname,partition,enabletls,delay,
                         offset, brokerhost,brokerport,microserviceid,
                         topicid,rollbackoffsets,preprocesstype)
-      
             return result
                       
       
@@ -8141,7 +8163,7 @@ This DAG implements **multi-agentic AI to real-time data processing**.  Take a l
             t2  = t.split(":")
             #print("q========",q)
             query_str=t2[1]+ f". here is the JSON: {mainjson}"
-            #print("query_string====",query_str)
+            print("query_string====",query_str)
       
       
           # Invoking with a string
@@ -8149,6 +8171,7 @@ This DAG implements **multi-agentic AI to real-time data processing**.  Take a l
             response=response.content    
             prompt=cleanstring(t2[1].strip())
             response=cleanstring(response)
+            response=response.replace(";",",")
             bufresponse  = '{"Date": "' + str(datetime.now(timezone.utc)) + '","Topic_Agent": "'+t2[0].strip()+'","Prompt":"' + prompt + '","Response": "' + response.strip() + '","Model": "' + model + '","Embedding":"' + embeddingmodel + '", "Temperature":"' + str(temperature) +'"}'
             print(bufresponse)
             bufarr.append(bufresponse)
@@ -8171,6 +8194,7 @@ This DAG implements **multi-agentic AI to real-time data processing**.  Take a l
       #    print("team repsose = ", response)
           prompt=cleanstring(teamleadprompt.strip())
           response=cleanstring(response.strip())
+          response=response.replace(";",",")
           bufresponse  = '{"Date": "' + str(datetime.now(timezone.utc)) + '","Team_Lead_Agent": "'+default_args['teamlead_topic'] +'","Prompt":"' + prompt + '","Response": "' + response.strip() + '","Model": "' + model + '","Embedding":"' + embeddingmodel + '", "Temperature":"' + str(temperature) +'"}'
       
           producegpttokafka(bufresponse,default_args['teamlead_topic'])
@@ -8181,9 +8205,18 @@ This DAG implements **multi-agentic AI to real-time data processing**.  Take a l
       
       def createactionagents(llm):
           print("in createactionagents")
-      
+          repo=tsslogging.getrepo()
+          current_directory_path = os.getcwd()
+          sname = os.path.basename(current_directory_path)
+          
           agents=[]
-          dynamic_module = importlib.import_module("agenttools")
+          filepath=f"/{repo}/tml-airflow/dags/tml-solutions/{sname}/agenttools.py"
+          module_name = "agenttools"
+          
+          spec = importlib.util.spec_from_file_location(module_name, filepath)    
+          dynamic_module = importlib.util.module_from_spec(spec)
+          spec.loader.exec_module(dynamic_module)
+        
           maintools=default_args['agenttoolfunctions'].strip()
           funcname=maintools.split(";")
        
@@ -8229,6 +8262,7 @@ This DAG implements **multi-agentic AI to real-time data processing**.  Take a l
           embeddingmodel = default_args['embedding']
           funcname = default_args['agenttoolfunctions']
           funcname = funcname.replace(";","==")
+          maincontent=maincontent.replace(";",",")
        
           try:    
               supervisormaincontent ="""
@@ -8256,6 +8290,7 @@ This DAG implements **multi-agentic AI to real-time data processing**.  Take a l
                 lastmessage=chunk["messages"][-1].content
               
           lastmessage=cleanstring(lastmessage.strip())
+          lastmessage=lastmessage.replace(";",",")
           bufresponse  = '{"Date": "' + str(datetime.now(timezone.utc)) + '","Supervisor_Agent": "' + default_args['supervisor_topic'] + '","Prompt":"' + supervisormaincontent + '","Response": "' + lastmessage.strip() + '","Model": "' + model + '","Embedding":"' + embeddingmodel + '", "Temperature":"' + str(temperature) +'"}'
               
           
@@ -8378,7 +8413,12 @@ This DAG implements **multi-agentic AI to real-time data processing**.  Take a l
              ti.xcom_push(key="{}_teamleadprompt".format(sname), value=default_args['teamleadprompt'])
              ti.xcom_push(key="{}_supervisor_topic".format(sname), value=default_args['supervisor_topic'])
              ti.xcom_push(key="{}_supervisorprompt".format(sname), value=default_args['supervisorprompt'])
-             ti.xcom_push(key="{}_agenttoolfunctions".format(sname), value=default_args['agenttoolfunctions'])
+      
+             at=default_args['agenttoolfunctions']
+             at=at.replace(SMTP_PASSWORD,'')
+      
+             ti.xcom_push(key="{}_agenttoolfunctions".format(sname), value=at)
+        
              ti.xcom_push(key="{}_agent_team_supervisor_topic".format(sname), value=default_args['agent_team_supervisor_topic'])        
              ti.xcom_push(key="{}_concurrency".format(sname), value="_{}".format(default_args['concurrency']))
              ti.xcom_push(key="{}_cuda".format(sname), value="_{}".format(default_args['CUDA_VISIBLE_DEVICES']))
@@ -8528,7 +8568,7 @@ This DAG implements **multi-agentic AI to real-time data processing**.  Take a l
                 time.sleep(5)
                 count = count + 1
                 if count > 60:
-                  break 
+                  break
 
 STEP 9b DAG Core Parameter Explanation
 ---------------------------------
