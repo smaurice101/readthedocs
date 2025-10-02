@@ -7784,7 +7784,7 @@ This DAG implements **multi-agentic AI to real-time data processing**.  Take a l
                      53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,
                      74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,
                      94,95
-            
+                  
       from airflow.operators.python import PythonOperator
       from airflow.operators.bash import BashOperator
       from datetime import datetime, timezone
@@ -8186,7 +8186,6 @@ This DAG implements **multi-agentic AI to real-time data processing**.  Take a l
           
           agents=[]
           filepath=f"/{repo}/tml-airflow/dags/tml-solutions/{sname}/agenttools.py"
-          print("filepath===",filepath)
           module_name = "agenttools"
           
           spec = importlib.util.spec_from_file_location(module_name, filepath)    
@@ -8417,7 +8416,7 @@ This DAG implements **multi-agentic AI to real-time data processing**.  Take a l
                              default_args['mainip'],default_args['mainport'],default_args['embedding'],
                              default_args['agents_topic_prompt'],default_args['teamlead_topic'],default_args['teamleadprompt'],
                              default_args['supervisor_topic'],default_args['supervisorprompt'],default_args['agenttoolfunctions'],
-                             default_args['agent_team_supervisor_topic'],default_args['concurrency'],default_args['CUDA_VISIBLE_DEVICES'],sname),"ENTER"])
+                             default_args['agent_team_supervisor_topic'],default_args['concurrency'],default_args['CUDA_VISIBLE_DEVICES'],pname),"ENTER"])
       
       if __name__ == '__main__':
           if len(sys.argv) > 1:
@@ -8453,7 +8452,7 @@ This DAG implements **multi-agentic AI to real-time data processing**.  Take a l
               agent_team_supervisor_topic=sys.argv[24]
               concurrency=sys.argv[25]        
               cuda =  sys.argv[26]
-              sname = sys.argv[27]
+              pname = sys.argv[27]
       
              default_args['rollbackoffset']=rollbackoffset
              default_args['ollama-model']=ollamamodel
@@ -8509,7 +8508,7 @@ This DAG implements **multi-agentic AI to real-time data processing**.  Take a l
       
           if llm !="":
             #try:
-            actionagents=createactionagents(llm,sname)
+            actionagents=createactionagents(llm,pname)
             supervisorprompt = default_args['supervisorprompt']
             try:
               app=createasupervisor(actionagents,supervisorprompt,llm)
