@@ -7785,104 +7785,6 @@ This DAG implements **multi-agentic AI to real-time data processing**.  Take a l
                      74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,
                      94,95
                   
-      from airflow.operators.python import PythonOperator
-      from airflow.operators.bash import BashOperator
-      from datetime import datetime, timezone
-      from airflow.decorators import dag, task
-      from langgraph_supervisor import create_supervisor
-      from llama_index.core.indices.vector_store.base import VectorStoreIndex
-      from llama_index.core.schema import Document  # Document is often found here
-      from langgraph.prebuilt import create_react_agent
-      from llama_index.embeddings.ollama import OllamaEmbedding
-      from langchain_ollama import ChatOllama
-      import importlib
-      import json
-      import pprint
-      from llama_index.core.settings import Settings
-      from datetime import datetime, timezone
-      import os
-      import tsslogging
-      import sys
-      import time
-      import maadstml
-      import subprocess
-      import random
-      import json
-      import threading
-      import re
-      from binaryornot.check import is_binary
-      import base64
-      docidstrarr = []
-      
-      sys.dont_write_bytecode = True
-      
-      ######################################################USER CHOSEN PARAMETERS ###########################################################
-      SMTP_SERVER=''
-      SMTP_PORT=0
-      SMTP_USERNAME=''
-      SMTP_PASSWORD='' # this should be base64 encoded 
-      recipient=''
-      
-      if 'SMTP_SERVER' in os.environ:
-         SMTP_SERVER=os.environ['SMTP_SERVER']
-      if 'SMTP_PORT' in os.environ:
-         SMTP_PORT=int(os.environ['SMTP_PORT'])
-      if 'SMTP_USERNAME' in os.environ:
-         SMTP_USERNAME=os.environ['SMTP_USERNAME']
-      if 'SMTP_PASSWORD' in os.environ:
-         SMTP_PASSWORD=os.environ['SMTP_PASSWORD']
-         base64_bytes = SMTP_PASSWORD.encode('ascii')
-         message_bytes = base64.b64decode(base64_bytes)
-         SMTP_PASSWORD = message_bytes.decode('ascii')   
-      if 'recipient' in os.environ:
-         recipient=os.environ['recipient']
-      
-      default_args = {
-       'owner': 'Sebastian Maurice',   # <<< *** Change as needed
-       'ollamacontainername' : 'maadsdocker/tml-privategpt-with-gpu-nvidia-amd64-llama3-tools', #'maadsdocker/tml-privategpt-no-gpu-amd64',  # enter a valid container https://hub.docker.com/r/maadsdocker/tml-privategpt-no-gpu-amd64
-       'rollbackoffset' : '5',  # <<< *** Change as needed
-       'offset' : '-1', # leave as is
-       'enabletls' : '1', # change as needed
-       'brokerhost' : '', # <<< *** Leave as is
-       'brokerport' : '-999', # <<< *** Leave as is
-       'microserviceid' : '',  # change as needed
-       'topicid' : '-999', # leave as is
-       'delay' : '100', # change as needed
-       'companyname' : 'otics',  # <<< *** Change as needed
-       'consumerid' : 'streamtopic',  # <<< *** Leave as is
-       'agenttopic' : '', # this topic contains the individual agent responses
-       'agents_topic_prompt' : """
-      <consumefrom - topic agent will monitor:prompt you want for the agent to answer;consumefrom - topic2 agent will monitor:prompt you want for the agent to answer>
-      """, # <topic agent will monitor:prompt you want for the agent>
-       'teamlead_topic' : '', # Enter the team lead topic - all team lead responses will be written to this topic
-       'teamleadprompt' : """
-      Enter the prompt for the Team lead agent
-      """, # Enter the team lead prompt 
-       'supervisor_topic' : '', # Enter the supervisor topic - all supervisor responses will be written to this topic
-       'supervisorprompt' : '', # Enter the supervisor prompt 
-       'agenttoolfunctions' : """
-      tool_function:agent_name:system_prompt;tool_function2:agent_name2:sysemt_prompt2,....
-      """,  # enter the tools : tool_function is the name of the funtions in the agenttools python file
-       'agent_team_supervisor_topic': '', # this topic will hold the responses from agents, team lead and supervisor
-       'producerid' : 'agentic-ai',   # <<< *** Leave as is
-       'identifier' : 'This is analysing TML output with Agentic AI',
-       'mainip': 'http://127.0.0.1', # Ollama server container listening on this host
-       'mainport' : '11434', # Ollama listening on this port
-       'embedding': 'nomic-embed-text', # Embedding model
-       'preprocesstype' : '', # Leave as is 
-       'partition' : '-1', # Leave as is 
-       'vectordbcollectionname' : 'tml-llm-model-v2', # change as needed
-       'concurrency' : '2', # change as needed Leave at 1
-       'CUDA_VISIBLE_DEVICES' : '0', # change as needed
-       'temperature' : '0.1', # This value ranges between 0 and 1, it controls how conservative LLM model will be, if 0 very very, if 1 it will hallucinate
-       #--------------------
-       'ollama-model': 'llama3.1',
-       'deletevectordbcount': '10',
-       'vectordbpath': '/rawdata/vectordb'
-      }
-      
-      ############################################################### DO NOT MODIFY BELOW ####################################################
-      
       VIPERTOKEN=""
       VIPERHOST=""
       VIPERPORT=""
@@ -7934,6 +7836,42 @@ This DAG implements **multi-agentic AI to real-time data processing**.  Take a l
       
           return llm,ollama_emb
       
+      
+      def get_loaded_models():
+          mainip=default_args['mainip']
+          mainport=int(default_args['mainport'])
+          mainmodel=default_args['ollama-model']
+          OLLAMA_URL = f"{mainip}:{mainport}/api/tags"
+          count = 0
+      
+          while True:
+            try:
+              response = requests.get(OLLAMA_URL)
+              response.raise_for_status()
+              data = response.json()
+              # Assume 'models' key contains the list of available/loaded models
+              loaded_models = [model for model in data.get("models", [])]
+              print("loaded_models=",loaded_models)
+              if mainmodel in json.dumps(loaded_models) or mainmodel+":latest" in json.dumps(loaded_models):
+                print(f"Model {mainmodel} found")
+                return 1
+              else:
+                time.sleep(5)
+                count += 1
+                if count > 600:
+                 break 
+                else:
+                  continue                   
+            except Exception as e:
+              print(f"Error querying Ollama server: {e} Will keep trying")
+              time.sleep(5)
+              count += 1
+              if count > 20:
+                break
+              continue
+      
+          return 0
+      
       def remove_escape_sequences(string):
           return string.encode('utf-8').decode('unicode_escape')
       
@@ -7955,6 +7893,9 @@ This DAG implements **multi-agentic AI to real-time data processing**.  Take a l
               i=i+1
       
           mainstr=''.join(a)    
+          mainstr=re.sub(r'[\n\r]+', '', mainstr)
+      
+          mainstr = mainstr.translate({ord('\n'): None, ord('\r'): None})
           return mainstr
       
       ############## Delete folder content ########################
@@ -8006,8 +7947,11 @@ This DAG implements **multi-agentic AI to real-time data processing**.  Take a l
           tml_text_engine = tml_index.as_query_engine(similarity_top_k=3)
       
           return tml_text_engine,deletevectordbcnt
+      
                   
       def stopcontainers():
+      
+      
          ollamacontainername = default_args['ollamacontainername']
          cfound=0
          subprocess.call("docker image ls > gptfiles.txt", shell=True)
@@ -8020,13 +7964,18 @@ This DAG implements **multi-agentic AI to real-time data processing**.  Take a l
                   buf="docker stop $(docker ps -q --filter ancestor={} )".format(darr[0])
                   if ollamacontainername in darr[0]:
                       cfound=1  
-                  print(buf)
-                  subprocess.call(buf, shell=True)
+                      # if ollama container found check if model is already loaded - if not  stop container
+                      if get_loaded_models()==0:
+                        print(buf)
+                        subprocess.call(buf, shell=True)
+                        return 0
+                      break
          if cfound==0:
             print("INFO STEP 9b: Ollama container {} not found.  It may need to be pulled.".format(ollamacontainername))
             tsslogging.locallogs("WARN", "STEP 9b: Ollama container not found. It may need to be pulled if it does not start: docker pull {}".format(ollamacontainername))
+            return 0
       
-      
+         return 1
       
       def startpgptcontainer():
             print("Starting Ollama container: {}".format(default_args['ollamacontainername'])) 
@@ -8041,12 +7990,17 @@ This DAG implements **multi-agentic AI to real-time data processing**.  Take a l
             mainhost = default_args['mainip']
       
             ollamaserver = mainhost + ":" + str(mainport)
-            stopcontainers()
+      
+      
             time.sleep(10)
             if os.environ['TSS'] == "1":       
                 buf = "docker run -d -p {}:{} --net=host --gpus all -v /var/run/docker.sock:/var/run/docker.sock:z --env PORT={} --env TSS=1 --env GPU=1 --env COLLECTION={} --env WEB_CONCURRENCY={} --env CUDA_VISIBLE_DEVICES={} --env TOKENIZERS_PARALLELISM=false --env temperature={} --env LLAMAMODEL=\"{}\" --env mainembedding=\"{}\" --env OLLAMASERVERPORT=\"{}\" {}".format(mainport,mainport,mainport,collection,concurrency,cuda,temperature,mainmodel,mainembedding,ollamaserver,ollamacontainername)
             else:
                 buf = "docker run -d -p {}:{} --net=host --gpus all -v /var/run/docker.sock:/var/run/docker.sock:z --env PORT={} --env TSS=0 --env GPU=1 --env COLLECTION={} --env WEB_CONCURRENCY={} --env CUDA_VISIBLE_DEVICES={} --env TOKENIZERS_PARALLELISM=false --env temperature={} --env LLAMAMODEL=\"{}\" --env mainembedding=\"{}\" --env OLLAMASERVERPORT=\"{}\" {}".format(mainport,mainport,mainport,collection,concurrency,cuda,temperature,mainmodel,mainembedding,ollamaserver,ollamacontainername)
+      
+      
+            if stopcontainers() == 1:
+              return 1,buf,mainmodel,mainembedding
                
             v=subprocess.call(buf, shell=True)
             print("INFO STEP 9b: Ollama container.  Here is the run command: {}, v={}".format(buf,v))
@@ -8123,6 +8077,47 @@ This DAG implements **multi-agentic AI to real-time data processing**.  Take a l
           return topicjsons
       
       
+      def extract_hyperpredictiondata(hjson):
+      
+      
+          hyper_json = json.loads(hjson)
+          hlist = []
+      
+          for item in hyper_json['streamtopicdetails']['topicreads']:
+              jbuf = ""
+              hyperprediction = str(item['hyperprediction'])
+              jbuf = "hyperprediction=" + hyperprediction
+              if "preprocesstype" in item:
+                 ptypes = item['preprocesstype']
+                 jbuf = jbuf + ", processtype=" + ptypes
+                 iden = item['identifier']
+                 idenarr = iden.split("~")
+                 pv = idenarr[0]
+                 jbuf = jbuf + ", processvariable=" + pv
+      
+              if "islogistic" in item:
+                 if item['islogistic'] == "1":
+                    jbuf = jbuf + ", processtype=probability prediction" 
+                 else:
+                    jbuf = jbuf + ", processtype=prediction"
+      
+      
+              if "identifier" in item:
+                  iden = item['identifier']
+                  idenarr = iden.split("~")
+                  mainuid = idenarr[-1]
+                  jbuf = jbuf + ", " + mainuid
+      
+              hlist.append("[" + jbuf + "]")
+      
+          hliststr = ",".join(hlist)
+          hliststr=re.sub(r'[\n\r]+', '', hliststr)
+          hliststr = hliststr.translate({ord('\n'): None, ord('\r'): None})
+          print("hliststr==",hliststr)
+          return hliststr
+      
+      
+      
       def agentquerytopics(usertopics,topicjsons,llm):
           topicsarr = usertopics.split(";")
           bufresponse = ""
@@ -8142,14 +8137,19 @@ This DAG implements **multi-agentic AI to real-time data processing**.  Take a l
             t=t.strip()
             t2  = t.split(":")
             #print("q========",q)
-            query_str=t2[1]+ f". here is the JSON: {mainjson}"
+            mainjson=mainjson.lower()
+            if "hyperprediction" in mainjson:
+               mainjson=extract_hyperpredictiondata(mainjson)
+        
+            query_str=t2[1]+ f". here is the data: {mainjson}"
             print("query_string====",query_str)
       
       
           # Invoking with a string
             response = llm.invoke(query_str)
             response=response.content    
-            prompt=cleanstring(t2[1].strip())
+            prompt=cleanstring(t2[1].strip()) + f". here is the data: {mainjson}"
+      
             response=cleanstring(response)
             response=response.replace(";",",")
             bufresponse  = '{"Date": "' + str(datetime.now(timezone.utc)) + '","Topic_Agent": "'+t2[0].strip()+'","Prompt":"' + prompt + '","Response": "' + response.strip() + '","Model": "' + model + '","Embedding":"' + embeddingmodel + '", "Temperature":"' + str(temperature) +'"}'
@@ -8313,8 +8313,12 @@ This DAG implements **multi-agentic AI to real-time data processing**.  Take a l
           mainjson = " ".join(mainjson.split())
           mainjson = " ".join(mainjson.splitlines())
       
+          mainjson=re.sub(r'[\n\r]+', '', mainjson)
+      
           mainjson = mainjson.replace("'","").replace("\n"," ").replace("\\n"," ").replace("\t", " ").replace("\r"," ").replace("\\r"," ").strip()
-          #print("mainjson======",mainjson)
+      
+          mainjson = mainjson.translate({ord('\n'): None, ord('\r'): None})
+          print("mainjson======",mainjson)
       
           return mainjson    
       
@@ -8496,6 +8500,8 @@ This DAG implements **multi-agentic AI to real-time data processing**.  Take a l
              default_args['concurrency']=concurrency
              default_args['CUDA_VISIBLE_DEVICES']=cuda
       
+      
+      
           if "KUBE" not in os.environ:          
                
                 tsslogging.locallogs("INFO", "STEP 9b: Starting Ollama container")
@@ -8523,6 +8529,11 @@ This DAG implements **multi-agentic AI to real-time data processing**.  Take a l
           count=0
       
               # create the Supervisor and kick off action
+         
+          llmstatus = get_loaded_models()
+          print("llmstatus==",llmstatus)
+         
+      
           llm,embedding=setollama()
       
           if llm !="":
@@ -8563,7 +8574,7 @@ This DAG implements **multi-agentic AI to real-time data processing**.  Take a l
                   tsslogging.git_push("/{}".format(repo),"Entry from {}".format(os.path.basename(__file__)),"origin")
                 time.sleep(5)
                 count = count + 1
-                if count > 60:
+                if count > 600:
                   break
 
 STEP 9b DAG Core Parameter Explanation
