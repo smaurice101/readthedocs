@@ -305,7 +305,7 @@ Video ChatGPT Sample Code
             
             max_output_tokens=512             #  max tokens or words returned
         
-            prompt='What is this video about? Is there anythin strange about this video?'  # prompts to ask video chatgot about the video
+            prompt='What is this video about? Is there anything strange about this video?'  # prompts to ask video chatgot about the video
         
         #Load video chatgpt
             ret=maadstml.videochatloadresponse(url,port,filename,prompt,responsefolder,temperature,max_output_tokens)        
