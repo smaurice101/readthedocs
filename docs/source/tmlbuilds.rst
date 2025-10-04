@@ -7785,6 +7785,104 @@ This DAG implements **multi-agentic AI to real-time data processing**.  Take a l
                      74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,
                      94,95
                   
+      from airflow.operators.python import PythonOperator
+      from airflow.operators.bash import BashOperator
+      from datetime import datetime, timezone
+      from airflow.decorators import dag, task
+      from langgraph_supervisor import create_supervisor
+      from llama_index.core.indices.vector_store.base import VectorStoreIndex
+      from llama_index.core.schema import Document  # Document is often found here
+      from langgraph.prebuilt import create_react_agent
+      from llama_index.embeddings.ollama import OllamaEmbedding
+      from langchain_ollama import ChatOllama
+      import importlib
+      import json
+      import pprint
+      from llama_index.core.settings import Settings
+      from datetime import datetime, timezone
+      import os
+      import tsslogging
+      import sys
+      import time
+      import maadstml
+      import subprocess
+      import random
+      import json
+      import threading
+      import re
+      from binaryornot.check import is_binary
+      import base64
+      import requests
+      
+      sys.dont_write_bytecode = True
+      
+      ######################################################USER CHOSEN PARAMETERS ###########################################################
+      SMTP_SERVER=''
+      SMTP_PORT=0
+      SMTP_USERNAME=''
+      SMTP_PASSWORD='' # this should be base64 encoded 
+      recipient=''
+      
+      if 'SMTP_SERVER' in os.environ:
+         SMTP_SERVER=os.environ['SMTP_SERVER']
+      if 'SMTP_PORT' in os.environ:
+         SMTP_PORT=int(os.environ['SMTP_PORT'])
+      if 'SMTP_USERNAME' in os.environ:
+         SMTP_USERNAME=os.environ['SMTP_USERNAME']
+      if 'SMTP_PASSWORD' in os.environ:
+         SMTP_PASSWORD=os.environ['SMTP_PASSWORD']
+         base64_bytes = SMTP_PASSWORD.encode('ascii')
+         message_bytes = base64.b64decode(base64_bytes)
+         SMTP_PASSWORD = message_bytes.decode('ascii')   
+      if 'recipient' in os.environ:
+         recipient=os.environ['recipient']
+      
+      default_args = {
+       'owner': 'Sebastian Maurice',   # <<< *** Change as needed
+       'ollamacontainername' : 'maadsdocker/tml-privategpt-with-gpu-nvidia-amd64-llama3-tools', #'maadsdocker/tml-privategpt-no-gpu-amd64',  # enter a valid container https://hub.docker.com/r/maadsdocker/tml-privategpt-no-gpu-amd64
+       'rollbackoffset' : '5',  # <<< *** Change as needed
+       'offset' : '-1', # leave as is
+       'enabletls' : '1', # change as needed
+       'brokerhost' : '', # <<< *** Leave as is
+       'brokerport' : '-999', # <<< *** Leave as is
+       'microserviceid' : '',  # change as needed
+       'topicid' : '-999', # leave as is
+       'delay' : '100', # change as needed
+       'companyname' : 'otics',  # <<< *** Change as needed
+       'consumerid' : 'streamtopic',  # <<< *** Leave as is
+       'agenttopic' : '', # this topic contains the individual agent responses
+       'agents_topic_prompt' : """
+      <consumefrom - topic agent will monitor:prompt you want for the agent to answer;consumefrom - topic2 agent will monitor:prompt you want for the agent to answer>
+      """, # <topic agent will monitor:prompt you want for the agent>
+       'teamlead_topic' : '', # Enter the team lead topic - all team lead responses will be written to this topic
+       'teamleadprompt' : """
+      Enter the prompt for the Team lead agent
+      """, # Enter the team lead prompt 
+       'supervisor_topic' : '', # Enter the supervisor topic - all supervisor responses will be written to this topic
+       'supervisorprompt' : '', # Enter the supervisor prompt 
+       'agenttoolfunctions' : """
+      tool_function:agent_name:system_prompt;tool_function2:agent_name2:sysemt_prompt2,....
+      """,  # enter the tools : tool_function is the name of the funtions in the agenttools python file
+       'agent_team_supervisor_topic': '', # this topic will hold the responses from agents, team lead and supervisor
+       'producerid' : 'agentic-ai',   # <<< *** Leave as is
+       'identifier' : 'This is analysing TML output with Agentic AI',
+       'mainip': 'http://127.0.0.1', # Ollama server container listening on this host
+       'mainport' : '11434', # Ollama listening on this port
+       'embedding': 'nomic-embed-text', # Embedding model
+       'preprocesstype' : '', # Leave as is 
+       'partition' : '-1', # Leave as is 
+       'vectordbcollectionname' : 'tml-llm-model-v2', # change as needed
+       'concurrency' : '2', # change as needed Leave at 1
+       'CUDA_VISIBLE_DEVICES' : '0', # change as needed
+       'temperature' : '0.1', # This value ranges between 0 and 1, it controls how conservative LLM model will be, if 0 very very, if 1 it will hallucinate
+       #--------------------
+       'ollama-model': 'llama3.1',
+       'deletevectordbcount': '10',
+       'vectordbpath': '/rawdata/vectordb'
+      }
+      
+      ############################################################### DO NOT MODIFY BELOW ####################################################
+      
       VIPERTOKEN=""
       VIPERHOST=""
       VIPERPORT=""
