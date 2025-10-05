@@ -7813,6 +7813,7 @@ This DAG implements **multi-agentic AI to real-time data processing**.  Take a l
       from binaryornot.check import is_binary
       import base64
       import requests
+      from json_repair import repair_json
       
       sys.dont_write_bytecode = True
       
@@ -7973,6 +7974,30 @@ This DAG implements **multi-agentic AI to real-time data processing**.  Take a l
       def remove_escape_sequences(string):
           return string.encode('utf-8').decode('unicode_escape')
       
+      def cleanstringjson(mainstr):
+      
+          mainstr = mainstr.replace("'","").replace('`',"").replace("\n","").replace("\\n","").replace("\t","").replace("\\t","").replace("\r","").replace("\\r","").replace("\\*","").replace("\\ ","").replace("\\\\","\\")
+      
+      
+          a = list(mainstr.lower())
+          b = "abcdefghijklmnopqrstuvwxyz-*123456789'{}`"
+          i=0
+          for char in a:
+              if char == "\\" and a[i+1] in b:
+                a[i]=''
+              if char == "\\" and a[i+1] == "\\" and a[i+2] == '"':
+                a[i]=''
+      
+              i=i+1
+      
+          mainstr=''.join(a)
+          mainstr=re.sub(r'[\n\r]+', '', mainstr)
+      
+          mainstr = mainstr.translate({ord('\n'): None, ord('\r'): None})
+          mainstr = " ".join(mainstr.splitlines())
+      
+          return mainstr
+      
       def cleanstring(mainstr):
       
           mainstr = mainstr.replace('"',"").replace("'","").replace('`',"").replace("\n","").replace("\\n","").replace("\t","").replace("\\t","").replace("\r","").replace("\\r","").replace("\\*","").replace("\\ ","").replace("\\\\","\\").replace("\\1","1").replace("\\2","2").replace("\\3","3").replace("\\4","4").replace("\\5","5").replace("\\6","6").replace("\\7","7").replace("\\8","8").replace("\\9","9")
@@ -8117,8 +8142,8 @@ This DAG implements **multi-agentic AI to real-time data processing**.  Take a l
            delay=default_args['delay']
            enabletls=default_args['enabletls']
       
-           inputbuf = inputbuf.translate({ord('\n'): None, ord('\r'): None})
-           inputbuf=inputbuf.replace("\n"," ").replace("\\n"," ")
+           inputbuf=cleanstringjson(inputbuf)
+           
       
            try:
               result=maadstml.viperproducetotopic(VIPERTOKEN,VIPERHOST,VIPERPORT,maintopic,producerid,enabletls,delay,'','', '',0,inputbuf,'',
@@ -8217,6 +8242,16 @@ This DAG implements **multi-agentic AI to real-time data processing**.  Take a l
           print("hliststr==",hliststr)
           return hliststr
       
+      def checkjson(cjson):
+      
+         try:
+           checkedjson = json.loads(cjson)  # check to see if json loads - if not its bad
+         except Exception as e:
+           cjson = repair_json(cjson, skip_json_loads=True )
+           pass
+           # bad json
+      
+         return cjson
       
       
       def agentquerytopics(usertopics,topicjsons,llm):
@@ -8243,7 +8278,7 @@ This DAG implements **multi-agentic AI to real-time data processing**.  Take a l
                mainjson=extract_hyperpredictiondata(mainjson)
         
             query_str=t2[1]+ f". here is the data: {mainjson}"
-            print("query_string====",query_str)
+      #      print("query_string====",query_str)
       
       
           # Invoking with a string
@@ -8252,8 +8287,10 @@ This DAG implements **multi-agentic AI to real-time data processing**.  Take a l
             prompt=cleanstring(t2[1].strip()) + f". here is the data: {mainjson}"
       
             response=cleanstring(response)
-            response=response.replace(";",",")
+            response=response.replace(";",",").replace(":","").replace("'","").replace('"',"")
+            
             bufresponse  = '{"Date": "' + str(datetime.now(timezone.utc)) + '","Topic_Agent": "'+t2[0].strip()+'","Prompt":"' + prompt + '","Response": "' + response.strip() + '","Model": "' + model + '","Embedding":"' + embeddingmodel + '", "Temperature":"' + str(temperature) +'"}'
+            bufresponse=checkjson(bufresponse)
             print(bufresponse)
             bufarr.append(bufresponse)
                   
@@ -8275,8 +8312,9 @@ This DAG implements **multi-agentic AI to real-time data processing**.  Take a l
       #    print("team repsose = ", response)
           prompt=cleanstring(teamleadprompt.strip())
           response=cleanstring(response.strip())
-          response=response.replace(";",",")
+          response=response.replace(";",",").replace(":","").replace('"',"").replace("'","")
           bufresponse  = '{"Date": "' + str(datetime.now(timezone.utc)) + '","Team_Lead_Agent": "'+default_args['teamlead_topic'] +'","Prompt":"' + prompt + '","Response": "' + response.strip() + '","Model": "' + model + '","Embedding":"' + embeddingmodel + '", "Temperature":"' + str(temperature) +'"}'
+          bufresponse=checkjson(bufresponse)
       
           producegpttokafka(bufresponse,default_args['teamlead_topic'])
       
@@ -8370,7 +8408,7 @@ This DAG implements **multi-agentic AI to real-time data processing**.  Take a l
                 lastmessage=chunk["messages"][-1].content
               
           lastmessage=cleanstring(lastmessage.strip())
-          lastmessage=lastmessage.replace(";",",")
+          lastmessage=lastmessage.replace(";",",").replace("'","").replace('"',"").replace(":","")
           bufresponse  = '{"Date": "' + str(datetime.now(timezone.utc)) + '","Supervisor_Agent": "' + default_args['supervisor_topic'] + '","Prompt":"' + supervisormaincontent + '","Response": "' + lastmessage.strip() + '","Model": "' + model + '","Embedding":"' + embeddingmodel + '", "Temperature":"' + str(temperature) +'"}'
               
           
@@ -8383,6 +8421,8 @@ This DAG implements **multi-agentic AI to real-time data processing**.  Take a l
           mainjson=json.dumps({"supervisor_workflow_invocation": mainjson})
           mainjson=mainjson[:-1] + ",\"funcname\":" + json.dumps(funcname)+",\"supervisorprompt\":\""+supervisormaincontent+"\"}"
           mainjson=cleanstring(mainjson)
+          mainjson=checkjson(mainjson)
+         
           try:
             #print(mainjson)
             producegpttokafka(mainjson,default_args['supervisor_topic'])
