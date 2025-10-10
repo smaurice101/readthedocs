@@ -7883,31 +7883,35 @@ This DAG implements **multi-agentic AI to real-time data processing**.  Take a l
       }
       
       ############################################################### DO NOT MODIFY BELOW ####################################################
-      
+            
       VIPERTOKEN=""
       VIPERHOST=""
       VIPERPORT=""
       HTTPADDR=""
       mainproducerid = default_args['producerid']
       
-      def setollama():
+      def setollama(model):
           ###############  Ollama Model #################################
-          model=default_args['ollama-model']
+      #    model=default_args['ollama-model']
           temperature=float(default_args['temperature'])
           embeddingmodel=default_args['embedding'] #"nomic-embed-text"
           mainip=default_args['mainip']
           mainport=int(default_args['mainport'])
+          contextwindow=default_args['contextwindow']
+      
+      #    mainmodels = model.split(",") # agent,teamlead,supervisor
       
           if 'KUBE' in os.environ:
             if os.environ['KUBE'] == "1":
                default_args['mainip']="ollama-service"
                mainip=default_args['mainip']
       
+          print("model====",model)
           gotllm=0
           for i in range(30):
             print("Checking if LLM loaded..wait")
             try:
-              llm = ChatOllama(model=model, base_url=mainip+":"+str(mainport), temperature=temperature)
+              llm = ChatOllama(model=model, base_url=mainip+":"+str(mainport), temperature=temperature, num_ctx=int(contextwindow))
               gotllm=1
               print("LLM loaded")
               break
@@ -7936,10 +7940,60 @@ This DAG implements **multi-agentic AI to real-time data processing**.  Take a l
           return llm,ollama_emb
       
       
+      def checkforloadedmodels(mainmodel):
+      
+          if 'KUBE' in os.environ:
+            if os.environ['KUBE'] == "1":
+               default_args['mainip']="ollama-service"
+               mainip=default_args['mainip']
+      
+          mainip=default_args['mainip']   
+          mainport=int(default_args['mainport'])
+      
+          OLLAMA_URL = f"{mainip}:{mainport}/api/tags"
+          count = 0
+      
+          while True:
+            try:
+              response = requests.get(OLLAMA_URL)
+              response.raise_for_status()
+              data = response.json()
+              # Assume 'models' key contains the list of available/loaded models
+              loaded_models = [model for model in data.get("models", [])]
+              print("loaded_models=",loaded_models)
+              if mainmodel in json.dumps(loaded_models) or mainmodel+":latest" in json.dumps(loaded_models):
+                print(f"Model {mainmodel} found")
+                return 1
+              else:
+                pull_ollama_model(mainmodel) # pull the model
+                time.sleep(5)
+                count += 1
+                if count > 600:
+                 break
+                else:
+                  continue
+            except Exception as e:
+              print(f"Error querying Ollama server: {e} Will keep trying")
+              time.sleep(5)
+              count += 1
+              if count > 20:
+                break
+              continue
+      
+          return 0
+      
+      
       def get_loaded_models():
+      
+          if 'KUBE' in os.environ:
+            if os.environ['KUBE'] == "1":
+               default_args['mainip']="ollama-service"
+               mainip=default_args['mainip']
+      
           mainip=default_args['mainip']
           mainport=int(default_args['mainport'])
           mainmodel=default_args['ollama-model']
+          mainmodel = mainmodel.split(",")[0] #check if one model is there
           OLLAMA_URL = f"{mainip}:{mainport}/api/tags"
           count = 0
       
@@ -8043,7 +8097,7 @@ This DAG implements **multi-agentic AI to real-time data processing**.  Take a l
       ########################### Vector DB for Team Lead: Agent Responses ###############
       # this is for the team lead agent to consolidate information from individual agents
       ###################################################################################
-      def loadtextdataintovectordb(responses,deletevectordbcnt):
+      def loadtextdataintovectordb(responses,deletevectordbcnt,llm):
       
           vectordbpath = default_args['vectordbpath']
           
@@ -8067,9 +8121,43 @@ This DAG implements **multi-agentic AI to real-time data processing**.  Take a l
           # persist index
           tml_index.storage_context.persist(persist_dir=directory_path)
           
-          tml_text_engine = tml_index.as_query_engine(similarity_top_k=3)
+          tml_text_engine = tml_index.as_query_engine(llm=llm,similarity_top_k=3)
       
           return tml_text_engine,deletevectordbcnt
+      
+      def pull_ollama_model(model_name):
+          """
+          Initiates an Ollama model pull using the Ollama API.
+      
+          Args:
+              model_name (str): The name of the model to pull (e.g., "llama3").
+          """
+          mainip=default_args['mainip']
+          mainport=int(default_args['mainport'])
+      
+          url = f"{mainip}:{mainport}/api/pull"  # Default Ollama API endpoint
+          headers = {"Content-Type": "application/json"}
+          payload = {"name": model_name}
+      
+          try:
+              response = requests.post(url, headers=headers, data=json.dumps(payload), stream=True)
+              response.raise_for_status()  # Raise an exception for HTTP errors
+      
+              print(f"Initiating pull for model: {model_name}")
+              for chunk in response.iter_content(chunk_size=None):
+                  if chunk:
+                      # Process the streaming response, e.g., print progress
+                      try:
+                          data = json.loads(chunk.decode('utf-8'))
+                          if 'status' in data:
+                              print(f"Status: {data['status']}", end='\r')
+                      except json.JSONDecodeError:
+                          pass # Handle incomplete JSON chunks if necessary
+      
+              print(f"\nPull for model '{model_name}' completed.")
+      
+          except requests.exceptions.RequestException as e:
+              print(f"Error pulling model '{model_name}': {e}")
       
                   
       def stopcontainers():
@@ -8112,14 +8200,19 @@ This DAG implements **multi-agentic AI to real-time data processing**.  Take a l
             mainembedding=default_args['embedding']
             mainhost = default_args['mainip']
       
-            ollamaserver = mainhost + ":" + str(mainport)
+            mainmodels = mainmodel.split(",")
+            mainmodel = " && ".join(mainmodels)
       
+            ollamaserver = mainhost + ":" + str(mainport)
+            localmodels=''
+            if default_args['localmodelsfolder'] != '':
+                localmodels = "-v " + default_args['localmodelsfolder'] + ":/root/.ollama:z"
       
             time.sleep(10)
             if os.environ['TSS'] == "1":       
-                buf = "docker run -d -p {}:{} --net=host --gpus all -v /var/run/docker.sock:/var/run/docker.sock:z --env PORT={} --env TSS=1 --env GPU=1 --env COLLECTION={} --env WEB_CONCURRENCY={} --env CUDA_VISIBLE_DEVICES={} --env TOKENIZERS_PARALLELISM=false --env temperature={} --env LLAMAMODEL=\"{}\" --env mainembedding=\"{}\" --env OLLAMASERVERPORT=\"{}\" {}".format(mainport,mainport,mainport,collection,concurrency,cuda,temperature,mainmodel,mainembedding,ollamaserver,ollamacontainername)
+                buf = "docker run -d -p {}:{} --net=host --gpus all -v /var/run/docker.sock:/var/run/docker.sock:z {} --env PORT={} --env TSS=1 --env GPU=1 --env COLLECTION={} --env WEB_CONCURRENCY={} --env CUDA_VISIBLE_DEVICES={} --env TOKENIZERS_PARALLELISM=false --env temperature={} --env LLAMAMODEL=\"{}\" --env mainembedding=\"{}\" --env OLLAMASERVERPORT=\"{}\" {}".format(mainport,mainport,localmodels,mainport,collection,concurrency,cuda,temperature,mainmodel,mainembedding,ollamaserver,ollamacontainername)
             else:
-                buf = "docker run -d -p {}:{} --net=host --gpus all -v /var/run/docker.sock:/var/run/docker.sock:z --env PORT={} --env TSS=0 --env GPU=1 --env COLLECTION={} --env WEB_CONCURRENCY={} --env CUDA_VISIBLE_DEVICES={} --env TOKENIZERS_PARALLELISM=false --env temperature={} --env LLAMAMODEL=\"{}\" --env mainembedding=\"{}\" --env OLLAMASERVERPORT=\"{}\" {}".format(mainport,mainport,mainport,collection,concurrency,cuda,temperature,mainmodel,mainembedding,ollamaserver,ollamacontainername)
+                buf = "docker run -d -p {}:{} --net=host --gpus all -v /var/run/docker.sock:/var/run/docker.sock:z {} --env PORT={} --env TSS=0 --env GPU=1 --env COLLECTION={} --env WEB_CONCURRENCY={} --env CUDA_VISIBLE_DEVICES={} --env TOKENIZERS_PARALLELISM=false --env temperature={} --env LLAMAMODEL=\"{}\" --env mainembedding=\"{}\" --env OLLAMASERVERPORT=\"{}\" {}".format(mainport,mainport,localmodels,mainport,collection,concurrency,cuda,temperature,mainmodel,mainembedding,ollamaserver,ollamacontainername)
       
       
             if stopcontainers() == 1:
@@ -8153,7 +8246,7 @@ This DAG implements **multi-agentic AI to real-time data processing**.  Take a l
               print("ERROR:",e)
       
       def consumefromtopic(maintopic):
-            #maintopic = default_args['consumefrom']
+      
             rollbackoffsets = int(default_args['rollbackoffset'])
             enabletls = int(default_args['enabletls'])
             consumerid=default_args['consumerid']
@@ -8186,14 +8279,14 @@ This DAG implements **multi-agentic AI to real-time data processing**.  Take a l
       ############# Get the real-time data from the data streams #########################
       def getjsonsfromtopics(topics):
       
-          print("in getjsonsfromtopics")
+          print("in getjsonsfromtopics==",topics)
       
-          topicsarr = topics.split(";")
+          topicsarr = topics.split("->>")
           topicjsons = []
                  
           for t in topicsarr:
             t=t.strip()
-            t2 = t.split(":")[0].strip()
+            t2 = t.split("<<-")[0].strip()
             try:
               jsonvalue=consumefromtopic(t2)
             except Exception as e:
@@ -8205,38 +8298,54 @@ This DAG implements **multi-agentic AI to real-time data processing**.  Take a l
       
       def extract_hyperpredictiondata(hjson):
       
+          print("in extract")
       
           hyper_json = json.loads(hjson)
-          hlist = []
+          hnum=0
+          pt=""
+          pv=""
+          mainuid=""
+          jbufs = ""
+      
+          if len(hyper_json['streamtopicdetails']['topicreads']) == 0:
+           return ""
       
           for item in hyper_json['streamtopicdetails']['topicreads']:
               jbuf = ""
-              hyperprediction = str(item['hyperprediction'])
-              jbuf = "hyperprediction=" + hyperprediction
+      
               if "preprocesstype" in item:
                  ptypes = item['preprocesstype']
-                 jbuf = jbuf + ", processtype=" + ptypes
+                 pt = ptypes
                  iden = item['identifier']
                  idenarr = iden.split("~")
                  pv = idenarr[0]
-                 jbuf = jbuf + ", processvariable=" + pv
+                 hyperprediction = str(item['hyperprediction'])
+                 hnum=round(float(hyperprediction))
       
               if "islogistic" in item:
+                 pv="machine learning"
                  if item['islogistic'] == "1":
-                    jbuf = jbuf + ", processtype=probability prediction" 
+                    pt = "probability prediction" 
+                    hyperprediction = str(item['hyperprediction'])
+                    hnum = round(float(hyperprediction)*100)             
                  else:
-                    jbuf = jbuf + ", processtype=prediction"
+                    hyperprediction = str(item['hyperprediction'])
+                    hnum = round(float(hyperprediction))
+                    pt = "prediction"
       
       
               if "identifier" in item:
                   iden = item['identifier']
                   idenarr = iden.split("~")
                   mainuid = idenarr[-1]
-                  jbuf = jbuf + ", " + mainuid
+                  mainuid = mainuid.split("=")[1]
+       
       
-              hlist.append("[" + jbuf + "]")
+              jbuf = '{"hp":' + str(hnum) + ',"pt":"' + pt + '", "pv":"' + pv + '", "uid":"' + mainuid + '"}'
+              jbufs = jbufs + jbuf +","
+       
       
-          hliststr = ",".join(hlist)
+          hliststr = "[" + jbufs[:-1] + "]"
           hliststr=re.sub(r'[\n\r]+', '', hliststr)
           hliststr = hliststr.translate({ord('\n'): None, ord('\r'): None})
           print("hliststr==",hliststr)
@@ -8273,7 +8382,7 @@ This DAG implements **multi-agentic AI to real-time data processing**.  Take a l
       
       
       def agentquerytopics(usertopics,topicjsons,llm):
-          topicsarr = usertopics.split(";")
+          topicsarr = usertopics.split("->>")
           bufresponse = ""
           bufarr = []
           agenttopic = default_args['agenttopic']
@@ -8282,6 +8391,9 @@ This DAG implements **multi-agentic AI to real-time data processing**.  Take a l
           temperature = float(default_args['temperature'])
           embeddingmodel = default_args['embedding']
       
+          md = model.split(",")
+          model=md[0]
+           
           if len(topicsarr) == 0:
               print("No topics data")
               return "",""
@@ -8289,27 +8401,32 @@ This DAG implements **multi-agentic AI to real-time data processing**.  Take a l
           responses = []
           for t,mainjson in zip(topicsarr,topicjsons):
             t=t.strip()
-            t2  = t.split(":")
-            #print("q========",q)
+            t2  = t.split("<<-")
             mainjson=mainjson.lower()
             if "hyperprediction" in mainjson:
                mainjson=extract_hyperpredictiondata(mainjson)
+               if mainjson == "":
+                 continue
         
-            query_str=t2[1]+ f". here is the data: {mainjson}"
-      #      print("query_string====",query_str)
+            if "<<data>>" in t2[1]:
+               query_str=t2[1]
+               query_str = query_str.replace("<<data>>", f"{mainjson}")
+               print("query_string====",query_str)
       
       
           # Invoking with a string
+            print("------before llm invoke===")
             response = llm.invoke(query_str)
             response=str(response.content)
-            prompt=cleanstring(t2[1].strip()) + f". here is the data: {mainjson}"
+            
+            prompt=cleanstring(t2[1].strip())
       
             response=cleanstring(response)
             response=response.replace(";",",").replace(":","").replace("'","").replace('"',"")
             
             bufresponse  = '{"Date": "' + str(datetime.now(timezone.utc)) + '","Agent_Name": "Topic_Agent", "Topic": "'+t2[0].strip()+'","Prompt":"' + prompt + '","Response": "' + response.strip() + '","Model": "' + model + '","Embedding":"' + embeddingmodel + '", "Temperature":"' + str(temperature) +'"}'
             bufresponse=checkjson(bufresponse)
-            print(bufresponse)
+            print("======bufresponse====",bufresponse)
             bufarr.append(bufresponse)
                   
             producegpttokafka(bufresponse,agenttopic)
@@ -8322,6 +8439,10 @@ This DAG implements **multi-agentic AI to real-time data processing**.  Take a l
           bufresponse = ""
       
           model = default_args['ollama-model']
+          md = model.split(",")
+          if len(md)>1:
+            model=md[1]
+      
           temperature = float(default_args['temperature'])
           embeddingmodel = default_args['embedding']
       
@@ -8354,19 +8475,19 @@ This DAG implements **multi-agentic AI to real-time data processing**.  Take a l
           spec.loader.exec_module(dynamic_module)
         
           maintools=default_args['agenttoolfunctions'].strip()
-          funcname=maintools.split(";")
+          funcname=maintools.split("->>")
        
           for f in funcname:
              if len(f)>2:
                f=f.strip()
-               fname=f.split(":")[0]         
+               fname=f.split("<<-")[0]         
                print(fname)
                func_objects = []
                func_object = getattr(dynamic_module, fname)                
                func_objects.append(func_object)
                         
-               aname=f.split(":")[1]
-               aprompt=f.split(":")[2]
+               aname=f.split("<<-")[1]
+               aprompt=f.split("<<-")[2]
                         
                agent = create_react_agent(
                   model=llm,
@@ -8380,7 +8501,7 @@ This DAG implements **multi-agentic AI to real-time data processing**.  Take a l
       
       
       def createasupervisor(agents,supervisorprompt,llm):
-          print("in createasupervisor")
+          print("in createasupervisor==",supervisorprompt)
       
           workflow = create_supervisor(
             agents,
@@ -8394,6 +8515,10 @@ This DAG implements **multi-agentic AI to real-time data processing**.  Take a l
       def invokesupervisor(app,maincontent):
          
           model = default_args['ollama-model']
+          md = model.split(",")
+          if len(md)>2:
+            model=md[2]
+      
           temperature = float(default_args['temperature'])
           embeddingmodel = default_args['embedding']
           funcname = default_args['agenttoolfunctions']
@@ -8530,6 +8655,10 @@ This DAG implements **multi-agentic AI to real-time data processing**.  Take a l
                 if os.environ['step9bagents_topic_prompt'] != '':
                   default_args['agents_topic_prompt'] = os.environ['step9bagents_topic_prompt']
       
+             if 'step9bagenttopic' in os.environ:
+                if os.environ['step9bagenttopic'] != '':
+                  default_args['agenttopic'] = os.environ['step9bagenttopic']
+      
              if 'step9bteamlead_topic' in os.environ:
                 if os.environ['step9bteamlead_topic'] != '':
                   default_args['teamlead_topic'] = os.environ['step9bteamlead_topic']
@@ -8545,6 +8674,13 @@ This DAG implements **multi-agentic AI to real-time data processing**.  Take a l
              if 'step9bagent_team_supervisor_topic' in os.environ:
                 if os.environ['step9bagent_team_supervisor_topic'] != '':
                   default_args['agent_team_supervisor_topic'] = os.environ['step9bagent_team_supervisor_topic']
+             if 'step9bcontextwindow' in os.environ:
+                if os.environ['step9bcontextwindow'] != '':
+                  default_args['contextwindow'] = os.environ['step9bcontextwindow']
+      
+             if 'step9blocalmodelsfolder' in os.environ:
+                if os.environ['step9blocalmodelsfolder'] != '':
+                  default_args['localmodelsfolder'] = os.environ['step9blocalmodelsfolder']
       
              VIPERTOKEN = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_VIPERTOKEN".format(sname))
              VIPERHOST = context['ti'].xcom_pull(task_ids='step_1_solution_task_getparams',key="{}_VIPERHOSTPREPROCESSAGENTICAI".format(sname))
@@ -8582,6 +8718,10 @@ This DAG implements **multi-agentic AI to real-time data processing**.  Take a l
              ti.xcom_push(key="{}_cuda".format(sname), value="_{}".format(default_args['CUDA_VISIBLE_DEVICES']))
              ti.xcom_push(key="{}_agenttopic".format(sname), value="{}".format(default_args['agenttopic']))
       
+             ti.xcom_push(key="{}_contextwindow".format(sname), value="_{}".format(default_args['contextwindow']))
+      
+             ti.xcom_push(key="{}_localmodelsfolder".format(sname), value="{}".format(default_args['localmodelsfolder']))
+      
              repo=tsslogging.getrepo()
              if sname != '_mysolution_':
               fullpath="/{}/tml-airflow/dags/tml-solutions/{}/{}".format(repo,pname,os.path.basename(__file__))
@@ -8591,7 +8731,7 @@ This DAG implements **multi-agentic AI to real-time data processing**.  Take a l
              wn = windowname('agenticai',sname,sd)
              subprocess.run(["tmux", "new", "-d", "-s", "{}".format(wn)])
              subprocess.run(["tmux", "send-keys", "-t", "{}".format(wn), "cd /Viper-preprocess-agenticai", "ENTER"])
-             subprocess.run(["tmux", "send-keys", "-t", "{}".format(wn), "python {} 1 {} {}{} {} \"{}\" \"{}\" \"{}\" \"{}\" \"{}\" {} {} {} {} \"{}\" \"{}\" {} {} \"{}\" \"{}\" \"{}\" \"{}\" \"{}\" \"{}\" \"{}\" \"{}\" \"{}\" \"{}\"".format(fullpath,
+             subprocess.run(["tmux", "send-keys", "-t", "{}".format(wn), "python {} 1 {} {}{} {} \"{}\" \"{}\" \"{}\" \"{}\" \"{}\" {} {} {} {} \"{}\" \"{}\" {} {} \"{}\" \"{}\" \"{}\" \"{}\" \"{}\" \"{}\" \"{}\" \"{}\" \"{}\" \"{}\" {} \"{}\" \"{}\"".format(fullpath,
                              VIPERTOKEN, HTTPADDR, VIPERHOST, VIPERPORT[1:],
                              default_args['rollbackoffset'],default_args['ollama-model'],default_args['deletevectordbcount'],default_args['vectordbpath'],
                              default_args['temperature'],default_args['topicid'],default_args['enabletls'],
@@ -8599,7 +8739,8 @@ This DAG implements **multi-agentic AI to real-time data processing**.  Take a l
                              default_args['mainip'],default_args['mainport'],default_args['embedding'],
                              default_args['agents_topic_prompt'],default_args['teamlead_topic'],default_args['teamleadprompt'],
                              default_args['supervisor_topic'],default_args['supervisorprompt'],default_args['agenttoolfunctions'],
-                             default_args['agent_team_supervisor_topic'],default_args['concurrency'],default_args['CUDA_VISIBLE_DEVICES'],pname),"ENTER"])
+                             default_args['agent_team_supervisor_topic'],default_args['concurrency'],default_args['CUDA_VISIBLE_DEVICES'],
+                             pname,default_args['contextwindow'],default_args['localmodelsfolder'],default_args['agenttopic']),"ENTER"])
       
       if __name__ == '__main__':
           if len(sys.argv) > 1:
@@ -8636,6 +8777,10 @@ This DAG implements **multi-agentic AI to real-time data processing**.  Take a l
               concurrency=sys.argv[25]        
               cuda =  sys.argv[26]
               pname = sys.argv[27]
+              contextwindow = sys.argv[28]
+              localmodelsfolder = sys.argv[29]
+      
+              agenttopic = sys.argv[30]
       
              default_args['rollbackoffset']=rollbackoffset
              default_args['ollama-model']=ollamamodel
@@ -8659,8 +8804,9 @@ This DAG implements **multi-agentic AI to real-time data processing**.  Take a l
              default_args['agent_team_supervisor_topic']=agent_team_supervisor_topic
              default_args['concurrency']=concurrency
              default_args['CUDA_VISIBLE_DEVICES']=cuda
-      
-      
+             default_args['contextwindow']=contextwindow
+             default_args['localmodelsfolder']=localmodelsfolder
+             default_args['agenttopic']=agenttopic
       
           if "KUBE" not in os.environ:          
                
@@ -8690,18 +8836,29 @@ This DAG implements **multi-agentic AI to real-time data processing**.  Take a l
       
               # create the Supervisor and kick off action
          
-          llmstatus = get_loaded_models()
-          print("llmstatus==",llmstatus)
+      #    llmstatus = get_loaded_models()
+       #   print("llmstatus==",llmstatus,pname)
          
+          mainmodels=default_args['ollama-model']
+         
+          models = mainmodels.split(",")  #models must be agent,teamlead,supervisor
+          embedding=None
       
-          llm,embedding=setollama()
+          modelsarr = []
+          for m in models:
+             llmstatus = get_loaded_models()
+             checkforloadedmodels(m)
+             print("llmstatus==",llmstatus,pname)
+             llm,embedding=setollama(m.strip())
+             modelsarr.append(llm)
       
-          if llm !="":
+      
+          if len(modelsarr) >2:
             #try:
-            actionagents=createactionagents(llm,pname)
+            actionagents=createactionagents(modelsarr[2],pname)
             supervisorprompt = default_args['supervisorprompt']
             try:
-              app=createasupervisor(actionagents,supervisorprompt,llm)
+              app=createasupervisor(actionagents,supervisorprompt,modelsarr[2])
             except Exception as e:
               print("Error=",e)
               tsslogging.locallogs("WARN", "STEP 9b unable to create agents {}".format(e))
@@ -8713,11 +8870,12 @@ This DAG implements **multi-agentic AI to real-time data processing**.  Take a l
           deletevectordbcnt=0
           while True:
                deletevectordbcnt +=1   
-               try:
-                  agent_topics = default_args['agents_topic_prompt'] 
-                  topicjsons=getjsonsfromtopics(agent_topics)
-                  responses,bufresponses=agentquerytopics(agent_topics,topicjsons,llm)
-                  tml_text_engine,deletevectordbcnt=loadtextdataintovectordb(responses,deletevectordbcnt)
+               #try:
+               agent_topics = default_args['agents_topic_prompt'] 
+               topicjsons=getjsonsfromtopics(agent_topics)
+               responses,bufresponses=agentquerytopics(agent_topics,topicjsons,modelsarr[0])
+               try:        
+                  tml_text_engine,deletevectordbcnt=loadtextdataintovectordb(responses,deletevectordbcnt,modelsarr[1])
                   teamlead_response,teambuf=teamleadqueryengine(tml_text_engine)                  
                   mainjson,supbuf=invokesupervisor(app,teamlead_response)
                   complete=formatcompletejson(bufresponses,teambuf,supbuf)
@@ -8736,7 +8894,6 @@ This DAG implements **multi-agentic AI to real-time data processing**.  Take a l
                 count = count + 1
                 if count > 600:
                   break
-
 
 STEP 9b DAG Core Parameter Explanation
 ---------------------------------
