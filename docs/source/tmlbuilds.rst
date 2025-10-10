@@ -8588,9 +8588,9 @@ This DAG implements **multi-agentic AI to real-time data processing**.  Take a l
           teamlead_response = " ".join(teamlead_response.split(" "))
           lastmessage = " ".join(lastmessage.split(" "))
       
-          bufresponses = bufresponses.replace("'","").replace("\n"," ").replace("\\n"," ").replace("\t", " ").replace("\r"," ").strip()
-          teamlead_response = teamlead_response.replace("'","").replace("\n"," ").replace("\\n"," ").replace("\t", " ").replace("\r", " ").strip()
-          lastmessage = lastmessage.replace("'","").replace("\n"," ").replace("\t", " ").replace("\\n"," ").replace("\r"," ").strip()
+          bufresponses = bufresponses.replace("'","").replace("\n"," ").replace("\\n"," ").replace("\t", " ").replace("\r"," ").replace("#","").strip()
+          teamlead_response = teamlead_response.replace("'","").replace("\n"," ").replace("\\n"," ").replace("\t", " ").replace("\r", " ").replace("#","").strip()
+          lastmessage = lastmessage.replace("'","").replace("\n"," ").replace("\t", " ").replace("\\n"," ").replace("\r"," ").replace("#","").strip()
       
           print("bufresponses===",bufresponses)
           print("teambuf===",teambuf)
