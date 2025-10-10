@@ -7880,6 +7880,8 @@ This DAG implements **multi-agentic AI to real-time data processing**.  Take a l
        'ollama-model': 'llama3.1',
        'deletevectordbcount': '10',
        'vectordbpath': '/rawdata/vectordb'
+       'contextwindow': '4096', 
+       'localmodelsfolder': '/mnt/' # Enter the local path where LLM models will be saved
       }
       
       ############################################################### DO NOT MODIFY BELOW ####################################################
@@ -8985,6 +8987,15 @@ STEP 9b DAG Core Parameter Explanation
        vector DB which would give the LLM more memory to base its responses.
    * - vectordbpath
      - This is the path to the vector store on disk.
+   * - contextwindow
+     - Enter the context window for the LLM.  This will vary for each LLM.  Higher windows
+
+       will require more VRAM.
+   * - localmodelsfolder
+     - Enter the local path where LLM models will be saved.  It is important to cache the LLM
+
+       from Ollama to improve LLM loading times.
+
 
 STEP 9b: Agents' Tools
 -----------------------
