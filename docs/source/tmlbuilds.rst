@@ -7832,9 +7832,8 @@ This DAG implements **multi-agentic AI to real-time data processing**.  Take a l
          SMTP_USERNAME=os.environ['SMTP_USERNAME']
       if 'SMTP_PASSWORD' in os.environ:
          SMTP_PASSWORD=os.environ['SMTP_PASSWORD']
-         base64_bytes = SMTP_PASSWORD.encode('ascii')
-         message_bytes = base64.b64decode(base64_bytes)
-         SMTP_PASSWORD = message_bytes.decode('ascii')   
+         SMTP_PASSWORD=base64.b64decode(SMTP_PASSWORD)
+         SMTP_PASSWORD = SMTP_PASSWORD.decode('utf-8')
       if 'recipient' in os.environ:
          recipient=os.environ['recipient']
       
