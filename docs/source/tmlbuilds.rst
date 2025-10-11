@@ -10547,7 +10547,7 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
                              step9bteamleadprompt,
                              step9bsupervisor_topic,
                              step9bagenttoolfunctions,
-                             step9bagent_team_supervisor_topic,step9bcontextwindow)
+                             step9bagent_team_supervisor_topic,step9bcontextwindow,step9blocalmodelsfolder, step9bagenttopic)
           else: 
             kcmd2=tsslogging.genkubeyamlnoext(sname,containername,TMLCLIENTPORT[1:],solutionairflowport[1:],solutionvipervizport[1:],solutionexternalport[1:],
                              sd,os.environ['GITUSERNAME'],os.environ['GITREPOURL'],chipmain,os.environ['DOCKERUSERNAME'],
@@ -10581,7 +10581,7 @@ STEP 10: Create TML Solution Documentation: tml-system-step-10-documentation-dag
                              step9bteamleadprompt,
                              step9bsupervisor_topic,
                              step9bagenttoolfunctions,
-                             step9bagent_team_supervisor_topic,step9bcontextwindow)
+                             step9bagent_team_supervisor_topic,step9bcontextwindow,step9blocalmodelsfolder, step9bagenttopic)
                                                                                     
           doparse("/{}/docs/source/kube.rst".format(sname), ["--solutionnamecode--;{}".format(kcmd2)])
       
