@@ -158,6 +158,12 @@ Watch The TSS Youtube Videos
        Describes key parameter configurations in: 
       
        :ref:`STEP 9: PrivateGPT and Qdrant Integration: tml-system-step-9-privategpt_qdrant-dag`
+   * - **TML Step 9b Dag Configurations**: 
+     - `YouTube Video <https://www.youtube.com/watch?v=BkBpNNjYr24>`_ 
+
+       Describes key parameter configurations in: 
+      
+       :ref:`STEP 9b: Multi-Agentic Agentic A: tml-system-step-9b-agenticai-dag`
    * - **TML Step 10 Dag Configurations**: 
      - `YouTube Video <https://youtu.be/iue3ljO_bBU>`_ 
 
