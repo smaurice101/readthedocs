@@ -8931,11 +8931,11 @@ STEP 9b DAG Core Parameter Explanation
    * - agents_topic_prompt
      - This is the field where you tell the agent which topic to monitor and the prompt.
        
-        FORMAT: <consumefrom - topic agent will monitor:prompt you want for the agent to answer>
+        FORMAT: topic agent will monitor<<-prompt you want for the agent to answer->>
 
-        For example: "testtopic:Do you seee any issues in the real-time json data?"
+        For example: "testtopic<<-Do you seee any issues in the real-time json data?->>"
 
-        Seperate multiple topics by a comma.
+        Separate multiple topics by a **->>**
    * - teamlead_topic
      - This topic will contain all of the team lead responses.
    * - teamleadprompt
@@ -8949,11 +8949,11 @@ STEP 9b DAG Core Parameter Explanation
 
         supervisor agent that will execure the tools.  The tools are feined in ref:`STEP 9b: Agents' Tools` 
 
-        FORMAT: <tool_function:agent_name:system_prompt,tool_function2:agent_name2:sysemt_prompt2,....>
+        FORMAT: <tool_function<<-agent_name<<-system_prompt->>tool_function2<<-agent_name2<<-sysemt_prompt2->>....>
 
         For example if connecting to the send_email tools then agenttoolfunctions is:
 
-         """send_email:send_email: You are an email-sending agent. Use smtp parameters 
+         """send_email<<-send_email<<- You are an email-sending agent. Use smtp parameters 
 
                to send emails when there is an anomaly in the data, make sure to
 
@@ -8968,10 +8968,14 @@ STEP 9b DAG Core Parameter Explanation
                sender='{}'
                recipient='{}'
                subject=''
-               body=''
+               body=''->>
 
          """.format(SMTP_SERVER,SMTP_PORT,SMTP_USERNAME,SMTP_PASSWORD,SMTP_USERNAME,recipient)
                     
+        Note: the delimiters **<<-** (separates tool function, agent name and agent promt
+
+              and **->>** ends the tool funtion, and starts another one.
+
         The variables SMTP_SERVER,SMTP_PORT,SMTP_USERNAME,
 
         SMTP_PASSWORD,SMTP_USERNAME,recipient should be defined
