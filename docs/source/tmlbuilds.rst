@@ -7852,7 +7852,7 @@ This DAG implements **multi-agentic AI to real-time data processing**.  Take a l
        'consumerid' : 'streamtopic',  # <<< *** Leave as is
        'agenttopic' : '', # this topic contains the individual agent responses
        'agents_topic_prompt' : """
-      <consumefrom - topic agent will monitor:prompt you want for the agent to answer->>consumefrom - topic2 agent will monitor<<-prompt you want for the agent to answer>
+      <consumefrom - topic agent will monitor<<-prompt you want for the agent to answer->>consumefrom - topic2 agent will monitor<<-prompt you want for the agent to answer->>
       """, # <topic agent will monitor:prompt you want for the agent>, separate multiple topic agents with ->>
        'teamlead_topic' : '', # Enter the team lead topic - all team lead responses will be written to this topic
        'teamleadprompt' : """
@@ -7861,7 +7861,7 @@ This DAG implements **multi-agentic AI to real-time data processing**.  Take a l
        'supervisor_topic' : '', # Enter the supervisor topic - all supervisor responses will be written to this topic
        'supervisorprompt' : '', # Enter the supervisor prompt 
        'agenttoolfunctions' : """
-      tool_function:agent_name:system_prompt;tool_function2:agent_name2:sysemt_prompt2;....
+      tool_function<<-agent_name<<-system_prompt->>tool_function2<<-agent_name2<<-sysemt_prompt2->>....
       """,  # enter the tools : tool_function is the name of the funtions in the agenttools python file
        'agent_team_supervisor_topic': '', # this topic will hold the responses from agents, team lead and supervisor
        'producerid' : 'agentic-ai',   # <<< *** Leave as is
@@ -8936,6 +8936,10 @@ STEP 9b DAG Core Parameter Explanation
         For example: "testtopic<<-Do you seee any issues in the real-time json data?->>"
 
         Separate multiple topics by a **->>**
+
+        You can also add **<<data>>** in the prompt you want the agent to answer.  For example:
+
+        "testtopic<<-Do you seee any issues in the real-time json data.  Here is data <<data>>?->>"
    * - teamlead_topic
      - This topic will contain all of the team lead responses.
    * - teamleadprompt
