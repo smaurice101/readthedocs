@@ -9020,6 +9020,104 @@ STEP 9b DAG Core Parameter Explanation
 
        from Ollama to improve LLM loading times.
 
+Example of 9b Configuration Parameters
+------------------------------------
+
+Below is an example of the configurtions of Dag 9b above.  In this example, we connect the **send_email** function in the **Agenttools.py** file to the supervisor agent.  Note, that the SMTP parameters are environmental variables that are set when the solution container or TSS container is started.
+
+.. code-block:: JSON
+
+    default_args = {
+     'owner': 'Sebastian Maurice',   # <<< *** Change as needed
+     'ollamacontainername' : 'maadsdocker/tml-privategpt-with-gpu-nvidia-amd64-llama3-tools', #'maadsdocker/tml-privategpt-no-gpu-amd64',  # enter a valid container https://hub.docker.com/r/maadsdocker/tml-privategpt-no-gpu-amd64
+     'rollbackoffset' : '15',  # <<< *** Change as needed
+     'offset' : '-1', # leave as is
+     'enabletls' : '1', # change as needed
+     'brokerhost' : '', # <<< *** Leave as is
+     'brokerport' : '-999', # <<< *** Leave as is
+     'microserviceid' : '',  # change as needed
+     'topicid' : '-999', # leave as is
+     'delay' : '100', # change as needed
+     'companyname' : 'otics',  # <<< *** Change as needed
+     'consumerid' : 'streamtopic',  # <<< *** Leave as is
+     'agenttopic' : 'agent-responses', # this topic containes the individual agent responses 
+     'agents_topic_prompt' : """
+            iot-preprocess<<-You are an IoT data analyst. Point out any anomalies or interesting insights that could help improve the performance and functioning of 
+            IoT device.  The json data are from IOT devices.  the hp field shows the data that are processed for the process variable (pv), using the process types (pt) like: 
+            avg or average, or trend analysis, or anomprob (i.e. anomaly probability) etc.  The device being processed is in the uid field of the json.
+             here is the json data:
+        
+              <<data>>
+    
+          Perform these exact steps only: 
+           1. based on the process variable like voltage, current, power or energy used for each device, extract insights whether the values in the hp field are normal or abnormal/
+           2. highlight the devices (in the uid field) that show abnormal behavior and require investigations.
+           3. look at the data from similar uid devices to identify any abnormal trends in the pv field.
+           4. the voltage numbers are in millivolts.->>
+    
+            iot-ml-prediction-results-output<<-You are a IoT data analyst and machine learning expert.  The json data below are real-time machine learning 
+                failure probability predictions, in percentages, for IoT devices.  I want you to identify devices with a high failure probability shown in the hp field.
+                 here is the json data:
+     
+                 <<data>>
+    
+          Perform these exact steps only: 
+           1. based on the value of the hp field determine if the value exceed 65, if so it has a high probability of failure and should be flagged and investigated.
+           2. highlight the devices (in the uid field) that have a high probability of failing.
+           3. look at the hp from similar uid devices to identify any abnormal trends in the failure probabilities.
+           4. only look at data where the pt=machine learning
+    """, # <topic agent will monitor:prompt you want for the agent>
+     'teamlead_topic' : 'team-lead-responses', # Enter the team lead topic - all team lead responses will be written to this topic
+     'teamleadprompt' : """
+          Are there any issues or major concerns that require urgent attention, in the data? The data are from IoT devices that are being monitored by individual agents. 
+          If you find issues or concerns, then
+          highlight the devices name (i.e. the devices name is in the uid field) with details on whether the device failure probabilities are greater than 90% - 
+          this means they are URGENT and must be investigated.
+          Indicate if the issue is URGENT.  
+          A low failure probability is between 0% to 50%, a medium failure probability is between 51%-75%,
+          a high probability is between 76% and 89%, and URGENT failure probability between 90% to 100%. ONLY flag URGENT failure probabilities. DO NOT write any
+                 python script with libraries, or with any code, to automate this process.  Just analyse the data and extract important insights.
+    """, # Enter the team lead prompt 
+    'supervisor_topic' : 'supervisor-responses', # Enter the supervisor topic - all supervisor responses will be written to this topic 
+    'supervisorprompt' : """
+           Perform these exact steps only: 
+           1. Use the send_email agent only if the Team lead identifies an urgent issue.
+           2. Do NOT send email if the issue is not urgent
+           3. if the issue is urgent, make sure to indicate the device name, subject and body of the email.
+    """, # Enter the supervisor prompt 
+     'agenttoolfunctions' : """
+            send_email<<-send_email<<- You are an email-sending agent. Use smtp parameters to send emails when there is an anomaly in the data, make sure to
+                         indicate the device name in the mainuid field. do not write a smtp script, actually send the email using the SMTP parameters
+                         smtp_server='{}'
+                         smtp_port={}
+                         username='{}'
+                         password='{}'
+                         sender='{}'
+                         recipient='{}'
+                         subject=''
+                         body=''->>
+            average<<-average<<-You are an average agent.  Take average of the device failure probabilities.             
+    """.format(SMTP_SERVER,SMTP_PORT,SMTP_USERNAME,SMTP_PASSWORD,SMTP_USERNAME,recipient),  # enter the tools : tool_function is the name of the funtions in the agenttools python file
+     'agent_team_supervisor_topic': 'all-agents-responses', # this topic will hold the responses from agents, team lead and supervisor
+    'producerid' : 'agentic-ai',   # <<< *** Leave as is
+     'identifier' : 'This is analysing TML output with Agentic AI',
+     'mainip': 'http://127.0.0.1', # Ollama server container listening on this host
+     'mainport' : '11434', # Ollama listening on this port
+     'embedding': 'nomic-embed-text', # Embedding model
+     'preprocesstype' : '', # Leave as is 
+     'partition' : '-1', # Leave as is 
+     'vectordbcollectionname' : 'tml-llm-model-v2', # change as needed
+     'concurrency' : '2', # change as needed Leave at 1
+     'CUDA_VISIBLE_DEVICES' : '0', # change as needed
+     'temperature' : '0.1', # This value ranges between 0 and 1, it controls how conservative LLM model will be, if 0 very very, if 1 it will hallucinate
+     #--------------------
+     'ollama-model': 'qwen2.5:3b,qwen2.5:3b,llama3.2:3b', # maximum  3 models can be specified: agent,teamlead,supervisor
+     'deletevectordbcount': '5',
+     'vectordbpath': '/rawdata/vectordb',
+     'contextwindow': '4096',
+     'localmodelsfolder': '/mnt/c/maads/tml-airflow/rawdata/ollama'
+    }
+
 
 STEP 9b: Agents' Tools
 -----------------------
