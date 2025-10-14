@@ -9023,7 +9023,7 @@ STEP 9b DAG Core Parameter Explanation
 Example of 9b Configuration Parameters
 ------------------------------------
 
-Below is an example of the configurtions of Dag 9b above.  In this example, we connect the **send_email** function in the **Agenttools.py** file to the supervisor agent.  Note, that the SMTP parameters are environmental variables that are set when the solution container or TSS container is started.
+Below is an example of the configurations of Dag 9b above.  In this example, we connect the **send_email** function in the **Agenttools.py** file to the supervisor agent.  Note, that the SMTP parameters are environmental variables that are set when the solution container or TSS container is started.
 
 .. code-block:: JSON
 
