@@ -9008,11 +9008,11 @@ STEP 9b DAG Core Parameter Explanation
 
        Note: In this field you need to specify a model for: topic agent, team lead agent and supervisor agent
 
-             For example: 'ollama-model': 'phi3:3.8b,phi3:3.8b,llama3.2:3b'
+       For example: **'ollama-model': 'phi3:3.8b,phi3:3.8b,llama3.2:3b'**
 
-             this tells TML to use **phi3:3.8b** for both the topic agents and team lead and 
+       this tells TML to use **phi3:3.8b** for both the topic agents and team lead and 
 
-             **llama3.2:3b** for the supervisor agent.
+       **llama3.2:3b** for the supervisor agent.
 
 
 
