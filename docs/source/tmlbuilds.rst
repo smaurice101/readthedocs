@@ -9004,7 +9004,19 @@ STEP 9b DAG Core Parameter Explanation
 
        A temperature of 0 means LLM will be conservative, 1 means it may hallucinate.
    * - ollama-model
-     - The Ollama LLM model to use.  Any Ollama model with tools training can be used.
+     - The Ollama LLM models to use.  Any Ollama model with tools training can be used.
+
+       Note: In this field you need to specify a model for: topic agent, team lead agent and supervisor agent
+
+             For example: 'ollama-model': 'phi3:3.8b,phi3:3.8b,llama3.2:3b'
+
+             this tells TML to use **phi3:3.8b** for both the topic agents and team lead and 
+
+             **llama3.2:3b** for the supervisor agent.
+
+
+
+
    * - deletevectordbcount
      - This count determines how much data to save in the vector DB.  A higher number will cause more data in the 
 
@@ -9042,36 +9054,50 @@ Below is an example of the configurations of Dag 9b above.  In this example, we 
      'consumerid' : 'streamtopic',  # <<< *** Leave as is
      'agenttopic' : 'agent-responses', # this topic containes the individual agent responses 
      'agents_topic_prompt' : """
-            iot-preprocess<<-You are an IoT data analyst. Point out any anomalies or interesting insights that could help improve the performance and functioning of 
+            iot-preprocess<<-You are a precise data analysis assistant. Your task is to point out any anomalies or interesting insights that could help improve the performance and functioning of 
             IoT device.  The json data are from IOT devices.  the hp field shows the data that are processed for the process variable (pv), using the process types (pt) like: 
             avg or average, or trend analysis, or anomprob (i.e. anomaly probability) etc.  The device being processed is in the uid field of the json.
              here is the json data:
         
               <<data>>
     
-          Perform these exact steps only: 
-           1. based on the process variable like voltage, current, power or energy used for each device, extract insights whether the values in the hp field are normal or abnormal/
-           2. highlight the devices (in the uid field) that show abnormal behavior and require investigations.
-           3. look at the data from similar uid devices to identify any abnormal trends in the pv field.
-           4. the voltage numbers are in millivolts.->>
+             INSTRUCTIONS:
+             1. Examine each number in the json array
+             2. Provide a brief analysis of the results
+             
+             FORMAT YOUR RESPONSE:
+             - Filtered results: [list the qualifying numbers with their "uid" fields]
+             - Count of qualifying numbers: [number]
+             - Analysis: [brief explanation of what the filter revealed]
+             
+             Be precise and concise in your response.->>
+            iot-ml-prediction-results-output<<-You are a precise data analysis assistant. Your task is to filter and analyze numeric data based on specified criteria.
     
-            iot-ml-prediction-results-output<<-You are a IoT data analyst and machine learning expert.  The json data below are real-time machine learning 
-                failure probability predictions, in percentages, for IoT devices.  I want you to identify devices with a high failure probability shown in the hp field.
-                 here is the json data:
+            TASK: Filter numbers from the given json array using the threshold: greater than 90
+    
+            Input JSON arrary:
      
                  <<data>>
     
-          Perform these exact steps only: 
-           1. based on the value of the hp field determine if the value exceed 65, if so it has a high probability of failure and should be flagged and investigated.
-           2. highlight the devices (in the uid field) that have a high probability of failing.
-           3. look at the hp from similar uid devices to identify any abnormal trends in the failure probabilities.
-           4. only look at data where the pt=machine learning
+             INSTRUCTIONS:
+             1. Examine each number in the json array
+             2. Apply the filter condition: number > 90
+             3. Return only numbers that meet the criteria with their "uid" fields
+             4. If no numbers meet the criteria, explicitly state this
+             5. Provide a brief analysis of the results
+             
+             FORMAT YOUR RESPONSE:
+             - Filtered results: [list the qualifying numbers with their "mainuid" fields]
+             - Count of qualifying numbers: [number]
+             - Analysis: [brief explanation of what the filter revealed]
+             
+             Be precise and concise in your response.
     """, # <topic agent will monitor:prompt you want for the agent>
      'teamlead_topic' : 'team-lead-responses', # Enter the team lead topic - all team lead responses will be written to this topic
      'teamleadprompt' : """
           Are there any issues or major concerns that require urgent attention, in the data? The data are from IoT devices that are being monitored by individual agents. 
           If you find issues or concerns, then
-          highlight the devices name (i.e. the devices name is in the uid field) with details on whether the device failure probabilities are greater than 90% - 
+          highlight the devices name (i.e. the devices name is in the uid field) with details on whether the device failure probabilities are greater than 90 - 
           this means they are URGENT and must be investigated.
           Indicate if the issue is URGENT.  
           A low failure probability is between 0% to 50%, a medium failure probability is between 51%-75%,
@@ -9111,13 +9137,12 @@ Below is an example of the configurations of Dag 9b above.  In this example, we 
      'CUDA_VISIBLE_DEVICES' : '0', # change as needed
      'temperature' : '0.1', # This value ranges between 0 and 1, it controls how conservative LLM model will be, if 0 very very, if 1 it will hallucinate
      #--------------------
-     'ollama-model': 'qwen2.5:3b,qwen2.5:3b,llama3.2:3b', # maximum  3 models can be specified: agent,teamlead,supervisor
+     'ollama-model': 'phi3:3.8b,phi3:3.8b,llama3.2:3b', # maximum  3 models can be specified: agent,teamlead,supervisor
      'deletevectordbcount': '5',
      'vectordbpath': '/rawdata/vectordb',
      'contextwindow': '4096',
      'localmodelsfolder': '/mnt/c/maads/tml-airflow/rawdata/ollama'
     }
-
 
 STEP 9b: Agents' Tools
 -----------------------
