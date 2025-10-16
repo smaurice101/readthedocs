@@ -31,6 +31,9 @@ Some sample dashboards samples are below.
 .. figure:: hdash1.png
    :scale: 70%
 
+.. figure:: agenticaidash.png
+   :scale: 70%
+
 Running Dashboards
 -------------------
 
