@@ -7852,7 +7852,7 @@ This DAG implements **multi-agentic AI to real-time data processing**.  Take a l
        'consumerid' : 'streamtopic',  # <<< *** Leave as is
        'agenttopic' : '', # this topic contains the individual agent responses
        'agents_topic_prompt' : """
-      <consumefrom - topic agent will monitor<<-prompt you want for the agent to answer->>consumefrom - topic2 agent will monitor<<-prompt you want for the agent to answer->>
+      <consumefrom - topic agent will monitor:prompt you want for the agent to answer->>consumefrom - topic2 agent will monitor<<-prompt you want for the agent to answer>
       """, # <topic agent will monitor:prompt you want for the agent>, separate multiple topic agents with ->>
        'teamlead_topic' : '', # Enter the team lead topic - all team lead responses will be written to this topic
        'teamleadprompt' : """
@@ -7861,7 +7861,7 @@ This DAG implements **multi-agentic AI to real-time data processing**.  Take a l
        'supervisor_topic' : '', # Enter the supervisor topic - all supervisor responses will be written to this topic
        'supervisorprompt' : '', # Enter the supervisor prompt 
        'agenttoolfunctions' : """
-      tool_function<<-agent_name<<-system_prompt->>tool_function2<<-agent_name2<<-sysemt_prompt2->>....
+      tool_function:agent_name:system_prompt;tool_function2:agent_name2:sysemt_prompt2;....
       """,  # enter the tools : tool_function is the name of the funtions in the agenttools python file
        'agent_team_supervisor_topic': '', # this topic will hold the responses from agents, team lead and supervisor
        'producerid' : 'agentic-ai',   # <<< *** Leave as is
@@ -8447,6 +8447,7 @@ This DAG implements **multi-agentic AI to real-time data processing**.  Take a l
           temperature = float(default_args['temperature'])
           embeddingmodel = default_args['embedding']
       
+          teamleadprompt = teamleadprompt.replace(";"," ")
           response = tml_text_engine.query(teamleadprompt )
           response=str(response)
       #    print("team repsose = ", response)
@@ -8504,6 +8505,8 @@ This DAG implements **multi-agentic AI to real-time data processing**.  Take a l
       def createasupervisor(agents,supervisorprompt,llm):
           print("in createasupervisor==",supervisorprompt)
       
+          supervisorprompt = supervisorprompt.replace(";"," ")
+       
           workflow = create_supervisor(
             agents,
             model=llm,
@@ -8528,7 +8531,7 @@ This DAG implements **multi-agentic AI to real-time data processing**.  Take a l
        
           try:    
               supervisormaincontent ="""
-                Here is the team lead's response: {}.  Generate an approprate action using one of the tools.
+                Here is the team lead's assessment: {}.  Based on the Team Lead's assessment what is the appropriate action.
               """.format(maincontent) 
               
               result = app.invoke({
