@@ -9090,7 +9090,7 @@ Below is an example of the configurations of Dag 9b above.  In this example, we 
              5. Provide a brief analysis of the results
              
              FORMAT YOUR RESPONSE:
-             - Filtered results: [list the qualifying numbers with their "mainuid" fields]
+             - Filtered results: [list the qualifying numbers with their "uid" fields]
              - Count of qualifying numbers: [number]
              - Analysis: [brief explanation of what the filter revealed]
              
@@ -9098,21 +9098,37 @@ Below is an example of the configurations of Dag 9b above.  In this example, we 
     """, # <topic agent will monitor:prompt you want for the agent>
      'teamlead_topic' : 'team-lead-responses', # Enter the team lead topic - all team lead responses will be written to this topic
      'teamleadprompt' : """
-          Are there any issues or major concerns that require urgent attention, in the data? The data are from IoT devices that are being monitored by individual agents. 
-          If you find issues or concerns, then
-          highlight the devices name (i.e. the devices name is in the uid field) with details on whether the device failure probabilities are greater than 90 - 
-          this means they are URGENT and must be investigated.
-          Indicate if the issue is URGENT.  
-          A low failure probability is between 0% to 50%, a medium failure probability is between 51%-75%,
-          a high probability is between 76% and 89%, and URGENT failure probability between 90% to 100%. ONLY flag URGENT failure probabilities. DO NOT write any
-                 python script with libraries, or with any code, to automate this process.  Just analyse the data and extract important insights.
+             Analyze the dataset containing IoT device monitoring records managed by individual agents. 
+             Review all data fields to determine whether there are any issues or major concerns requiring urgent attention.
+    
+             Focus on the following criteria:
+             1. Each record contains a unique device identifier stored in the field "uid".
+             2. Examine the failure probability for each device stored in the hp field.
+             3. Categorize the probabilities as follows:
+              - Low: 0% to 50%
+              - Medium: 51% to 75%
+              - High: 76% to 89%
+              - Urgent: 90% to 100%
+    
+            Tasks:
+            - Identify and highlight devices (by their "uid") that have **urgent failure probabilities** (≥ 90%).
+            - For each flagged device, provide details and reasoning on why it may require immediate investigation.
+            - Only include devices that meet the urgent threshold. Do not report on low, medium, or high categories unless relevant for context.
+            - State clearly whether the identified issue is *urgent*.
+            - Do not use or generate any code; perform a reasoning-based analysis directly from the provided data.
+    
     """, # Enter the team lead prompt 
     'supervisor_topic' : 'supervisor-responses', # Enter the supervisor topic - all supervisor responses will be written to this topic 
     'supervisorprompt' : """
-           Perform these exact steps only: 
-           1. Use the send_email agent only if the Team lead identifies an urgent issue.
-           2. Do NOT send email if the issue is not urgent
-           3. if the issue is urgent, make sure to indicate the device name, subject and body of the email.
+            You are a team supervisor analyzing operational device data and recommending whether an alert email should be send.  
+            You manage a send email expert and a average expert. 
+            For send email, use send_email agent. 
+            For average, use average agent.
+    
+           INSTRUCTIONS:
+           1.Analyze the Team Lead assessment and determine the proper action:
+           - If devices are marked urgent or failure probabilities exceed 90%, select "send_email".
+           - If no urgent devices are found or probabilities remain below thresholds, then no action is needed.
     """, # Enter the supervisor prompt 
      'agenttoolfunctions' : """
             send_email<<-send_email<<- You are an email-sending agent. Use smtp parameters to send emails when there is an anomaly in the data, make sure to
