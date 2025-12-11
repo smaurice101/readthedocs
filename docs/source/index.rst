@@ -258,6 +258,7 @@ Contents
    viper
    genai
    agentic
+   lsm
    alone
    
    
