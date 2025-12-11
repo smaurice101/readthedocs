@@ -43,4 +43,30 @@ Given λ_i,e, the probability that player i records k events of type e over a fu
 
 - For rare events (especially goals), the model also supports zero-inflation (extra mass at zero) to better match empirical NHL distributions, though the current configuration may use a standard Poisson likelihood with a zero-inflation parameter available for tuning.
 
+Team goals and win probability
+===============================
 
+Team goals are constructed by summing the player-level goal intensities by team:
+
+.. figure:: lsm3.png
+   :scale: 70%
+
+
+These team goal intensities then drive:
+- Full distributions of final goals for each team.
+- Win probability P(Team A goals > Team B goals) via Monte Carlo over posterior samples.
+
+**This is critical:** win probability is not a black-box output; it is an aggregation of player-level and team-level structure that can be inspected and explained.
+
+From probabilities to betting metrics
+=====================================
+
+For any event with model-implied probability p, the engine computes:
+- Fair decimal odds: O_fair = 1 / p.
+- Fair American odds (approx.):  
+  - If p > 0.5, favorite: A = -(p/(1-p)) × 100.
+  - If p ≤ 0.5, underdog: A = ((1-p)/p) × 100.
+- Expected Value (EV) versus market decimal odds O_mkt:  
+
+.. figure:: lsm4.png
+   :scale: 70%
