@@ -178,7 +178,7 @@ Where:
 	B: between-chain variance
 	("var" ) ̂^+ (θ∣y): overestimated total posterior variance 
 
-Interpretation of r_hat from the LSAI model
+Interpretation of R̂ from the LSAI model
 ==========================================
 
 •	R̂ ≈ 1.0 (LSAI): Chains have converged perfectly. Between-chain and within-chain variances match, meaning all chains explore the same posterior space. 
