@@ -178,7 +178,7 @@ Interpretation of r_hat from the LSAI model
 •	R̂ > 1.05: Poor mixing—chains haven't fully converged. Predictions would be unreliable.
 •	R̂ < 1.0: Rare, but can indicate over-dispersed chains or early sampling artifacts.
 
-.. important::
+.. note::
     The LSAI R̂=1.0 across 36+ lambdas confirms industrial-grade convergence—the betting probabilities derive from fully reliable posteriors, not sampling artifacts. 
 
 
