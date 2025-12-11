@@ -8,6 +8,9 @@ The motivation behind Live Sports AI
 
 The motivation for building this solution, `Live Sports AI <https://www.otics.ca/maadsweb/lsm/login.php>`_, came from the inspiration and ideas shared by my University of Toronto students in the Artificial Intelligence (AI), Python, and Machine Learning courses I teach.
 
+.. figure:: lsm9.png
+   :scale: 70%
+
 TML and Multi-Agentic Framework:
 ===============================
 
