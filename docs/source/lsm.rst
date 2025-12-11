@@ -174,6 +174,7 @@ Where:
 
 Interpretation of r_hat from the LSAI model
 ==========================================
+
 •	R̂ ≈ 1.0 (LSAI): Chains have converged perfectly. Between-chain and within-chain variances match, meaning all chains explore the same posterior space. 
 •	R̂ > 1.05: Poor mixing—chains haven't fully converged. Predictions would be unreliable.
 •	R̂ < 1.0: Rare, but can indicate over-dispersed chains or early sampling artifacts.
