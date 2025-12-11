@@ -1,9 +1,10 @@
-Live Sports AI: Production Bayesian Engine for NHL In-Game Predictions
+Live Sports AI: Production Bayesian Engine with TML and Multi-Agentic AI for NHL, NBA, NFL, and MLB In-Game Predictions
 -------------------------------------
 
-This post shares a production-ready Bayesian engine for live NHL predictions and explains why it can outperform many "black-box" prediction tools in the market. The intent is to stay business-friendly while still being technically honest about what is going on under the hood.
+This post shares a production-ready Bayesian engine for live NHL predictions (will be extended to NBA, NFL, MLB) and explains why it can outperform many "black-box" prediction tools in the market. The intent is to stay business-friendly while still being technically honest about what is going on under the hood.
 
-## What this engine actually does
+What this engine actually does
+===============================
 
 At a high level, the code builds a probabilistic "digital twin" of an NHL game that updates in real time as events happen (shots, goals, hits, penalties, etc.).  
 Instead of just saying "Team A is 63% to win," it decomposes that into player-level event rates and team-level effects, then recombines them for actionable betting and product decisions.
