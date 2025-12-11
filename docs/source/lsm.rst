@@ -3,7 +3,15 @@ Live Sports AI: Production Bayesian Engine with TML and Multi-Agentic AI for NHL
 
 This post shares a production-ready Bayesian engine for live NHL predictions (will be extended to NBA, NFL, MLB) and explains why it can outperform many "black-box" prediction tools in the market. The intent is to stay business-friendly while still being technically honest about what is going on under the hood.
 
-What this engine actually does
+TML and Multi-Agentic Framework:
+===============================
+
+Below figure shows the TML and Multi-Agentic Framework.  Each analyst agent is assigned to “watch” each game.  The agents are executing advanced Bayesian code (discussed in details below) to predict, real-time, player events in short time windows.  All analyst agent information is stored in a vector DB that is analysed and summarized by the commentator agent.  The host agent performs web queries as needed for additional game insights.
+
+.. figure:: lsm5.png
+   :scale: 70%
+
+What LSAI engine actually does
 ===============================
 
 At a high level, the code builds a probabilistic "digital twin" of an NHL game that updates in real time as events happen (shots, goals, hits, penalties, etc.).  
