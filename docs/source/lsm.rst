@@ -16,18 +16,19 @@ Instead of just saying "Team A is 63% to win," it decomposes that into player-le
 
 This engine is designed to run in production with tight latency constraints, using modern Bayesian libraries (PyMC with JAX/NumPyro) and heavy low-level optimization (Numba) to keep it fast.
 
-## The core mathematical model
+The core mathematical model
+==========================
 
 Under the hood, most on-ice events are modeled as Poisson processes.  
 Intuitively, a Poisson process answers questions like: "Given a rate of λ events per game, what is the probability that a player records 0, 1, 2, … goals in a future window?"
 
-### Player event model
+Player event model
+""""""""""""""""""""
 
 For each player i and event type e (goals, assists, penalties, hits, etc.), the engine learns a log-rate:
 
 .. figure:: lsm1.png
    :scale: 70%
-
 
 - `ability_i,e`: player's latent skill, with priors informed by historical per-game averages (on log scale) and regularized so noisy recent data cannot explode the estimate.
 - `team_effect_team(i)`: combined impact of team defense, goalie quality, momentum (goals, shots, takeaways, hits), fatigue (time on ice, hits absorbed, penalties), and home/away adjustments.
@@ -37,5 +38,9 @@ Given λ_i,e, the probability that player i records k events of type e over a fu
 
 .. figure:: lsm2.png
    :scale: 70%
+
+- The “future” rate scales elapsed vs remaining time; for example, if a player generated 1.0 expected goals per 10 minutes, the engine rescales that to the next 5–20 minutes depending on period, game state, and event type.
+
+- For rare events (especially goals), the model also supports zero-inflation (extra mass at zero) to better match empirical NHL distributions, though the current configuration may use a standard Poisson likelihood with a zero-inflation parameter available for tuning.
 
 
