@@ -160,7 +160,7 @@ Each player–event pair (for example, “Player 0 goals” or “Player 31 hits
 .. figure:: lsm6.png
    :scale: 70%
 
-r_hat (often written as ``R^``) is the potential scale reduction factor, a key convergence diagnostic for Markov Chain Monte Carlo (MCMC) sampling in Bayesian models like your NHL engine. 
+r_hat (often written as R^) is the potential scale reduction factor, a key convergence diagnostic for Markov Chain Monte Carlo (MCMC) sampling in Bayesian models like your NHL engine. 
 
 Summary
 =====================
