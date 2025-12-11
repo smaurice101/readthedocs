@@ -35,5 +35,7 @@ For each player i and event type e (goals, assists, penalties, hits, etc.), the 
 
 Given λ_i,e, the probability that player i records k events of type e over a future window with effective rate λ_i,e^future is:
 
+.. figure:: lsm2.png
+   :scale: 70%
 
 
