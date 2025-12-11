@@ -3,6 +3,11 @@ Live Sports AI: Production Bayesian Engine with TML and Multi-Agentic AI for NHL
 
 This post shares a production-ready Bayesian engine for live NHL predictions (will be extended to NBA, NFL, MLB) and explains why it can outperform many "black-box" prediction tools in the market. The intent is to stay business-friendly while still being technically honest about what is going on under the hood.
 
+The motivation behind Live Sports AI
+=====================================
+
+The motivation for building this solution, [Live Sports AI](https://www.otics.ca/maadsweb/lsm/login.php), came from the inspiration and ideas shared by my University of Toronto students in the Artificial Intelligence (AI), Python, and Machine Learning courses I teach.
+
 TML and Multi-Agentic Framework:
 ===============================
 
@@ -145,12 +150,12 @@ Backtesting and business impact
 - The width of the HDI can be used to dynamically adjust max stake per market: narrow intervals allow higher exposure; wide intervals trigger tighter limits.
 - In backtests where this rule was applied, operators could **reduce Profit and Loss (P&L) volatility** without sacrificing expected return.
 
-## The motivation behind Live Sports AI
+.. figure:: lsm6.png
+   :scale: 70%
 
-The motivation for building this solution, [Live Sports AI](https://www.otics.ca/maadsweb/lsm/login.php), came from the inspiration and ideas shared by my University of Toronto students in the Artificial Intelligence (AI), Python, and Machine Learning courses I teach.
+Summary
+=====================
 
-## A Strong Conclusion
-
-This National Hockey League (NHL) prediction engine—powered by hierarchical Bayesian Poisson processes, real-time team effects (defense, goalies, momentum, fatigue), and production-grade optimizations—delivers more than just accurate forecasts. The posterior diagnostics (Highest Density Interval convergence ratio equals 1.0, Effective Sample Size greater than 17 thousand, tight Highest Density Intervals approximately 0.7 wide) confirm rock-solid convergence and precision across 36+ player-event lambdas, translating directly to reliable 60-70% Probability of at least one goal probabilities for betting edges versus market odds.[file:1]
+This National Hockey League (NHL) prediction engine—powered by hierarchical Bayesian Poisson processes, real-time team effects (defense, goalies, momentum, fatigue), and production-grade optimizations—delivers more than just accurate forecasts. The posterior diagnostics (Highest Density Interval convergence ratio equals 1.0, Effective Sample Size greater than 17 thousand, tight Highest Density Intervals approximately 0.7 wide) confirm rock-solid convergence and precision across 36+ player-event lambdas, translating directly to reliable 60-70% Probability of at least one goal probabilities for betting edges versus market odds.
 
 Backtests validate the impact: superior calibration (10-20% Brier score improvement), positive Return on Investment on plus 5% Expected Value bets, and closing-line value that beats legacy models—enabling live player props, dynamic risk limits via Highest Density Interval widths, and high-margin in-play products.[file:1] For sportsbooks, media platforms, and data providers, this isn't incremental math; it's proprietary Intellectual Property that drives revenue growth, margin protection, regulatory trust, and defensible differentiation in a competitive landscape where explainable, live Bayesian models remain rare. Deploying this edge turns prediction into profit.
