@@ -10,9 +10,9 @@ At a high level, the code builds a probabilistic "digital twin" of an NHL game t
 Instead of just saying "Team A is 63% to win," it decomposes that into player-level event rates and team-level effects, then recombines them for actionable betting and product decisions.
 
 **Key capabilities:**
-- Player-level forecasts: probability a player records at least 1 goal, assist, point, hit, etc. in the next X minutes.
-- Team win probabilities: probability the home team ends the game with more goals than the away team.
-- Betting intelligence: conversion of all probabilities into fair decimal odds, American odds, and expected value (Expected Value) versus market prices.
+- **Player-level forecasts:** probability a player records at least 1 goal, assist, point, hit, etc. in the next X minutes.
+- **Team win probabilities:** probability the home team ends the game with more goals than the away team.
+- **Betting intelligence:** conversion of all probabilities into fair decimal odds, American odds, and expected value (Expected Value) versus market prices.
 
 This engine is designed to run in production with tight latency constraints, using modern Bayesian libraries (PyMC with JAX/NumPyro) and heavy low-level optimization (Numba) to keep it fast.
 
@@ -24,4 +24,5 @@ Intuitively, a Poisson process answers questions like: "Given a rate of λ event
 ### Player event model
 
 For each player i and event type e (goals, assists, penalties, hits, etc.), the engine learns a log-rate:
+
 
