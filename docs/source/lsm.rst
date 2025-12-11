@@ -150,8 +150,17 @@ Backtesting and business impact
 - The width of the HDI can be used to dynamically adjust max stake per market: narrow intervals allow higher exposure; wide intervals trigger tighter limits.
 - In backtests where this rule was applied, operators could **reduce Profit and Loss (P&L) volatility** without sacrificing expected return.
 
+What the model metrics actually mean
+====================================
+
+Below is a figure showing some of the core model metrics for the player lambdas events.
+
+Each player–event pair (for example, “Player 0 goals” or “Player 31 hits”) has a posterior distribution summarized by metrics like mean, standard deviation, HDI, ESS, and r_hat.
+
 .. figure:: lsm6.png
    :scale: 70%
+
+r_hat (often written as :math:`\hat{R}`) is the potential scale reduction factor, a key convergence diagnostic for Markov Chain Monte Carlo (MCMC) sampling in Bayesian models like your NHL engine. 
 
 Summary
 =====================
