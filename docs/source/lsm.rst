@@ -179,7 +179,6 @@ Interpretation of r_hat from the LSAI model
 •	R̂ < 1.0: Rare, but can indicate over-dispersed chains or early sampling artifacts.
 
 .. important::
-    
     The LSAI R̂=1.0 across 36+ lambdas confirms industrial-grade convergence—the betting probabilities derive from fully reliable posteriors, not sampling artifacts. 
 
 
