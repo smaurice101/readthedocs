@@ -25,4 +25,15 @@ Intuitively, a Poisson process answers questions like: "Given a rate of λ event
 
 For each player i and event type e (goals, assists, penalties, hits, etc.), the engine learns a log-rate:
 
+.. figure:: lsm1.png
+   :scale: 70%
+
+
+- `ability_i,e`: player's latent skill, with priors informed by historical per-game averages (on log scale) and regularized so noisy recent data cannot explode the estimate.
+- `team_effect_team(i)`: combined impact of team defense, goalie quality, momentum (goals, shots, takeaways, hits), fatigue (time on ice, hits absorbed, penalties), and home/away adjustments.
+- `star_bonus_i`: extra boost for flagged star players, capturing the fact that stars disproportionately generate events.
+
+Given λ_i,e, the probability that player i records k events of type e over a future window with effective rate λ_i,e^future is:
+
+
 
