@@ -43,7 +43,7 @@ We computed the `Brier score <https://en.wikipedia.org/wiki/Brier_score>`_ on 36
 Here is the actual results and comparison to the Industry Best-of-Breed:
 
 .. figure:: brier.png
-   :scale:70%
+   :scale: 70%
 
 The core mathematical model
 ==========================
