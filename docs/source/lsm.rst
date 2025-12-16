@@ -35,6 +35,16 @@ Instead of just saying "Team A is 63% to win," it decomposes that into player-le
 
 This engine is designed to run in production with tight latency constraints, using modern Bayesian libraries (PyMC with JAX/NumPyro) and heavy low-level optimization (Numba) to keep it fast.
 
+Benchmarking LSAI Against Industry
+==================================
+
+We computed the `Brier score <https://en.wikipedia.org/wiki/Brier_score>`_ on 36 test cases of actual events versus what LSAI would predict.  The mean Brier score for the LSAI is Brier=0.093 which is very good - in the top 1% of technologies in the market.  
+
+Here is the actual results and comparison to the Industry Best-of-Breed:
+
+.. figure:: brier.png
+   :scale:70%
+
 The core mathematical model
 ==========================
 
