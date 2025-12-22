@@ -203,10 +203,9 @@ Additional Metrics on the Lamdas: Goals, Assists, Penalties and Shot
 ===========================================================
 
 **Complete Model Performance**
-------------------------------
+===========================================================
 
 **Goals (Perfect NHL Calibration):**
-""""""""""""""""""""""""""""""""""""""
 
   - Lambda: 0.223-0.242 across all 35 players
 
@@ -217,7 +216,6 @@ Additional Metrics on the Lamdas: Goals, Assists, Penalties and Shot
   **This is production-grade accuracy**
 
 **Penalties (Excellent):**
-""""""""""""""""""""""""""
 
   - Lambda: 0.121-0.144 across all players
 
@@ -228,7 +226,6 @@ Additional Metrics on the Lamdas: Goals, Assists, Penalties and Shot
    **Perfectly calibrated**
 
 **Assists (Good Range):**
-"""""""""""""""""""""""""""
 
   - Lambda: 0.632-1.830 (wider variance by player skill)
 
@@ -239,7 +236,6 @@ Additional Metrics on the Lamdas: Goals, Assists, Penalties and Shot
    - Team total: ~4.5 assists/period (reasonable for active roster)
 ​
 **Points (Functional):**
-"""""""""""""""""""""""
 
   - Lambda: 0.545-1.027 across players
 
