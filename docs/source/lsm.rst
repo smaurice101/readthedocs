@@ -255,7 +255,7 @@ Additional Metrics on the Lamdas: Goals, Assists, Penalties and Shot
 
   - No divergences (clean run)
 
-**This is textbook Bayesian inference quality.**​
+This is textbook Bayesian inference quality.​
 
 **Player-Level Insights**
 **Star players identified (lambda_assists > 1.17):**
