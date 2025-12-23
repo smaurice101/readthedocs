@@ -1,5 +1,5 @@
-Live Sports AI
---------------
+Live Sports AI: The Most Accurate Sports Odds Engine
+----------------------------------------------------
 
 Production Bayesian Engine with TML and Multi-Agentic AI for NHL, NBA, NFL, and MLB In-Game Predictions
 ========================================================================================================
