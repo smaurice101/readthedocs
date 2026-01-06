@@ -6,10 +6,10 @@ Production Bayesian Engine with TML and Multi-Agentic AI for NHL, NBA, NFL, and 
 
 This post shares a production-ready Bayesian engine for live NHL predictions (will be extended to NBA, NFL, MLB) and explains why it can outperform many "black-box" prediction tools in the market. The intent is to stay business-friendly while still being technically honest about what is going on under the hood.
 
-The motivation behind Live Sports AI
+The motivation behind PrecisionOdds AI
 =====================================
 
-The motivation for building this solution, `Live Sports AI <https://www.otics.ca/maadsweb/lsm/login.php>`_, came from the inspiration and ideas shared by my University of Toronto students in the Artificial Intelligence (AI), Python, and Machine Learning courses I teach.
+The motivation for building this solution, `PrecisionOdds AI <https://www.otics.ca/maadsweb/lsm/login.php>`_, (originally named Live Sport AI) came from the inspiration and ideas shared by my University of Toronto students in the Artificial Intelligence (AI), Python, and Machine Learning courses I teach.
 
 .. figure:: lsm9.png
    :scale: 70%
@@ -22,7 +22,7 @@ Below figure shows the TML and Multi-Agentic Framework.  Each analyst agent is a
 .. figure:: lsm5.png
    :scale: 70%
 
-What LSAI engine actually does
+What PrecisionOdds engine actually does
 ===============================
 
 At a high level, the code builds a probabilistic "digital twin" of an NHL game that updates in real time as events happen (shots, goals, hits, penalties, etc.).  
@@ -35,10 +35,10 @@ Instead of just saying "Team A is 63% to win," it decomposes that into player-le
 
 This engine is designed to run in production with tight latency constraints, using modern Bayesian libraries (PyMC with JAX/NumPyro) and heavy low-level optimization (Numba) to keep it fast.
 
-Benchmarking LSAI Against Industry
+Benchmarking PrecisionOdds Against Industry
 ==================================
 
-We computed the `Brier score <https://en.wikipedia.org/wiki/Brier_score>`_ on 36 test cases of actual events versus what LSAI would predict.  The mean Brier score for the LSAI is Brier=0.093 which is very good - in the top 1% of technologies in the market.  
+We computed the `Brier score <https://en.wikipedia.org/wiki/Brier_score>`_ on 36 test cases of actual events versus what LSAI would predict.  The mean Brier score for the PrecisionOdds (a.k.a) LSAI is Brier=0.093 which is very good - in the top 1% of technologies in the market.  
 
 Here is the actual results and comparison to the Industry Best-of-Breed:
 
@@ -287,4 +287,4 @@ Summary
 
 This National Hockey League (NHL) prediction engine—powered by hierarchical Bayesian Poisson processes, real-time team effects (defense, goalies, momentum, fatigue), and production-grade optimizations—delivers more than just accurate forecasts. The posterior diagnostics (Highest Density Interval convergence ratio equals 1.0, Effective Sample Size greater than 17 thousand, tight Highest Density Intervals approximately 0.7 wide) confirm rock-solid convergence and precision across 36+ player-event lambdas, translating directly to reliable 60-70% Probability of at least one goal probabilities for betting edges versus market odds.
 
-Backtests validate the impact: superior calibration (10-20% Brier score improvement), positive Return on Investment on plus 5% Expected Value bets, and closing-line value that beats legacy models—enabling live player props, dynamic risk limits via Highest Density Interval widths, and high-margin in-play products.[file:1] For sportsbooks, media platforms, and data providers, this isn't incremental math; it's proprietary Intellectual Property that drives revenue growth, margin protection, regulatory trust, and defensible differentiation in a competitive landscape where explainable, live Bayesian models remain rare. Deploying this edge turns prediction into profit.
+Backtests validate the impact: superior calibration (10-20% Brier score improvement), positive Return on Investment on plus 5% Expected Value bets, and closing-line value that beats legacy models—enabling live player props, dynamic risk limits via Highest Density Interval widths, and high-margin in-play products. For sportsbooks, media platforms, and data providers, this isn't incremental math; it's proprietary Intellectual Property that drives revenue growth, margin protection, regulatory trust, and defensible differentiation in a competitive landscape where explainable, live Bayesian models remain rare. Deploying this edge turns prediction into profit.
