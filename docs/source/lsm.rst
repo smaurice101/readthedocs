@@ -11,7 +11,7 @@ The motivation behind PrecisionOdds AI
 
 The motivation for building this solution, `PrecisionOdds AI <https://www.otics.ca/maadsweb/lsm/login.php>`_, (originally named Live Sport AI) came from the inspiration and ideas shared by my University of Toronto students in the Artificial Intelligence (AI), Python, and Machine Learning courses I teach.
 
-.. figure:: lsm9.png
+.. figure:: pods5.png
    :scale: 70%
 
 TML and Multi-Agentic Framework:
