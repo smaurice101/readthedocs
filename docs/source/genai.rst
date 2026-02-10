@@ -162,6 +162,19 @@ For TML and Agentic AI solutions users must you the following container
        #. Suggested Machine: On-demand 1x NVIDIA A10 
        #. Suggested Cost GPU/Hour: $0.75/GPU/h
 
+Test The Ollama Model
+======================
+
+To test your model - at the Linux prompt type:
+
+.. code-block::
+    curl http://localhost:11434/api/generate -d '{
+      "model": "llama3.2",
+      "prompt": "Hello, how are you?",
+      "stream": false,
+      "keep_alive": -1
+    }'
+
 .. tip::
    You can switch between Llama 3.1 and Llama 3.2 models by updating the:
 
