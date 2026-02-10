@@ -274,7 +274,8 @@ Sometimes you may not have access to a NVidia GPU - in this case you can configu
     # 596, 6555,311,3449,499,11,14266,0,2650,596,2324,304,279,7528,22651,30,29225,323,31320,11470, 520,33538,4732,11,358,78495,30],  
     # total_duration":10221552496,"load_duration":8582297797,"prompt_eval_count":29,"prompt_eval_duration":501215808, "eval_count":31,"eval_duration":1136790351}
 
-     
+8. If you receive a response - you now have a CPU LLM successfully running: **llama3.2-cpu**
+
 .. tip::
    You can switch between Llama 3.1 and Llama 3.2 models by updating the:
 
