@@ -168,6 +168,7 @@ Test The Ollama Model
 To test your model - at the Linux prompt type:
 
 .. code-block::
+
     curl http://localhost:11434/api/generate -d '{
       "model": "llama3.2",
       "prompt": "Hello, how are you?",
