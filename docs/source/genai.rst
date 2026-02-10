@@ -162,8 +162,8 @@ For TML and Agentic AI solutions users must you the following container
        #. Suggested Machine: On-demand 1x NVIDIA A10 
        #. Suggested Cost GPU/Hour: $0.75/GPU/h
 
-Test The Ollama Model
-======================
+Test The Ollama Model for GPU
+===========================
 
 To test your model - at the Linux prompt type:
 
@@ -175,6 +175,51 @@ To test your model - at the Linux prompt type:
       "stream": false,
       "keep_alive": -1
     }'
+
+To check whether Ollama is using GPU or CPU type the following:
+
+.. code-block::
+
+   ollama ps
+
+Configure Ollama Model for CPU
+===========================
+
+Sometimes you may not have access to a NVidia GPU - in this case you can configure Ollama for CPU ONLY use running in Linux (Ubuntu).  Follow these steps:
+
+ 1.  Run the Ollama Container
+
+ .. code-block::
+
+    docker run -d -p 8001:8001 --net=host --gpus all --env PORT=8001 \
+    --env TSS=0 \
+    --env GPU=0 \
+    --env COLLECTION=tml \
+    --env WEB_CONCURRENCY=2 \
+    --env CUDA_VISIBLE_DEVICES=0 \
+    --env TOKENIZERS_PARALLELISM=false \
+    --env temperature=0.1 \
+    --env vectorsearchtype=cosine \
+    --env contextwindowsize=4096 \
+    --env vectordimension=384 \
+    --env mainembedding="nomic-embed-text" \
+    -v /var/run/docker.sock:/var/run/docker.sock:z \
+    --env LLAMAMODEL=llama3.2 \
+    --env OLLAMASERVERPORT="http://localhost:11434" \
+    maadsdocker/tml-privategpt-with-gpu-nvidia-amd64-llama3-tools
+
+2. Confirm the Ollam server is running with the **LLAMAMODEL=llama3.2** by typing:
+
+  .. code-block::
+    
+    # Note you may need to install ollama snap
+    #sudo snap install ollama
+    
+    ollama ps
+
+   # NAME               ID              SIZE      PROCESSOR    CONTEXT    UNTIL
+   # llama3.2:latest    a80c4f17acd5    3.3 GB    100% GPU     4096       Forever
+
 
 .. tip::
    You can switch between Llama 3.1 and Llama 3.2 models by updating the:
