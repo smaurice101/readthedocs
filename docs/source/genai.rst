@@ -182,6 +182,10 @@ To check whether Ollama is using GPU or CPU type the following:
 
    ollama ps
 
+   # You should see something like this: if you have CPU (Note your ID may be different):
+   #NAME               ID              SIZE      PROCESSOR    CONTEXT    UNTIL
+   #llama3.2:latest    a80c4f17acd5    2.5 GB    100% GPU     4096       Forever
+
 Ollama LLM Model for CPU
 ===========================
 
