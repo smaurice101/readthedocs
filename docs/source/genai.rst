@@ -206,7 +206,7 @@ Sometimes you may not have access to a NVidia GPU - in this case you can configu
     -v /var/run/docker.sock:/var/run/docker.sock:z \
     --env LLAMAMODEL=llama3.2 \
     --env OLLAMASERVERPORT="http://localhost:11434" \
-    maadsdocker/tml-privategpt-with-cpu-nvidia-amd64-llama3-tools
+    maadsdocker/tml-privategpt-with-cpu-amd64-llama3-tools
 
 2. Confirm the Ollam server is running with the **LLAMAMODEL=llama3.2** by typing:
 
