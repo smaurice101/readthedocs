@@ -217,11 +217,11 @@ Sometimes you may not have access to a NVidia GPU - in this case you can configu
     
     ollama ps
 
-   # You should see something like this: if you have GPU
-   # NAME               ID              SIZE      PROCESSOR    CONTEXT    UNTIL
-   # llama3.2:latest    a80c4f17acd5    3.3 GB    100% GPU     4096       Forever
+   # You should see something like this: if you have CPU (Note your ID may be different):
+   #NAME               ID              SIZE      PROCESSOR    CONTEXT    UNTIL
+   #llama3.2:latest    a80c4f17acd5    2.5 GB    100% CPU     4096       Forever
 
-3. Test the CPU model:
+3. Test the CPU LLM Model For a Response:
 
    .. code-block::
 
