@@ -187,6 +187,15 @@ Ollama LLM Model for CPU
 
 Sometimes you may not have access to a NVidia GPU - in this case you can configure Ollama for CPU ONLY use running in Linux (Ubuntu).  Follow these steps:
 
+.. note::
+
+   If MAC user replace:
+    - maadsdocker/tml-privategpt-with-cpu-amd64-llama3-tools
+    with
+    - maadsdocker/tml-privategpt-with-cpu-arm64-llama3-tools
+     
+
+
  1.  Run the Ollama Container
 
  .. code-block::
