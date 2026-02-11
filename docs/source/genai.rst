@@ -182,7 +182,7 @@ To check whether Ollama is using GPU or CPU type the following:
 
    ollama ps
 
-Configure Ollama Model for CPU
+Ollama LLM Model for CPU
 ===========================
 
 Sometimes you may not have access to a NVidia GPU - in this case you can configure Ollama for CPU ONLY use running in Linux (Ubuntu).  Follow these steps:
@@ -206,7 +206,7 @@ Sometimes you may not have access to a NVidia GPU - in this case you can configu
     -v /var/run/docker.sock:/var/run/docker.sock:z \
     --env LLAMAMODEL=llama3.2 \
     --env OLLAMASERVERPORT="http://localhost:11434" \
-    maadsdocker/tml-privategpt-with-gpu-nvidia-amd64-llama3-tools
+    maadsdocker/tml-privategpt-with-cpu-nvidia-amd64-llama3-tools
 
 2. Confirm the Ollam server is running with the **LLAMAMODEL=llama3.2** by typing:
 
@@ -221,60 +221,26 @@ Sometimes you may not have access to a NVidia GPU - in this case you can configu
    # NAME               ID              SIZE      PROCESSOR    CONTEXT    UNTIL
    # llama3.2:latest    a80c4f17acd5    3.3 GB    100% GPU     4096       Forever
 
-3. Configure Ollama for CPU - go inside the docker Ollama container
-
-   .. code-block::
-
-       # type docker ps to get container ID
-       docker exec -it <container ID> bash
-
-4.  Inside the container do this:
-
-   .. code-block::
-
-      nano Modelfile
-
-5. Paste the code below inside the Modelfile and SAVE it:
-
-  .. code-block::
-
-     FROM llama3.2
-     PARAMETER num_gpu 0
-     PARAMETER num_thread 8
-
-6. After you EXIT nano run this code:
-
-   .. code-block::
-
-      ollama create llama3.2-cpu -f Modelfile 
-
-      #You should see:
-      # gathering model components
-      # using existing layer sha256:dde5aa3fc5ffc17176b5e8bdc82f587b24b2678c6c66101bf7da77af9f7ccdff
-      # using existing layer sha256:966de95ca8a62200913e3f8bfbf84c8494536f1b94b49166851e76644e966396
-      # using existing layer sha256:fcc5a6bec9daf9b561a68827b67ab6088e1dba9d1fa2a50d7bbcc8384e0a265d
-      # using existing layer sha256:a70ff7e570d97baaf4e62ac6e6ad9975e04caa6d900d3742d37698494479e0cd
-      # creating new layer sha256:0a5de2cba51f8a3f0eabb221fbf17455df5f4e25c6fca6149aa46204fcd62406
-      # writing manifest
-      # success
-
-7. EXIT the docker container and Test the CPU model:
+3. Test the CPU model:
 
    .. code-block::
 
          curl http://localhost:11434/api/generate -d '{
-          "model": "llama3.2-cpu",
+          "model": "llama3.2",
           "prompt": "Hello from CPU!",
           "stream": false
         }'
 
      # RESPONSE FROM AI (You should see something similar):
-     # {"model":"llama3.2-cpu","created_at":"2026-02-10T15:24:13.390356247Z","response":"Hello! It's nice to meet you, CPU! How's life in the digital realm? Processing and executing instructions at lightning          # speed, I presume?","done":true,"done_reason":"stop","context":#
-    # [128006,9125,128007,271,38766,1303,33025,2696,25,6790,220,2366,18,271,128009, 128006,882,128007,271,9906,505,14266,0,128009,128006,78191,128007,271,9906,0,1102, 
-    # 596, 6555,311,3449,499,11,14266,0,2650,596,2324,304,279,7528,22651,30,29225,323,31320,11470, 520,33538,4732,11,358,78495,30],  
-    # total_duration":10221552496,"load_duration":8582297797,"prompt_eval_count":29,"prompt_eval_duration":501215808, "eval_count":31,"eval_duration":1136790351}
+     # {"model":"llama3.2","created_at":"2026-02-11T00:20:48.600152776Z","response":"Hello from the other side... of the digital realm!\n\nCPU (Central Processing Unit) is a bit unconventional, but I'll play 
+     # along. So, what's on your digital mind today? Want to discuss some computational conundrums or just swap some bytes?","done":true,"done_reason":"stop","context":
+     # [128006,9125,128007,271,38766,1303,33025,2696,25,6790,220,2366,18,271,128009,128006,882,128007,271,9906,505,14266,0,128009,128006,78191,       
+     #128007,271,9906,505,279,1023,3185,1131,315,279,7528,22651,2268,32715,320,44503,29225,8113,8,374,264,2766,73978,11,719,358,3358,1514,3235,13,2100, 
+     #11,1148,596,389,701,7528,4059,3432,30,24133,311,4358,1063,55580,390,1263,81,6370,477,1120,14626,1063,5943,30],"total_duration":3222377627,"load_duration": 
+     #103360250,"prompt_eval_count":29,"prompt_eval_duration":1
+     #223374672,"eval_count":54,"eval_duration":1853177251}
 
-8. If you receive a response - you now have a CPU LLM successfully running: **llama3.2-cpu**
+4. If you receive a response - you now have a CPU LLM successfully running: **llama3.2!**
 
 .. tip::
    You can switch between Llama 3.1 and Llama 3.2 models by updating the:
