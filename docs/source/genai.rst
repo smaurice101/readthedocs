@@ -191,8 +191,7 @@ Sometimes you may not have access to a NVidia GPU - in this case you can configu
 
    If MAC user replace:
     - maadsdocker/tml-privategpt-with-cpu-amd64-llama3-tools
-    with
-    - maadsdocker/tml-privategpt-with-cpu-arm64-llama3-tools
+    - **with this one:** maadsdocker/tml-privategpt-with-cpu-arm64-llama3-tools
      
 
 
