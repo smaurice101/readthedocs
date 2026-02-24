@@ -5,7 +5,7 @@ Real-Time Message Scoring (RTMS): How TML Maintains Past Memory of Events Using 
    This capability is implemented in :ref:`STEP 4c: Preprocesing 3 Data: tml-system-step-4c-kafka-preprocess-dag`
 
 .. tip::
-   Watch the RTMS `Youtube Video <https://youtu.be/Xyw_XE9L22U>`_
+   Watch the RTMS `Youtube Video <https://www.youtube.com/watch?v=Ru013nA_650>`_
 
 .. note::
    While the RTMS is demonstrated for Cyber security, **it can be applied to any usecase in Retail, Finance, IoT, Energy, 
