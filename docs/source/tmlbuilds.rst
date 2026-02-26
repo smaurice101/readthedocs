@@ -4834,7 +4834,7 @@ Core Parameters in Step 4c
 
        your TSS container. Refer to `TSS Docker Run <https://tml.readthedocs.io/en/latest/docker.html#tss-docker-run-command>`_ 
 
-       Also refer to `RTMS <https://tml.readthedocs.io/en/latest/rtms.html>`_ for further details.
+       Also refer to `RTMS <https://tml.readthedocs.io/en/latest/rtms.html#rtms-solution-steps-to-run-it-yourself>`_ for further details.
 
 .. important::
 
@@ -4843,6 +4843,8 @@ Core Parameters in Step 4c
       **'docfolder' : 'mylogs,mylogs2'**, specifies the subfolders in this example, **mylogs** and **mylogs2** contain your log files.
 
       You can specify different folder names and add as many files in these folder(s), RTMS will automatically read and process them.
+
+      For more details refer `here <https://tml.readthedocs.io/en/latest/rtms.html#rtms-solution-steps-to-run-it-yourself>`_.
 
 .. tip::
    You can use RegEX statements in the search terms.  This allows you to do build powerful RegEx expressions to filter log files.
