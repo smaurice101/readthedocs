@@ -4826,9 +4826,9 @@ Core Parameters in Step 4c
 
        alerts on this topc.
    * - rtmsfoldername
-     - **This folder is where you store your log files to be analysed by RTMS.** 
+     - **This folder is where RTMS stored the output of the logs files analysed.** 
         
-       The rtmsfoldername MUST be mapped to the **/rawdata** TSS container folder:
+       The rtmsfoldername is a subfolder in the **/rawdata** TSS container folder:
 
        This is specified when you start your TSS container. Refer to `TSS Docker Run <https://tml.readthedocs.io/en/latest/docker.html#tss-docker-run-command>`_ 
 
