@@ -4834,6 +4834,14 @@ Core Parameters in Step 4c
 
        Also refer to `RTMS <https://tml.readthedocs.io/en/latest/rtms.html>`_ for further details.
 
+.. important::
+
+   Your Log files are ingested in STEP 3: Produce to Kafka.  Specifically, in STEP 3:
+   
+      **'docfolder' : 'mylogs,mylogs2'**, specifies the subfolders in this example, mylogs and mylogs contain my log files.
+
+      You can specify different folder names and add as many files in these folder, RTMS will automatically read them.
+
 .. tip::
    You can use RegEX statements in the search terms.  This allows you to do build powerful RegEx expressions to filter log files.
 
