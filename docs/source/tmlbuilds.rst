@@ -4780,9 +4780,15 @@ Core Parameters in Step 4c
 
        'authentication failures' will affect the patternscore. 
    * - localsearchtermfolder
-     - You can specify a folder containing search terms.  TML 
+     - You can specify folders containing search terms.  
 
-       will read this folder based on the interval in seconds 
+       These are local folders that contain search terms.  These local
+
+       folder must exist under your /rawdata mapping that you did when 
+
+       start the TSS container: Refer to: Refer to `TSS Docker Run <https://tml.readthedocs.io/en/latest/docker.html#tss-docker-run-command>`_ 
+
+       TML will read this folder based on the interval in seconds 
 
        set in the field **localsearchtermfolderinterval**
 
@@ -4819,6 +4825,11 @@ Core Parameters in Step 4c
        patternscorethreshold.  This is convenient to setup
 
        alerts on this topc.
+   * - rtmsfoldername
+     - This folder is where you store your log files to be analysed by RTMS. 
+        
+       The rtmsfoldername MUST be mapped to the /rawdata TSS container folder:
+       This is specified when you start your TSS container. Refer to `TSS Docker Run <https://tml.readthedocs.io/en/latest/docker.html#tss-docker-run-command>`_ 
 
 .. tip::
    You can use RegEX statements in the search terms.  This allows you to do build powerful RegEx expressions to filter log files.
