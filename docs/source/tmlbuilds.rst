@@ -4842,7 +4842,7 @@ Core Parameters in Step 4c
    
       **'docfolder' : 'mylogs,mylogs2'**, specifies the subfolders in this example, **mylogs** and **mylogs2** contain your log files.
 
-      You can specify different folder names and add as many files in these folder, RTMS will automatically read them.
+      You can specify different folder names and add as many files in these folder(s), RTMS will automatically read and process them.
 
 .. tip::
    You can use RegEX statements in the search terms.  This allows you to do build powerful RegEx expressions to filter log files.
