@@ -4830,7 +4830,9 @@ Core Parameters in Step 4c
         
        The rtmsfoldername is a subfolder in the **/rawdata** TSS container folder:
 
-       This is specified when you start your TSS container. Refer to `TSS Docker Run <https://tml.readthedocs.io/en/latest/docker.html#tss-docker-run-command>`_ 
+       You MUST volume map a local folder name to **/rawdata** when you start 
+
+       your TSS container. Refer to `TSS Docker Run <https://tml.readthedocs.io/en/latest/docker.html#tss-docker-run-command>`_ 
 
        Also refer to `RTMS <https://tml.readthedocs.io/en/latest/rtms.html>`_ for further details.
 
@@ -4838,7 +4840,7 @@ Core Parameters in Step 4c
 
    Your Log files are ingested in STEP 3: Produce to Kafka.  Specifically, in STEP 3:
    
-      **'docfolder' : 'mylogs,mylogs2'**, specifies the subfolders in this example, mylogs and mylogs contain my log files.
+      **'docfolder' : 'mylogs,mylogs2'**, specifies the subfolders in this example, **mylogs** and **mylogs2** contain your log files.
 
       You can specify different folder names and add as many files in these folder, RTMS will automatically read them.
 
