@@ -6,6 +6,41 @@ This service exposes endpoints to create topics, preprocess data, run machine le
 
 Each endpoint expects JSON input via POST requests.
 
+=========================
+TML API Quick Reference
+=========================
+
+**Base URL:** ``http://localhost:5000``
+
+**All endpoints use POST with JSON payloads**
+
+.. table:: API Endpoints Summary
+   :widths: 10 12 20 25 20
+   :header-rows: 1
+
+   +---------------+-------------+--------------------------+----------------------------------+----------------------------------+
+   | Endpoint      | Purpose     | Key Parameters           | Example Use Case                 | Status Codes                     |
+   +===============+=============+==========================+==================================+==================================+
+   | ``/createtopic`` | Create Kafka topics     | ``topics``,              | Create raw/preprocessed topics   | 200, 400                         |
+   |               |             | ``numpartitions``        |                                  |                                  |
+   +---------------+-------------+--------------------------+----------------------------------+----------------------------------+
+   | ``/preprocess``  | Data preprocessing     | ``step=4|4c``,           | Clean/normalize sensor streams   | 200, 400                         |
+   |               |             | ``rawdatatopic``         | Pattern detection (step 4c)      |                                  |
+   +---------------+-------------+--------------------------+----------------------------------+----------------------------------+
+   | ``/ml``         | Train ML models        | ``step=5``,              | Train failure prediction model   | 200, 400                         |
+   |               |             | ``trainingdatafolder``   | Logistic regression on features  |                                  |
+   +---------------+-------------+--------------------------+----------------------------------+----------------------------------+
+   | ``/predict``    | Run predictions        | ``step=6``,              | Real-time equipment predictions  | 200, 400                         |
+   |               |             | ``pathtoalgos``          | Stream scoring + joins           |                                  |
+   +---------------+-------------+--------------------------+----------------------------------+----------------------------------+
+   | ``/consume``    | Consume messages       | ``topic``,               | Read predictions/alerts          | 200, 400, 500                    |
+   |               |             | ``forwardurl`` (opt)     | Forward to webhooks/OSDU         |                                  |
+   +---------------+-------------+--------------------------+----------------------------------+----------------------------------+
+   | ``/jsondataline`` | Send single JSON     | Raw JSON object          | Single sensor reading            | 200                              |
+   +---------------+-------------+--------------------------+----------------------------------+----------------------------------+
+   | ``/jsondataarray`` | Send JSON array      | Raw JSON array           | Batch sensor readings            | 200                              |
+   +---------------+-------------+--------------------------+----------------------------------+----------------------------------+
+
 --------------------------
 POST /createtopic
 --------------------------
