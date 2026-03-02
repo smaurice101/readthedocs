@@ -12,17 +12,13 @@ TML API Quick Reference
 
 **API Endpoints Summary:**
 
-=================  =============  ==========================  ==================================  ================================
-Endpoint           Purpose        Key Parameters               Example Use Case                   Status Codes                    
-=================  =============  ==========================  ==================================  ================================
-/createtopic       Create topics  ``topics``, ``numpartitions`` Create raw/preprocessed topics     200, 400                        
-/preprocess        Preprocessing  ``step=4|4c``, ``rawdatatopic`` Clean/normalize sensor streams   200, 400                        
-/ml                Train ML       ``step=5``, ``trainingdatafolder`` Train failure prediction model 200, 400                        
-/predict           Predictions    ``step=6``, ``pathtoalgos``   Real-time equipment predictions  200, 400                        
-/consume           Consume data   ``topic``, ``forwardurl``     Read predictions/alerts           200, 400, 500                   
-/jsondataline      Single JSON    Raw JSON object              Single sensor reading             200                             
-/jsondataarray     JSON array     Raw JSON array               Batch sensor readings             200                             
-=================  =============  ==========================  ==================================  ================================
+- **`/createtopic`** - Create Kafka topics (`topics`, `numpartitions`) → 200,400
+- **`/preprocess`** - Data preprocessing (`step=4|4c`, `rawdatatopic`) → 200,400  
+- **`/ml`** - Train ML models (`step=5`, `trainingdatafolder`) → 200,400
+- **`/predict`** - Run predictions (`step=6`, `pathtoalgos`) → 200,400
+- **`/consume`** - Consume messages (`topic`, `forwardurl`) → 200,400,500
+- **`/jsondataline`** - Send single JSON → 200
+- **`/jsondataarray`** - Send JSON array → 200
 
 --------------------------
 POST /createtopic
