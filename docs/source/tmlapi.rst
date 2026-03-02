@@ -57,6 +57,7 @@ Trigger preprocessing steps for data streams.
 - ``raw_data_topic``, ``rtmsstream``, various thresholds, ``windowinstance``
 
 **Example Request (step=4):**
+
 .. code-block:: json
 
     {
@@ -85,6 +86,7 @@ Train a machine learning model using preprocessed data.
 - ``rollbackoffsets``, ``windowinstance``
 
 **Example Request:**
+
 .. code-block:: json
 
     {
@@ -116,6 +118,7 @@ Run prediction using trained ML models and streaming data.
 - ``ml_prediction_topic``, ``preprocess_data_topic``, ``windowinstance``
 
 **Example Request:**
+
 .. code-block:: json
 
     {
@@ -146,6 +149,7 @@ Consume messages from a given topic and optionally forward results.
 - ``rollbackoffset``, ``enabletls``, ``offset``, ``topicid``
 
 **Example Request:**
+
 .. code-block:: json
 
     {
@@ -157,6 +161,7 @@ Consume messages from a given topic and optionally forward results.
     }
 
 **Example Response (osdu=false):**
+
 .. code-block:: json
 
     {
@@ -167,6 +172,7 @@ Consume messages from a given topic and optionally forward results.
     }
 
 **Example Response (osdu=true + forwarding):**
+
 .. code-block:: json
 
     {
@@ -207,6 +213,7 @@ Send a single JSON data object to a topic.
     }
 
 **Example Response:**
+
 .. code-block:: json
 
     "ok"
