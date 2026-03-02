@@ -40,45 +40,37 @@ TML Server Plugin Docker Run
 Docker Run Parameters
 =======================
 
-**Command Overview:**
-Launches TML Server v1 Plugin (Aefa ML REST API) with Kafka, Airflow, Viper, and Git integration.
+**Command Overview**
+Launches TML Server v1 Plugin (Aefa ML REST API) with Kafka, Airflow, Viper integration.
 
-**Docker Run Fields Reference:**
+**Docker Run Fields:**
 
-=================  ========================================  =======================================================
-Flag              Field Name                  Purpose/Notes                                           
-=================  ========================================  =======================================================
-`-d`              Detached mode              Runs container in background                            
-`--net=host`      Network mode               Uses host networking (required for Kafka/Viper)          
-`-p 5050:5050`    Solution external port     Main REST API port (matches SOLUTIONEXTERNALPORT)       
-`-p 4040:4040`    Airflow DAGs port          Airflow web UI + DAG visualization                     
-`-p 6060:6060`    ViperViz port              Viper streaming visualization dashboard                
-`-p 9002:9002`    Client port                Client dashboard/UI port                               
-`--env TSS=0`     TSS (Telemetry?)           Disables telemetry/streaming service (0=off)            
-`SOLUTIONNAME`    Solution identifier         "tml-server-v1-plugin-aefa-ml_restapi"                  
-`SOLUTIONDAG`     Airflow DAG name           "solution_preprocessing_ml_restapi_dag-tml-server..."   
-`GITUSERNAME`     GitHub username            **REQUIRED** - GitHub username                           
-`GITPASSWORD`     GitHub token               **REQUIRED** - Personal Access Token (quotes required)    
-`GITREPOURL`      Git repository             **REQUIRED** - Full repo URL                             
-`SOLUTIONEXTERNALPORT` External API port   REST API external port (matches -p 5050)                
-`-v /var/run/docker.sock` Docker socket     Enables container orchestration from inside             
-`-v /your_local...:/rawdata` Data volume    **REQUIRED** - Mount local folder for raw data input     
-`CHIP`            Architecture               "amd64" (or "arm64")                                    
-`SOLUTIONAIRFLOWPORT` Airflow UI port       Airflow webserver port (4040)                           
-`SOLUTIONVIPERVIZPORT` ViperViz port        Viper visualization port (6060)                         
-`DOCKERUSERNAME`  Docker Hub username        Leave empty '' for anonymous pulls                      
-`CLIENTPORT`      Client dashboard           Internal client port (9002)                             
-`EXTERNALPORT`    External service port      Additional external service (39399)                     
-`KAFKABROKERHOST` Kafka broker               "127.0.0.1:9092" (host Kafka) or cloud broker           
-`KAFKACLOUDUSERNAME` Kafka Cloud API key    Confluent Cloud API key (if using cloud Kafka)          
-`KAFKACLOUDPASSWORD` Kafka Cloud secret     Confluent Cloud API secret                              
-`SASLMECHANISM`   Kafka auth mechanism       "PLAIN" for cloud Kafka                                 
-`VIPERVIZPORT`    Viper internal viz port    Internal Viper visualization (49689)                    
-`MQTTUSERNAME`    MQTT broker user           Leave empty for no MQTT                                 
-`MQTTPASSWORD`    MQTT broker password       Leave empty for no MQTT                                 
-`AIRFLOWPORT`     Airflow internal           Internal Airflow port (9000)                            
-`READTHEDOCS`     ReadTheDocs token          TML ReadTheDocs authentication token                    
-=================  ========================================  =======================================================
+* `-d` - Detached mode (background)
+* `--net=host` - Host networking (REQUIRED for Kafka/Viper)  
+* `-p 5050:5050` - REST API port ↔ SOLUTIONEXTERNALPORT
+* `-p 4040:4040` - Airflow DAGs/UI ↔ SOLUTIONAIRFLOWPORT
+* `-p 6060:6060` - ViperViz dashboard ↔ SOLUTIONVIPERVIZPORT
+* `-p 9002:9002` - Client dashboard ↔ CLIENTPORT
+
+**Required Environment Variables:**
+
+- GITUSERNAME=**<Enter Github Username>**
+- GITPASSWORD=**'<Enter Github PAT>'** (quotes required)
+- GITREPOURL=**<Enter Github Repo URL>**
+- /your_localmachine/foldername:/rawdata:z **(data volume)**
+
+**Optional/Cloud Config:**
+
+- TSS=0 (disable telemetry)
+- SOLUTIONNAME=tml-server-v1-plugin-aefa-ml_restapi
+- KAFKABROKERHOST=127.0.0.1:9092 (local) or cloud
+- KAFKACLOUDUSERNAME/API key (Confluent Cloud)
+- READTHEDOCS='<TML docs token>'
+
+**Architecture:**
+- CHIP=amd64 (x86) or arm64
+
+**Port Summary:**
 
 **Required User Substitutions:**
 
