@@ -164,10 +164,12 @@ Trigger preprocessing steps for data streams.
 
 **Important Note on `jsoncriteria` Format:**
 
-.. important::
-  All endpoints using `jsoncriteria` (primarily **POST /preprocess**) require this **exact multiline format**:
+Refer to this `JSON Processing Section <https://tml.readthedocs.io/en/latest/jsonprocessing.html>`_.
 
-  Refer to this `JSON Processing Section <https://tml.readthedocs.io/en/latest/jsonprocessing.html>`_.
+Users must specify the Json paths in the Json criteria - so TML can extract the values from the keys.
+
+.. important::
+  All endpoints using `jsoncriteria` (primarily **POST /preprocess**) require this **multiline format**:
 
 .. code-block:: json
 
