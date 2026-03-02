@@ -49,10 +49,10 @@ Launches TML Server v1 Plugin (Aefa ML REST API) with Kafka, Airflow, Viper inte
 
 * `-d` - Detached mode (background)
 * `--net=host` - Host networking (REQUIRED for Kafka/Viper)  
-* `-p 5050:5050` - REST API port ↔ SOLUTIONEXTERNALPORT
+* `-p 5050:5050` - External Port ↔ SOLUTIONEXTERNALPORT
 * `-p 4040:4040` - Airflow DAGs/UI ↔ SOLUTIONAIRFLOWPORT
 * `-p 6060:6060` - ViperViz dashboard ↔ SOLUTIONVIPERVIZPORT
-* `-p 9002:9002` - Client dashboard ↔ CLIENTPORT
+* `-p 9002:9002` - REST API port ↔ CLIENTPORT
 
 **Required Environment Variables:**
 
@@ -66,7 +66,8 @@ Launches TML Server v1 Plugin (Aefa ML REST API) with Kafka, Airflow, Viper inte
 - TSS=0 (disable telemetry)
 - SOLUTIONNAME=tml-server-v1-plugin-aefa-ml_restapi
 - KAFKABROKERHOST=127.0.0.1:9092 (local) or cloud
-- KAFKACLOUDUSERNAME/API key (Confluent Cloud)
+- KAFKACLOUDUSERNAME/API key (Confluent Cloud or AWS MSK)
+- KAFKACLOUDPASSWORD/API Secret (Confluent Cloud or AWS MSK)
 - READTHEDOCS='<TML docs token>'
 
 **Architecture:**
@@ -74,10 +75,10 @@ Launches TML Server v1 Plugin (Aefa ML REST API) with Kafka, Airflow, Viper inte
 
 **Port Summary:**
 
-- 5050: REST API endpoints
+- 5050: Solution External Port
 - 4040: Airflow DAGs/UI
 - 6060: ViperViz dashboard
-- **9002: Client Connect - THIS IS THE PORT FOR YOUR REST API CALLS (Change as Needed)**
+- **9002: REST API endpoints - THIS IS THE PORT FOR YOUR REST API CALLS (Change as Needed)**
 
 **Quick Start:**
 
