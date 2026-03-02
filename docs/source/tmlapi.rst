@@ -274,14 +274,6 @@ Train a machine learning model using preprocessed data.
 - *200* – Training initiated.
 - *400* – ``"Missing ml or invalid ml"``
 
-text
---------------------------
-POST /ml
---------------------------
-
-**Description:**
-Train a machine learning model using preprocessed data.
-
 **Example Request (Python - async):**
 
 .. code-block:: python
