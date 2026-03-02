@@ -4,6 +4,38 @@ TML Flask API Endpoints
 
 To use the TML Endpoints you MUST run the `TML Server Plugin Container <https://hub.docker.com/r/maadsdocker/tml-server-v1-plugin-3f10-ml_restapi-amd64>`_
 
+TML Server Plugin Docker Run
+---------------------------
+
+.. code-block::
+
+    docker run -d --net=host -p 5050:5050 -p 4040:4040 -p 6060:6060 -p 9002:9002 \
+       --env TSS=0 \
+       --env SOLUTIONNAME=tml-server-v1-plugin-aefa-ml_restapi \
+       --env SOLUTIONDAG=solution_preprocessing_ml_restapi_dag-tml-server-v1-plugin-aefa \
+       --env GITUSERNAME=<Enter Github Username> \
+       --env GITPASSWORD='<Enter Github Password>' \
+       --env GITREPOURL=<Enter Github Repo URL> \
+       --env SOLUTIONEXTERNALPORT=5050 \
+       -v /var/run/docker.sock:/var/run/docker.sock:z  \
+       -v /your_localmachine/foldername:/rawdata:z \
+       --env CHIP=amd64 \
+       --env SOLUTIONAIRFLOWPORT=4040  \
+       --env SOLUTIONVIPERVIZPORT=6060 \
+       --env DOCKERUSERNAME='' \
+       --env CLIENTPORT=9002  \
+       --env EXTERNALPORT=39399 \
+       --env KAFKABROKERHOST=127.0.0.1:9092 \
+       --env KAFKACLOUDUSERNAME='<Enter API key>' \
+       --env KAFKACLOUDPASSWORD='<Enter API secret>' \
+       --env SASLMECHANISM=PLAIN \
+       --env VIPERVIZPORT=49689 \
+       --env MQTTUSERNAME='' \
+       --env MQTTPASSWORD='' \
+       --env AIRFLOWPORT=9000  \
+       --env READTHEDOCS='<Enter Readthedocs token>' \
+       /tml-server-v1-plugin-aefa-ml_restapi-amd64
+
 This service exposes endpoints to create topics, preprocess data, run machine learning pipelines, generate predictions, and consume data from topics through the Viper backend.
 
 Each endpoint expects JSON input via POST requests.
