@@ -18,13 +18,13 @@ TML API Quick Reference
 
 **API Endpoints Summary:**
 
-- **/createtopic** - Create Kafka topics (`topics`, `numpartitions`) → 200,400
-- **/preprocess** - Data preprocessing (`step=4|4c`, `rawdatatopic`) → 200,400  
-- **/ml** - Train ML models (`step=5`, `trainingdatafolder`) → 200,400
-- **/predict** - Run predictions (`step=6`, `pathtoalgos`) → 200,400
-- **/consume** - Consume messages (`topic`, `forwardurl`) → 200,400,500
-- **/jsondataline** - Send single JSON → 200
-- **/jsondataarray** - Send JSON array → 200
+- ``/createtopic`` - Create Kafka topics (`topics`, `numpartitions`) → 200,400
+- ``/preprocess`` - Data preprocessing (`step=4|4c`, `rawdatatopic`) → 200,400  
+- ``/ml`` - Train ML models (`step=5`, `trainingdatafolder`) → 200,400
+- ``/predict`` - Run predictions (`step=6`, `pathtoalgos`) → 200,400
+- ``/consume`` - Consume messages (`topic`, `forwardurl`) → 200,400,500
+- ``/jsondataline`` - Send single JSON → 200
+- ``/jsondataarray`` - Send JSON array → 200
 
 --------------------------
 POST /createtopic
@@ -307,7 +307,7 @@ Users must specify the Json paths in the Json criteria - so TML can extract the 
 **Key Requirements:**
 - Uses `~\\` (tilde-backslash) field separators
 - Multiline format preserved as single string
-- Matches TML ReadTheDocs specification: https://tml-readthedocs.readthedocs.io/en/latest/ [web:1]
+- Matches TML ReadTheDocs specification: `<https://tml.readthedocs.io/en/latest/jsonprocessing.html>`_
 - **Invalid formats will fail preprocessing step 4**
 
 --------------------------
