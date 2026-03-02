@@ -788,14 +788,6 @@ Send a JSON array of objects to a topic.
 
     "ok"
 
-text
---------------------------
-POST /jsondataarray
---------------------------
-
-**Description:**
-Send a JSON array of objects to a topic. **Note:** The endpoint expects a raw JSON array directly in the request body.
-
 **Example Request (Python - async):**
 
 .. code-block:: python
