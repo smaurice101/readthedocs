@@ -37,48 +37,58 @@ Create one or more topics in the Viper message broker.
 - *200* – Topics created successfully (plain text).
 - *400* – ``"Missing topics"``
 
-**Example Request (Python):**
+**Example Request (Python - async):**
 
 .. code-block:: python
 
-    import requests
-    import json
+    import aiohttp
+    import asyncio
 
-    url = "http://localhost:5000/createtopic"
-    payload = {
-        "topics": "raw-data,processed-data",
-        "numpartitions": 6,
-        "replication": 2,
-        "description": "Industrial IoT streams",
-        "enabletls": 1
-    }
-    
-    response = requests.post(url, json=payload)
-    print(response.status_code, response.text)
+    async def create_topics():
+        url = "http://localhost:5000/createtopic"
+        payload = {
+            "topics": "raw-data,processed-data",
+            "numpartitions": 6,
+            "replication": 2,
+            "description": "Industrial IoT streams"
+        }
+        
+        async with aiohttp.ClientSession() as session:
+            async with session.post(url, json=payload) as response:
+                print(f"Status: {response.status}, Response: {await response.text()}")
 
-**Example Request (JavaScript):**
+    # Run the async function
+    asyncio.run(create_topics())
+
+**Example Request (JavaScript - async):**
 
 .. code-block:: javascript
 
-    const url = 'http://localhost:5000/createtopic';
-    const payload = {
-        topics: 'raw-data,processed-data',
-        numpartitions: 6,
-        replication: 2,
-        description: 'Industrial IoT streams',
-        enabletls: 1
-    };
+    async function createTopics() {
+        const url = 'http://localhost:5000/createtopic';
+        const payload = {
+            topics: 'raw-data,processed-data',
+            numpartitions: 6,
+            replication: 2,
+            description: 'Industrial IoT streams'
+        };
 
-    fetch(url, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-    })
-    .then(response => response.text())
-    .then(data => console.log('Success:', data))
-    .catch(error => console.error('Error:', error));
+        try {
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+            const data = await response.text();
+            console.log('Success:', data);
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    }
 
-**Example Request (React):**
+    createTopics();
+
+**Example Request (React - async):**
 
 .. code-block:: jsx
 
@@ -156,39 +166,47 @@ Trigger preprocessing steps for data streams.
 - *200* – Preprocessing started (plain text).
 - *400* – ``"Missing preprocess or invalid preprocess"``
 
-**Example Request (Python) - step=4:**
+**Example Request (Python - async):**
 
 .. code-block:: python
 
-    payload = {
-        "step": "4",
-        "rawdatatopic": "raw-sensor-data",
-        "preprocessdatatopic": "clean-sensor-data",
-        "preprocesstypes": "normalize,filter",
-        "jsoncriteria": '{"min_value": 0, "max_value": 1000}',
-        "windowinstance": "sensor-batch-1"
-    }
-    response = requests.post("http://localhost:5000/preprocess", json=payload)
+    async def start_preprocessing():
+        payload = {
+            "step": "4",
+            "rawdatatopic": "raw-sensor-data",
+            "preprocessdatatopic": "clean-sensor-data",
+            "preprocesstypes": "normalize,filter",
+            "jsoncriteria": '{"min_value": 0, "max_value": 1000}'
+        }
+        
+        async with aiohttp.ClientSession() as session:
+            async with session.post("http://localhost:5000/preprocess", json=payload) as response:
+                print(await response.text())
 
-**Example Request (JavaScript) - step=4:**
+    asyncio.run(start_preprocessing())
+
+**Example Request (JavaScript - async):**
 
 .. code-block:: javascript
 
-    const payload = {
-        step: '4',
-        rawdatatopic: 'raw-sensor-data',
-        preprocessdatatopic: 'clean-sensor-data',
-        preprocesstypes: 'normalize,filter',
-        jsoncriteria: '{"min_value": 0, "max_value": 1000}',
-        windowinstance: 'sensor-batch-1'
-    };
-    fetch('http://localhost:5000/preprocess', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(payload)
-    });
+    async function preprocessData() {
+        const payload = {
+            step: '4',
+            rawdatatopic: 'raw-sensor-data',
+            preprocessdatatopic: 'clean-sensor-data',
+            preprocesstypes: 'normalize,filter',
+            jsoncriteria: '{"min_value": 0, "max_value": 1000}'
+        };
+        
+        const response = await fetch('http://localhost:5000/preprocess', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(payload)
+        });
+        console.log(await response.text());
+    }
 
-**Example Request (React) - step=4:**
+**Example Request (React - async):**
 
 .. code-block:: jsx
 
@@ -204,19 +222,19 @@ Trigger preprocessing steps for data streams.
                 jsoncriteria: '{"min_value": 0, "max_value": 1000}'
             };
             
-            const response = await fetch('http://localhost:5000/preprocess', {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify(payload)
-            });
-            setStatus(response.ok ? 'Preprocessing started' : 'Failed');
+            try {
+                const response = await fetch('http://localhost:5000/preprocess', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify(payload)
+                });
+                setStatus(response.ok ? 'Preprocessing started' : 'Failed');
+            } catch (error) {
+                setStatus('Error: ' + error.message);
+            }
         };
 
-        return (
-            <button onClick={handlePreprocess}>
-                Start Preprocessing
-            </button>
-        );
+        return <button onClick={handlePreprocess}>Start Preprocessing</button>;
     }
 
 **Responses:**
@@ -256,50 +274,84 @@ Train a machine learning model using preprocessed data.
 - *200* – Training initiated.
 - *400* – ``"Missing ml or invalid ml"``
 
-**Example Request (Python):**
+text
+--------------------------
+POST /ml
+--------------------------
+
+**Description:**
+Train a machine learning model using preprocessed data.
+
+**Example Request (Python - async):**
 
 .. code-block:: python
 
-    payload = {
-        "step": "5",
-        "trainingdatafolder": "/data/training/2026Q1",
-        "ml_data_topic": "ml-features",
-        "preprocess_data_topic": "clean-sensor-data",
-        "islogistic": 1,
-        "dependentvariable": "equipment_failure",
-        "independentvariables": "temp,vibration,pressure",
-        "rollbackoffsets": 100
-    }
-    response = requests.post("http://localhost:5000/ml", json=payload)
+    import aiohttp
+    import asyncio
 
-**Example Request (JavaScript):**
+    async def train_ml_model():
+        payload = {
+            "step": "5",
+            "trainingdatafolder": "/data/training/2026Q1",
+            "ml_data_topic": "ml-features",
+            "preprocess_data_topic": "clean-sensor-data",
+            "islogistic": 1,
+            "dependentvariable": "equipment_failure",
+            "independentvariables": "temp,vibration,pressure",
+            "processlogic": "balance_classes=true",
+            "rollbackoffsets": 100,
+            "windowinstance": "ml-training-v1"
+        }
+        
+        async with aiohttp.ClientSession() as session:
+            async with session.post("http://localhost:5000/ml", json=payload) as response:
+                print(f"Status: {response.status}, Response: {await response.text()}")
+
+    asyncio.run(train_ml_model())
+
+**Example Request (JavaScript - async):**
 
 .. code-block:: javascript
 
-    const payload = {
-        step: '5',
-        trainingdatafolder: '/data/training/2026Q1',
-        ml_data_topic: 'ml-features',
-        preprocess_data_topic: 'clean-sensor-data',
-        islogistic: 1,
-        dependentvariable: 'equipment_failure',
-        independentvariables: 'temp,vibration,pressure',
-        rollbackoffsets: 100
-    };
-    fetch('http://localhost:5000/ml', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(payload)
-    });
+    async function trainMLModel() {
+        const payload = {
+            step: '5',
+            trainingdatafolder: '/data/training/2026Q1',
+            ml_data_topic: 'ml-features',
+            preprocess_data_topic: 'clean-sensor-data',
+            islogistic: 1,
+            dependentvariable: 'equipment_failure',
+            independentvariables: 'temp,vibration,pressure',
+            rollbackoffsets: 100
+        };
+        
+        try {
+            const response = await fetch('http://localhost:5000/ml', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+            const data = await response.text();
+            console.log('Training status:', data);
+        } catch (error) {
+            console.error('Training failed:', error);
+        }
+    }
 
-**Example Request (React):**
+    trainMLModel();
+
+**Example Request (React - async):**
 
 .. code-block:: jsx
 
+    import { useState } from 'react';
+
     function TrainML() {
         const [status, setStatus] = useState('');
+        const [loading, setLoading] = useState(false);
         
         const trainModel = async () => {
+            setLoading(true);
             const payload = {
                 step: '5',
                 trainingdatafolder: '/data/training/2026Q1',
@@ -307,20 +359,33 @@ Train a machine learning model using preprocessed data.
                 preprocess_data_topic: 'clean-sensor-data',
                 islogistic: 1,
                 dependentvariable: 'equipment_failure',
-                independentvariables: 'temp,vibration,pressure'
+                independentvariables: 'temp,vibration,pressure',
+                rollbackoffsets: 100
             };
             
-            const response = await fetch('http://localhost:5000/ml', {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify(payload)
-            });
-            setStatus(response.ok ? 'Training started!' : 'Training failed');
+            try {
+                const response = await fetch('http://localhost:5000/ml', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                setStatus(response.ok ? 'Training started!' : 'Training failed');
+            } catch (error) {
+                setStatus('Error: ' + error.message);
+            } finally {
+                setLoading(false);
+            }
         };
 
-        return <button onClick={trainModel}>Train Model</button>;
+        return (
+            <div>
+                <button onClick={trainModel} disabled={loading}>
+                    {loading ? 'Training...' : 'Train Model'}
+                </button>
+                <p>{status}</p>
+            </div>
+        );
     }
-
 
 **Responses:**
 - *200* – Training initiated.
@@ -357,63 +422,108 @@ Run prediction using trained ML models and streaming data.
 - *200* – Prediction started.
 - *400* – ``"Missing ml or invalid prediction"``
 
-**Example Request (Python):**
+**Description:**
+Run prediction using trained ML models and streaming data.
+
+**Example Request (Python - async):**
 
 .. code-block:: python
 
-    payload = {
-        "step": "6",
-        "pathtoalgos": "/models/equipment_failure_v1",
-        "maxrows": 1000,
-        "consumefrom": "live-sensor-stream",
-        "ml_prediction_topic": "failure_predictions",
-        "preprocess_data_topic": "clean-sensor-data"
-    }
-    response = requests.post("http://localhost:5000/predict", json=payload)
+    async def run_predictions():
+        payload = {
+            "step": "6",
+            "pathtoalgos": "/models/equipment_failure_v1",
+            "maxrows": 1000,
+            "consumefrom": "live-sensor-stream",
+            "inputdata": "{\"sensor_id\": \"SENSOR_123\"}",
+            "streamstojoin": "metadata,alerts",
+            "ml_prediction_topic": "failure_predictions",
+            "preprocess_data_topic": "clean-sensor-data",
+            "windowinstance": "prediction-stream-1"
+        }
+        
+        async with aiohttp.ClientSession() as session:
+            async with session.post("http://localhost:5000/predict", json=payload) as response:
+                print(f"Status: {response.status}, Response: {await response.text()}")
 
-**Example Request (JavaScript):**
+    asyncio.run(run_predictions())
+
+**Example Request (JavaScript - async):**
 
 .. code-block:: javascript
 
-    const payload = {
-        step: '6',
-        pathtoalgos: '/models/equipment_failure_v1',
-        maxrows: 1000,
-        consumefrom: 'live-sensor-stream',
-        ml_prediction_topic: 'failure_predictions',
-        preprocess_data_topic: 'clean-sensor-data'
-    };
-    fetch('http://localhost:5000/predict', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(payload)
-    });
+    async function runPredictions() {
+        const payload = {
+            step: '6',
+            pathtoalgos: '/models/equipment_failure_v1',
+            maxrows: 1000,
+            consumefrom: 'live-sensor-stream',
+            inputdata: '{"sensor_id": "SENSOR_123"}',
+            streamstojoin: 'metadata,alerts',
+            ml_prediction_topic: 'failure_predictions',
+            preprocess_data_topic: 'clean-sensor-data'
+        };
+        
+        try {
+            const response = await fetch('http://localhost:5000/predict', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+            const data = await response.text();
+            console.log('Prediction status:', data);
+        } catch (error) {
+            console.error('Prediction failed:', error);
+        }
+    }
 
-**Example Request (React):**
+    runPredictions();
+
+**Example Request (React - async):**
 
 .. code-block:: jsx
 
+    import { useState } from 'react';
+
     function Predict() {
         const [status, setStatus] = useState('');
+        const [loading, setLoading] = useState(false);
         
         const runPrediction = async () => {
+            setLoading(true);
             const payload = {
                 step: '6',
                 pathtoalgos: '/models/equipment_failure_v1',
                 maxrows: 1000,
                 consumefrom: 'live-sensor-stream',
-                ml_prediction_topic: 'failure_predictions'
+                inputdata: '{"sensor_id": "SENSOR_123"}',
+                streamstojoin: 'metadata,alerts',
+                ml_prediction_topic: 'failure_predictions',
+                preprocess_data_topic: 'clean-sensor-data'
             };
             
-            const response = await fetch('http://localhost:5000/predict', {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify(payload)
-            });
-            setStatus('Predictions started');
+            try {
+                const response = await fetch('http://localhost:5000/predict', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                setStatus(response.ok ? 'Predictions started!' : 'Prediction failed');
+            } catch (error) {
+                setStatus('Error: ' + error.message);
+            } finally {
+                setLoading(false);
+            }
         };
 
-        return <button onClick={runPrediction}>Run Predictions</button>;
+        return (
+            <div>
+                <button onClick={runPrediction} disabled={loading}>
+                    {loading ? 'Predicting...' : 'Run Predictions'}
+                </button>
+                <p>{status}</p>
+            </div>
+        );
     }
 
 **Responses:**
@@ -478,53 +588,50 @@ Consume messages from a given topic and optionally forward results.
 - *400* – Missing topic.
 - *500* – Consumption failed.
 
-**Example Request (Python):**
+**Example Request (Python - async):**
 
 .. code-block:: python
 
-    payload = {
-        "topic": "failure_predictions",
-        "forwardurl": "https://webhook1.example.com,https://webhook2.example.com",
-        "rollbackoffset": 50,
-        "osdu": "false"
-    }
-    response = requests.post("http://localhost:5000/consume", json=payload)
-    print(response.json())
+    async def consume_data():
+        payload = {
+            "topic": "failure_predictions",
+            "rollbackoffset": 50,
+            "osdu": "false"
+        }
+        
+        async with aiohttp.ClientSession() as session:
+            async with session.post("http://localhost:5000/consume", json=payload) as response:
+                data = await response.json()
+                print(f"Consumed {len(data.get('messages', []))} messages")
 
-**Example Request (JavaScript):**
+    asyncio.run(consume_data())
+
+**Example Request (JavaScript - async):**
 
 .. code-block:: javascript
 
-    const payload = {
-        topic: 'failure_predictions',
-        forwardurl: 'https://webhook1.example.com,https://webhook2.example.com',
-        rollbackoffset: 50,
-        osdu: 'false'
-    };
-    fetch('http://localhost:5000/consume', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(payload)
-    })
-    .then(r => r.json())
-    .then(data => console.log(data));
-
-**Example Response:**
-
-.. code-block:: json
-
-    {
-        "status": "consumed",
-        "topic": "failure_predictions",
-        "messages": [...],
-        "consumer_id": "tmlconsumerplugin"
+    async function consumeData() {
+        const payload = {
+            topic: 'failure_predictions',
+            rollbackoffset: 50,
+            osdu: 'false'
+        };
+        
+        const response = await fetch('http://localhost:5000/consume', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(payload)
+        });
+        const data = await response.json();
+        console.log('Messages:', data.messages);
+        return data;
     }
 
-**Example Request (React):**
+**Example Request (React - async):**
 
 .. code-block:: jsx
 
-    import { useState, useEffect } from 'react';
+    import { useState } from 'react';
 
     function ConsumeData() {
         const [messages, setMessages] = useState([]);
@@ -532,17 +639,15 @@ Consume messages from a given topic and optionally forward results.
         
         const consumeTopic = async () => {
             setLoading(true);
-            const payload = {
-                topic: 'failure_predictions',
-                rollbackoffset: 50,
-                osdu: 'false'
-            };
-            
             try {
                 const response = await fetch('http://localhost:5000/consume', {
                     method: 'POST',
                     headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify(payload)
+                    body: JSON.stringify({
+                        topic: 'failure_predictions',
+                        rollbackoffset: 50,
+                        osdu: 'false'
+                    })
                 });
                 const data = await response.json();
                 setMessages(data.messages || []);
@@ -563,17 +668,6 @@ Consume messages from a given topic and optionally forward results.
                 )}
             </div>
         );
-    }
-
-**Example Response:**
-
-.. code-block:: json
-
-    {
-        "status": "consumed",
-        "topic": "failure_predictions",
-        "messages": [...],
-        "consumer_id": "tmlconsumerplugin"
     }
 
 --------------------------
@@ -601,37 +695,45 @@ Send a single JSON data object to a topic.
 
     "ok"
 
-**Example Request (Python):**
+**Example Request (Python - async):**
 
 .. code-block:: python
 
-    payload = {
-        "topic": "raw-sensor-data",
-        "timestamp": "2026-03-01T21:54:00Z",
-        "sensor_id": "SENSOR_123",
-        "temperature": 72.5
-    }
-    response = requests.post("http://localhost:5000/jsondataline", json=payload)
+    async def send_sensor_data():
+        payload = {
+            "topic": "raw-sensor-data",
+            "timestamp": "2026-03-01T22:24:00Z",
+            "sensor_id": "SENSOR_123",
+            "temperature": 72.5
+        }
+        
+        async with aiohttp.ClientSession() as session:
+            async with session.post("http://localhost:5000/jsondataline", json=payload) as response:
+                print(await response.text())
 
-**Example Request (JavaScript):**
+    asyncio.run(send_sensor_data())
+
+**Example Request (JavaScript - async):**
 
 .. code-block:: javascript
 
-    const payload = {
-        topic: 'raw-sensor-data',
-        timestamp: '2026-03-01T21:54:00Z',
-        sensor_id: 'SENSOR_123',
-        temperature: 72.5
-    };
-    fetch('http://localhost:5000/jsondataline', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(payload)
-    });
+    async function sendSensorData() {
+        const payload = {
+            topic: 'raw-sensor-data',
+            timestamp: '2026-03-01T22:24:00Z',
+            sensor_id: 'SENSOR_123',
+            temperature: 72.5
+        };
+        
+        const response = await fetch('http://localhost:5000/jsondataline', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(payload)
+        });
+        console.log('Sent:', await response.text());
+    }
 
-**Response:** ``"ok"``
-
-**Example Request (React):**
+**Example Request (React - async):**
 
 .. code-block:: jsx
 
@@ -639,16 +741,17 @@ Send a single JSON data object to a topic.
         const sendData = async () => {
             const payload = {
                 topic: 'raw-sensor-data',
-                timestamp: '2026-03-01T22:17:00Z',
+                timestamp: '2026-03-01T22:24:00Z',
                 sensor_id: 'SENSOR_123',
                 temperature: 72.5
             };
             
-            await fetch('http://localhost:5000/jsondataline', {
+            const response = await fetch('http://localhost:5000/jsondataline', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify(payload)
             });
+            console.log('Data sent');
         };
 
         return <button onClick={sendData}>Send Sensor Data</button>;
@@ -693,62 +796,141 @@ Send a JSON array of objects to a topic.
 
     "ok"
 
-**Example Request (Python):**
+text
+--------------------------
+POST /jsondataarray
+--------------------------
+
+**Description:**
+Send a JSON array of objects to a topic. **Note:** The endpoint expects a raw JSON array directly in the request body.
+
+**Example Request (Python - async):**
 
 .. code-block:: python
 
-    payload = {
-        "topic": "raw-sensor-data",
-        "data": [  # Note: actual body should be array directly
-            {"timestamp": "2026-03-01T21:54:00Z", "sensor_id": "SENSOR_123", "temperature": 72.5},
-            {"timestamp": "2026-03-01T21:55:00Z", "sensor_id": "SENSOR_124", "temperature": 73.2}
-        ]
-    }
-    response = requests.post("http://localhost:5000/jsondataarray", json=payload)
+    import aiohttp
+    import asyncio
+    import json
 
-**Example Request (JavaScript):**
+    async def send_batch_data():
+        data_array = [
+            {
+                "topic": "raw-sensor-data",
+                "timestamp": "2026-03-01T22:39:00Z",
+                "sensor_id": "SENSOR_123",
+                "temperature": 72.5,
+                "vibration": 0.8
+            },
+            {
+                "topic": "raw-sensor-data", 
+                "timestamp": "2026-03-01T22:39:05Z",
+                "sensor_id": "SENSOR_124",
+                "temperature": 73.2,
+                "vibration": 1.2
+            }
+        ]
+        
+        async with aiohttp.ClientSession() as session:
+            async with session.post(
+                "http://localhost:5000/jsondataarray",
+                json=data_array  # Sends raw array directly
+            ) as response:
+                print(f"Status: {response.status}, Response: {await response.text()}")
+
+    asyncio.run(send_batch_data())
+
+**Example Request (JavaScript - async):**
 
 .. code-block:: javascript
 
-    const dataArray = [
-        {topic: 'raw-sensor-data', timestamp: '2026-03-01T21:54:00Z', sensor_id: 'SENSOR_123', temperature: 72.5},
-        {topic: 'raw-sensor-data', timestamp: '2026-03-01T21:55:00Z', sensor_id: 'SENSOR_124', temperature: 73.2}
-    ];
-    fetch('http://localhost:5000/jsondataarray', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(dataArray)
-    });
-
-**Response:** ``"ok"``
-
-**Example Request (React):**
-
-.. code-block:: jsx
-
-    function SendDataArray() {
+    async function sendBatchData() {
         const dataArray = [
             {
                 topic: 'raw-sensor-data',
-                timestamp: '2026-03-01T22:17:00Z',
+                timestamp: '2026-03-01T22:39:00Z',
                 sensor_id: 'SENSOR_123',
-                temperature: 72.5
+                temperature: 72.5,
+                vibration: 0.8
             },
             {
                 topic: 'raw-sensor-data',
-                timestamp: '2026-03-01T22:18:00Z',
+                timestamp: '2026-03-01T22:39:05Z',
                 sensor_id: 'SENSOR_124',
-                temperature: 73.2
+                temperature: 73.2,
+                vibration: 1.2
+            }
+        ];
+        
+        try {
+            const response = await fetch('http://localhost:5000/jsondataarray', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(dataArray)  // Raw array as JSON
+            });
+            console.log('Batch sent:', await response.text());
+        } catch (error) {
+            console.error('Batch send failed:', error);
+        }
+    }
+
+    sendBatchData();
+
+**Example Request (React - async):**
+
+.. code-block:: jsx
+
+    import { useState } from 'react';
+
+    function SendDataArray() {
+        const [status, setStatus] = useState('');
+        const [loading, setLoading] = useState(false);
+        
+        const dataArray = [
+            {
+                topic: 'raw-sensor-data',
+                timestamp: '2026-03-01T22:39:00Z',
+                sensor_id: 'SENSOR_123',
+                temperature: 72.5,
+                vibration: 0.8
+            },
+            {
+                topic: 'raw-sensor-data',
+                timestamp: '2026-03-01T22:39:05Z',
+                sensor_id: 'SENSOR_124',
+                temperature: 73.2,
+                vibration: 1.2
             }
         ];
         
         const sendBatch = async () => {
-            await fetch('http://localhost:5000/jsondataarray', {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify(dataArray)
-            });
+            setLoading(true);
+            try {
+                const response = await fetch('http://localhost:5000/jsondataarray', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(dataArray)  // Direct array submission
+                });
+                setStatus(response.ok ? 'Batch sent successfully!' : 'Failed');
+            } catch (error) {
+                setStatus('Error: ' + error.message);
+            } finally {
+                setLoading(false);
+            }
         };
 
-        return <button onClick={sendBatch}>Send Batch Data</button>;
+        return (
+            <div>
+                <button onClick={sendBatch} disabled={loading}>
+                    {loading ? 'Sending batch...' : `Send ${dataArray.length} records`}
+                </button>
+                <p>{status}</p>
+            </div>
+        );
     }
+
+**Important Notes:**
+- **Request body must be a raw JSON array** `[{...}, {...}]` (not `{data: [...]}`)
+- Endpoint iterates through array and calls `readdata()` for each item
+- All items share the same `topic` (specified in code, not payload)
+
+**Response:** ``"ok"`` (200)
