@@ -18,13 +18,13 @@ TML API Quick Reference
 
 **API Endpoints Summary:**
 
-- **`/createtopic`** - Create Kafka topics (`topics`, `numpartitions`) → 200,400
-- **`/preprocess`** - Data preprocessing (`step=4|4c`, `rawdatatopic`) → 200,400  
-- **`/ml`** - Train ML models (`step=5`, `trainingdatafolder`) → 200,400
-- **`/predict`** - Run predictions (`step=6`, `pathtoalgos`) → 200,400
-- **`/consume`** - Consume messages (`topic`, `forwardurl`) → 200,400,500
-- **`/jsondataline`** - Send single JSON → 200
-- **`/jsondataarray`** - Send JSON array → 200
+- **/createtopic** - Create Kafka topics (`topics`, `numpartitions`) → 200,400
+- **/preprocess** - Data preprocessing (`step=4|4c`, `rawdatatopic`) → 200,400  
+- **/ml** - Train ML models (`step=5`, `trainingdatafolder`) → 200,400
+- **/predict** - Run predictions (`step=6`, `pathtoalgos`) → 200,400
+- **/consume** - Consume messages (`topic`, `forwardurl`) → 200,400,500
+- **/jsondataline** - Send single JSON → 200
+- **/jsondataarray** - Send JSON array → 200
 
 --------------------------
 POST /createtopic
