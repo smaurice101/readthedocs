@@ -818,7 +818,7 @@ Send a single JSON data object to a topic.
 
 .. tip::
 
-   If you want to send the data to a specific topic then just add a sendtotopic field in the json:
+   If you want to send the data to a specific topic then just add a **sendtotopic** field in the json:
 
      "sendtotopic": "mynewtopic"
 
@@ -911,6 +911,16 @@ POST /jsondataarray
 
 **Description:**
 Send a JSON array of objects to a topic.
+
+.. tip::
+
+   If you want to send the data to a specific topic then just add a **sendtotopic** field in **EACH Json** in the json array:
+
+     "sendtotopic": "mynewtopic"
+
+   Make sure the JSON is a valid JSON after this addtion.  TML will then route the new data to the 
+
+   new topic: mynewtopic (or whatever name you choose)
 
 **Example Request:**
 
