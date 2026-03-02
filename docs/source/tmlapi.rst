@@ -233,7 +233,6 @@ Create one or more topics in the Viper message broker.
 - *200* – Topics created successfully.
 - *400* – ``"Missing topics"``
 
---------------------------
 POST /preprocess
 --------------------------
 
@@ -393,7 +392,6 @@ Users must specify the Json paths in the Json criteria - so TML can extract the 
 - Matches TML ReadTheDocs specification: `<https://tml.readthedocs.io/en/latest/jsonprocessing.html>`_
 - **Invalid formats will fail preprocessing step 4**
 
---------------------------
 POST /ml
 --------------------------
 
@@ -535,7 +533,6 @@ Train a machine learning model using preprocessed data.
 - *200* – Training initiated.
 - *400* – ``"Missing ml or invalid ml"``
 
---------------------------
 POST /predict
 --------------------------
 
@@ -674,7 +671,6 @@ Run prediction using trained ML models and streaming data.
 - *200* – Prediction started.
 - *400* – ``"Missing ml or invalid prediction"``
 
---------------------------
 POST /consume
 --------------------------
 
@@ -814,7 +810,6 @@ Consume messages from a given topic and optionally forward results.
         );
     }
 
---------------------------
 POST /jsondataline
 --------------------------
 
@@ -901,7 +896,6 @@ Send a single JSON data object to a topic.
         return <button onClick={sendData}>Send Sensor Data</button>;
     }
 
---------------------------
 POST /jsondataarray
 --------------------------
 
