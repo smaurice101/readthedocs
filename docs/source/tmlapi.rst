@@ -22,6 +22,7 @@ Create one or more topics in the Viper message broker.
 - ``enabletls`` *(int, optional, default=1)* – Enable TLS (1 = on, 0 = off).
 
 **Example Request:**
+
 .. code-block:: json
 
     {
@@ -218,6 +219,7 @@ POST /jsondataarray
 Send a JSON array of objects to a topic.
 
 **Example Request:**
+
 .. code-block:: json
 
     {
@@ -226,6 +228,7 @@ Send a JSON array of objects to a topic.
     }
 
 **Example body (array directly):**
+
 .. code-block:: json
 
     [
@@ -242,6 +245,7 @@ Send a JSON array of objects to a topic.
     ]
 
 **Example Response:**
+
 .. code-block:: json
 
     "ok"
