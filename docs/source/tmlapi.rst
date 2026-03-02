@@ -36,7 +36,7 @@ To use the TML Endpoints you MUST run the `TML Server Plugin Container <https://
        --env MQTTPASSWORD='' \
        --env AIRFLOWPORT=9000  \
        --env READTHEDOCS='<Enter Readthedocs token>' \
-       /tml-server-v1-plugin-3f10-ml_restapi-amd64
+       maadsdocker/tml-server-v1-plugin-3f10-ml_restapi-amd64
 
 =======================
 Docker Run Parameters
