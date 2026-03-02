@@ -89,7 +89,7 @@ Launches TML Server v1 Plugin (Aefa ML REST API) with Kafka, Airflow, Viper inte
   --env GITPASSWORD="ghp_xxx" \\
   --env GITREPOURL="https://github.com/you/repo.git" \\
   -v /path/to/data:/rawdata:z \\
-  tml-server-v1-plugin-aefa-ml_restapi-amd64
+   maadsdocker/tml-server-v1-plugin-3f10-ml_restapi-amd64
 
 Each endpoint expects JSON input via POST requests.
 
