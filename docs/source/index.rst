@@ -238,6 +238,7 @@ Contents
    quickstart
    tmlbook
    docker
+   tmlapi 
    solutions
    kube
    tmlbuilds
