@@ -4,8 +4,10 @@ TML Flask API Endpoints
 
 To use the TML Endpoints you MUST run the `TML Server Plugin Container <https://hub.docker.com/r/maadsdocker/tml-server-v1-plugin-3f10-ml_restapi-amd64>`_
 
-TML Server Plugin Docker Run
----------------------------
+This service exposes endpoints to create topics, preprocess data, run machine learning pipelines, generate predictions, and consume data from topics through the Viper backend.
+
+TML Server Plugin Container Docker Run
+--------------------------------------
 
 .. code-block::
 
@@ -77,9 +79,17 @@ Launches TML Server v1 Plugin (Aefa ML REST API) with Kafka, Airflow, Viper inte
 - 6060: ViperViz dashboard
 - **9002: Client Connect - THIS IS THE PORT FOR YOUR REST API CALLS (Change as Needed)**
 
-**Required User Substitutions:**
+**Quick Start:**
 
-This service exposes endpoints to create topics, preprocess data, run machine learning pipelines, generate predictions, and consume data from topics through the Viper backend.
+.. code-block:: 
+
+  ```bash
+  docker run -d --net=host -p 5050:5050 -p 4040:4040 \\
+  --env GITUSERNAME="youruser" \\
+  --env GITPASSWORD="ghp_xxx" \\
+  --env GITREPOURL="https://github.com/you/repo.git" \\
+  -v /path/to/data:/rawdata:z \\
+  tml-server-v1-plugin-aefa-ml_restapi-amd64
 
 Each endpoint expects JSON input via POST requests.
 
