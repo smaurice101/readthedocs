@@ -2,12 +2,12 @@
 TML Flask API Endpoints
 ==========================
 
-To use the TML Endpoints you MUST run the `TML Server Plugin Container <https://hub.docker.com/r/maadsdocker/tml-server-v1-plugin-3f10-ml_restapi-amd64>`_
-
 This service exposes endpoints to create topics, preprocess data, run machine learning pipelines, generate predictions, and consume data from topics through the Viper backend.
 
 TML Server Plugin Container Docker Run
 --------------------------------------
+
+To use the TML Endpoints you MUST run the `TML Server Plugin Container <https://hub.docker.com/r/maadsdocker/tml-server-v1-plugin-3f10-ml_restapi-amd64>`_
 
 .. code-block::
 
@@ -36,7 +36,7 @@ TML Server Plugin Container Docker Run
        --env MQTTPASSWORD='' \
        --env AIRFLOWPORT=9000  \
        --env READTHEDOCS='<Enter Readthedocs token>' \
-       /tml-server-v1-plugin-aefa-ml_restapi-amd64
+       /tml-server-v1-plugin-3f10-ml_restapi-amd64
 
 =======================
 Docker Run Parameters
