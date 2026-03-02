@@ -187,16 +187,17 @@ Trigger preprocessing steps for data streams.
 - *400* – ``"Missing preprocess or invalid preprocess"``
 
 **Example Request (Python - async) - Correct jsoncriteria:**
+
 .. code-block:: python
 
     async def start_preprocessing():
         json_criteria = """uid=metadata.dsn,filter:allrecords~\\
-subtopics=metadata.property_name~\\
-values=datapoint.value~\\
-identifiers=metadata.display_name~\\
-datetime=datapoint.updated_at~\\
-msgid=datapoint.id~\\
-latlong=lat:long"""
+         subtopics=metadata.property_name~\\
+         values=datapoint.value~\\
+         identifiers=metadata.display_name~\\
+         datetime=datapoint.updated_at~\\
+         msgid=datapoint.id~\\
+         latlong=lat:long"""
         
         payload = {
             "step": "4",
@@ -212,16 +213,17 @@ latlong=lat:long"""
                 print(await response.text())
 
 **Example Request (JavaScript - async) - Correct jsoncriteria:**
+
 .. code-block:: javascript
 
     async function preprocessData() {
         const jsonCriteria = `uid=metadata.dsn,filter:allrecords~\\
-subtopics=metadata.property_name~\\
-values=datapoint.value~\\
-identifiers=metadata.display_name~\\
-datetime=datapoint.updated_at~\\
-msgid=datapoint.id~\\
-latlong=lat:long`;
+        subtopics=metadata.property_name~\\
+        values=datapoint.value~\\
+        identifiers=metadata.display_name~\\
+        datetime=datapoint.updated_at~\\
+        msgid=datapoint.id~\\
+        latlong=lat:long`;
         
         const payload = {
             step: '4',
@@ -241,6 +243,7 @@ latlong=lat:long`;
     }
 
 **Example Request (React - async) - Correct jsoncriteria:**
+
 .. code-block:: jsx
 
     function PreprocessStep4() {
@@ -248,12 +251,12 @@ latlong=lat:long`;
         
         const handlePreprocess = async () => {
             const jsonCriteria = `uid=metadata.dsn,filter:allrecords~\\
-subtopics=metadata.property_name~\\
-values=datapoint.value~\\
-identifiers=metadata.display_name~\\
-datetime=datapoint.updated_at~\\
-msgid=datapoint.id~\\
-latlong=lat:long`;
+            subtopics=metadata.property_name~\\
+            values=datapoint.value~\\
+            identifiers=metadata.display_name~\\
+            datetime=datapoint.updated_at~\\
+            msgid=datapoint.id~\\
+            latlong=lat:long`;
             
             const payload = {
                 step: '4',
