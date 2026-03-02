@@ -162,70 +162,112 @@ Trigger preprocessing steps for data streams.
         "windowinstance": "sensor-batch-1"
     }
 
+**Important Note on `jsoncriteria` Format:**
+
+.. important::
+  All endpoints using `jsoncriteria` (primarily **POST /preprocess**) require this **exact multiline format**:
+
+  Refer to this `JSON Processing Section <https://tml.readthedocs.io/en/latest/jsonprocessing.html>`_.
+
+.. code-block:: json
+
+    {
+        "jsoncriteria": "uid=metadata.dsn,filter:allrecords~\\\n" +
+                        "subtopics=metadata.property_name~\\\n" +
+                        "values=datapoint.value~\\\n" +
+                        "identifiers=metadata.display_name~\\\n" +
+                        "datetime=datapoint.updated_at~\\\n" +
+                        "msgid=datapoint.id~\\\n" +
+                        "latlong=lat:long"
+    }
+
+
 **Example Response:**
 - *200* – Preprocessing started (plain text).
 - *400* – ``"Missing preprocess or invalid preprocess"``
 
-**Example Request (Python - async):**
-
+**Example Request (Python - async) - Correct jsoncriteria:**
 .. code-block:: python
 
     async def start_preprocessing():
+        json_criteria = """uid=metadata.dsn,filter:allrecords~\\
+subtopics=metadata.property_name~\\
+values=datapoint.value~\\
+identifiers=metadata.display_name~\\
+datetime=datapoint.updated_at~\\
+msgid=datapoint.id~\\
+latlong=lat:long"""
+        
         payload = {
             "step": "4",
             "rawdatatopic": "raw-sensor-data",
             "preprocessdatatopic": "clean-sensor-data",
             "preprocesstypes": "normalize,filter",
-            "jsoncriteria": '{"min_value": 0, "max_value": 1000}'
+            "jsoncriteria": json_criteria,  # Multiline TML format
+            "windowinstance": "sensor-batch-1"
         }
         
         async with aiohttp.ClientSession() as session:
             async with session.post("http://localhost:5000/preprocess", json=payload) as response:
                 print(await response.text())
 
-    asyncio.run(start_preprocessing())
-
-**Example Request (JavaScript - async):**
-
+**Example Request (JavaScript - async) - Correct jsoncriteria:**
 .. code-block:: javascript
 
     async function preprocessData() {
+        const jsonCriteria = `uid=metadata.dsn,filter:allrecords~\\
+subtopics=metadata.property_name~\\
+values=datapoint.value~\\
+identifiers=metadata.display_name~\\
+datetime=datapoint.updated_at~\\
+msgid=datapoint.id~\\
+latlong=lat:long`;
+        
         const payload = {
             step: '4',
             rawdatatopic: 'raw-sensor-data',
             preprocessdatatopic: 'clean-sensor-data',
             preprocesstypes: 'normalize,filter',
-            jsoncriteria: '{"min_value": 0, "max_value": 1000}'
+            jsoncriteria: jsonCriteria,  // TML multiline format with ~\\n
+            windowinstance: 'sensor-batch-1'
         };
         
         const response = await fetch('http://localhost:5000/preprocess', {
             method: 'POST',
-            headers: {'Content-Type': 'application/json'},
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload)
         });
         console.log(await response.text());
     }
 
-**Example Request (React - async):**
-
+**Example Request (React - async) - Correct jsoncriteria:**
 .. code-block:: jsx
 
     function PreprocessStep4() {
         const [status, setStatus] = useState('');
         
         const handlePreprocess = async () => {
+            const jsonCriteria = `uid=metadata.dsn,filter:allrecords~\\
+subtopics=metadata.property_name~\\
+values=datapoint.value~\\
+identifiers=metadata.display_name~\\
+datetime=datapoint.updated_at~\\
+msgid=datapoint.id~\\
+latlong=lat:long`;
+            
             const payload = {
                 step: '4',
                 rawdatatopic: 'raw-sensor-data',
                 preprocessdatatopic: 'clean-sensor-data',
                 preprocesstypes: 'normalize,filter',
-                jsoncriteria: '{"min_value": 0, "max_value": 1000}'
+                jsoncriteria: jsonCriteria,
+                windowinstance: 'sensor-batch-1'
             };
             
             try {
                 const response = await fetch('http://localhost:5000/preprocess', {
                     method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(payload)
                 });
                 setStatus(response.ok ? 'Preprocessing started' : 'Failed');
@@ -237,9 +279,11 @@ Trigger preprocessing steps for data streams.
         return <button onClick={handlePreprocess}>Start Preprocessing</button>;
     }
 
-**Responses:**
-- *200* – Preprocessing started.
-- *400* – ``"Missing preprocess or invalid preprocess"``
+**Key Requirements:**
+- Uses `~\\` (tilde-backslash) field separators
+- Multiline format preserved as single string
+- Matches TML ReadTheDocs specification: https://tml-readthedocs.readthedocs.io/en/latest/ [web:1]
+- **Invalid formats will fail preprocessing step 4**
 
 --------------------------
 POST /ml
