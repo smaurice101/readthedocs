@@ -37,6 +37,51 @@ Create one or more topics in the Viper message broker.
 - *200* – Topics created successfully (plain text).
 - *400* – ``"Missing topics"``
 
+**Example Request (Python):**
+
+.. code-block:: python
+
+    import requests
+    import json
+
+    url = "http://localhost:5000/createtopic"
+    payload = {
+        "topics": "raw-data,processed-data",
+        "numpartitions": 6,
+        "replication": 2,
+        "description": "Industrial IoT streams",
+        "enabletls": 1
+    }
+    
+    response = requests.post(url, json=payload)
+    print(response.status_code, response.text)
+
+**Example Request (JavaScript):**
+
+.. code-block:: javascript
+
+    const url = 'http://localhost:5000/createtopic';
+    const payload = {
+        topics: 'raw-data,processed-data',
+        numpartitions: 6,
+        replication: 2,
+        description: 'Industrial IoT streams',
+        enabletls: 1
+    };
+
+    fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+    })
+    .then(response => response.text())
+    .then(data => console.log('Success:', data))
+    .catch(error => console.error('Error:', error));
+
+**Responses:**
+- *200* – Topics created successfully.
+- *400* – ``"Missing topics"``
+
 --------------------------
 POST /preprocess
 --------------------------
@@ -73,6 +118,42 @@ Trigger preprocessing steps for data streams.
 - *200* – Preprocessing started (plain text).
 - *400* – ``"Missing preprocess or invalid preprocess"``
 
+**Example Request (Python) - step=4:**
+
+.. code-block:: python
+
+    payload = {
+        "step": "4",
+        "rawdatatopic": "raw-sensor-data",
+        "preprocessdatatopic": "clean-sensor-data",
+        "preprocesstypes": "normalize,filter",
+        "jsoncriteria": '{"min_value": 0, "max_value": 1000}',
+        "windowinstance": "sensor-batch-1"
+    }
+    response = requests.post("http://localhost:5000/preprocess", json=payload)
+
+**Example Request (JavaScript) - step=4:**
+
+.. code-block:: javascript
+
+    const payload = {
+        step: '4',
+        rawdatatopic: 'raw-sensor-data',
+        preprocessdatatopic: 'clean-sensor-data',
+        preprocesstypes: 'normalize,filter',
+        jsoncriteria: '{"min_value": 0, "max_value": 1000}',
+        windowinstance: 'sensor-batch-1'
+    };
+    fetch('http://localhost:5000/preprocess', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(payload)
+    });
+
+**Responses:**
+- *200* – Preprocessing started.
+- *400* – ``"Missing preprocess or invalid preprocess"``
+
 --------------------------
 POST /ml
 --------------------------
@@ -106,6 +187,46 @@ Train a machine learning model using preprocessed data.
 - *200* – Training initiated.
 - *400* – ``"Missing ml or invalid ml"``
 
+**Example Request (Python):**
+
+.. code-block:: python
+
+    payload = {
+        "step": "5",
+        "trainingdatafolder": "/data/training/2026Q1",
+        "ml_data_topic": "ml-features",
+        "preprocess_data_topic": "clean-sensor-data",
+        "islogistic": 1,
+        "dependentvariable": "equipment_failure",
+        "independentvariables": "temp,vibration,pressure",
+        "rollbackoffsets": 100
+    }
+    response = requests.post("http://localhost:5000/ml", json=payload)
+
+**Example Request (JavaScript):**
+
+.. code-block:: javascript
+
+    const payload = {
+        step: '5',
+        trainingdatafolder: '/data/training/2026Q1',
+        ml_data_topic: 'ml-features',
+        preprocess_data_topic: 'clean-sensor-data',
+        islogistic: 1,
+        dependentvariable: 'equipment_failure',
+        independentvariables: 'temp,vibration,pressure',
+        rollbackoffsets: 100
+    };
+    fetch('http://localhost:5000/ml', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(payload)
+    });
+
+**Responses:**
+- *200* – Training initiated.
+- *400* – ``"Missing ml or invalid ml"``
+
 --------------------------
 POST /predict
 --------------------------
@@ -134,6 +255,42 @@ Run prediction using trained ML models and streaming data.
     }
 
 **Example Response:**
+- *200* – Prediction started.
+- *400* – ``"Missing ml or invalid prediction"``
+
+**Example Request (Python):**
+
+.. code-block:: python
+
+    payload = {
+        "step": "6",
+        "pathtoalgos": "/models/equipment_failure_v1",
+        "maxrows": 1000,
+        "consumefrom": "live-sensor-stream",
+        "ml_prediction_topic": "failure_predictions",
+        "preprocess_data_topic": "clean-sensor-data"
+    }
+    response = requests.post("http://localhost:5000/predict", json=payload)
+
+**Example Request (JavaScript):**
+
+.. code-block:: javascript
+
+    const payload = {
+        step: '6',
+        pathtoalgos: '/models/equipment_failure_v1',
+        maxrows: 1000,
+        consumefrom: 'live-sensor-stream',
+        ml_prediction_topic: 'failure_predictions',
+        preprocess_data_topic: 'clean-sensor-data'
+    };
+    fetch('http://localhost:5000/predict', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(payload)
+    });
+
+**Responses:**
 - *200* – Prediction started.
 - *400* – ``"Missing ml or invalid prediction"``
 
@@ -194,6 +351,48 @@ Consume messages from a given topic and optionally forward results.
 - *400* – Missing topic.
 - *500* – Consumption failed.
 
+**Example Request (Python):**
+
+.. code-block:: python
+
+    payload = {
+        "topic": "failure_predictions",
+        "forwardurl": "https://webhook1.example.com,https://webhook2.example.com",
+        "rollbackoffset": 50,
+        "osdu": "false"
+    }
+    response = requests.post("http://localhost:5000/consume", json=payload)
+    print(response.json())
+
+**Example Request (JavaScript):**
+
+.. code-block:: javascript
+
+    const payload = {
+        topic: 'failure_predictions',
+        forwardurl: 'https://webhook1.example.com,https://webhook2.example.com',
+        rollbackoffset: 50,
+        osdu: 'false'
+    };
+    fetch('http://localhost:5000/consume', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(payload)
+    })
+    .then(r => r.json())
+    .then(data => console.log(data));
+
+**Example Response:**
+
+.. code-block:: json
+
+    {
+        "status": "consumed",
+        "topic": "failure_predictions",
+        "messages": [...],
+        "consumer_id": "tmlconsumerplugin"
+    }
+
 --------------------------
 POST /jsondataline
 --------------------------
@@ -217,6 +416,36 @@ Send a single JSON data object to a topic.
 .. code-block:: json
 
     "ok"
+
+**Example Request (Python):**
+
+.. code-block:: python
+
+    payload = {
+        "topic": "raw-sensor-data",
+        "timestamp": "2026-03-01T21:54:00Z",
+        "sensor_id": "SENSOR_123",
+        "temperature": 72.5
+    }
+    response = requests.post("http://localhost:5000/jsondataline", json=payload)
+
+**Example Request (JavaScript):**
+
+.. code-block:: javascript
+
+    const payload = {
+        topic: 'raw-sensor-data',
+        timestamp: '2026-03-01T21:54:00Z',
+        sensor_id: 'SENSOR_123',
+        temperature: 72.5
+    };
+    fetch('http://localhost:5000/jsondataline', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(payload)
+    });
+
+**Response:** ``"ok"``
 
 --------------------------
 POST /jsondataarray
@@ -257,3 +486,31 @@ Send a JSON array of objects to a topic.
 
     "ok"
 
+**Example Request (Python):**
+
+.. code-block:: python
+
+    payload = {
+        "topic": "raw-sensor-data",
+        "data": [  # Note: actual body should be array directly
+            {"timestamp": "2026-03-01T21:54:00Z", "sensor_id": "SENSOR_123", "temperature": 72.5},
+            {"timestamp": "2026-03-01T21:55:00Z", "sensor_id": "SENSOR_124", "temperature": 73.2}
+        ]
+    }
+    response = requests.post("http://localhost:5000/jsondataarray", json=payload)
+
+**Example Request (JavaScript):**
+
+.. code-block:: javascript
+
+    const dataArray = [
+        {topic: 'raw-sensor-data', timestamp: '2026-03-01T21:54:00Z', sensor_id: 'SENSOR_123', temperature: 72.5},
+        {topic: 'raw-sensor-data', timestamp: '2026-03-01T21:55:00Z', sensor_id: 'SENSOR_124', temperature: 73.2}
+    ];
+    fetch('http://localhost:5000/jsondataarray', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(dataArray)
+    });
+
+**Response:** ``"ok"``
