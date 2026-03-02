@@ -38,9 +38,8 @@ To use the TML Endpoints you MUST run the `TML Server Plugin Container <https://
        --env READTHEDOCS='<Enter Readthedocs token>' \
        maadsdocker/tml-server-v1-plugin-3f10-ml_restapi-amd64
 
-=======================
 Docker Run Parameters
-=======================
+----------------------
 
 **Command Overview**
 Launches TML Server v1 Plugin (Aefa ML REST API) with Kafka, Airflow, Viper integration.
