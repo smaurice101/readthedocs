@@ -72,6 +72,11 @@ Launches TML Server v1 Plugin (Aefa ML REST API) with Kafka, Airflow, Viper inte
 
 **Port Summary:**
 
+- 5050: REST API endpoints
+- 4040: Airflow DAGs/UI
+- 6060: ViperViz dashboard
+- **9002: Client Connect - THIS IS THE PORT FOR YOUR REST API CALLS (Change as Needed)**
+
 **Required User Substitutions:**
 
 This service exposes endpoints to create topics, preprocess data, run machine learning pipelines, generate predictions, and consume data from topics through the Viper backend.
