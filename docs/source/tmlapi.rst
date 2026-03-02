@@ -42,7 +42,7 @@ Docker Run Parameters
 ----------------------
 
 **Command Overview**
-Launches TML Server v1 Plugin (Aefa ML REST API) with Kafka, Airflow, Viper integration.
+Launches TML Server v1 Plugin (Aefa ML REST API) with Kafka, Airflow, Viper integration.  For setting up tokens see `here for details <https://tml.readthedocs.io/en/latest/docker.html#tss-pre-requisites>`_.
 
 **Docker Run Fields:**
 
@@ -67,7 +67,7 @@ Launches TML Server v1 Plugin (Aefa ML REST API) with Kafka, Airflow, Viper inte
 - KAFKABROKERHOST=127.0.0.1:9092 (local) or cloud
 - KAFKACLOUDUSERNAME/API key (Confluent Cloud or AWS MSK)
 - KAFKACLOUDPASSWORD/API Secret (Confluent Cloud or AWS MSK)
-- READTHEDOCS='<TML docs token>'
+- READTHEDOCS='<REATHEDOCS token>'
 
 **Architecture:**
 - CHIP=amd64 (x86) or arm64
