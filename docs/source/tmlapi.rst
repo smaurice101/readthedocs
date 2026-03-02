@@ -78,6 +78,44 @@ Create one or more topics in the Viper message broker.
     .then(data => console.log('Success:', data))
     .catch(error => console.error('Error:', error));
 
+**Example Request (React):**
+
+.. code-block:: jsx
+
+    import { useState } from 'react';
+
+    function CreateTopic() {
+        const [status, setStatus] = useState('');
+        
+        const handleSubmit = async (e) => {
+            e.preventDefault();
+            const payload = {
+                topics: 'raw-data,processed-data',
+                numpartitions: 6,
+                replication: 2,
+                description: 'Industrial IoT streams'
+            };
+            
+            try {
+                const response = await fetch('http://localhost:5000/createtopic', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                setStatus(response.ok ? 'Topics created!' : 'Failed');
+            } catch (error) {
+                setStatus('Error: ' + error.message);
+            }
+        };
+
+        return (
+            <form onSubmit={handleSubmit}>
+                <button type="submit">Create Topics</button>
+                <p>{status}</p>
+            </form>
+        );
+    }
+
 **Responses:**
 - *200* – Topics created successfully.
 - *400* – ``"Missing topics"``
@@ -149,6 +187,37 @@ Trigger preprocessing steps for data streams.
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(payload)
     });
+
+**Example Request (React) - step=4:**
+
+.. code-block:: jsx
+
+    function PreprocessStep4() {
+        const [status, setStatus] = useState('');
+        
+        const handlePreprocess = async () => {
+            const payload = {
+                step: '4',
+                rawdatatopic: 'raw-sensor-data',
+                preprocessdatatopic: 'clean-sensor-data',
+                preprocesstypes: 'normalize,filter',
+                jsoncriteria: '{"min_value": 0, "max_value": 1000}'
+            };
+            
+            const response = await fetch('http://localhost:5000/preprocess', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(payload)
+            });
+            setStatus(response.ok ? 'Preprocessing started' : 'Failed');
+        };
+
+        return (
+            <button onClick={handlePreprocess}>
+                Start Preprocessing
+            </button>
+        );
+    }
 
 **Responses:**
 - *200* – Preprocessing started.
@@ -223,6 +292,36 @@ Train a machine learning model using preprocessed data.
         body: JSON.stringify(payload)
     });
 
+**Example Request (React):**
+
+.. code-block:: jsx
+
+    function TrainML() {
+        const [status, setStatus] = useState('');
+        
+        const trainModel = async () => {
+            const payload = {
+                step: '5',
+                trainingdatafolder: '/data/training/2026Q1',
+                ml_data_topic: 'ml-features',
+                preprocess_data_topic: 'clean-sensor-data',
+                islogistic: 1,
+                dependentvariable: 'equipment_failure',
+                independentvariables: 'temp,vibration,pressure'
+            };
+            
+            const response = await fetch('http://localhost:5000/ml', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(payload)
+            });
+            setStatus(response.ok ? 'Training started!' : 'Training failed');
+        };
+
+        return <button onClick={trainModel}>Train Model</button>;
+    }
+
+
 **Responses:**
 - *200* – Training initiated.
 - *400* – ``"Missing ml or invalid ml"``
@@ -290,6 +389,33 @@ Run prediction using trained ML models and streaming data.
         body: JSON.stringify(payload)
     });
 
+**Example Request (React):**
+
+.. code-block:: jsx
+
+    function Predict() {
+        const [status, setStatus] = useState('');
+        
+        const runPrediction = async () => {
+            const payload = {
+                step: '6',
+                pathtoalgos: '/models/equipment_failure_v1',
+                maxrows: 1000,
+                consumefrom: 'live-sensor-stream',
+                ml_prediction_topic: 'failure_predictions'
+            };
+            
+            const response = await fetch('http://localhost:5000/predict', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(payload)
+            });
+            setStatus('Predictions started');
+        };
+
+        return <button onClick={runPrediction}>Run Predictions</button>;
+    }
+
 **Responses:**
 - *200* – Prediction started.
 - *400* – ``"Missing ml or invalid prediction"``
@@ -346,6 +472,7 @@ Consume messages from a given topic and optionally forward results.
         ]
     }
 
+
 **Responses:**
 - *200* – Consumed messages returned.
 - *400* – Missing topic.
@@ -393,6 +520,62 @@ Consume messages from a given topic and optionally forward results.
         "consumer_id": "tmlconsumerplugin"
     }
 
+**Example Request (React):**
+
+.. code-block:: jsx
+
+    import { useState, useEffect } from 'react';
+
+    function ConsumeData() {
+        const [messages, setMessages] = useState([]);
+        const [loading, setLoading] = useState(false);
+        
+        const consumeTopic = async () => {
+            setLoading(true);
+            const payload = {
+                topic: 'failure_predictions',
+                rollbackoffset: 50,
+                osdu: 'false'
+            };
+            
+            try {
+                const response = await fetch('http://localhost:5000/consume', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify(payload)
+                });
+                const data = await response.json();
+                setMessages(data.messages || []);
+            } catch (error) {
+                console.error('Consume failed:', error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        return (
+            <div>
+                <button onClick={consumeTopic} disabled={loading}>
+                    {loading ? 'Consuming...' : 'Consume Latest'}
+                </button>
+                {messages.length > 0 && (
+                    <pre>{JSON.stringify(messages, null, 2)}</pre>
+                )}
+            </div>
+        );
+    }
+
+**Example Response:**
+
+.. code-block:: json
+
+    {
+        "status": "consumed",
+        "topic": "failure_predictions",
+        "messages": [...],
+        "consumer_id": "tmlconsumerplugin"
+    }
+
 --------------------------
 POST /jsondataline
 --------------------------
@@ -401,6 +584,7 @@ POST /jsondataline
 Send a single JSON data object to a topic.
 
 **Example Request:**
+
 .. code-block:: json
 
     {
@@ -446,6 +630,29 @@ Send a single JSON data object to a topic.
     });
 
 **Response:** ``"ok"``
+
+**Example Request (React):**
+
+.. code-block:: jsx
+
+    function SendDataLine() {
+        const sendData = async () => {
+            const payload = {
+                topic: 'raw-sensor-data',
+                timestamp: '2026-03-01T22:17:00Z',
+                sensor_id: 'SENSOR_123',
+                temperature: 72.5
+            };
+            
+            await fetch('http://localhost:5000/jsondataline', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(payload)
+            });
+        };
+
+        return <button onClick={sendData}>Send Sensor Data</button>;
+    }
 
 --------------------------
 POST /jsondataarray
@@ -514,3 +721,34 @@ Send a JSON array of objects to a topic.
     });
 
 **Response:** ``"ok"``
+
+**Example Request (React):**
+
+.. code-block:: jsx
+
+    function SendDataArray() {
+        const dataArray = [
+            {
+                topic: 'raw-sensor-data',
+                timestamp: '2026-03-01T22:17:00Z',
+                sensor_id: 'SENSOR_123',
+                temperature: 72.5
+            },
+            {
+                topic: 'raw-sensor-data',
+                timestamp: '2026-03-01T22:18:00Z',
+                sensor_id: 'SENSOR_124',
+                temperature: 73.2
+            }
+        ];
+        
+        const sendBatch = async () => {
+            await fetch('http://localhost:5000/jsondataarray', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(dataArray)
+            });
+        };
+
+        return <button onClick={sendBatch}>Send Batch Data</button>;
+    }
