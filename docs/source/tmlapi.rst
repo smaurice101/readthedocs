@@ -97,7 +97,6 @@ Each endpoint expects JSON input via POST requests.
 
   **Base URL:** Will depend on the Port the TML Server is listening on.
 
-=========================
 TML API Quick Reference
 =========================
 
@@ -111,7 +110,6 @@ TML API Quick Reference
 - ``/jsondataline`` - Send single JSON → 200
 - ``/jsondataarray`` - Send JSON array → 200
 
---------------------------
 POST /createtopic
 --------------------------
 
