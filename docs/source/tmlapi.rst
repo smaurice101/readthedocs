@@ -2,9 +2,15 @@
 TML Flask API Endpoints
 ==========================
 
+To use the TML Endpoints you MUST run the `TML Server Plugin Container <https://hub.docker.com/r/maadsdocker/tml-server-v1-plugin-3f10-ml_restapi-amd64>`_
+
 This service exposes endpoints to create topics, preprocess data, run machine learning pipelines, generate predictions, and consume data from topics through the Viper backend.
 
 Each endpoint expects JSON input via POST requests.
+
+.. important::
+
+  **Base URL:** Will depend on the Port the TML Server is listening on.
 
 =========================
 TML API Quick Reference
