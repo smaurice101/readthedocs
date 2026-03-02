@@ -831,7 +831,6 @@ Send a single JSON data object to a topic.
 .. code-block:: json
 
     {
-        "topic": "raw-sensor-data",
         "timestamp": "2026-03-01T21:54:00Z",
         "sensor_id": "SENSOR_123",
         "temperature": 72.5,
@@ -850,7 +849,6 @@ Send a single JSON data object to a topic.
 
     async def send_sensor_data():
         payload = {
-            "topic": "raw-sensor-data",
             "timestamp": "2026-03-01T22:24:00Z",
             "sensor_id": "SENSOR_123",
             "temperature": 72.5
@@ -868,7 +866,6 @@ Send a single JSON data object to a topic.
 
     async function sendSensorData() {
         const payload = {
-            topic: 'raw-sensor-data',
             timestamp: '2026-03-01T22:24:00Z',
             sensor_id: 'SENSOR_123',
             temperature: 72.5
@@ -889,7 +886,6 @@ Send a single JSON data object to a topic.
     function SendDataLine() {
         const sendData = async () => {
             const payload = {
-                topic: 'raw-sensor-data',
                 timestamp: '2026-03-01T22:24:00Z',
                 sensor_id: 'SENSOR_123',
                 temperature: 72.5
@@ -965,14 +961,12 @@ Send a JSON array of objects to a topic.
     async def send_batch_data():
         data_array = [
             {
-                "topic": "raw-sensor-data",
                 "timestamp": "2026-03-01T22:39:00Z",
                 "sensor_id": "SENSOR_123",
                 "temperature": 72.5,
                 "vibration": 0.8
             },
             {
-                "topic": "raw-sensor-data", 
                 "timestamp": "2026-03-01T22:39:05Z",
                 "sensor_id": "SENSOR_124",
                 "temperature": 73.2,
@@ -996,14 +990,12 @@ Send a JSON array of objects to a topic.
     async function sendBatchData() {
         const dataArray = [
             {
-                topic: 'raw-sensor-data',
                 timestamp: '2026-03-01T22:39:00Z',
                 sensor_id: 'SENSOR_123',
                 temperature: 72.5,
                 vibration: 0.8
             },
             {
-                topic: 'raw-sensor-data',
                 timestamp: '2026-03-01T22:39:05Z',
                 sensor_id: 'SENSOR_124',
                 temperature: 73.2,
@@ -1037,14 +1029,12 @@ Send a JSON array of objects to a topic.
         
         const dataArray = [
             {
-                topic: 'raw-sensor-data',
                 timestamp: '2026-03-01T22:39:00Z',
                 sensor_id: 'SENSOR_123',
                 temperature: 72.5,
                 vibration: 0.8
             },
             {
-                topic: 'raw-sensor-data',
                 timestamp: '2026-03-01T22:39:05Z',
                 sensor_id: 'SENSOR_124',
                 temperature: 73.2,
