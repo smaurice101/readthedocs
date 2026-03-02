@@ -11,10 +11,10 @@ To use the TML Endpoints you MUST run the `TML Server Plugin Container <https://
 
 .. code-block::
 
-    docker run -d --net=host -p 5050:5050 -p 4040:4040 -p 6060:6060 -p 9002:9002 \
+   docker run -d --net=host -p 5050:5050 -p 4040:4040 -p 6060:6060 -p 9002:9002 \
        --env TSS=0 \
-       --env SOLUTIONNAME=tml-server-v1-plugin-aefa-ml_restapi \
-       --env SOLUTIONDAG=solution_preprocessing_ml_restapi_dag-tml-server-v1-plugin-aefa \
+       --env SOLUTIONNAME=tml-server-v1-plugin-3f10-ml_restapi \
+       --env SOLUTIONDAG=solution_preprocessing_ml_restapi_dag-tml-server-v1-plugin-3f10 \
        --env GITUSERNAME=<Enter Github Username> \
        --env GITPASSWORD='<Enter Github Password>' \
        --env GITREPOURL=<Enter Github Repo URL> \
