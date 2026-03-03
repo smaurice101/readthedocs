@@ -79,23 +79,11 @@ Launches TML Server v1 Plugin (Aefa ML REST API) with Kafka, Airflow, Viper inte
 - 6060: ViperViz dashboard
 - **9002: REST API endpoints - THIS IS THE PORT FOR YOUR REST API CALLS (Change as Needed)**
 
-**Quick Start:**
-
-.. code-block:: 
-
-  ```bash
-  docker run -d --net=host -p 5050:5050 -p 4040:4040 \\
-  --env GITUSERNAME="youruser" \\
-  --env GITPASSWORD="ghp_xxx" \\
-  --env GITREPOURL="https://github.com/you/repo.git" \\
-  -v /path/to/data:/rawdata:z \\
-   maadsdocker/tml-server-v1-plugin-3f10-ml_restapi-amd64
-
 Each endpoint expects JSON input via POST requests.
 
 .. important::
 
-  **Base URL:** Will depend on the Port the TML Server is listening on.
+  **Base URL:** Will depend on the Port the TML Server is listening on i.e. port **9002**
 
 TML API Quick Reference
 =========================
