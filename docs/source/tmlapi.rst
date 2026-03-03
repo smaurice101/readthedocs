@@ -539,7 +539,7 @@ Run prediction using trained ML models and streaming data.
     {
         "step": "6",
         "pathtoalgos": "/models/equipment_failure_v1",
-        "maxrows": 1000,
+        "rollbackoffsets": 1000,
         "consumefrom": "live-sensor-stream",
         "inputdata": "{\"sensor_id\": \"SENSOR_123\"}",
         "streamstojoin": "metadata,alerts",
@@ -563,7 +563,7 @@ Run prediction using trained ML models and streaming data.
         payload = {
             "step": "6",
             "pathtoalgos": "/models/equipment_failure_v1",
-            "maxrows": 1000,
+            "rollbackoffsets": 1000,
             "consumefrom": "live-sensor-stream",
             "inputdata": "{\"sensor_id\": \"SENSOR_123\"}",
             "streamstojoin": "metadata,alerts",
@@ -586,7 +586,7 @@ Run prediction using trained ML models and streaming data.
         const payload = {
             step: '6',
             pathtoalgos: '/models/equipment_failure_v1',
-            maxrows: 1000,
+            rollbackoffsets: 1000,
             consumefrom: 'live-sensor-stream',
             inputdata: '{"sensor_id": "SENSOR_123"}',
             streamstojoin: 'metadata,alerts',
@@ -624,7 +624,7 @@ Run prediction using trained ML models and streaming data.
             const payload = {
                 step: '6',
                 pathtoalgos: '/models/equipment_failure_v1',
-                maxrows: 1000,
+                rollbackoffsets: 1000,
                 consumefrom: 'live-sensor-stream',
                 inputdata: '{"sensor_id": "SENSOR_123"}',
                 streamstojoin: 'metadata,alerts',
@@ -677,7 +677,7 @@ Consume messages from a given topic and optionally forward results.
     {
         "topic": "failure_predictions",
         "forwardurl": "https://webhook1.example.com,https://webhook2.example.com",
-        "rollbackoffset": 50,
+        "rollbackoffsets": 50,
         "osdu": "false",
         "enabletls": 1
     }
@@ -724,7 +724,7 @@ Consume messages from a given topic and optionally forward results.
     async def consume_data():
         payload = {
             "topic": "failure_predictions",
-            "rollbackoffset": 50,
+            "rollbackoffsets": 50,
             "osdu": "false"
         }
         
@@ -774,7 +774,7 @@ Consume messages from a given topic and optionally forward results.
                     headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify({
                         topic: 'failure_predictions',
-                        rollbackoffset: 50,
+                        rollbackoffsets: 50,
                         osdu: 'false'
                     })
                 });
