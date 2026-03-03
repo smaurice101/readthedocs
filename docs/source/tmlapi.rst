@@ -233,11 +233,11 @@ Trigger preprocessing steps for data streams.
 - ``rawdatatopic`` *(string, required)* – Source topic with raw data.
 
 **For step = '4':**
-- ``preprocessdatatopic``, ``preprocesstypes``, ``jsoncriteria``, ``windowinstance`` *(optional)*
+- ``preprocessdatatopic``, ``preprocesstypes``, ``jsoncriteria``, ``rollbackoffset``, ``windowinstance`` *(optional)*
 
 **For step = '4c':**
 - ``maxrows``, ``searchterms``, ``rememberpastwindows``, ``patternwindowthreshold``,
-- ``raw_data_topic``, ``rtmsstream``, various thresholds, ``windowinstance``
+- ``raw_data_topic``, ``rtmsstream``, various thresholds, ``windowinstance``, ``rollbackoffset``
 
 **Example Request (step=4):**
 
@@ -249,6 +249,7 @@ Trigger preprocessing steps for data streams.
         "preprocessdatatopic": "clean-sensor-data",
         "preprocesstypes": "normalize,filter",
         "jsoncriteria": "{\"min_value\": 0, \"max_value\": 1000}",
+        "rollbackoffset": 500,
         "windowinstance": "sensor-batch-1"
     }
 
@@ -297,6 +298,7 @@ Users must specify the Json paths in the Json criteria - so TML can extract the 
             "preprocessdatatopic": "clean-sensor-data",
             "preprocesstypes": "normalize,filter",
             "jsoncriteria": json_criteria,  # Multiline TML format
+            "rollbackoffset": 500,
             "windowinstance": "sensor-batch-1"
         }
         
@@ -323,6 +325,7 @@ Users must specify the Json paths in the Json criteria - so TML can extract the 
             preprocessdatatopic: 'clean-sensor-data',
             preprocesstypes: 'normalize,filter',
             jsoncriteria: jsonCriteria,  // TML multiline format with ~\\n
+            rollbackoffset: 500,
             windowinstance: 'sensor-batch-1'
         };
         
@@ -356,6 +359,7 @@ Users must specify the Json paths in the Json criteria - so TML can extract the 
                 preprocessdatatopic: 'clean-sensor-data',
                 preprocesstypes: 'normalize,filter',
                 jsoncriteria: jsonCriteria,
+                rollbackoffset: 500,
                 windowinstance: 'sensor-batch-1'
             };
             
