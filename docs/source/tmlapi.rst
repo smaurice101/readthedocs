@@ -229,15 +229,11 @@ Trigger preprocessing steps for data streams. To learn different TML preprocessi
  
 **Request JSON Parameters:**
 
-- ``step`` *(string, required)* – Processing mode (`"4"` or `"4c"`).
+- ``step`` *(string, required)* – Processing mode (`"4"`).
 - ``rawdatatopic`` *(string, required)* – Source topic with raw data.
 
 **For step = '4':**
 - ``preprocessdatatopic``, ``preprocesstypes``, ``jsoncriteria``, ``rollbackoffset``, ``windowinstance`` *(optional)*
-
-**For step = '4c':**
-- ``maxrows``, ``searchterms``, ``rememberpastwindows``, ``patternwindowthreshold``,
-- ``raw_data_topic``, ``rtmsstream``, various thresholds, ``windowinstance``, ``rollbackoffset``
 
 **Example Request (step=4):**
 
