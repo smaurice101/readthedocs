@@ -1176,7 +1176,7 @@ Terminate a window instance: If you have too many windows processing data this c
       );
    };
 
-export default TerminateWindow;  // ✅ Export
+   export default TerminateWindow;  // ✅ Export
 
 **Responses:**
 - *200* – Topics created successfully.
