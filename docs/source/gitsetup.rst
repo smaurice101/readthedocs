@@ -32,3 +32,12 @@ Your token permissions should look like this below:
 
 .. figure:: gitpac.png
    :scale: 60%
+
+Fine-Grained Tokens
+--------------------
+
+Use fine grained tokens for stricter access.  Make sure to give Actions and Content Read/Write access to the selected Repo of your choice.
+
+.. figure:: fiegrained.png
+   :scale: 60%
+
