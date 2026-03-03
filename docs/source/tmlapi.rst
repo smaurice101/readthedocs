@@ -1139,37 +1139,44 @@ Terminate a window instance: If you have too many windows processing data this c
 
 .. code-block:: jsx
 
-    import { useState } from 'react';
-
-    function TerminateWindow() {
-        const [status, setStatus] = useState('');
-        
-        const handleSubmit = async (e) => {
-            e.preventDefault();
-            const payload = {
-                "step": 4,
-                "windowname": 'all'
-            };
-            
-            try {
-                const response = await fetch('http://localhost:5000/terminatewindow', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-                setStatus(response.ok ? 'Topics created!' : 'Failed');
-            } catch (error) {
-                setStatus('Error: ' + error.message);
-            }
+    const TerminateWindow = () => {  // ← Proper component
+      const [status, setStatus] = useState('');
+    
+      const handleSubmit = async (e) => {
+        e.preventDefault();
+        const payload = {
+            "step": 4,
+            "windowname": 'all'  // 'all' = kill plugin_* tmux windows
         };
+        
+        try {
+            const response = await fetch('http://localhost:5000/terminatewindow', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+            
+            if (response.ok) {
+                const result = await response.json();  // ✅ Get response data
+                setStatus('Windows terminated!');
+            } else {
+                const error = await response.text();
+                setStatus(`Failed: ${error}`);
+            }
+          } catch (error) {
+            setStatus('Network error: ' + error.message);
+          }
+      };
 
-        return (
-            <form onSubmit={handleSubmit}>
-                <button type="submit">Terminate Window</button>
-                <p>{status}</p>
-            </form>
-        );
-    }
+      return (
+        <form onSubmit={handleSubmit}>
+            <button type="submit">Terminate Window</button>
+            <p>{status}</p>
+        </form>
+      );
+   };
+
+export default TerminateWindow;  // ✅ Export
 
 **Responses:**
 - *200* – Topics created successfully.
