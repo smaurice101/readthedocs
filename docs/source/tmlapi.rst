@@ -97,6 +97,7 @@ TML API Quick Reference
 - ``/consume`` - Consume messages (`topic`, `forwardurl`) → 200,400,500
 - ``/jsondataline`` - Send single JSON → 200
 - ``/jsondataarray`` - Send JSON array → 200
+- ``/terminatewindow`` - Send JSON array → 200
 
 POST /createtopic
 --------------------------
@@ -1062,3 +1063,114 @@ Send a JSON array of objects to a topic.
 - All items share the same `topic` (specified in code, not payload)
 
 **Response:** ``"ok"`` (200)
+
+POST /terminatewindow
+--------------------------
+
+**Description:**
+Terminate a window instance: If you have too many windows processing data this could cause memory issues - this API helps you terminate unneeded windows.
+
+**Request JSON Parameters:**
+
+- ``step`` *(int, optional)* – 4, 5, or 6
+- ``windowname`` *(string, required)* – Windowname to terminate - or use: all, all windows will terminate and you start refesh.
+
+**Example Request:**
+
+.. code-block:: json
+
+    {
+        "step": 4,
+        "windowname": 'all',
+    }
+
+**Example Response:**
+- *200* – Topics created successfully (plain text).
+- *400* – ``"Missing topics"``
+
+**Example Request (Python - async):**
+
+.. code-block:: python
+
+    import aiohttp
+    import asyncio
+
+    async def terminatewindow():
+        url = "http://localhost:5000/terminatewindow"
+        payload = {
+            "step": 4,
+            "windowname": 'all'
+        }
+        
+        async with aiohttp.ClientSession() as session:
+            async with session.post(url, json=payload) as response:
+                print(f"Status: {response.status}, Response: {await response.text()}")
+
+    # Run the async function
+    asyncio.run(terminatewindow())
+
+**Example Request (JavaScript - async):**
+
+.. code-block:: javascript
+
+    async function terminatewindow() {
+        const url = 'http://localhost:5000/terminatewindow';
+        const payload = {
+            "step": 4,
+            "windowname": 'all'
+        };
+
+        try {
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+            const data = await response.text();
+            console.log('Success:', data);
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    }
+
+    terminatewindow();
+
+**Example Request (React - async):**
+
+.. code-block:: jsx
+
+    import { useState } from 'react';
+
+    function TerminateWindow() {
+        const [status, setStatus] = useState('');
+        
+        const handleSubmit = async (e) => {
+            e.preventDefault();
+            const payload = {
+                "step": 4,
+                "windowname": 'all'
+            };
+            
+            try {
+                const response = await fetch('http://localhost:5000/terminatewindow', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                setStatus(response.ok ? 'Topics created!' : 'Failed');
+            } catch (error) {
+                setStatus('Error: ' + error.message);
+            }
+        };
+
+        return (
+            <form onSubmit={handleSubmit}>
+                <button type="submit">Terminate Window</button>
+                <p>{status}</p>
+            </form>
+        );
+    }
+
+**Responses:**
+- *200* – Topics created successfully.
+- *400* – ``"Missing topics"``
