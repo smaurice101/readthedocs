@@ -225,7 +225,7 @@ POST /preprocess
 --------------------------
 
 **Description:**
-Trigger preprocessing steps for data streams. To learn different TML preprocessing type see here for details: `preprocessing types <https://tml.readthedocs.io/en/latest/tmlbuilds.html#preprocessing-types>`_
+Trigger preprocessing steps for data streams. To learn different TML preprocessing types see here for details: `preprocessing types <https://tml.readthedocs.io/en/latest/tmlbuilds.html#preprocessing-types>`_
  
 **Request JSON Parameters:**
 
