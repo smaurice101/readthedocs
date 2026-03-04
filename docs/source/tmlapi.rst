@@ -1181,3 +1181,113 @@ Terminate a window instance: If you have too many windows processing data this c
 **Responses:**
 - *200* – Topics created successfully.
 - *400* – ``"Missing topics"``
+
+TML Endpoint Example
+========================
+
+This section shows you how easy and powerful it is to remotely control TML server plugin using REST API from anywhere.
+
+STEP 1: Run the TML Server Plugin Container
+-------------------------------------------
+
+Pull and Run the TML server plugin: ref:`TML Server Plugin Container Docker Run`
+
+STEP 2: Download IoT Demo Data
+-------
+
+Download IoT Data from `Github <https://github.com/smaurice101/raspberrypi/blob/main/tml-airflow/data/IoTData.zip>`_
+
+Unzip and save it to a local folder.
+
+Step 3: Send some data to the TML Server
+-----------------------------------------
+
+Copy and Paste this code in Python and Run it.
+
+.. code-block:: python
+
+      import requests
+      import sys
+      from datetime import datetime
+      import time
+      import json
+      
+      sys.dont_write_bytecode = True
+       
+      # defining the api-endpoint
+      rest_port = "9001"  # <<< ***** Change Port to match the Server Rest_PORT
+      httpaddr = "http:" # << Change to https or http
+      
+      # Modify the apiroute: jsondataline, or jsondataarray
+      # 1. jsondataline: You can send One Json message at a time
+      # 1. jsondatarray: You can send a Json array 
+      
+      apiroute = "jsondataline"
+      
+      # USE THIS ENDPOINT IF TML RUNNING IN DOCKER CONTAINER
+      # DOCKER CONTAINER ENDPOINT
+      API_ENDPOINT = "{}//localhost:{}/{}".format(httpaddr,rest_port,apiroute)
+      
+      # USE THIS ENDPOINT IF TML RUNNING IN KUBERNETES
+      # KUBERNETES ENDPOINT
+      #API_ENDPOINT = "{}//tml.tss/ext/{}".format(httpaddr,apiroute)
+       
+      def send_tml_data(data): 
+        # data to be sent to api
+        headers = {'Content-type': 'application/json'}
+        print("========================")
+        print(f"API_ENDPOINT TO TML SERVER: {API_ENDPOINT}\n")
+        data=data.strip()
+        #data = data[:-1] + ',"sendtotopic": "iot-raw-data22"}'
+        print(f"POST data to TML Server:\n\n{data}")
+        r = requests.post(url=API_ENDPOINT, data=data, headers=headers)
+      
+        # extracting response text
+        return r.text
+          
+      
+      def readdatafile(inputfile):
+      
+        ##############################################################
+        # NOTE: You can send any "EXTERNAL" data through this API
+        # It is reading a localfile as an example
+        ############################################################
+        
+        try:
+          file1 = open(inputfile, 'r')
+          print("Data Producing to Kafka Started:",datetime.now())
+        except Exception as e:
+          print("ERROR: Something went wrong ",e)  
+          return
+        k = 0
+        while True:
+          line = file1.readline()
+          line = line.replace(";", " ")
+          # add lat/long/identifier
+          k = k + 1
+          try:
+            if line == "":
+              #break
+              file1.seek(0)
+              k=0
+              print("Reached End of File - Restarting")
+              print("Read End:",datetime.now())
+              continue
+            ret = send_tml_data(line)
+            print(f"\nTML Server Response: {ret}\n")
+            # change time to speed up or slow down data   
+            time.sleep(.1)
+          except Exception as e:
+            print(e)
+            time.sleep(0.1)
+            pass
+          
+      def start():
+            inputfile = "IoTData.txt"
+            readdatafile(inputfile)
+              
+      if __name__ == '__main__':
+          start()
+
+Step 4: Visualize The Output in a Dashboard
+-----------------------------------------
