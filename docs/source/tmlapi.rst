@@ -1199,9 +1199,11 @@ Pull and Run the TML server plugin: ref:`TML Server Plugin Container Docker Run`
     These Demo credentials (i.e. Github) are used by other people.  They are meant for quick testing.  You should use your own credentials for:
 
      - GITUSERNAME
-     - GITPASSWORD (Leave empty for Demo accounts)
+     - GITPASSWORD (This is a Git Token - Leave empty for Demo accounts)
      - GITREPOURL
-     - READTHEDOCS
+     - READTHEDOCS (https://about.readthedocs.com/)
+
+    For more details see here: `TSS Pre-requsites <https://tml.readthedocs.io/en/latest/docker.html#tss-pre-requisites>`_
 
 Below is a Docker Run with DEMO Credentials:
 
