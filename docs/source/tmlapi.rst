@@ -1551,3 +1551,11 @@ Copy and paste this code locally and run it.
       osdu="true"
       asyncio.run(consume_data(API_ENDPOINT,topic,rollbackoffsets,kind,legal,forwardurls,osdu))
 
+Output Results
+---------------
+
+Your output should look something similar to this
+
+.. figure:: endpointoutput.png
+   :scale: 70%
+
