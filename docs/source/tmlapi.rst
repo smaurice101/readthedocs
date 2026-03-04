@@ -10,7 +10,7 @@ Server Build:
 Client Build:
  - Secondary documentation is `here <https://tml-server-v1-plugin-aefa-ml-restapi.readthedocs.io/en/latest/operating.html>`_
 
-Reference Archicture
+Reference Archictecture
 ----------------------
 
 Below is a reference architecture of the powerful capabilities of controlling the TML Server remotely using a REST API
