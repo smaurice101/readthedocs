@@ -1,10 +1,14 @@
-==========================
-TML Flask API Endpoints
-==========================
+===================================
+TML REST API Endpoints and Examples
+===================================
 
 This service exposes endpoints to create topics, preprocess data, run machine learning pipelines, generate predictions, and consume data from topics through the Viper backend.
 
-Click for `Documentation for the TML Server Plugin <https://tml-server-v1-plugin-3f10-ml-restapi.readthedocs.io/en/latest/>`_
+Server Build:
+ - Click for `Documentation for the TML Server Plugin <https://tml-server-v1-plugin-3f10-ml-restapi.readthedocs.io/en/latest/>`_
+
+Client Build:
+ - Secondary documentation is `here <https://tml-server-v1-plugin-aefa-ml-restapi.readthedocs.io/en/latest/operating.html>`_
 
 TML Server Plugin Container Docker Run
 --------------------------------------
@@ -1188,6 +1192,8 @@ TML Endpoint Example
 ========================
 
 This section shows you how easy and powerful it is to remotely control TML server plugin using REST API from anywhere.
+
+We will demonstrate how simple it is to use the TML Server Plugin.  
 
 STEP 1: Run the TML Server Plugin Container
 -------------------------------------------
