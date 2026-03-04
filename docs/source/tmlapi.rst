@@ -276,12 +276,12 @@ Users must specify the Json paths in the Json criteria - so TML can extract the 
 .. code-block:: json
 
     {
-        "jsoncriteria": "uid=metadata.dsn,filter:allrecords~\\\n" +
-                        "subtopics=metadata.property_name~\\\n" +
-                        "values=datapoint.value~\\\n" +
-                        "identifiers=metadata.display_name~\\\n" +
-                        "datetime=datapoint.updated_at~\\\n" +
-                        "msgid=datapoint.id~\\\n" +
+        "jsoncriteria": "uid=metadata.dsn,filter:allrecords~" +
+                        "subtopics=metadata.property_name~" +
+                        "values=datapoint.value~" +
+                        "identifiers=metadata.display_name~" +
+                        "datetime=datapoint.updated_at~" +
+                        "msgid=datapoint.id~" +
                         "latlong=lat:long"
     }
 
@@ -295,12 +295,12 @@ Users must specify the Json paths in the Json criteria - so TML can extract the 
 .. code-block:: python
 
     async def start_preprocessing():
-        json_criteria = """uid=metadata.dsn,filter:allrecords~\\
-         subtopics=metadata.property_name~\\
-         values=datapoint.value~\\
-         identifiers=metadata.display_name~\\
-         datetime=datapoint.updated_at~\\
-         msgid=datapoint.id~\\
+        json_criteria = """uid=metadata.dsn,filter:allrecords~
+         subtopics=metadata.property_name~
+         values=datapoint.value~
+         identifiers=metadata.display_name~
+         datetime=datapoint.updated_at~
+         msgid=datapoint.id~
          latlong=lat:long"""
         
         payload = {
