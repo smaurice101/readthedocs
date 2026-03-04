@@ -1273,7 +1273,7 @@ Copy and Paste this code in Python and Run it.
       sys.dont_write_bytecode = True
        
       # defining the api-endpoint
-      rest_port = "9001"  # <<< ***** Change Port to match the Server Rest_PORT
+      rest_port = "9002"  # <<< ***** Change Port to match the Server Rest_PORT
       httpaddr = "http:" # << Change to https or http
       
       # Modify the apiroute: jsondataline, or jsondataarray
@@ -1371,7 +1371,7 @@ Copy and paste this code locally and run it.
       import aiohttp
       import asyncio
       
-      rest_port = "9001"  # <<< ***** Change Port to match the Server Rest_PORT
+      rest_port = "9002"  # <<< ***** Change Port to match the Server Rest_PORT
       httpaddr = "http:" # << Change to https or http
       
       #----------------- TERMINATE WINDOW ENDPOINT ------------------------------
