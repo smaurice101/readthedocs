@@ -4,6 +4,8 @@ TML Flask API Endpoints
 
 This service exposes endpoints to create topics, preprocess data, run machine learning pipelines, generate predictions, and consume data from topics through the Viper backend.
 
+Click for `Documentation for the TML Server Plugin <https://tml-server-v1-plugin-3f10-ml-restapi.readthedocs.io/en/latest/>`_
+
 TML Server Plugin Container Docker Run
 --------------------------------------
 
