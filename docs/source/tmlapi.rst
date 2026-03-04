@@ -1336,8 +1336,11 @@ Copy and Paste this code in Python and Run it.
 Step 4: Visualize The Output in a Dashboard
 -----------------------------------------
 
+If you have everything running you should: 
+`Click to see the Dashboard <http://localhost:6060/iot-failure-machinelearning-plugin.html?topic=iot-preprocess,iot-ml-prediction-results-output&offset=-1&groupid=&rollbackoffset=400&topictype=prediction&append=0&secure=1>`_
+
 TML Endpoint Examples
-=======================
+-----------------------
 
 Now that you are streaming the data to TML Server Plugin - you can connect to it and stream more data.
 
