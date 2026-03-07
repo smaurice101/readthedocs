@@ -1694,16 +1694,32 @@ Run powerful agentic AI analysis on data streams.  This allows users to use agen
 
 **Example Request:**
 
+See `Dag 9b configurations here <https://tml.readthedocs.io/en/latest/tmlbuilds.html#example-of-9b-configuration-parameters>`_.
+
 .. code-block:: json
 
-    {
-        "topics": "raw-data,processed-data",
-        "numpartitions": 6,
-        "replication": 2,
-        "description": "Industrial IoT streams",
-        "enabletls": 1
+    payload = {
+        "step": step,
+        "rollbackoffsets": rollbackoffsets,
+        "ollama-model": ollamamodel,
+        "vectordbpath": vectordbpath,
+        "temperature": temperature,
+        "vectordbcollectionname": vectordbcollectionname,
+        "ollamacontainername": ollamacontainername,
+        "embedding": embedding,
+        "agents_topic_prompt": agents_topic_prompt,
+        "teamlead_topic": teamlead_topic,
+        "teamleadprompt": teamleadprompt,
+        "supervisor_topic": supervisor_topic,
+        "supervisorprompt": supervisorprompt,
+        "agenttoolfunctions": agenttoolfunctions,
+        "agent_team_supervisor_topic": agent_team_supervisor_topic,
+        "contextwindow": contextwindow,
+        "localmodelsfolder": localmodelsfolder,
+        "agenttopic": agenttopic,
+        "windowinstance": windowinstance
     }
 
 **Example Response:**
-- *200* – Topics created successfully (plain text).
-- *400* – ``"Missing topics"``
+- *200* – Agents created and initiated (plain text).
+- *400* – ``"Missing or invalid request"``
