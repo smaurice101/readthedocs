@@ -1720,6 +1720,200 @@ See `Dag 9b configurations here <https://tml.readthedocs.io/en/latest/tmlbuilds.
         "windowinstance": windowinstance
     }
 
+**Example Request (Python - async):**
+
+.. code-block:: python
+
+   async def run_agenticai(API_ENDPOINT, step, rollbackoffsets, ollamamodel, vectordbpath, temperature, vectordbcollectionname, ollamacontainername, embedding,      agents_topic_prompt, teamlead_topic, teamleadprompt, supervisor_topic, supervisorprompt, agenttoolfunctions, agent_team_supervisor_topic, contextwindow, 
+   localmodelsfolder, agenttopic, windowinstance):
+  
+      payload = {
+          "step": step,
+          "rollbackoffsets": rollbackoffsets,
+          "ollama-model": ollamamodel,
+          "vectordbpath": vectordbpath,
+          "temperature": temperature,
+          "vectordbcollectionname": vectordbcollectionname,
+          "ollamacontainername": ollamacontainername,
+          "embedding": embedding,
+          "agents_topic_prompt": agents_topic_prompt,
+          "teamlead_topic": teamlead_topic,
+          "teamleadprompt": teamleadprompt,
+          "supervisor_topic": supervisor_topic,
+          "supervisorprompt": supervisorprompt,
+          "agenttoolfunctions": agenttoolfunctions,
+          "agent_team_supervisor_topic": agent_team_supervisor_topic,
+          "contextwindow": contextwindow,
+          "localmodelsfolder": localmodelsfolder,
+          "agenttopic": agenttopic,
+          "windowinstance": windowinstance
+      }
+  
+      payload=json.dumps(payload, indent=2)
+      payload=json.loads(payload)
+      async with aiohttp.ClientSession() as session:
+          async with session.post(API_ENDPOINT, json=payload) as response:
+              print(f"Status: {response.status}, Response: {await response.text()}")
+
+**Example Request (Javascript - async):**
+
+.. code-block::
+
+   async function runAgenticai(
+     API_ENDPOINT, 
+     step, 
+     rollbackoffsets, 
+     ollamamodel, 
+     vectordbpath, 
+     temperature, 
+     vectordbcollectionname, 
+     ollamacontainername, 
+     embedding, 
+     agents_topic_prompt, 
+     teamlead_topic, 
+     teamleadprompt, 
+     supervisor_topic, 
+     supervisorprompt, 
+     agenttoolfunctions, 
+     agent_team_supervisor_topic, 
+     contextwindow, 
+     localmodelsfolder, 
+     agenttopic, 
+     windowinstance
+   ) {
+     const payload = {
+       step,
+       rollbackoffsets,
+       "ollama-model": ollamamodel,
+       vectordbpath,
+       temperature,
+       vectordbcollectionname,
+       ollamacontainername,
+       embedding,
+       "agents_topic_prompt": agents_topic_prompt,
+       "teamlead_topic": teamlead_topic,
+       teamleadprompt,
+       "supervisor_topic": supervisor_topic,
+       supervisorprompt,
+       agenttoolfunctions,
+       "agent_team_supervisor_topic": agent_team_supervisor_topic,
+       contextwindow,
+       localmodelsfolder,
+       agenttopic,
+       windowinstance
+     };
+   
+     try {
+       const response = await fetch(API_ENDPOINT, {
+         method: 'POST',
+         headers: {
+           'Content-Type': 'application/json',
+         },
+         body: JSON.stringify(payload)
+       });
+   
+       const responseText = await response.text();
+       console.log(`Status: ${response.status}, Response: ${responseText}`);
+       
+       if (!response.ok) {
+         throw new Error(`HTTP ${response.status}: ${responseText}`);
+       }
+       
+       return JSON.parse(responseText);
+     } catch (error) {
+       console.error('Agentic AI request failed:', error);
+       throw error;
+     }
+   }
+
+**Example Request (React - async):**
+
+.. code-block::
+
+   import { useState, useCallback } from 'react';
+
+   export function useAgenticAI() {
+     const [loading, setLoading] = useState(false);
+     const [error, setError] = useState(null);
+     const [data, setData] = useState(null);
+   
+     const runAgenticai = useCallback(async (
+       API_ENDPOINT, 
+       step, 
+       rollbackoffsets, 
+       ollamamodel, 
+       vectordbpath, 
+       temperature, 
+       vectordbcollectionname, 
+       ollamacontainername, 
+       embedding, 
+       agents_topic_prompt, 
+       teamlead_topic, 
+       teamleadprompt, 
+       supervisor_topic, 
+       supervisorprompt, 
+       agenttoolfunctions, 
+       agent_team_supervisor_topic, 
+       contextwindow, 
+       localmodelsfolder, 
+       agenttopic, 
+       windowinstance
+     ) => {
+       setLoading(true);
+       setError(null);
+       
+       try {
+         const payload = {
+           step,
+           rollbackoffsets,
+           "ollama-model": ollamamodel,
+           vectordbpath,
+           temperature,
+           vectordbcollectionname,
+           ollamacontainername,
+           embedding,
+           "agents_topic_prompt": agents_topic_prompt,
+           "teamlead_topic": teamlead_topic,
+           teamleadprompt,
+           "supervisor_topic": supervisor_topic,
+           supervisorprompt,
+           agenttoolfunctions,
+           "agent_team_supervisor_topic": agent_team_supervisor_topic,
+           contextwindow,
+           localmodelsfolder,
+           agenttopic,
+           windowinstance
+         };
+   
+         const response = await fetch(API_ENDPOINT, {
+           method: 'POST',
+           headers: {
+             'Content-Type': 'application/json',
+           },
+           body: JSON.stringify(payload)
+         });
+   
+         const responseText = await response.text();
+         console.log(`Status: ${response.status}, Response: ${responseText}`);
+         
+         if (!response.ok) {
+           throw new Error(`HTTP ${response.status}: ${responseText}`);
+         }
+         
+         const result = JSON.parse(responseText);
+         setData(result);
+         return result;
+       } catch (err) {
+         setError(err.message);
+         throw err;
+       } finally {
+         setLoading(false);
+       }
+     }, []);
+   
+     return { runAgenticai, loading, error, data };
+   }
+
 **Example Response:**
 - *200* – Agents created and initiated (plain text).
 - *400* – ``"Missing or invalid request"``
