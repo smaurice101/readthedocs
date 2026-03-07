@@ -1666,14 +1666,13 @@ STEP 3b: Produce Data Using RESTAPI: tml-read-RESTAPI-step-3-kafka-producetotopi
 
 .. code-block:: PYTHON
    :emphasize-lines: 25,26,27,28,29,30,31,32,33,34,35,36
-
     
     import maadstml
     from airflow import DAG
     from airflow.operators.python import PythonOperator
     from airflow.operators.bash import BashOperator
     import json
-    from datetime import datetime
+    from datetime import datetime, timezone
     from airflow.decorators import dag, task
     from flask import Flask, request, jsonify
     from gevent.pywsgi import WSGIServer
@@ -1684,7 +1683,9 @@ STEP 3b: Produce Data Using RESTAPI: tml-read-RESTAPI-step-3-kafka-producetotopi
     import time
     import random
     import shlex
-    
+    from typing import Dict, Any
+    import re
+
     sys.dont_write_bytecode = True
     ##################################################  REST API SERVER #####################################
     # This is a REST API server that will handle connections from a client
@@ -1709,6 +1710,26 @@ STEP 3b: Produce Data Using RESTAPI: tml-read-RESTAPI-step-3-kafka-producetotopi
     
     ######################################## DO NOT MODIFY BELOW #############################################
 
+    def writeviperlogs(errortype,message,VIPERTOKEN, VIPERHOST, VIPERPORT):
+    
+      args = default_args    
+      dt = datetime.now(timezone.utc)
+      timestamp = dt.strftime("[%a, %d %b %Y %H:%M:%S UTC]")
+      
+      vmsg=f"{timestamp} {errortype.upper()} [{message}]"
+      Logjson = json.dumps({
+          "MESSAGE": str(vmsg),
+          "SERVICE": "TML-Plugin",
+          "HOST": VIPERHOST,
+          "PORT": str(VIPERPORT),
+          "KAFKA_CONNECT_BOOTSTRAP_SERVERS": "Kafka Broker"
+      })
+    
+      #Logjson=f'{"MESSAGE":"{vmsg}","SERVICE": "TML-Plugin", "HOST": "{VIPERHOST}","PORT": "{str(VIPERPORT)}","KAFKA_CONNECT_BOOTSTRAP_SERVERS": "Kafka Broker"}'         
+    
+    #  print("Logjson=",Logjson)
+      producetokafka(Logjson, "", "","plugin-producer","viperlogs","",args,VIPERTOKEN, VIPERHOST, VIPERPORT)
+    
     def producetokafka(value, tmlid, identifier,producerid,maintopic,substream,args,VIPERTOKEN, VIPERHOST, VIPERPORT):
          inputbuf=value     
          topicid=int(args['topicid'])
@@ -1721,6 +1742,7 @@ STEP 3b: Produce Data Using RESTAPI: tml-read-RESTAPI-step-3-kafka-producetotopi
          try:
             result=maadstml.viperproducetotopic(VIPERTOKEN,VIPERHOST,VIPERPORT,maintopic,producerid,enabletls,delay,'','', '',0,inputbuf,substream,
                                                 topicid,identifier)
+            print("produce result========",result)
          except Exception as e:
             print("ERROR:",e)
     
@@ -1753,7 +1775,7 @@ STEP 3b: Produce Data Using RESTAPI: tml-read-RESTAPI-step-3-kafka-producetotopi
            cdir="/Viper-predict"            
            viperrun=f"/Viper-predict/viper-{mainos}-{chip}"
         if steps=="9b":      
-           cdir="/Viper-preprocess-agenticai"                  
+           cdir="/Viper-preprocess-agenticai"                 
            viperrun=f"/Viper-preprocess-agenticai/viper-{mainos}-{chip}"
     
         if windowinstance != 'default':
@@ -1823,12 +1845,16 @@ STEP 3b: Produce Data Using RESTAPI: tml-read-RESTAPI-step-3-kafka-producetotopi
                       
         return ' '.join(flat_args)
       
-    def stopstart(steps,stepsarr,windowinstance='default'):
+    def stopstart(step,stepsarr,windowinstance='default'):
     
+      print("Stopstart")
       pythonrun=''
-      step=''
-      if steps=='step4':
-        step='4'
+    
+      print("windowinstance==",windowinstance)
+      print("step==",isinstance(step,str),step)
+      step=str(step)
+      
+      if step=="4":
         oldviperport,viperport,vwn,swn=tmuxsession(windowinstance,step)    
         if windowinstance=='default':
           viperport=oldviperport
@@ -1848,8 +1874,7 @@ STEP 3b: Produce Data Using RESTAPI: tml-read-RESTAPI-step-3-kafka-producetotopi
           
             new_pythonrun = flatten_for_shell(args) #shlex.join(flatten_for_shell(args))
             print(f"new_pythonrun: {new_pythonrun}")      
-      elif steps=='step5':
-        step='5'
+      elif step=="5":
         oldviperport,viperport,vwn,swn=tmuxsession(windowinstance,step)    
         if windowinstance=='default':
           viperport=oldviperport
@@ -1871,8 +1896,7 @@ STEP 3b: Produce Data Using RESTAPI: tml-read-RESTAPI-step-3-kafka-producetotopi
             new_pythonrun = flatten_for_shell(args) #shlex.join(flatten_for_shell(args))
             print(f"new_pythonrun: {new_pythonrun}")
           
-      elif steps=='step6':
-        step='6'    
+      elif step=="6":
         oldviperport,viperport,vwn,swn=tmuxsession(windowinstance,step)    
         if windowinstance=='default':
           viperport=oldviperport
@@ -1892,7 +1916,39 @@ STEP 3b: Produce Data Using RESTAPI: tml-read-RESTAPI-step-3-kafka-producetotopi
             args[-1] = stepsarr[-1]    
             new_pythonrun = flatten_for_shell(args) #shlex.join(flatten_for_shell(args))
             print(f"new_pythonrun: {new_pythonrun}")
-      
+      elif step=="9b":
+        oldviperport,viperport,vwn,swn=tmuxsession(windowinstance,step)    
+        if windowinstance=='default':
+          viperport=oldviperport
+        
+        with open("/tmux/step9b_agenticai.txt", 'r', encoding='utf-8') as file:
+            lines = file.readlines()
+            pythonrun = lines[2].strip()  # Index 2 = 3rd line     
+            wn = lines[1].strip()
+            args = shlex.split(pythonrun)      
+    
+            args[-27] = viperport  # viper port              
+            args[-26] = stepsarr[-17]    
+            args[-25] = stepsarr[-16]    
+            args[-23] = stepsarr[-15]    
+            args[-22] = stepsarr[-14]          
+            args[-18] = stepsarr[-13]       
+            args[-17] = stepsarr[-12]          
+            args[-14] = stepsarr[-11]           
+            args[-13] = stepsarr[-10]    
+            args[-12] = stepsarr[-9]       
+            args[-11] = stepsarr[-8]    
+            args[-10] = stepsarr[-7]    
+            args[-9] = stepsarr[-6]       
+            args[-8] = stepsarr[-5]    
+            args[-7] = stepsarr[-4]           
+            args[-3] = stepsarr[-3]    
+            args[-2] = stepsarr[-2]       
+            args[-1] = stepsarr[-1]    
+            new_pythonrun = flatten_for_shell(args) #shlex.join(flatten_for_shell(args))
+            print(f"new_pythonrun: {new_pythonrun}")
+    
+      new_pythonrun=new_pythonrun.replace("<<n>>",'\n')
       if windowinstance=='default':
         subprocess.run(["tmux", "send-keys", "-t", wn, "C-c"])
         subprocess.run(["tmux", "send-keys", "-t", "{}".format(wn), "{}".format(new_pythonrun), "ENTER"],capture_output=True, text=True)        
@@ -1917,8 +1973,29 @@ STEP 3b: Produce Data Using RESTAPI: tml-read-RESTAPI-step-3-kafka-producetotopi
                 print(f"Killed tmux session: {session_name}")
                 
                 mw=session_name.split("_")[1]#session_name.replace("plugin_", "", 1)
+                mw=session_name
                 wt = wt + mw + ","
         wt = wt[:-1]      
+        with open("/tmux/step4_preprocess.txt", 'r', encoding='utf-8') as file:
+            lines = file.readlines()
+            wn = lines[1].strip()
+            subprocess.run(["tmux", "send-keys", "-t", wn, "C-c"])        
+            wt = wt + wn + ","        
+        with open("/tmux/step5_ml.txt", 'r', encoding='utf-8') as file:
+            lines = file.readlines()
+            wn = lines[1].strip()
+            subprocess.run(["tmux", "send-keys", "-t", wn, "C-c"])      
+            wt = wt + wn + ","           
+        with open("/tmux/step6_predictions.txt", 'r', encoding='utf-8') as file:
+            lines = file.readlines()
+            wn = lines[1].strip()
+            subprocess.run(["tmux", "send-keys", "-t", wn, "C-c"])
+            wt = wt + wn + ","
+        with open("/tmux/step9b_agenticai.txt", 'r', encoding='utf-8') as file:
+            lines = file.readlines()
+            wn = lines[1].strip()
+            subprocess.run(["tmux", "send-keys", "-t", wn, "C-c"])
+            wt = wt + wn      
       elif wn=='default':
         if step=="4":
           with open("/tmux/step4_preprocess.txt", 'r', encoding='utf-8') as file:
@@ -1937,7 +2014,34 @@ STEP 3b: Produce Data Using RESTAPI: tml-read-RESTAPI-step-3-kafka-producetotopi
             lines = file.readlines()
             wn = lines[1].strip()
             subprocess.run(["tmux", "send-keys", "-t", wn, "C-c"])
+            wt=wn
+        if step=="9b":
+          with open("/tmux/step9b_agenticai.txt", 'r', encoding='utf-8') as file:
+            lines = file.readlines()
+            wn = lines[1].strip()
+            subprocess.run(["tmux", "send-keys", "-t", wn, "C-c"])
             wt=wn        
+        if step=="0":
+          with open("/tmux/step4_preprocess.txt", 'r', encoding='utf-8') as file:
+            lines = file.readlines()
+            wn = lines[1].strip()
+            subprocess.run(["tmux", "send-keys", "-t", wn, "C-c"])        
+            wt = wt + wn + ","        
+          with open("/tmux/step5_ml.txt", 'r', encoding='utf-8') as file:
+            lines = file.readlines()
+            wn = lines[1].strip()
+            subprocess.run(["tmux", "send-keys", "-t", wn, "C-c"])      
+            wt = wt + wn + ","           
+          with open("/tmux/step6_predictions.txt", 'r', encoding='utf-8') as file:
+            lines = file.readlines()
+            wn = lines[1].strip()
+            subprocess.run(["tmux", "send-keys", "-t", wn, "C-c"])
+            wt = wt + wn + ","             
+          with open("/tmux/step9b_agenticai.txt", 'r', encoding='utf-8') as file:
+            lines = file.readlines()
+            wn = lines[1].strip()
+            subprocess.run(["tmux", "send-keys", "-t", wn, "C-c"])
+            wt = wt + wn                      
       else: 
            subprocess.run(['tmux', 'kill-session', '-t', f"plugin_{wn}_{step}"])
            subprocess.run(['tmux', 'kill-session', '-t', f"plugin_{wn}"])    
@@ -1999,6 +2103,7 @@ STEP 3b: Produce Data Using RESTAPI: tml-read-RESTAPI-step-3-kafka-producetotopi
                                      'myname','myemail','mylocation',description,enabletls,
                                      brokerhost,brokerport,numpartitions,replication,'')
                     print(result)
+                    writeviperlogs("INFO",f"Creating Topic: {pt}",app.config['VIPERTOKEN'],app.config['VIPERHOST'],app.config['VIPERPORT'])                                        
                 return jsonify({
                   'status': 'success',
                   'topics': topics,
@@ -2007,6 +2112,7 @@ STEP 3b: Produce Data Using RESTAPI: tml-read-RESTAPI-step-3-kafka-producetotopi
                   'description': description
                 }), 201
               except Exception as e:
+                writeviperlogs("ERROR",f"Creating Topic failed: {pt}: {e}",app.config['VIPERTOKEN'],app.config['VIPERHOST'],app.config['VIPERPORT'])                            
                 return jsonify({
                   'status': f"error: {e}",
                   'topics': topics,
@@ -2023,7 +2129,7 @@ STEP 3b: Produce Data Using RESTAPI: tml-read-RESTAPI-step-3-kafka-producetotopi
               if not jdata or not jdata.get('rawdatatopic'):
                 return "Missing preprocess or invalid preprocess", 400
     
-              step = jdata.get('step','')  
+              step = str(jdata.get('step','') )
               try:
                if step=='4':
                 step4raw_data_topic = jdata.get('rawdatatopic','')  
@@ -2034,7 +2140,7 @@ STEP 3b: Produce Data Using RESTAPI: tml-read-RESTAPI-step-3-kafka-producetotopi
                 
                 windowinstance = jdata.get("windowinstance","default")                        
                 step4arr = [step4raw_data_topic,step4preprocesstypes,step4jsoncriteria,step4preprocess_data_topic,rollbackoffset]
-                stopstart('step4',step4arr,windowinstance)
+                stopstart(step,step4arr,windowinstance)
                 
                elif step=='4c':
                  maxrows = jdata.get('maxrows',10)  
@@ -2053,7 +2159,7 @@ STEP 3b: Produce Data Using RESTAPI: tml-read-RESTAPI-step-3-kafka-producetotopi
                  windowinstance = jdata.get("windowinstance","default")            
                  step4carr = [maxrows,searchterms,rememberpastwindows,patternwindowthreshold,raw_data_topic,rtmsstream,rtmsscorethreshold,attackscorethreshold,patternscorethreshold,
                              localsearchtermfolder,localsearchtermfolderinterval,rtmsfoldername,rtmsmaxwindows]
-                 stopstart('step4c',step4carr,windowinstance)
+                 stopstart(step,step4carr,windowinstance)
     
                return jsonify({
                   'status': 'success',
@@ -2065,6 +2171,7 @@ STEP 3b: Produce Data Using RESTAPI: tml-read-RESTAPI-step-3-kafka-producetotopi
                   'windowinstance': jdata.get("windowinstance","default")                 
                   }), 201
               except Exception as e:
+               writeviperlogs("ERROR",f"Preprocessing failed: {e}",app.config['VIPERTOKEN'],app.config['VIPERHOST'],app.config['VIPERPORT'])                            
                return jsonify({
                   'status': f"error:{e}",
                   'step4raw_data_topic': jdata.get('rawdatatopic',''),
@@ -2073,7 +2180,7 @@ STEP 3b: Produce Data Using RESTAPI: tml-read-RESTAPI-step-3-kafka-producetotopi
                   'step4jsoncriteria': jdata.get('jsoncriteria',''),
                   'rollbackoffset': jdata.get('rollbackoffset',400),            
                   'windowinstance': jdata.get("windowinstance","default")                 
-                  }), 201
+                  }), 400
                 
               
     #-------------------------------- MACHINE LEARNING -----------------------------------------------------                  
@@ -2083,9 +2190,9 @@ STEP 3b: Produce Data Using RESTAPI: tml-read-RESTAPI-step-3-kafka-producetotopi
               if not jdata:
                 return "Missing ml or invalid ml", 400
     
-              step = jdata.get('step','')  
+              step = str(jdata.get('step','') )
               try:
-                if step==5:
+                if step=="5":
                  trainingdatafolder = jdata.get('trainingdatafolder','')  
                  ml_data_topic = jdata.get('ml_data_topic','')  
                  preprocess_data_topic = jdata.get('preprocess_data_topic','')  
@@ -2094,10 +2201,10 @@ STEP 3b: Produce Data Using RESTAPI: tml-read-RESTAPI-step-3-kafka-producetotopi
                  independentvariables = jdata.get('independentvariables','')  
                  processlogic = jdata.get('processlogic','')  
                  rollbackoffsets = jdata.get('rollbackoffsets',50)  
-                 windowinstance = jdata.get("windowinstance","default")            
+                 windowinstance = jdata.get('windowinstance','default')            
                  step5arr = [rollbackoffsets,processlogic,independentvariables,dependentvariable,
                              islogistic,preprocess_data_topic,ml_data_topic,trainingdatafolder]
-                 stopstart('step5',step5arr,windowinstance)
+                 stopstart(step,step5arr,windowinstance)
                  return jsonify({
                   'status': "success",
                   'trainingdatafolder': jdata.get('trainingdatafolder',''),
@@ -2108,9 +2215,10 @@ STEP 3b: Produce Data Using RESTAPI: tml-read-RESTAPI-step-3-kafka-producetotopi
                   'independentvariables': jdata.get('independentvariables',''),
                   'processlogic': jdata.get('processlogic',''),
                   'rollbackoffsets': jdata.get('rollbackoffsets',50),
-                  'windowinstance': jdata.get("windowinstance","default")                          
+                  'windowinstance': jdata.get('windowinstance','default')                          
                   }), 201    
               except Exception as e:
+                 writeviperlogs("ERROR",f"Machine learning failed: {e}",app.config['VIPERTOKEN'],app.config['VIPERHOST'],app.config['VIPERPORT'])                            
                  return jsonify({
                   'status': f"error:{e}",
                   'trainingdatafolder': jdata.get('trainingdatafolder',''),
@@ -2131,10 +2239,10 @@ STEP 3b: Produce Data Using RESTAPI: tml-read-RESTAPI-step-3-kafka-producetotopi
               if not jdata:
                 return "Missing ml or invalid prediction", 400
               
-              step = jdata.get('step','')  
+              step = str(jdata.get('step','') )
     
               try:
-                if step==6:
+                if step=="6":
                  pathtoalgos = jdata.get('pathtoalgos','')  
                  maxrows = jdata.get('rollbackoffsets',50)  
                  consumefrom = jdata.get('consumefrom','')  
@@ -2142,9 +2250,9 @@ STEP 3b: Produce Data Using RESTAPI: tml-read-RESTAPI-step-3-kafka-producetotopi
                  streamstojoin = jdata.get('streamstojoin','')  
                  ml_prediction_topic = jdata.get('ml_prediction_topic','')  
                  preprocess_data_topic = jdata.get('preprocess_data_topic','')  
-                 windowinstance = jdata.get("windowinstance","default")            
+                 windowinstance = jdata.get('windowinstance','default')            
                  step6arr = [maxrows,preprocess_data_topic,ml_prediction_topic,streamstojoin,inputdata,consumefrom,pathtoalgos]
-                 stopstart('step6',step6arr,windowinstance)
+                 stopstart(step,step6arr,windowinstance)
                  return jsonify({
                   'status': "success",
                    'pathtoalgos': jdata.get('pathtoalgos',''),
@@ -2154,9 +2262,10 @@ STEP 3b: Produce Data Using RESTAPI: tml-read-RESTAPI-step-3-kafka-producetotopi
                    'streamstojoin': jdata.get('streamstojoin',''),  
                    'ml_prediction_topic': jdata.get('ml_prediction_topic',''),  
                    'preprocess_data_topic': jdata.get('preprocess_data_topic',''),  
-                   'windowinstance': jdata.get("windowinstance","default")    
+                   'windowinstance': jdata.get('windowinstance','default')    
                   }), 201          
               except Exception as e:
+                 writeviperlogs("ERROR",f"Predictions failed: {e}",app.config['VIPERTOKEN'],app.config['VIPERHOST'],app.config['VIPERPORT'])                            
                  return jsonify({
                   'status': f"error:{e}",
                    'pathtoalgos': jdata.get('pathtoalgos',''),
@@ -2166,9 +2275,87 @@ STEP 3b: Produce Data Using RESTAPI: tml-read-RESTAPI-step-3-kafka-producetotopi
                    'streamstojoin': jdata.get('streamstojoin',''),  
                    'ml_prediction_topic': jdata.get('ml_prediction_topic',''),  
                    'preprocess_data_topic': jdata.get('preprocess_data_topic',''),  
-                   'windowinstance': jdata.get("windowinstance","default")    
+                   'windowinstance': jdata.get('windowinstance','default')    
                   }), 400
-        
+    
+    #-------------------------------- AGENTIC AI -----------------------------------------------------                        
+            @app.route(rule='/agenticai', methods=['POST'])
+            def agenticaidata():
+              jdata = request.get_json()          
+              if not jdata:
+                return "Missing agentic ai or invalid agentic ai", 400
+              
+              step = str(jdata.get('step','') )
+              
+              try:
+                if step=="9b":
+                 maxrows = jdata.get('rollbackoffsets',10)  
+                 ollamamodel= jdata.get('ollama-model','phi3:3.8b,phi3:3.8b,llama3.2:3b') #agent - team lead - supervisor
+                 vectordbpath= jdata.get('vectordbpath','/rawdata/vectordb')
+                 temperature= float(jdata.get('temperature','0.1'))
+                 vectordbcollectionname= jdata.get('vectordbcollectionname','tml-llm-model')
+                 ollamacontainername= jdata.get('ollamacontainername','maadsdocker/tml-privategpt-with-gpu-nvidia-amd64-llama3-tools')
+                 embedding= jdata.get('embedding','nomic-embed-text')
+                 agents_topic_prompt= jdata.get('agents_topic_prompt','')
+                 teamlead_topic= jdata.get('teamlead_topic','team-lead-responses')
+                 teamleadprompt= jdata.get('teamleadprompt','')
+                 supervisor_topic= jdata.get('supervisor_topic','supervisor-responses')
+                 supervisorprompt= jdata.get('supervisorprompt','')
+                 agenttoolfunctions= jdata.get('agenttoolfunctions','')
+                 agent_team_supervisor_topic= jdata.get('agent_team_supervisor_topic','all-agents-responses')              
+                 contextwindow = jdata.get('contextwindow','4096')  
+                 localmodelsfolder = jdata.get('localmodelsfolder','/rawdata/ollama')  
+                 agenttopic = jdata.get('agenttopic','agent-responses')  
+                 windowinstance = jdata.get('windowinstance','default')            
+                 step9barr = [maxrows,ollamamodel,vectordbpath,temperature,vectordbcollectionname,ollamacontainername,embedding,agents_topic_prompt,teamlead_topic,teamleadprompt,
+                             supervisor_topic,supervisorprompt,agenttoolfunctions,agent_team_supervisor_topic,contextwindow,localmodelsfolder,agenttopic]
+                 stopstart(step,step9barr,windowinstance)
+          
+                 return jsonify({               
+                  'status': "success",
+                  'rollbackoffset': jdata.get('rollbackoffsets',10),
+                  'ollamamodel': jdata.get('ollama-model','phi3:3.8b,phi3:3.8b,llama3.2:3b'), #agent - team lead - supervisor
+                  'vectordbpath': jdata.get('vectordbpath','/rawdata/vectordb'),
+                  'temperature': jdata.get('temperature','0.1'),
+                  'vectordbcollectionname': jdata.get('vectordbcollectionname','tml-llm-model'),
+                  'ollamacontainername': jdata.get('ollamacontainername','maadsdocker/tml-privategpt-with-gpu-nvidia-amd64-llama3-tools'),
+                  'embedding': jdata.get('embedding','nomic-embed-text'),
+                  'agents_topic_prompt': jdata.get('agents_topic_prompt',''),
+                  'teamlead_topic': jdata.get('teamlead_topic','team-lead-responses'),
+                  'teamleadprompt': jdata.get('teamleadprompt',''),
+                  'supervisor_topic': jdata.get('supervisor_topic','supervisor-responses'),
+                  'supervisorprompt': jdata.get('supervisorprompt',''),
+                  'agenttoolfunctions': jdata.get('agenttoolfunctions',''),
+                  'agent_team_supervisor_topic': jdata.get('agent_team_supervisor_topic','all-agents-responses'),
+                  'contextwindow': jdata.get('contextwindow','4096'),  
+                  'localmodelsfolder': jdata.get('localmodelsfolder','/rawdata/ollama'),
+                  'agenttopic': jdata.get('agenttopic','agent-responses'),
+                  'windowinstance': jdata.get('windowinstance','default')               
+                  }), 201          
+              except Exception as e:
+                 writeviperlogs("ERROR",f"Agentic AI failed: {e}",app.config['VIPERTOKEN'],app.config['VIPERHOST'],app.config['VIPERPORT'])                            
+                 return jsonify({
+                  'status': f"error:{e}",
+                  'rollbackoffset': jdata.get('rollbackoffsets',10),
+                  'ollamamodel': jdata.get('ollama-model','phi3:3.8b,phi3:3.8b,llama3.2:3b'), #agent - team lead - supervisor
+                  'vectordbpath': jdata.get('vectordbpath','/rawdata/vectordb'),
+                  'temperature': jdata.get('temperature','0.1'),
+                  'vectordbcollectionname': jdata.get('vectordbcollectionname','tml-llm-model'),
+                  'ollamacontainername': jdata.get('ollamacontainername','maadsdocker/tml-privategpt-with-gpu-nvidia-amd64-llama3-tools'),
+                  'embedding': jdata.get('embedding','nomic-embed-text'),
+                  'agents_topic_prompt': jdata.get('agents_topic_prompt',''),
+                  'teamlead_topic': jdata.get('teamlead_topic','team-lead-responses'),
+                  'teamleadprompt': jdata.get('teamleadprompt',''),
+                  'supervisor_topic': jdata.get('supervisor_topic','supervisor-responses'),
+                  'supervisorprompt': jdata.get('supervisorprompt',''),
+                  'agenttoolfunctions': jdata.get('agenttoolfunctions',''),
+                  'agent_team_supervisor_topic': jdata.get('agent_team_supervisor_topic','all-agents-responses'),
+                  'contextwindow': jdata.get('contextwindow','4096'),  
+                  'localmodelsfolder': jdata.get('localmodelsfolder','/rawdata/ollama'),
+                  'agenttopic': jdata.get('agenttopic','agent-responses'),
+                  'windowinstance': jdata.get('windowinstance','default')               
+                  }), 400
+          
     #-------------------------------- CONSUME -----------------------------------------------------                        
             @app.route(rule='/consume', methods=['POST'])
             def consumedata():
@@ -2195,7 +2382,6 @@ STEP 3b: Produce Data Using RESTAPI: tml-read-RESTAPI-step-3-kafka-producetotopi
               legal = jdata.get('legal','tml-legal')  
               
               forward_headers = {'Content-Type': 'application/json'}
-    
     
               if maintopic != '':
                try: 
@@ -2271,11 +2457,15 @@ STEP 3b: Produce Data Using RESTAPI: tml-read-RESTAPI-step-3-kafka-producetotopi
                        })                 
                      except Exception as e:
                         forward_statuses.append({'url': fw.strip(), 'error': str(e)})
+                        writeviperlogs("ERROR",f"Forwarding URL failed: {e}",app.config['VIPERTOKEN'],app.config['VIPERHOST'],app.config['VIPERPORT'])                
+    
                    response['forward_statuses'] = forward_statuses                   
                    return jsonify(response), 200
                except Exception as e:
                    print("Error=",e)
+                   writeviperlogs("ERROR",f"Consume failed: {e}",app.config['VIPERTOKEN'],app.config['VIPERHOST'],app.config['VIPERPORT'])                             
                    return jsonify({"error": f"Consumption failed: {e}"}), 500
+                 
                  
       #         return result      
     ####################################################################################################      
@@ -2297,7 +2487,99 @@ STEP 3b: Produce Data Using RESTAPI: tml-read-RESTAPI-step-3-kafka-producetotopi
                  item = json.dumps(item)            
                  readdata(item,app.config['VIPERTOKEN'],app.config['VIPERHOST'],app.config['VIPERPORT'],topic)
               return "ok"      
-            
+    
+    ####################################################################################################
+            @app.route(rule='/health', methods=['POST'])
+            def tmux_health_check_json() -> Dict[str, Any]:
+                def run_tmux(cmd):
+                    try:
+                        result = subprocess.run(['tmux'] + cmd, capture_output=True, text=True, timeout=10)
+                        return result.stdout.strip()
+                    except:
+                        return ""
+                
+                result = {
+                    "timestamp": datetime.now().isoformat(),
+                    "sessions": [],
+                    "summary": {
+                        "total_plugin_windows": 0,
+                        "error_count": 0,
+                        "healthy": True
+                    }
+                }
+                
+                # Get clean session list
+                sessions_raw = run_tmux(['ls', '-F', '#{session_name}']) or run_tmux(['list-sessions', '-F', '#{session_name}'])
+                sessions = [s.strip() for s in sessions_raw.split('\n') if s.strip()]
+                
+                crash_patterns = [r'panic[:\s]', r'fatal\s+error', r'segmentation.*fault', 
+                                 r'SIGSEGV', r'runtime\s+error', r'goroutine\s+panic', 
+                                 r'signal:.*killed', r'signal:.*abrt']
+                
+                for session_name in sessions:
+                    # ✅ FIX 1: Check if SESSION starts with plugin_
+                    is_plugin_session = session_name.startswith('plugin_')
+                    session_name_user ="n/a"
+                    if is_plugin_session:
+                      session_name_user=session_name.split("_")[1]
+                      
+                    session_data = {
+                        "name": session_name,
+                        "user_session": session_name_user, 
+                        "is_plugin_session": is_plugin_session,
+                        "plugin_windows": [],
+                        "status": "healthy",
+                        "plugin_window_count": 0
+                    }
+                    
+                    # Get windows for this session
+                    windows_raw = run_tmux(['list-windows', '-t', session_name, 
+                                           '-F', '#{window_index}:#{window_name}'])
+                    windows = [w for w in windows_raw.split('\n') if ':' in w]
+                    
+                    # ✅ FIX 2: Include ANY window starting with plugin_ OR session is plugin_
+                    plugin_windows = []
+                    for win in windows:
+                        win_index, win_name = win.split(':', 1)
+                        # Check if WINDOW starts with plugin_ OR SESSION is plugin_
+                        #if win_name.startswith('plugin_') or is_plugin_session:
+                        plugin_windows.append((win_index, win_name))
+                    
+                    # Process plugin windows
+                    for win_index, win_name in plugin_windows:
+                        result["summary"]["total_plugin_windows"] += 1
+                        session_data["plugin_window_count"] += 1
+                        
+                        pane_content = run_tmux(['capture-pane', '-t', f'{session_name}:{win_index}.0', 
+                                               '-S', '-1000', '-e', '-q'])
+                        
+                        crashes = [line.strip() for line in pane_content.split('\n') 
+                                  if any(re.search(p, line, re.IGNORECASE) for p in crash_patterns)]
+                        
+                        window_data = {
+                            "index": win_index,
+                            "name": win_name,
+                            "status": "healthy" if not crashes else "crashed",
+                            "crash_lines": crashes[:5]
+                        }
+                        
+                        if crashes:
+                            result["summary"]["error_count"] += 1
+                            session_data["status"] = "unhealthy"
+                            result["summary"]["healthy"] = False
+                        
+                        session_data["plugin_windows"].append(window_data)
+                    
+                    # ✅ FIX 3: Include ANY session with plugin activity
+                    if session_data["plugin_window_count"] > 0 or is_plugin_session:
+                        result["sessions"].append(session_data)
+              
+                writeviperlogs("INFO",f"{result}",app.config['VIPERTOKEN'],app.config['VIPERHOST'],app.config['VIPERPORT'])                            
+                
+                return jsonify(result),200
+    
+          
+    ####################################################################################################      
             #app.run(port=default_args['rest_port']) # for dev
             if os.environ['TSS']=="0": 
               try:  
@@ -2306,18 +2588,21 @@ STEP 3b: Produce Data Using RESTAPI: tml-read-RESTAPI-step-3-kafka-producetotopi
                tsslogging.locallogs("ERROR", "STEP 3: Cannot connect to WSGIServer in {} - {}".format(os.path.basename(__file__),e))
                     
                tsslogging.tsslogit("ERROR: Cannot connect to WSGIServer in {}".format(os.path.basename(__file__)), "ERROR" )                     
-               tsslogging.git_push("/{}".format(repo),"Entry from {} - {}".format(os.path.basename(__file__),e),"origin")        
+     #          tsslogging.git_push("/{}".format(repo),"Entry from {} - {}".format(os.path.basename(__file__),e),"origin")        
                print("ERROR: Cannot connect to  WSGIServer") 
+               writeviperlogs("ERROR",f"Cannot start TML Plugin server: {e}",app.config['VIPERTOKEN'],app.config['VIPERHOST'],app.config['VIPERPORT'])                            
                return             
             else:
               try:  
                 print("Listening")  
+                writeviperlogs("INFO","TML Plugin Server Started",app.config['VIPERTOKEN'],app.config['VIPERHOST'],app.config['VIPERPORT'])                            
                 http_server = WSGIServer(('', int(default_args['tss_rest_port'])), app)
               except Exception as e:
                tsslogging.locallogs("ERROR", "STEP 3: Cannot connect to WSGIServer in {} - {}".format(os.path.basename(__file__),e))                                
                tsslogging.tsslogit("ERROR: Cannot connect to WSGIServer in {}".format(os.path.basename(__file__)), "ERROR" )                     
-               tsslogging.git_push("/{}".format(repo),"Entry from {} - {}".format(os.path.basename(__file__),e),"origin")        
+    #           tsslogging.git_push("/{}".format(repo),"Entry from {} - {}".format(os.path.basename(__file__),e),"origin")        
                print("ERROR: Cannot connect to  WSGIServer") 
+               writeviperlogs("ERROR",f"Cannot start plugin server: {e}",app.config['VIPERTOKEN'],app.config['VIPERHOST'],app.config['VIPERPORT'])                            
                return             
                 
             tsslogging.locallogs("INFO", "STEP 3: RESTAPI HTTP Server started ... successfully")
