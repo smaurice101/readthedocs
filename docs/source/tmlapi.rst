@@ -112,6 +112,7 @@ TML API Quick Reference
 - ``/jsondataline`` - Send single JSON → 200
 - ``/jsondataarray`` - Send JSON array → 200
 - ``/terminatewindow`` - Send JSON array → 200
+- ``/health`` - Send JSON array → 200
 
 POST /createtopic
 --------------------------
@@ -1567,3 +1568,81 @@ Your output should look something similar to this
 .. figure:: endpointoutput.png
    :scale: 70%
 
+POST /health
+--------------------------
+
+**Description:**
+Get a health check on the sessions running in the TML server plugin.
+
+**Example Request (Python - async):**
+
+.. code-block:: python
+
+    import aiohttp
+    import asyncio
+
+    async def health():
+        url = "http://localhost:5000/health"
+        
+        async with aiohttp.ClientSession() as session:
+            async with session.post(url) as response:
+                print(f"Status: {response.status}, Response: {await response.text()}")
+
+    # Run the async function
+    asyncio.run(health())
+
+**Example Request (JavaScript - async):**
+
+.. code-block:: javascript
+
+    async health() {
+        const url = 'http://localhost:5000/health';
+
+        try {
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+            });
+            const data = await response.text();
+            console.log('Success:', data);
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    }
+
+    health();
+
+**Example Request (React - async):**
+
+.. code-block:: jsx
+
+    import { useState } from 'react';
+
+    function health() {
+        const [status, setStatus] = useState('');
+        
+        const handleSubmit = async (e) => {
+            e.preventDefault();
+            
+            try {
+                const response = await fetch('http://localhost:5000/health', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                });
+                setStatus(response.ok ? 'health ok!' : 'Failed');
+            } catch (error) {
+                setStatus('Error: ' + error.message);
+            }
+        };
+
+        return (
+            <form onSubmit={handleSubmit}>
+                <button type="submit">Health Check</button>
+                <p>{status}</p>
+            </form>
+        );
+    }
+
+**Responses:**
+- *200* – Health successfully.
+- *400* – ``"Health failed"``
