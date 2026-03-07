@@ -1671,6 +1671,7 @@ POST /agenticai
 Run powerful agentic AI analysis on data streams.  This allows users to use agents to automate workflows in real-time.
 
 **Request JSON Parameters:**
+
 - ``step`` *(string, required)* – This step is 9b.
 - ``rollbackoffsets`` *(int, required, default=10)* – how far to rollback the datastream
 - ``ollama-model`` *(string, required, default="phi3:3.8b,phi3:3.8b,llama3.2:3b")* – The LLM models to use for individual agents, team lead agent and supervisor agent
