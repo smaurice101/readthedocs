@@ -1644,5 +1644,5 @@ Get a health check on the sessions running in the TML server plugin.
     }
 
 **Responses:**
-- *200* – Health successfully.
+- *200* – Health successful.
 - *400* – ``"Health failed"``
