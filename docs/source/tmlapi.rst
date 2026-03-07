@@ -1363,202 +1363,218 @@ Copy and paste this code locally and run it.
 
 .. code-block:: python
 
-      import requests
-      import sys
-      from datetime import datetime
-      import time
-      import json
-      
-      import aiohttp
-      import asyncio
-      
-      rest_port = "9002"  # <<< ***** Change Port to match the Server Rest_PORT
-      httpaddr = "http:" # << Change to https or http
-      
-      #----------------- TERMINATE WINDOW ENDPOINT ------------------------------
-      async def terminatewindow(API_ENDPOINT,step=0,windowname='all'):
-          url = API_ENDPOINT
-          payload = {
-              "step": step,
-              "windowname": windowname
-          }
-      
-          async with aiohttp.ClientSession() as session:
-              async with session.post(url, json=payload) as response:
-                  print(f"Status: {response.status}, Response: {await response.text()}")
-      
-      #----------------- CREATETOPIC ENDPOINT ------------------------------
-      async def create_topics(API_ENDPOINT,mytopic):
-          url = API_ENDPOINT
-          payload = {
-              "topics": mytopic,
-              "numpartitions": 3, # number of partitions n topic
-              "replication": 1, # replication factor must be 1 for local kafka and > 1 for cloud kafka
-              "description": "Industrial IoT streams"
-          }
-      
-          async with aiohttp.ClientSession() as session:
-              async with session.post(url, json=payload) as response:
-                  print(f"Status: {response.status}, Response: {await response.text()}")
-      
-      #----------------- PREPROCESS ENDPOINT ------------------------------
-      async def start_preprocessing(API_ENDPOINT,rawdatatopic,preprocesstopic,preprocesstypes,jsoncriteria,rollbackoffsets,windowinstance='default'):
-      
-          payload = {
-              "step": "4",
-              "rawdatatopic": rawdatatopic, # raw data containing the JSON you want to process: This is the JSON in POST /jsondataline or POST /jsondataarray
-              "preprocessdatatopic": preprocesstopic, # Kafka Topic you want to store the Preprocessed data in 
-              "preprocesstypes": preprocesstypes, # The preprocesstypes you want to apply to the raw data
-              "rollbackoffsets": rollbackoffsets,
-              "jsoncriteria": jsoncriteria,  # Json criteria that are the "Json paths" you want to extract from the json and process
-              "windowinstance": windowinstance # This willl create a new window instance in the TML server where these data will be processed
-                                                 # This allows users to "Process multiple data streams simultaneiously"   
-          }
-      
-          async with aiohttp.ClientSession() as session:
-              async with session.post(API_ENDPOINT, json=payload) as response:
-                  print(await response.text())
-      
-      
-      #----------------- MACHINE LEARNING ENDPOINT ------------------------------
-      
-      async def train_ml_model(API_ENDPOINT,step,trainingdatafolder,ml_data_topic,preprocess_data_topic,islogistic,dependentvariable,
-                               independentvariables,processlogic,rollbackoffsets,windowinstance):
-          payload = {
-              "step": step,
-              "trainingdatafolder": trainingdatafolder,
-              "ml_data_topic": ml_data_topic,
-              "preprocess_data_topic": preprocess_data_topic,
-              "islogistic": islogistic,
-              "dependentvariable": dependentvariable,
-              "independentvariables": independentvariables,
-              "processlogic": processlogic,
-              "rollbackoffsets": rollbackoffsets,
-              "windowinstance": windowinstance
-          }
-      
-          async with aiohttp.ClientSession() as session:
-              async with session.post(API_ENDPOINT, json=payload) as response:
-                  print(f"Status: {response.status}, Response: {await response.text()}")
-      
-      #----------------- PREDICTION ENDPOINT ------------------------------
-      
-      async def run_predictions(API_ENDPOINT,step,algofolder,rollbackoffsets,consumefrom,inputdata,streamstojoin,ml_prediction_topic,preprocess_data_topic,windowinstance):
-          payload = {
-              "step": step,
-              "pathtoalgos": algofolder,
-              "rollbackoffsets": rollbackoffsets,
-              "consumefrom": consumefrom,
-              "inputdata": inputdata,
-              "streamstojoin": streamstojoin,
-              "ml_prediction_topic": ml_prediction_topic,
-              "preprocess_data_topic": preprocess_data_topic,
-              "windowinstance": windowinstance
-          }
-      
-          async with aiohttp.ClientSession() as session:
-              async with session.post(API_ENDPOINT, json=payload) as response:
-                  print(f"Status: {response.status}, Response: {await response.text()}")
-      
-      #----------------- CONSUME DATA ENDPOINT ------------------------------
-      
-      async def consume_data(API_ENDPOINT,topic,rollbackoffsets,kind,legal,forwardurls,osdu="true"):
-          payload = {
-              "topic": topic,
-              "rollbackoffsets": rollbackoffsets,
-              "osdu": osdu,
-              "kind": kind,
-              "legal": legal,
-              "forwardurls": forwardurls
-          }
-      
-          async with aiohttp.ClientSession() as session:
-              async with session.post(API_ENDPOINT, json=payload) as response:
-                  data = await response.json()
-                  print(json.dumps(data))
-                  #print(f"Consumed {len(data.get('messages', []))} messages")
-      
-      #############################################################################################################
-      
-      #                          CALL ENDPOINTS
-      #------------------------------------------------------------------------------------------------------------
-      
-      #----------------- CALL TERMINATE ENDPOINT-----------------------------------------------------------------
-      apiroute = "terminatewindow"
-      API_ENDPOINT = "{}//localhost:{}/{}".format(httpaddr,rest_port,apiroute)
-      asyncio.run(terminatewindow(API_ENDPOINT,0,'all'))
-      
-      #----------------- CALL CREATETOPIC ENDPOINT-----------------------------------------------------------------
-      apiroute = "createtopic"
-      API_ENDPOINT = "{}//localhost:{}/{}".format(httpaddr,rest_port,apiroute)
-      topics="mytopic,mytopic2"  # change to any topic name
-      asyncio.run(create_topics(API_ENDPOINT,topics))
-      
-      #----------------- CALL PREPROCESS --------------------------------------------------------------------------
-      apiroute = "preprocess"
-      API_ENDPOINT = "{}//localhost:{}/{}".format(httpaddr,rest_port,apiroute)
-      
-      # For details on JSON processing see here: https://tml.readthedocs.io/en/latest/jsonprocessing.html
-      json_criteria = """uid=metadata.dsn,filter:allrecords~\
-      subtopics=metadata.property_name~\
-      values=datapoint.value~\
-      identifiers=metadata.display_name~\
-      datetime=datapoint.updated_at~\
-      msgid=datapoint.id~\
-      latlong=lat:long"""
-      
-      rawdatatopic="iot-raw-data", # raw data containing the JSON you want to process: This is the JSON in POST /jsondataline or POST /jsondataarray
-      preprocessdatatopic="clean-sensor-data", # Kafka Topic you want to store the Preprocessed data in 
-      # For details on processing type see here: https://tml.readthedocs.io/en/latest/tmlbuilds.html#preprocessing-types
-      preprocesstypes="kurtosis,skeweness" # The preprocesstypes you want to apply to the raw data
-      jsoncriteria=json_criteria,  # Json criteria that are the "Json paths" you want to extract from the json and process
-      windowinstance="preprocess-sensor" # This willl create a new window instance in the TML server where these data will be processed or choose 'default'
-      rollbackoffsets=200
-      
-      asyncio.run(start_preprocessing(API_ENDPOINT,rawdatatopic,preprocessdatatopic,preprocesstypes,jsoncriteria,rollbackoffsets,windowinstance))
-      
-      #----------------- CALL MACHINE LEARNING --------------------------------------------------------------------------
-      apiroute = "ml"
-      API_ENDPOINT = "{}//localhost:{}/{}".format(httpaddr,rest_port,apiroute)
-      
-      trainingdatafolder = "iotlogistic-model"
-      ml_data_topic = "ml-data"  
-      preprocess_data_topic = "iot-preprocess"
-      islogistic = 1
-      dependentvariable = "failure" 
-      independentvariables = "Power_preprocessed_AnomProb"
-      processlogic = "classification_name=failure_prob:Power_preprocessed_AnomProb=55,n"
-      rollbackoffsets = 1000
-      windowinstance = "machine-learning"
-      step=5
-      asyncio.run(train_ml_model(API_ENDPOINT,step,trainingdatafolder,ml_data_topic,preprocess_data_topic,islogistic,dependentvariable,
-                               independentvariables,processlogic,rollbackoffsets,windowinstance))
-      
-      #----------------- CALL PREDICTIONS --------------------------------------------------------------------------
-      apiroute = "predict"
-      API_ENDPOINT = "{}//localhost:{}/{}".format(httpaddr,rest_port,apiroute)
-      step=6
-      algofolder="iotlogistic-model"
-      rollbackoffsets=50
-      consumefrom="ml-data"
-      inputdata=""
-      streamstojoin="Power_preprocessed_AnomProb"
-      ml_prediction_topic="iot-ml-prediction-results-output"
-      preprocess_data_topic="iot-preprocess"
-      windowinstance="prediction-window"
-      
-      asyncio.run(run_predictions(API_ENDPOINT,step,algofolder,rollbackoffsets,consumefrom,inputdata,streamstojoin,ml_prediction_topic,preprocess_data_topic,windowinstance))
-      
-      #----------------- CALL CONSUME --------------------------------------------------------------------------
-      apiroute = "consume"
-      API_ENDPOINT = "{}//localhost:{}/{}".format(httpaddr,rest_port,apiroute)
-      topic="iot-ml-prediction-results-output"
-      rollbackoffsets=2
-      kind="tml-kind"
-      legal="tml-legal"
-      forwardurls="" # add forward urls separate multiple by comma
-      osdu="true"
-      asyncio.run(consume_data(API_ENDPOINT,topic,rollbackoffsets,kind,legal,forwardurls,osdu))
+   import requests
+   import sys
+   from datetime import datetime
+   import time
+   import json
+   
+   import aiohttp
+   import asyncio
+   
+   rest_port = "9002"  # <<< ***** Change Port to match the Server Rest_PORT
+   httpaddr = "http:" # << Change to https or http
+   
+   #----------------- TERMINATE WINDOW ENDPOINT ------------------------------
+   async def terminatewindow(API_ENDPOINT,step=0,windowname='all'):
+       url = API_ENDPOINT
+       payload = {
+           "step": step,
+           "windowname": windowname
+       }
+   
+       async with aiohttp.ClientSession() as session:
+           async with session.post(url, json=payload) as response:
+               print(f"Status: {response.status}, Response: {await response.text()}")
+   
+   #----------------- CREATETOPIC ENDPOINT ------------------------------
+   async def create_topics(API_ENDPOINT,mytopic):
+       url = API_ENDPOINT
+       payload = {
+           "topics": mytopic,
+           "numpartitions": 3, # number of partitions n topic
+           "replication": 1, # replication factor must be 1 for local kafka and > 1 for cloud kafka
+           "description": "Industrial IoT streams"
+       }
+   
+       async with aiohttp.ClientSession() as session:
+           async with session.post(url, json=payload) as response:
+               print(f"Status: {response.status}, Response: {await response.text()}")
+   
+   #----------------- PREPROCESS ENDPOINT ------------------------------
+   async def start_preprocessing(API_ENDPOINT,rawdatatopic,preprocesstopic,preprocesstypes,jsoncriteria,rollbackoffsets,windowinstance='default'):
+   
+       payload = {
+           "step": "4",
+           "rawdatatopic": rawdatatopic, # raw data containing the JSON you want to process: This is the JSON in POST /jsondataline or POST /jsondataarray
+           "preprocessdatatopic": preprocesstopic, # Kafka Topic you want to store the Preprocessed data in 
+           "preprocesstypes": preprocesstypes, # The preprocesstypes you want to apply to the raw data
+           "rollbackoffsets": rollbackoffsets,
+           "jsoncriteria": jsoncriteria,  # Json criteria that are the "Json paths" you want to extract from the json and process
+           "windowinstance": windowinstance # This willl create a new window instance in the TML server where these data will be processed
+                                              # This allows users to "Process multiple data streams simultaneiously"   
+       }
+   
+       async with aiohttp.ClientSession() as session:
+           async with session.post(API_ENDPOINT, json=payload) as response:
+               print(await response.text())
+   
+   
+   #----------------- MACHINE LEARNING ENDPOINT ------------------------------
+   
+   async def train_ml_model(API_ENDPOINT,step,trainingdatafolder,ml_data_topic,preprocess_data_topic,islogistic,dependentvariable,
+                            independentvariables,processlogic,rollbackoffsets,windowinstance):
+       payload = {
+           "step": step,
+           "trainingdatafolder": trainingdatafolder,
+           "ml_data_topic": ml_data_topic,
+           "preprocess_data_topic": preprocess_data_topic,
+           "islogistic": islogistic,
+           "dependentvariable": dependentvariable,
+           "independentvariables": independentvariables,
+           "processlogic": processlogic,
+           "rollbackoffsets": rollbackoffsets,
+           "windowinstance": windowinstance
+       }
+   
+       async with aiohttp.ClientSession() as session:
+           async with session.post(API_ENDPOINT, json=payload) as response:
+               print(f"Status: {response.status}, Response: {await response.text()}")
+   
+   #----------------- PREDICTION ENDPOINT ------------------------------
+   
+   async def  run_predictions(API_ENDPOINT,step,algofolder,rollbackoffsets,consumefrom,inputdata,streamstojoin,ml_prediction_topic,preprocess_data_topic,windowinstance):
+       payload = {
+           "step": step,
+           "pathtoalgos": algofolder,
+           "rollbackoffsets": rollbackoffsets,
+           "consumefrom": consumefrom,
+           "inputdata": inputdata,
+           "streamstojoin": streamstojoin,
+           "ml_prediction_topic": ml_prediction_topic,
+           "preprocess_data_topic": preprocess_data_topic,
+           "windowinstance": windowinstance
+       }
+   
+       async with aiohttp.ClientSession() as session:
+           async with session.post(API_ENDPOINT, json=payload) as response:
+               print(f"Status: {response.status}, Response: {await response.text()}")
+   
+   #----------------- CONSUME DATA ENDPOINT ------------------------------
+   
+   async def consume_data(API_ENDPOINT,topic,rollbackoffsets,kind,legal,forwardurls,osdu="true"):
+       payload = {
+           "topic": topic,
+           "rollbackoffsets": rollbackoffsets,
+           "osdu": osdu,
+           "kind": kind,
+           "legal": legal,
+           "forwardurls": forwardurls
+       }
+   
+       async with aiohttp.ClientSession() as session:
+           async with session.post(API_ENDPOINT, json=payload) as response:
+               data = await response.json()
+               print(json.dumps(data))
+               #print(f"Consumed {len(data.get('messages', []))} messages")
+   
+   #----------------- HEALTH ENDPOINT ------------------------------
+   async def health(API_ENDPOINT):
+   
+   
+       async with aiohttp.ClientSession() as session:
+           async with session.post(API_ENDPOINT) as response:
+               data = await response.json()
+               print(json.dumps(data))
+   
+   #############################################################################################################
+   
+   #                          CALL ENDPOINTS
+   #------------------------------------------------------------------------------------------------------------
+   
+   #----------------- CALL TERMINATE ENDPOINT-----------------------------------------------------------------
+   apiroute = "terminatewindow"
+   API_ENDPOINT = "{}//localhost:{}/{}".format(httpaddr,rest_port,apiroute)
+   asyncio.run(terminatewindow(API_ENDPOINT,0,'all'))
+   
+   #----------------- CALL CREATETOPIC ENDPOINT-----------------------------------------------------------------
+   apiroute = "createtopic"
+   API_ENDPOINT = "{}//localhost:{}/{}".format(httpaddr,rest_port,apiroute)
+   topics="mytopic,mytopic2"  # change to any topic name
+   asyncio.run(create_topics(API_ENDPOINT,topics))
+   
+   #----------------- CALL PREPROCESS --------------------------------------------------------------------------
+   apiroute = "preprocess"
+   API_ENDPOINT = "{}//localhost:{}/{}".format(httpaddr,rest_port,apiroute)
+   
+   # For details on JSON processing see here: https://tml.readthedocs.io/en/latest/jsonprocessing.html
+   json_criteria = """uid=metadata.dsn,filter:allrecords~\
+   subtopics=metadata.property_name~\
+   values=datapoint.value~\
+   identifiers=metadata.display_name~\
+   datetime=datapoint.updated_at~\
+   msgid=datapoint.id~\
+   latlong=lat:long"""
+   
+   rawdatatopic="iot-raw-data", # raw data containing the JSON you want to process: This is the JSON in POST /jsondataline or POST /jsondataarray
+   preprocessdatatopic="clean-sensor-data", # Kafka Topic you want to store the Preprocessed data in 
+   # For details on processing type see here: https://tml.readthedocs.io/en/latest/tmlbuilds.html#preprocessing-types
+   preprocesstypes="kurtosis,skeweness" # The preprocesstypes you want to apply to the raw data
+   jsoncriteria=json_criteria,  # Json criteria that are the "Json paths" you want to extract from the json and process
+   windowinstance="default-pre"#"preprocess-sensor" # This willl create a new window instance in the TML server where these data will be processed or choose 'default'
+   rollbackoffsets=200
+   
+   asyncio.run(start_preprocessing(API_ENDPOINT,rawdatatopic,preprocessdatatopic,preprocesstypes,jsoncriteria,rollbackoffsets,windowinstance))
+   
+   #----------------- CALL MACHINE LEARNING --------------------------------------------------------------------------
+   apiroute = "ml"
+   API_ENDPOINT = "{}//localhost:{}/{}".format(httpaddr,rest_port,apiroute)
+   
+   trainingdatafolder = "iotlogistic-model"
+   ml_data_topic = "ml-data"  
+   preprocess_data_topic = "iot-preprocess"
+   islogistic = 1
+   dependentvariable = "failure" 
+   independentvariables = "Power_preprocessed_AnomProb"
+   processlogic = "classification_name=failure_prob:Power_preprocessed_AnomProb=55,n"
+   rollbackoffsets = 1000
+   windowinstance = "default-ml"#"machine-learning"
+   step=5
+   asyncio.run(train_ml_model(API_ENDPOINT,step,trainingdatafolder,ml_data_topic,preprocess_data_topic,islogistic,dependentvariable,
+                            independentvariables,processlogic,rollbackoffsets,windowinstance))
+   
+   #----------------- CALL PREDICTIONS --------------------------------------------------------------------------
+   apiroute = "predict"
+   API_ENDPOINT = "{}//localhost:{}/{}".format(httpaddr,rest_port,apiroute)
+   step=6
+   algofolder="iotlogistic-model"
+   rollbackoffsets=50
+   consumefrom="ml-data"
+   inputdata=""
+   streamstojoin="Power_preprocessed_AnomProb"
+   ml_prediction_topic="iot-ml-prediction-results-output"
+   preprocess_data_topic="iot-preprocess"
+   windowinstance="default-pred"#"prediction-window"
+   
+   asyncio.run(run_predictions(API_ENDPOINT,step,algofolder,rollbackoffsets,consumefrom,inputdata,streamstojoin,ml_prediction_topic,preprocess_data_topic,windowinstance))
+   
+   #----------------- CALL CONSUME --------------------------------------------------------------------------
+   apiroute = "consume"
+   API_ENDPOINT = "{}//localhost:{}/{}".format(httpaddr,rest_port,apiroute)
+   topic="iot-ml-prediction-results-output"
+   rollbackoffsets=2
+   kind="tml-kind"
+   legal="tml-legal"
+   forwardurls="" # add forward urls separate multiple by comma
+   osdu="true"
+   asyncio.run(consume_data(API_ENDPOINT,topic,rollbackoffsets,kind,legal,forwardurls,osdu))
+   
+   #----------------- CALL HEALTH --------------------------------------------------------------------------
+   apiroute = "health"
+   API_ENDPOINT = "{}//localhost:{}/{}".format(httpaddr,rest_port,apiroute)
+   
+   asyncio.run(health(API_ENDPOINT))
+
 
 Output Results
 ---------------
