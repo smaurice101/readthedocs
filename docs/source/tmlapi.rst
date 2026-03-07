@@ -108,6 +108,7 @@ TML API Quick Reference
 - ``/preprocess`` - Data preprocessing (`step=4|4c`, `rawdatatopic`) → 200,400  
 - ``/ml`` - Train ML models (`step=5`, `trainingdatafolder`) → 200,400
 - ``/predict`` - Run predictions (`step=6`, `pathtoalgos`) → 200,400
+- ``/agenticai`` - Run Agentic AI Analysis (`step=9b`, `ollama-model`) → 200,400
 - ``/consume`` - Consume messages (`topic`, `forwardurl`) → 200,400,500
 - ``/jsondataline`` - Send single JSON → 200
 - ``/jsondataarray`` - Send JSON array → 200
@@ -1662,3 +1663,46 @@ Get a health check on the sessions running in the TML server plugin.
 **Responses:**
 - *200* – Health successful.
 - *400* – ``"Health failed"``
+
+POST /agenticai
+--------------------------
+
+**Description:**
+Run powerful agentic AI analysis on data streams.  This allows users to use agents to automate workflows in real-time.
+
+**Request JSON Parameters:**
+- ``step`` *(string, required)* – This step is 9b.
+- ``rollbackoffsets`` *(int, required, default=10)* – how far to rollback the datastream
+- ``ollama-model`` *(string, required, default="phi3:3.8b,phi3:3.8b,llama3.2:3b")* – The LLM models to use for individual agents, team lead agent and supervisor agent
+- ``vectordbpath`` *(string, required, default='/rawdata/vectordb')* – This the path to store the vector DB
+- ``temperature`` *(string, required, dfeault="0.1")* – The temperature setting for the LLMs
+- ``vectordbcollectionname`` *(string, required, default="tml-llm-model")* – The name of the vector collection
+- ``ollamacontainername`` *(string, required, default='maadsdocker/tml-privategpt-with-gpu-nvidia-amd64-llama3-tools')* – The Ollama container to use. For CPU use: maadsdocker/tml-privategpt-with-cpu-amd64-llama3-tools
+- ``embedding`` *(string, required, default="nomic-embed-text")* – The embedding model to use for LLM
+- ``agents_topic_prompt`` *(string, required)* – See `Dag 9b <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-9b-dag-core-parameter-explanation>`_ details 
+- ``teamlead_topic`` *(string, required, default="team-lead-responses")* – The topic that stores team lead responses
+- ``teamleadprompt`` *(string, required)* – See `Dag 9b <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-9b-dag-core-parameter-explanation>`_ details 
+- ``supervisor_topic`` *(string, required, default="supervisor-responses")* – Topic that stores supervisor topic
+- ``supervisorprompt`` *(string, required)* – See `Dag 9b <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-9b-dag-core-parameter-explanation>`_ details
+- ``agenttoolfunctions`` *(string, required)* – See `agenttools details <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-9b-agents-tools>`_
+- ``agent_team_supervisor_topic`` *(string, required, default="all-agents-responses")* – Stores all of the responses from the agents
+- ``contextwindow`` *(string, required, default="4096")* – The size of the LLM context window
+- ``localmodelsfolder`` *(string, required, default="/rawdata/ollama")* – Local folder for the LLM models.
+- ``agenttopic`` *(string, required, default="agent-responses")* – This topic stores the individual agents' responses
+- ``windowinstance`` *(string, required, default="default")* – The name of the window instance that runs Dag 9b
+
+**Example Request:**
+
+.. code-block:: json
+
+    {
+        "topics": "raw-data,processed-data",
+        "numpartitions": 6,
+        "replication": 2,
+        "description": "Industrial IoT streams",
+        "enabletls": 1
+    }
+
+**Example Response:**
+- *200* – Topics created successfully (plain text).
+- *400* – ``"Missing topics"``
