@@ -1559,32 +1559,32 @@ Below is a Docker Run with DEMO Credentials:
 
 .. code-block::
 
-      docker run -d --net=host -p 5050:5050 -p 4040:4040 -p 6060:6060 -p 9002:9002 \
-          --env TSS=0 \
-          --env SOLUTIONNAME=tml-server-v1-plugin-3f10-ml_restapi \
-          --env SOLUTIONDAG=solution_preprocessing_ml_restapi_dag-tml-server-v1-plugin-3f10 \
-          --env GITUSERNAME=tsstmldemo \
-          --env GITPASSWORD= \
-          --env GITREPOURL=https://github.com/tsstmldemo/tsstmldemo \
-          --env SOLUTIONEXTERNALPORT=5050 \
-          -v /var/run/docker.sock:/var/run/docker.sock:z  \
-          -v /your_localmachine/foldername:/rawdata:z \
-          --env CHIP=amd64 \
-          --env SOLUTIONAIRFLOWPORT=4040  \
-          --env SOLUTIONVIPERVIZPORT=6060 \
-          --env DOCKERUSERNAME='' \
-          --env CLIENTPORT=9002  \
-          --env EXTERNALPORT=39399 \
-          --env KAFKABROKERHOST=127.0.0.1:9092 \
-          --env KAFKACLOUDUSERNAME='<Enter API key>' \
-          --env KAFKACLOUDPASSWORD='<Enter API secret>' \
-          --env SASLMECHANISM=PLAIN \
-          --env VIPERVIZPORT=49689 \
-          --env MQTTUSERNAME='' \
-          --env MQTTPASSWORD='' \
-          --env AIRFLOWPORT=9000  \
-          --env READTHEDOCS='aefa71df39ad764ac2785b3167b77e8c1d7c553a' \
-          maadsdocker/tml-server-v1-plugin-3f10-ml_restapi-amd64
+docker run -d --net=host -p 5050:5050 -p 4040:4040 -p 6060:6060 -p 9002:9002 \
+       --env TSS=0 \
+       --env SOLUTIONNAME=tml-server-v1-plugin-3f10-ml_agenticai_restapi \
+       --env SOLUTIONDAG=solution_preprocessing_ml_agenticai_restapi_dag-tml-server-v1-plugin-3f10 \
+       --env GITUSERNAME=tsstmldemo \
+       --env GITPASSWORD= \
+       --env GITREPOURL=https://github.com/tsstmldemo/tsstmldemo \
+       --env SOLUTIONEXTERNALPORT=5050 \
+       -v /var/run/docker.sock:/var/run/docker.sock:z  \
+       -v /your_localmachine/foldername:/rawdata:z \
+       --env CHIP=amd64 \
+       --env SOLUTIONAIRFLOWPORT=4040  \
+       --env SOLUTIONVIPERVIZPORT=6060 \
+       --env DOCKERUSERNAME='' \
+       --env CLIENTPORT=9002  \
+       --env EXTERNALPORT=39399 \
+       --env KAFKABROKERHOST=127.0.0.1:9092 \
+       --env KAFKACLOUDUSERNAME='<Enter API key>' \
+       --env KAFKACLOUDPASSWORD='<Enter API secret>' \
+       --env SASLMECHANISM=PLAIN \
+       --env VIPERVIZPORT=49689 \
+       --env MQTTUSERNAME='' \
+       --env MQTTPASSWORD='' \
+       --env AIRFLOWPORT=9000  \
+       --env READTHEDOCS='aefa71df39ad764ac2785b3167b77e8c1d7c553a' \
+       maadsdocker/tml-server-v1-plugin-3f10-ml_agenticai_restapi-amd64
 
 STEP 2: Download IoT Demo Data
 -------
