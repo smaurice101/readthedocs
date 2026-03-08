@@ -2067,5 +2067,12 @@ Visualization Of ML and Agentic AI Agents
 
 1. `Agent AI Dashboard <http://localhost:6060/iot-failure-machinelearning-agenticai.html?topic=all-agents-responses,iot-preprocess,iot-ml-prediction-results-output&offset=-1&groupid=&rollbackoffset=100&topictype=prediction&append=0&secure=1>`_
 
+Pre-requisites:
+^^^^^^^^^^^^^^^^^^^^
+
+1. Make sure you are streaming data first by running the `script above <https://tml.readthedocs.io/en/latest/tmlapi.html#step-3-send-some-data-to-the-tml-server>`_
+
+2. Execute the `TML endpoints <https://tml.readthedocs.io/en/latest/tmlapi.html#tml-endpoint-examples>`_
+
 .. figure:: agentdash.png
    :scale: 70%
