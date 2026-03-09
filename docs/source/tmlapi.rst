@@ -1890,7 +1890,7 @@ Copy and paste this code locally and run it.
    preprocesstypes="anomprob,skeweness" # The preprocesstypes you want to apply to the raw data
    jsoncriteria=json_criteria,  # Json criteria that are the "Json paths" you want to extract from the json and process
    windowinstance="preprocess"#"preprocess-sensor" # This willl create a new window instance in the TML server where these data will be processed or choose 'default'
-   rollbackoffsets=500
+   rollbackoffsets=600
    
    asyncio.run(start_preprocessing(API_ENDPOINT,rawdatatopic,preprocessdatatopic,preprocesstypes,jsoncriteria,rollbackoffsets,windowinstance))
    
@@ -1905,7 +1905,7 @@ Copy and paste this code locally and run it.
    dependentvariable = "failure" 
    independentvariables = "Power_preprocessed_AnomProb"
    processlogic = "classification_name=failure_prob:Power_preprocessed_AnomProb=55,n"
-   rollbackoffsets = 1000
+   rollbackoffsets = 500
    windowinstance = "machinelearning"#"machine-learning"
    step=5
    asyncio.run(train_ml_model(API_ENDPOINT,step,trainingdatafolder,ml_data_topic,preprocess_data_topic,islogistic,dependentvariable,
