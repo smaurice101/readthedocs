@@ -1887,7 +1887,7 @@ Copy and paste this code locally and run it.
    rawdatatopic="iot-raw-data", # raw data containing the JSON you want to process: This is the JSON in POST /jsondataline or POST /jsondataarray
    preprocessdatatopic="iot-preprocess", # Kafka Topic you want to store the Preprocessed data in 
    # For details on processing type see here: https://tml.readthedocs.io/en/latest/tmlbuilds.html#preprocessing-types
-   preprocesstypes="kurtosis,skeweness" # The preprocesstypes you want to apply to the raw data
+   preprocesstypes="anomprob,skeweness" # The preprocesstypes you want to apply to the raw data
    jsoncriteria=json_criteria,  # Json criteria that are the "Json paths" you want to extract from the json and process
    windowinstance="preprocess"#"preprocess-sensor" # This willl create a new window instance in the TML server where these data will be processed or choose 'default'
    rollbackoffsets=500
