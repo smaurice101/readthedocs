@@ -1632,7 +1632,7 @@ Copy and Paste this code in Python and Run it.
         print("========================")
         print(f"API_ENDPOINT TO TML SERVER: {API_ENDPOINT}\n")
         data=data.strip()
-        #data = data[:-1] + ',"sendtotopic": "iot-raw-data22"}'
+        #data = data[:-1] + ',"sendtotopic": "iot-raw-data"}'
         print(f"POST data to TML Server:\n\n{data}")
         r = requests.post(url=API_ENDPOINT, data=data, headers=headers)
       
