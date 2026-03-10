@@ -1904,7 +1904,7 @@ Copy and paste this code locally and run it.
    
    apiroute = "createtopic"
    API_ENDPOINT = "{}//localhost:{}/{}".format(httpaddr,rest_port,apiroute)
-   topics="mytopic,mytopic2"  # change to any topic name
+   topics="mytopic,mytopic2,all-agents-responses"  # change to any topic name
    asyncio.run(create_topics(API_ENDPOINT,topics))
    
    #----------------- CALL PREPROCESS --------------------------------------------------------------------------
