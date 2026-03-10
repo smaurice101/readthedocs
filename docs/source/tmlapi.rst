@@ -1690,6 +1690,32 @@ Copy and Paste this code in Python and Run it.
       if __name__ == '__main__':
           start()
 
+.. important::
+
+     To route your RAW DATA to a specific kafka topic add JSON field **"sendtotopic"** to each JSON:  You can use any topic name - for example we use **iot-raw-data**
+
+     .. code-block::  
+        
+        data = data[:-1] + ',"sendtotopic": "iot-raw-data"}'
+
+     .. code-block:: python
+
+         def send_tml_data(data): 
+           # data to be sent to api
+           headers = {'Content-type': 'application/json'}
+           print("========================")
+           print(f"API_ENDPOINT TO TML SERVER: {API_ENDPOINT}\n")
+           data=data.strip()
+           ########### Modify this by adding sendtotopic to your RAW JSON ***
+           #data = data[:-1] + ',"sendtotopic": "iot-raw-data"}'
+           ################################################################## 
+           print(f"POST data to TML Server:\n\n{data}")
+           r = requests.post(url=API_ENDPOINT, data=data, headers=headers)
+         
+           # extracting response text
+           return r.text
+
+
 Step 4: Visualize The Output in a Dashboard
 -----------------------------------------
 
