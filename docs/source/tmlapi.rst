@@ -23,7 +23,7 @@ TML API Quick Reference
 TML Server Plugin Build Documentation:
  - Click for `Documentation for the TML Server Plugin <https://tml-server-v1-plugin-3f10-ml-agenticai-restapi.readthedocs.io/en/latest/>`_
 
-TML Client Build Documentation:
+TML Client Build Documentation: (Recommended for users)
  - Click for `Documentation for the TML Client Plugin <https://tml-server-v1-plugin-aefa-ml-agenticai-restapi.readthedocs.io/en/latest/>`_
 
 .. note:: 
