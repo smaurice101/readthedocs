@@ -1868,17 +1868,22 @@ Copy and paste this code locally and run it.
    #------------------------------------------------------------------------------------------------------------
    
    #----------------- CALL TERMINATE ENDPOINT-----------------------------------------------------------------
+   print("** CALLING TERMINATE ENDPOINT **")
    apiroute = "terminatewindow"
    API_ENDPOINT = "{}//localhost:{}/{}".format(httpaddr,rest_port,apiroute)
    asyncio.run(terminatewindow(API_ENDPOINT,0,'all'))
    
    #----------------- CALL CREATETOPIC ENDPOINT-----------------------------------------------------------------
+   print("** CALLING CREATETOPIC ENDPOINT **")
+   
    apiroute = "createtopic"
    API_ENDPOINT = "{}//localhost:{}/{}".format(httpaddr,rest_port,apiroute)
    topics="mytopic,mytopic2"  # change to any topic name
    asyncio.run(create_topics(API_ENDPOINT,topics))
    
    #----------------- CALL PREPROCESS --------------------------------------------------------------------------
+   print("** CALLING PREPROCESS ENDPOINT **")
+   
    apiroute = "preprocess"
    API_ENDPOINT = "{}//localhost:{}/{}".format(httpaddr,rest_port,apiroute)
    
@@ -1897,11 +1902,13 @@ Copy and paste this code locally and run it.
    preprocesstypes="anomprob,skeweness" # The preprocesstypes you want to apply to the raw data
    jsoncriteria=json_criteria,  # Json criteria that are the "Json paths" you want to extract from the json and process
    windowinstance="preprocess"#"preprocess-sensor" # This willl create a new window instance in the TML server where these data will be processed or choose 'default'
-   rollbackoffsets=600
+   rollbackoffsets=700
    
    asyncio.run(start_preprocessing(API_ENDPOINT,rawdatatopic,preprocessdatatopic,preprocesstypes,jsoncriteria,rollbackoffsets,windowinstance))
    
    #----------------- CALL MACHINE LEARNING --------------------------------------------------------------------------
+   print("** CALLING MACHINE LEARNING ENDPOINT **")
+   
    apiroute = "ml"
    API_ENDPOINT = "{}//localhost:{}/{}".format(httpaddr,rest_port,apiroute)
    
@@ -1919,6 +1926,8 @@ Copy and paste this code locally and run it.
                             independentvariables,processlogic,rollbackoffsets,windowinstance))
    
    #----------------- CALL PREDICTIONS --------------------------------------------------------------------------
+   print("** CALLING PREDICTIONS ENDPOINT **")
+   
    apiroute = "predict"
    API_ENDPOINT = "{}//localhost:{}/{}".format(httpaddr,rest_port,apiroute)
    step=6
@@ -1934,8 +1943,11 @@ Copy and paste this code locally and run it.
    asyncio.run(run_predictions(API_ENDPOINT,step,algofolder,rollbackoffsets,consumefrom,inputdata,streamstojoin,ml_prediction_topic,preprocess_data_topic,windowinstance))
    
    #----------------- CALL AGENTIC AI --------------------------------------------------------------------------
+   print("** CALLING AGENTIC AI ENDPOINT **")
+   
    apiroute = "agenticai"
    API_ENDPOINT = "{}//localhost:{}/{}".format(httpaddr,rest_port,apiroute)
+   
    step="9b"      
    rollbackoffsets=10  
    ollamamodel= "phi3:3.8b,phi3:3.8b,llama3.2:3b" #agent - team lead - supervisor
@@ -2042,6 +2054,8 @@ Copy and paste this code locally and run it.
    
    
    #----------------- CALL CONSUME --------------------------------------------------------------------------
+   print("** CALLING CONSUME ENDPOINT **")
+   
    apiroute = "consume"
    API_ENDPOINT = "{}//localhost:{}/{}".format(httpaddr,rest_port,apiroute)
    topic="iot-ml-prediction-results-output"
@@ -2053,11 +2067,12 @@ Copy and paste this code locally and run it.
    asyncio.run(consume_data(API_ENDPOINT,topic,rollbackoffsets,kind,legal,forwardurls,osdu))
    
    #----------------- CALL HEALTH --------------------------------------------------------------------------
+   print("** CALLING HEALTH ENDPOINT **")
+   
    apiroute = "health"
    API_ENDPOINT = "{}//localhost:{}/{}".format(httpaddr,rest_port,apiroute)
    
    asyncio.run(health(API_ENDPOINT))
-
 
 Output Results
 ---------------
