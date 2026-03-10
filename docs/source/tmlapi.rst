@@ -9,7 +9,7 @@ TML API Quick Reference
 
 **API Endpoints Summary:**
 
-- ``/createtopic`` - [:ref:`POST /createtopic`] Create Kafka topics (`topics`, `numpartitions`) → 200,400
+- ``/createtopic`` - [:ref:`POST /createtopic`_] Create Kafka topics (`topics`, `numpartitions`) → 200,400
 - ``/preprocess`` - Data preprocessing (`step=4|4c`, `rawdatatopic`) → 200,400  
 - ``/ml`` - Train ML models (`step=5`, `trainingdatafolder`) → 200,400
 - ``/predict`` - Run predictions (`step=6`, `pathtoalgos`) → 200,400
