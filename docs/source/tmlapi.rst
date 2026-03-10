@@ -9,16 +9,16 @@ TML API Quick Reference
 
 **API Endpoints Summary:**
 
-- ```:ref:POST /createtopic``` - Create Kafka topics (`topics`, `numpartitions`) → 200,400
-- ``/preprocess`` - Data preprocessing (`step=4|4c`, `rawdatatopic`) → 200,400  
-- ``/ml`` - Train ML models (`step=5`, `trainingdatafolder`) → 200,400
-- ``/predict`` - Run predictions (`step=6`, `pathtoalgos`) → 200,400
-- ``/agenticai`` - Run Agentic AI Analysis (`step=9b`, `ollama-model`) → 200,400
-- ``/consume`` - Consume messages (`topic`, `forwardurl`) → 200,400,500
-- ``/jsondataline`` - Send single JSON → 200
-- ``/jsondataarray`` - Send JSON array → 200
-- ``/terminatewindow`` - Send JSON array → 200
-- ``/health`` - Send JSON array → 200
+- ``POST /createtopic`` - [`click <https://tml.readthedocs.io/en/latest/tmlapi.html#post-createtopic>`_] Create Kafka topics (`topics`, `numpartitions`) → 200,400
+- ``POST /preprocess`` - Data preprocessing (`step=4|4c`, `rawdatatopic`) → 200,400  
+- ``POST /ml`` - Train ML models (`step=5`, `trainingdatafolder`) → 200,400
+- ``POST /predict`` - Run predictions (`step=6`, `pathtoalgos`) → 200,400
+- ``POST /agenticai`` - Run Agentic AI Analysis (`step=9b`, `ollama-model`) → 200,400
+- ``POST /consume`` - Consume messages (`topic`, `forwardurl`) → 200,400,500
+- ``POST /jsondataline`` - Send single JSON → 200
+- ``POST /jsondataarray`` - Send JSON array → 200
+- ``POST /terminatewindow`` - Send JSON array → 200
+- ``POST /health`` - Send JSON array → 200
 
 TML Server Plugin Build Documentation:
  - Click for `Documentation for the TML Server Plugin <https://tml-server-v1-plugin-3f10-ml-agenticai-restapi.readthedocs.io/en/latest/>`_
