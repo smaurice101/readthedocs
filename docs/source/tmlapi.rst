@@ -13,8 +13,12 @@ TML API Quick Reference
 - ``POST /api/v1/preprocess`` - [`click <https://tml.readthedocs.io/en/latest/tmlapi.html#post-api-v1-preprocess>`_] Data preprocessing (`step=4|4c`, `rawdatatopic`) → 200,400  
 - ``POST /api/v1/ml`` - [`click <https://tml.readthedocs.io/en/latest/tmlapi.html#post-api-v1-ml>`_] Train ML models (`step=5`, `trainingdatafolder`) → 200,400
 - ``POST /api/v1/predict`` - [`click <https://tml.readthedocs.io/en/latest/tmlapi.html#post-api-v1-predict>`_] Run predictions (`step=6`, `pathtoalgos`) → 200,400
+- ``POST /api/v1/ai`` - [`click <https://tml.readthedocs.io/en/latest/tmlapi.html#post-api-v1-ai>`_] Run LLM AI Analysis (`step=9`, `pgpt-model`) → 200,400
 - ``POST /api/v1/agenticai`` - [`click <https://tml.readthedocs.io/en/latest/tmlapi.html#post-api-v1-agenticai>`_] Run Agentic AI Analysis (`step=9b`, `ollama-model`) → 200,400
 - ``POST /api/v1/consume`` - [`click <https://tml.readthedocs.io/en/latest/tmlapi.html#post-api-v1-consume>`_] Consume messages (`topic`, `forwardurl`) → 200,400,500
+
+Produce Data to TML
+"""""""""""""""""""
 - ``POST /api/v1/jsondataline`` - [`click <https://tml.readthedocs.io/en/latest/tmlapi.html#post-api-v1-jsondataline>`_] Send single JSON → 200
 - ``POST /api/v1/jsondataarray`` - [`click <https://tml.readthedocs.io/en/latest/tmlapi.html#post-api-v1-jsondataarray>`_] Send JSON array → 200
 - ``POST /api/v1/terminatewindow`` - [`click <https://tml.readthedocs.io/en/latest/tmlapi.html#post-api-v1-teminatewindow>`_] Send JSON array → 200
@@ -1734,6 +1738,7 @@ Copy and paste this code locally and run it.
 
 .. code-block:: python
 
+
    import requests
    import sys
    from datetime import datetime
@@ -1831,6 +1836,41 @@ Copy and paste this code locally and run it.
            async with session.post(API_ENDPOINT, json=payload) as response:
                print(f"Status: {response.status}, Response: {await response.text()}")
    
+   
+   #----------------- AI ENDPOINT ------------------------------
+   
+   async def run_ai(API_ENDPOINT,step,vectordimension,contextwindowsize,vectorsearchtype,temperature,docfolderingestinterval,docfolder,vectordbcollectionname,
+                      hyperbatch,keyprocesstype,keyattribute,context,prompt,pgptport,pgpthost,pgpt_data_topic,consumefrom,rollbackoffset,pgptcontainername,windowinstance):
+   
+       payload = {
+           "step": step,
+           "vectordimension": vectordimension, # dimension of the embedding
+           "contextwindowsize": contextwindowsize, # context window size for LLM
+           "vectorsearchtype": vectorsearchtype, # RAG vector search type
+           "temperature": temperature, # LLM temperature setting 
+           "docfolderingestinterval": docfolderingestinterval, # how how to reload documents in vector DB
+           "docfolder": docfolder, # you can place your documents in /rawdata folder i.e. /rawdata/mylogs 
+           "vectordbcollectionname": vectordbcollectionname, 
+           "hyperbatch": hyperbatch, # set to 1 or 0 - if 0 TML sends line by line to Pgpt or in batch all of the data in consumefrom topic 
+           "keyprocesstype": keyprocesstype, # anomprob, max, min, etc any TML processtypes
+           "keyattribute": keyattribute, # any attribute in the data you are processing: Power, Voltage, Current
+           "context": context, # prompt context
+           "prompt": prompt, # the prompt
+           "pgptport": pgptport, # pgpt container port
+           "pgpthost": pgpthost, # pgpt container host
+           "pgpt_data_topic": pgpt_data_topic,  # topic that tml/pgpt will store its responses
+           "consumefrom": consumefrom, # topic tml/pgpt will consume data and apply the prompt
+           "rollbackoffset": rollbackoffset,  # how much data pgpt to process 
+           "pgptcontainername": pgptcontainername, # pgpt container name
+           "windowinstance": windowinstance # window instance
+       }
+   
+       payload=json.dumps(payload, indent=2)
+       payload=json.loads(payload)
+       async with aiohttp.ClientSession() as session:
+           async with session.post(API_ENDPOINT, json=payload) as response:
+               print(f"Status: {response.status}, Response: {await response.text()}")
+   
    #----------------- AGENTIC AI ENDPOINT ------------------------------
    
    async def run_agenticai(API_ENDPOINT,step,rollbackoffsets,ollamamodel,vectordbpath,temperature,vectordbcollectionname,ollamacontainername,embedding,agents_topic_prompt,teamlead_topic,
@@ -1907,7 +1947,7 @@ Copy and paste this code locally and run it.
    
    apiroute = "createtopic"
    API_ENDPOINT = "{}//localhost:{}/api/v1/{}".format(httpaddr,rest_port,apiroute)
-   topics="mytopic,mytopic2,all-agents-responses"  # change to any topic name
+   topics="mytopic,mytopic2,all-agents-responses,ai-responses"  # change to any topic name
    asyncio.run(create_topics(API_ENDPOINT,topics))
    
    #----------------- CALL PREPROCESS --------------------------------------------------------------------------
@@ -1970,6 +2010,37 @@ Copy and paste this code locally and run it.
    windowinstance="prediction"#"prediction-window"
    
    asyncio.run(run_predictions(API_ENDPOINT,step,algofolder,rollbackoffsets,consumefrom,inputdata,streamstojoin,ml_prediction_topic,preprocess_data_topic,windowinstance))
+   
+   #----------------- CALL AI --------------------------------------------------------------------------
+   print("** CALLING AI ENDPOINT **")
+   
+   apiroute = "ai"
+   API_ENDPOINT = "{}//localhost:{}/api/v1/{}".format(httpaddr,rest_port,apiroute)
+   
+   step="9"      
+   vectordimension = '768'
+   contextwindowsize= '8192' #agent - team lead - supervisor
+   vectorsearchtype= 'Manhattan'
+   temperature= '0.1'
+   docfolderingestinterval= '900'
+   docfolder= ''
+   vectordbcollectionname= 'tml-pgpt'
+   hyperbatch= '0'
+   keyprocesstype= ''
+   keyattribute= 'hyperprediction'
+   context= ''
+   prompt= ''
+   pgptport= '8001'
+   pgpthost= 'http://127.0.0.1'
+   pgpt_data_topic = 'ai-responses'
+   consumefrom = 'iot-preprocess'
+   rollbackoffset = '5'
+   pgptcontainername = 'maadsdocker/tml-privategpt-with-gpu-nvidia-amd64-v2'
+   windowinstance = 'ai'
+   
+   asyncio.run(run_ai(API_ENDPOINT,step,vectordimension,contextwindowsize,vectorsearchtype,temperature,docfolderingestinterval,docfolder,vectordbcollectionname,
+                      hyperbatch,keyprocesstype,keyattribute,context,prompt,pgptport,pgpthost,pgpt_data_topic,consumefrom,rollbackoffset,pgptcontainername,windowinstance))
+   
    
    #----------------- CALL AGENTIC AI --------------------------------------------------------------------------
    print("** CALLING AGENTIC AI ENDPOINT **")
@@ -2102,6 +2173,7 @@ Copy and paste this code locally and run it.
    API_ENDPOINT = "{}//localhost:{}/api/v1/{}".format(httpaddr,rest_port,apiroute)
    
    asyncio.run(health(API_ENDPOINT))
+
 
 Output Results
 ---------------
