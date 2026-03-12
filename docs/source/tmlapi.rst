@@ -9,16 +9,16 @@ TML API Quick Reference
 
 **API Endpoints Summary:**
 
-- ``POST /createtopic`` - [`click <https://tml.readthedocs.io/en/latest/tmlapi.html#post-createtopic>`_] Create Kafka topics (`topics`, `numpartitions`) → 200,400
-- ``POST /preprocess`` - [`click <https://tml.readthedocs.io/en/latest/tmlapi.html#post-preprocess>`_] Data preprocessing (`step=4|4c`, `rawdatatopic`) → 200,400  
-- ``POST /ml`` - [`click <https://tml.readthedocs.io/en/latest/tmlapi.html#post-ml>`_] Train ML models (`step=5`, `trainingdatafolder`) → 200,400
-- ``POST /predict`` - [`click <https://tml.readthedocs.io/en/latest/tmlapi.html#post-predict>`_] Run predictions (`step=6`, `pathtoalgos`) → 200,400
-- ``POST /agenticai`` - [`click <https://tml.readthedocs.io/en/latest/tmlapi.html#post-agenticai>`_] Run Agentic AI Analysis (`step=9b`, `ollama-model`) → 200,400
-- ``POST /consume`` - [`click <https://tml.readthedocs.io/en/latest/tmlapi.html#post-consume>`_] Consume messages (`topic`, `forwardurl`) → 200,400,500
-- ``POST /jsondataline`` - [`click <https://tml.readthedocs.io/en/latest/tmlapi.html#post-jsondataline>`_] Send single JSON → 200
-- ``POST /jsondataarray`` - [`click <https://tml.readthedocs.io/en/latest/tmlapi.html#post-jsondataarray>`_] Send JSON array → 200
-- ``POST /terminatewindow`` - [`click <https://tml.readthedocs.io/en/latest/tmlapi.html#post-teminatewindow>`_] Send JSON array → 200
-- ``POST /health`` - [`click <https://tml.readthedocs.io/en/latest/tmlapi.html#post-health>`_] Send JSON array → 200
+- ``POST /api/v1/createtopic`` - [`click <https://tml.readthedocs.io/en/latest/tmlapi.html#post-createtopic>`_] Create Kafka topics (`topics`, `numpartitions`) → 200,400
+- ``POST /api/v1/preprocess`` - [`click <https://tml.readthedocs.io/en/latest/tmlapi.html#post-preprocess>`_] Data preprocessing (`step=4|4c`, `rawdatatopic`) → 200,400  
+- ``POST /api/v1/ml`` - [`click <https://tml.readthedocs.io/en/latest/tmlapi.html#post-ml>`_] Train ML models (`step=5`, `trainingdatafolder`) → 200,400
+- ``POST /api/v1/predict`` - [`click <https://tml.readthedocs.io/en/latest/tmlapi.html#post-predict>`_] Run predictions (`step=6`, `pathtoalgos`) → 200,400
+- ``POST /api/v1/agenticai`` - [`click <https://tml.readthedocs.io/en/latest/tmlapi.html#post-agenticai>`_] Run Agentic AI Analysis (`step=9b`, `ollama-model`) → 200,400
+- ``POST /api/v1/consume`` - [`click <https://tml.readthedocs.io/en/latest/tmlapi.html#post-consume>`_] Consume messages (`topic`, `forwardurl`) → 200,400,500
+- ``POST /api/v1/jsondataline`` - [`click <https://tml.readthedocs.io/en/latest/tmlapi.html#post-jsondataline>`_] Send single JSON → 200
+- ``POST /api/v1/jsondataarray`` - [`click <https://tml.readthedocs.io/en/latest/tmlapi.html#post-jsondataarray>`_] Send JSON array → 200
+- ``POST /api/v1/terminatewindow`` - [`click <https://tml.readthedocs.io/en/latest/tmlapi.html#post-teminatewindow>`_] Send JSON array → 200
+- ``POST /api/v1/health`` - [`click <https://tml.readthedocs.io/en/latest/tmlapi.html#post-health>`_] Send JSON array → 200
 
 TML Server Plugin Build Documentation:
  - Click for `Documentation for the TML Server Plugin <https://tml-server-v1-plugin-3f10-ml-agenticai-restapi.readthedocs.io/en/latest/>`_
@@ -122,7 +122,7 @@ Each endpoint expects JSON input via POST requests.
 
   **Base URL:** Will depend on the Port the TML Server is listening on i.e. port **9002**
 
-POST /createtopic
+POST /api/v1/createtopic
 --------------------------
 
 **Description:**
@@ -160,7 +160,7 @@ Create one or more topics in the Viper message broker.
     import asyncio
 
     async def create_topics():
-        url = "http://localhost:5000/createtopic"
+        url = "http://localhost:5000/api/v1/createtopic"
         payload = {
             "topics": "raw-data,processed-data",
             "numpartitions": 6,
@@ -180,7 +180,7 @@ Create one or more topics in the Viper message broker.
 .. code-block:: javascript
 
     async function createTopics() {
-        const url = 'http://localhost:5000/createtopic';
+        const url = 'http://localhost:5000/api/v1/createtopic';
         const payload = {
             topics: 'raw-data,processed-data',
             numpartitions: 6,
@@ -222,7 +222,7 @@ Create one or more topics in the Viper message broker.
             };
             
             try {
-                const response = await fetch('http://localhost:5000/createtopic', {
+                const response = await fetch('http://localhost:5000/api/v1/createtopic', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(payload)
@@ -245,7 +245,7 @@ Create one or more topics in the Viper message broker.
 - *200* – Topics created successfully.
 - *400* – ``"Missing topics"``
 
-POST /preprocess
+POST /api/v1/preprocess
 --------------------------
 
 **Description:**
@@ -323,7 +323,7 @@ Users must specify the Json paths in the Json criteria - so TML can extract the 
         }
         
         async with aiohttp.ClientSession() as session:
-            async with session.post("http://localhost:5000/preprocess", json=payload) as response:
+            async with session.post("http://localhost:5000/api/v1/preprocess", json=payload) as response:
                 print(await response.text())
 
 **Example Request (JavaScript - async) - Correct jsoncriteria:**
@@ -331,12 +331,12 @@ Users must specify the Json paths in the Json criteria - so TML can extract the 
 .. code-block:: javascript
 
     async function preprocessData() {
-        const jsonCriteria = `uid=metadata.dsn,filter:allrecords~\\
-        subtopics=metadata.property_name~\\
-        values=datapoint.value~\\
-        identifiers=metadata.display_name~\\
-        datetime=datapoint.updated_at~\\
-        msgid=datapoint.id~\\
+        const jsonCriteria = `uid=metadata.dsn,filter:allrecords~\
+        subtopics=metadata.property_name~\
+        values=datapoint.value~\
+        identifiers=metadata.display_name~\
+        datetime=datapoint.updated_at~\
+        msgid=datapoint.id~\
         latlong=lat:long`;
         
         const payload = {
@@ -344,12 +344,12 @@ Users must specify the Json paths in the Json criteria - so TML can extract the 
             rawdatatopic: 'raw-sensor-data',
             preprocessdatatopic: 'clean-sensor-data',
             preprocesstypes: 'normalize,filter',
-            jsoncriteria: jsonCriteria,  // TML multiline format with ~\\n
+            jsoncriteria: jsonCriteria,  // TML multiline format with ~
             rollbackoffset: 500,
             windowinstance: 'sensor-batch-1'
         };
         
-        const response = await fetch('http://localhost:5000/preprocess', {
+        const response = await fetch('http://localhost:5000/api/v1/preprocess', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload)
@@ -365,12 +365,12 @@ Users must specify the Json paths in the Json criteria - so TML can extract the 
         const [status, setStatus] = useState('');
         
         const handlePreprocess = async () => {
-            const jsonCriteria = `uid=metadata.dsn,filter:allrecords~\\
-            subtopics=metadata.property_name~\\
-            values=datapoint.value~\\
-            identifiers=metadata.display_name~\\
-            datetime=datapoint.updated_at~\\
-            msgid=datapoint.id~\\
+            const jsonCriteria = `uid=metadata.dsn,filter:allrecords~\
+            subtopics=metadata.property_name~\
+            values=datapoint.value~\
+            identifiers=metadata.display_name~\
+            datetime=datapoint.updated_at~\
+            msgid=datapoint.id~\
             latlong=lat:long`;
             
             const payload = {
@@ -384,7 +384,7 @@ Users must specify the Json paths in the Json criteria - so TML can extract the 
             };
             
             try {
-                const response = await fetch('http://localhost:5000/preprocess', {
+                const response = await fetch('http://localhost:5000/api/v1/preprocess', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(payload)
@@ -404,7 +404,7 @@ Users must specify the Json paths in the Json criteria - so TML can extract the 
 - Matches TML ReadTheDocs specification: `<https://tml.readthedocs.io/en/latest/jsonprocessing.html>`_
 - **Invalid formats will fail preprocessing step 4**
 
-POST /ml
+POST /api/v1/ml
 --------------------------
 
 **Description:**
@@ -458,7 +458,7 @@ Train a machine learning model using preprocessed data.
         }
         
         async with aiohttp.ClientSession() as session:
-            async with session.post("http://localhost:5000/ml", json=payload) as response:
+            async with session.post("http://localhost:5000/api/v1/ml", json=payload) as response:
                 print(f"Status: {response.status}, Response: {await response.text()}")
 
     asyncio.run(train_ml_model())
@@ -480,7 +480,7 @@ Train a machine learning model using preprocessed data.
         };
         
         try {
-            const response = await fetch('http://localhost:5000/ml', {
+            const response = await fetch('http://localhost:5000/api/v1/ml', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload)
@@ -518,7 +518,7 @@ Train a machine learning model using preprocessed data.
             };
             
             try {
-                const response = await fetch('http://localhost:5000/ml', {
+                const response = await fetch('http://localhost:5000/api/v1/ml', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(payload)
@@ -545,7 +545,7 @@ Train a machine learning model using preprocessed data.
 - *200* – Training initiated.
 - *400* – ``"Missing ml or invalid ml"``
 
-POST /predict
+POST /api/v1/predict
 --------------------------
 
 **Description:**
@@ -596,7 +596,7 @@ Run prediction using trained ML models and streaming data.
         }
         
         async with aiohttp.ClientSession() as session:
-            async with session.post("http://localhost:5000/predict", json=payload) as response:
+            async with session.post("http://localhost:5000/api/v1/predict", json=payload) as response:
                 print(f"Status: {response.status}, Response: {await response.text()}")
 
     asyncio.run(run_predictions())
@@ -618,7 +618,7 @@ Run prediction using trained ML models and streaming data.
         };
         
         try {
-            const response = await fetch('http://localhost:5000/predict', {
+            const response = await fetch('http://localhost:5000/api/v1/predict', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload)
@@ -656,7 +656,7 @@ Run prediction using trained ML models and streaming data.
             };
             
             try {
-                const response = await fetch('http://localhost:5000/predict', {
+                const response = await fetch('http://localhost:5000/api/v1/predict', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(payload)
@@ -683,7 +683,7 @@ Run prediction using trained ML models and streaming data.
 - *200* – Prediction started.
 - *400* – ``"Missing ml or invalid prediction"``
 
-POST /consume
+POST /api/v1/consume
 --------------------------
 
 **Description:**
@@ -752,7 +752,7 @@ Consume messages from a given topic and optionally forward results.
         }
         
         async with aiohttp.ClientSession() as session:
-            async with session.post("http://localhost:5000/consume", json=payload) as response:
+            async with session.post("http://localhost:5000/api/v1/consume", json=payload) as response:
                 data = await response.json()
                 print(f"Consumed {len(data.get('messages', []))} messages")
 
@@ -769,7 +769,7 @@ Consume messages from a given topic and optionally forward results.
             osdu: 'false'
         };
         
-        const response = await fetch('http://localhost:5000/consume', {
+        const response = await fetch('http://localhost:5000/api/v1/consume', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(payload)
@@ -792,7 +792,7 @@ Consume messages from a given topic and optionally forward results.
         const consumeTopic = async () => {
             setLoading(true);
             try {
-                const response = await fetch('http://localhost:5000/consume', {
+                const response = await fetch('http://localhost:5000/api/v1/consume', {
                     method: 'POST',
                     headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify({
@@ -822,7 +822,7 @@ Consume messages from a given topic and optionally forward results.
         );
     }
 
-POST /jsondataline
+POST /api/v1/jsondataline
 --------------------------
 
 **Description:**
@@ -867,7 +867,7 @@ Send a single JSON data object to a topic.
         }
         
         async with aiohttp.ClientSession() as session:
-            async with session.post("http://localhost:5000/jsondataline", json=payload) as response:
+            async with session.post("http://localhost:5000/api/v1/jsondataline", json=payload) as response:
                 print(await response.text())
 
     asyncio.run(send_sensor_data())
@@ -883,7 +883,7 @@ Send a single JSON data object to a topic.
             temperature: 72.5
         };
         
-        const response = await fetch('http://localhost:5000/jsondataline', {
+        const response = await fetch('http://localhost:5000/api/v1/jsondataline', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(payload)
@@ -903,7 +903,7 @@ Send a single JSON data object to a topic.
                 temperature: 72.5
             };
             
-            const response = await fetch('http://localhost:5000/jsondataline', {
+            const response = await fetch('http://localhost:5000/api/v1/jsondataline', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify(payload)
@@ -914,7 +914,7 @@ Send a single JSON data object to a topic.
         return <button onClick={sendData}>Send Sensor Data</button>;
     }
 
-POST /jsondataarray
+POST /api/v1/jsondataarray
 --------------------------
 
 **Description:**
@@ -988,7 +988,7 @@ Send a JSON array of objects to a topic.
         
         async with aiohttp.ClientSession() as session:
             async with session.post(
-                "http://localhost:5000/jsondataarray",
+                "http://localhost:5000/api/v1/jsondataarray",
                 json=data_array  # Sends raw array directly
             ) as response:
                 print(f"Status: {response.status}, Response: {await response.text()}")
@@ -1016,7 +1016,7 @@ Send a JSON array of objects to a topic.
         ];
         
         try {
-            const response = await fetch('http://localhost:5000/jsondataarray', {
+            const response = await fetch('http://localhost:5000/api/v1/jsondataarray', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(dataArray)  // Raw array as JSON
@@ -1057,7 +1057,7 @@ Send a JSON array of objects to a topic.
         const sendBatch = async () => {
             setLoading(true);
             try {
-                const response = await fetch('http://localhost:5000/jsondataarray', {
+                const response = await fetch('http://localhost:5000/api/v1/jsondataarray', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(dataArray)  // Direct array submission
@@ -1087,7 +1087,7 @@ Send a JSON array of objects to a topic.
 
 **Response:** ``"ok"`` (200)
 
-POST /terminatewindow
+POST /api/v1/terminatewindow
 --------------------------
 
 **Description:**
@@ -1119,7 +1119,7 @@ Terminate a window instance: If you have too many windows processing data this c
     import asyncio
 
     async def terminatewindow():
-        url = "http://localhost:5000/terminatewindow"
+        url = "http://localhost:5000/api/v1/terminatewindow"
         payload = {
             "step": 4,
             "windowname": 'all'
@@ -1137,7 +1137,7 @@ Terminate a window instance: If you have too many windows processing data this c
 .. code-block:: javascript
 
     async function terminatewindow() {
-        const url = 'http://localhost:5000/terminatewindow';
+        const url = 'http://localhost:5000/api/v1/terminatewindow';
         const payload = {
             "step": 4,
             "windowname": 'all'
@@ -1173,7 +1173,7 @@ Terminate a window instance: If you have too many windows processing data this c
         };
         
         try {
-            const response = await fetch('http://localhost:5000/terminatewindow', {
+            const response = await fetch('http://localhost:5000/api/v1/terminatewindow', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload)
@@ -1206,7 +1206,7 @@ Terminate a window instance: If you have too many windows processing data this c
 - *400* – ``"Missing topics"``
 
 
-POST /health
+POST /api/v1/health
 --------------------------
 
 **Description:**
@@ -1234,7 +1234,7 @@ Get a health check on the sessions running in the TML server plugin.
 .. code-block:: javascript
 
     async health() {
-        const url = 'http://localhost:5000/health';
+        const url = 'http://localhost:5000/api/v1/health';
 
         try {
             const response = await fetch(url, {
@@ -1263,7 +1263,7 @@ Get a health check on the sessions running in the TML server plugin.
             e.preventDefault();
             
             try {
-                const response = await fetch('http://localhost:5000/health', {
+                const response = await fetch('http://localhost:5000/api/v1/health', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                 });
@@ -1285,7 +1285,7 @@ Get a health check on the sessions running in the TML server plugin.
 - *200* – Health successful.
 - *400* – ``"Health failed"``
 
-POST /agenticai
+POST /api/v1/agenticai
 --------------------------
 
 **Description:**
@@ -1369,7 +1369,7 @@ See `Dag 9b configurations here <https://tml.readthedocs.io/en/latest/tmlbuilds.
           "agenttopic": agenttopic,
           "windowinstance": windowinstance
       }
-  
+      API_ENDPOINT="http://localhost:5000/api/v1/agenticai
       payload=json.dumps(payload, indent=2)
       payload=json.loads(payload)
       async with aiohttp.ClientSession() as session:
@@ -1423,7 +1423,9 @@ See `Dag 9b configurations here <https://tml.readthedocs.io/en/latest/tmlbuilds.
        agenttopic,
        windowinstance
      };
-   
+
+     API_ENDPOINT="http://localhost:5000/api/v1/agenticai
+
      try {
        const response = await fetch(API_ENDPOINT, {
          method: 'POST',
@@ -1505,7 +1507,8 @@ See `Dag 9b configurations here <https://tml.readthedocs.io/en/latest/tmlbuilds.
            agenttopic,
            windowinstance
          };
-   
+         API_ENDPOINT="http://localhost:5000/api/v1/agenticai
+
          const response = await fetch(API_ENDPOINT, {
            method: 'POST',
            headers: {
