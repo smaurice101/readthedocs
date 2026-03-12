@@ -1643,7 +1643,7 @@ See `Dag 9b configurations here <https://tml.readthedocs.io/en/latest/tmlbuilds.
           "agenttopic": agenttopic,
           "windowinstance": windowinstance
       }
-      API_ENDPOINT="http://localhost:5000/api/v1/agenticai
+      API_ENDPOINT="http://localhost:5000/api/v1/agenticai"
       payload=json.dumps(payload, indent=2)
       payload=json.loads(payload)
       async with aiohttp.ClientSession() as session:
@@ -1698,7 +1698,7 @@ See `Dag 9b configurations here <https://tml.readthedocs.io/en/latest/tmlbuilds.
        windowinstance
      };
 
-     API_ENDPOINT="http://localhost:5000/api/v1/agenticai
+     API_ENDPOINT="http://localhost:5000/api/v1/agenticai";
 
      try {
        const response = await fetch(API_ENDPOINT, {
@@ -1781,7 +1781,7 @@ See `Dag 9b configurations here <https://tml.readthedocs.io/en/latest/tmlbuilds.
            agenttopic,
            windowinstance
          };
-         API_ENDPOINT="http://localhost:5000/api/v1/agenticai
+         API_ENDPOINT="http://localhost:5000/api/v1/agenticai";
 
          const response = await fetch(API_ENDPOINT, {
            method: 'POST',
