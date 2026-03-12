@@ -1679,29 +1679,30 @@ See `Dag 9b configurations here <https://tml.readthedocs.io/en/latest/tmlbuilds.
      const payload = {
        step,
        rollbackoffsets,
-       "ollama-model": ollamamodel,
+       ollamamodel,           // Simplified - no need for "ollama-model"
        vectordbpath,
        temperature,
        vectordbcollectionname,
        ollamacontainername,
        embedding,
-       "agents_topic_prompt": agents_topic_prompt,
-       "teamlead_topic": teamlead_topic,
+       agents_topic_prompt,
+       teamlead_topic,
        teamleadprompt,
-       "supervisor_topic": supervisor_topic,
+       supervisor_topic,
        supervisorprompt,
        agenttoolfunctions,
-       "agent_team_supervisor_topic": agent_team_supervisor_topic,
+       agent_team_supervisor_topic,
        contextwindow,
        localmodelsfolder,
        agenttopic,
        windowinstance
      };
-
-     API_ENDPOINT="http://localhost:5000/api/v1/agenticai";
-
+   
+     // Respect passed endpoint or use default
+     const url = API_ENDPOINT || "http://localhost:5000/api/v1/agenticai";
+   
      try {
-       const response = await fetch(API_ENDPOINT, {
+       const response = await fetch(url, {
          method: 'POST',
          headers: {
            'Content-Type': 'application/json',
@@ -1709,14 +1710,12 @@ See `Dag 9b configurations here <https://tml.readthedocs.io/en/latest/tmlbuilds.
          body: JSON.stringify(payload)
        });
    
-       const responseText = await response.text();
-       console.log(`Status: ${response.status}, Response: ${responseText}`);
-       
        if (!response.ok) {
+         const responseText = await response.text();
          throw new Error(`HTTP ${response.status}: ${responseText}`);
        }
        
-       return JSON.parse(responseText);
+       return await response.json();  // Cleaner than text() + parse()
      } catch (error) {
        console.error('Agentic AI request failed:', error);
        throw error;
@@ -1728,14 +1727,14 @@ See `Dag 9b configurations here <https://tml.readthedocs.io/en/latest/tmlbuilds.
 .. code-block::
 
    import { useState, useCallback } from 'react';
-
+   
    export function useAgenticAI() {
      const [loading, setLoading] = useState(false);
      const [error, setError] = useState(null);
      const [data, setData] = useState(null);
    
      const runAgenticai = useCallback(async (
-       API_ENDPOINT, 
+       endpoint,           // renamed to avoid confusion
        step, 
        rollbackoffsets, 
        ollamamodel, 
@@ -1763,42 +1762,39 @@ See `Dag 9b configurations here <https://tml.readthedocs.io/en/latest/tmlbuilds.
          const payload = {
            step,
            rollbackoffsets,
-           "ollama-model": ollamamodel,
+           'ollama-model': ollamamodel,      // consistent quoting
            vectordbpath,
            temperature,
            vectordbcollectionname,
            ollamacontainername,
            embedding,
-           "agents_topic_prompt": agents_topic_prompt,
-           "teamlead_topic": teamlead_topic,
+           'agents_topic_prompt': agents_topic_prompt,
+           'teamlead_topic': teamlead_topic,
            teamleadprompt,
-           "supervisor_topic": supervisor_topic,
+           'supervisor_topic': supervisor_topic,
            supervisorprompt,
            agenttoolfunctions,
-           "agent_team_supervisor_topic": agent_team_supervisor_topic,
+           'agent_team_supervisor_topic': agent_team_supervisor_topic,
            contextwindow,
            localmodelsfolder,
            agenttopic,
            windowinstance
          };
-         API_ENDPOINT="http://localhost:5000/api/v1/agenticai";
-
-         const response = await fetch(API_ENDPOINT, {
+   
+         const url = endpoint || "http://localhost:5000/api/v1/agenticai";  // ✅ FIXED
+   
+         const response = await fetch(url, {
            method: 'POST',
-           headers: {
-             'Content-Type': 'application/json',
-           },
+           headers: { 'Content-Type': 'application/json' },
            body: JSON.stringify(payload)
          });
    
-         const responseText = await response.text();
-         console.log(`Status: ${response.status}, Response: ${responseText}`);
-         
          if (!response.ok) {
+           const responseText = await response.text();
            throw new Error(`HTTP ${response.status}: ${responseText}`);
          }
-         
-         const result = JSON.parse(responseText);
+   
+         const result = await response.json();  // ✅ Cleaner
          setData(result);
          return result;
        } catch (err) {
