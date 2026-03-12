@@ -25,12 +25,12 @@ API For AI and Agentic AI
 - ``POST /api/v1/ai`` - [`click <https://tml.readthedocs.io/en/latest/tmlapi.html#post-api-v1-ai>`_] Run LLM AI Analysis (`step=9`, `pgpt-model`) → 200,400
 - ``POST /api/v1/agenticai`` - [`click <https://tml.readthedocs.io/en/latest/tmlapi.html#post-api-v1-agenticai>`_] Run Agentic AI Analysis (`step=9b`, `ollama-model`) → 200,400
 
-API For Reading or Consuming From Kafka Topics
+API For Reading or Consuming Data From Kafka Topics
 -------------------------------
 
 - ``POST /api/v1/consume`` - [`click <https://tml.readthedocs.io/en/latest/tmlapi.html#post-api-v1-consume>`_] Consume messages (`topic`, `forwardurl`) → 200,400,500
 
-API To Write or Produce Raw Data to Kafka Topics
+API For Writing or Producing Raw Data to Kafka Topics
 -------------------------------
 
 - ``POST /api/v1/jsondataline`` - [`click <https://tml.readthedocs.io/en/latest/tmlapi.html#post-api-v1-jsondataline>`_] Send single JSON → 200
