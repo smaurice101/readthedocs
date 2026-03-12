@@ -1409,72 +1409,73 @@ See `Dag 9 configurations here <https://tml.readthedocs.io/en/latest/tmlbuilds.h
 .. code-block::
 
    async function runAi(
-     API_ENDPOINT, 
-     step, 
-     vectordimension, 
-     contextwindowsize, 
-     vectorsearchtype, 
-     temperature,  
-     docfolderingestinterval, 
-     docfolder,  
-     vectordbcollectionname, 
-     hyperbatch,  
-     keyprocesstype, 
-     keyattribute, 
-     context, 
-     prompt, 
-     pgptport, 
-     pgpthost, 
-     pgpt_data_topic,  
-     consumefrom, 
-     rollbackoffset,  
-     pgptcontainername, 
-     windowinstance 
+     API_ENDPOINT,
+     step,
+     vectordimension,
+     contextwindowsize,
+     vectorsearchtype,
+     temperature,
+     docfolderingestinterval,
+     docfolder,
+     vectordbcollectionname,
+     hyperbatch,
+     keyprocesstype,
+     keyattribute,
+     context,
+     prompt,
+     pgptport,
+     pgpthost,
+     pgpt_data_topic,
+     consumefrom,
+     rollbackoffset,
+     pgptcontainername,
+     windowinstance
    ) {
      const payload = {
-      step, 
-      vectordimension, 
-      contextwindowsize, 
-      vectorsearchtype, 
-      temperature,  
-      docfolderingestinterval, 
-      docfolder,  
-      vectordbcollectionname, 
-      hyperbatch,  
-      keyprocesstype, 
-      keyattribute, 
-      context, 
-      prompt, 
-      pgptport, 
-      pgpthost, 
-      pgpt_data_topic,  
-      consumefrom, 
-      rollbackoffset,  
-      pgptcontainername, 
-      windowinstance 
+       step,
+       vectordimension,
+       contextwindowsize,
+       vectorsearchtype,
+       temperature,
+       docfolderingestinterval,
+       docfolder,
+       vectordbcollectionname,
+       hyperbatch,
+       keyprocesstype,
+       keyattribute,
+       context,
+       prompt,
+       pgptport,
+       pgpthost,
+       pgpt_data_topic,
+       consumefrom,
+       rollbackoffset,
+       pgptcontainername,
+       windowinstance,
      };
-
-     API_ENDPOINT="http://localhost:5000/api/v1/ai
-
+   
+     // Optional: allow override, else use default
+     API_ENDPOINT = API_ENDPOINT || "http://localhost:5000/api/v1/ai";
+   
      try {
        const response = await fetch(API_ENDPOINT, {
-         method: 'POST',
+         method: "POST",
          headers: {
-           'Content-Type': 'application/json',
+           "Content-Type": "application/json",
          },
-         body: JSON.stringify(payload)
+         body: JSON.stringify(payload),
        });
    
        const responseText = await response.text();
        console.log(`Status: ${response.status}, Response: ${responseText}`);
-       
+   
        if (!response.ok) {
          throw new Error(`HTTP ${response.status}: ${responseText}`);
        }
-       
+   
        return JSON.parse(responseText);
      } catch (error) {
-       console.error('AI request failed:', error);
+       console.error("AI request failed:", error);
        throw error;
      }
    }
@@ -1484,14 +1485,14 @@ See `Dag 9 configurations here <https://tml.readthedocs.io/en/latest/tmlbuilds.h
 .. code-block::
 
    import { useState, useCallback } from 'react';
-
+   
    export function useAI() {
      const [loading, setLoading] = useState(false);
      const [error, setError] = useState(null);
      const [data, setData] = useState(null);
    
      const runAi = useCallback(async (
-       API_ENDPOINT, 
+       endpoint,  // renamed for clarity
        step, 
        vectordimension, 
        contextwindowsize, 
@@ -1518,45 +1519,29 @@ See `Dag 9 configurations here <https://tml.readthedocs.io/en/latest/tmlbuilds.h
        
        try {
          const payload = {
-          step, 
-          vectordimension, 
-          contextwindowsize, 
-          vectorsearchtype, 
-          temperature,  
-          docfolderingestinterval, 
-          docfolder,  
-          vectordbcollectionname, 
-          hyperbatch,  
-          keyprocesstype, 
-          keyattribute, 
-          context, 
-          prompt, 
-          pgptport, 
-          pgpthost, 
-          pgpt_data_topic,  
-          consumefrom, 
-          rollbackoffset,  
-          pgptcontainername, 
-          windowinstance 
+           step, vectordimension, contextwindowsize, vectorsearchtype, 
+           temperature, docfolderingestinterval, docfolder, 
+           vectordbcollectionname, hyperbatch, keyprocesstype, 
+           keyattribute, context, prompt, pgptport, pgpthost, 
+           pgpt_data_topic, consumefrom, rollbackoffset, 
+           pgptcontainername, windowinstance 
          };
-         API_ENDPOINT="http://localhost:5000/api/v1/ai
-
+   
+         // Use passed endpoint or default
+         const API_ENDPOINT = endpoint || "http://localhost:5000/api/v1/ai";
+   
          const response = await fetch(API_ENDPOINT, {
            method: 'POST',
-           headers: {
-             'Content-Type': 'application/json',
-           },
+           headers: { 'Content-Type': 'application/json' },
            body: JSON.stringify(payload)
          });
    
-         const responseText = await response.text();
-         console.log(`Status: ${response.status}, Response: ${responseText}`);
-         
          if (!response.ok) {
+           const responseText = await response.text();
            throw new Error(`HTTP ${response.status}: ${responseText}`);
          }
-         
-         const result = JSON.parse(responseText);
+   
+         const result = await response.json();  // Better than text() + parse()
          setData(result);
          return result;
        } catch (err) {
@@ -1565,7 +1550,7 @@ See `Dag 9 configurations here <https://tml.readthedocs.io/en/latest/tmlbuilds.h
        } finally {
          setLoading(false);
        }
-     }, []);
+     }, []);  // Empty deps OK since no external state used inside
    
      return { runAi, loading, error, data };
    }
