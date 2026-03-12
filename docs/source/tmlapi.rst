@@ -1220,7 +1220,7 @@ Get a health check on the sessions running in the TML server plugin.
     import asyncio
 
     async def health():
-        url = "http://localhost:5000/health"
+        url = "http://localhost:5000/api/v1/health"
         
         async with aiohttp.ClientSession() as session:
             async with session.post(url) as response:
@@ -1630,11 +1630,11 @@ Copy and Paste this code in Python and Run it.
       
       # USE THIS ENDPOINT IF TML RUNNING IN DOCKER CONTAINER
       # DOCKER CONTAINER ENDPOINT
-      API_ENDPOINT = "{}//localhost:{}/{}".format(httpaddr,rest_port,apiroute)
+      API_ENDPOINT = "{}//localhost:{}/api/v1/{}".format(httpaddr,rest_port,apiroute)
       
       # USE THIS ENDPOINT IF TML RUNNING IN KUBERNETES
       # KUBERNETES ENDPOINT
-      #API_ENDPOINT = "{}//tml.tss/ext/{}".format(httpaddr,apiroute)
+      #API_ENDPOINT = "{}//tml.tss/ext/api/v1/{}".format(httpaddr,apiroute)
        
       def send_tml_data(data): 
         # data to be sent to api
@@ -1899,14 +1899,14 @@ Copy and paste this code locally and run it.
    #----------------- CALL TERMINATE ENDPOINT-----------------------------------------------------------------
    print("** CALLING TERMINATE ENDPOINT **")
    apiroute = "terminatewindow"
-   API_ENDPOINT = "{}//localhost:{}/{}".format(httpaddr,rest_port,apiroute)
+   API_ENDPOINT = "{}//localhost:{}/api/v1/{}".format(httpaddr,rest_port,apiroute)
    asyncio.run(terminatewindow(API_ENDPOINT,0,'all'))
    
    #----------------- CALL CREATETOPIC ENDPOINT-----------------------------------------------------------------
    print("** CALLING CREATETOPIC ENDPOINT **")
    
    apiroute = "createtopic"
-   API_ENDPOINT = "{}//localhost:{}/{}".format(httpaddr,rest_port,apiroute)
+   API_ENDPOINT = "{}//localhost:{}/api/v1/{}".format(httpaddr,rest_port,apiroute)
    topics="mytopic,mytopic2,all-agents-responses"  # change to any topic name
    asyncio.run(create_topics(API_ENDPOINT,topics))
    
@@ -1914,7 +1914,7 @@ Copy and paste this code locally and run it.
    print("** CALLING PREPROCESS ENDPOINT **")
    
    apiroute = "preprocess"
-   API_ENDPOINT = "{}//localhost:{}/{}".format(httpaddr,rest_port,apiroute)
+   API_ENDPOINT = "{}//localhost:{}/api/v1/{}".format(httpaddr,rest_port,apiroute)
    
    # For details on JSON processing see here: https://tml.readthedocs.io/en/latest/jsonprocessing.html
    json_criteria = """uid=metadata.dsn,filter:allrecords~\
@@ -1939,7 +1939,7 @@ Copy and paste this code locally and run it.
    print("** CALLING MACHINE LEARNING ENDPOINT **")
    
    apiroute = "ml"
-   API_ENDPOINT = "{}//localhost:{}/{}".format(httpaddr,rest_port,apiroute)
+   API_ENDPOINT = "{}//localhost:{}/api/v1/{}".format(httpaddr,rest_port,apiroute)
    
    trainingdatafolder = "iotlogistic-model"
    ml_data_topic = "ml-data"  
@@ -1958,7 +1958,7 @@ Copy and paste this code locally and run it.
    print("** CALLING PREDICTIONS ENDPOINT **")
    
    apiroute = "predict"
-   API_ENDPOINT = "{}//localhost:{}/{}".format(httpaddr,rest_port,apiroute)
+   API_ENDPOINT = "{}//localhost:{}/api/v1/{}".format(httpaddr,rest_port,apiroute)
    step=6
    algofolder="iotlogistic-model"
    rollbackoffsets=50
@@ -1975,7 +1975,7 @@ Copy and paste this code locally and run it.
    print("** CALLING AGENTIC AI ENDPOINT **")
    
    apiroute = "agenticai"
-   API_ENDPOINT = "{}//localhost:{}/{}".format(httpaddr,rest_port,apiroute)
+   API_ENDPOINT = "{}//localhost:{}/api/v1/{}".format(httpaddr,rest_port,apiroute)
    
    step="9b"      
    rollbackoffsets=10  
@@ -2086,7 +2086,7 @@ Copy and paste this code locally and run it.
    print("** CALLING CONSUME ENDPOINT **")
    
    apiroute = "consume"
-   API_ENDPOINT = "{}//localhost:{}/{}".format(httpaddr,rest_port,apiroute)
+   API_ENDPOINT = "{}//localhost:{}/api/v1/{}".format(httpaddr,rest_port,apiroute)
    topic="iot-ml-prediction-results-output"
    rollbackoffsets=2
    kind="tml-kind"
@@ -2099,7 +2099,7 @@ Copy and paste this code locally and run it.
    print("** CALLING HEALTH ENDPOINT **")
    
    apiroute = "health"
-   API_ENDPOINT = "{}//localhost:{}/{}".format(httpaddr,rest_port,apiroute)
+   API_ENDPOINT = "{}//localhost:{}/api/v1/{}".format(httpaddr,rest_port,apiroute)
    
    asyncio.run(health(API_ENDPOINT))
 
