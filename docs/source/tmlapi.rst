@@ -1306,6 +1306,270 @@ Get a health check on the sessions running in the TML server plugin.
 - *200* – Health successful.
 - *400* – ``"Health failed"``
 
+POST /api/v1/ai
+--------------------------
+
+**Description:**
+Run powerful AI analysis on data streams.  This allows users to use LLM to automate workflows in real-time.
+
+**Request JSON Parameters:**
+
+``step``  *(string, required)* – This step is 9.
+``vectordimension``  *(string, optional)*.
+``contextwindowsize`` *(string, optional)*.
+``vectorsearchtype`` *(string, optional)*.
+``temperature`` *(string, optional)*.
+``docfolderingestinterval`` *(string, optional)*.
+``docfolder`` *(string, optional)*.
+``vectordbcollectionname`` *(string, optional)*.
+``hyperbatch`` *(string, optional)*.
+``keyprocesstype`` *(string, optional)*.
+``keyattribute`` *(string, optional)*.
+``context`` *(string, required)*.
+``prompt``  *(string, required)*.
+``pgptport``  *(string, required)*.
+``pgpthost``  *(string, required)*.
+``pgpt_data_topic``  *(string, required)*.
+``consumefrom``  *(string, required)*.
+``rollbackoffset``  *(string, required)*.
+``pgptcontainername``  *(string, required)*.
+``windowinstance``  *(string, optional)*.
+
+**Example Request:**
+
+See `Dag 9 configurations here <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-9-privategpt-and-qdrant-integration-tml-system-step-9-privategpt-qdrant-dag>`_.
+
+.. code-block:: json
+
+    payload = {
+        "step": step,
+        "vectordimension": vectordimension, # dimension of the embedding
+        "contextwindowsize": contextwindowsize, # context window size for LLM
+        "vectorsearchtype": vectorsearchtype, # RAG vector search type
+        "temperature": temperature, # LLM temperature setting 
+        "docfolderingestinterval": docfolderingestinterval, # how how to reload documents in vector DB
+        "docfolder": docfolder, # you can place your documents in /rawdata folder i.e. /rawdata/mylogs 
+        "vectordbcollectionname": vectordbcollectionname, 
+        "hyperbatch": hyperbatch, # set to 1 or 0 - if 0 TML sends line by line to Pgpt or in batch all of the data in consumefrom topic 
+        "keyprocesstype": keyprocesstype, # anomprob, max, min, etc any TML processtypes
+        "keyattribute": keyattribute, # any attribute in the data you are processing: Power, Voltage, Current
+        "context": context, # prompt context
+        "prompt": prompt, # the prompt
+        "pgptport": pgptport, # pgpt container port
+        "pgpthost": pgpthost, # pgpt container host
+        "pgpt_data_topic": pgpt_data_topic,  # topic that tml/pgpt will store its responses
+        "consumefrom": consumefrom, # topic tml/pgpt will consume data and apply the prompt
+        "rollbackoffset": rollbackoffset,  # how much data pgpt to process 
+        "pgptcontainername": pgptcontainername, # pgpt container name
+        "windowinstance": windowinstance # window instance
+    }
+
+**Example Request (Python - async):**
+
+.. code-block:: python
+
+   async def run_ai(API_ENDPOINT,step,vectordimension,contextwindowsize,vectorsearchtype,temperature,docfolderingestinterval,docfolder,vectordbcollectionname,
+          hyperbatch,keyprocesstype,keyattribute,context,prompt,pgptport,pgpthost,pgpt_data_topic,consumefrom,rollbackoffset,pgptcontainername,windowinstance):
+   
+       payload = {
+           "step": step,
+           "vectordimension": vectordimension, # dimension of the embedding
+           "contextwindowsize": contextwindowsize, # context window size for LLM
+           "vectorsearchtype": vectorsearchtype, # RAG vector search type
+           "temperature": temperature, # LLM temperature setting 
+           "docfolderingestinterval": docfolderingestinterval, # how how to reload documents in vector DB
+           "docfolder": docfolder, # you can place your documents in /rawdata folder i.e. /rawdata/mylogs 
+           "vectordbcollectionname": vectordbcollectionname, 
+           "hyperbatch": hyperbatch, # set to 1 or 0 - if 0 TML sends line by line to Pgpt or in batch all of the data in consumefrom topic 
+           "keyprocesstype": keyprocesstype, # anomprob, max, min, etc any TML processtypes
+           "keyattribute": keyattribute, # any attribute in the data you are processing: Power, Voltage, Current
+           "context": context, # prompt context
+           "prompt": prompt, # the prompt
+           "pgptport": pgptport, # pgpt container port
+           "pgpthost": pgpthost, # pgpt container host
+           "pgpt_data_topic": pgpt_data_topic,  # topic that tml/pgpt will store its responses
+           "consumefrom": consumefrom, # topic tml/pgpt will consume data and apply the prompt
+           "rollbackoffset": rollbackoffset,  # how much data pgpt to process 
+           "pgptcontainername": pgptcontainername, # pgpt container name
+           "windowinstance": windowinstance # window instance
+       }
+   
+       payload=json.dumps(payload, indent=2)
+       payload=json.loads(payload)
+       async with aiohttp.ClientSession() as session:
+           async with session.post(API_ENDPOINT, json=payload) as response:
+               print(f"Status: {response.status}, Response: {await response.text()}")
+
+**Example Request (Javascript - async):**
+
+.. code-block::
+
+   async function runAi(
+     API_ENDPOINT, 
+     step, 
+     vectordimension, 
+     contextwindowsize, 
+     vectorsearchtype, 
+     temperature,  
+     docfolderingestinterval, 
+     docfolder,  
+     vectordbcollectionname, 
+     hyperbatch,  
+     keyprocesstype, 
+     keyattribute, 
+     context, 
+     prompt, 
+     pgptport, 
+     pgpthost, 
+     pgpt_data_topic,  
+     consumefrom, 
+     rollbackoffset,  
+     pgptcontainername, 
+     windowinstance 
+   ) {
+     const payload = {
+      step, 
+      vectordimension, 
+      contextwindowsize, 
+      vectorsearchtype, 
+      temperature,  
+      docfolderingestinterval, 
+      docfolder,  
+      vectordbcollectionname, 
+      hyperbatch,  
+      keyprocesstype, 
+      keyattribute, 
+      context, 
+      prompt, 
+      pgptport, 
+      pgpthost, 
+      pgpt_data_topic,  
+      consumefrom, 
+      rollbackoffset,  
+      pgptcontainername, 
+      windowinstance 
+     };
+
+     API_ENDPOINT="http://localhost:5000/api/v1/ai
+
+     try {
+       const response = await fetch(API_ENDPOINT, {
+         method: 'POST',
+         headers: {
+           'Content-Type': 'application/json',
+         },
+         body: JSON.stringify(payload)
+       });
+   
+       const responseText = await response.text();
+       console.log(`Status: ${response.status}, Response: ${responseText}`);
+       
+       if (!response.ok) {
+         throw new Error(`HTTP ${response.status}: ${responseText}`);
+       }
+       
+       return JSON.parse(responseText);
+     } catch (error) {
+       console.error('AI request failed:', error);
+       throw error;
+     }
+   }
+
+**Example Request (React - async):**
+
+.. code-block::
+
+   import { useState, useCallback } from 'react';
+
+   export function useAI() {
+     const [loading, setLoading] = useState(false);
+     const [error, setError] = useState(null);
+     const [data, setData] = useState(null);
+   
+     const runAi = useCallback(async (
+       API_ENDPOINT, 
+       step, 
+       vectordimension, 
+       contextwindowsize, 
+       vectorsearchtype, 
+       temperature,  
+       docfolderingestinterval, 
+       docfolder,  
+       vectordbcollectionname, 
+       hyperbatch,  
+       keyprocesstype, 
+       keyattribute, 
+       context, 
+       prompt, 
+       pgptport, 
+       pgpthost, 
+       pgpt_data_topic,  
+       consumefrom, 
+       rollbackoffset,  
+       pgptcontainername, 
+       windowinstance 
+     ) => {
+       setLoading(true);
+       setError(null);
+       
+       try {
+         const payload = {
+          step, 
+          vectordimension, 
+          contextwindowsize, 
+          vectorsearchtype, 
+          temperature,  
+          docfolderingestinterval, 
+          docfolder,  
+          vectordbcollectionname, 
+          hyperbatch,  
+          keyprocesstype, 
+          keyattribute, 
+          context, 
+          prompt, 
+          pgptport, 
+          pgpthost, 
+          pgpt_data_topic,  
+          consumefrom, 
+          rollbackoffset,  
+          pgptcontainername, 
+          windowinstance 
+         };
+         API_ENDPOINT="http://localhost:5000/api/v1/ai
+
+         const response = await fetch(API_ENDPOINT, {
+           method: 'POST',
+           headers: {
+             'Content-Type': 'application/json',
+           },
+           body: JSON.stringify(payload)
+         });
+   
+         const responseText = await response.text();
+         console.log(`Status: ${response.status}, Response: ${responseText}`);
+         
+         if (!response.ok) {
+           throw new Error(`HTTP ${response.status}: ${responseText}`);
+         }
+         
+         const result = JSON.parse(responseText);
+         setData(result);
+         return result;
+       } catch (err) {
+         setError(err.message);
+         throw err;
+       } finally {
+         setLoading(false);
+       }
+     }, []);
+   
+     return { runAi, loading, error, data };
+   }
+
+**Example Response:**
+- *200* – AI created and initiated (plain text).
+- *400* – ``"Missing or invalid request"``
+
 POST /api/v1/agenticai
 --------------------------
 
