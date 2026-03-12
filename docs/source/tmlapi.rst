@@ -9,16 +9,16 @@ TML API Quick Reference
 
 **API Endpoints Summary:**
 
-- ``POST /api/v1/createtopic`` - [`click <https://tml.readthedocs.io/en/latest/tmlapi.html#post-createtopic>`_] Create Kafka topics (`topics`, `numpartitions`) → 200,400
-- ``POST /api/v1/preprocess`` - [`click <https://tml.readthedocs.io/en/latest/tmlapi.html#post-preprocess>`_] Data preprocessing (`step=4|4c`, `rawdatatopic`) → 200,400  
-- ``POST /api/v1/ml`` - [`click <https://tml.readthedocs.io/en/latest/tmlapi.html#post-ml>`_] Train ML models (`step=5`, `trainingdatafolder`) → 200,400
-- ``POST /api/v1/predict`` - [`click <https://tml.readthedocs.io/en/latest/tmlapi.html#post-predict>`_] Run predictions (`step=6`, `pathtoalgos`) → 200,400
-- ``POST /api/v1/agenticai`` - [`click <https://tml.readthedocs.io/en/latest/tmlapi.html#post-agenticai>`_] Run Agentic AI Analysis (`step=9b`, `ollama-model`) → 200,400
-- ``POST /api/v1/consume`` - [`click <https://tml.readthedocs.io/en/latest/tmlapi.html#post-consume>`_] Consume messages (`topic`, `forwardurl`) → 200,400,500
-- ``POST /api/v1/jsondataline`` - [`click <https://tml.readthedocs.io/en/latest/tmlapi.html#post-jsondataline>`_] Send single JSON → 200
-- ``POST /api/v1/jsondataarray`` - [`click <https://tml.readthedocs.io/en/latest/tmlapi.html#post-jsondataarray>`_] Send JSON array → 200
-- ``POST /api/v1/terminatewindow`` - [`click <https://tml.readthedocs.io/en/latest/tmlapi.html#post-teminatewindow>`_] Send JSON array → 200
-- ``POST /api/v1/health`` - [`click <https://tml.readthedocs.io/en/latest/tmlapi.html#post-health>`_] Send JSON array → 200
+- ``POST /api/v1/createtopic`` - [`click <https://tml.readthedocs.io/en/latest/tmlapi.html#post-api-v1-createtopic>`_] Create Kafka topics (`topics`, `numpartitions`) → 200,400
+- ``POST /api/v1/preprocess`` - [`click <https://tml.readthedocs.io/en/latest/tmlapi.html#post-api-v1-preprocess>`_] Data preprocessing (`step=4|4c`, `rawdatatopic`) → 200,400  
+- ``POST /api/v1/ml`` - [`click <https://tml.readthedocs.io/en/latest/tmlapi.html#post-api-v1-ml>`_] Train ML models (`step=5`, `trainingdatafolder`) → 200,400
+- ``POST /api/v1/predict`` - [`click <https://tml.readthedocs.io/en/latest/tmlapi.html#post-api-v1-predict>`_] Run predictions (`step=6`, `pathtoalgos`) → 200,400
+- ``POST /api/v1/agenticai`` - [`click <https://tml.readthedocs.io/en/latest/tmlapi.html#post-api-v1-agenticai>`_] Run Agentic AI Analysis (`step=9b`, `ollama-model`) → 200,400
+- ``POST /api/v1/consume`` - [`click <https://tml.readthedocs.io/en/latest/tmlapi.html#post-api-v1-consume>`_] Consume messages (`topic`, `forwardurl`) → 200,400,500
+- ``POST /api/v1/jsondataline`` - [`click <https://tml.readthedocs.io/en/latest/tmlapi.html#post-api-v1-jsondataline>`_] Send single JSON → 200
+- ``POST /api/v1/jsondataarray`` - [`click <https://tml.readthedocs.io/en/latest/tmlapi.html#post-api-v1-jsondataarray>`_] Send JSON array → 200
+- ``POST /api/v1/terminatewindow`` - [`click <https://tml.readthedocs.io/en/latest/tmlapi.html#post-api-v1-teminatewindow>`_] Send JSON array → 200
+- ``POST /api/v1/health`` - [`click <https://tml.readthedocs.io/en/latest/tmlapi.html#post-api-v1-health>`_] Send JSON array → 200
 
 TML Server Plugin Build Documentation:
  - Click for `Documentation for the TML Server Plugin <https://tml-server-v1-plugin-3f10-ml-agenticai-restapi.readthedocs.io/en/latest/>`_
