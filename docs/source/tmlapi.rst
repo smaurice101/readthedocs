@@ -4,6 +4,13 @@ TML REST API Endpoints and Examples
 
 This service exposes endpoints to create topics, preprocess data, run machine learning pipelines, generate predictions, and consume data from topics through the Viper backend.
 
+Before you can use the TML Server Plugin you need to :ref:`RUN The TML Server Plugin Container`_:
+
+.. list-table::
+
+   * - **TSS Containers**
+   * - `Windows/Linux Users <https://hub.docker.com/r/maadsdocker/tml-server-v1-plugin-3f10-ml_agenticai_restapi-amd64>`_
+
 Reference Architecture
 ----------------------
 
@@ -50,7 +57,7 @@ API For System Maintenance
 - ``POST /api/v1/terminatewindow`` - [`click <https://tml.readthedocs.io/en/latest/tmlapi.html#post-api-v1-teminatewindow>`_] Send JSON array → 200
 - ``POST /api/v1/health`` - [`click <https://tml.readthedocs.io/en/latest/tmlapi.html#post-api-v1-health>`_] Send JSON array → 200
 
-TML Server Plugin Documentation DOCKER Container
+RUN The TML Server Plugin Container
 --------------------------------------
 
 TML Server Plugin Build Documentation:
