@@ -4,7 +4,7 @@ TML REST API Endpoints and Examples
 
 This service exposes endpoints to create topics, preprocess data, run machine learning pipelines, generate predictions, and consume data from topics through the Viper backend.
 
-Before you can use the TML Server Plugin you need to :ref:`RUN The TML Server Plugin Container`_:
+Before you can use the TML Server Plugin you need to :ref:`RUN The TML Server Plugin Container`:
 
 .. list-table::
 
