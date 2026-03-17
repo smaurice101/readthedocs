@@ -8,7 +8,7 @@ Before you can use the TML Server Plugin you need to :ref:`RUN The TML Server Pl
 
 .. list-table::
 
-   * - **TSS Containers**
+   * - **TML Server Plugin Container**
    * - `Windows/Linux Users <https://hub.docker.com/r/maadsdocker/tml-server-v1-plugin-3f10-ml_agenticai_restapi-amd64>`_
 
 Reference Architecture
