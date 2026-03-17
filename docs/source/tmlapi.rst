@@ -4,6 +4,14 @@ TML REST API Endpoints and Examples
 
 This service exposes endpoints to create topics, preprocess data, run machine learning pipelines, generate predictions, and consume data from topics through the Viper backend.
 
+Reference Architecture
+----------------------
+
+Below is a reference architecture of the powerful capabilities of controlling the TML Server remotely using a REST API
+
+.. figure:: tmlpluginarch.png
+   :scale: 70%
+
 TML API Quick Reference
 =========================
 
@@ -42,8 +50,8 @@ API For System Maintenance
 - ``POST /api/v1/terminatewindow`` - [`click <https://tml.readthedocs.io/en/latest/tmlapi.html#post-api-v1-teminatewindow>`_] Send JSON array → 200
 - ``POST /api/v1/health`` - [`click <https://tml.readthedocs.io/en/latest/tmlapi.html#post-api-v1-health>`_] Send JSON array → 200
 
-Documentation
------------------------
+TML Server Plugin Documentation DOCKER Container
+--------------------------------------
 
 TML Server Plugin Build Documentation:
  - Click for `Documentation for the TML Server Plugin <https://tml-server-v1-plugin-3f10-ml-agenticai-restapi.readthedocs.io/en/latest/>`_
@@ -57,17 +65,6 @@ TML Client Build Documentation: (Recommended for users)
     - TML Server Plugin Build Documentation: is built by the TSS and has port assignments for TSS
 
     - TML Client Build Documentation: is auto-built when users run the TML Server Plugin and has port assignment specific for the client
-
-Reference Architecture
-----------------------
-
-Below is a reference architecture of the powerful capabilities of controlling the TML Server remotely using a REST API
-
-.. figure:: tmlpluginarch.png
-   :scale: 70%
-
-TML Server Plugin Container Docker Run
---------------------------------------
 
 To use the TML Endpoints you MUST run the `TML Server Plugin Container <https://hub.docker.com/r/maadsdocker/tml-server-v1-plugin-3f10-ml_agenticai_restapi-amd64>`_
 
