@@ -3279,3 +3279,177 @@ The output JSON will be a `OSDU <https://osduforum.org/>`_ compatible JSON:
     		}
     	}
     }
+
+MQTT Example
+-------------
+
+Below shows how to connect to MQTT and process going in to a MQTT cluster.
+
+.. important::
+
+   - You will need an account on HiveMQ: `https://www.hivemq.com/agent/ <https://www.hivemq.com/agent/>`_
+
+   - You can setup a FREE cluster.  See here for steps: `https://tml.readthedocs.io/en/latest/hive.html <https://tml.readthedocs.io/en/latest/hive.html>`_
+
+   - You will need to install Python library: **pip install paho-mqtt**
+
+   - Download the data file: `IoTData.zip <https://github.com/smaurice101/raspberrypi/blob/main/tml-airflow/data/IoTData.zip>`_
+
+     - Extract the IoTData.txt and place it in the SAME folder as the script below.
+
+
+Step 1: Subscribe to the MQTT Topic
+"""""""""""""""""""""""""""""""""
+
+This is the topic the devices are writing data to in the MQTT cluster.  In our example this topic is in: 'mqtt_subscribe_topic': 'tml/iot',
+
+.. important::
+
+   When you run the TML server container you **MUST** specify:
+
+   - \-\-env MQTTUSERNAME='<Enter username>'
+   - \-\-env MQTTPASSWORD=<Enter password>
+
+**MQTT payload: you can save to mqttpayload.json** 
+
+.. code-block::
+
+    {
+      "mqtt_broker": "08b9fcbd4d00421daa25c0ee4a44b494.s1.eu.hivemq.cloud", 
+      "mqtt_subscribe_topic": "tml/iot", 
+      "mqtt_port": 8883,
+      "sendtotopic": "mqtt-raw-data", 
+      "mqtt_enabletls": "1"
+    }
+    
+**Send the payload to the TML Server: **
+
+Send a cURL:
+
+.. code-block::
+
+   sudo curl -X POST http://localhost:9002/api/v1/mqtt_subscribe -H "Content-Type: application/json" -d @mqttpayload.json
+
+
+Step 2: Stream Data to the MQTT Cluster
+""""""""""""""""""""""""""""""""""""""
+
+**Run this client code:**
+
+.. code-block::
+
+    import paho.mqtt.client as paho
+    from paho import mqtt
+    import time
+    import sys
+    from datetime import datetime
+    
+    default_args = {
+        'mqtt_broker': '<Enter MQTT broker>',
+        'mqtt_port': '8883',
+        'mqtt_subscribe_topic': 'tml/iot',
+        'mqtt_enabletls': '1',
+    }
+    
+    sys.dont_write_bytecode = True
+    
+    def on_connect(client, userdata, flags, rc, properties=None):
+        """rc=0 = SUCCESS"""
+        print(f"MQTT CONNACK: rc={rc}")
+        if rc == 0:
+            print("✅ Connected successfully")
+            client.connected_flag = True
+            client.subscribe(default_args['mqtt_subscribe_topic'], qos=1)
+        else:
+            print(f"❌ Connection failed - rc={rc}")
+            client.connected_flag = False
+    
+    def mqttconnection():
+        username = "smaurice"
+        password = "@3QMsvK!TmHkyt2"
+        
+        client = paho.Client(paho.CallbackAPIVersion.VERSION2)
+        client.connected_flag = False  # Reset flag
+        
+        mqttBroker = default_args['mqtt_broker']
+        mqttport = int(default_args['mqtt_port'])
+        
+        # ✅ CRITICAL: Set callback BEFORE connect
+        client.on_connect = on_connect
+        
+        # TLS + Auth
+        client.tls_set(tls_version=mqtt.client.ssl.PROTOCOL_TLS)
+        client.username_pw_set(username, password)
+        
+        print("Connecting...")
+        client.connect(mqttBroker, mqttport)
+        
+        # ✅ WAIT FOR CALLBACK - don't subscribe immediately
+        timeout = 10
+        start_time = time.time()
+        while not client.connected_flag and (time.time() - start_time) < timeout:
+            time.sleep(0.1)
+            client.loop(timeout=0.1)  # Process network
+        
+        if client.connected_flag:
+            print("✅ Connection confirmed - starting loop")
+            return client
+        else:
+            print("❌ Connection timeout")
+            return None
+    
+    def publishtomqttbroker(client, line):
+        try:
+            result = client.publish(
+                topic=default_args['mqtt_subscribe_topic'], 
+                payload=line, 
+                qos=0, 
+                retain=False
+            )
+            print(f"Published: {result.rc}")
+        except Exception as e:
+            print("Publish ERROR:", e)
+    
+    def readdatafile(client, inputfile):
+        try:
+            file1 = open(inputfile, 'r')
+            print("Data producing started:", datetime.now())
+        except Exception as e:
+            print("ERROR opening file:", e)
+            return
+        
+        k = 0
+        while client and client.connected_flag:
+            line = file1.readline().strip()
+            if not line:
+                file1.seek(0)
+                continue
+            print(line)        
+            publishtomqttbroker(client, line)
+            time.sleep(.5)
+        
+        file1.close()
+    
+    # ✅ FIXED MAIN
+    if __name__ == "__main__":
+        client = mqttconnection()
+        if client:
+            inputfile = "IoTData.txt"
+            readdatafile(client, inputfile)
+            client.loop_forever()  # Keep alive
+        else:
+            print("Cannot start - MQTT connection failed")
+
+
+Step 3: TML Process Data
+""""""""""""""""""""""""""""""""
+
+All MQTT data is going into the Kafka topic: **sendtotopic**
+
+Step 4: Perform Machine Learning/AI/Agentic AI
+""""""""""""""""""""""""""""""""
+
+You can now simply apply the usual TML APIs for machine learning, AI, Agentic AI
+
+
+
