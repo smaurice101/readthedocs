@@ -1917,13 +1917,19 @@ Directly connect to a SCADA/modbus system and extract or ingest real-time data a
       const [isLoading, setIsLoading] = useState(false);
     
       // Example payload (or load it how you prefer)
-      const payload = {
-        device: "192.168.1.100",
-        slave_id: 1,
-        register_type: "holding",
-        start_address: 100,
-        count: 10,
-      };
+      const {
+          "scada_host": "127.0.0.1",
+          "scada_port": 2502,
+          "slave_id": 1,
+          "read_interval_seconds": 2,
+          "callback_url":"http://localhost:9002/api/v1/vessel_data",
+          "max_reads": 10,
+          "start_register": 40001,
+          "sendtotopic": "scada-raw-data",
+          "createvariables": "carryover=(waterFlowRate + hclFlowRate + solidFlowRate) / gasFlowRate * 100,gas_reynolds= gasFlowRate * gasDensity / (gasViscosity * operatingPressure), water_reynolds= waterFlowRate * waterDensity / (waterViscosity * operatingPressure), reynolds_ratio= gas_reynolds / water_reynolds, stokes_number=(waterDensity-gasDensity) * waterViscosity / operatingPressure**2, inversion_risk= waterFlowRate/gasFlowRate - phseInversionCriticalWaterCut, emulsion_ratio= waterSurfaceTension / hclWaterSurfaceTension, density_ratio= waterDensity / gasDensity, flow_stability= reynolds_ratio * density_ratio",
+          "fields": ["vesselIndex","operatingPressure","operatingTemperature","gasFlowRate","gasDensity","gasCompressabilityFactor","gasViscosity","hclFlowRate","hclDensity","hclViscosity","hclSurfaceTension","waterFlowRate","waterDensity","waterViscosity","waterSurfaceTension","hclWaterSurfaceTension","phseInversionCriticalWaterCut","solidFlowRate","solidDensity"],
+          "scaling": {"vesselIndex":1,"operatingPressure":100,"operatingTemperature":100,"gasFlowRate":100,"gasDensity":1000,"gasCompressabilityFactor":1000,"gasViscosity":1000000000,"hclFlowRate":100,"hclDensity":1,"hclViscosity":1000000,"hclSurfaceTension":100000,"waterFlowRate":1000,"waterDensity":10,"waterViscosity":1000000,"waterSurfaceTension":100000,"hclWaterSurfaceTension":100000,"phseInversionCriticalWaterCut":1000,"solidFlowRate":100,"solidDensity":10}
+        };
     
       const submitRequest = async () => {
         setIsLoading(true);
@@ -1957,10 +1963,137 @@ Directly connect to a SCADA/modbus system and extract or ingest real-time data a
     
     export default ModbusReader;
 
+**Example Response:**
+- *200* – SCADA connected and read started.
+- *400* – ``"Missing or invalid request"``
+
 POST /api/v1/mqtt_subscribe
 -----------------------------
 
+**Description:**
+Directly connect to a MQTT system and extract or ingest real-time data and perform advanced processing, machine learning and AI. This is a very powerful way to perform low-cost, highly advanced processing in a matter of seconds.
 
+**Request JSON Parameters:**
+
+``mqtt_broker``  *(string, required)* - Broker of the MQTT cluster 
+``mqtt_subscribe_topic``  *(string, required)* - The topic in the MQTT cluster to subscribe to and read the data
+``mqtt_port``  *(int, required default=8883)* - Port of the MQTT system
+``sendtotopic``  *(string, optional)* - This is the Kafka topic to write the MQTT data to, and perform processing, machine learning, and AI
+``mqtt_enabletls``  *(string, required default="1")* - Security level of the MQTT system.
+
+**Example Request (Python - async):**
+
+.. code-block::
+
+    import httpx
+    import asyncio
+    import json
+    
+    url = "http://localhost:9002/api/v1/mqtt_subscribe"
+    
+    async def mqtt_subscribe():
+        with open("payload.json", "r") as f:
+            payload = json.load(f)
+    
+        headers = {
+            "Content-Type": "application/json",
+        }
+    
+        async with httpx.AsyncClient() as client:
+            response = await client.post(url, json=payload, headers=headers)
+    
+        print("Status:", response.status_code)
+        print("Response body:", response.text)
+    
+    
+    if __name__ == "__main__":
+        asyncio.run(mqtt_subscribe())
+
+**Example Request (Javascript - async):**
+
+.. code-block::
+
+    import fetch from "node-fetch";  // or use native fetch on newer Node
+    
+    const url = "http://localhost:9002/api/v1/mqtt_subscribe";
+    
+    const fs = require("fs");
+    
+    async function mqttSubscribe() {
+      const payload = JSON.parse(fs.readFileSync("payload.json", "utf-8"));
+    
+      const res = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+    
+      const text = await res.text();
+      console.log("Status:", res.status);
+      console.log("Response body:", text);
+    }
+    
+    // Run
+    (async () => {
+      await mqttSubscribe();
+    })();
+
+**Example Request (React - async):**
+
+.. code-block::
+
+    import React, { useState } from "react";
+    
+    const MqttSubscribe = () => {
+      const [response, setResponse] = useState("");
+      const [isLoading, setIsLoading] = useState(false);
+    
+      // Example payload (or load from file / input)
+      const {
+          "mqtt_broker": "08b9fcbd4d00421daa25c0ee4a44b494.s1.eu.hivemq.cloud", 
+          "mqtt_subscribe_topic": "tml/iot", 
+          "mqtt_port": 8883,
+          "sendtotopic": "mqtt-raw-data", 
+          "mqtt_enabletls": "1"
+        };
+    
+      const subscribe = async () => {
+        setIsLoading(true);
+        try {
+          const res = await fetch("http://localhost:9002/api/v1/mqtt_subscribe", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(payload),
+          });
+    
+          const text = await res.text();
+          setResponse(`Status: ${res.status}\n\nBody:\n${text}`);
+        } catch (err) {
+          setResponse(`Error: ${err.message}`);
+        }
+        setIsLoading(false);
+      };
+    
+      return (
+        <div>
+          <h2>MQTT Subscribe</h2>
+          <button onClick={subscribe} disabled={isLoading}>
+            {isLoading ? "Subscribing..." : "Subscribe"}
+          </button>
+          <pre style={{ marginTop: "1rem" }}>{response}</pre>
+        </div>
+      );
+    };
+    
+    export default MqttSubscribe;
+
+**Example Response:**
+- *200* – MQTT subscribed to topic.
+- *400* – ``"Missing or invalid request"``
 
 TML Endpoint Example
 ========================
