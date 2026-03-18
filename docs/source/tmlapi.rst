@@ -58,9 +58,9 @@ Industrial API For Ingesting Data From SCADA and MQTT
 -----------------------------------------------------
 
 - ``POST /api/v1/scada_modbus_read`` - [`click <https://tml.readthedocs.io/en/latest/tmlapi.html#post-api-v1-scada-modbus-read>`_] Directly connect to a SCADA/Modbus system and ingest real-time data → 200,400
-  - See `SCADA Example <https://tml.readthedocs.io/en/latest/tmlapi.html#scada-example>`_
+  - See `SCADA Example <https://tml.readthedocs.io/en/latest/tmlapi.html#id16>`_
 - ``POST /api/v1/mqtt_subscribe`` - [`click <https://tml.readthedocs.io/en/latest/tmlapi.html#post-api-v1-mqtt-subscribe>`_] Directly connect to a MQTT system and ingest real-time data  → 200,400
-  - See `MQTT Example <https://tml.readthedocs.io/en/latest/tmlapi.html#mqtt-example>`_
+  - See `MQTT Example <https://tml.readthedocs.io/en/latest/tmlapi.html#id17>`_
 
 API For System Maintenance
 -------------------------------
