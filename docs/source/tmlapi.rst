@@ -51,6 +51,12 @@ API For Writing or Producing Raw Data to Kafka Topics
 - ``POST /api/v1/jsondataline`` - [`click <https://tml.readthedocs.io/en/latest/tmlapi.html#post-api-v1-jsondataline>`_] Send single JSON → 200
 - ``POST /api/v1/jsondataarray`` - [`click <https://tml.readthedocs.io/en/latest/tmlapi.html#post-api-v1-jsondataarray>`_] Send JSON array → 200
 
+Industrial API For Ingesting Data From SCADA and MQTT
+-----------------------------------------------------
+
+- ``POST /api/v1/scada_modbus_read`` - [`click <https://tml.readthedocs.io/en/latest/tmlapi.html#post-api-v1-ai>`_] Directly connect to a SCADA/Modbus system and ingest real-time data → 200,400
+- ``POST /api/v1/mqtt_subscribe`` - [`click <https://tml.readthedocs.io/en/latest/tmlapi.html#post-api-v1-agenticai>`_] Directly connect to a MQTT system and ingest real-time data  → 200,400
+
 API For System Maintenance
 -------------------------------
 
@@ -1815,6 +1821,146 @@ See `Dag 9b configurations here <https://tml.readthedocs.io/en/latest/tmlbuilds.
 **Example Response:**
 - *200* – Agents created and initiated (plain text).
 - *400* – ``"Missing or invalid request"``
+
+
+POST /api/v1/scada_modbus_read
+-------------------------------
+
+**Description:**
+Directly connect to a SCADA/modbus system and extract or ingest real-time data and perform advanced processing, machine learning and AI:  **No PI Historian is needed.**  This is a very powerful way to perform low-cost, highly advanced processing in a matter of seconds.
+
+**Request JSON Parameters:**
+
+``scada_host`` *(string, required)* - Host of the SCADA system
+``scada_port`` *(int, required)* - Port of the SCADA system
+``slave_id`` *(int, required default=1)* - Slave ID of the SCADA system
+``read_interval_seconds`` *(int, required default=2)* - Interval in seconds to read SCADA
+``callback_url`` *(string, required)* - This is your callback url - TML will re-route and POST the output to this url. Separate multipe URL with comma
+``max_reads``  *(int, leave as is default=-1)* 
+``start_register``: 40001 *(string, required default=40001)* - This is the start of the register for the field data being captured.
+``sendtotopic`` *(string, optional)* - This is the Kafka topic the SCADA data will be written to for TML processing.  Change to any name.
+``createvariables`` *(string, optional)*  - This allows users to perform mathematical calculations on the SCADA variables that can be used in machine learning and AI.
+``fields`` *(array of string, required)* - This is an array of strings to extract from the SCADA registers.  Based on the **start_register** value TML will start reading the field values from start_register.
+``scaling`` *(dict, required)* - This is the scaling for the fields.
+
+**Example Request (Python - async):**
+
+.. code-block::
+
+    import httpx
+    import asyncio
+    import json
+    
+    url = "http://localhost:9002/api/v1/scada_modbus_read"    
+    
+    async def read_modbus():
+        # Load payload.json
+        with open("payload.json", "r") as f:
+            payload = json.load(f)
+    
+        headers = {
+            "Content-Type": "application/json",
+        }
+    
+        async with httpx.AsyncClient() as client:
+            response = await client.post(url, json=payload, headers=headers)
+    
+        print("Status:", response.status_code)
+        print("Response body:", response.text)
+    
+    
+    # Run it
+    if __name__ == "__main__":
+        asyncio.run(read_modbus())
+
+
+**Example Request (Javascript - async):**
+
+.. code-block::
+
+    import fetch from "node-fetch";  // or use native fetch on newer Node
+    
+    const url = "http://localhost:9002/api/v1/scada_modbus_read";
+    
+    // Load payload.json (or hard‑code if you prefer)
+    const fs = require("fs");
+    
+    async function readModbus() {
+      const payload = JSON.parse(fs.readFileSync("payload.json", "utf-8"));
+    
+      const res = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+    
+      const text = await res.text();
+      console.log("Status:", res.status);
+      console.log("Response body:", text);
+    }
+    
+    // Run
+    (async () => {
+      await readModbus();
+    })();
+
+**Example Request (React - async):**
+
+.. code-block::
+
+    import React, { useState } from "react";
+    
+    const ModbusReader = () => {
+      const [response, setResponse] = useState("");
+      const [isLoading, setIsLoading] = useState(false);
+    
+      // Example payload (or load it how you prefer)
+      const payload = {
+        device: "192.168.1.100",
+        slave_id: 1,
+        register_type: "holding",
+        start_address: 100,
+        count: 10,
+      };
+    
+      const submitRequest = async () => {
+        setIsLoading(true);
+        try {
+          const res = await fetch("http://localhost:9002/api/v1/scada_modbus_read", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(payload),
+          });
+    
+          const text = await res.text();
+          setResponse(`Status: ${res.status}\n\nBody:\n${text}`);
+        } catch (err) {
+          setResponse(`Error: ${err.message}`);
+        }
+        setIsLoading(false);
+      };
+    
+      return (
+        <div>
+          <h2>SCADA Modbus Read</h2>
+          <button onClick={submitRequest} disabled={isLoading}>
+            {isLoading ? "Reading..." : "Read Modbus"}
+          </button>
+          <pre style={{ marginTop: "1rem" }}>{response}</pre>
+        </div>
+      );
+    };
+    
+    export default ModbusReader;
+
+POST /api/v1/mqtt_subscribe
+-----------------------------
+
+
 
 TML Endpoint Example
 ========================
