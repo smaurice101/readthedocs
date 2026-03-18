@@ -4,6 +4,9 @@ TML REST API Endpoints and Examples
 
 This service exposes endpoints to create topics, preprocess data, run machine learning pipelines, generate predictions, and consume data from topics through the Viper backend.
 
+TML Server Plugin Container
+----------------------
+
 Before you can use the TML Server Plugin you need to :ref:`RUN The TML Server Plugin Container`:
 
 .. list-table::
@@ -2748,3 +2751,531 @@ Pre-requisites:
 
 .. figure:: agentdash.png
    :scale: 70%
+
+SCADA Example
+------------------
+
+Follow this STEPS if you want to test this SCADA solution.  The example shows:
+
+- Run a SCADA simulator
+- Write SCADA data to the simulator
+- Use the TML API to read the SCADA data and process
+- Advanced: Once you have the SCADA read by TML - you can perform processing, machine learning, AI, Agentic AI by using the TML appropriate APIs
+
+.. important::
+
+   You must have the TML Server Plugin running: :ref:`TML Server Plugin Container`
+
+Step 1: Run the SCADA Simulator
+""""""""""""""""""""""""""""""""
+
+.. code-block::
+
+    from pyModbusTCP.server import ModbusServer, DataBank
+    
+    #pip install pyModbusTCP==0.3.0
+    
+    # 19 registers: 40001–40019
+    INIT_REGS = [
+        0,      # vesselIndex
+        1000,   # operatingPressure
+        7500,   # operatingTemperature
+        45000,  # gasFlowRate
+        1200,   # gasDensity
+        950,    # gasCompressabilityFactor
+        15,     # gasViscosity
+        1200,   # hclFlowRate
+        1100,   # hclDensity
+        500,    # hclViscosity
+        60000,  # hclSurfaceTension
+        200000, # waterFlowRate
+        100,    # waterDensity
+        100000, # waterViscosity
+        72800,  # waterSurfaceTension
+        35000,  # hclWaterSurfaceTension
+        300,    # phseInversionCriticalWaterCut
+        500,    # solidFlowRate
+        1500,   # solidDensity
+    ]
+    
+    if __name__ == "__main__":
+        # Create server
+        server = ModbusServer(
+            host="0.0.0.0",
+            port=2502,
+            no_block=True,
+        )
+    
+        # Initialize holding registers 40001–40019 (addresses 0–18)
+        server.data_bank.set_holding_registers(0, INIT_REGS)
+    
+        print("Starting Modbus TCP simulator at 0.0.0.0:2502 (40001–40019)")
+        server.start()
+    
+        # Dummy loop: slowly change some values
+        import time
+        from random import uniform
+    
+        while True:
+            # Oscillate pressure
+            pressure = int(uniform(1000, 1500))
+            server.data_bank.set_holding_registers(1, [pressure])
+    
+            # Oscillate temperature
+            temp = int(uniform(7000, 9000))
+            server.data_bank.set_holding_registers(2, [temp])
+    
+            time.sleep(2.0)
+
+Step 2: Write Data to the SCADA Simulator
+""""""""""""""""""""""""""""""""
+
+.. note:: 
+
+   As you will notice the code below - you can also simulate BREACHES: 
+
+    - # ======== BREACH CONFIG (TUNE HERE) ========
+    - # Expected number of breaches per simulated day (across the whole system)
+    - BREACHES_PER_DAY = 150.0          # e.g. 1 breach/day; set to 0.1 for ~1 every 10 days
+    - CYCLE_SECONDS    = 1.0          # main loop sleep interval
+    - BREACH_DURATION  = 60.0         # seconds a breach stays active (e.g. 60s = 1 min)
+
+
+.. code-block::
+
+    import time
+    from random import uniform, choice
+    from pyModbusTCP.client import ModbusClient
+    import datetime
+    import csv
+    import os
+    
+    config = {"host": "127.0.0.1", "port": 2502, "unit_id": 1}
+    client = ModbusClient(**config, auto_open=True, auto_close=False)
+    
+    def clamp(v): 
+        return max(0, min(int(v), 65535))
+    
+    # ======== BREACH CONFIG (TUNE HERE) ========
+    # Expected number of breaches per simulated day (across the whole system)
+    BREACHES_PER_DAY = 150.0          # e.g. 1 breach/day; set to 0.1 for ~1 every 10 days
+    CYCLE_SECONDS    = 1.0          # main loop sleep interval
+    BREACH_DURATION  = 60.0         # seconds a breach stays active (e.g. 60s = 1 min)
+    
+    # Derived per‑cycle probability (assuming 1 update/sec)
+    SECONDS_PER_DAY = 86400.0
+    BREACH_PROB_PER_CYCLE = (BREACHES_PER_DAY / SECONDS_PER_DAY) * CYCLE_SECONDS
+    # ===========================================
+    
+    # 50 VESSELS - realistic oil/gas naming
+    VESSELS = {
+        1: "Separator 1A", 2: "Separator 1B", 3: "Separator 2A", 4: "Separator 2B", 5: "Separator 3A",
+        6: "Separator 3B", 7: "Separator 4A", 8: "Separator 4B", 9: "Separator 5A", 10: "Separator 5B",
+        11: "Separator 6A", 12: "Separator 6B", 13: "Deoiler V1", 14: "Deoiler V2", 15: "Deoiler V3",
+        16: "Test Sep 1", 17: "Test Sep 2", 18: "Test Sep 3", 19: "Heater Treater 1", 20: "Heater Treater 2",
+        21: "Gun Barrel 1", 22: "Gun Barrel 2", 23: "Gun Barrel 3", 24: "FWKO 1", 25: "FWKO 2",
+        26: "FWKO 3", 27: "Treaters 1A", 28: "Treaters 1B", 29: "Treaters 2A", 30: "Treaters 2B",
+        31: "Slop Tank 1", 32: "Slop Tank 2", 33: "Wash Tank 1", 34: "Wash Tank 2", 35: "Produced Water 1",
+        36: "Produced Water 2", 37: "Produced Water 3", 38: "Gas Scrubber 1", 39: "Gas Scrubber 2", 40: "Gas Scrubber 3",
+        41: "Test Vessel A", 42: "Test Vessel B", 43: "Test Vessel C", 44: "High Pressure 1", 45: "High Pressure 2",
+        46: "Low Pressure 1", 47: "Low Pressure 2", 48: "Medium Pressure 1", 49: "Medium Pressure 2", 50: "Stock Tank"
+    }
+    
+    # Data breach simulation flags and patterns
+    BREACH_ACTIVE = False
+    breach_vessel_ids = set()
+    breach_start_time = None
+    BREACH_PATTERNS = {
+        "pressure_spike": lambda p: p * uniform(3.0, 10.0),  # Massive pressure spikes
+        "temp_extreme": lambda t: uniform(500, 1000) if uniform(0,1) > 0.5 else uniform(-50, 0),
+        "flow_anomaly": lambda f: uniform(0, f*50),
+        "negative_values": lambda v: -uniform(100, 10000),
+        "zero_all": lambda v: 0,
+        "random_noise": lambda v: uniform(-1000, 1000),
+    }
+    
+    def is_breach_active():
+        global BREACH_ACTIVE, breach_start_time, breach_vessel_ids
+        if BREACH_ACTIVE and (time.time() - (breach_start_time or 0) > BREACH_DURATION):
+            BREACH_ACTIVE = False
+            breach_vessel_ids.clear()
+        return BREACH_ACTIVE
+    
+    def trigger_data_breach(vessel_id):
+        """
+        Decide whether vessel_id is currently under breach.
+        Uses BREACH_PROB_PER_CYCLE and BREACH_DURATION.
+        """
+        global BREACH_ACTIVE, breach_start_time, breach_vessel_ids
+    
+        # Possibly end existing breach
+        is_breach_active()
+    
+        # Start a new breach only if none active
+        if not BREACH_ACTIVE and uniform(0, 1) < BREACH_PROB_PER_CYCLE:
+            BREACH_ACTIVE = True
+            breach_start_time = time.time()
+            breach_vessel_ids = {choice(list(VESSELS.keys()))}
+            print(f"🚨 DATA BREACH DETECTED! Affected vessels: {len(breach_vessel_ids)}")
+    
+        return BREACH_ACTIVE and vessel_id in breach_vessel_ids
+    
+    def generate_vessel_data(vessel_id):
+        vessel_name = VESSELS[vessel_id]
+        
+        # Vessel-specific ranges
+        if "High Pressure" in vessel_name:
+            p_min, p_max = 120.0, 200.0
+            t_min, t_max = 80.0, 160.0
+        elif "Low Pressure" in vessel_name:
+            p_min, p_max = 30.0, 80.0
+            t_min, t_max = 40.0, 100.0
+        elif "Deoiler" in vessel_name:
+            p_min, p_max = 60.0, 120.0
+            t_min, t_max = 60.0, 140.0
+        else:
+            p_min, p_max = 50.0, 150.0
+            t_min, t_max = 20.0, 150.0
+        
+        data = {
+            "vesselIndex": vessel_id,
+            "vesselName": vessel_name,
+            "operatingPressure": uniform(p_min, p_max),
+            "operatingTemperature": uniform(t_min, t_max),
+            "gasFlowRate": uniform(0.0, 650.0),
+            "gasDensity": uniform(0.5, 2.0),
+            "gasCompressabilityFactor": uniform(0.8, 1.0),
+            "gasViscosity": uniform(1.0e-5, 2.0e-5),
+            "hclFlowRate": uniform(0.0, 50.0),
+            "hclDensity": uniform(1000.0, 1500.0),
+            "hclViscosity": uniform(0.5e-3, 1.0e-3),
+            "hclSurfaceTension": uniform(40e-3, 70e-3),
+            "waterFlowRate": uniform(0.0, 65.0),
+            "waterDensity": uniform(990.0, 1010.0),
+            "waterViscosity": uniform(0.8e-3, 1.2e-3),
+            "waterSurfaceTension": uniform(70e-3, 74e-3),
+            "hclWaterSurfaceTension": uniform(30e-3, 40e-3),
+            "phseInversionCriticalWaterCut": uniform(0.2, 0.5),
+            "solidFlowRate": uniform(0.0, 10.0),
+            "solidDensity": uniform(1000.0, 2500.0),
+        }
+        
+        # Apply data breach corruption if active
+        if trigger_data_breach(vessel_id):
+            pattern = choice(list(BREACH_PATTERNS.keys()))
+            print(f"  💥 BREACH PATTERN: {pattern.upper()} on {vessel_name}")
+            
+            if pattern == "pressure_spike":
+                data["operatingPressure"] = BREACH_PATTERNS[pattern](data["operatingPressure"])
+            elif pattern == "temp_extreme":
+                data["operatingTemperature"] = BREACH_PATTERNS[pattern](data["operatingTemperature"])
+            elif pattern == "flow_anomaly":
+                for flow_key in ["gasFlowRate", "hclFlowRate", "waterFlowRate", "solidFlowRate"]:
+                    data[flow_key] = BREACH_PATTERNS[pattern](data[flow_key])
+            elif pattern == "negative_values":
+                for key in data:
+                    if isinstance(data[key], (int, float)):
+                        data[key] = BREACH_PATTERNS[pattern](abs(data[key]))
+            elif pattern == "zero_all":
+                for key in data:
+                    if isinstance(data[key], (int, float)) and key != "vesselIndex":
+                        data[key] = BREACH_PATTERNS[pattern](data[key])
+            elif pattern == "random_noise":
+                for key in data:
+                    if isinstance(data[key], (int, float)) and key != "vesselIndex":
+                        data[key] = BREACH_PATTERNS[pattern](data[key])
+        
+        return data
+    
+    def scale_to_registers(data):
+        return [
+            clamp(data["vesselIndex"]),
+            clamp(data["operatingPressure"] * 100),
+            clamp(data["operatingTemperature"] * 100),
+            clamp(data["gasFlowRate"] * 100),
+            clamp(data["gasDensity"] * 1000),
+            clamp(data["gasCompressabilityFactor"] * 1000),
+            clamp(data["gasViscosity"] * 1_000_000_000),
+            clamp(data["hclFlowRate"] * 100),
+            clamp(data["hclDensity"]),
+            clamp(data["hclViscosity"] * 1_000_000),
+            clamp(data["hclSurfaceTension"] * 100_000),
+            clamp(data["waterFlowRate"] * 1000),
+            clamp(data["waterDensity"] / 10),
+            clamp(data["waterViscosity"] * 1_000_000),
+            clamp(data["waterSurfaceTension"] * 100_000),
+            clamp(data["hclWaterSurfaceTension"] * 100_000),
+            clamp(data["phseInversionCriticalWaterCut"] * 1000),
+            clamp(data["solidFlowRate"] * 100),
+            clamp(data["solidDensity"] / 10),
+        ]
+    
+    def init_csv():
+        if not os.path.exists('scada_history.csv'):
+            fields = ['timestamp', 'vesselIndex', 'vesselName', 'operatingPressure', 'operatingTemperature', 
+                     'gasFlowRate', 'gasDensity', 'gasCompressabilityFactor', 'gasViscosity', 'hclFlowRate',
+                     'hclDensity', 'hclViscosity', 'hclSurfaceTension', 'waterFlowRate', 'waterDensity',
+                     'waterViscosity', 'waterSurfaceTension', 'hclWaterSurfaceTension', 'phseInversionCriticalWaterCut',
+                     'solidFlowRate', 'solidDensity']
+            with open('scada_history.csv', 'w', newline='') as f:
+                writer = csv.DictWriter(f, fieldnames=fields)
+                writer.writeheader()
+    
+    init_csv()
+    
+    if not client.open():
+        print("ERROR: Cannot connect to SCADA")
+        exit(1)
+    
+    print("🚀 50-VESSEL SCADA SIMULATOR w/ DATA BREACH SIMULATION - Production Mode")
+    print("📡 Writing to 40001-40019 | 💾 scada_history.csv | Ctrl+C to stop")
+    print(f"🚨 Breach frequency ≈ {BREACHES_PER_DAY} per day, duration {BREACH_DURATION:.0f}s")
+    
+    entry_count = 0
+    
+    try:
+        while True:
+            vessel_id = choice(list(VESSELS.keys()))
+            data = generate_vessel_data(vessel_id)
+            addrs = scale_to_registers(data)
+            
+            if client.write_multiple_registers(0, addrs):
+                entry_count += 1
+                try: 
+                    with open('scada_history.csv', 'a', newline='') as f:
+                        fields = ['timestamp', 'vesselIndex', 'vesselName', 'operatingPressure', 'operatingTemperature', 
+                                 'gasFlowRate', 'gasDensity', 'gasCompressabilityFactor', 'gasViscosity', 'hclFlowRate',
+                                 'hclDensity', 'hclViscosity', 'hclSurfaceTension', 'waterFlowRate', 'waterDensity',
+                                 'waterViscosity', 'waterSurfaceTension', 'hclWaterSurfaceTension', 'phseInversionCriticalWaterCut',
+                                 'solidFlowRate', 'solidDensity']
+                        writer = csv.DictWriter(f, fieldnames=fields)
+                        row = {'timestamp': datetime.datetime.now().isoformat(), 
+                               'vesselIndex': data['vesselIndex'], 
+                               'vesselName': data['vesselName']}
+                        row.update({k: data[k] for k in fields[3:]})
+                        writer.writerow(row)
+                    
+                    if entry_count % 20 == 0:
+                        breach_status = "🚨 BREACH ACTIVE" if is_breach_active() else "✅ Normal"
+                        print(f"#{entry_count:4d} | {data['vesselName']:15} | "
+                              f"P={data['operatingPressure']:7.1f} | T={data['operatingTemperature']:7.1f} | "
+                              f"Gas={data['gasFlowRate']:7.1f} | Water={data['waterFlowRate']:7.1f} | {breach_status}")
+                except Exception as e:
+                    print(f"CSV write error: {e}")
+                    continue 
+            else:
+                print("WRITE FAILED")
+            
+            time.sleep(CYCLE_SECONDS)
+    
+    except KeyboardInterrupt:
+        breach_status = "🚨 ACTIVE" if is_breach_active() else "✅ Cleared"
+        print(f"\n⏹️ Stopped after {entry_count} entries across {len(VESSELS)} vessels. Breach: {breach_status}")
+        print("📊 Check scada_history.csv - breach data preserved for analysis!")
+    
+    finally:
+        client.close()
+        print("🔌 SCADA connection closed")
+
+Step 3: Read the Data in SCADA
+""""""""""""""""""""""""""""""""
+
+**Payload: You can save this in a payload.json file**
+
+.. important::
+
+    Enter a callback_url of your chossing to receive data from TML:
+
+     - "callback_url":"http://localhost:9002/api/v1/vessel_data",
+     - "sendtotopic": "scada-raw-data", # Data will also be written to Kafka topic **scada-raw-data** you can to machine learning on this topic
+
+.. code-block::
+
+    {
+      "scada_host": "127.0.0.1",
+      "scada_port": 2502,
+      "slave_id": 1,
+      "read_interval_seconds": 2,
+      "callback_url":"http://localhost:9002/api/v1/vessel_data",
+      "max_reads": -1,
+      "start_register": 40001,
+      "sendtotopic": "scada-raw-data",
+      "createvariables": "carryover=(waterFlowRate + hclFlowRate + solidFlowRate) / gasFlowRate * 100,gas_reynolds= gasFlowRate * gasDensity / (gasViscosity * operatingPressure), water_reynolds= waterFlowRate * waterDensity / (waterViscosity * operatingPressure), reynolds_ratio= gas_reynolds / water_reynolds, stokes_number=(waterDensity-gasDensity) * waterViscosity / operatingPressure**2, inversion_risk= waterFlowRate/gasFlowRate - phseInversionCriticalWaterCut, emulsion_ratio= waterSurfaceTension / hclWaterSurfaceTension, density_ratio= waterDensity / gasDensity, flow_stability= reynolds_ratio * density_ratio",
+      "fields": ["vesselIndex","operatingPressure","operatingTemperature","gasFlowRate","gasDensity","gasCompressabilityFactor","gasViscosity","hclFlowRate","hclDensity","hclViscosity","hclSurfaceTension","waterFlowRate","waterDensity","waterViscosity","waterSurfaceTension","hclWaterSurfaceTension","phseInversionCriticalWaterCut","solidFlowRate","solidDensity"],
+      "scaling": {"vesselIndex":1,"operatingPressure":100,"operatingTemperature":100,"gasFlowRate":100,"gasDensity":1000,"gasCompressabilityFactor":1000,"gasViscosity":1000000000,"hclFlowRate":100,"hclDensity":1,"hclViscosity":1000000,"hclSurfaceTension":100000,"waterFlowRate":1000,"waterDensity":10,"waterViscosity":1000000,"waterSurfaceTension":100000,"hclWaterSurfaceTension":100000,"phseInversionCriticalWaterCut":1000,"solidFlowRate":100,"solidDensity":10}
+    }
+
+**Send a cURL:**
+
+.. code-block::
+
+    sudo curl -X POST http://localhost:9002/api/v1/scada_modbus_read -H "Content-Type: application/json" -d @payload.json
+
+Or use the above Python, Javascript, or React code.
+
+.. note: 
+
+   You can also use POST /api/v1/consume to consume data from the Kafka topics.
+
+Step 4: Output JSON
+""""""""""""""""""""
+
+The output JSON will be a `OSDU <https://osduforum.org/>`_ compatible JSON:
+
+.. code-block::
+
+    {
+    	"kind": "dataset--data:opendes:dataset--Well:1.0",
+    	"acl": {
+    		"viewers": [
+    			"data.default.viewers@[default]"
+    		],
+    		"owners": [
+    			"data.default.owners@[default]"
+    		]
+    	},
+    	"legal": {
+    		"legaltags": [
+    			"data.default.legaltag@[default]"
+    		],
+    		"otherRelevantDataCountries": [
+    			"US",
+    			"CA"
+    		],
+    		"hostingCountry": "US"
+    	},
+    	"data": {
+    		"ID": "vessel-10.0-1773844065",
+    		"Source": "SCADA:127.0.0.1:2502",
+    		"AcquisitionTime": "2026-03-18T14:27:45.046825Z",
+    		"WellUWI": "WELL-10.0",
+    		"SeparatorMetrics": {
+    			"scada_port": 2502,
+    			"slave_id": 1,
+    			"read_interval_seconds": 2,
+    			"callback_url": "http://localhost:9002/api/v1/vessel_data",
+    			"createvariables": "carryover=(waterFlowRate + hclFlowRate + solidFlowRate) / gasFlowRate * 100,gas_reynolds= gasFlowRate * gasDensity / (gasViscosity * operatingPressure), water_reynolds= waterFlowRate * waterDensity / (waterViscosity * operatingPressure), reynolds_ratio= gas_reynolds / water_reynolds, stokes_number=(waterDensity-gasDensity) * waterViscosity / operatingPressure**2, inversion_risk= waterFlowRate/gasFlowRate - phseInversionCriticalWaterCut, emulsion_ratio= waterSurfaceTension / hclWaterSurfaceTension, density_ratio= waterDensity / gasDensity, flow_stability= reynolds_ratio * density_ratio",
+    			"fields": [
+    				"vesselIndex",
+    				"operatingPressure",
+    				"operatingTemperature",
+    				"gasFlowRate",
+    				"gasDensity",
+    				"gasCompressabilityFactor",
+    				"gasViscosity",
+    				"hclFlowRate",
+    				"hclDensity",
+    				"hclViscosity",
+    				"hclSurfaceTension",
+    				"waterFlowRate",
+    				"waterDensity",
+    				"waterViscosity",
+    				"waterSurfaceTension",
+    				"hclWaterSurfaceTension",
+    				"phseInversionCriticalWaterCut",
+    				"solidFlowRate",
+    				"solidDensity"
+    			],
+    			"scaling": {
+    				"vesselIndex": 1,
+    				"operatingPressure": 100,
+    				"operatingTemperature": 100,
+    				"gasFlowRate": 100,
+    				"gasDensity": 1000,
+    				"gasCompressabilityFactor": 1000,
+    				"gasViscosity": 1000000000,
+    				"hclFlowRate": 100,
+    				"hclDensity": 1,
+    				"hclViscosity": 1000000,
+    				"hclSurfaceTension": 100000,
+    				"waterFlowRate": 1000,
+    				"waterDensity": 10,
+    				"waterViscosity": 1000000,
+    				"waterSurfaceTension": 100000,
+    				"hclWaterSurfaceTension": 100000,
+    				"phseInversionCriticalWaterCut": 1000,
+    				"solidFlowRate": 100,
+    				"solidDensity": 10
+    			},
+    			"sendtotopic": "scada-raw-data",
+    			"max_reads": -1,
+    			"scada_host": "127.0.0.1",
+    			"RawFields": {
+    				"vesselIndex": 10.0,
+    				"operatingPressure": 7057.0,
+    				"operatingTemperature": 3686.0,
+    				"gasFlowRate": 48424.0,
+    				"gasDensity": 1992.0,
+    				"gasCompressabilityFactor": 969.0,
+    				"gasViscosity": 18820.0,
+    				"hclFlowRate": 3533.0,
+    				"hclDensity": 1052.0,
+    				"hclViscosity": 784.0,
+    				"hclSurfaceTension": 5485.0,
+    				"waterFlowRate": 15353.0,
+    				"waterDensity": 99.0,
+    				"waterViscosity": 950.0,
+    				"waterSurfaceTension": 7360.0,
+    				"hclWaterSurfaceTension": 3247.0,
+    				"phseInversionCriticalWaterCut": 478.0,
+    				"solidFlowRate": 993.0,
+    				"solidDensity": 208.0,
+    				"carryover": 12.51714,
+    				"gas_reynolds": 726290.324257,
+    				"flow_stability": 1592.103867,
+    				"inversion_risk": -0.446295,
+    				"density_ratio": 4.96988,
+    				"water_reynolds": 2267.173318,
+    				"reynolds_ratio": 320.350596,
+    				"emulsion_ratio": 2.266708,
+    				"stokes_number": 0.000002
+    			},
+    			"ComputedAnalytics": {
+    				"carryover": 12.51714026102759,
+    				"gas_reynolds": 726290.3242565435,
+    				"flow_stability": 1592.103866964146,
+    				"inversion_risk": -0.4462946472823393,
+    				"density_ratio": 4.96987951807229,
+    				"water_reynolds": 2267.173318019436,
+    				"reynolds_ratio": 320.3505962618766,
+    				"emulsion_ratio": 2.266707730212504,
+    				"stokes_number": 0.000001508516382791926
+    			},
+    			"meta": {
+    				"dataType": "OilAndGas:SeparatorRealtime",
+    				"version": "1.0",
+    				"computedAt": "2026-03-18T14:27:45.046825Z",
+    				"scalingApplied": true,
+    				"numTotalFields": 28,
+    				"numRawFields": 19,
+    				"numComputedVars": 9,
+    				"computedVarList": [
+    					"carryover",
+    					"gas_reynolds",
+    					"flow_stability",
+    					"inversion_risk",
+    					"density_ratio",
+    					"water_reynolds",
+    					"reynolds_ratio",
+    					"emulsion_ratio",
+    					"stokes_number"
+    				],
+    				"precision": {
+    					"RawFields": "3 decimal places",
+    					"ComputedAnalytics": "full precision"
+    				}
+    			}
+    		}
+    	},
+    	"meta": {
+    		"dataType": "OilAndGas:SeparatorRealtime",
+    		"formatVersion": "1.0.0",
+    		"osdVersion": "1.0.0",
+    		"creationTime": "2026-03-18T14:27:45.046825Z",
+    		"modificationTime": "2026-03-18T14:27:45.046825Z",
+    		"domain": {
+    			"type": "WellProduction",
+    			"subType": "SeparatorAnalytics"
+    		}
+    	}
+    }
