@@ -2759,14 +2759,15 @@ SCADA Example
 
 Follow this STEPS if you want to test this SCADA solution.  The example shows:
 
-- Run a SCADA simulator
-- Write SCADA data to the simulator
-- Use the TML API to read the SCADA data and process
-- Advanced: Once you have the SCADA read by TML - you can perform processing, machine learning, AI, Agentic AI by using the TML appropriate APIs
+1. Run a SCADA simulator
+2. Write SCADA data to the simulator
+3. Use the TML API to read the SCADA data and process
+4. Advanced: Once you have the SCADA read by TML - you can perform processing, machine learning, AI, Agentic AI by using the TML appropriate APIs
 
 .. important::
 
-   You must have the TML Server Plugin running: :ref:`TML Server Plugin Container`
+   - You must have the TML Server Plugin running: :ref:`TML Server Plugin Container`
+   - Install Python Library: **pip install pyModbusTCP==0.3.0**
 
 Step 1: Run the SCADA Simulator
 --------------------------------------------
