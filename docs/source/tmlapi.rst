@@ -57,8 +57,8 @@ API For Writing or Producing Raw Data to Kafka Topics
 Industrial API For Ingesting Data From SCADA and MQTT
 -----------------------------------------------------
 
-- ``POST /api/v1/scada_modbus_read`` - [`click <https://tml.readthedocs.io/en/latest/tmlapi.html#post-api-v1-ai>`_] Directly connect to a SCADA/Modbus system and ingest real-time data → 200,400
-- ``POST /api/v1/mqtt_subscribe`` - [`click <https://tml.readthedocs.io/en/latest/tmlapi.html#post-api-v1-agenticai>`_] Directly connect to a MQTT system and ingest real-time data  → 200,400
+- ``POST /api/v1/scada_modbus_read`` - [`click <https://tml.readthedocs.io/en/latest/tmlapi.html#post-api-v1-scada-modbus-read>`_] Directly connect to a SCADA/Modbus system and ingest real-time data → 200,400
+- ``POST /api/v1/mqtt_subscribe`` - [`click <https://tml.readthedocs.io/en/latest/tmlapi.html#post-api-v1-mqtt-subscribe>`_] Directly connect to a MQTT system and ingest real-time data  → 200,400
 
 API For System Maintenance
 -------------------------------
