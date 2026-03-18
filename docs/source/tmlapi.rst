@@ -3365,8 +3365,8 @@ Step 2: Stream Data to the MQTT Cluster
             client.connected_flag = False
     
     def mqttconnection():
-        username = "smaurice"
-        password = "@3QMsvK!TmHkyt2"
+        username = "<Enter your MQTT username>"
+        password = "<Enter your MQTT password>"
         
         client = paho.Client(paho.CallbackAPIVersion.VERSION2)
         client.connected_flag = False  # Reset flag
