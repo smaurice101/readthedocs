@@ -2769,7 +2769,7 @@ Follow this STEPS if you want to test this SCADA solution.  The example shows:
    You must have the TML Server Plugin running: :ref:`TML Server Plugin Container`
 
 Step 1: Run the SCADA Simulator
-""""""""""""""""""""""""""""""""
+--------------------------------------------
 
 .. code-block::
 
@@ -2830,7 +2830,7 @@ Step 1: Run the SCADA Simulator
             time.sleep(2.0)
 
 Step 2: Write Data to the SCADA Simulator
-""""""""""""""""""""""""""""""""
+--------------------------------------------
 
 .. note:: 
 
@@ -3080,7 +3080,7 @@ Step 2: Write Data to the SCADA Simulator
         print("🔌 SCADA connection closed")
 
 Step 3: Read the Data in SCADA
-""""""""""""""""""""""""""""""""
+--------------------------------------------
 
 **Payload: You can save this in a payload.json file**
 
@@ -3120,7 +3120,7 @@ Or use the above Python, Javascript, or React code.
    You can also use POST /api/v1/consume to consume data from the Kafka topics.
 
 Step 4: Output JSON
-""""""""""""""""""""
+--------------------------------------------
 
 The output JSON will be a `OSDU <https://osduforum.org/>`_ compatible JSON:
 
@@ -3301,7 +3301,7 @@ Below shows how to connect to MQTT and process going in to a MQTT cluster.
 
 
 Step 1: Subscribe to the MQTT Topic
-"""""""""""""""""""""""""""""""""
+--------------------------------------------
 
 This is the topic the devices are writing data to in the MQTT cluster.  In our example this topic is in: 'mqtt_subscribe_topic': 'tml/iot',
 
@@ -3334,7 +3334,7 @@ Send a cURL:
 
 
 Step 2: Stream Data to the MQTT Cluster
-""""""""""""""""""""""""""""""""""""""
+--------------------------------------------
 
 **Run this client code:**
 
@@ -3444,12 +3444,12 @@ Step 2: Stream Data to the MQTT Cluster
 
 
 Step 3: TML Process Data
-""""""""""""""""""""""""""""""""
+-----------------------------
 
 All MQTT data is going into the Kafka topic: **sendtotopic**
 
 Step 4: Perform Machine Learning/AI/Agentic AI
-""""""""""""""""""""""""""""""""
+--------------------------------------------
 
 You can now simply apply the usual TML APIs for machine learning, AI, Agentic AI
 
