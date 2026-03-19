@@ -1333,26 +1333,26 @@ Run powerful AI analysis on data streams.  This allows users to use LLM to autom
 
 **Request JSON Parameters:**
 
-``step``  *(string, required)* – This step is 9.
-``vectordimension``  *(string, optional)*.
-``contextwindowsize`` *(string, optional)*.
-``vectorsearchtype`` *(string, optional)*.
-``temperature`` *(string, optional)*.
-``docfolderingestinterval`` *(string, optional)*.
-``docfolder`` *(string, optional)*.
-``vectordbcollectionname`` *(string, optional)*.
-``hyperbatch`` *(string, optional)*.
-``keyprocesstype`` *(string, optional)*.
-``keyattribute`` *(string, optional)*.
-``context`` *(string, required)*.
-``prompt``  *(string, required)*.
-``pgptport``  *(string, required)*.
-``pgpthost``  *(string, required)*.
-``pgpt_data_topic``  *(string, required)*.
-``consumefrom``  *(string, required)*.
-``rollbackoffset``  *(string, required)*.
-``pgptcontainername``  *(string, required)*.
-``windowinstance``  *(string, optional)*.
+- ``step``  *(string, required)* – This step is 9.
+- ``vectordimension``  *(string, optional)*.
+- ``contextwindowsize`` *(string, optional)*.
+- ``vectorsearchtype`` *(string, optional)*.
+- ``temperature`` *(string, optional)*.
+- ``docfolderingestinterval`` *(string, optional)*.
+- ``docfolder`` *(string, optional)*.
+- ``vectordbcollectionname`` *(string, optional)*.
+- ``hyperbatch`` *(string, optional)*.
+- ``keyprocesstype`` *(string, optional)*.
+- ``keyattribute`` *(string, optional)*.
+- ``context`` *(string, required)*.
+- ``prompt``  *(string, required)*.
+- ``pgptport``  *(string, required)*.
+- ``pgpthost``  *(string, required)*.
+- ``pgpt_data_topic``  *(string, required)*.
+- ``consumefrom``  *(string, required)*.
+- ``rollbackoffset``  *(string, required)*.
+- ``pgptcontainername``  *(string, required)*.
+- ``windowinstance``  *(string, optional)*.
 
 **Example Request:**
 
@@ -1836,17 +1836,17 @@ Directly connect to a SCADA/modbus system and extract or ingest real-time data a
 
 **Request JSON Parameters:**
 
-``scada_host`` *(string, required)* - Host of the SCADA system
-``scada_port`` *(int, required)* - Port of the SCADA system
-``slave_id`` *(int, required default=1)* - Slave ID of the SCADA system
-``read_interval_seconds`` *(int, required default=2)* - Interval in seconds to read SCADA
-``callback_url`` *(string, required)* - This is your callback url - TML will re-route and POST the output to this url. Separate multipe URL with comma
-``max_reads``  *(int, leave as is default=-1)* 
-``start_register``: 40001 *(string, required default=40001)* - This is the start of the register for the field data being captured.
-``sendtotopic`` *(string, optional)* - This is the Kafka topic the SCADA data will be written to for TML processing.  Change to any name.
-``createvariables`` *(string, optional)*  - This allows users to perform mathematical calculations on the SCADA variables that can be used in machine learning and AI.
-``fields`` *(array of string, required)* - This is an array of strings to extract from the SCADA registers.  Based on the **start_register** value TML will start reading the field values from start_register.
-``scaling`` *(dict, required)* - This is the scaling for the fields.
+- ``scada_host`` *(string, required)* - Host of the SCADA system
+- ``scada_port`` *(int, required)* - Port of the SCADA system
+- ``slave_id`` *(int, required default=1)* - Slave ID of the SCADA system
+- ``read_interval_seconds`` *(int, required default=2)* - Interval in seconds to read SCADA
+- ``callback_url`` *(string, required)* - This is your callback url - TML will re-route and POST the output to this url. Separate multipe URL with comma
+- ``max_reads``  *(int, leave as is default=-1)* 
+- ``start_register``: 40001 *(string, required default=40001)* - This is the start of the register for the field data being captured.
+- ``sendtotopic`` *(string, optional)* - This is the Kafka topic the SCADA data will be written to for TML processing.  Change to any name.
+- ``createvariables`` *(string, optional)*  - This allows users to perform mathematical calculations on the SCADA variables that can be used in machine learning and AI.
+- ``fields`` *(array of string, required)* - This is an array of strings to extract from the SCADA registers.  Based on the **start_register** value TML will start reading the field values from start_register.
+- ``scaling`` *(dict, required)* - This is the scaling for the fields.
 
 **Example Request (Python - async):**
 
@@ -1980,11 +1980,11 @@ Directly connect to a MQTT system and extract or ingest real-time data and perfo
 
 **Request JSON Parameters:**
 
-``mqtt_broker``  *(string, required)* - Broker of the MQTT cluster 
-``mqtt_subscribe_topic``  *(string, required)* - The topic in the MQTT cluster to subscribe to and read the data
-``mqtt_port``  *(int, required default=8883)* - Port of the MQTT system
-``sendtotopic``  *(string, optional)* - This is the Kafka topic to write the MQTT data to, and perform processing, machine learning, and AI
-``mqtt_enabletls``  *(string, required default="1")* - Security level of the MQTT system.
+- ``mqtt_broker``  *(string, required)* - Broker of the MQTT cluster 
+- ``mqtt_subscribe_topic``  *(string, required)* - The topic in the MQTT cluster to subscribe to and read the data
+- ``mqtt_port``  *(int, required default=8883)* - Port of the MQTT system
+- ``sendtotopic``  *(string, optional)* - This is the Kafka topic to write the MQTT data to, and perform processing, machine learning, and AI
+- ``mqtt_enabletls``  *(string, required default="1")* - Security level of the MQTT system.
 
 **Example Request (Python - async):**
 
@@ -3116,7 +3116,7 @@ Step 3: Read the Data in SCADA
 
 Or use the above Python, Javascript, or React code.
 
-.. note: 
+.. note::
 
    You can also use POST /api/v1/consume to consume data from the Kafka topics.
 
