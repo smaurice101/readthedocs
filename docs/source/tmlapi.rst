@@ -57,6 +57,8 @@ API For Writing or Producing Raw Data to Kafka Topics
 Industrial API For Ingesting Data From SCADA and MQTT
 -----------------------------------------------------
 
+See :ref:`TML Processing Using SCADA and MQTT`
+
 - ``POST /api/v1/scada_modbus_read`` - [`click <https://tml.readthedocs.io/en/latest/tmlapi.html#post-api-v1-scada-modbus-read>`_] Directly connect to a SCADA/Modbus system and ingest real-time data → 200,400
   - See `SCADA Example <https://tml.readthedocs.io/en/latest/tmlapi.html#id16>`_
 - ``POST /api/v1/mqtt_subscribe`` - [`click <https://tml.readthedocs.io/en/latest/tmlapi.html#post-api-v1-mqtt-subscribe>`_] Directly connect to a MQTT system and ingest real-time data  → 200,400
@@ -2753,6 +2755,25 @@ Pre-requisites:
 
 .. figure:: agentdash.png
    :scale: 70%
+
+TML Processing Using SCADA and MQTT
+----------------------------------
+
+SCADA plus MQTT feeding into TML gives you a full-stack, real-time decision engine: SCADA/Modbus or RTUs provide high‑fidelity process signals, MQTT distributes them efficiently, and TML turns every message into entity-level ML decisions at scale.
+
+.. figure:: msdash.png
+   :scale: 70%
+
+What TML Adds On Top of SCADA/MQTT
+-------------------------------
+
+- SCADA and MQTT move data; TML turns that data into continuous predictions and actions.
+
+- SCADA/Modbus gives structured, time‑synchronous tags (pressure, level, dp, flows) at 1–2 s cadence, which TML ingests as feature vectors per vessel or equipment entity.
+
+- TML uses streaming AutoML to learn one or many models per entity, updating as new SCADA/MQTT messages arrive, so accuracy holds across turndown and regime changes without manual retraining.
+
+- Because TML is containerized with Kafka and Airflow, you get a deployable “ML appliance” that you drop beside SCADA and immediately expose via REST, MQTT, or websockets.
 
 SCADA Example
 ------------------
