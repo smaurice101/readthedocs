@@ -3129,7 +3129,8 @@ Step 3: Read the Data in SCADA
       "scaling": {"vesselIndex":1,"operatingPressure":100,"operatingTemperature":100,"gasFlowRate":100,"gasDensity":1000,"gasCompressabilityFactor":1000,"gasViscosity":1000000000,"hclFlowRate":100,"hclDensity":1,"hclViscosity":1000000,"hclSurfaceTension":100000,"waterFlowRate":1000,"waterDensity":10,"waterViscosity":1000000,"waterSurfaceTension":100000,"hclWaterSurfaceTension":100000,"phseInversionCriticalWaterCut":1000,"solidFlowRate":100,"solidDensity":10}
     }
 
-**Send a cURL:**
+Send a cURL to TML to Read From SCADA
+--------------------------------
 
 .. code-block::
 
@@ -3366,9 +3367,10 @@ This is the topic the devices are writing data to in the MQTT cluster.  In our e
       "mqtt_enabletls": "1"
     }
     
-**Send the payload to the TML Server: **
+**Send the payload to the TML Server:**
 
-Send a cURL:
+Send a cURL to TML to Read From MQTT:
+------------------------------------
 
 .. code-block::
 
