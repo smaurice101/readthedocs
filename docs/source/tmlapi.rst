@@ -3311,7 +3311,9 @@ If your solution is running - then try to see if you can run this dashboard:
 
 .. note::
 
-   To run this dashboard you need to copy the dashboard html file found here: `Dashboard HTML <https://github.com/smaurice101/raspberrypi/blob/main/tml-airflow/dashboard/tml-carryover.html>`_
+   - To run this dashboard you need to copy the dashboard html file found here: `Dashboard HTML <https://github.com/smaurice101/raspberrypi/blob/main/tml-airflow/dashboard/tml-carryover.html>`_
+
+   - You need a Local Webserver - install `XAMPP <https://www.apachefriends.org/download.html>`_ then run the dashboard.
 
    If it works - it should look the dashboard below.
 
