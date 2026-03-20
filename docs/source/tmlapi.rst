@@ -3304,6 +3304,24 @@ The output JSON will be a `OSDU <https://osduforum.org/>`_ compatible JSON:
     	}
     }
 
+SCADA Separator Intelligence Dashboard
+----------------------------------
+
+If your solution is running - then try to see if you can run this dashboard:
+
+.. note::
+
+   To run this dashboard you need to copy the dashboard html file found here: `Dashboard HTML <https://github.com/smaurice101/raspberrypi/blob/main/tml-airflow/dashboard/tml-carryover.html>`_
+
+   If it works - it should look the dashboard below.
+
+.. code-block::
+
+    http://localhost/oilgas/tml-carryover.html?port=6060&topic=scada-raw-data
+
+.. figure:: cardash.png
+   :scale: 70%
+
 MQTT Example
 -------------
 
