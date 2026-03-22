@@ -2673,7 +2673,7 @@ Copy and paste this code locally and run it.
       
       step="9"
       vectordimension = '768'
-      contextwindowsize= '8192' #agent - team lead - supervisor
+      contextwindowsize= '4096' #agent - team lead - supervisor
       vectorsearchtype= 'Manhattan'
       temperature= '0.1'
       docfolderingestinterval= '900'
@@ -2687,8 +2687,8 @@ Copy and paste this code locally and run it.
       pgptport= '8001'
       pgpthost= 'http://127.0.0.1'
       pgpt_data_topic = 'ai-responses'
-      consumefrom = 'iot-preprocess'
-      rollbackoffset = '5'
+      consumefrom = '' # add topic to consume from
+      rollbackoffset = '1'
       pgptcontainername = 'maadsdocker/tml-privategpt-with-gpu-nvidia-amd64-v2'
       windowinstance = 'ai'
       
