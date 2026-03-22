@@ -2161,6 +2161,10 @@ Below is a Docker Run with DEMO Credentials:
 STEP 2: Download IoT Demo Data
 -------
 
+.. note::
+
+   We are just reading a file to demo the APIs - **you DO NOT need to store data in a file then send to TML** - you can use the API to directly send data from devices to TML server.
+
 Download IoT Data from `Github <https://github.com/smaurice101/raspberrypi/blob/main/tml-airflow/data/IoTData.zip>`_
 
 Unzip and save it to a local folder.
