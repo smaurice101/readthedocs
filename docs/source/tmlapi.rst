@@ -25,6 +25,8 @@ Below is a reference architecture of the powerful capabilities of controlling th
 TML API Quick Reference
 =========================
 
+See `TML Endpoint Examples <https://tml.readthedocs.io/en/latest/tmlapi.html#tml-endpoint-example>`_
+
 API For Kafka Topic Creation
 -------------------------------
 
