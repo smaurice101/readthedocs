@@ -2384,442 +2384,455 @@ Copy and paste this code locally and run it.
 
 .. code-block:: python
 
-
-   import requests
-   import sys
-   from datetime import datetime
-   import time
-   import json
-   
-   import aiohttp
-   import asyncio
-   
-   rest_port = "9002"  # <<< ***** Change Port to match the Server Rest_PORT
-   httpaddr = "http:" # << Change to https or http
-   
-   #----------------- TERMINATE WINDOW ENDPOINT ------------------------------
-   async def terminatewindow(API_ENDPOINT,step=0,windowname='all'):
-       url = API_ENDPOINT
-       payload = {
-           "step": step,
-           "windowname": windowname
-       }
-   
-       async with aiohttp.ClientSession() as session:
-           async with session.post(url, json=payload) as response:
-               print(f"Status: {response.status}, Response: {await response.text()}")
-   
-   #----------------- CREATETOPIC ENDPOINT ------------------------------
-   async def create_topics(API_ENDPOINT,mytopic):
-       url = API_ENDPOINT
-       payload = {
-           "topics": mytopic,
-           "numpartitions": 3, # number of partitions n topic
-           "replication": 1, # replication factor must be 1 for local kafka and > 1 for cloud kafka
-           "description": "Industrial IoT streams"
-       }
-   
-       async with aiohttp.ClientSession() as session:
-           async with session.post(url, json=payload) as response:
-               print(f"Status: {response.status}, Response: {await response.text()}")
-   
-   #----------------- PREPROCESS ENDPOINT ------------------------------
-   async def start_preprocessing(API_ENDPOINT,rawdatatopic,preprocesstopic,preprocesstypes,jsoncriteria,rollbackoffsets,windowinstance='default'):
-   
-       payload = {
-           "step": "4",
-           "rawdatatopic": rawdatatopic, # raw data containing the JSON you want to process: This is the JSON in POST /jsondataline or POST /jsondataarray
-           "preprocessdatatopic": preprocesstopic, # Kafka Topic you want to store the Preprocessed data in 
-           "preprocesstypes": preprocesstypes, # The preprocesstypes you want to apply to the raw data
-           "rollbackoffsets": rollbackoffsets,
-           "jsoncriteria": jsoncriteria,  # Json criteria that are the "Json paths" you want to extract from the json and process
-           "windowinstance": windowinstance # This willl create a new window instance in the TML server where these data will be processed
-                                              # This allows users to "Process multiple data streams simultaneiously"   
-       }
-   
-       async with aiohttp.ClientSession() as session:
-           async with session.post(API_ENDPOINT, json=payload) as response:
-               print(await response.text())
-   
-   
-   #----------------- MACHINE LEARNING ENDPOINT ------------------------------
-   
-   async def train_ml_model(API_ENDPOINT,step,trainingdatafolder,ml_data_topic,preprocess_data_topic,islogistic,dependentvariable,
-                            independentvariables,processlogic,rollbackoffsets,windowinstance):
-       payload = {
-           "step": step,
-           "trainingdatafolder": trainingdatafolder,
-           "ml_data_topic": ml_data_topic,
-           "preprocess_data_topic": preprocess_data_topic,
-           "islogistic": islogistic,
-           "dependentvariable": dependentvariable,
-           "independentvariables": independentvariables,
-           "processlogic": processlogic,
-           "rollbackoffsets": rollbackoffsets,
-           "windowinstance": windowinstance
-       }
-   
-       async with aiohttp.ClientSession() as session:
-           async with session.post(API_ENDPOINT, json=payload) as response:
-               print(f"Status: {response.status}, Response: {await response.text()}")
-   
-   #----------------- PREDICTION ENDPOINT ------------------------------
-   
-   async def run_predictions(API_ENDPOINT,step,algofolder,rollbackoffsets,consumefrom,inputdata,streamstojoin,ml_prediction_topic,preprocess_data_topic,windowinstance):
-       payload = {
-           "step": step,
-           "pathtoalgos": algofolder,
-           "rollbackoffsets": rollbackoffsets,
-           "consumefrom": consumefrom,
-           "inputdata": inputdata,
-           "streamstojoin": streamstojoin,
-           "ml_prediction_topic": ml_prediction_topic,
-           "preprocess_data_topic": preprocess_data_topic,
-           "windowinstance": windowinstance
-       }
-   
-       async with aiohttp.ClientSession() as session:
-           async with session.post(API_ENDPOINT, json=payload) as response:
-               print(f"Status: {response.status}, Response: {await response.text()}")
-   
-   
-   #----------------- AI ENDPOINT ------------------------------
-   
-   async def run_ai(API_ENDPOINT,step,vectordimension,contextwindowsize,vectorsearchtype,temperature,docfolderingestinterval,docfolder,vectordbcollectionname,
-                      hyperbatch,keyprocesstype,keyattribute,context,prompt,pgptport,pgpthost,pgpt_data_topic,consumefrom,rollbackoffset,pgptcontainername,windowinstance):
-   
-       payload = {
-           "step": step,
-           "vectordimension": vectordimension, # dimension of the embedding
-           "contextwindowsize": contextwindowsize, # context window size for LLM
-           "vectorsearchtype": vectorsearchtype, # RAG vector search type
-           "temperature": temperature, # LLM temperature setting 
-           "docfolderingestinterval": docfolderingestinterval, # how how to reload documents in vector DB
-           "docfolder": docfolder, # you can place your documents in /rawdata folder i.e. /rawdata/mylogs 
-           "vectordbcollectionname": vectordbcollectionname, 
-           "hyperbatch": hyperbatch, # set to 1 or 0 - if 0 TML sends line by line to Pgpt or in batch all of the data in consumefrom topic 
-           "keyprocesstype": keyprocesstype, # anomprob, max, min, etc any TML processtypes
-           "keyattribute": keyattribute, # any attribute in the data you are processing: Power, Voltage, Current
-           "context": context, # prompt context
-           "prompt": prompt, # the prompt
-           "pgptport": pgptport, # pgpt container port
-           "pgpthost": pgpthost, # pgpt container host
-           "pgpt_data_topic": pgpt_data_topic,  # topic that tml/pgpt will store its responses
-           "consumefrom": consumefrom, # topic tml/pgpt will consume data and apply the prompt
-           "rollbackoffset": rollbackoffset,  # how much data pgpt to process 
-           "pgptcontainername": pgptcontainername, # pgpt container name
-           "windowinstance": windowinstance # window instance
-       }
-   
-       payload=json.dumps(payload, indent=2)
-       payload=json.loads(payload)
-       async with aiohttp.ClientSession() as session:
-           async with session.post(API_ENDPOINT, json=payload) as response:
-               print(f"Status: {response.status}, Response: {await response.text()}")
-   
-   #----------------- AGENTIC AI ENDPOINT ------------------------------
-   
-   async def run_agenticai(API_ENDPOINT,step,rollbackoffsets,ollamamodel,vectordbpath,temperature,vectordbcollectionname,ollamacontainername,embedding,agents_topic_prompt,teamlead_topic,
-         teamleadprompt,supervisor_topic,supervisorprompt,agenttoolfunctions,agent_team_supervisor_topic,contextwindow,localmodelsfolder,agenttopic,windowinstance):
-   
-       payload = {
-           "step": step,
-           "rollbackoffsets": rollbackoffsets,
-           "ollama-model": ollamamodel,
-           "vectordbpath": vectordbpath,
-           "temperature": temperature,
-           "vectordbcollectionname": vectordbcollectionname,
-           "ollamacontainername": ollamacontainername,
-           "embedding": embedding,
-           "agents_topic_prompt": agents_topic_prompt,
-           "teamlead_topic": teamlead_topic,
-           "teamleadprompt": teamleadprompt,
-           "supervisor_topic": supervisor_topic,
-           "supervisorprompt": supervisorprompt,
-           "agenttoolfunctions": agenttoolfunctions,
-           "agent_team_supervisor_topic": agent_team_supervisor_topic,
-           "contextwindow": contextwindow,
-           "localmodelsfolder": localmodelsfolder,
-           "agenttopic": agenttopic,
-           "windowinstance": windowinstance
-       }
-   
-       payload=json.dumps(payload, indent=2)
-       payload=json.loads(payload)
-       async with aiohttp.ClientSession() as session:
-           async with session.post(API_ENDPOINT, json=payload) as response:
-               print(f"Status: {response.status}, Response: {await response.text()}")
-   
-   #----------------- CONSUME DATA ENDPOINT ------------------------------
-   
-   async def consume_data(API_ENDPOINT,topic,rollbackoffsets,kind,legal,forwardurls,osdu="true"):
-       payload = {
-           "topic": topic,
-           "rollbackoffsets": rollbackoffsets,
-           "osdu": osdu,
-           "kind": kind,
-           "legal": legal,
-           "forwardurls": forwardurls
-       }
-   
-       async with aiohttp.ClientSession() as session:
-           async with session.post(API_ENDPOINT, json=payload) as response:
-               data = await response.json()
-               print(json.dumps(data))
-               #print(f"Consumed {len(data.get('messages', []))} messages")
-   
-   #----------------- HEALTH ENDPOINT ------------------------------
-   async def health(API_ENDPOINT):
-   
-   
-       async with aiohttp.ClientSession() as session:
-           async with session.post(API_ENDPOINT) as response:
-               data = await response.json()
-               print(json.dumps(data))
-   
-   #############################################################################################################
-   
-   #                          CALL ENDPOINTS
-   #------------------------------------------------------------------------------------------------------------
-   
-   #----------------- CALL TERMINATE ENDPOINT-----------------------------------------------------------------
-   print("** CALLING TERMINATE ENDPOINT **")
-   apiroute = "terminatewindow"
-   API_ENDPOINT = "{}//localhost:{}/api/v1/{}".format(httpaddr,rest_port,apiroute)
-   asyncio.run(terminatewindow(API_ENDPOINT,0,'all'))
-   
-   #----------------- CALL CREATETOPIC ENDPOINT-----------------------------------------------------------------
-   print("** CALLING CREATETOPIC ENDPOINT **")
-   
-   apiroute = "createtopic"
-   API_ENDPOINT = "{}//localhost:{}/api/v1/{}".format(httpaddr,rest_port,apiroute)
-   topics="mytopic,mytopic2,all-agents-responses,ai-responses"  # change to any topic name
-   asyncio.run(create_topics(API_ENDPOINT,topics))
-   
-   #----------------- CALL PREPROCESS --------------------------------------------------------------------------
-   print("** CALLING PREPROCESS ENDPOINT **")
-   
-   apiroute = "preprocess"
-   API_ENDPOINT = "{}//localhost:{}/api/v1/{}".format(httpaddr,rest_port,apiroute)
-   
-   # For details on JSON processing see here: https://tml.readthedocs.io/en/latest/jsonprocessing.html
-   json_criteria = """uid=metadata.dsn,filter:allrecords~\
-   subtopics=metadata.property_name~\
-   values=datapoint.value~\
-   identifiers=metadata.display_name~\
-   datetime=datapoint.updated_at~\
-   msgid=datapoint.id~\
-   latlong=lat:long"""
-   
-   rawdatatopic="iot-raw-data", # raw data containing the JSON you want to process: This is the JSON in POST /jsondataline or POST /jsondataarray
-   preprocessdatatopic="iot-preprocess", # Kafka Topic you want to store the Preprocessed data in 
-   # For details on processing type see here: https://tml.readthedocs.io/en/latest/tmlbuilds.html#preprocessing-types
-   preprocesstypes="anomprob,skeweness" # The preprocesstypes you want to apply to the raw data
-   jsoncriteria=json_criteria,  # Json criteria that are the "Json paths" you want to extract from the json and process
-   windowinstance="preprocess"#"preprocess-sensor" # This willl create a new window instance in the TML server where these data will be processed or choose 'default'
-   rollbackoffsets=700
-   
-   asyncio.run(start_preprocessing(API_ENDPOINT,rawdatatopic,preprocessdatatopic,preprocesstypes,jsoncriteria,rollbackoffsets,windowinstance))
-   
-   #----------------- CALL MACHINE LEARNING --------------------------------------------------------------------------
-   print("** CALLING MACHINE LEARNING ENDPOINT **")
-   
-   apiroute = "ml"
-   API_ENDPOINT = "{}//localhost:{}/api/v1/{}".format(httpaddr,rest_port,apiroute)
-   
-   trainingdatafolder = "iotlogistic-model"
-   ml_data_topic = "ml-data"  
-   preprocess_data_topic = "iot-preprocess"
-   islogistic = 1
-   dependentvariable = "failure" 
-   independentvariables = "Power_preprocessed_AnomProb"
-   processlogic = "classification_name=failure_prob:Power_preprocessed_AnomProb=55,n"
-   rollbackoffsets = 500
-   windowinstance = "machinelearning"#"machine-learning"
-   step=5
-   asyncio.run(train_ml_model(API_ENDPOINT,step,trainingdatafolder,ml_data_topic,preprocess_data_topic,islogistic,dependentvariable,
-                            independentvariables,processlogic,rollbackoffsets,windowinstance))
-   
-   #----------------- CALL PREDICTIONS --------------------------------------------------------------------------
-   print("** CALLING PREDICTIONS ENDPOINT **")
-   
-   apiroute = "predict"
-   API_ENDPOINT = "{}//localhost:{}/api/v1/{}".format(httpaddr,rest_port,apiroute)
-   step=6
-   algofolder="iotlogistic-model"
-   rollbackoffsets=50
-   consumefrom="ml-data"
-   inputdata=""
-   streamstojoin="Power_preprocessed_AnomProb"
-   ml_prediction_topic="iot-ml-prediction-results-output"
-   preprocess_data_topic="iot-preprocess"
-   windowinstance="prediction"#"prediction-window"
-   
-   asyncio.run(run_predictions(API_ENDPOINT,step,algofolder,rollbackoffsets,consumefrom,inputdata,streamstojoin,ml_prediction_topic,preprocess_data_topic,windowinstance))
-   
-   #----------------- CALL AI --------------------------------------------------------------------------
-   print("** CALLING AI ENDPOINT **")
-   
-   apiroute = "ai"
-   API_ENDPOINT = "{}//localhost:{}/api/v1/{}".format(httpaddr,rest_port,apiroute)
-   
-   step="9"      
-   vectordimension = '768'
-   contextwindowsize= '8192' #agent - team lead - supervisor
-   vectorsearchtype= 'Manhattan'
-   temperature= '0.1'
-   docfolderingestinterval= '900'
-   docfolder= ''
-   vectordbcollectionname= 'tml-pgpt'
-   hyperbatch= '0'
-   keyprocesstype= ''
-   keyattribute= 'hyperprediction'
-   context= ''
-   prompt= ''
-   pgptport= '8001'
-   pgpthost= 'http://127.0.0.1'
-   pgpt_data_topic = 'ai-responses'
-   consumefrom = 'iot-preprocess'
-   rollbackoffset = '5'
-   pgptcontainername = 'maadsdocker/tml-privategpt-with-gpu-nvidia-amd64-v2'
-   windowinstance = 'ai'
-   
-   asyncio.run(run_ai(API_ENDPOINT,step,vectordimension,contextwindowsize,vectorsearchtype,temperature,docfolderingestinterval,docfolder,vectordbcollectionname,
-                      hyperbatch,keyprocesstype,keyattribute,context,prompt,pgptport,pgpthost,pgpt_data_topic,consumefrom,rollbackoffset,pgptcontainername,windowinstance))
-   
-   
-   #----------------- CALL AGENTIC AI --------------------------------------------------------------------------
-   print("** CALLING AGENTIC AI ENDPOINT **")
-   
-   apiroute = "agenticai"
-   API_ENDPOINT = "{}//localhost:{}/api/v1/{}".format(httpaddr,rest_port,apiroute)
-   
-   step="9b"      
-   rollbackoffsets=10  
-   ollamamodel= "phi3:3.8b,phi3:3.8b,llama3.2:3b" #agent - team lead - supervisor
-   vectordbpath= '/rawdata/vectordb'
-   temperature= '0.1'
-   vectordbcollectionname= 'tml-llm-model'
-   ollamacontainername= 'maadsdocker/tml-privategpt-with-gpu-nvidia-amd64-llama3-tools'
-   embedding= 'nomic-embed-text'
-   agents_topic_prompt= """
-           iot-preprocess<<-You are a precise data analysis assistant. Your task is to point out any anomalies or interesting insights that could help improve the performance and functioning of 
-           IoT device.  The json data are from IOT devices.  the hp field shows the data that are processed for the process variable (pv), using the process types (pt) like: 
-           avg or average, or trend analysis, or anomprob (i.e. anomaly probability) etc.  The device being processed is in the uid field of the json.
-            here is the json data:
-       
-             <<data>>
-   
-            INSTRUCTIONS:
-            1. Examine each number in the json array
-            2. Provide a brief analysis of the results
-            
-            FORMAT YOUR RESPONSE:
-            - Filtered results: [list the qualifying numbers with their "uid" fields]
-            - Count of qualifying numbers: [number]
-            - Analysis: [brief explanation of what the filter revealed]
-            
-            Be precise and concise in your response.->>
-           iot-ml-prediction-results-output<<-You are a precise data analysis assistant. Your task is to filter and analyze numeric data based on specified criteria.
-   
-           TASK: Filter numbers from the given json array using the threshold: greater than 90
-   
-           Input JSON arrary:
-    
+      import requests
+      import sys
+      from datetime import datetime
+      import time
+      import json
+      
+      import aiohttp
+      import asyncio
+      
+      rest_port = "9001"  # <<< ***** Change Port to match the Server Rest_PORT
+      httpaddr = "http:" # << Change to https or http
+      
+      #----------------- TERMINATE WINDOW ENDPOINT ------------------------------
+      async def terminatewindow(API_ENDPOINT,step=0,windowname='all'):
+          url = API_ENDPOINT
+          payload = {
+              "step": step,
+              "windowname": windowname
+          }
+      
+          async with aiohttp.ClientSession() as session:
+              async with session.post(url, json=payload) as response:
+                  print(f"Status: {response.status}, Response: {await response.text()}")
+      
+      #----------------- CREATETOPIC ENDPOINT ------------------------------
+      async def create_topics(API_ENDPOINT,mytopic):
+          url = API_ENDPOINT
+          payload = {
+              "topics": mytopic,
+              "numpartitions": 3, # number of partitions n topic
+              "replication": 1, # replication factor must be 1 for local kafka and > 1 for cloud kafka
+              "description": "Industrial IoT streams"
+          }
+      
+          async with aiohttp.ClientSession() as session:
+              async with session.post(url, json=payload) as response:
+                  print(f"Status: {response.status}, Response: {await response.text()}")
+      
+      #----------------- PREPROCESS ENDPOINT ------------------------------
+      async def start_preprocessing(API_ENDPOINT,rawdatatopic,preprocesstopic,preprocesstypes,jsoncriteria,rollbackoffsets,windowinstance='default'):
+      
+          payload = {
+              "step": "4",
+              "rawdatatopic": rawdatatopic, # raw data containing the JSON you want to process: This is the JSON in POST /jsondataline or POST /jsondataarray
+              "preprocessdatatopic": preprocesstopic, # Kafka Topic you want to store the Preprocessed data in
+              "preprocesstypes": preprocesstypes, # The preprocesstypes you want to apply to the raw data
+              "rollbackoffsets": rollbackoffsets,
+              "jsoncriteria": jsoncriteria,  # Json criteria that are the "Json paths" you want to extract from the json and process
+              "windowinstance": windowinstance # This willl create a new window instance in the TML server where these data will be processed
+                                                 # This allows users to "Process multiple data streams simultaneiously"
+          }
+      
+          async with aiohttp.ClientSession() as session:
+              async with session.post(API_ENDPOINT, json=payload) as response:
+                  print(await response.text())
+      
+      
+      #----------------- MACHINE LEARNING ENDPOINT ------------------------------
+      
+      async def train_ml_model(API_ENDPOINT,step,trainingdatafolder,ml_data_topic,preprocess_data_topic,islogistic,dependentvariable,
+                               independentvariables,processlogic,rollbackoffsets,windowinstance):
+          payload = {
+              "step": step,
+              "trainingdatafolder": trainingdatafolder,
+              "ml_data_topic": ml_data_topic,
+              "preprocess_data_topic": preprocess_data_topic,
+              "islogistic": islogistic,
+              "dependentvariable": dependentvariable,
+              "independentvariables": independentvariables,
+              "processlogic": processlogic,
+              "rollbackoffsets": rollbackoffsets,
+              "windowinstance": windowinstance
+          }
+      
+          async with aiohttp.ClientSession() as session:
+              async with session.post(API_ENDPOINT, json=payload) as response:
+                  print(f"Status: {response.status}, Response: {await response.text()}")
+      
+      #----------------- PREDICTION ENDPOINT ------------------------------
+      
+      async def run_predictions(API_ENDPOINT,step,algofolder,rollbackoffsets,consumefrom,inputdata,streamstojoin,ml_prediction_topic,preprocess_data_topic,windowinstance):
+          payload = {
+              "step": step,
+              "pathtoalgos": algofolder,
+              "rollbackoffsets": rollbackoffsets,
+              "consumefrom": consumefrom,
+              "inputdata": inputdata,
+              "streamstojoin": streamstojoin,
+              "ml_prediction_topic": ml_prediction_topic,
+              "preprocess_data_topic": preprocess_data_topic,
+              "windowinstance": windowinstance
+          }
+      
+          async with aiohttp.ClientSession() as session:
+              async with session.post(API_ENDPOINT, json=payload) as response:
+                  print(f"Status: {response.status}, Response: {await response.text()}")
+      
+      
+      #----------------- AI ENDPOINT ------------------------------
+      
+      async def run_ai(API_ENDPOINT,step,vectordimension,contextwindowsize,vectorsearchtype,temperature,docfolderingestinterval,docfolder,vectordbcollectionname,
+                         hyperbatch,keyprocesstype,keyattribute,context,prompt,pgptport,pgpthost,pgpt_data_topic,consumefrom,rollbackoffset,pgptcontainername,windowinstance):
+      
+          payload = {
+              "step": step,
+              "vectordimension": vectordimension, # dimension of the embedding
+              "contextwindowsize": contextwindowsize, # context window size for LLM
+              "vectorsearchtype": vectorsearchtype, # RAG vector search type
+              "temperature": temperature, # LLM temperature setting
+              "docfolderingestinterval": docfolderingestinterval, # how how to reload documents in vector DB
+              "docfolder": docfolder, # you can place your documents in /rawdata folder i.e. /rawdata/mylogs
+              "vectordbcollectionname": vectordbcollectionname,
+              "hyperbatch": hyperbatch, # set to 1 or 0 - if 0 TML sends line by line to Pgpt or in batch all of the data in consumefrom topic
+              "keyprocesstype": keyprocesstype, # anomprob, max, min, etc any TML processtypes
+              "keyattribute": keyattribute, # any attribute in the data you are processing: Power, Voltage, Current
+              "context": context, # prompt context
+              "prompt": prompt, # the prompt
+              "pgptport": pgptport, # pgpt container port
+              "pgpthost": pgpthost, # pgpt container host
+              "pgpt_data_topic": pgpt_data_topic,  # topic that tml/pgpt will store its responses
+              "consumefrom": consumefrom, # topic tml/pgpt will consume data and apply the prompt
+              "rollbackoffset": rollbackoffset,  # how much data pgpt to process
+              "pgptcontainername": pgptcontainername, # pgpt container name
+              "windowinstance": windowinstance # window instance
+          }
+      
+          payload=json.dumps(payload, indent=2)
+          payload=json.loads(payload)
+          async with aiohttp.ClientSession() as session:
+              async with session.post(API_ENDPOINT, json=payload) as response:
+                  print(f"Status: {response.status}, Response: {await response.text()}")
+      
+      #----------------- AGENTIC AI ENDPOINT ------------------------------
+      
+      async def run_agenticai(API_ENDPOINT,step,rollbackoffsets,ollamamodel,vectordbpath,temperature,vectordbcollectionname,ollamacontainername,embedding,agents_topic_prompt,teamlead_topic,
+            teamleadprompt,supervisor_topic,supervisorprompt,agenttoolfunctions,agent_team_supervisor_topic,contextwindow,localmodelsfolder,agenttopic,windowinstance):
+      
+          payload = {
+              "step": step,
+              "rollbackoffsets": rollbackoffsets,
+              "ollama-model": ollamamodel,
+              "vectordbpath": vectordbpath,
+              "temperature": temperature,
+              "vectordbcollectionname": vectordbcollectionname,
+              "ollamacontainername": ollamacontainername,
+              "embedding": embedding,
+              "agents_topic_prompt": agents_topic_prompt,
+              "teamlead_topic": teamlead_topic,
+              "teamleadprompt": teamleadprompt,
+              "supervisor_topic": supervisor_topic,
+              "supervisorprompt": supervisorprompt,
+              "agenttoolfunctions": agenttoolfunctions,
+              "agent_team_supervisor_topic": agent_team_supervisor_topic,
+              "contextwindow": contextwindow,
+              "localmodelsfolder": localmodelsfolder,
+              "agenttopic": agenttopic,
+              "windowinstance": windowinstance
+          }
+      
+          payload=json.dumps(payload, indent=2)
+          payload=json.loads(payload)
+          async with aiohttp.ClientSession() as session:
+              async with session.post(API_ENDPOINT, json=payload) as response:
+                  print(f"Status: {response.status}, Response: {await response.text()}")
+      
+      #----------------- CONSUME DATA ENDPOINT ------------------------------
+      
+      async def consume_data(API_ENDPOINT,topic,rollbackoffsets,kind,legal,forwardurls,osdu="true"):
+          payload = {
+              "topic": topic,
+              "rollbackoffsets": rollbackoffsets,
+              "osdu": osdu,
+              "kind": kind,
+              "legal": legal,
+              "forwardurls": forwardurls
+          }
+      
+          async with aiohttp.ClientSession() as session:
+              async with session.post(API_ENDPOINT, json=payload) as response:
+                  data = await response.json()
+                  print(json.dumps(data))
+                  #print(f"Consumed {len(data.get('messages', []))} messages")
+      
+      #----------------- HEALTH ENDPOINT ------------------------------
+      async def health(API_ENDPOINT):
+      
+      
+          async with aiohttp.ClientSession() as session:
+              async with session.post(API_ENDPOINT) as response:
+                  data = await response.json()
+                  print(json.dumps(data))
+      
+      #############################################################################################################
+      
+      #                          CALL ENDPOINTS
+      #------------------------------------------------------------------------------------------------------------
+      
+      #----------------- CALL TERMINATE ENDPOINT-----------------------------------------------------------------
+      print("** CALLING TERMINATE ENDPOINT **")
+      apiroute = "terminatewindow"
+      API_ENDPOINT = "{}//localhost:{}/api/v1/{}".format(httpaddr,rest_port,apiroute)
+      asyncio.run(terminatewindow(API_ENDPOINT,0,'all'))
+      
+      print("=====================================================")
+      #----------------- CALL CREATETOPIC ENDPOINT-----------------------------------------------------------------
+      print("** CALLING CREATETOPIC ENDPOINT **")
+      
+      apiroute = "createtopic"
+      API_ENDPOINT = "{}//localhost:{}/api/v1/{}".format(httpaddr,rest_port,apiroute)
+      topics="mytopic,mytopic2,all-agents-responses,ai-responses"  # change to any topic name
+      asyncio.run(create_topics(API_ENDPOINT,topics))
+      
+      print("=====================================================")
+      
+      #----------------- CALL PREPROCESS --------------------------------------------------------------------------
+      print("** CALLING PREPROCESS ENDPOINT **")
+      
+      apiroute = "preprocess"
+      API_ENDPOINT = "{}//localhost:{}/api/v1/{}".format(httpaddr,rest_port,apiroute)
+      
+      # For details on JSON processing see here: https://tml.readthedocs.io/en/latest/jsonprocessing.html
+      json_criteria = """uid=metadata.dsn,filter:allrecords~\
+      subtopics=metadata.property_name~\
+      values=datapoint.value~\
+      identifiers=metadata.display_name~\
+      datetime=datapoint.updated_at~\
+      msgid=datapoint.id~\
+      latlong=lat:long"""
+      
+      rawdatatopic="iot-raw-data", # raw data containing the JSON you want to process: This is the JSON in POST /jsondataline or POST /jsondataarray
+      preprocessdatatopic="iot-preprocess", # Kafka Topic you want to store the Preprocessed data in
+      # For details on processing type see here: https://tml.readthedocs.io/en/latest/tmlbuilds.html#preprocessing-types
+      preprocesstypes="anomprob,skeweness" # The preprocesstypes you want to apply to the raw data
+      jsoncriteria=json_criteria,  # Json criteria that are the "Json paths" you want to extract from the json and process
+      windowinstance="preprocess"#"preprocess-sensor" # This willl create a new window instance in the TML server where these data will be processed or choose 'default'
+      rollbackoffsets=500
+      
+      asyncio.run(start_preprocessing(API_ENDPOINT,rawdatatopic,preprocessdatatopic,preprocesstypes,jsoncriteria,rollbackoffsets,windowinstance))
+      
+      print("=====================================================")
+      
+      #----------------- CALL MACHINE LEARNING --------------------------------------------------------------------------
+      print("** CALLING MACHINE LEARNING ENDPOINT **")
+      
+      apiroute = "ml"
+      API_ENDPOINT = "{}//localhost:{}/api/v1/{}".format(httpaddr,rest_port,apiroute)
+      
+      trainingdatafolder = "iotlogistic-model"
+      ml_data_topic = "ml-data"
+      preprocess_data_topic = "iot-preprocess"
+      islogistic = 1
+      dependentvariable = "failure"
+      independentvariables = "Power_preprocessed_AnomProb"
+      processlogic = "classification_name=failure_prob:Power_preprocessed_AnomProb=55,n"
+      rollbackoffsets = 500
+      windowinstance = "machinelearning"#"machine-learning"
+      step=5
+      asyncio.run(train_ml_model(API_ENDPOINT,step,trainingdatafolder,ml_data_topic,preprocess_data_topic,islogistic,dependentvariable,
+                               independentvariables,processlogic,rollbackoffsets,windowinstance))
+      
+      print("=====================================================")
+      
+      #----------------- CALL PREDICTIONS --------------------------------------------------------------------------
+      print("** CALLING PREDICTIONS ENDPOINT **")
+      
+      apiroute = "predict"
+      API_ENDPOINT = "{}//localhost:{}/api/v1/{}".format(httpaddr,rest_port,apiroute)
+      step=6
+      algofolder="iotlogistic-model"
+      rollbackoffsets=50
+      consumefrom="ml-data"
+      inputdata=""
+      streamstojoin="Power_preprocessed_AnomProb"
+      ml_prediction_topic="iot-ml-prediction-results-output"
+      preprocess_data_topic="iot-preprocess"
+      windowinstance="prediction"#"prediction-window"
+      
+      asyncio.run(run_predictions(API_ENDPOINT,step,algofolder,rollbackoffsets,consumefrom,inputdata,streamstojoin,ml_prediction_topic,preprocess_data_topic,windowinstance))
+      
+      print("=====================================================")
+      
+      #----------------- CALL AI --------------------------------------------------------------------------
+      print("** CALLING AI ENDPOINT **")
+      
+      apiroute = "ai"
+      API_ENDPOINT = "{}//localhost:{}/api/v1/{}".format(httpaddr,rest_port,apiroute)
+      
+      step="9"
+      vectordimension = '768'
+      contextwindowsize= '8192' #agent - team lead - supervisor
+      vectorsearchtype= 'Manhattan'
+      temperature= '0.1'
+      docfolderingestinterval= '900'
+      docfolder= ''
+      vectordbcollectionname= 'tml-pgpt'
+      hyperbatch= '0'
+      keyprocesstype= ''
+      keyattribute= 'hyperprediction'
+      context= ''
+      prompt= ''
+      pgptport= '8001'
+      pgpthost= 'http://127.0.0.1'
+      pgpt_data_topic = 'ai-responses'
+      consumefrom = 'iot-preprocess'
+      rollbackoffset = '5'
+      pgptcontainername = 'maadsdocker/tml-privategpt-with-gpu-nvidia-amd64-v2'
+      windowinstance = 'ai'
+      
+      asyncio.run(run_ai(API_ENDPOINT,step,vectordimension,contextwindowsize,vectorsearchtype,temperature,docfolderingestinterval,docfolder,vectordbcollectionname,
+                         hyperbatch,keyprocesstype,keyattribute,context,prompt,pgptport,pgpthost,pgpt_data_topic,consumefrom,rollbackoffset,pgptcontainername,windowinstance))
+      
+      
+      print("=====================================================")
+      
+      #----------------- CALL AGENTIC AI --------------------------------------------------------------------------
+      print("** CALLING AGENTIC AI ENDPOINT **")
+      
+      apiroute = "agenticai"
+      API_ENDPOINT = "{}//localhost:{}/api/v1/{}".format(httpaddr,rest_port,apiroute)
+      
+      step="9b"
+      rollbackoffsets=10
+      ollamamodel= "phi3:3.8b,phi3:3.8b,llama3.2:3b" #agent - team lead - supervisor
+      vectordbpath= '/rawdata/vectordb'
+      temperature= '0.1'
+      vectordbcollectionname= 'tml-llm-model'
+      ollamacontainername= 'maadsdocker/tml-privategpt-with-gpu-nvidia-amd64-llama3-tools'
+      embedding= 'nomic-embed-text'
+      agents_topic_prompt= """
+              iot-preprocess<<-You are a precise data analysis assistant. Your task is to point out any anomalies or interesting insights that could help improve the performance and functioning of
+              IoT device.  The json data are from IOT devices.  the hp field shows the data that are processed for the process variable (pv), using the process types (pt) like:
+              avg or average, or trend analysis, or anomprob (i.e. anomaly probability) etc.  The device being processed is in the uid field of the json.
+               here is the json data:
+      
                 <<data>>
-   
-            INSTRUCTIONS:
-            1. Examine each number in the json array
-            2. Apply the filter condition: number > 90
-            3. Return only numbers that meet the criteria with their "uid" fields
-            4. If no numbers meet the criteria, explicitly state this
-            5. Provide a brief analysis of the results
-            
-            FORMAT YOUR RESPONSE:
-            - Filtered results: [list the qualifying numbers with their "uid" fields]
-            - Count of qualifying numbers: [number]
-            - Analysis: [brief explanation of what the filter revealed]
-            
-            Be precise and concise in your response.
-   """
-   
-   teamlead_topic= 'team-lead-responses'
-   teamleadprompt= """
-            Analyze the dataset containing IoT device monitoring records managed by individual agents. 
-            Review all data fields to determine whether there are any issues or major concerns requiring urgent attention.
-   
-            Focus on the following criteria:
-            1. Each record contains a unique device identifier stored in the field "uid".
-            2. Examine the failure probability for each device stored in the hp field.
-            3. Categorize the probabilities as follows:
-             - Low: 0% to 50%
-             - Medium: 51% to 75%
-             - High: 76% to 89%
-             - Urgent: 90% to 100%
-   
-           Tasks:
-           - Identify and highlight devices (by their "uid") that have **urgent failure probabilities** (≥ 90%).
-           - For each flagged device, provide details and reasoning on why it may require immediate investigation.
-           - Only include devices that meet the urgent threshold. Do not report on low, medium, or high categories unless relevant for context.
-           - State clearly whether the identified issue is *urgent*.
-           - Do not use or generate any code; perform a reasoning-based analysis directly from the provided data.
-   """
-   supervisor_topic= 'supervisor-responses'
-   supervisorprompt= """
-           You are a team supervisor analyzing operational device data and recommending whether an alert email should be send.  
-           You manage a send email expert and a average expert. 
-           For send email, use send_email agent. 
-           For average, use average agent.
-   
-          INSTRUCTIONS:
-          1.Analyze the Team Lead assessment and determine the proper action:
-          - If devices are marked urgent or failure probabilities exceed 90%, select "send_email".
-          - If no urgent devices are found or probabilities remain below thresholds, then no action is needed.
-   """
-   agenttoolfunctions= """
-           send_email<<-send_email<<- You are an email-sending agent. Use smtp parameters to send emails when there is an anomaly in the data, make sure to
-                        indicate the device name in the mainuid field. do not write a smtp script, actually send the email using the SMTP parameters
-                        smtp_server='{}'
-                        smtp_port={}
-                        username='{}'
-                        password='{}'
-                        sender='{}'
-                        recipient='{}'
-                        subject=''
-                        body=''->>
-           average<<-average<<-You are an average agent.  Take average of the device failure probabilities.             
-   """
-   agent_team_supervisor_topic= 'all-agents-responses'
-   contextwindow = '4096'
-   localmodelsfolder = '/rawdata/ollama'
-   agenttopic = 'agent-responses'
-   windowinstance="agenticai"
-   
-   asyncio.run(run_agenticai(API_ENDPOINT,step,rollbackoffsets,ollamamodel,vectordbpath,temperature,vectordbcollectionname,ollamacontainername,embedding,agents_topic_prompt,teamlead_topic,
-         teamleadprompt,supervisor_topic,supervisorprompt,agenttoolfunctions,agent_team_supervisor_topic,contextwindow,localmodelsfolder,agenttopic,windowinstance))
-   
-   
-   #----------------- CALL CONSUME --------------------------------------------------------------------------
-   print("** CALLING CONSUME ENDPOINT **")
-   
-   apiroute = "consume"
-   API_ENDPOINT = "{}//localhost:{}/api/v1/{}".format(httpaddr,rest_port,apiroute)
-   topic="iot-ml-prediction-results-output"
-   rollbackoffsets=2
-   kind="tml-kind"
-   legal="tml-legal"
-   forwardurls="" # add forward urls separate multiple by comma
-   osdu="true"
-   asyncio.run(consume_data(API_ENDPOINT,topic,rollbackoffsets,kind,legal,forwardurls,osdu))
-   
-   #----------------- CALL HEALTH --------------------------------------------------------------------------
-   print("** CALLING HEALTH ENDPOINT **")
-   
-   apiroute = "health"
-   API_ENDPOINT = "{}//localhost:{}/api/v1/{}".format(httpaddr,rest_port,apiroute)
-   
-   asyncio.run(health(API_ENDPOINT))
-
+      
+               INSTRUCTIONS:
+               1. Examine each number in the json array
+               2. Provide a brief analysis of the results
+      
+               FORMAT YOUR RESPONSE:
+               - Filtered results: [list the qualifying numbers with their "uid" fields]
+               - Count of qualifying numbers: [number]
+               - Analysis: [brief explanation of what the filter revealed]
+      
+               Be precise and concise in your response.->>
+              iot-ml-prediction-results-output<<-You are a precise data analysis assistant. Your task is to filter and analyze numeric data based on specified criteria.
+      
+              TASK: Filter numbers from the given json array using the threshold: greater than 90
+      
+              Input JSON arrary:
+      
+                   <<data>>
+      
+               INSTRUCTIONS:
+               1. Examine each number in the json array
+               2. Apply the filter condition: number > 90
+               3. Return only numbers that meet the criteria with their "uid" fields
+               4. If no numbers meet the criteria, explicitly state this
+               5. Provide a brief analysis of the results
+      
+               FORMAT YOUR RESPONSE:
+               - Filtered results: [list the qualifying numbers with their "uid" fields]
+               - Count of qualifying numbers: [number]
+               - Analysis: [brief explanation of what the filter revealed]
+      
+               Be precise and concise in your response.
+      """
+      
+      teamlead_topic= 'team-lead-responses'
+      teamleadprompt= """
+               Analyze the dataset containing IoT device monitoring records managed by individual agents.
+               Review all data fields to determine whether there are any issues or major concerns requiring urgent attention.
+      
+               Focus on the following criteria:
+               1. Each record contains a unique device identifier stored in the field "uid".
+               2. Examine the failure probability for each device stored in the hp field.
+               3. Categorize the probabilities as follows:
+                - Low: 0% to 50%
+                - Medium: 51% to 75%
+                - High: 76% to 89%
+                - Urgent: 90% to 100%
+      
+              Tasks:
+              - Identify and highlight devices (by their "uid") that have **urgent failure probabilities** (≥ 90%).
+              - For each flagged device, provide details and reasoning on why it may require immediate investigation.
+              - Only include devices that meet the urgent threshold. Do not report on low, medium, or high categories unless relevant for context.
+              - State clearly whether the identified issue is *urgent*.
+              - Do not use or generate any code; perform a reasoning-based analysis directly from the provided data.
+      """
+      supervisor_topic= 'supervisor-responses'
+      supervisorprompt= """
+              You are a team supervisor analyzing operational device data and recommending whether an alert email should be send.
+              You manage a send email expert and a average expert.
+              For send email, use send_email agent.
+              For average, use average agent.
+      
+             INSTRUCTIONS:
+             1.Analyze the Team Lead assessment and determine the proper action:
+             - If devices are marked urgent or failure probabilities exceed 90%, select "send_email".
+             - If no urgent devices are found or probabilities remain below thresholds, then no action is needed.
+      """
+      agenttoolfunctions= """
+              send_email<<-send_email<<- You are an email-sending agent. Use smtp parameters to send emails when there is an anomaly in the data, make sure to
+                           indicate the device name in the mainuid field. do not write a smtp script, actually send the email using the SMTP parameters
+                           smtp_server='{}'
+                           smtp_port={}
+                           username='{}'
+                           password='{}'
+                           sender='{}'
+                           recipient='{}'
+                           subject=''
+                           body=''->>
+              average<<-average<<-You are an average agent.  Take average of the device failure probabilities.
+      """
+      agent_team_supervisor_topic= 'all-agents-responses'
+      contextwindow = '4096'
+      localmodelsfolder = '/rawdata/ollama'
+      agenttopic = 'agent-responses'
+      windowinstance="agenticai"
+      
+      asyncio.run(run_agenticai(API_ENDPOINT,step,rollbackoffsets,ollamamodel,vectordbpath,temperature,vectordbcollectionname,ollamacontainername,embedding,agents_topic_prompt,teamlead_topic,
+            teamleadprompt,supervisor_topic,supervisorprompt,agenttoolfunctions,agent_team_supervisor_topic,contextwindow,localmodelsfolder,agenttopic,windowinstance))
+      
+      print("=====================================================")
+      
+      #----------------- CALL CONSUME --------------------------------------------------------------------------
+      print("** CALLING CONSUME ENDPOINT **")
+      
+      apiroute = "consume"
+      API_ENDPOINT = "{}//localhost:{}/api/v1/{}".format(httpaddr,rest_port,apiroute)
+      topic="iot-ml-prediction-results-output"
+      rollbackoffsets=2
+      kind="tml-kind"
+      legal="tml-legal"
+      forwardurls="" # add forward urls separate multiple by comma
+      osdu="true"
+      asyncio.run(consume_data(API_ENDPOINT,topic,rollbackoffsets,kind,legal,forwardurls,osdu))
+      
+      print("=====================================================")
+      
+      #----------------- CALL HEALTH --------------------------------------------------------------------------
+      print("** CALLING HEALTH ENDPOINT **")
+      
+      apiroute = "health"
+      API_ENDPOINT = "{}//localhost:{}/api/v1/{}".format(httpaddr,rest_port,apiroute)
+      
+      asyncio.run(health(API_ENDPOINT))
+      print("=====================================================")
 
 Output Results
 ---------------
