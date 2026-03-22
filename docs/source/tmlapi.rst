@@ -2172,88 +2172,79 @@ Copy and Paste this code in Python and Run it.
 
 .. code-block:: python
 
-      import requests
-      import sys
-      from datetime import datetime
-      import time
-      import json
-      
-      sys.dont_write_bytecode = True
-       
-      # defining the api-endpoint
-      rest_port = "9002"  # <<< ***** Change Port to match the Server Rest_PORT
-      httpaddr = "http:" # << Change to https or http
-      
-      # Modify the apiroute: jsondataline, or jsondataarray
-      # 1. jsondataline: You can send One Json message at a time
-      # 1. jsondatarray: You can send a Json array 
-      
-      apiroute = "jsondataline"
-      
-      # USE THIS ENDPOINT IF TML RUNNING IN DOCKER CONTAINER
-      # DOCKER CONTAINER ENDPOINT
-      API_ENDPOINT = "{}//localhost:{}/api/v1/{}".format(httpaddr,rest_port,apiroute)
-      
-      # USE THIS ENDPOINT IF TML RUNNING IN KUBERNETES
-      # KUBERNETES ENDPOINT
-      #API_ENDPOINT = "{}//tml.tss/ext/api/v1/{}".format(httpaddr,apiroute)
-       
-      def send_tml_data(data): 
-        # data to be sent to api
-        headers = {'Content-type': 'application/json'}
-        print("========================")
-        print(f"API_ENDPOINT TO TML SERVER: {API_ENDPOINT}\n")
-        data=data.strip()
-        #data = data[:-1] + ',"sendtotopic": "iot-raw-data"}'
-        print(f"POST data to TML Server:\n\n{data}")
-        r = requests.post(url=API_ENDPOINT, data=data, headers=headers)
-      
-        # extracting response text
-        return r.text
-          
-      
-      def readdatafile(inputfile):
-      
-        ##############################################################
-        # NOTE: You can send any "EXTERNAL" data through this API
-        # It is reading a localfile as an example
-        ############################################################
-        
+    import requests
+    import sys
+    from datetime import datetime
+    import time
+    import json
+    from concurrent.futures import ThreadPoolExecutor
+    
+    sys.dont_write_bytecode = True
+    
+    rest_port = "9001"
+    httpaddr = "http:"
+    apiroute = "jsondataline"
+    
+    API_ENDPOINT = f"{httpaddr}//localhost:{rest_port}/api/v1/{apiroute}"
+    
+    MAX_WORKERS = 5  # Reduced from 8
+    LOOP_DELAY = 0.001
+    
+    sendtotopic="iot-raw-data" # this is the Kafka topic name where raw data is stored
+    
+    session = requests.Session()
+    session.headers.update({'Content-Type': 'application/json'})
+    
+    def send_tml_line(raw_line,sendtotopic=""):
+        """Send single enriched JSON line - TIMEOUT SAFE."""
+        processed = raw_line.strip().replace(";", " ")
+        if not processed:
+            return False
+            
         try:
-          file1 = open(inputfile, 'r')
-          print("Data Producing to Kafka Started:",datetime.now())
-        except Exception as e:
-          print("ERROR: Something went wrong ",e)  
-          return
-        k = 0
+            # Parse + add sendtotopic
+            base_obj = json.loads(processed)
+            if sendtotopic != "":
+              base_obj["sendtotopic"] = sendtotopic
+            
+            # Longer timeout + shorter connect timeout
+            r = session.post(API_ENDPOINT, json=base_obj, timeout=(2, 5))  # (connect, read)
+            return r.status_code == 200
+        except:
+            return False
+    
+    def readdatafile(inputfile):
+        print("🚀 LINE-BY-LINE ULTRA-PRODUCER Started:", datetime.now())
+        line_count = 0
+        
         while True:
-          line = file1.readline()
-          line = line.replace(";", " ")
-          # add lat/long/identifier
-          k = k + 1
-          try:
-            if line == "":
-              #break
-              file1.seek(0)
-              k=0
-              print("Reached End of File - Restarting")
-              print("Read End:",datetime.now())
-              continue
-            ret = send_tml_data(line)
-            print(f"\nTML Server Response: {ret}\n")
-            # change time to speed up or slow down data   
-            time.sleep(.1)
-          except Exception as e:
-            print(e)
-            time.sleep(0.1)
-            pass
-          
-      def start():
-            inputfile = "IoTData.txt"
-            readdatafile(inputfile)
-              
-      if __name__ == '__main__':
-          start()
+            try:
+                with open(inputfile, 'r') as f:
+                    for raw_line in f:
+                        line_count += 1
+                        
+                        # 🔥 FIRE-AND-FORGET (No blocking timeout)
+                        with ThreadPoolExecutor(max_workers=MAX_WORKERS) as executor:
+                            executor.submit(send_tml_line, raw_line)  # NO .result()!
+                        
+                        if line_count % 100 == 0:
+                            print(f"📊 Sent {line_count} lines")
+                        
+                        time.sleep(LOOP_DELAY)
+                    
+                    print(f"🔄 EOF - Restarted ({line_count} total)")
+                    line_count = 0
+                    time.sleep(0.05)
+                    
+            except FileNotFoundError:
+                print("❌ IoTData.txt missing")
+                time.sleep(1)
+            except KeyboardInterrupt:
+                print(f"\n🛑 Stopped at {line_count} lines")
+                break
+    
+    if __name__ == '__main__':
+        readdatafile("IoTData.txt")
 
 .. important::
 
@@ -2261,25 +2252,27 @@ Copy and Paste this code in Python and Run it.
 
      .. code-block::  
         
-        data = data[:-1] + ',"sendtotopic": "iot-raw-data"}'
+        base_obj["sendtotopic"] = sendtotopic
 
      .. code-block:: python
 
-         def send_tml_data(data): 
-           # data to be sent to api
-           headers = {'Content-type': 'application/json'}
-           print("========================")
-           print(f"API_ENDPOINT TO TML SERVER: {API_ENDPOINT}\n")
-           data=data.strip()
-           ########### Modify this by adding sendtotopic to your RAW JSON ***
-           #data = data[:-1] + ',"sendtotopic": "iot-raw-data"}'
-           ################################################################## 
-           print(f"POST data to TML Server:\n\n{data}")
-           r = requests.post(url=API_ENDPOINT, data=data, headers=headers)
-         
-           # extracting response text
-           return r.text
-
+          def send_tml_line(raw_line,sendtotopic=""):
+              """Send single enriched JSON line - TIMEOUT SAFE."""
+              processed = raw_line.strip().replace(";", " ")
+              if not processed:
+                  return False
+                  
+              try:
+                  # Parse + add sendtotopic
+                  base_obj = json.loads(processed)
+                  if sendtotopic != "":
+                    base_obj["sendtotopic"] = sendtotopic
+                  
+                  # Longer timeout + shorter connect timeout
+                  r = session.post(API_ENDPOINT, json=base_obj, timeout=(2, 5))  # (connect, read)
+                  return r.status_code == 200
+              except:
+                  return False
 
 Step 3b: Send some data to the TML Server in Batch
 -----------------------------------------
