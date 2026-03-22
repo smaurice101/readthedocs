@@ -2165,7 +2165,7 @@ Download IoT Data from `Github <https://github.com/smaurice101/raspberrypi/blob/
 
 Unzip and save it to a local folder.
 
-Step 3: Send some data to the TML Server
+Step 3: Send some data to the TML Server Line by Line
 -----------------------------------------
 
 Copy and Paste this code in Python and Run it.
@@ -2280,6 +2280,97 @@ Copy and Paste this code in Python and Run it.
            # extracting response text
            return r.text
 
+
+Step 3b: Send some data to the TML Server in Batch
+-----------------------------------------
+
+.. code-block::
+
+    import requests
+    from concurrent.futures import ThreadPoolExecutor
+    import sys
+    from datetime import datetime
+    import time
+    import json
+    
+    sys.dont_write_bytecode = True
+    
+    rest_port = "9001"
+    httpaddr = "http:"
+    apiroute = "jsondataarray"  
+    API_ENDPOINT = f"{httpaddr}//localhost:{rest_port}/api/v1/{apiroute}"
+    
+    BATCH_SIZE = 50
+    MAX_WORKERS = 3
+    LOOP_DELAY = 0.001
+    
+    sendtotopic = "iot-raw-data"
+    
+    session = requests.Session()
+    session.headers.update({'Content-Type': 'application/json'})
+    
+    def send_tml_batch(raw_lines,sendtotopic=""):
+        """🚀 Add sendtotopic INSIDE each JSON object."""
+        jdata = []
+        for line in raw_lines:
+            processed = line.strip().replace(";", " ")
+            if not processed:
+                continue
+                
+            try:
+                # Parse EXISTING JSON object from IoTData.txt
+                base_obj = json.loads(processed)
+                
+                # ✅ ADD sendtotopic DIRECTLY to root object
+                if sendtotopic != "":
+                  base_obj["sendtotopic"] = sendtotopic
+                
+                jdata.append(base_obj)  # Now perfect for your server!
+                
+            except json.JSONDecodeError:
+                # Fallback for malformed lines
+                jdata.append({"data": processed, "sendtotopic": "iot-raw-data"})
+        
+        print(f"🚀 Sending {len(jdata)} enriched objects")
+        
+        try:
+            r = session.post(API_ENDPOINT, json=jdata, timeout=10)
+            print(f"Status {r.status_code}: {r.text}")
+            return r.text
+        except Exception as e:
+            print(f"Error: {e}")
+            return None
+    
+    def readdatafile(inputfile):
+        print("🚀 ULTRA-FAST Producer Started:", datetime.now())
+        
+        while True:
+            try:
+                with open(inputfile, 'r') as f:
+                    batch = []
+                    for raw_line in f:
+                        batch.append(raw_line)
+                        
+                        if len(batch) >= BATCH_SIZE:
+                            send_tml_batch(batch)
+                            batch = []
+                            time.sleep(LOOP_DELAY)
+                    
+                    if batch:
+                        send_tml_batch(batch,sendtotopic)
+                    
+                    print("🔄 EOF - Restarting...")
+                    time.sleep(0.5)
+            except FileNotFoundError:
+                print("❌ IoTData.txt missing")
+                time.sleep(1)
+            except Exception as e:
+                print(f"Error: {e}")
+                time.sleep(0.1)
+    
+    if __name__ == '__main__':
+        readdatafile("IoTData.txt")
+    
 
 Step 4: Visualize The Output in a Dashboard
 -----------------------------------------
