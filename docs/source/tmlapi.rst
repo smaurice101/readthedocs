@@ -3463,11 +3463,27 @@ This is the topic the devices are writing data to in the MQTT cluster.  In our e
 .. code-block::
 
     {
-      "mqtt_broker": "08b9fcbd4d00421daa25c0ee4a44b494.s1.eu.hivemq.cloud", 
-      "mqtt_subscribe_topic": "tml/iot", 
-      "mqtt_port": 8883,
-      "sendtotopic": "mqtt-raw-data", 
-      "mqtt_enabletls": "1"
+    	"mqtt_broker": "08b9fcbd4d00421daa25c0ee4a44b494.s1.eu.hivemq.cloud",
+    	"mqtt_subscribe_topic": "tml/iot",
+    	"mqtt_port": 8883,
+    	"sendtotopic": "mqtt-raw-data",
+    	"mqtt_enabletls": "1",
+        "base_url": "http://localhost:9001",	
+    	"preprocessing": {
+    		"step": "4"
+    	},
+    	"machinelearning": {
+    		"step": "5"
+    	},
+    	"predictions": {
+    		"step": "6"
+    	},
+    	"agenticai": {
+    		"step": "9b"
+    	},
+    	"ai": {
+    		"step": "9"
+    	}
     }
     
 **Send the payload to the TML Server:**
