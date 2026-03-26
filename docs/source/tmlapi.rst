@@ -3704,7 +3704,7 @@ If your solution is running - then try to see if you can run this dashboard:
 
     http://localhost/oilgas/tml-carryover.html?port=6060&topic=scada-raw-data
 
-.. figure:: cardash.png
+.. figure:: car3dash.png
    :scale: 50%
 
 MQTT Example
