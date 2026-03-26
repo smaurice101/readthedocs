@@ -62,9 +62,9 @@ Industrial API For Ingesting Data From SCADA and MQTT
 See :ref:`TML Processing Using SCADA and MQTT`
 
 - ``POST /api/v1/scada_modbus_read`` - [`click <https://tml.readthedocs.io/en/latest/tmlapi.html#post-api-v1-scada-modbus-read>`_] Directly connect to a SCADA/Modbus system and ingest real-time data → 200,400
-  - See `SCADA Example <https://tml.readthedocs.io/en/latest/tmlapi.html#id16>`_
+  - See `SCADA Example <https://tml.readthedocs.io/en/latest/tmlapi.html#id17>`_
 - ``POST /api/v1/mqtt_subscribe`` - [`click <https://tml.readthedocs.io/en/latest/tmlapi.html#post-api-v1-mqtt-subscribe>`_] Directly connect to a MQTT system and ingest real-time data  → 200,400
-  - See `MQTT Example <https://tml.readthedocs.io/en/latest/tmlapi.html#id17>`_
+  - See `MQTT Example <https://tml.readthedocs.io/en/latest/tmlapi.html#id18>`_
 
 API For System Maintenance
 -------------------------------
@@ -2970,239 +2970,268 @@ Step 2: Write Data to the SCADA Simulator
 
 .. code-block::
 
+    #!/usr/bin/env python3
+    """
+    🚀 ULTRA-FAST 50-VESSEL SCADA SIMULATOR (20Hz) - 100% FIXED
+    Modbus TCP → Kafka → TML → WebSocket Dashboard Pipeline
+    """
+    
     import time
     from random import uniform, choice
     from pyModbusTCP.client import ModbusClient
     import datetime
     import csv
     import os
+    import threading
+    import json
     
+    # ========== CONFIG ==========
     config = {"host": "127.0.0.1", "port": 2502, "unit_id": 1}
-    client = ModbusClient(**config, auto_open=True, auto_close=False)
+    client = ModbusClient(**config, auto_open=True, auto_close=False, timeout=0.01)
+    
+    CYCLE_SECONDS = 0.001          # ⚡ 20Hz
+    BREACHES_PER_DAY = 150.0
+    BREACH_DURATION = 30.0
+    
+    # ========== FIXED VESSEL CONFIGS - ALL 50 VESSELS ✅ ==========
+    VESSEL_CONFIGS = [
+        None,  # 0 unused - index 0
+        ((50,150), (20,150)), ((50,150), (20,150)), ((50,150), (20,150)), ((50,150), (20,150)),  # 1-4
+        ((50,150), (20,150)), ((50,150), (20,150)), ((50,150), (20,150)), ((50,150), (20,150)),  # 5-8
+        ((50,150), (20,150)), ((50,150), (20,150)), ((60,120), (60,140)), ((60,120), (60,140)),  # 9-12
+        ((60,120), (60,140)), ((50,150), (20,150)), ((50,150), (20,150)), ((50,150), (20,150)),  # 13-16
+        ((50,150), (20,150)), ((50,150), (20,150)), ((50,150), (20,150)), ((50,150), (20,150)),  # 17-20
+        ((50,150), (20,150)), ((50,150), (20,150)), ((50,150), (20,150)), ((50,150), (20,150)),  # 21-24
+        ((50,150), (20,150)), ((50,150), (20,150)), ((50,150), (20,150)), ((50,150), (20,150)),  # 25-28
+        ((50,150), (20,150)), ((50,150), (20,150)), ((50,150), (20,150)), ((50,150), (20,150)),  # 29-32
+        ((50,150), (20,150)), ((50,150), (20,150)), ((50,150), (20,150)), ((50,150), (20,150)),  # 33-36
+        ((120,200),(80,160)), ((120,200),(80,160)), ((120,200),(80,160)), ((30,80),(40,100)),   # 37-40
+        ((30,80),(40,100)), ((50,150),(20,150)), ((50,150),(20,150)), ((50,150),(20,150)),     # 41-44
+        ((80,140),(40,80)), ((80,140),(40,80)), ((70,130),(30,70)), ((70,130),(30,70)),       # 45-48 HP/LP
+        ((90,160),(50,90)), ((100,180),(60,100))                                              # 49-50 MP/Stock
+    ]
+    
+    VESSEL_NAMES = {
+        1: "Sep1A", 2: "Sep1B", 3: "Sep2A", 4: "Sep2B", 5: "Sep3A", 6: "Sep3B",
+        7: "Sep4A", 8: "Sep4B", 9: "Sep5A", 10: "Sep5B", 11: "Sep6A", 12: "Sep6B",
+        13: "Deoiler1", 14: "Deoiler2", 15: "Deoiler3", 16: "TestSep1", 17: "TestSep2",
+        18: "TestSep3", 19: "HT1", 20: "HT2", 21: "GB1", 22: "GB2", 23: "GB3",
+        24: "FWKO1", 25: "FWKO2", 26: "FWKO3", 27: "Tr1A", 28: "Tr1B", 29: "Tr2A",
+        30: "Tr2B", 31: "Slop1", 32: "Slop2", 33: "Wash1", 34: "Wash2", 35: "PW1",
+        36: "PW2", 37: "PW3", 38: "GS1", 39: "GS2", 40: "GS3", 41: "TestA", 42: "TestB",
+        43: "TestC", 44: "HP1", 45: "HP2", 46: "LP1", 47: "LP2", 48: "MP1", 49: "MP2", 50: "Stock"
+    }
+    
+    CSV_FIELDS = ['timestamp', 'vesselIndex', 'vesselName', 'operatingPressure', 'operatingTemperature', 
+                  'gasFlowRate', 'gasDensity', 'gasCompressabilityFactor', 'gasViscosity', 'hclFlowRate',
+                  'hclDensity', 'hclViscosity', 'hclSurfaceTension', 'waterFlowRate', 'waterDensity',
+                  'waterViscosity', 'waterSurfaceTension', 'hclWaterSurfaceTension', 'phseInversionCriticalWaterCut',
+                  'solidFlowRate', 'solidDensity']
+    
+    # ========== THREAD-SAFE STATE ==========
+    breach_lock = threading.Lock()
+    BREACH_ACTIVE = False
+    breach_vessel_ids = set()
+    breach_start_time = 0
+    BREACH_PATTERN = None
+    csv_queue = []
+    csv_lock = threading.Lock()
     
     def clamp(v): 
         return max(0, min(int(v), 65535))
     
-    # ======== BREACH CONFIG (TUNE HERE) ========
-    # Expected number of breaches per simulated day (across the whole system)
-    BREACHES_PER_DAY = 150.0          # e.g. 1 breach/day; set to 0.1 for ~1 every 10 days
-    CYCLE_SECONDS    = 1.0          # main loop sleep interval
-    BREACH_DURATION  = 60.0         # seconds a breach stays active (e.g. 60s = 1 min)
-    
-    # Derived per‑cycle probability (assuming 1 update/sec)
-    SECONDS_PER_DAY = 86400.0
-    BREACH_PROB_PER_CYCLE = (BREACHES_PER_DAY / SECONDS_PER_DAY) * CYCLE_SECONDS
-    # ===========================================
-    
-    # 50 VESSELS - realistic oil/gas naming
-    VESSELS = {
-        1: "Separator 1A", 2: "Separator 1B", 3: "Separator 2A", 4: "Separator 2B", 5: "Separator 3A",
-        6: "Separator 3B", 7: "Separator 4A", 8: "Separator 4B", 9: "Separator 5A", 10: "Separator 5B",
-        11: "Separator 6A", 12: "Separator 6B", 13: "Deoiler V1", 14: "Deoiler V2", 15: "Deoiler V3",
-        16: "Test Sep 1", 17: "Test Sep 2", 18: "Test Sep 3", 19: "Heater Treater 1", 20: "Heater Treater 2",
-        21: "Gun Barrel 1", 22: "Gun Barrel 2", 23: "Gun Barrel 3", 24: "FWKO 1", 25: "FWKO 2",
-        26: "FWKO 3", 27: "Treaters 1A", 28: "Treaters 1B", 29: "Treaters 2A", 30: "Treaters 2B",
-        31: "Slop Tank 1", 32: "Slop Tank 2", 33: "Wash Tank 1", 34: "Wash Tank 2", 35: "Produced Water 1",
-        36: "Produced Water 2", 37: "Produced Water 3", 38: "Gas Scrubber 1", 39: "Gas Scrubber 2", 40: "Gas Scrubber 3",
-        41: "Test Vessel A", 42: "Test Vessel B", 43: "Test Vessel C", 44: "High Pressure 1", 45: "High Pressure 2",
-        46: "Low Pressure 1", 47: "Low Pressure 2", 48: "Medium Pressure 1", 49: "Medium Pressure 2", 50: "Stock Tank"
-    }
-    
-    # Data breach simulation flags and patterns
-    BREACH_ACTIVE = False
-    breach_vessel_ids = set()
-    breach_start_time = None
-    BREACH_PATTERNS = {
-        "pressure_spike": lambda p: p * uniform(3.0, 10.0),  # Massive pressure spikes
-        "temp_extreme": lambda t: uniform(500, 1000) if uniform(0,1) > 0.5 else uniform(-50, 0),
-        "flow_anomaly": lambda f: uniform(0, f*50),
-        "negative_values": lambda v: -uniform(100, 10000),
-        "zero_all": lambda v: 0,
-        "random_noise": lambda v: uniform(-1000, 1000),
-    }
-    
-    def is_breach_active():
-        global BREACH_ACTIVE, breach_start_time, breach_vessel_ids
-        if BREACH_ACTIVE and (time.time() - (breach_start_time or 0) > BREACH_DURATION):
-            BREACH_ACTIVE = False
-            breach_vessel_ids.clear()
-        return BREACH_ACTIVE
-    
-    def trigger_data_breach(vessel_id):
-        """
-        Decide whether vessel_id is currently under breach.
-        Uses BREACH_PROB_PER_CYCLE and BREACH_DURATION.
-        """
-        global BREACH_ACTIVE, breach_start_time, breach_vessel_ids
-    
-        # Possibly end existing breach
-        is_breach_active()
-    
-        # Start a new breach only if none active
-        if not BREACH_ACTIVE and uniform(0, 1) < BREACH_PROB_PER_CYCLE:
-            BREACH_ACTIVE = True
-            breach_start_time = time.time()
-            breach_vessel_ids = {choice(list(VESSELS.keys()))}
-            print(f"🚨 DATA BREACH DETECTED! Affected vessels: {len(breach_vessel_ids)}")
-    
-        return BREACH_ACTIVE and vessel_id in breach_vessel_ids
-    
-    def generate_vessel_data(vessel_id):
-        vessel_name = VESSELS[vessel_id]
-        
-        # Vessel-specific ranges
-        if "High Pressure" in vessel_name:
-            p_min, p_max = 120.0, 200.0
-            t_min, t_max = 80.0, 160.0
-        elif "Low Pressure" in vessel_name:
-            p_min, p_max = 30.0, 80.0
-            t_min, t_max = 40.0, 100.0
-        elif "Deoiler" in vessel_name:
-            p_min, p_max = 60.0, 120.0
-            t_min, t_max = 60.0, 140.0
-        else:
-            p_min, p_max = 50.0, 150.0
-            t_min, t_max = 20.0, 150.0
-        
-        data = {
-            "vesselIndex": vessel_id,
-            "vesselName": vessel_name,
-            "operatingPressure": uniform(p_min, p_max),
-            "operatingTemperature": uniform(t_min, t_max),
-            "gasFlowRate": uniform(0.0, 650.0),
-            "gasDensity": uniform(0.5, 2.0),
-            "gasCompressabilityFactor": uniform(0.8, 1.0),
-            "gasViscosity": uniform(1.0e-5, 2.0e-5),
-            "hclFlowRate": uniform(0.0, 50.0),
-            "hclDensity": uniform(1000.0, 1500.0),
-            "hclViscosity": uniform(0.5e-3, 1.0e-3),
-            "hclSurfaceTension": uniform(40e-3, 70e-3),
-            "waterFlowRate": uniform(0.0, 65.0),
-            "waterDensity": uniform(990.0, 1010.0),
-            "waterViscosity": uniform(0.8e-3, 1.2e-3),
-            "waterSurfaceTension": uniform(70e-3, 74e-3),
-            "hclWaterSurfaceTension": uniform(30e-3, 40e-3),
-            "phseInversionCriticalWaterCut": uniform(0.2, 0.5),
-            "solidFlowRate": uniform(0.0, 10.0),
-            "solidDensity": uniform(1000.0, 2500.0),
-        }
-        
-        # Apply data breach corruption if active
-        if trigger_data_breach(vessel_id):
-            pattern = choice(list(BREACH_PATTERNS.keys()))
-            print(f"  💥 BREACH PATTERN: {pattern.upper()} on {vessel_name}")
-            
-            if pattern == "pressure_spike":
-                data["operatingPressure"] = BREACH_PATTERNS[pattern](data["operatingPressure"])
-            elif pattern == "temp_extreme":
-                data["operatingTemperature"] = BREACH_PATTERNS[pattern](data["operatingTemperature"])
-            elif pattern == "flow_anomaly":
-                for flow_key in ["gasFlowRate", "hclFlowRate", "waterFlowRate", "solidFlowRate"]:
-                    data[flow_key] = BREACH_PATTERNS[pattern](data[flow_key])
-            elif pattern == "negative_values":
-                for key in data:
-                    if isinstance(data[key], (int, float)):
-                        data[key] = BREACH_PATTERNS[pattern](abs(data[key]))
-            elif pattern == "zero_all":
-                for key in data:
-                    if isinstance(data[key], (int, float)) and key != "vesselIndex":
-                        data[key] = BREACH_PATTERNS[pattern](data[key])
-            elif pattern == "random_noise":
-                for key in data:
-                    if isinstance(data[key], (int, float)) and key != "vesselIndex":
-                        data[key] = BREACH_PATTERNS[pattern](data[key])
-        
-        return data
-    
-    def scale_to_registers(data):
-        return [
-            clamp(data["vesselIndex"]),
-            clamp(data["operatingPressure"] * 100),
-            clamp(data["operatingTemperature"] * 100),
-            clamp(data["gasFlowRate"] * 100),
-            clamp(data["gasDensity"] * 1000),
-            clamp(data["gasCompressabilityFactor"] * 1000),
-            clamp(data["gasViscosity"] * 1_000_000_000),
-            clamp(data["hclFlowRate"] * 100),
-            clamp(data["hclDensity"]),
-            clamp(data["hclViscosity"] * 1_000_000),
-            clamp(data["hclSurfaceTension"] * 100_000),
-            clamp(data["waterFlowRate"] * 1000),
-            clamp(data["waterDensity"] / 10),
-            clamp(data["waterViscosity"] * 1_000_000),
-            clamp(data["waterSurfaceTension"] * 100_000),
-            clamp(data["hclWaterSurfaceTension"] * 100_000),
-            clamp(data["phseInversionCriticalWaterCut"] * 1000),
-            clamp(data["solidFlowRate"] * 100),
-            clamp(data["solidDensity"] / 10),
-        ]
-    
     def init_csv():
         if not os.path.exists('scada_history.csv'):
-            fields = ['timestamp', 'vesselIndex', 'vesselName', 'operatingPressure', 'operatingTemperature', 
-                     'gasFlowRate', 'gasDensity', 'gasCompressabilityFactor', 'gasViscosity', 'hclFlowRate',
-                     'hclDensity', 'hclViscosity', 'hclSurfaceTension', 'waterFlowRate', 'waterDensity',
-                     'waterViscosity', 'waterSurfaceTension', 'hclWaterSurfaceTension', 'phseInversionCriticalWaterCut',
-                     'solidFlowRate', 'solidDensity']
             with open('scada_history.csv', 'w', newline='') as f:
-                writer = csv.DictWriter(f, fieldnames=fields)
+                writer = csv.DictWriter(f, fieldnames=CSV_FIELDS)
                 writer.writeheader()
     
-    init_csv()
+    def csv_worker():
+        init_csv()
+        while True:
+            time.sleep(0.1)
+            with csv_lock:
+                if csv_queue:
+                    rows = csv_queue[:]
+                    csv_queue.clear()
+                    with open('scada_history.csv', 'a', newline='') as f:
+                        writer = csv.DictWriter(f, fieldnames=CSV_FIELDS)
+                        writer.writerows(rows)
+    
+    def update_breach_state():
+        global BREACH_ACTIVE, breach_start_time, breach_vessel_ids, BREACH_PATTERN
+        prob_per_cycle = (BREACHES_PER_DAY / 86400.0) * CYCLE_SECONDS
+        
+        with breach_lock:
+            if BREACH_ACTIVE and (time.time() - breach_start_time > BREACH_DURATION):
+                BREACH_ACTIVE = False
+                breach_vessel_ids.clear()
+            elif not BREACH_ACTIVE and uniform(0, 1) < prob_per_cycle:
+                BREACH_ACTIVE = True
+                breach_start_time = time.time()
+                breach_vessel_ids = {choice(range(1,51))}
+                BREACH_PATTERN = choice(["pressure_spike", "temp_extreme", "flow_anomaly", "negative", "zero", "noise"])
+            return BREACH_ACTIVE
+    
+    def generate_vessel_data_fast(vessel_id):
+        """⚡ FIXED - Direct array access, NO None values"""
+        #p_range, t_range = VESSEL_CONFIGS[vessel_id]  # ✅ All 50 have values
+        if vessel_id >= len(VESSEL_CONFIGS):
+            print(f"⚠️ Vessel {vessel_id} config missing - using default")
+            p_range, t_range = ((50,150), (20,150))  # Fallback
+        else:
+            p_range, t_range = VESSEL_CONFIGS[vessel_id]    
+        
+        # Ultra-fast unrolled generation
+        p = uniform(*p_range)
+        t = uniform(*t_range)
+        gfr = uniform(0,650)
+        gden = uniform(0.5,2)
+        gzfac = uniform(0.8,1)
+        gvsc = uniform(1e-5,2e-5)*1e9
+        hfr = uniform(0,50)
+        hden = uniform(1000,1500)
+        hvsc = uniform(0.5e-3,1e-3)*1e6
+        hst = uniform(40e-3,70e-3)*1e5
+        wfr = uniform(0,65)
+        wden = uniform(990,1010)
+        wvsc = uniform(0.8e-3,1.2e-3)*1e6
+        wst = uniform(70e-3,74e-3)*1e5
+        hwst = uniform(30e-3,40e-3)*1e5
+        picwc = uniform(0.2,0.5)*1000
+        sfr = uniform(0,10)
+        sden = uniform(1000,2500)/10
+        
+        data = {
+            "vesselIndex": vessel_id, 
+            "vesselName": VESSEL_NAMES[vessel_id],
+            "operatingPressure": p, 
+            "operatingTemperature": t,
+            "gasFlowRate": gfr, 
+            "gasDensity": gden, 
+            "gasCompressabilityFactor": gzfac,
+            "gasViscosity": gvsc,
+            "hclFlowRate": hfr, 
+            "hclDensity": hden, 
+            "hclViscosity": hvsc,
+            "hclSurfaceTension": hst,
+            "waterFlowRate": wfr, 
+            "waterDensity": wden, 
+            "waterViscosity": wvsc,
+            "waterSurfaceTension": wst, 
+            "hclWaterSurfaceTension": hwst,
+            "phseInversionCriticalWaterCut": picwc, 
+            "solidFlowRate": sfr, 
+            "solidDensity": sden
+        }
+        
+        # Breach simulation
+        if update_breach_state() and vessel_id in breach_vessel_ids:
+            pat = BREACH_PATTERN
+            if pat == "pressure_spike": 
+                data["operatingPressure"] *= uniform(3,10)
+            elif pat == "temp_extreme": 
+                data["operatingTemperature"] = uniform(500,1000) if uniform(0,1)>0.5 else uniform(-50,0)
+            elif pat == "flow_anomaly":
+                for k in ("gasFlowRate","hclFlowRate","waterFlowRate","solidFlowRate"): 
+                    data[k] = uniform(0,data[k]*50)
+            elif pat == "negative":
+                for k in data:
+                    if k != "vesselIndex": data[k] = -uniform(100,10000)
+            elif pat == "zero":
+                for k in data:
+                    if k != "vesselIndex": data[k] = 0
+            elif pat == "noise":
+                for k in data:
+                    if k != "vesselIndex": data[k] = uniform(-1000,1000)
+    
+    #    print(json.dumps(data))
+        return data
+    
+    def scale_to_registers_fast(data):
+        """Scale to match current JSON 'scaling' factors."""
+        return [
+            clamp(data["vesselIndex"]),                   # ×1
+            clamp(data["operatingPressure"]),             # ×1
+            clamp(data["operatingTemperature"]),          # ×1
+            clamp(data["gasFlowRate"]),                   # ×1
+            clamp(data["gasDensity"]),                    # ×1
+            clamp(data["gasCompressabilityFactor"] * 1000),  # ×1000 (scale=1000)
+            clamp(data["gasViscosity"] * 1000),              # ×1000 (scale=1000)
+            clamp(data["hclFlowRate"]),                   # ×1
+            clamp(data["hclDensity"]),                    # ×1
+            clamp(data["hclViscosity"]),                  # ×1
+            clamp(data["hclSurfaceTension"]),             # ×1
+            clamp(data["waterFlowRate"]),                 # ×1
+            clamp(data["waterDensity"]),                  # ×1
+            clamp(data["waterViscosity"]),                # ×1
+            clamp(data["waterSurfaceTension"]),           # ×1
+            clamp(data["hclWaterSurfaceTension"]),        # ×1
+            clamp(data["phseInversionCriticalWaterCut"]), # ×1 for now
+            clamp(data["solidFlowRate"]),                 # ×1
+            clamp(data["solidDensity"]),                  # ×1
+        ]
+    
+    
+    # ========== STARTUP ==========
+    csv_thread = threading.Thread(target=csv_worker, daemon=True)
+    csv_thread.start()
     
     if not client.open():
-        print("ERROR: Cannot connect to SCADA")
+        print("❌ ERROR: Cannot connect to SCADA")
         exit(1)
     
-    print("🚀 50-VESSEL SCADA SIMULATOR w/ DATA BREACH SIMULATION - Production Mode")
-    print("📡 Writing to 40001-40019 | 💾 scada_history.csv | Ctrl+C to stop")
-    print(f"🚨 Breach frequency ≈ {BREACHES_PER_DAY} per day, duration {BREACH_DURATION:.0f}s")
+    print("🚀 ULTRA-FAST 50-VESSEL SCADA SIM (20Hz) - Production Mode")
+    print("📡 40001-40019 | 1200 writes/min | Ctrl+C to stop")
     
     entry_count = 0
+    last_print = time.time()
+    start_time = time.time()
     
     try:
         while True:
-            vessel_id = choice(list(VESSELS.keys()))
-            data = generate_vessel_data(vessel_id)
-            addrs = scale_to_registers(data)
-            
-            if client.write_multiple_registers(0, addrs):
+            vessel_id = choice(range(1,51))
+            data = generate_vessel_data_fast(vessel_id)
+            regs = scale_to_registers_fast(data)
+    
+            #print("=======data=======")
+            #print(json.dumps(data))
+            #print("=======registers=======")
+            #print(json.dumps(regs))
+     
+            if client.write_multiple_registers(0, regs):
                 entry_count += 1
-                try: 
-                    with open('scada_history.csv', 'a', newline='') as f:
-                        fields = ['timestamp', 'vesselIndex', 'vesselName', 'operatingPressure', 'operatingTemperature', 
-                                 'gasFlowRate', 'gasDensity', 'gasCompressabilityFactor', 'gasViscosity', 'hclFlowRate',
-                                 'hclDensity', 'hclViscosity', 'hclSurfaceTension', 'waterFlowRate', 'waterDensity',
-                                 'waterViscosity', 'waterSurfaceTension', 'hclWaterSurfaceTension', 'phseInversionCriticalWaterCut',
-                                 'solidFlowRate', 'solidDensity']
-                        writer = csv.DictWriter(f, fieldnames=fields)
-                        row = {'timestamp': datetime.datetime.now().isoformat(), 
-                               'vesselIndex': data['vesselIndex'], 
-                               'vesselName': data['vesselName']}
-                        row.update({k: data[k] for k in fields[3:]})
-                        writer.writerow(row)
-                    
-                    if entry_count % 20 == 0:
-                        breach_status = "🚨 BREACH ACTIVE" if is_breach_active() else "✅ Normal"
-                        print(f"#{entry_count:4d} | {data['vesselName']:15} | "
-                              f"P={data['operatingPressure']:7.1f} | T={data['operatingTemperature']:7.1f} | "
-                              f"Gas={data['gasFlowRate']:7.1f} | Water={data['waterFlowRate']:7.1f} | {breach_status}")
-                except Exception as e:
-                    print(f"CSV write error: {e}")
-                    continue 
+                
+                # Async CSV (non-blocking)
+                row = {'timestamp': datetime.datetime.now().isoformat()}
+                row.update({k: data[k] for k in CSV_FIELDS[1:]})
+                with csv_lock:
+                    csv_queue.append(row)
+                
+                # Live stats
+                if entry_count % 100 == 0:
+                    elapsed = time.time() - last_print
+                    if elapsed > 1:
+                        rate = 100 / elapsed
+                        breach_status = "🚨 BREACH" if BREACH_ACTIVE else "✅ Normal"
+                        print(f"⚡ #{entry_count:6d} | {rate:6.1f}Hz | {data['vesselName']:8} | "
+                              f"P={data['operatingPressure']:6.1f} | {breach_status}")
+                        last_print = time.time()
             else:
-                print("WRITE FAILED")
+                print("⚠️ WRITE FAILED - retrying...")
             
             time.sleep(CYCLE_SECONDS)
     
     except KeyboardInterrupt:
-        breach_status = "🚨 ACTIVE" if is_breach_active() else "✅ Cleared"
-        print(f"\n⏹️ Stopped after {entry_count} entries across {len(VESSELS)} vessels. Breach: {breach_status}")
-        print("📊 Check scada_history.csv - breach data preserved for analysis!")
+        total_time = time.time() - start_time
+        rate = entry_count / total_time if total_time > 0 else 0
+        breach_status = "🚨 ACTIVE" if BREACH_ACTIVE else "✅ Cleared"
+        print(f"\n⏹️ Stopped: {entry_count:,} writes | {rate:5.1f}Hz avg")
+        print(f"📊 scada_history.csv: {len(csv_queue)} queued | Breach: {breach_status}")
     
     finally:
         client.close()
-        print("🔌 SCADA connection closed")
+        print("🔌 SCADA disconnected")
 
 Step 3: Read the Data in SCADA
 --------------------------------------------
@@ -3228,7 +3257,7 @@ Step 3: Read the Data in SCADA
       "max_reads": -1,
       "start_register": 40001,
       "sendtotopic": "scada-raw-data",
-    	"createvariables": "Pg = operatingPressure/100.0,Qg = gasFlowRate/100.0,Qw = waterFlowRate/1000.0,Qh = hclFlowRate/100.0,Qs = solidFlowRate/100.0,rhog = gasDensity/1000.0,rhow =waterDensity/10.0,mug = gasViscosity/1000000000.0,muw = waterViscosity/1000000.0,sw = waterSurfaceTension/100000.0,sow = hclWaterSurfaceTension/100000.0, picwc = phseInversionCriticalWaterCut/1000.0,carryover = 100.0 * (Qw + Qh + Qs) / ((Qw + Qh + Qs) + Qg + 1e-6),gas_reynolds = (Qg * rhog) / (mug * (Pg + 1e-6)),water_reynolds = (Qw * rhow) / (muw * (Pg + 1e-6)),reynolds_ratio = gas_reynolds / (water_reynolds + 1e-6),stokes_number = (rhow - rhog) * muw / ((Pg + 1e-6)*(Pg + 1e-6)),inversion_risk = (Qw / (Qg + 1e-6)) - picwc,emulsion_ratio = sw / (sow + 1e-6),density_ratio = rhow / (rhog + 1e-6),flow_stability = reynolds_ratio * density_ratio",	
+    	"createvariables":"Pg  = operatingPressure,Qg  = gasFlowRate,Qw  = waterFlowRate,Qh  = hclFlowRate,Qs  = solidFlowRate,rhog = gasDensity,rhow = waterDensity,mug  = gasViscosity,muw  = waterViscosity,sw   = waterSurfaceTension,sow  = hclWaterSurfaceTension,picwc = phseInversionCriticalWaterCut/1000.0,Zg    = gasCompressabilityFactor/1000.0,raw_co = (Qw + Qh + Qs) / ((Qw + Qh + Qs) + Qg + 1e-6),carryover = 15.0 * (raw_co ** 0.3),gas_reynolds = (Qg * rhog) / (mug + 1e-6),water_reynolds = (Qw * rhow) / (muw + 1e-6),reynolds_ratio = gas_reynolds / (water_reynolds + 1e-6),stokes_number = (rhow - rhog) * muw / ((Pg + 1e-6)*(Pg + 1e-6)),inversion_risk = (Qw / (Qg + 1e-6)) - picwc,emulsion_ratio = sw / (sow + 1e-6),density_ratio = rhow / (rhog + 1e-6),flow_stability = density_ratio",
       "fields": [
         "vesselIndex",
         "operatingPressure",
@@ -3252,24 +3281,24 @@ Step 3: Read the Data in SCADA
       ],
       "scaling": {
         "vesselIndex": 1,
-        "operatingPressure": 100,
-        "operatingTemperature": 100,
-        "gasFlowRate": 100,
-        "gasDensity": 1000,
+        "operatingPressure": 1,
+        "operatingTemperature": 1,
+        "gasFlowRate": 1,
+        "gasDensity": 1,
         "gasCompressabilityFactor": 1000,
-        "gasViscosity": 1000000000,
-        "hclFlowRate": 100,
+        "gasViscosity": 1000,
+        "hclFlowRate": 1,
         "hclDensity": 1,
-        "hclViscosity": 1000000,
-        "hclSurfaceTension": 100000,
-        "waterFlowRate": 1000,
-        "waterDensity": 10,
-        "waterViscosity": 1000000,
-        "waterSurfaceTension": 100000,
-        "hclWaterSurfaceTension": 100000,
-        "phseInversionCriticalWaterCut": 1000,
-        "solidFlowRate": 100,
-        "solidDensity": 10
+        "hclViscosity": 1,
+        "hclSurfaceTension": 1,
+        "waterFlowRate": 1,
+        "waterDensity": 1,
+        "waterViscosity": 1,
+        "waterSurfaceTension": 1,
+        "hclWaterSurfaceTension": 1,
+        "phseInversionCriticalWaterCut": 1,
+        "solidFlowRate": 1,
+        "solidDensity": 1
       },
       "vessel_names": {
         "1": "Separator 1A",
@@ -3357,7 +3386,6 @@ Step 3: Read the Data in SCADA
     	"agenticai": {"step":"9b"},
     	"ai": {"step":"9"}
     }
-
 
 Send a cURL to TML to Read From SCADA
 --------------------------------
