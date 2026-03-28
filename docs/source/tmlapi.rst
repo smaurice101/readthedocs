@@ -55,7 +55,7 @@ API For Writing or Producing Raw Data to Kafka Topics
 
 - ``POST /api/v1/jsondataline`` - [`click <https://tml.readthedocs.io/en/latest/tmlapi.html#post-api-v1-jsondataline>`_] Send single JSON → 200
 - ``POST /api/v1/jsondataarray`` - [`click <https://tml.readthedocs.io/en/latest/tmlapi.html#post-api-v1-jsondataarray>`_] Send JSON array → 200
-- ``POST /api/v1/external_payload`` - [`click <https://tml.readthedocs.io/en/latest/tmlapi.html#post-api-v1-jsondataarray>`_] Send JSON array → 200
+- ``POST /api/v1/external_payload`` - [`click <https://tml.readthedocs.io/en/latest/tmlapi.html#post-api-v1-external-payload>`_] Send JSON array → 200
 
 Industrial API For Ingesting Data From SCADA and MQTT
 -----------------------------------------------------
