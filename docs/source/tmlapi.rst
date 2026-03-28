@@ -55,6 +55,7 @@ API For Writing or Producing Raw Data to Kafka Topics
 
 - ``POST /api/v1/jsondataline`` - [`click <https://tml.readthedocs.io/en/latest/tmlapi.html#post-api-v1-jsondataline>`_] Send single JSON → 200
 - ``POST /api/v1/jsondataarray`` - [`click <https://tml.readthedocs.io/en/latest/tmlapi.html#post-api-v1-jsondataarray>`_] Send JSON array → 200
+- ``POST /api/v1/external_payload`` - [`click <https://tml.readthedocs.io/en/latest/tmlapi.html#post-api-v1-jsondataarray>`_] Send JSON array → 200
 
 Industrial API For Ingesting Data From SCADA and MQTT
 -----------------------------------------------------
@@ -1130,6 +1131,20 @@ Send a JSON array of objects to a topic.
 - All items share the same `topic` (specified in code, not payload)
 
 **Response:** ``"ok"`` (200)
+
+POST /api/v1/external_payload
+------------------------------
+
+**Description:**
+External applications can send a JSON to this API.  TML will write the JSON to a Kafka topic for processing.
+
+**Request JSON Parameters:**
+
+- Valid JSON - this JSON must include the following two fields in the JSON:
+ - sendtotopic - This is the topic you want TML to store the JSON
+ - base_url - This is the url that TML server plugin is listening on i.e. http://localhost:9002
+
+**Response:** ``"ok"`` (200) or Error
 
 POST /api/v1/terminatewindow
 --------------------------
