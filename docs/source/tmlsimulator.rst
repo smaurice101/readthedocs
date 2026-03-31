@@ -7,7 +7,7 @@ with Direct SCADA/DCS Integration and Real-Time Machine Learning, AI,
 Agentic AI**
 
 Executive Summary
-=================
+----------------
 
 TML_simulator is a **first‑principles physics engine** that computes
 **liquid‑carryover risk per separator, FWKO, and tank** in under **10
@@ -308,7 +308,7 @@ at SCADA‑speed, across every separation train in an asset portfolio.
 **
 
 Appendix:
-=========
+------------
 
 Standard Vessel Configuation Template for TML Simulator
 -------------------------------------------------------
@@ -316,23 +316,24 @@ Standard Vessel Configuation Template for TML Simulator
    Users must provide the following configuration in JSON that is
    consistent with this template:
 
-   {
-
-   "vessels": [ { ... } ],
-
-   "flows": [ { ... } ],
-
-   "solver": { ... },
-
-   "physics": { "g": 9.81 },
-
-"sendtotopic": "<enter name for kafka topic>",
-
-"topologyname": "<enter topology name>",
-
-"localfoldername": "<enter folder name>"
-
-   }
+..code-block::
+      {
+   
+      "vessels": [ { ... } ],
+   
+      "flows": [ { ... } ],
+   
+      "solver": { ... },
+   
+      "physics": { "g": 9.81 },
+   
+   "sendtotopic": "<enter name for kafka topic>",
+   
+   "topologyname": "<enter topology name>",
+   
+   "localfoldername": "<enter folder name>"
+   
+      }
 
 1. Example configurations can be found here:
    https://github.com/smaurice101/raspberrypi/tree/main/tml-airflow/data/payloads/scadaai/carryover
@@ -379,7 +380,7 @@ Standard Vessel Configuation Template for TML Simulator
 -  Geometric and physical properties that your VESSEL_PHYSICS can fill
    in if missing.
 
-..
+.. code-block::
 
    "vessels": [
 
