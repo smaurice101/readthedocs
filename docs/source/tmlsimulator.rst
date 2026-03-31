@@ -316,7 +316,7 @@ Standard Vessel Configuation Template for TML Simulator
    Users must provide the following configuration in JSON that is
    consistent with this template:
 
-..code-block::
+.. code-block::
       {
    
       "vessels": [ { ... } ],
