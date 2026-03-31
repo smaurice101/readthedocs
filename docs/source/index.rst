@@ -254,6 +254,7 @@ Contents
    dashboards
    api
    tmlsimfaq
+   tmlsimulator
    entity
    rtms
    jsonprocessing
