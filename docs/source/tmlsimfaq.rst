@@ -1,4 +1,4 @@
-TML Carryover Simulator: 1D Souders-Brown: FAQ
+FAQ: TML Simulator
 ===============================================
 
 **Comprehensive FAQ** for TML carryover simulator that’s written so
@@ -20,7 +20,7 @@ Numba‑accelerated engine.
 
 **1. What is TML_simulator, in plain language?**
 
-TML_simulator is a **first‑principles physics engine** that computes
+TML_simulator is a **first‑principles physics engine** using 1D Souders-Brown equation, that computes
 **liquid‑carryover risk per separator, FWKO, and stock tank** in a
 separation train. It takes a JSON‑defined topology of vessels, flows,
 and physical properties, then outputs:
