@@ -382,177 +382,177 @@ Standard Vessel Configuation Template for TML Simulator
 
 .. code-block::
 
-   "vessels": [
-
-   {
-
-   "id": 1,
-
-   "name": "HP Sep 1A",
-
-   "type": "separator",
-
-   "V0": 8.0,
-
-   "diameter": 3.8,
-
-   "height": 15.0,
-
-   "rho_l": 880.0,
-
-   "rho_g": 70.0,
-
-   "mu_g": 1.7e-5,
-
-   "inlet_eff": 0.6,
-
-   "mist_eff": 0.98,
-
-   "souders_k": 0.36,
-
-   "gravity_h": 3.0,
-
-   "d_mean_um": 250.0,
-
-   "d_sigma_um": 1.4,
-
-   "carryover_scale": 1.0
-
-   },
-
-   {
-
-   "id": 2,
-
-   "name": "HP Sep 1B",
-
-   "type": "separator",
-
-   "V0": 8.0
-
-   },
-
-   {
-
-   "id": 3,
-
-   "name": "MP Sep 1A",
-
-   "type": "separator",
-
-   "V0": 6.0
-
-   },
-
-   {
-
-   "id": 4,
-
-   "name": "MP Sep 1B",
-
-   "type": "separator",
-
-   "V0": 6.0
-
-   },
-
-   {
-
-   "id": 5,
-
-   "name": "LP Sep 1A",
-
-   "type": "separator",
-
-   "V0": 4.0
-
-   },
-
-   {
-
-   "id": 6,
-
-   "name": "LP Sep 1B",
-
-   "type": "separator",
-
-   "V0": 4.0
-
-   },
-
-   {
-
-   "id": 7,
-
-   "name": "FWKO 1A",
-
-   "type": "fwko",
-
-   "V0": 2.0
-
-   },
-
-   {
-
-   "id": 8,
-
-   "name": "FWKO 1B",
-
-   "type": "fwko",
-
-   "V0": 2.0
-
-   },
-
-   {
-
-   "id": 9,
-
-   "name": "Stock Tank 1A",
-
-   "type": "tank",
-
-   "V0": 6.0
-
-   },
-
-   {
-
-   "id": 10,
-
-   "name": "Stock Tank 1B",
-
-   "type": "tank",
-
-   "V0": 6.0
-
-   },
-
-   {
-
-   "id": 11,
-
-   "name": "GastoSales Scrubber",
-
-   "type": "separator",
-
-   "V0": 1.5
-
-   },
-
-   {
-
-   "id": 12,
-
-   "name": "Flare Gas KO",
-
-   "type": "separator",
-
-   "V0": 1.0
-
-   }
-
-   ]
+         "vessels": [
+      
+         {
+      
+         "id": 1,
+      
+         "name": "HP Sep 1A",
+      
+         "type": "separator",
+      
+         "V0": 8.0,
+      
+         "diameter": 3.8,
+      
+         "height": 15.0,
+      
+         "rho_l": 880.0,
+      
+         "rho_g": 70.0,
+      
+         "mu_g": 1.7e-5,
+      
+         "inlet_eff": 0.6,
+      
+         "mist_eff": 0.98,
+      
+         "souders_k": 0.36,
+      
+         "gravity_h": 3.0,
+      
+         "d_mean_um": 250.0,
+      
+         "d_sigma_um": 1.4,
+      
+         "carryover_scale": 1.0
+      
+         },
+      
+         {
+      
+         "id": 2,
+      
+         "name": "HP Sep 1B",
+      
+         "type": "separator",
+      
+         "V0": 8.0
+      
+         },
+      
+         {
+      
+         "id": 3,
+      
+         "name": "MP Sep 1A",
+      
+         "type": "separator",
+      
+         "V0": 6.0
+      
+         },
+      
+         {
+      
+         "id": 4,
+      
+         "name": "MP Sep 1B",
+      
+         "type": "separator",
+      
+         "V0": 6.0
+      
+         },
+      
+         {
+      
+         "id": 5,
+      
+         "name": "LP Sep 1A",
+      
+         "type": "separator",
+      
+         "V0": 4.0
+      
+         },
+      
+         {
+      
+         "id": 6,
+      
+         "name": "LP Sep 1B",
+      
+         "type": "separator",
+      
+         "V0": 4.0
+      
+         },
+      
+         {
+      
+         "id": 7,
+      
+         "name": "FWKO 1A",
+      
+         "type": "fwko",
+      
+         "V0": 2.0
+      
+         },
+      
+         {
+      
+         "id": 8,
+      
+         "name": "FWKO 1B",
+      
+         "type": "fwko",
+      
+         "V0": 2.0
+      
+         },
+      
+         {
+      
+         "id": 9,
+      
+         "name": "Stock Tank 1A",
+      
+         "type": "tank",
+      
+         "V0": 6.0
+      
+         },
+      
+         {
+      
+         "id": 10,
+      
+         "name": "Stock Tank 1B",
+      
+         "type": "tank",
+      
+         "V0": 6.0
+      
+         },
+      
+         {
+      
+         "id": 11,
+      
+         "name": "GastoSales Scrubber",
+      
+         "type": "separator",
+      
+         "V0": 1.5
+      
+         },
+      
+         {
+      
+         "id": 12,
+      
+         "name": "Flare Gas KO",
+      
+         "type": "separator",
+      
+         "V0": 1.0
+      
+         }
+      
+         ]
 
 2. flows — “every internal pipe”
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -567,33 +567,35 @@ Each flow must have:
 
 -  f_gas (gas‑fraction, 0–1)
 
-"flows": [
+.. code-block::
 
-{ "from": 1, "to": 3, "F_in": 12.0, "f_gas": 0.60 },
-
-{ "from": 2, "to": 4, "F_in": 11.0, "f_gas": 0.60 },
-
-{ "from": 3, "to": 5, "F_in": 8.0, "f_gas": 0.55 },
-
-{ "from": 4, "to": 6, "F_in": 7.5, "f_gas": 0.55 },
-
-{ "from": 5, "to": 7, "F_in": 6.0, "f_gas": 0.50 },
-
-{ "from": 6, "to": 8, "F_in": 6.5, "f_gas": 0.50 },
-
-{ "from": 7, "to": 9, "F_in": 12.0, "f_gas": 0.10 },
-
-{ "from": 8, "to": 10, "F_in": 12.5, "f_gas": 0.10 },
-
-{ "from": 5, "to": 11, "F_in": 3.0, "f_gas": 1.00 },
-
-{ "from": 6, "to": 11, "F_in": 3.2, "f_gas": 1.00 },
-
-{ "from": 11, "to": 0, "F_in": 6.2, "f_gas": 1.00 },
-
-{ "from": 12, "to": 0, "F_in": 0.8, "f_gas": 1.00 }
-
-]
+      "flows": [
+      
+      { "from": 1, "to": 3, "F_in": 12.0, "f_gas": 0.60 },
+      
+      { "from": 2, "to": 4, "F_in": 11.0, "f_gas": 0.60 },
+      
+      { "from": 3, "to": 5, "F_in": 8.0, "f_gas": 0.55 },
+      
+      { "from": 4, "to": 6, "F_in": 7.5, "f_gas": 0.55 },
+      
+      { "from": 5, "to": 7, "F_in": 6.0, "f_gas": 0.50 },
+      
+      { "from": 6, "to": 8, "F_in": 6.5, "f_gas": 0.50 },
+      
+      { "from": 7, "to": 9, "F_in": 12.0, "f_gas": 0.10 },
+      
+      { "from": 8, "to": 10, "F_in": 12.5, "f_gas": 0.10 },
+      
+      { "from": 5, "to": 11, "F_in": 3.0, "f_gas": 1.00 },
+      
+      { "from": 6, "to": 11, "F_in": 3.2, "f_gas": 1.00 },
+      
+      { "from": 11, "to": 0, "F_in": 6.2, "f_gas": 1.00 },
+      
+      { "from": 12, "to": 0, "F_in": 0.8, "f_gas": 1.00 }
+      
+      ]
 
 What every company must provide per flow:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -621,15 +623,17 @@ flows**; outlets are optional extras.
 
 This is **required** for run (design‑mode); run_snapshot can ignore it.
 
-"solver": {
+.. code-block::
 
-"t0": 0.0,
-
-"t_end": 15.0,
-
-"dt": 0.1
-
-}
+      "solver": {
+      
+      "t0": 0.0,
+      
+      "t_end": 15.0,
+      
+      "dt": 0.1
+      
+      }
 
 What every company must provide:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -649,11 +653,13 @@ They can choose:
 4. physics — “global constants”
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-"physics": {
-
-"g": 9.81
-
-}
+.. code-block::
+      
+     "physics": {
+      
+      "g": 9.81
+      
+      }
 
 | At a minimum, every company must provide g (gravitational
   acceleration).
@@ -669,37 +675,39 @@ But for now, **g is the only absolute requirement**.
 To make it **super easy** for any company to get started, you can accept
 a **minimal config** like this:
 
-{
+.. code-block::
 
-"vessels": [
-
-{ "id": 1, "name": "Separator 1", "type": "separator", "V0": 10.0 },
-
-{ "id": 2, "name": "FWKO 1", "type": "fwko", "V0": 5.0 },
-
-{ "id": 3, "name": "Stock Tank 1", "type": "tank", "V0": 8.0 }
-
-],
-
-"flows": [
-
-{ "from": 1, "to": 2, "F_in": 10.0, "f_gas": 0.6 },
-
-{ "from": 2, "to": 3, "F_in": 8.0, "f_gas": 0.1 }
-
-],
-
-"solver": { "t0": 0.0, "t_end": 10.0, "dt": 0.1 },
-
-"physics": { "g": 9.81 },
-
-"sendtotopic": "carryover_physics",
-
-"topologyname": "config2",
-
-“localfoldername”: “mysimulationdata”
-
-}
+      {
+      
+      "vessels": [
+      
+      { "id": 1, "name": "Separator 1", "type": "separator", "V0": 10.0 },
+      
+      { "id": 2, "name": "FWKO 1", "type": "fwko", "V0": 5.0 },
+      
+      { "id": 3, "name": "Stock Tank 1", "type": "tank", "V0": 8.0 }
+      
+      ],
+      
+      "flows": [
+      
+      { "from": 1, "to": 2, "F_in": 10.0, "f_gas": 0.6 },
+      
+      { "from": 2, "to": 3, "F_in": 8.0, "f_gas": 0.1 }
+      
+      ],
+      
+      "solver": { "t0": 0.0, "t_end": 10.0, "dt": 0.1 },
+      
+      "physics": { "g": 9.81 },
+      
+      "sendtotopic": "carryover_physics",
+      
+      "topologyname": "config2",
+      
+      “localfoldername”: “mysimulationdata”
+      
+      }
 
 Everything else can be **filled from defaults** (VESSEL_PHYSICS); they
 just need to give:
@@ -827,61 +835,63 @@ For each SCADA cycle, for each vessel:
 
 *# Example mapping per vessel (inside your SCADA‑loop)*
 
-**def** build_vessel_physics_from_tags(vessel_tags):
+.. code-block::
 
-*# Assume vessel_tags is a dict from SCADA*
-
-P = vessel_tags["operatingPressure"] *# Pa or bar*
-
-T = vessel_tags["operatingTemperature"] *# °C or K*
-
-Fg = vessel_tags["gasFlowRate"] *# m³/s or equivalent*
-
-F_o = vessel_tags["hclFlowRate"] *# oil / HCL*
-
-F_w = vessel_tags["waterFlowRate"] *# water*
-
-rho_g = vessel_tags["gasDensity"]
-
-rho_o = vessel_tags["hclDensity"]
-
-rho_w = vessel_tags["waterDensity"]
-
-mu_g = vessel_tags["gasViscosity"]
-
-*# Compute total liquid flow*
-
-F_l = F_o + F_w
-
-rho_l = (F_o \* rho_o + F_w \* rho_w) / (F_o + F_w) *# vol‑avg*
-
-*# Gas‑fraction in mixed‑flow (use this for your SolverConfig flows)*
-
-**if** F_g + F_l > 0:
-
-f_gas = F_g / (F_g + F_l)
-
-**else**:
-
-f_gas = 0.0
-
-*# Optional: compute liquid‑viscosity log‑mean*
-
-*# mu_l = ... if you want, but not used by your current kernel*
-
-**return** {
-
-"F_in": F_g + F_l, *# m³/s*
-
-"f_gas": f_gas,
-
-"rho_l": float(rho_l),
-
-"rho_g": float(rho_g),
-
-"mu_g": mu_g,
-
-}
+      **def** build_vessel_physics_from_tags(vessel_tags):
+      
+      *# Assume vessel_tags is a dict from SCADA*
+      
+      P = vessel_tags["operatingPressure"] *# Pa or bar*
+      
+      T = vessel_tags["operatingTemperature"] *# °C or K*
+      
+      Fg = vessel_tags["gasFlowRate"] *# m³/s or equivalent*
+      
+      F_o = vessel_tags["hclFlowRate"] *# oil / HCL*
+      
+      F_w = vessel_tags["waterFlowRate"] *# water*
+      
+      rho_g = vessel_tags["gasDensity"]
+      
+      rho_o = vessel_tags["hclDensity"]
+      
+      rho_w = vessel_tags["waterDensity"]
+      
+      mu_g = vessel_tags["gasViscosity"]
+      
+      *# Compute total liquid flow*
+      
+      F_l = F_o + F_w
+      
+      rho_l = (F_o \* rho_o + F_w \* rho_w) / (F_o + F_w) *# vol‑avg*
+      
+      *# Gas‑fraction in mixed‑flow (use this for your SolverConfig flows)*
+      
+      **if** F_g + F_l > 0:
+      
+      f_gas = F_g / (F_g + F_l)
+      
+      **else**:
+      
+      f_gas = 0.0
+      
+      *# Optional: compute liquid‑viscosity log‑mean*
+      
+      *# mu_l = ... if you want, but not used by your current kernel*
+      
+      **return** {
+      
+      "F_in": F_g + F_l, *# m³/s*
+      
+      "f_gas": f_gas,
+      
+      "rho_l": float(rho_l),
+      
+      "rho_g": float(rho_g),
+      
+      "mu_g": mu_g,
+      
+      }
 
 Then for each train:
 
@@ -907,7 +917,7 @@ CORE Mappings For Each Vessel
 **
 
 What TML Carryover Solution is Predicting
-=========================================
+------------------------------------------
 
 | TML is computing and predicting: **“Physics‑baseline + TML bias
   correction”**,
@@ -1103,7 +1113,7 @@ carryover‑engine** that every oil‑and‑gas company will understand and
 trust.
 
 Vessel Configuration: Example of 12 Vessels
-===========================================
+-----------------------------------------
 
 **Goto Github to see configuration in section "tml_physics_simulator”:**
 https://github.com/smaurice101/raspberrypi/blob/main/tml-airflow/data/payloads/scadaai/carryover/config2
@@ -1113,7 +1123,7 @@ https://github.com/smaurice101/raspberrypi/blob/main/tml-airflow/data/payloads/s
    :height: 4.78403in
 
 TML RealFlow Solution
-=====================
+-----------------------
 
 The entire physics-based model and SCADA/DCS integration is triggered
 directly from the TML RealFlow dashboard shown below.
