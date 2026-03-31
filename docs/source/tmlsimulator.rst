@@ -6,135 +6,6 @@ TML Simulator
 with Direct SCADA/DCS Integration and Real-Time Machine Learning, AI,
 Agentic AI**
 
-Contents
-========
-
-`Executive Summary <#executive-summary>`__ `3 <#executive-summary>`__
-
-`Why TML Simulator Is
-Industry‑Leading <#why-tml-simulator-is-industryleading>`__
-`3 <#why-tml-simulator-is-industryleading>`__
-
-`The Fundamental Physics / Math <#the-fundamental-physics-math>`__
-`4 <#the-fundamental-physics-math>`__
-
-`1. Gas‑Velocity versus Souders‑Brown
-Limit <#gasvelocity-versus-soudersbrown-limit>`__
-`4 <#gasvelocity-versus-soudersbrown-limit>`__
-
-`2. Droplet‑Settling in the Gravity
-Section <#dropletsettling-in-the-gravity-section>`__
-`5 <#dropletsettling-in-the-gravity-section>`__
-
-`3. Vessel‑Holdup and Time‑Stepping <#vesselholdup-and-timestepping>`__
-`6 <#vesselholdup-and-timestepping>`__
-
-`Why This Is Production‑Grade <#why-this-is-productiongrade>`__
-`7 <#why-this-is-productiongrade>`__
-
-`Light Code Overview (For Technical
-Review) <#light-code-overview-for-technical-review>`__
-`8 <#light-code-overview-for-technical-review>`__
-
-`Why This Is Industry‑Leading <#why-this-is-industryleading>`__
-`8 <#why-this-is-industryleading>`__
-
-`Appendix: <#appendix>`__ `10 <#appendix>`__
-
-`Standard Vessel Configuation Template for TML
-Simulator <#standard-vessel-configuation-template-for-tml-simulator>`__
-`10 <#standard-vessel-configuation-template-for-tml-simulator>`__
-
-`1. vessels — “every vessel matters” <#vessels-every-vessel-matters>`__
-`11 <#vessels-every-vessel-matters>`__
-
-`2. flows — “every internal pipe” <#flows-every-internal-pipe>`__
-`13 <#flows-every-internal-pipe>`__
-
-`What every company must provide per
-flow: <#what-every-company-must-provide-per-flow>`__
-`13 <#what-every-company-must-provide-per-flow>`__
-
-`3. solver — “run time range” <#solver-run-time-range>`__
-`14 <#solver-run-time-range>`__
-
-`What every company must provide: <#what-every-company-must-provide>`__
-`14 <#what-every-company-must-provide>`__
-
-`4. physics — “global constants” <#physics-global-constants>`__
-`14 <#physics-global-constants>`__
-
-`5. Minimal “anything‑goes” version <#minimal-anythinggoes-version>`__
-`15 <#minimal-anythinggoes-version>`__
-
-`Mapping the SCADA Tags To Vessel
-Physics <#mapping-the-scada-tags-to-vessel-physics>`__
-`16 <#mapping-the-scada-tags-to-vessel-physics>`__
-
-`1. What the SCADA fields give us: <#what-the-scada-fields-give-us>`__
-`16 <#what-the-scada-fields-give-us>`__
-
-`2. Mapping SCADA tags to physics
-inputs <#mapping-scada-tags-to-physics-inputs>`__
-`17 <#mapping-scada-tags-to-physics-inputs>`__
-
-`CORE Mappings For Each Vessel <#core-mappings-for-each-vessel>`__
-`18 <#core-mappings-for-each-vessel>`__
-
-`What TML Carryover Solution is
-Predicting <#what-tml-carryover-solution-is-predicting>`__
-`19 <#what-tml-carryover-solution-is-predicting>`__
-
-`2. Why this is better than using only the empirical or only the
-physics <#why-this-is-better-than-using-only-the-empirical-or-only-the-physics>`__
-`20 <#why-this-is-better-than-using-only-the-empirical-or-only-the-physics>`__
-
-`3. Practical “deployment stages” you can
-document <#practical-deployment-stages-you-can-document>`__
-`21 <#practical-deployment-stages-you-can-document>`__
-
-`Summary <#summary>`__ `21 <#summary>`__
-
-`Vessel Configuration: Example of 12
-Vessels <#vessel-configuration-example-of-12-vessels>`__
-`22 <#vessel-configuration-example-of-12-vessels>`__
-
-`TML RealFlow Solution <#tml-realflow-solution>`__
-`23 <#tml-realflow-solution>`__
-
-`Customers’ Advantages: <#customers-advantages>`__
-`23 <#customers-advantages>`__
-
-`1D Souders-Brown and 3D CFD <#d-souders-brown-and-3d-cfd>`__
-`24 <#d-souders-brown-and-3d-cfd>`__
-
-`Core Physics Approach <#core-physics-approach>`__
-`24 <#core-physics-approach>`__
-
-`When Each Wins: 1D vs 3D <#when-each-wins-1d-vs-3d>`__
-`25 <#when-each-wins-1d-vs-3d>`__
-
-`Hybrid Reality (Industry
-Practice) <#hybrid-reality-industry-practice>`__
-`25 <#hybrid-reality-industry-practice>`__
-
-`Industry Perspective <#industry-perspective>`__
-`25 <#industry-perspective>`__
-
-`Computational Reality <#computational-reality>`__
-`26 <#computational-reality>`__
-
-`Network Scale <#network-scale>`__ `26 <#network-scale>`__
-
-`Engineering Truth <#engineering-truth>`__ `26 <#engineering-truth>`__
-
-`Flowsheet: 1D Souders-Brown and 3D
-CFD <#flowsheet-1d-souders-brown-and-3d-cfd>`__
-`27 <#flowsheet-1d-souders-brown-and-3d-cfd>`__
-
-**
-**
-
 Executive Summary
 =================
 
@@ -151,7 +22,7 @@ droplet‑physics and Numba‑accelerated computation, it:
 
 ..
 
-   .. image:: media/image1.png
+   .. image:: simresults.png
       :width: 6.5in
       :height: 2.66736in
 
@@ -1236,7 +1107,7 @@ Vessel Configuration: Example of 12 Vessels
 **Goto Github to see configuration in section "tml_physics_simulator”:**
 https://github.com/smaurice101/raspberrypi/blob/main/tml-airflow/data/payloads/scadaai/carryover/config2
 
-.. image:: media/image2.png
+.. image:: simflow.png
    :width: 6.5in
    :height: 4.78403in
 
@@ -1267,7 +1138,7 @@ Customers’ Advantages:
 
 7. **Engineer / Data Scientist Focused with the Business in Mind**
 
-.. image:: media/image3.png
+.. image:: simdash.png
    :width: 6.5in
    :height: 3.30347in
 
