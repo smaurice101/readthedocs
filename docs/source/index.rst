@@ -253,6 +253,7 @@ Contents
    coreintegrations
    dashboards
    api
+   tmlsimfaq
    entity
    rtms
    jsonprocessing
