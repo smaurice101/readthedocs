@@ -922,7 +922,7 @@ What TML Carryover Solution is Predicting
   correction”**,
 | where the **real, final carryover** the customer cares about is:
 
-:math:`\text{carryover\_real}\mathbf{=}\text{carryover\_physics}\mathbf{+ TML\_}\text{bias\_prediction}`
+:math:`\text{carryover_real}\mathbf{=}\text{carryover_physics}\mathbf{+ TML\_}\text{bias_prediction}`
 **(1)**\ :math:`
 `
 
