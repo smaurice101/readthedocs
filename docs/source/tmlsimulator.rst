@@ -983,7 +983,11 @@ a. | **carryover_empirical**
 
    Physics: PhysicsCarryover [First principles]
 
-   Bias: ML(carryover_empirical - carryover_physics)
+   To ensure we have an Apples-Apples comparison between carryover from SCADA and Physics, the SCADA carryover is scaled using: scaling_factor = carryover_physics/carryover_scada
+
+   This creates a new scaled SCADA variable: carryover_scada_norm = carryover_scada * scaling_factor
+
+   Bias: ML(carryover_scada_norm - carryover_physics)
 
    Final: carryover_physics + ML_bias [Best of both]
 
@@ -996,14 +1000,14 @@ c. | **carryover_bias**
 
 .. math::
 
-   \text{carryover\_bias} = \text{carryover\_empirical} - \text{carryover\_physics}
+   \text{carryover\_bias} = \text{carryover\_scada\_norm} - \text{carryover\_physics}
 
 d. TML trains and **predicts carryover_bias** from features:
 
 ..
 
-   gasFlowRate, waterFlowRate, operatingPressure, stokes_number,
-   density_ratio, emulsion_ratio, inversion_risk, ...
+   carryover_bias = f(gasFlowRate, waterFlowRate, operatingPressure, stokes_number,
+   density_ratio, emulsion_ratio, inversion_risk, ...)
 
 e. finally compute the “real” customer‑carryover as:
 
@@ -1054,11 +1058,11 @@ and reservoir‑simulation:
 3. Practical “deployment stages” you can document
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-You can present it as a **3‑stage story**:
+**3‑stage story**:
 
 1. **Stage 1 – Physics‑baseline only**
 
-   -  carryover_physics runs, compared to carryover_empirical and
+   -  carryover_physics runs, compared to carryover_empirical (normalized) and
       field‑data.
 
    -  Tunes TML‑physics‑parameters
@@ -1066,7 +1070,7 @@ You can present it as a **3‑stage story**:
 
 2. **Stage 2 – Physics‑baseline + bias‑learning**
 
-   -  Fit ML to (empirical – physics) = bias,
+   -  Fit ML to (empirical_normalized – physics) = bias,
 
    -  Show that ML‑bias‑correction reduces residuals versus field‑data.
 
@@ -1095,9 +1099,9 @@ Summary
 
 -  Compute **carryover_physics** (TML),
 
--  Compute **carryover_empirical** (legacy formula),
+-  Compute **carryover_empirical** (legacy formula) and normalize to carryover_scada_norm,
 
--  Define **carryover_bias = carryover_empirical − carryover_physics**,
+-  Define **carryover_bias = carryover_scada_norm − carryover_physics**,
 
 -  Train **ML to predict carryover_bias**,
 
