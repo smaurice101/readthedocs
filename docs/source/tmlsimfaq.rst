@@ -3162,3 +3162,15 @@ low‑infra‑cost. It’s **interoperable with AspenTech‑style tools**,
 **config‑driven and audit‑ready**, and **ready for onshore, offshore,
 and downstream pilots**. With cross‑validation and field‑validation,
 it’s **production‑grade for SCADA‑level carryover‑baseline**.”
+
+**70. What is the solution architecture**
+
+The Solution runs in a TML server plugin Docker Container.  All you need is the TML RealFlow Control AI Dashboard!
+
+.. figure:: rflow.png
+   :scale: 60%
+
+**71. How can I use this solution?**
+Contact : info@otics.ca
+Website: `www.otics.ca <https://www.otics.ca>`_
+
