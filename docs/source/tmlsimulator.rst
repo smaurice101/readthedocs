@@ -1109,7 +1109,7 @@ Summary
 
 .. math::
 
-   \boxed{\text{carryover\_real}\mathbf{=}\text{carryover\_physics}\mathbf{+}\text{TML\_bias\_prediction}}
+   \boxed{\text{carryover_real}\mathbf{=}\text{carryover_physics}\mathbf{+}\text{TML_bias_prediction}}
 
 That gives you a **production‑ready, physics‑anchored, ML‑corrected
 carryover‑engine** that every oil‑and‑gas company will understand and
