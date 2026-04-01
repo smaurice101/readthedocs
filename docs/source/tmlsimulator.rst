@@ -1353,3 +1353,142 @@ Flowsheet: 1D Souders-Brown and 3D CFD
 | **Solve   | 1-10ms total network         | 12-72hrs per vessel      |
 | Time**    |                              |                          |
 +-----------+------------------------------+--------------------------+
+
+Units Table
+---------------
+
++-------------------------+--------------------------------------------+
+| **Variable**            | **Likely Units / Scaling Explanation**     |
++=========================+============================================+
+| vesselIndex             | unitless index (integer 1–12)              |
++-------------------------+--------------------------------------------+
+| operatingPressure (Pg)  | **bar** or **psig** (SCADA‑scaled; treat   |
+|                         | as absolute pressure in bar if using SI)   |
++-------------------------+--------------------------------------------+
+| operatingTemperature    | **°C**                                     |
++-------------------------+--------------------------------------------+
+| gasFlowRate (Qg)        | **kg/s** or **m³/s** (mass or volumetric   |
+|                         | gas rate)                                  |
++-------------------------+--------------------------------------------+
+| gasDensity (rhog)       | **kg/m³** (gas density, but 0.0 here is    |
+|                         | invalid / bad signal)                      |
++-------------------------+--------------------------------------------+
+| g                       | **unitless**, scaled as Zg = Z×1000 (so    |
+| asCompressabilityFactor | 960 → 0.960)                               |
+| (Zg)                    |                                            |
++-------------------------+--------------------------------------------+
+| gasViscosity (mug       | Raw SCADA value; your derived mug =        |
+| signal)                 | gasViscosity / 1000000.0 should be         |
+|                         | **Pa·s** (≈ cP scaled to SI)               |
++-------------------------+--------------------------------------------+
+| hclFlowRate (Qh)        | **kg/s** or **m³/s** (acid / liquid flow)  |
++-------------------------+--------------------------------------------+
+| hclDensity (ρh)         | **kg/m³**                                  |
++-------------------------+--------------------------------------------+
+| hclViscosity            | **cP‑like / scaled viscosity**; treat as   |
+|                         | **mPas** or **Pa·s** depending on context  |
++-------------------------+--------------------------------------------+
+| hclSurfaceTension (sow) | **mN/m** or **dyne/cm** (surface tension   |
+|                         | liquid–liquid)                             |
++-------------------------+--------------------------------------------+
+| waterFlowRate (Qw)      | **kg/s** or **m³/s** (water flow)          |
++-------------------------+--------------------------------------------+
+| waterDensity (rhow)     | **kg/m³** (≈1000 kg/m³ for water)          |
++-------------------------+--------------------------------------------+
+| waterViscosity (muw     | Raw SCADA value; derived muw should be     |
+| signal)                 | **Pa·s**                                   |
++-------------------------+--------------------------------------------+
+| waterSurfaceTension     | **mN/m** or **dyne/cm** (surface tension   |
+| (sw)                    | liquid–gas)                                |
++-------------------------+--------------------------------------------+
+| hclWaterSurfaceTension  | **mN/m** or **dyne/cm** (liquid–liquid     |
+| (sow)                   | surface tension)                           |
++-------------------------+--------------------------------------------+
+| phseIn                  | **unitless fraction × 1000**, e.g., 444 →  |
+| versionCriticalWaterCut | **0.444** (44.4%)                          |
++-------------------------+--------------------------------------------+
+| picwc                   | **unitless fraction** (critical water cut) |
++-------------------------+--------------------------------------------+
+| solidFlowRate (Qs)      | **kg/s** or **m³/s** (solid flow)          |
++-------------------------+--------------------------------------------+
+| solidDensity            | **kg/m³** (≈100–3000 kg/m³ depending on    |
+|                         | solids)                                    |
++-------------------------+--------------------------------------------+
+| rho_l                   | **kg/m³** (total liquid density, derived   |
+|                         | from mixing rule)                          |
++-------------------------+--------------------------------------------+
+| raw_co                  | **unitless fraction** (0–1) of liquid vs   |
+|                         | total phase                                |
++-------------------------+--------------------------------------------+
+| carryover               | This is a **scaled index** (e.g.,          |
+|                         | carryover = 15.0 \* (raw_co**0.3)); after  |
+|                         | normalization with carryover_scada_norm =  |
+|                         | carryover \* scaling_factor, it becomes    |
+|                         | **physical carryover** (kg/s, or same unit |
+|                         | as your physics baseline)                  |
+|                         |                                            |
+|                         | The Scaling factor is simple:              |
+|                         | scaling_factor = carryover_sim/carryover   |
+|                         |                                            |
+|                         | **Carryover_bias** = carryover_scada_norm  |
+|                         | – carryover_sim                            |
++-------------------------+--------------------------------------------+
+| flow_stability          | **unitless** or engineering index (high    |
+|                         | values indicate instability)               |
++-------------------------+--------------------------------------------+
+| F_liq                   | **kg/s** or **m³/s** (total liquid flow:   |
+|                         | Qw + Qh + Qs)                              |
++-------------------------+--------------------------------------------+
+| F_total                 | **kg/s** or **m³/s** (total in‑going flow, |
+|                         | Qg + F_liq)                                |
++-------------------------+--------------------------------------------+
+| gas_reynolds            | **Re = (Qg × rhog) / (mug + 1e-6)** →      |
+|                         | **dimensionless** (gas Reynolds)           |
++-------------------------+--------------------------------------------+
+| Qs                      | **kg/s** or **m³/s** (same as above;       |
+|                         | duplicated for access)                     |
++-------------------------+--------------------------------------------+
+| emulsion_ratio (sw /    | **unitless** (surface tension ratio,       |
+| sow)                    | liquid–gas vs liquid–liquid)               |
++-------------------------+--------------------------------------------+
+| reynolds_ratio          | **unitless** (Re_gas / Re_water)           |
++-------------------------+--------------------------------------------+
+| f_gas                   | **unitless fraction** (gas fraction of     |
+|                         | total flow)                                |
++-------------------------+--------------------------------------------+
+| muw                     | **Pa·s** (water viscosity, derived)        |
++-------------------------+--------------------------------------------+
+| sw                      | **mN/m** or **dyne/cm** (surface tension,  |
+|                         | same as above)                             |
++-------------------------+--------------------------------------------+
+| rhow                    | **kg/m³** (same as above)                  |
++-------------------------+--------------------------------------------+
+| inversion_risk          | **unitless index** (Qw / Qg − picwc)       |
++-------------------------+--------------------------------------------+
+| density_ratio (rhow /   | **unitless** (liquid/gas density ratio)    |
+| rhog)                   |                                            |
++-------------------------+--------------------------------------------+
+| water_reynolds          | **Re_water = (Qw × rhow) / (muw + 1e-6)**  |
+|                         | → **dimensionless**                        |
++-------------------------+--------------------------------------------+
+| Qw                      | **kg/s** or **m³/s** (same as above)       |
++-------------------------+--------------------------------------------+
+| stokes_number           | **unitless** (classical or system‑defined  |
+|                         | Stokes‑number‑like term)                   |
++-------------------------+--------------------------------------------+
+| Qg                      | **kg/s** or **m³/s** (same as above)       |
++-------------------------+--------------------------------------------+
+| Pg                      | **bar** or **psig** (same as               |
+|                         | operatingPressure)                         |
++-------------------------+--------------------------------------------+
+| Qh                      | **kg/s** or **m³/s** (same as above)       |
++-------------------------+--------------------------------------------+
+| mug                     | **Pa·s** (gas viscosity, derived from      |
+|                         | gasViscosity scaled)                       |
++-------------------------+--------------------------------------------+
+| sow                     | **mN/m** or **dyne/cm** (same as above)    |
++-------------------------+--------------------------------------------+
+| Zg                      | **unitless compressibility factor**,       |
+|                         | derived as Zg = gasCompressabilityFactor / |
+|                         | 1000.0                                     |
++-------------------------+--------------------------------------------+
