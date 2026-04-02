@@ -1492,3 +1492,172 @@ Units Table
 |                         | derived as Zg = gasCompressabilityFactor / |
 |                         | 1000.0                                     |
 +-------------------------+--------------------------------------------+
+
+Vessel and Model Variables
+----------------------------
+
+Scada Raw Measurements
+~~~~~~~~~~~~~~~~~~~~~~
+
++------------------+-----+-------+---------------+-------------------+
+| **Variable**     | **U | **    | *             | **Role**          |
+|                  | nit | Scale | *Importance** |                   |
+|                  | s** | Fac   |               |                   |
+|                  |     | tor** |               |                   |
++==================+=====+=======+===============+===================+
+| o                | p   | /100  | Vessel        | Drives gas        |
+| peratingPressure | sig |       | operating     | density,          |
+| (Pg)             |     |       | condition     | compressibility,  |
+|                  |     |       |               | Souders velocity  |
++------------------+-----+-------+---------------+-------------------+
+| oper             | °F  | /100  | Thermodynamic | Affects all fluid |
+| atingTemperature |     |       | state         | properties (rho,  |
+| (T)              |     |       |               | mu, Z)            |
++------------------+-----+-------+---------------+-------------------+
+| gasFlowRate (Qg) | k   | /100  | Primary       | Determines gas    |
+|                  | g/h |       | separation    | velocity →        |
+|                  |     |       | driver        | carryover         |
++------------------+-----+-------+---------------+-------------------+
+| waterFlowRate    | k   | /1000 | Liquid        | Flooding risk,    |
+| (Qw)             | g/h |       | loading       | phase inversion   |
++------------------+-----+-------+---------------+-------------------+
+| hclFlowRate (Qh) | k   | /100  | Oil/HCl flow  | Liquid density,   |
+|                  | g/h |       |               | total F_liq       |
++------------------+-----+-------+---------------+-------------------+
+| solidFlowRate    | k   | /100  | Solids        | Erosion, fouling  |
+| (Qs)             | g/h |       | carryover     | risk              |
++------------------+-----+-------+---------------+-------------------+
+
+Fluid Properties
+----------------
+
++---------------------------+-----+-------+------------+--------------+
+| **Variable**              | **U | **    | **Im       | **Role**     |
+|                           | nit | Scale | portance** |              |
+|                           | s** | Fac   |            |              |
+|                           |     | tor** |            |              |
++===========================+=====+=======+============+==============+
+| gasDensity (rhog)         | kg  | /1000 | Gas        | Gas Re# →    |
+|                           | /m³ |       | momentum   | entrainment  |
++---------------------------+-----+-------+------------+--------------+
+| waterDensity (rhow)       | kg  | /10   | Buoyancy   | Stokes       |
+|                           | /m³ |       | force      | settling     |
+|                           |     |       |            | velocity     |
++---------------------------+-----+-------+------------+--------------+
+| gasViscosity (mug)        | P   | /1e8  | Drag       | Droplet      |
+|                           | a·s |       | forces     | Reynolds     |
+|                           |     |       |            | number       |
++---------------------------+-----+-------+------------+--------------+
+| waterViscosity (muw)      | P   | /1e6  | Liquid     | Liquid film  |
+|                           | a·s |       | drag       | stability    |
++---------------------------+-----+-------+------------+--------------+
+| waterSurfaceTension (sw)  | N/m | /1e5  | Emulsion   | Inversion    |
+|                           |     |       | stability  | risk         |
++---------------------------+-----+-------+------------+--------------+
+| hclWaterSurfaceTension    | N/m | /1e5  | Interface  | Emulsion     |
+| (sow)                     |     |       | tension    | ratio        |
++---------------------------+-----+-------+------------+--------------+
+| gasCompressabilityFactor  | -   | /1000 | Real gas   | Accurate     |
+| (Zg)                      |     |       | behavior   | rho_g =      |
+|                           |     |       |            | P\ *M/       |
+|                           |     |       |            | (Z*\ R\ *T)* |
++---------------------------+-----+-------+------------+--------------+
+| phse                      | f   | /1000 | Emulsion   | Phase        |
+| InversionCriticalWaterCut | rac |       | threshold  | inversion    |
+| (picwc)                   |     |       |            | risk         |
++---------------------------+-----+-------+------------+--------------+
+
+Physics/Derived
+---------------
+
++----------+-----+-----------+-----------------+----------------------+
+| **Va     | **U | *         | **Importance**  | **Role**             |
+| riable** | nit | *Source** |                 |                      |
+|          | s** |           |                 |                      |
++==========+=====+===========+=================+======================+
+| F_liq    | k   | Qh+Qw+Qs  | Liquid holdup   | Level control,       |
+|          | g/h |           |                 | flooding             |
++----------+-----+-----------+-----------------+----------------------+
+| rho_l    | kg  | Weighted  | Liquid momentum | Liquid Re#,          |
+|          | /m³ |           |                 | entrainment          |
++----------+-----+-----------+-----------------+----------------------+
+| F_total  | k   | Qg+F_liq  | Total           | Vessel capacity      |
+|          | g/h |           | throughput      |                      |
++----------+-----+-----------+-----------------+----------------------+
+| f_gas    | F   | Q         | Phase ratio     | Gas velocity scaling |
+|          | rac | g/F_total |                 |                      |
++----------+-----+-----------+-----------------+----------------------+
+| hu[i]    | M   | vol/(ar   | Liquid level    | Gas space volume     |
+|          |     | ea\ *ht)* |                 |                      |
++----------+-----+-----------+-----------------+----------------------+
+| f        | k   | Σ(fg_m    | Vessel gas load | **Primary carryover  |
+| g_tot[i] | g/h | at\ *hu)* |                 | driver**             |
++----------+-----+-----------+-----------------+----------------------+
+| f        | k   | Σ(fl_m    | Vessel liquid   | Level dynamics       |
+| l_tot[i] | g/h | at\ *hu)* | load            |                      |
++----------+-----+-----------+-----------------+----------------------+
+| gvol[i]  | m³  | are       | Gas             | **gvel =             |
+|          |     | a*(ht-hl) | disengagement   | fg_tot/gvol**        |
++----------+-----+-----------+-----------------+----------------------+
+| gvel[i]  | m/s | fg/       | **Gas           | **Souders-Brown      |
+|          |     | 3600/gvol | velocity**      | core**               |
++----------+-----+-----------+-----------------+----------------------+
+| carr     | F   | Physics   | Prediction      | ML bias training     |
+| yover[i] | rac |           |                 | target               |
++----------+-----+-----------+-----------------+----------------------+
+
+Simulator Arrays
+----------------
+
++-----------------+-------+------+------------+-----------------------+
+| **Array**       | **Sh  | *    | **Im       | **Role**              |
+|                 | ape** | *Uni | portance** |                       |
+|                 |       | ts** |            |                       |
++=================+=======+======+============+=======================+
+| areas[i]        | (12,) | m²   | Geometry   | Level → hl = vol/area |
++-----------------+-------+------+------------+-----------------------+
+| hts[i]          | (12,) | m    | Geometry   | Gas height = ht-hl    |
++-----------------+-------+------+------------+-----------------------+
+| ein[i]          | (12,) | frac | Inlet sep  | Primary separation    |
++-----------------+-------+------+------------+-----------------------+
+| vs_souders[i]   | (12,) | m/s  | **Design   | K\ *√[(ρl-ρg)/ρg]*    |
+|                 |       |      | limit**    |                       |
++-----------------+-------+------+------------+-----------------------+
+| em[i]           | (12,) | frac | Mist pad   | Secondary entrainment |
++-----------------+-------+------+------------+-----------------------+
+| car             | (12,) | -    | C          | Physics → SCADA match |
+| ryover_scale[i] |       |      | alibration |                       |
++-----------------+-------+------+------------+-----------------------+
+| f_gas_mat       | (1    | kg/h | **Flow     | HP→MP→LP topology     |
+|                 | 2,12) |      | routing**  |                       |
++-----------------+-------+------+------------+-----------------------+
+| carryover[t,i]  | (     | frac | Output     | Real-time predictions |
+|                 | N,12) |      |            |                       |
++-----------------+-------+------+------------+-----------------------+
+
+Analytics Features
+------------------
+
++--------------+-----+------------------+------------+----------------+
+| **Variable** | **U | **Formula**      | **Im       | **Role**       |
+|              | nit |                  | portance** |                |
+|              | s** |                  |            |                |
++==============+=====+==================+============+================+
+| raw_co       | f   | (Q               | Ground     | ML training    |
+|              | rac | w+Qh+Qs)/F_total | truth      | target         |
++--------------+-----+------------------+------------+----------------+
+| gas_reynolds | -   | ρg\ *gvel*\ D/μg | Flow       | Tur            |
+|              |     |                  | regime     | bulent/laminar |
++--------------+-----+------------------+------------+----------------+
+| wa           | -   | ρ                | Liquid     | Film stability |
+| ter_reynolds |     | l\ *v_liq*\ D/μl | regime     |                |
++--------------+-----+------------------+------------+----------------+
+| s            | -   | (                | Droplet    | Settling       |
+| tokes_number |     | ρl-ρg)\ *μl/Pg²* | sep        | efficiency     |
++--------------+-----+------------------+------------+----------------+
+| in           | -   | (Qw/Qg)-picwc    | Emulsion   | Operational    |
+| version_risk |     |                  | risk       | alert          |
++--------------+-----+------------------+------------+----------------+
+| em           | -   | sw/sow           | Stability  | Coalescence    |
+| ulsion_ratio |     |                  |            | rate           |
++--------------+-----+------------------+------------+----------------+
