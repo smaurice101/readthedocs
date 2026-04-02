@@ -309,8 +309,8 @@ at SCADA‑speed, across every separation train in an asset portfolio.
 Appendix:
 ------------
 
-TML Simulator Solution Refenced Architecture
---------------------------------
+TML Simulator Solution Reference Architecture
+-------------------------------------------
 
 The TML simulator is integrated with SCADA/DCS and integrated with real-time TML, AI and Agentic AI right from the dashboard.  
 
