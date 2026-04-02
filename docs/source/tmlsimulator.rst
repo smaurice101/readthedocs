@@ -322,7 +322,7 @@ TML RealFlow Control AI Solution
 
 The TML simulator is integrated with the TML RealFlow Control AI Dashboard.  
 
-.. figure:: rlflow.png
+.. figure:: simdash.png
    :scale: 60%
 
 
