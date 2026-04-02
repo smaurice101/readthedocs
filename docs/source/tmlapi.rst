@@ -63,6 +63,7 @@ Industrial API For Ingesting Data From SCADA and MQTT
 See :ref:`TML Processing Using SCADA and MQTT`
 
 - ``POST /api/v1/scada_modbus_read`` - [`click <https://tml.readthedocs.io/en/latest/tmlapi.html#post-api-v1-scada-modbus-read>`_] Directly connect to a SCADA/Modbus system and ingest real-time data → 200,400
+- ``POST /api/v1/scada_modbus_carryover`` - [`click <https://tml.readthedocs.io/en/latest/tmlapi.html#post-api-v1-scada-modbus-carryover>`_] Initiate the TML Simulator to compute carryover → 200,400
   - See `SCADA Example <https://tml.readthedocs.io/en/latest/tmlapi.html#id17>`_
 - ``POST /api/v1/mqtt_subscribe`` - [`click <https://tml.readthedocs.io/en/latest/tmlapi.html#post-api-v1-mqtt-subscribe>`_] Directly connect to a MQTT system and ingest real-time data  → 200,400
   - See `MQTT Example <https://tml.readthedocs.io/en/latest/tmlapi.html#id18>`_
@@ -1959,6 +1960,150 @@ Directly connect to a SCADA/modbus system and extract or ingest real-time data a
         setIsLoading(true);
         try {
           const res = await fetch("http://localhost:9002/api/v1/scada_modbus_read", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(payload),
+          });
+    
+          const text = await res.text();
+          setResponse(`Status: ${res.status}\n\nBody:\n${text}`);
+        } catch (err) {
+          setResponse(`Error: ${err.message}`);
+        }
+        setIsLoading(false);
+      };
+    
+      return (
+        <div>
+          <h2>SCADA Modbus Read</h2>
+          <button onClick={submitRequest} disabled={isLoading}>
+            {isLoading ? "Reading..." : "Read Modbus"}
+          </button>
+          <pre style={{ marginTop: "1rem" }}>{response}</pre>
+        </div>
+      );
+    };
+    
+    export default ModbusReader;
+
+**Example Response:**
+- *200* – SCADA connected and read started.
+- *400* – ``"Missing or invalid request"``
+
+POST /api/v1/scada_modbus_carryover
+-------------------------------
+
+**Description:**
+Directly connect to a SCADA/modbus system, initiate the TML simulator and compute Oil and Gas carryover percentage.
+
+**Request JSON Parameters:**
+
+- ``scada_host`` *(string, required)* - Host of the SCADA system
+- ``scada_port`` *(int, required)* - Port of the SCADA system
+- ``slave_id`` *(int, required default=1)* - Slave ID of the SCADA system
+- ``read_interval_seconds`` *(int, required default=2)* - Interval in seconds to read SCADA
+- ``callback_url`` *(string, required)* - This is your callback url - TML will re-route and POST the output to this url. Separate multipe URL with comma
+- ``max_reads``  *(int, leave as is default=-1)* 
+- ``start_register``: 40001 *(string, required default=40001)* - This is the start of the register for the field data being captured.
+- ``sendtotopic`` *(string, optional)* - This is the Kafka topic the SCADA data will be written to for TML processing.  Change to any name.
+- ``createvariables`` *(string, optional)*  - This allows users to perform mathematical calculations on the SCADA variables that can be used in machine learning and AI.
+- ``fields`` *(array of string, required)* - This is an array of strings to extract from the SCADA registers.  Based on the **start_register** value TML will start reading the field values from start_register.
+- ``scaling`` *(dict, required)* - This is the scaling for the fields.
+
+**Example Request (Python - async):**
+
+.. code-block::
+
+    import httpx
+    import asyncio
+    import json
+    
+    url = "http://localhost:9002/api/v1/scada_modbus_carryover"    
+    
+    async def read_modbus():
+        # Load payload.json
+        with open("payload.json", "r") as f:
+            payload = json.load(f)
+    
+        headers = {
+            "Content-Type": "application/json",
+        }
+    
+        async with httpx.AsyncClient() as client:
+            response = await client.post(url, json=payload, headers=headers)
+    
+        print("Status:", response.status_code)
+        print("Response body:", response.text)
+    
+    
+    # Run it
+    if __name__ == "__main__":
+        asyncio.run(read_modbus())
+
+
+**Example Request (Javascript - async):**
+
+.. code-block::
+
+    import fetch from "node-fetch";  // or use native fetch on newer Node
+    
+    const url = "http://localhost:9002/api/v1/scada_modbus_carryover";
+    
+    // Load payload.json (or hard‑code if you prefer)
+    const fs = require("fs");
+    
+    async function readModbus() {
+      const payload = JSON.parse(fs.readFileSync("payload.json", "utf-8"));
+    
+      const res = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+    
+      const text = await res.text();
+      console.log("Status:", res.status);
+      console.log("Response body:", text);
+    }
+    
+    // Run
+    (async () => {
+      await readModbus();
+    })();
+
+**Example Request (React - async):**
+
+.. code-block::
+
+    import React, { useState } from "react";
+    
+    const ModbusReader = () => {
+      const [response, setResponse] = useState("");
+      const [isLoading, setIsLoading] = useState(false);
+    
+      // Example payload (or load it how you prefer)
+      const {
+          "scada_host": "127.0.0.1",
+          "scada_port": 2502,
+          "slave_id": 1,
+          "read_interval_seconds": 2,
+          "callback_url":"http://localhost:9002/api/v1/vessel_data",
+          "max_reads": 10,
+          "start_register": 40001,
+          "sendtotopic": "scada-raw-data",
+          "createvariables": "carryover=(waterFlowRate + hclFlowRate + solidFlowRate) / gasFlowRate * 100,gas_reynolds= gasFlowRate * gasDensity / (gasViscosity * operatingPressure), water_reynolds= waterFlowRate * waterDensity / (waterViscosity * operatingPressure), reynolds_ratio= gas_reynolds / water_reynolds, stokes_number=(waterDensity-gasDensity) * waterViscosity / operatingPressure**2, inversion_risk= waterFlowRate/gasFlowRate - phseInversionCriticalWaterCut, emulsion_ratio= waterSurfaceTension / hclWaterSurfaceTension, density_ratio= waterDensity / gasDensity, flow_stability= reynolds_ratio * density_ratio",
+          "fields": ["vesselIndex","operatingPressure","operatingTemperature","gasFlowRate","gasDensity","gasCompressabilityFactor","gasViscosity","hclFlowRate","hclDensity","hclViscosity","hclSurfaceTension","waterFlowRate","waterDensity","waterViscosity","waterSurfaceTension","hclWaterSurfaceTension","phseInversionCriticalWaterCut","solidFlowRate","solidDensity"],
+          "scaling": {"vesselIndex":1,"operatingPressure":100,"operatingTemperature":100,"gasFlowRate":100,"gasDensity":1000,"gasCompressabilityFactor":1000,"gasViscosity":1000000000,"hclFlowRate":100,"hclDensity":1,"hclViscosity":1000000,"hclSurfaceTension":100000,"waterFlowRate":1000,"waterDensity":10,"waterViscosity":1000000,"waterSurfaceTension":100000,"hclWaterSurfaceTension":100000,"phseInversionCriticalWaterCut":1000,"solidFlowRate":100,"solidDensity":10}
+        };
+    
+      const submitRequest = async () => {
+        setIsLoading(true);
+        try {
+          const res = await fetch("http://localhost:9002/api/v1/scada_modbus_carryover", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
