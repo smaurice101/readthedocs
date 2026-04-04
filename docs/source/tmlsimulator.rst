@@ -16,8 +16,8 @@ droplet‑physics and Numba‑accelerated computation, it:
 
 -  Runs **real‑time physics‑baseline snapshots** at SCADA clock‑speed:
    Below is a 12 vessel (see Appendix D below) simulation with a
-   snapshot taking **0.00010s** (2-steps) and evolving 241 time steps
-   (dt=0.1) taking **0.00040s**
+   snapshot taking **0.00010s** (2-steps - 100 microseconds) and evolving 241 time steps
+   (dt=0.1) taking **0.00040s (400 microseconds)**
 
 ..
 
