@@ -73,6 +73,28 @@ As a result, TML_simulator is:
 -  **More production‑ready** than either, because it can run inside the
    same SCADA environments where operators actually make decisions.
 
+TML Simulator Can Process
+-------------------------
+
+These are the vessels TML simulator can process:
+
+ - separator
+ - fwko
+ - tank   
+ - scrubber
+ - ko_drum
+ - dehydrator
+
+**Default Values for Reference:**
+
+  - "separator": {"diameter": 3.5, "height": 12.0, "gravity_h": 2.5, "mist_eff": 0.98, "souders_k": 0.35, "d_mean_um": 220.0, "carryover_scale": 0.1},
+  - "fwko": {"diameter": 2.8, "height": 8.0, "gravity_h": 2.0, "mist_eff": 0.95, "souders_k": 0.32, "d_mean_um": 300.0, "carryover_scale": 0.1},
+  - "tank": {"diameter": 5.0, "height": 15.0, "gravity_h": 4.0, "mist_eff": 0.85, "souders_k": 0.25, "d_mean_um": 500.0, "carryover_scale": 0.1},   
+  - "scrubber": {"diameter": 2.2, "height": 7.0, "gravity_h": 1.8, "mist_eff": 0.99, "souders_k": 0.35, "d_mean_um": 150.0, "carryover_scale": 0.05},
+  - "ko_drum": {"diameter": 2.0, "height": 6.0, "gravity_h": 1.6, "mist_eff": 0.80, "souders_k": 0.28, "d_mean_um": 400.0, "carryover_scale": 0.15},
+  - "dehydrator": {"diameter": 3.0, "height": 10.0, "gravity_h": 2.2, "mist_eff": 0.99, "souders_k": 0.38, "d_mean_um": 100.0, "carryover_scale": 0.02}
+
+
 The Fundamental Physics / Math
 ------------------------------
 
