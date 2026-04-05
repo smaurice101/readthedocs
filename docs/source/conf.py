@@ -10,9 +10,16 @@ release = '0.1'
 version = '0.1.0'
 
 # -- General configuration
+
 latex_elements = {
-        'sphinxsetup': "verbatimforcewraps",
+    'sphinxsetup': "verbatimforcewraps",        
+    'extraclassoptions': 'openany,oneside',
+    'releasename': " ",
+    'preamble': r'''
+        \usepackage{amsmath,amsfonts,amssymb,amsthm}
+    ''',
 }
+
 latex_documents = [
     (master_doc, 'tml.tex', 'Transactional Machine Learning Documentation',
      'Author Name', 'manual'),
