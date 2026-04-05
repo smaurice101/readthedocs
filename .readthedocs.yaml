@@ -13,10 +13,6 @@ python:
   install:
     - requirements: docs/requirements.txt
 
+# This tells RTD exactly where the docs are
 sphinx:
-  # Point this to your actual source folder
   configuration: docs/source/conf.py
-  fail_on_warning: false 
-
-formats:
-  - pdf
