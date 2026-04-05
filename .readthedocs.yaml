@@ -4,13 +4,12 @@ build:
   os: "ubuntu-22.04"
   tools:
     python: "3.10"
-  # Read the Docs uses this to install the engine properly
   apt_packages:
     - texlive-latex-extra
     - texlive-fonts-recommended
     - texlive-latex-recommended
-    - texlive-xetex
     - latexmk
+    - ghostscript
 
 python:
   install:
