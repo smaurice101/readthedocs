@@ -13,6 +13,10 @@ version = '0.1.0'
 latex_elements = {
         'sphinxsetup': "verbatimforcewraps",
 }
+latex_documents = [
+    (master_doc, 'tml.tex', 'Transactional Machine Learning Documentation',
+     'Author Name', 'manual'),
+]
 extensions = [
     'sphinx.ext.duration',
     'sphinx.ext.doctest',
