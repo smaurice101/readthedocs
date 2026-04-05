@@ -24,9 +24,10 @@ latex_elements = {
 }
 
 latex_documents = [
-    (master_doc, 'tml.tex', 'Transactional Machine Learning Documentation',
+    ('index', 'tml.tex', 'Transactional Machine Learning Documentation',
      'Author Name', 'manual'),
 ]
+
 extensions = [
     'sphinx.ext.duration',
     'sphinx.ext.doctest',
