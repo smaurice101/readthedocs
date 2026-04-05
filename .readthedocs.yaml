@@ -4,6 +4,10 @@ build:
   os: "ubuntu-22.04"
   tools:
     python: "3.10"
+  # ADD THIS SECTION:
+  jobs:
+    post_install:
+      - apt-get update && apt-get install -y texlive-latex-extra texlive-fonts-recommended latexmk
 
 python:
   install:
@@ -11,6 +15,7 @@ python:
 
 sphinx:
   configuration: docs/source/conf.py
+
 formats:
   - pdf
   - epub
