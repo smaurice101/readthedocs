@@ -13,8 +13,10 @@ python:
   install:
     - requirements: docs/requirements.txt
 
-# Specify where the source lives so Sphinx doesn't get lost
 sphinx:
+  # Point this to your actual source folder
   configuration: docs/source/conf.py
-  # If your .rst files are in docs/source, RTD handles the paths, 
-  # but ensure your conf.py doesn't have hardcoded absolute paths.
+  fail_on_warning: false 
+
+formats:
+  - pdf
