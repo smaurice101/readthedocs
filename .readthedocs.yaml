@@ -7,16 +7,14 @@ build:
   apt_packages:
     - texlive-latex-extra
     - texlive-fonts-recommended
-    - texlive-latex-recommended
     - latexmk
-    - ghostscript
 
 python:
   install:
     - requirements: docs/requirements.txt
 
+# Specify where the source lives so Sphinx doesn't get lost
 sphinx:
   configuration: docs/source/conf.py
-
-formats:
-  - pdf
+  # If your .rst files are in docs/source, RTD handles the paths, 
+  # but ensure your conf.py doesn't have hardcoded absolute paths.
