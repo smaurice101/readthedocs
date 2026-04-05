@@ -4,10 +4,13 @@ build:
   os: "ubuntu-22.04"
   tools:
     python: "3.10"
-  # ADD THIS SECTION:
-  jobs:
-    post_install:
-      - apt-get update && apt-get install -y texlive-latex-extra texlive-fonts-recommended latexmk
+  # This is the correct way to install LaTeX on Read the Docs
+  apt_packages:
+    - texlive-latex-extra
+    - texlive-fonts-recommended
+    - latexmk
+    - texlive-xetex
+    - ghostscript
 
 python:
   install:
