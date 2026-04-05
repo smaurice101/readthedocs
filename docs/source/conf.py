@@ -11,6 +11,9 @@ version = '0.1.0'
 
 # -- General configuration
 
+# The master toctree document.
+master_doc = 'index'
+
 latex_elements = {
     'sphinxsetup': "verbatimforcewraps",        
     'extraclassoptions': 'openany,oneside',
