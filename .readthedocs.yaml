@@ -13,6 +13,7 @@ python:
   install:
     - requirements: docs/requirements.txt
 
-# This tells RTD exactly where the docs are
 sphinx:
   configuration: docs/source/conf.py
+  # If your index.rst is in docs/source, RTD needs to know:
+  # fail_on_warning: true  # Turn this off to debug if it's just a warning killing it
