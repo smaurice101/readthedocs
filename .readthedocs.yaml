@@ -4,13 +4,13 @@ build:
   os: "ubuntu-22.04"
   tools:
     python: "3.10"
-  # This is the correct way to install LaTeX on Read the Docs
+  # Read the Docs uses this to install the engine properly
   apt_packages:
     - texlive-latex-extra
     - texlive-fonts-recommended
-    - latexmk
+    - texlive-latex-recommended
     - texlive-xetex
-    - ghostscript
+    - latexmk
 
 python:
   install:
@@ -21,4 +21,3 @@ sphinx:
 
 formats:
   - pdf
-  - epub
