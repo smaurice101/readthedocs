@@ -5,6 +5,10 @@ TML Simulator
 with Direct SCADA/DCS Integration and Real-Time Machine Learning, AI,
 Agentic AI**
 
+.. tip::
+
+   You can also view the TML Simulator `FAQ <https://tml.readthedocs.io/en/latest/tmlsimfaq.html>`_
+
 Executive Summary
 ----------------
 
