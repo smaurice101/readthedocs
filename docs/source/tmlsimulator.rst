@@ -1043,7 +1043,7 @@ c. | **carryover_bias**
 
 .. math::
 
-   \text{carryover\_bias} = \text{carryover\_scada\_norm} - \text{carryover\_physics}
+   \text{carryover_bias} = \text{carryover_scada\_norm} - \text{carryover_physics}
 
 d. TML trains and **predicts carryover_bias** from features:
 
