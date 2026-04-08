@@ -32,7 +32,7 @@ of the entire plant’s physics for every single sensor update received.  Below 
 
    .. image:: benchmark.png
       :width: 6.5in
-      :height: 2in
+      :height: 1.72in
 
 -  Generates **offline‑ready, time‑series physics data** for ML, digital
    twins, and alarm‑tuning,
