@@ -13,19 +13,24 @@ Executive Summary
 ----------------
 
 TML_simulator is a **first‑principles physics engine** that computes
-**liquid‑carryover risk per separator, FWKO, and tank** in under **10
+**liquid‑carryover risk per separator, FWKO, and tank** in under **1
 milliseconds per snapshot** while remaining fully **auditable,
 equation‑driven, and SCADA‑ready**. Built on Souders‑Brown‑based
 droplet‑physics and Numba‑accelerated computation, it:
 
--  Runs **real‑time physics‑baseline snapshots** at SCADA clock‑speed:
-   Below is a 12 vessel (see Appendix D below) simulation with a
-   snapshot taking **0.00010s (2-steps - 100 microseconds)** and evolving 241 time steps
-   (dt=0.1) taking **0.00040s (400 microseconds)**
+-  Runs **real‑time physics‑baseline snapshots** at SCADA clock‑speed
+  
+-  To validate enterprise readiness, 150-vessel fleets were executed at 8,006 Hz. 
+
+-  This speed enables Network Topology Convergence, allowing the simulator to perform multiple “internal iterations”
+of the entire plant’s physics for every single sensor update received.  Below is a 20 and 150 vessel (see Appendix D below) simulation
+
+- The 8,006 Hz benchmark achieved for a 150-vessel fleet is not merely a speed metric; it is a functional requirement for Level 5 Autonomy [24]. In a standard 100ms SCADA clock cycle, the TML Simulator completes 800 full internal iterations of the plant’s physics. This “Velocity
+6 Headroom” allows the system to perform real-time sensitivity auditing—simulating hundreds of “What-If” scenarios (e.g., “What if the pressure spikes 5% in Vessel A?”) before the next sensor update even arrives.
 
 ..
 
-   .. image:: simresults.png
+   .. image:: benchmark.png
       :width: 6.5in
       :height: 2.66736in
 
