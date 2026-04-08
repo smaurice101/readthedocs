@@ -19,7 +19,7 @@ TML_simulator is a **first‑principles physics engine** that computes
   
 -  To validate enterprise readiness, 150-vessel fleets were executed at 8,006 Hz. 
 
--  This speed enables Network Topology Convergence, allowing the simulator to perform multiple “internal iterations” of the entire plant’s physics for every single sensor update received.  Below is a 20 and 150 vessel (see Appendix D below) simulation
+-  This speed enables Network Topology Convergence, allowing the simulator to perform multiple “internal iterations” of the entire plant’s physics for every single sensor update received.  Below is a 20 and 150 vessel (see Appendix D below: `Vessel 20 <https://github.com/smaurice101/readthedocs/blob/main/docs/source/tmlsimulator.rst#vessel-configuration-example-of-20-vessels>`_ and `Vessel 150 <https://github.com/smaurice101/readthedocs/blob/main/docs/source/tmlsimulator.rst#vessel-configuration-example-of-150-vessels>`_) simulation
 
 - The 8,006 Hz benchmark achieved for a 150-vessel fleet is not merely a speed metric; it is a functional requirement for Level 5 Autonomy [24]. In a standard 100ms SCADA clock cycle, the TML Simulator completes 800 full internal iterations of the plant’s physics. This “Velocity
 6 Headroom” allows the system to perform real-time sensitivity auditing—simulating hundreds of “What-If” scenarios (e.g., “What if the pressure spikes 5% in Vessel A?”) before the next sensor update even arrives.
