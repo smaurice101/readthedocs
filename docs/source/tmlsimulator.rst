@@ -1043,7 +1043,7 @@ c. | **carryover_bias**
 
 .. math::
 
-   \text{carryover_bias} = \text{carryover_scada\_norm} - \text{carryover_physics}
+   \text{carryover_bias} = \text{carryover_scada_norm} - \text{carryover_physics}
 
 d. TML trains and **predicts carryover_bias** from features:
 
@@ -1056,7 +1056,7 @@ e. finally compute the “real” customer‑carryover as:
 
 .. math::
 
-   \text{carryover\_real} = \text{carryover\_physics} + \text{TML\_bias\_prediction}
+   \text{carryover_real} = \text{carryover_physics} + \text{TML_bias_prediction}
 
 This is **exactly the “bias‑correction” pattern** used in climate, CFD,
 and reservoir‑simulation:
