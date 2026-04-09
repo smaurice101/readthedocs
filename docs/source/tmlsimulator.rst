@@ -21,7 +21,7 @@ TML_simulator is a **first‑principles physics engine** that computes
 
 -  This speed enables Network Topology Convergence, allowing the simulator to perform multiple “internal iterations” of the entire plant’s physics for every single sensor update received.  Below is a 20 and 150 vessel (see Appendix D below: `Vessel 20 <https://github.com/smaurice101/readthedocs/blob/main/docs/source/tmlsimulator.rst#vessel-configuration-example-of-20-vessels>`_ and `Vessel 150 <https://github.com/smaurice101/readthedocs/blob/main/docs/source/tmlsimulator.rst#vessel-configuration-example-of-150-vessels>`_) simulation
 
-- The 8,006 Hz benchmark achieved for a 150-vessel fleet is not merely a speed metric; it is a functional requirement for Level 5 Autonomy [24]. In a standard 100ms SCADA clock cycle, the TML Simulator completes 800 full internal iterations of the plant’s physics. This “Velocity
+- The 8,006 Hz benchmark achieved for a 150-vessel fleet is not merely a speed metric; it is a functional requirement for Level 5 Autonomy. In a standard 100ms SCADA clock cycle, the TML Simulator completes 800 full internal iterations of the plant’s physics. This “Velocity
 6 Headroom” allows the system to perform real-time sensitivity auditing—simulating hundreds of “What-If” scenarios (e.g., “What if the pressure spikes 5% in Vessel A?”) before the next sensor update even arrives.
 
 ..
@@ -42,7 +42,7 @@ TML_simulator is a **first‑principles physics engine** that computes
 
 Unlike black‑box AI or heavy‑CFD‑style tools, TML_simulator is
 **focused‑physics code**: it does one thing cleanly — **predict
-carryover** — and integrates that insight into control‑systems,
+carryover bias** — and integrates that insight into control‑systems,
 dashboards, and ML‑bias layers above.
 
 Why TML Simulator Is Industry‑Leading
