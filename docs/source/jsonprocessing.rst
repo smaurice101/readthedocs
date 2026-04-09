@@ -59,9 +59,13 @@ TML requires the following - as shown in the table below. We will go though an e
    * - datetime
      - This is the path to any datetime field.
    * - msgid
-     - This is the path to any MSG ID of the json 
+     - This is the path to any MSG ID of the json.  You can add
 
-       message or blank.
+       multiple JSON paths here separated by comma.  This is a 
+
+       good way to extract additional information for dashboards.
+       
+       Or, leave blank.
    * - latlong
      - This needs to be path to latitude 
 
