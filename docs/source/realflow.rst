@@ -40,13 +40,14 @@ Core Methodology: The Fusion Framework
 
 RealFlow operates on a deterministic hybrid model. The "True Carryover" ($\Gamma_{true}$) is the convergence of physical law and machine learning adaptation.
 
-### The Fusion Equation
+The Fusion Equation
+""""""""""""""""""""""""
 
 The system calculates the final state by solving:
 
 .. math::
 
-\\Gamma\_{true}(t) = \\Psi(\\vec{P}, \\vec{F}, \\Phi)*{phys} + \\delta(\\epsilon)*{TML}
+\Gamma\_{true}(t) = \Psi(\vec{P}, \vec{F}, \Phi)*{phys} + \delta(\epsilon)*{TML}
 
 Where:
 
