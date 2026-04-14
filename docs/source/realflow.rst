@@ -91,13 +91,14 @@ The dashboard features a searchable, sortable **Level 5 Diagnostic Table**.
   * **Exportable Data:** One-click CSV export for high-precision audit trails.
   * **Sorting:** Instantly rank the fleet by "True Carryover" to identify at-risk assets.
 
-### 3\. GitPull Topology Integration
+3\. GitPull Topology Integration
 
 RealFlow treats industrial hardware as code. Use the **Git Pull** interface to update vessel configurations (Topologies) via GitHub. The system re-compiles the physics threads in real-time without stopping the data stream.
 
 -----
 
-## Level 5 Autonomous Control
+Level 5 Autonomous Control
+---------------------------
 
 RealFlow moves beyond monitoring into **Deterministic Control**. By calculating the **Control Action Probability ($P_{act}$)**, the system can automatically adjust DCS setpoints via JSON-RPC:
 
@@ -109,7 +110,10 @@ This allows for a fully closed-loop plant where the AI prevents carryover events
 
 -----
 
-## Getting Started
+Getting Started
+-------------------
+
+Contact Otics Advanced Analytics: info@otics.ca
 
 To deploy RealFlow Control AI:
 
