@@ -19,11 +19,13 @@ Why RealFlow?
 
 Traditional CFD (Computational Fluid Dynamics) is too slow for real-time control. RealFlow delivers full transient multiphysics 12,500x faster than ANSYS Fluent baselines. While SCADA updates every 100ms, our TML Simulator completes a fleet calculation in **0.12ms (8,006 Hz)**.
 
-### The Global Bias Ledger
+The Global Bias Ledger
+""""""""""""""""""""""""
 
 RealFlow doesn't just predict; it learns. We isolate unmodeled physical entropy (like sensor drift or internal scaling) into a **Global Bias Ledger**. This ledger allows the system to identify "mathematical fingerprints" of failures and broadcast "immunization" data across the entire Kafka network.
 
-### Green AI Architecture
+Green AI Architecture
+"""""""""""""""""""""""
 
 High-performance intelligence shouldn't require a power plant.
 
@@ -32,7 +34,8 @@ High-performance intelligence shouldn't require a power plant.
 
 -----
 
-## Core Methodology: The Fusion Framework
+Core Methodology: The Fusion Framework
+-----------------------------------------
 
 RealFlow operates on a deterministic hybrid model. The "True Carryover" ($\Gamma_{true}$) is the convergence of physical law and machine learning adaptation.
 
@@ -52,9 +55,11 @@ Where:
 
 -----
 
-## Technical Deep Dive
+Technical Deep Dive
+------------------------
 
-### Sub-Millisecond Quadrature Physics
+Sub-Millisecond Quadrature Physics
+""""""""""""""""""""""""""""""""""""
 
 To maintain speed without sacrificing accuracy, RealFlow utilizes **Numba JIT-compiled Gauss-Legendre Quadrature**. The droplet separation efficiency ($\eta$) is integrated over the droplet size distribution:
 
@@ -62,21 +67,23 @@ To maintain speed without sacrificing accuracy, RealFlow utilizes **Numba JIT-co
 
 \\eta = \\int\_{D\_{crit}}^{\\infty} f(D) \\cdot \\exp\\left(-\\frac{18\\mu H}{D^2(\\rho\_l - \\rho\_g)V\_g}\\right) dD
 
-### Self-Healing Gaussian Processes
+Self-Healing Gaussian Processes
+--------------------------------
 
-The ML layer utilizes a **Hierarchical Gaussian Process (HGP)** to minimize variance between the physical model and real-world outcomes. This allows the system to "self-heal" when sensors begin to drift.
+The TML layer utilizes a **Hierarchical Gaussian Process (HGP)** to minimize variance between the physical model and real-world outcomes. This allows the system to "self-heal" when sensors begin to drift.
 
 -----
 
-## Dashboard Operations
+Dashboard Operations
+----------------------------
 
-### 1\. High-Level KPI Matrix
+1\. High-Level KPI Matrix
 
   * **Max Fleet True Carryover:** The corrected risk value (Physics + Bias).
   * **Max Fleet Sim Carryover:** The raw theoretical value.
   * **Max Fleet SCADA Carryover:** The empirical value from the DCS.
 
-### 2\. Dynamic Telemetry Matrix
+2\. Dynamic Telemetry Matrix
 
 The dashboard features a searchable, sortable **Level 5 Diagnostic Table**.
 
