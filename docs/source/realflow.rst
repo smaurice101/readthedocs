@@ -5,7 +5,8 @@ RealFlow Control AI: Sub-Millisecond Physics-TML Fusion
    :scale: 60%
    :align: center
 
-**RealFlow Control AI** represents a paradigm shift in industrial process monitoring. It is the first production-ready framework to achieve **sub-millisecond carryover predictions** across 150-vessel fleets at SCADA clock rates.
+
+RealFlow Control AI** represents a paradigm shift in industrial process monitoring. It is the first production-ready framework to achieve **sub-millisecond carryover predictions** across 150-vessel fleets at SCADA clock rates.
 
 By fusing **high-fidelity quadrature physics** with **Transactional Machine Learning (TML)**, RealFlow eliminates the "Latency-Trust Gap" inherent in traditional Digital Twins.
 
