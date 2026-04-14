@@ -1,11 +1,8 @@
-This documentation is structured in **reStructuredText (.rst)** format, the standard for ReadTheDocs/Sphinx. It organizes your complex Physics-ML fusion into a narrative that moves from high-level "wow" factors to deep-dive mathematical rigor.
+RealFlow Control AI: Sub-Millisecond Physics-TML Fusion
+=========================================================
 
------
-
-# RealFlow Control AI: Sub-Millisecond Physics-TML Fusion
-
-.. image:: realflowdash.png
-:alt: RealFlow Control AI Dashboard
+.. figure:: realflowdash.png
+:scale: 60%
 :align: center
 
 **RealFlow Control AI** represents a paradigm shift in industrial process monitoring. It is the first production-ready framework to achieve **sub-millisecond carryover predictions** across 150-vessel fleets at SCADA clock rates.
