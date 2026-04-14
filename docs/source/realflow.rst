@@ -125,9 +125,11 @@ Contact Otics Advanced Analytics: info@otics.ca
 
 To deploy RealFlow Control AI:
 
-1.  **Pull Topology:** Connect your GitHub repo containing vessel `config.json` files.
-2.  **Stream SCADA:** Point the dashboard to your TML/Kafka server endpoint.
-3.  **Calibrate:** Monitor the green dashed "Bias" line in the trend chart to verify model convergence.
+1. You MUST run the TML API server: `Found here <https://tml.readthedocs.io/en/latest/tmlapi.html>`_
+2. Then Run the RealFlow Dashboard 
+3. **Pull Topology:** Connect your GitHub repo containing vessel `config.json` files.
+4.  **Stream SCADA:** Point the dashboard to your TML/Kafka server endpoint.
+5.  **Calibrate:** Monitor the green dashed "Bias" line in the trend chart to verify model convergence.
 
 -----
 
