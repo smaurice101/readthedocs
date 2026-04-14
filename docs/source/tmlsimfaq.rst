@@ -323,7 +323,7 @@ Discretized with forward‑Euler:
 
 .. math::
 
-   V_{i}(t) = \max\left( V_{i}(t - \Delta t) + \frac{dV_{i}}{dt} \cdot \Delta t,\text{\:\,}0 \right)
+   V_{i}(t) = \max\left( V_{i}(t - \Delta t) + \frac{dV_{i}}{dt} \cdot \Delta t,\text{:,}0 \right)
 
 This is the core of the physics_carryover inner loop.
 
@@ -2368,49 +2368,49 @@ SCADA / OTS‑Lite / historian‑connected stack:
 
 Using **Flask / FastAPI** (or your preferred framework):
 
-python
+.. code-block::python
 
-**from** fastapi **import** FastAPI, Body
-
-**import** json
-
-app = FastAPI()
-
-sim = None
-
-@app.post("/v1/carryover/snapshot")
-
-**async** **def** run_snapshot(data: dict = Body(...)):
-
-*# 1. Warm‑up once*
-
-**global** sim
-
-**if** sim **is** None:
-
-cfg = load_config_from_dict(data["config"])
-
-sim = PhysicsCarryover(cfg)
-
-**else**:
-
-*# Re‑use existing sim, maybe re‑load config if needed*
-
-**pass**
-
-*# 2. Transform data["scada"] → y0, f_in, f_gas, etc.*
-
-*# (e.g., map SCADA tags to vessel properties)*
-
-snapshot = sim.run_snapshot(dt=0.1)
-
-**return** {
-
-"timestamp": data["timestamp"],
-
-"carryover": snapshot.to_dict()
-
-}
+      **from** fastapi **import** FastAPI, Body
+      
+      **import** json
+      
+      app = FastAPI()
+      
+      sim = None
+      
+      @app.post("/v1/carryover/snapshot")
+      
+      **async** **def** run_snapshot(data: dict = Body(...)):
+      
+        *# 1. Warm‑up once*
+      
+        **global** sim
+      
+        **if** sim **is** None:
+      
+        cfg = load_config_from_dict(data["config"])
+      
+        sim = PhysicsCarryover(cfg)
+      
+        **else**:
+      
+        *# Re‑use existing sim, maybe re‑load config if needed*
+      
+        **pass**
+      
+        *# 2. Transform data["scada"] → y0, f_in, f_gas, etc.*
+      
+        *# (e.g., map SCADA tags to vessel properties)*
+      
+        snapshot = sim.run_snapshot(dt=0.1)
+      
+      *  *return** {
+      
+        "timestamp": data["timestamp"],
+      
+        "carryover": snapshot.to_dict()
+      
+        }
 
 Host this as a service at https://simulator.example.com/v1/....
 
@@ -2418,46 +2418,46 @@ Host this as a service at https://simulator.example.com/v1/....
 
 Inside your SCADA / OTS‑Lite agent:
 
-python
+.. code-block:: python
 
-**import** requests
-
-**def** call_carryover_engine():
-
-payload = {
-
-"timestamp": current_time(),
-
-"config": json_config_for_current_train,
-
-"scada": {
-
-"Separator 1A.F_in": 100.0,
-
-"Separator 1A.f_gas": 0.7,
-
-"FWKO 1.F_in": 80.0,
-
-"FWKO 1.f_gas": 0.65,
-
-*# ... etc ...*
-
-}
-
-}
-
-resp = requests.post(
-
-"https://simulator.example.com/v1/carryover/snapshot",
-
-json=payload
-
-)
-
-result = resp.json()
-
-*# Write result["carryover"] back to SCADA tags*
-
+      **import** requests
+      
+      **def** call_carryover_engine():
+      
+      payload = {
+      
+      "timestamp": current_time(),
+      
+      "config": json_config_for_current_train,
+      
+      "scada": {
+      
+      "Separator 1A.F_in": 100.0,
+      
+      "Separator 1A.f_gas": 0.7,
+      
+      "FWKO 1.F_in": 80.0,
+      
+      "FWKO 1.f_gas": 0.65,
+      
+      *# ... etc ...*
+      
+      }
+      
+      }
+      
+      resp = requests.post(
+      
+      "https://simulator.example.com/v1/carryover/snapshot",
+      
+      json=payload
+      
+      )
+      
+      result = resp.json()
+      
+      *# Write result["carryover"] back to SCADA tags*
+      
 **Step 4: Alarm / dashboard logic**
 
 -  Define **carryover‑thresholds** per vessel (e.g., 0.00003% as
