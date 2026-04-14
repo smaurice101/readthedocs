@@ -1,7 +1,7 @@
 RealFlow Control AI: Sub-Millisecond Physics-TML Fusion
 =========================================================
 
-.. figure:: realflowdash.png
+.. figure:: realflowmaindash.png
 :scale: 60%
 :align: center
 
