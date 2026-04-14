@@ -102,11 +102,11 @@ RealFlow treats industrial hardware as code. Use the **Git Pull** interface to u
 Level 5 Autonomous Control
 ---------------------------
 
-RealFlow moves beyond monitoring into **Deterministic Control**. By calculating the **Control Action Probability ($P_{act}$)**, the system can automatically adjust DCS setpoints via JSON-RPC:
+RealFlow moves beyond monitoring into **Deterministic Control**. By calculating the **Control Action Probability (:math:`P_{act}`)**, the system can automatically adjust DCS setpoints via JSON-RPC:
 
 .. math::
 
-P\_{act} = P(\\Gamma\_{true} \> \\Gamma\_{crit} \\mid \\text{Telemetry}\_{t-6h})
+   P\_{act} = P(\\Gamma\_{true} \> \\Gamma\_{crit} \\mid \\text{Telemetry}\_{t-6h})
 
 This allows for a fully closed-loop plant where the AI prevents carryover events 6 hours before they occur.
 
