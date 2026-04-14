@@ -216,7 +216,7 @@ Carryover **percentage**:
 
 .. math::
 
-   \text{carryover}_{i}(t) = 100 \cdot C_{i} \cdot \text{carryover\_scale}_{i}
+   \text{carryover}_{i}(t) = 100 \cdot C_{i} \cdot \text{carryover_scale}_{i}
 
 3. Vessel‑Holdup and Time‑Stepping
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -236,7 +236,7 @@ Discretized via forward‑Euler:
 
 .. math::
 
-   V_{i}(t) = \max\left( V_{i}(t - \Delta t) + \frac{dV_{i}}{dt} \cdot \Delta t,\text{\:\,}0 \right)
+   V_{i}(t) = \max\left( V_{i}(t - \Delta t) + \frac{dV_{i}}{dt} \cdot \Delta t,\text{:,}0 \right)
 
 which is exactly what the inner‑loop of physics_carryover computes.
 
@@ -968,9 +968,7 @@ What TML Carryover Solution is Predicting
   correction”**,
 | where the **real, final carryover** the customer cares about is:
 
-:math:`\text{carryover_real}\mathbf{=}\text{carryover_physics}\mathbf{+ TML\_}\text{bias_prediction}`
-**(1)**\ :math:`
-`
+:math:`\text{carryover_real}\mathbf{=}\text{carryover_physics}\mathbf{+ TML_}\text{bias_prediction}`
 
 Here’s how to structure it cleanly.
 
@@ -1208,7 +1206,7 @@ Customers’ Advantages:
 
 7. **Engineer / Data Scientist Focused with the Business in Mind**
 
-.. image:: simdash.png
+.. image:: realflowdashmain.png
    :width: 6.5in
    :height: 3.30347in
 
