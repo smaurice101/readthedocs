@@ -11,6 +11,8 @@ Agentic AI**
 
    2. `RealFlow Control AI <https://tml.readthedocs.io/en/latest/realflow.html#realflow-control-ai-sub-millisecond-physics-tml-fusion>`_: Dashboard (Main dashboard for running the entire solution)
 
+   3. To use the RealFlow Dashboard, you need to run the `TML Server docker container <https://tml.readthedocs.io/en/latest/tmlapi.html>`_
+
 Executive Summary
 ----------------
 
