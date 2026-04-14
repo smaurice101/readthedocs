@@ -11,9 +11,11 @@ By fusing **high-fidelity quadrature physics** with **Transactional Machine Lear
 
 -----
 
-## The "Wow" Factor: Why RealFlow?
+Why RealFlow?
+-------------
 
-### 12,500x Computational Speedup
+12,500x Computational Speedup
+""""""""""""""""""""""""""""""""
 
 Traditional CFD (Computational Fluid Dynamics) is too slow for real-time control. RealFlow delivers full transient multiphysics 12,500x faster than ANSYS Fluent baselines. While SCADA updates every 100ms, our TML Simulator completes a fleet calculation in **0.12ms (8,006 Hz)**.
 
