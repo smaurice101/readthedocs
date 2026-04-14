@@ -1206,7 +1206,7 @@ Customers’ Advantages:
 
 7. **Engineer / Data Scientist Focused with the Business in Mind**
 
-.. image:: realflowdashmain.png
+.. image:: realflowmaindash.png
    :width: 6.5in
    :height: 3.30347in
 
@@ -1222,7 +1222,9 @@ higher computational cost.
 
 **Souders-Brown (1D):**
 
-Vs = K \* sqrt( (ρL - ρG) / ρG )
+.. math::
+
+   Vs = K \* sqrt( (ρL - ρG) / ρG )
 
 **Assumptions:**
 
