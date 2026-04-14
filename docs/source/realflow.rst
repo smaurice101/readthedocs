@@ -47,7 +47,7 @@ The system calculates the final state by solving:
 
 .. math::
 
-   \Gamma\_{true}(t) = \Psi(\vec{P}, \vec{F}, \Phi)*{phys} + \delta(\epsilon)*{TML}
+   \Gamma_{true}(t) = \Psi(\vec{P}, \vec{F}, \Phi)*{phys} + \delta(\epsilon)*{TML}
 
 Where:
 
@@ -106,7 +106,7 @@ RealFlow moves beyond monitoring into **Deterministic Control**. By calculating 
 
 .. math::
 
-   P\_{act} = P(\Gamma\_{true} \> \Gamma\_{crit} \mid \text{Telemetry}\_{t-6h})
+   P_{act} = P(\Gamma_{true} \> \Gamma_{crit} \mid \text{Telemetry}_{t-6h})
 
 This allows for a fully closed-loop plant where the AI prevents carryover events 6 hours before they occur.
 
