@@ -63,7 +63,7 @@ Technical Deep Dive
 Sub-Millisecond Quadrature Physics
 """"""""""""""""""""""""""""""""""""
 
-To maintain speed without sacrificing accuracy, RealFlow utilizes **Numba JIT-compiled Gauss-Legendre Quadrature**. The droplet separation efficiency ($\eta$) is integrated over the droplet size distribution:
+To maintain speed without sacrificing accuracy, RealFlow utilizes **Numba JIT-compiled Gauss-Legendre Quadrature**. The droplet separation efficiency (:math:`\eta`) is integrated over the droplet size distribution:
 
 .. math::
 
