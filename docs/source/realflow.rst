@@ -47,7 +47,7 @@ The system calculates the final state by solving:
 
 .. math::
 
-\Gamma\_{true}(t) = \Psi(\vec{P}, \vec{F}, \Phi)*{phys} + \delta(\epsilon)*{TML}
+\\Gamma\_{true}(t) = \\Psi(\vec{P}, \\vec{F}, \\Phi)*{phys} + \\delta(\\epsilon)*{TML}
 
 Where:
 
