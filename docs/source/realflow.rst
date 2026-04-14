@@ -38,7 +38,7 @@ High-performance intelligence shouldn't require a power plant.
 Core Methodology: The Fusion Framework
 -----------------------------------------
 
-RealFlow operates on a deterministic hybrid model. The "True Carryover" ($\Gamma_{true}$) is the convergence of physical law and machine learning adaptation.
+RealFlow operates on a deterministic hybrid model. The "True Carryover" (:math:`\Gamma_{true}`) is the convergence of physical law and machine learning adaptation.
 
 The Fusion Equation
 """"""""""""""""""""""""
