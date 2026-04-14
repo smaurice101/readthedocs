@@ -112,6 +112,12 @@ This allows for a fully closed-loop plant where the AI prevents carryover events
 
 -----
 
+To minimize the variance between the physical model and real-world outcomes, we apply:
+
+.. math::
+
+   \min \sum_{i=1}^{n} (\Gamma_{scada} - (\Psi_{phys} + \delta_{TML}))^2
+
 Getting Started
 -------------------
 
