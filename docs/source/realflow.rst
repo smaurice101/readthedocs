@@ -67,7 +67,7 @@ To maintain speed without sacrificing accuracy, RealFlow utilizes **Numba JIT-co
 
 .. math::
 
-\\eta = \\int\_{D\_{crit}}^{\\infty} f(D) \\cdot \\exp\\left(-\\frac{18\\mu H}{D^2(\\rho\_l - \\rho\_g)V\_g}\\right) dD
+   \eta = \int\_{D\_{crit}}^{\infty} f(D) \cdot \exp\left(-\frac{18\mu H}{D^2(\rho\_l - \\rho\_g)V\_g}\right) dD
 
 Self-Healing Gaussian Processes
 --------------------------------
