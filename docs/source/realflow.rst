@@ -14,7 +14,7 @@ RealFlow Control AI Dashboard
 
 All functionality for carryover prediction and monitoring, as well as machine learning, AI, and Multi-Agentic AI is done through this dashboard.
 
-To run this dashboard technoglogy you will need:
+To run this dashboard technology you will need:
 
   1. `TML Server API Docker Container <https://tml.readthedocs.io/en/latest/tmlapi.html#tml-server-plugin-container>`_
 
