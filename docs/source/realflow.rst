@@ -20,7 +20,7 @@ To run this dashboard technology you will need:
 
      a. TML Server handles all computations including running the TML simulator for the Physics
 
-  2. Live connection to SCADA system
+  2. Live connection to SCADA system (or any system capturing vessel data)
 
   3. This Dashboard URL (Contact info@otics.ca for more details)
 
