@@ -1,14 +1,32 @@
 RealFlow Control AI: Sub-Millisecond Physics-TML Fusion
 =========================================================
 
-.. figure:: realflowmaindash.png
-   :scale: 50%
-   :align: center
-
-
 RealFlow Control AI** represents a paradigm shift in industrial process monitoring. It is the first production-ready framework to achieve **sub-millisecond carryover predictions** across 150-vessel fleets at SCADA clock rates.
 
 By fusing **high-fidelity quadrature physics** with **Transactional Machine Learning (TML)**, RealFlow eliminates the "Latency-Trust Gap" inherent in traditional Digital Twins.
+
+.. tip::
+
+   Watch the RealFlow AI `YouTube video <https://www.youtube.com/watch?v=L01YjHQVMtA>`_
+
+RealFlow Control AI Dashboard
+-------------------------------
+
+All functionality for carryover prediction and monitoring, as well as machine learning, AI, and Multi-Agentic AI is done through this dashboard.
+
+To run this dashboard technoglogy you will need:
+
+  1. `TML Server API Docker Container <https://tml.readthedocs.io/en/latest/tmlapi.html#tml-server-plugin-container>`_
+
+     a. TML Server handles all computations including running the TML simulator for the Physics
+
+  2. Live connection to SCADA system
+
+  3. This Dashboard URL (Contact info@otics.ca for more details)
+
+.. figure:: realflowmaindash.png
+   :scale: 50%
+   :align: center
 
 -----
 
