@@ -1770,14 +1770,14 @@ The following table describes the main configuration keys.
 +-------------------------+------------------------------------------------+
 | Field name              | Role / meaning                                 |
 +=========================+================================================+
-| ``scada_host``          | Host IP of the SCADA source (e.g.,            |
-|                         | ``127.0.0.1``).                               |
+| ``scada_host``          | Host IP of the SCADA source (e.g.,             |
+|                         | ``127.0.0.1``).                                |
 +-------------------------+------------------------------------------------+
-| ``scada_port``          | Port for SCADA/Modbus polling (e.g., 2502).  |
+| ``scada_port``          | Port for SCADA/Modbus polling (e.g., 2502).    |
 +-------------------------+------------------------------------------------+
-| ``slave_id``            | Modbus slave ID of the PLC.                   |
+| ``slave_id``            | Modbus slave ID of the PLC.                    |
 +-------------------------+------------------------------------------------+
-| ``read_interval_seconds``| Interval between SCADA reads (in seconds).   |
+|   read_interval_seconds | Interval between SCADA reads (in seconds).     |
 +-------------------------+------------------------------------------------+
-| ``fields``              | List of SCADA variables used in calculations. |
+| ``fields``              | List of SCADA variables used in calculations.  |
 +-------------------------+------------------------------------------------+
