@@ -1765,37 +1765,100 @@ Analytics Features
 Payload Key Fields
 ---------------------
 
-## Main configuration fields
+.. _config-fields-table:
 
-The following table describes the core top‑level and nested configuration fields in the JSON payload.
+Main configuration fields
+=========================
 
-| Field name                        | Role / meaning |
-|-----------------------------------|----------------|
-| `scada_host`                      | Host IP (or hostname) of the SCADA/Modbus source to read from (here `127.0.0.1`). |
-| `scada_port`                      | Port number on the SCADA host for Modbus‑TCP or similar polling (here `2502`). |
-| `slave_id`                        | Modbus slave ID of the device/PLC inside the SCADA network. |
-| `base_url`                        | Base HTTP endpoint for services (e.g., internal APIs or dashboards). |
-| `read_interval_seconds`           | Polling interval (in seconds) between SCADA reads; `0.5` = 500 ms. |
-| `callback_url`                    | Webhook URL (in this block) to POST processed data or alerts; empty means no callback. |
-| `max_reads`                       | Limit on read cycles; `-1` means unlimited / continuous polling. |
-| `start_register`                  | Starting Modbus register address (e.g., `40001`) from which raw values are read. |
-| `sendtotopic` (raw)               | Kafka / messaging topic name for raw SCADA‑style data; here `scada-raw-data`. |
-| `createvariables`                 | Inline expression string defining derived physics variables (e.g., `carryover`, `F_total`, `emulsion_ratio`, etc.). |
-| `fields`                          | List of variable names (e.g., `gasFlowRate`, `operatingPressure`) read from SCADA and used in calculations. |
-| `scaling`                         | Maps each field to a scaling factor (e.g., `gasCompressabilityFactor` scaled by `1000`) for unit‑matching. |
-| `vessel_names`                    | Dictionary mapping integer IDs to human‑readable vessel names (e.g., `"1": "HP Sep Train A"`). |
-| `carryover_topology`              | Sub‑object describing vessel geometry, flow connections, and physics parameters for carryover modeling. |
-| `sendtotopic` (physics)           | Topic name for physics‑enriched carryover data; here `carryover_physics`. |
-| `topologyname`                    | Name / tag of this configuration/topology (e.g., `config12`) used for logging or file‑system naming. |
-| `localfoldername`                 | Local disk folder where to store intermediate/output data (here `mycarryoverdata`). |
-| `rollbackoffsets`                 | Number of Kafka message offsets to roll back when re‑processing physics (here `300`). |
-| `time_interval`                   | Time interval (in seconds) between execution or data‑bundle events in the physics pipeline (here `5`). |
-| `preprocessed_physics_topic`      | Kafka topic name for SCADA‑plus‑physics data after preprocessing (here `scada_with_physics`). |
-| `savetodiskfrequency`             | Frequency (or period) for saving to disk; `0` likely means “no periodic save” or event‑driven. |
-| `carryoverthreshold`              | Threshold on carryover (e.g., in kg/s or scaled units) above which an alert or special path is triggered (here `0.015`). |
-| `alertemails`                     | Comma‑separated email list to notify when thresholds are breached; empty here means no email alerts. |
-| `preprocessing`                   | Config block for pre‑processing steps (windowing, JSON criteria, source/destination topics, etc.). |
-| `machinelearning`                 | ML block: training folder, topics, dependent/independent variables, and rolling‑window parameters. |
-| `predictions`                     | Prediction‑stage config: source topic, input streams, model path, and output topic for ML predictions. |
-| `agenticai`                       | Block for agentic‑style orchestration (step `9b` in your workflow). |
-| `ai`                              | Higher‑level AI / orchestration step (`9`) in the overall pipeline. |
+The following table describes the core top‑level configuration fields in the JSON payload.
+
++----------------------------------+-------------------------------------------------------------+
+| Field name                       | Role / meaning                                              |
++==================================+=============================================================+
+| ``scada_host``                   | Host IP (or hostname) of the SCADA/Modbus source to read    |
+|                                  | from (here ``127.0.0.1``).                                |
++----------------------------------+-------------------------------------------------------------+
+| ``scada_port``                   | Port number on the SCADA host for Modbus‑TCP or similar     |
+|                                  | polling (here ``2502``).                                  |
++----------------------------------+-------------------------------------------------------------+
+| ``slave_id``                     | Modbus slave ID of the device/PLC inside the SCADA network. |
++----------------------------------+-------------------------------------------------------------+
+| ``base_url``                     | Base HTTP endpoint for services (e.g., internal APIs or     |
+|                                  | dashboards).                                               |
++----------------------------------+-------------------------------------------------------------+
+| ``read_interval_seconds``        | Polling interval (in seconds) between SCADA reads;         |
+|                                  | ``0.5`` = 500 ms.                                          |
++----------------------------------+-------------------------------------------------------------+
+| ``callback_url``                 | Webhook URL (in this block) to POST processed data or      |
+|                                  | alerts; empty means no callback.                           |
++----------------------------------+-------------------------------------------------------------+
+| ``max_reads``                    | Limit on read cycles; ``-1`` means unlimited / continuous  |
+|                                  | polling.                                                   |
++----------------------------------+-------------------------------------------------------------+
+| ``start_register``               | Starting Modbus register address (e.g., ``40001``) from    |
+|                                  | which raw values are read.                                 |
++----------------------------------+-------------------------------------------------------------+
+| ``sendtotopic`` (raw)            | Kafka / messaging topic name for raw SCADA‑style data;     |
+|                                  | here ``scada-raw-data``.                                   |
++----------------------------------+-------------------------------------------------------------+
+| ``createvariables``              | Inline expression string defining derived physics          |
+|                                  | variables (e.g., ``carryover``, ``F_total``,              |
+|                                  | ``emulsion_ratio``, etc.).                                 |
++----------------------------------+-------------------------------------------------------------+
+| ``fields``                       | List of variable names (e.g., ``gasFlowRate``,            |
+|                                  | ``operatingPressure``) read from SCADA and used in         |
+|                                  | calculations.                                              |
++----------------------------------+-------------------------------------------------------------+
+| ``scaling``                      | Maps each field to a scaling factor (e.g.,                |
+|                                  | ``gasCompressabilityFactor`` scaled by ``1000``) for      |
+|                                  | unit‑matching.                                             |
++----------------------------------+-------------------------------------------------------------+
+| ``vessel_names``                 | Dictionary mapping integer IDs to human‑readable vessel    |
+|                                  | names (e.g., ``"1": "HP Sep Train A"``).                  |
++----------------------------------+-------------------------------------------------------------+
+| ``carryover_topology``           | Sub‑object describing vessel geometry, flow connections,   |
+|                                  | and physics parameters for carryover modeling.             |
++----------------------------------+-------------------------------------------------------------+
+| ``sendtotopic`` (physics)        | Topic name for physics‑enriched carryover data; here       |
+|                                  | ``carryover_physics``.                                     |
++----------------------------------+-------------------------------------------------------------+
+| ``topologyname``                 | Name / tag of this configuration/topology (e.g.,          |
+|                                  | ``config12``) used for logging or file‑system naming.      |
++----------------------------------+-------------------------------------------------------------+
+| ``localfoldername``              | Local disk folder where to store intermediate/output data  |
+|                                  | (here ``mycarryoverdata``).                                |
++----------------------------------+-------------------------------------------------------------+
+| ``rollbackoffsets``              | Number of Kafka message offsets to roll back when          |
+|                                  | re‑processing physics (here ``300``).                      |
++----------------------------------+-------------------------------------------------------------+
+| ``time_interval``                | Time interval (in seconds) between execution or data‑      |
+|                                  | bundle events in the physics pipeline (here ``5``).        |
++----------------------------------+-------------------------------------------------------------+
+| ``preprocessed_physics_topic``   | Kafka topic name for SCADA‑plus‑physics data after         |
+|                                  | preprocessing (here ``scada_with_physics``).              |
++----------------------------------+-------------------------------------------------------------+
+| ``savetodiskfrequency``          | Frequency (or period) for saving to disk; ``0`` likely     |
+|                                  | means “no periodic save” or event‑driven.                  |
++----------------------------------+-------------------------------------------------------------+
+| ``carryoverthreshold``           | Threshold on carryover (e.g., in kg/s or scaled units)     |
+|                                  | above which an alert or special path is triggered (here     |
+|                                  | ``0.015``).                                                |
++----------------------------------+-------------------------------------------------------------+
+| ``alertemails``                  | Comma‑separated email list to notify when thresholds are   |
+|                                  | breached; empty here means no email alerts.                |
++----------------------------------+-------------------------------------------------------------+
+| ``preprocessing``                | Config block for pre‑processing steps (windowing, JSON     |
+|                                  | criteria, source/destination topics, etc.).                 |
++----------------------------------+-------------------------------------------------------------+
+| ``machinelearning``              | ML block: training folder, topics, dependent/independent   |
+|                                  | variables, and rolling‑window parameters.                  |
++----------------------------------+-------------------------------------------------------------+
+| ``predictions``                  | Prediction‑stage config: source topic, input streams,      |
+|                                  | model path, and output topic for ML predictions.           |
++----------------------------------+-------------------------------------------------------------+
+| ``agenticai``                    | Block for agentic‑style orchestration (step ``9b`` in      |
+|                                  | your workflow).                                            |
++----------------------------------+-------------------------------------------------------------+
+| ``ai``                           | Higher‑level AI / orchestration step (``9``) in the        |
+|                                  | overall pipeline.                                          |
++----------------------------------+-------------------------------------------------------------+
