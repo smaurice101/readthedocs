@@ -1767,9 +1767,6 @@ Payload Key Fields
 
 .. _config-fields-table:
 
-Main configuration fields
-=========================
-
 The following table describes the core top‑level configuration fields in the JSON payload.
 
 +----------------------------------+-------------------------------------------------------------+
