@@ -1765,8 +1765,6 @@ Analytics Features
 Payload Key Fields
 ---------------------
 
-.. _config-fields-table:
-
 The following table describes the core top‑level configuration fields in the JSON payload.
 
 +----------------------------------+-------------------------------------------------------------+
