@@ -1768,10 +1768,10 @@ Payload Key Fields
 +----------------------------------+-------------------------------------------------------------+
 | Field name                       | Role / meaning                                              |
 +==================================+=============================================================+
-| `scada_host`                   | Host IP (or hostname) of the SCADA/Modbus source to read    |
+| scada_host                   | Host IP (or hostname) of the SCADA/Modbus source to read    |
 |                                  | from (here ``127.0.0.1``).                                |
 +----------------------------------+-------------------------------------------------------------+
-| `scada_port`                   | Port number on the SCADA host for Modbus‑TCP or similar     |
+| scada_port                   | Port number on the SCADA host for Modbus‑TCP or similar     |
 |                                  | polling (here ``2502``).                                  |
 +----------------------------------+-------------------------------------------------------------+
 | `slave_id`                     | Modbus slave ID of the device/PLC inside the SCADA network. |
