@@ -4153,35 +4153,46 @@ TML preprocesses real-time data for every entity along each sliding time window.
 
        your model is looking at reliable trends rather than anomalies.
 
+
        The code defines an "envelope" or a safe zone as:
 
-       upperLimit: Mean + (Tolerance * StdDev)
+        - upperLimit: Mean + (Tolerance * StdDev)
 
-       lowerLimit: Mean - (Tolerance * StdDev)
+        - lowerLimit: Mean - (Tolerance * StdDev)
 
-       where Tolerance = #, Mean=mean of all data in the sliding time window,
+       where **Tolerance = #**, Mean=mean of all data in the sliding time window,
 
        StdDev=standard deviation of all data in the sliding time window.
 
-       For example, if you specify ddatacleanstd3:
+
+      For example, if you specify ddatacleanstd3:
 
        then TML defines the envelope as:
 
-       upperLimit: Mean + (3 * StdDev)
+        - upperLimit: Mean + (3 * StdDev)
 
-       lowerLimit: Mean - (3 * StdDev)
+        - lowerLimit: Mean - (3 * StdDev)
 
        any data point inside this envelope (inclusive) 
 
-       is considered "safe" - any point outside this envople
+       is considered "safe" - any point outside this envelope
 
        is consider an outlier or noise.
 
+       
        You can specify any reasonble number: 
 
         - datacleanstd5, 
 
+          - upperLimit: Mean + (5 * StdDev)
+
+          - lowerLimit: Mean - (5 * StdDev)
+
         - datacleanstd10,
+
+          - upperLimit: Mean + (10 * StdDev)
+
+          - lowerLimit: Mean - (10 * StdDev)
 
         - etc.
    * - avgtimediff
