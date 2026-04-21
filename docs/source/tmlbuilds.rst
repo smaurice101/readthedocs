@@ -4136,6 +4136,54 @@ TML preprocesses real-time data for every entity along each sliding time window.
        value for each entity in the sliding 
 
        time windows
+   * - std
+     - This will determine the standard deviation 
+
+       value for each entity in the sliding 
+
+       time windows
+   * - datacleanstd#
+     - This is a powerful function for data cleaning.
+
+       It uses a Standard Deviation Filter (often referred to as Z-Score filtering). 
+
+       In data science and AI, this is a standard technique used to 
+
+       automatically remove "outliers" or "noise" from a dataset to ensure 
+
+       your model is looking at reliable trends rather than anomalies.
+
+       The code defines an "envelope" or a safe zone as:
+
+       upperLimit: Mean + (Tolerance * StdDev)
+
+       lowerLimit: Mean - (Tolerance * StdDev)
+
+       where Tolerance = #, Mean=mean of all data in the sliding time window,
+
+       StdDev=standard deviation of all data in the sliding time window.
+
+       For example, if you specify ddatacleanstd3:
+
+       then TML defines the envelope as:
+
+       upperLimit: Mean + (3 * StdDev)
+
+       lowerLimit: Mean - (3 * StdDev)
+
+       any data point inside this envelope (inclusive) 
+
+       is considered "safe" - any point outside this envople
+
+       is consider an outlier or noise.
+
+       You can specify any reasonble number: 
+
+        - datacleanstd5, 
+
+        - datacleanstd10,
+
+        - etc.
    * - avgtimediff
      - This will determine the average time 
 
