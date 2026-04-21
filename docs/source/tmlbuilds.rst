@@ -4165,7 +4165,7 @@ TML preprocesses real-time data for every entity along each sliding time window.
        StdDev=standard deviation of all data in the sliding time window.
 
 
-      For example, if you specify ddatacleanstd3:
+       For example, if you specify ddatacleanstd3:
 
        then TML defines the envelope as:
 
