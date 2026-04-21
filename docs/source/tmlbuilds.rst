@@ -4177,10 +4177,10 @@ TML preprocesses real-time data for every entity along each sliding time window.
 
        is considered "safe" - any point outside this envelope
 
-       is consider an outlier or noise.
+       is consider an outlier or noise and **will be removed from analysis**.
 
        
-       You can specify any reasonble number: 
+       You can specify any reasonable number: 
 
         - datacleanstd5, 
 
@@ -4195,6 +4195,10 @@ TML preprocesses real-time data for every entity along each sliding time window.
           - lowerLimit: Mean - (10 * StdDev)
 
         - etc.
+
+       This function ensures you have clean data in your analysis
+
+       and machine learning/AI. 
    * - avgtimediff
      - This will determine the average time 
 
