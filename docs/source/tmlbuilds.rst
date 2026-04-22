@@ -4052,6 +4052,13 @@ Local File Reference Architecture
 STEP 4: Preprocesing Data: tml-system-step-4-kafka-preprocess-dag
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+.. note::
+
+   All preprocess data is also written to "/rawdata/preprocess" folder in the container.
+
+   If you `mapped the rawdata folder <https://tml.readthedocs.io/en/latest/docker.html#tss-docker-run-command>`_ then you can access these files.
+
+
 Preprocessing Types
 """""""""""""""""""""
 
@@ -6094,6 +6101,12 @@ Entity Based Machine Learning By TML
 
 Another powerful feature of TML is performing machine learning at the entity level.  See :ref:`TML Performs Entity Level Machine Learning and Processing` for refresher.  For example, if TML is processing real-time data from 1 million IoT devices, it can create 1 million individual machine learnig models for each device.  TML uses the following ML algorithms:
 
+.. note::
+
+   All ML data are also written to "/rawdata/ml" folder in the container.
+
+   If you `mapped the rawdata folder <https://tml.readthedocs.io/en/latest/docker.html#tss-docker-run-command>`_ then you can access these files.
+
 .. list-table::
 
    * - **Algorithm**
@@ -7018,6 +7031,12 @@ STEP 6: Entity Based Predictions: tml-system-step-6-kafka-predictions-dag
 
 .. tip:: 
    Watch the YouTube video to see how this dag is configured.  `YouTube Video <https://youtu.be/S0qQD8n56JU>`_ 
+
+.. note::
+
+   All Prediction data are also written to "/rawdata/ml" folder in the container.
+
+   If you `mapped the rawdata folder <https://tml.readthedocs.io/en/latest/docker.html#tss-docker-run-command>`_ then you can access these files.
 
 .. code-block:: PYTHON
    :emphasize-lines: 17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,
