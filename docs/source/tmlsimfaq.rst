@@ -137,6 +137,135 @@ The core inputs are:
 By keeping the configuration in JSON, the same engine can run across
 **different fields, trains, and assets**.
 
+**6b. How does it ensure data quality?**
+
+TML simulator takes data quality very seriously.  The data are checked at the source,
+
+at preprocessing, at machine learning, at predictions, at AI and at agentic AI pipelines.
+
+At the source, TML checks raw SCADA data. Users can specify validation bounds in the payload.
+
+These validation bounds are applied in real-time to values from SCADA.  Variables that fail
+
+the checks are outputed to disk for user review and **will not move to downstream processes**.
+
+.. code-block::
+
+      "validation_bounds": {
+          "vesselIndex": {"min": 0, "max": 100},
+          "operatingPressure": {"min": 0, "max": 5000},
+          "operatingTemperature": {"min": -50, "max": 500},
+          "gasFlowRate": {"min": 0, "max": 5000},
+          "gasDensity": {"min": 0.1, "max": 50},
+          "gasCompressabilityFactor": {"min": 0.5, "max": 2.0},
+          "gasViscosity": {"min": 0.00001, "max": 0.1},
+          "hclFlowRate": {"min": 0, "max": 2000},
+          "hclDensity": {"min": 800, "max": 1600},
+          "hclViscosity": {"min": 0.1, "max": 100},
+          "hclSurfaceTension": {"min": 0, "max": 100},
+          "waterFlowRate": {"min": 0, "max": 2000},
+          "waterDensity": {"min": 800, "max": 1200},
+          "waterViscosity": {"min": 0.5, "max": 10},
+          "waterSurfaceTension": {"min": 50, "max": 100},
+          "hclWaterSurfaceTension": {"min": 0, "max": 100},
+          "phseInversionCriticalWaterCut": {"min": 0, "max": 1},
+          "solidFlowRate": {"min": 0, "max": 1000},
+          "solidDensity": {"min": 1000, "max": 4000}
+        },
+
+If raw data pass the source checks - secondary checks are done at preprocessing,
+
+machine learning, predictions, AI and agentic AI using three methods:
+
+.. list-table::
+
+   * - **Data Cleaning Preprocessing Type**
+     - **Description**
+   * - datacleanstd#_#
+     - This is a powerful function for data cleaning.
+
+       It uses a Standard Deviation Filter (often referred to as Z-Score filtering). 
+
+       In data science and AI, this is a standard technique used to 
+
+       automatically remove "outliers" or "noise" from a dataset to ensure 
+
+       your model is looking at reliable trends rather than anomalies.
+
+       It also allows users to eliminate extreme values before the analysis
+
+       begins.
+
+       The code defines an "envelope" or a safe zone as:
+
+        - upperLimit: Mean + (Tolerance * StdDev)
+
+        - lowerLimit: Mean - (Tolerance * StdDev)
+
+       where **Tolerance = #**, Mean=mean of all data in the sliding time window,
+
+       StdDev=standard deviation of all data in the sliding time window.
+
+
+       For example, if you specify ddatacleanstd3:
+
+       then TML defines the envelope as:
+
+        - upperLimit: Mean + (3 * StdDev)
+
+        - lowerLimit: Mean - (3 * StdDev)
+
+       any data point inside this envelope (inclusive) 
+
+       is considered "safe" - any point outside this envelope
+
+       is consider an outlier or noise and **will be removed from analysis**.
+
+       
+       You can specify any reasonable number: 
+
+        - datacleanstd5, 
+
+          - upperLimit: Mean + (5 * StdDev)
+
+          - lowerLimit: Mean - (5 * StdDev)
+
+        - datacleanstd10,
+
+          - upperLimit: Mean + (10 * StdDev)
+
+          - lowerLimit: Mean - (10 * StdDev)
+
+        - etc.
+
+       Or, to delete extreme values first you can specify:
+
+        - **datacleanstd5_10000**, this will delete any value
+
+          less than -10000 or greater 10000, it will then perform
+
+          the Z-score filtering.
+
+       This function ensures you have clean data in your analysis
+
+       and machine learning/AI. 
+   * - datacleanmad_#
+     - This is another powerful function for data cleaning.
+
+       It uses Mean Absolute Deviation (MAD) to clean the data.
+
+       You can choose to delete extreme values first: i.e.
+
+       datacleanmad_10000       
+   * - datacleaniqr_#
+     - This is another powerful function for data cleaning.
+
+       It uses Inter Quartile Range (IQR) to clean the data.
+
+       You can choose to delete extreme values first: i.e.
+
+       datacleaniqr_10000
+
 **7. What does the simulator output?**
 
 By default:
