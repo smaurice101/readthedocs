@@ -1857,3 +1857,6 @@ The following table describes the main configuration keys.
 | ``ai``                           | Higher‑level AI / orchestration step (``9``) in the         |
 |                                  | overall pipeline.                                           |
 +----------------------------------+-------------------------------------------------------------+
+| ``validation_bounds``            | Allows users to specify a bounds for the raw SCADA data.    |
+|                                  | Bad data at source, will impact downstream analysis.        |
++----------------------------------+-------------------------------------------------------------+
