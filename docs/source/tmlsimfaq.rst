@@ -268,7 +268,7 @@ machine learning, predictions, AI and agentic AI using three methods:
 
 .. note:: 
 
-   Deleting extreme values could be important because with sensor data one may have very extreme values that may seem normal if the above algorithms have nothing to compare those values against.  These extreme values may be due to a sensor malfunction.  In this case, deleting extreme values like 9999999999999999 are sensible.
+   Deleting extreme values could be important because with sensor data one may have very extreme values that may seem normal if the above algorithms have nothing to compare those values against.  These extreme values may be due to a sensor malfunction.  In this case, deleting extreme values like 999999999 are sensible.
 
 **7. What does the simulator output?**
 
