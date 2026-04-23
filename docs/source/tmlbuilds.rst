@@ -4149,7 +4149,7 @@ TML preprocesses real-time data for every entity along each sliding time window.
        value for each entity in the sliding 
 
        time windows
-   * - datacleanstd#
+   * - datacleanstd#_#
      - This is a powerful function for data cleaning.
 
        It uses a Standard Deviation Filter (often referred to as Z-Score filtering). 
@@ -4160,6 +4160,9 @@ TML preprocesses real-time data for every entity along each sliding time window.
 
        your model is looking at reliable trends rather than anomalies.
 
+       It also allows users to eliminate extreme values before the analysis
+
+       begins.
 
        The code defines an "envelope" or a safe zone as:
 
@@ -4203,9 +4206,33 @@ TML preprocesses real-time data for every entity along each sliding time window.
 
         - etc.
 
+       Or, to delete extreme values first you can specify:
+
+        - **datacleanstd5_10000**, this will delete any value
+
+          less than -10000 or greater 10000, it will then perform
+
+          the Z-score filtering.
+
        This function ensures you have clean data in your analysis
 
        and machine learning/AI. 
+   * - datacleanmad_#
+     - This is another powerful function for data cleaning.
+
+       It uses Mean Absolute Deviation (MAD) to clean the data.
+
+       You can choose to delete extreme values first: i.e.
+
+       datacleanmad_10000       
+   * - datacleaniqr_#
+     - This is another powerful function for data cleaning.
+
+       It uses Inter Quartile Range (IQR) to clean the data.
+
+       You can choose to delete extreme values first: i.e.
+
+       datacleaniqr_10000
    * - avgtimediff
      - This will determine the average time 
 
