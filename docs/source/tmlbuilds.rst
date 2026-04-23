@@ -4538,6 +4538,102 @@ TML preprocesses real-time data for every entity along each sliding time window.
 
        for each entity.  
 
+Data Cleaning 
+^^^^^^^^^^^^^^^^
+
+Ensuring high data quality is critical for machine learning.  
+
+Users can autoclean the data using three methods:
+
+.. list-table::
+
+   * - **Data Cleaning Preprocessing Type**
+     - **Description**
+   * - datacleanstd#_#
+     - This is a powerful function for data cleaning.
+
+       It uses a Standard Deviation Filter (often referred to as Z-Score filtering). 
+
+       In data science and AI, this is a standard technique used to 
+
+       automatically remove "outliers" or "noise" from a dataset to ensure 
+
+       your model is looking at reliable trends rather than anomalies.
+
+       It also allows users to eliminate extreme values before the analysis
+
+       begins.
+
+       The code defines an "envelope" or a safe zone as:
+
+        - upperLimit: Mean + (Tolerance * StdDev)
+
+        - lowerLimit: Mean - (Tolerance * StdDev)
+
+       where **Tolerance = #**, Mean=mean of all data in the sliding time window,
+
+       StdDev=standard deviation of all data in the sliding time window.
+
+
+       For example, if you specify ddatacleanstd3:
+
+       then TML defines the envelope as:
+
+        - upperLimit: Mean + (3 * StdDev)
+
+        - lowerLimit: Mean - (3 * StdDev)
+
+       any data point inside this envelope (inclusive) 
+
+       is considered "safe" - any point outside this envelope
+
+       is consider an outlier or noise and **will be removed from analysis**.
+
+       
+       You can specify any reasonable number: 
+
+        - datacleanstd5, 
+
+          - upperLimit: Mean + (5 * StdDev)
+
+          - lowerLimit: Mean - (5 * StdDev)
+
+        - datacleanstd10,
+
+          - upperLimit: Mean + (10 * StdDev)
+
+          - lowerLimit: Mean - (10 * StdDev)
+
+        - etc.
+
+       Or, to delete extreme values first you can specify:
+
+        - **datacleanstd5_10000**, this will delete any value
+
+          less than -10000 or greater 10000, it will then perform
+
+          the Z-score filtering.
+
+       This function ensures you have clean data in your analysis
+
+       and machine learning/AI. 
+   * - datacleanmad_#
+     - This is another powerful function for data cleaning.
+
+       It uses Mean Absolute Deviation (MAD) to clean the data.
+
+       You can choose to delete extreme values first: i.e.
+
+       datacleanmad_10000       
+   * - datacleaniqr_#
+     - This is another powerful function for data cleaning.
+
+       It uses Inter Quartile Range (IQR) to clean the data.
+
+       You can choose to delete extreme values first: i.e.
+
+       datacleaniqr_10000
+
 STEP 4: Preprocesing Data Dag: tml-system-step-4-kafka-preprocess-dag
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
