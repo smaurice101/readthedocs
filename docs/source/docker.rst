@@ -263,6 +263,11 @@ TSS Docker Run Command
             --env UPDATE=1 \
             maadsdocker/tml-solution-studio-with-airflow-arm64
 
+Backing Up TML Solutions Locally
+------------------------------
+
+All TML solutions are not only auto-committed to GitHub but also saved locally to disk.
+
 .. important::
    It is highly recommended you map your local folder 
 
