@@ -16,10 +16,10 @@ Before you can build TML solutions, you will need to run the TSS container for y
    You MUST have the pre-requisites met before running this container: :ref:`TSS Pre-Requisites`
 
 .. figure:: tss0.png
-   :scale: 70%
+   :scale: 50%
 
 .. figure:: tss-main-arch.png
-   :scale: 70%
+   :scale: 50%
 
 This is the main container that you need to use to build TML solutions.  Below is the :ref:`TSS Docker Run Command` to run the container.
 
