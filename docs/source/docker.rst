@@ -163,7 +163,7 @@ TSS Docker Run Command
 
        solution studio from your browser.  
 
-       For sample, enter: http://localhost:9000/
+       For sample, enter: http://localhost:3000/
  
        You will be asked for a 
 
@@ -283,11 +283,8 @@ How To Use the TML Solution Container
 -------------------------
 
 .. tip::
-   Once you have the TML Solution container running you can go to your favourite browser and type the URL: http://localhost:9000
+   Once you have the TML Solution container running you can go to your favourite browser and type the URL: http://localhost:3000
 
-.. note::
-   
-   The PORT number in the URL is what you specified in the Docker Run AIRFLOWPORT parameter i.e. **--env AIRFLOWPORT=9000**
 
 After you enter the URL you will the following website:
 
