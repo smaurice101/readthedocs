@@ -82,6 +82,12 @@ TSS Pre-Requisites
 
    FOLLOW THE :ref:`How To Use the TML Solution Container` SECTION.
 
+.. tip::
+
+   DEMO CREDENTIALS are available for quick access: ref:`TSS Demo Github, Docker and Readthedocs Site Credentials`
+
+   Note: the demo credentials are public so others may be using it.  Once you are happy with TSS you will need to enter yur own private credentials.
+
 TSS Contains a TML Dev Environment
 ----------------------------
 
