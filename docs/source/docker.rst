@@ -10,7 +10,7 @@ Before you can build TML solutions, you will need to run the TSS container for y
    * - `Mac/Linux Users <https://hub.docker.com/r/maadsdocker/tml-solution-studio-with-airflow-arm64>`_
 
 .. tip::
-   Watch the TSS `YouTube Video <https://www.youtube.com/watch?v=z3h2nJXVgUs>`_
+   Watch the TSS `YouTube Video <https://www.youtube.com/watch?v=7VwkXYo-iFA>`_
 
 .. important::
    You MUST have the pre-requisites met before running this container: :ref:`TSS Pre-Requisites`
