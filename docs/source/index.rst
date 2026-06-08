@@ -9,8 +9,11 @@ TSS is a revolutionary platform for building, entity-based, enterprise-ready, pr
 
 Here are the TSS Screens:
 
-.. figure:: tssscreen.png
-   :scale: 60%
+.. figure:: tss0.png
+   :scale: 50%
+
+.. figure:: tss-main-arch.png
+   :scale: 50%
 
 TML solutions can process any real-time data from devices and systems. The real-time data are ingested using RESTful, gRPC, MQTT APIs or localfile on the file system. 
 
