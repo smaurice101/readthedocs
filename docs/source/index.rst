@@ -34,7 +34,7 @@ Watch The TSS Youtube Videos
    * - **Video Name**
      - **YouTube URL**
    * - **TSS Video:** 
-     - `Youtube Video <https://www.youtube.com/watch?v=z3h2nJXVgUs>`_
+     - `Youtube Video <https://www.youtube.com/watch?v=7VwkXYo-iFA>`_
    * - **Managing TML Projects (Creating,** 
 
        **deleting, copying and stopping):** 
