@@ -254,6 +254,7 @@ TSS Docker Run Command
             --env MAINHOST=127.0.0.1 \
             --env TSS=1 \
             --env SOLUTIONNAME=TSS \
+            --env NPMSERVERPORT=3000 \ 
             --env AIRFLOWPORT=9000 \
             --env VIPERVIZPORT=9005 \
             --env EXTERNALPORT=-1 \
