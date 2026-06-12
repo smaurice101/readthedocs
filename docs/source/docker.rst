@@ -156,6 +156,12 @@ TSS Docker Run Command
      - Specifies the container OS.  NOTE: If you are using MAC then 
  
        change to CHIP=ARM64
+   * - NPMSERVERPORT
+     - This is the port number for TSS.  For example, NPMSERVERPORT=3000, 
+
+       will cause TSS to listen on port 3000 i.e. http://localhost:3000
+
+       Users can change this port.
    * - MAINHOST=127.0.0.1
      - This is the IP address for the TML solution 
 
