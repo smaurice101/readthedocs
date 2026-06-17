@@ -775,6 +775,9 @@ cryptographically verify and synchronize state transitions across
 geographically dispersed nodes without sacrificing the performance
 benefits of localized, entity-level processing.
 
+References
+===================================
+
 .. container:: thebibliography
 
    Bernstein, P. A. (2025). *Principles of Transactional Systems*.
