@@ -1665,7 +1665,7 @@ STEP 3b: Produce Data Using RESTAPI: tml-read-RESTAPI-step-3-kafka-producetotopi
 """""""""""""""""""""""""""""""""""""""" 	
 
 .. code-block:: PYTHON
-   :emphasize-lines: 25,26,27,28,29,30,31,32,33,34,35,36
+   :emphasize-lines: 48,49,50,51,52,53,54,55,56,57,58,59
           
       import maadstml
       from airflow import DAG
