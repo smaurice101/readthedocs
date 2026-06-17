@@ -2,10 +2,6 @@
 Transactional Machine Learning (TML): Atomic State Intelligence for Real-Time Entity-Based AI
 =============================================================================================
 
-:Author: Sebastian Maurice\ :math:`^1`
-         :math:`^1`\ University of Toronto, Toronto, ON, Canada
-         ``sebastian.maurice@utoronto.ca``
-:Date: 2026-06-17
 :Abstract:
    Traditional Machine Learning (ML) architectures rely on batch-centric
    paradigms that decouple data generation from model state, creating a
