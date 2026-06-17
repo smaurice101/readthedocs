@@ -23,6 +23,8 @@ Transactional Machine Learning (TML): Atomic State Intelligence for Real-Time En
    superiority through RealFlow Control AI, a high-velocity industrial
    control solution.
 
+.. note::
+   A PDF Version of this site is available `here <https://github.com/smaurice101/raspberrypi/blob/main/tml-airflow/tmlpaper/tml.pdf>`_.
 
 Introduction: The Latency of Static Intelligence
 ================================================
