@@ -1,33 +1,3 @@
-=============================================================================================
-Transactional Machine Learning (TML): Atomic State Intelligence for Real-Time Entity-Based AI
-=============================================================================================
-
-:Abstract:
-   Traditional Machine Learning (ML) architectures rely on batch-centric
-   paradigms that decouple data generation from model state, creating a
-   persistent "Inference-Reality Gap." This paper introduces
-   Transactional Machine Learning (TML):raw-latex:`\cite{maurice2020}`,
-   a novel architecture that redefines the ML lifecycle as a series of
-   atomic state transitions. By enforcing ACID (Atomicity, Consistency,
-   Isolation, Durability) properties through the TML Solution Studio
-   (TSS), we enable autonomous AI to operate on non-stationary data
-   streams with sub-millisecond state synchronization. Beyond real-time
-   performance, TML introduces a robust Transactional Long-Term Memory
-   (T-LTM) that powers autonomous agentic systems, allowing them to
-   maintain contextual consistency in rapidly evolving environments. We
-   further address critical governance challenges by embedding
-   human-in-the-loop protocols, ensuring that high-stakes autonomous
-   decision-making remains auditable, transparent, and aligned with
-   operational constraints. Finally, we provide formal convergence
-   proofs for the TML state-space model and demonstrate its empirical
-   superiority through RealFlow Control AI, a high-velocity industrial
-   control solution.
-
-
-.. role:: raw-latex(raw)
-   :format: latex
-..
-
 Introduction: The Latency of Static Intelligence
 ================================================
 
@@ -35,59 +5,57 @@ The modern AI landscape is dominated by models that are effectively
 "stateless" during inference. While deep neural networks have achieved
 remarkable predictive power, their integration into real-time industrial
 and financial ecosystems is hampered by the latency of batch
-processing.:raw-latex:`\cite{bengio2013,zaharia2010}` In dynamic
-environments—where a single sensor reading or financial transaction
-changes the fundamental context of an entity—waiting for a batch
-retraining window is equivalent to operating on a ghost of the
-past.:raw-latex:`\cite{brewer2000}` Transactional Machine
-Learning:raw-latex:`\cite{maurice2020}` (TML) proposes a paradigm shift:
-treating machine learning not as a static function, but as a continuous
-transactional process. By focusing on the Entity (a specific machine,
-user, or asset) rather than global datasets, TML allows for
-hyper-personalized, real-time evolution of intelligence at the edge.
+processing.[@bengio2013; @zaharia2010] In dynamic environments—where a
+single sensor reading or financial transaction changes the fundamental
+context of an entity—waiting for a batch retraining window is equivalent
+to operating on a ghost of the past.[@brewer2000] Transactional Machine
+Learning[@maurice2020] (TML) proposes a paradigm shift: treating machine
+learning not as a static function, but as a continuous transactional
+process. By focusing on the Entity (a specific machine, user, or asset)
+rather than global datasets, TML allows for hyper-personalized,
+real-time evolution of intelligence at the edge.
 
 The proliferation of Internet of Things (IoT) devices and industrial
 telemetry has shifted the primary AI challenge from data volume to data
-velocity.:raw-latex:`\cite{kreps2011,jordan2015}` Current cloud-centric
-architectures, which rely on the aggregation of massive data lakes,
-struggle with "geospatial data gravity"—the latency penalty incurred by
-moving high-velocity data from the edge to the cloud and
-back.:raw-latex:`\cite{bernstein2025,bernstein2009,gray1993,lamport1978,shi2016,satyanarayanan2017}`
+velocity.[@kreps2011; @jordan2015] Current cloud-centric architectures,
+which rely on the aggregation of massive data lakes, struggle with
+"geospatial data gravity"—the latency penalty incurred by moving
+high-velocity data from the edge to the cloud and back.[@bernstein2025;
+@bernstein2009; @gray1993; @lamport1978; @shi2016; @satyanarayanan2017]
 TML fundamentally addresses this by pushing the computational state to
-the edge.:raw-latex:`\cite{satyanarayanan2017}` By processing data at
-its origin, we eliminate the round-trip latency that prevents modern AI
-from participating in mission-critical, sub-millisecond control loops.
-This shift enables AI to function as an "embedded intelligence" rather
-than a remote analytics service.
+the edge.[@satyanarayanan2017] By processing data at its origin, we
+eliminate the round-trip latency that prevents modern AI from
+participating in mission-critical, sub-millisecond control loops. This
+shift enables AI to function as an "embedded intelligence" rather than a
+remote analytics service.
 
 Simultaneously, the widespread adoption of AI has introduced significant
-governance and transparency
-challenges.:raw-latex:`\cite{brewer2000,zaharia2010,bengio2013,anderson2017}`
-In industrial and safety-critical sectors, the "Black Box" nature of
-contemporary neural networks is a
-liability:raw-latex:`\cite{bottou2010,vapnik1998}`; when an AI makes a
-decision, operators often lack the insight into why that decision was
-made. TML resolves this by enforcing transactional durability. By
-capturing the complete lineage of an entity’s state—every transaction
-that contributed to a model’s prediction is recorded in an immutable
-ledger—TML provides the auditable, human-readable transparency required
-for regulatory compliance and operational trust.
+governance and transparency challenges.[@brewer2000; @zaharia2010;
+@bengio2013; @anderson2017] In industrial and safety-critical sectors,
+the "Black Box" nature of contemporary neural networks is a
+liability[@bottou2010; @vapnik1998]; when an AI makes a decision,
+operators often lack the insight into why that decision was made. TML
+resolves this by enforcing transactional durability. By capturing the
+complete lineage of an entity’s state—every transaction that contributed
+to a model’s prediction is recorded in an immutable ledger—TML provides
+the auditable, human-readable transparency required for regulatory
+compliance and operational trust.
 
 Finally, the evolution of Artificial Intelligence is moving beyond
 simple prediction toward autonomous, agentic systems capable of
-executing actions.:raw-latex:`\cite{goodfellow2016}` However, these
-autonomous agents currently suffer from "contextual staleness," relying
-on memory structures that are frequently out of sync with reality.
-:raw-latex:`\cite{wooldridge1995,bengio2013}` TML provides the necessary
-"Cognitive Architecture"—a Transactional Long-Term Memory (T-LTM)—that
-ensures agents interact with a consistent atomic state of the world. By
-bridging the gap between high-level reasoning and real-time
-transactional data, TML serves as the foundational infrastructure for
-the next generation of autonomous, entity-based intelligence as shown in
-Figures `1 <#fig:TML Preprocessing>`__ and
-`2 <#fig:TML Machine Learning>`__.
+executing actions.[@goodfellow2016] However, these autonomous agents
+currently suffer from "contextual staleness," relying on memory
+structures that are frequently out of sync with reality.
+[@wooldridge1995; @bengio2013] TML provides the necessary "Cognitive
+Architecture"—a Transactional Long-Term Memory (T-LTM)—that ensures
+agents interact with a consistent atomic state of the world. By bridging
+the gap between high-level reasoning and real-time transactional data,
+TML serves as the foundational infrastructure for the next generation of
+autonomous, entity-based intelligence as shown in Figures
+`1 <#fig:TML%20Preprocessing>`__ and
+`2 <#fig:TML%20Machine%20Learning>`__.
 
-In figure `1 <#fig:TML Preprocessing>`__, TML uses the MAADS-VIPER (or
+In figure `1 <#fig:TML%20Preprocessing>`__, TML uses the MAADS-VIPER (or
 just Viper) binary (discussed below) to roll back data streams to create
 sliding time windows. Inside these sliding time windows (the size is a
 user parameter) real-time micro-batch data is processed. For example, if
@@ -95,14 +63,12 @@ a device is producing data every one second, and the size of the sliding
 time window is 30 seconds, then there will be approximately 30 data
 points to process. The Viper binary handles all of the roll back and
 processing, in-memory, at hyper speeds. The Viper binary is written in
-Golang :raw-latex:`\cite{donovan_kernighan_go}`. TML has 35 different
-processing types such as: min, max, std, variance, etc.
+Golang [@donovan_kernighan_go]. TML has 35 different processing types
+such as: min, max, std, variance, etc.
 
-.. figure:: tmlpre.png
-   :alt: 
-   :width: 80.0%
+|TML Entity Based Preprocessing|\ {#fig:TML Preprocessing width=“80%”}
 
-Figure `2 <#fig:TML Machine Learning>`__, shows how TML joins data
+Figure `2 <#fig:TML%20Machine%20Learning>`__, shows how TML joins data
 streams to create training data sets for each entity, for every sliding
 time window. In this figure, data streams are joined to create ML models
 in real-time and in-memory. The user specifies the dependent and
@@ -111,11 +77,10 @@ calls the HPDE binary (via REST API) with applies algorithms to the
 training datasets. TML can apply: logistic regression, linear
 regression, gradient boosting, neural networks, and ridge regression to
 the training datasets. The HPDE binary is written in Golang
-:raw-latex:`\cite{donovan_kernighan_go}`.
+[@donovan_kernighan_go].
 
-.. figure:: tmlml.png
-   :alt: 
-   :width: 80.0%
+|TML Entity Based Machine Learning|\ {#fig:TML Machine Learning
+width=“80%”}
 
 Data Cleaning and Stream Processing
 ===================================
@@ -178,7 +143,7 @@ The Theoretical Foundation: ACID for AI
 
 TML applies the rigorous standards of database theory to the machine
 learning lifecycle to ensure data and model integrity using
-ACID:raw-latex:`\cite{haerder1983}`:
+ACID[@haerder1983]:
 
 -  **Atomicity:** Every state update is binary; the system never
    operates on a partial or corrupted feature vector.
@@ -199,12 +164,11 @@ Differentiation from Generic Stream Processing
 Unlike generic stream processing frameworks that often treat data as
 anonymous events, TML applies a strict, entity-centric relational state.
 In generic streaming, state is often transient or
-window-based:raw-latex:`\cite{lamport1978,vapnik1995}`; in TML, the
-state is atomic and durable by design. This shift allows the TML engine
-to function as a transactional database for AI, ensuring that the model
-never diverges from the physical reality of the entity, thereby
-eliminating the "Inference-Reality Gap" inherent in non-transactional
-stream processing.
+window-based[@lamport1978; @vapnik1995]; in TML, the state is atomic and
+durable by design. This shift allows the TML engine to function as a
+transactional database for AI, ensuring that the model never diverges
+from the physical reality of the entity, thereby eliminating the
+"Inference-Reality Gap" inherent in non-transactional stream processing.
 
 Mathematical Formalism
 ======================
@@ -225,7 +189,7 @@ update function :math:`\Phi_i`:
 
 .. math:: S_{t,i} = \Phi(S_{t-1,i}, T_{t,i}; \theta_i)
 
-Where :math:`\theta_i` represents the specialized, learned parameters
+\ Where :math:`\theta_i` represents the specialized, learned parameters
 (the "personality") of the TML engine for entity :math:`i`. Unlike
 global models that attempt to learn a single :math:`\Theta` for all
 data, TML maintains :math:`N` independent, parallel state-space models.
@@ -269,19 +233,19 @@ of the individual convergence errors:
 
 As transaction frequency increases, the individual error for every
 entity :math:`E_i \to 0`, ensuring the entire population remains coupled
-to reality regardless of external drift:raw-latex:`\cite{gama2014}`.
-Because each model evolves independently, the system scales horizontally
-without accumulation of global error.
+to reality regardless of external drift[@gama2014]. Because each model
+evolves independently, the system scales horizontally without
+accumulation of global error.
 
 Implementation: TML Solution Studio (TSS)
 =========================================
 
 The TML architecture is operationalized through the TML Solution Studio
-(TSS) shown in figure `3 <#fig:TML Solution Studio>`__, a containerized
-suite of three distinct, high-performance binary engines. This modular
-design ensures that the compute, processing, and visualization layers
-remain decoupled, allowing for granular resource allocation in edge and
-cloud deployments:
+(TSS) shown in figure `3 <#fig:TML%20Solution%20Studio>`__, a
+containerized suite of three distinct, high-performance binary engines.
+This modular design ensures that the compute, processing, and
+visualization layers remain decoupled, allowing for granular resource
+allocation in edge and cloud deployments:
 
 -  **MAADS-HPDE (High Performance Data Engine):** The core computational
    engine. HPDE is responsible for the heavy lifting of TML: executing
@@ -304,9 +268,7 @@ cloud deployments:
    that allows human operators to monitor entity drift and model
    performance with sub-millisecond latency.
 
-.. figure:: tss.png
-   :alt: 
-   :width: 80.0%
+|TML Solution Studio (TSS)|\ {#fig:TML Solution Studio width=“80%”}
 
 Architectural Encapsulation
 ---------------------------
@@ -325,13 +287,11 @@ single TSS instance includes:
    monitoring.
 
 -  **Development Workflow:** Containerized Apache Airflow for DAG-based
-   solution construction as shown in `4 <#fig:Ten Core Dags>`__.
+   solution construction as shown in `4 <#fig:Ten%20Core%20Dags>`__.
 
 These dags are described in Table `2 <#tab:tml_pipeline>`__ below.
 
-.. figure:: dagprocess.png
-   :alt: 
-   :width: 80.0%
+|TML 10 Core Dags|\ {#fig:Ten Core Dags width=“80%”}
 
 .. container::
    :name: tab:tml_pipeline
@@ -424,9 +384,9 @@ Architectural Minimalism: The Kafka-Native Stack
 
 A defining characteristic of the TML architecture is its elimination of
 external database dependencies. Traditional AI pipelines often suffer
-from ’I/O amplification’—the latency overhead incurred by querying
+from ‘I/O amplification’—the latency overhead incurred by querying
 external databases for entity state. TML achieves sub-millisecond
-performance by adopting a ’Kafka-Native’ persistence model. By
+performance by adopting a ‘Kafka-Native’ persistence model. By
 leveraging Kafka’s distributed log as both the message bus and the
 durable, long-term state store, TML ensures that the model state is
 maintained in-memory and synchronized via the log. This decoupling of
@@ -445,20 +405,20 @@ I/O Tax"—the latency and cost overhead associated with serializing event
 data into relational tables and querying them via SQL.
 
 TML eliminates this tax by adopting a JSON-native processing model. By
-utilizing the ‘JSONCriteria‘ specification (discussed below), the TML
+utilizing the ‘JSONCriteria’ specification (discussed below), the TML
 engine maps data points directly from incoming Kafka event payloads to
 internal state-space features. This approach yields three critical
 advantages:
 
-#. **Reduced Latency:** By eliminating the database read/write cycle,
+1. **Reduced Latency:** By eliminating the database read/write cycle,
    the engine operates at the speed of the message bus.
 
-#. **Operational Cost Reduction:** Removing the dependency on external
+2. **Operational Cost Reduction:** Removing the dependency on external
    SQL databases lowers infrastructure overhead, specifically reducing
    the cost of compute resources required for database maintenance and
    query optimization.
 
-#. **Stream-State Coupling:** JSON processing allows for a direct,
+3. **Stream-State Coupling:** JSON processing allows for a direct,
    schema-less mapping between the raw event and the entity model,
    avoiding the "schema impedance mismatch" common in rigid relational
    schemas.
@@ -496,17 +456,15 @@ autonomous agents. TML provides a Transactional Vector containing the
 current atomic state :math:`S_t`, the historical lineage :math:`L`, and
 the predicted next state :math:`\Delta`.
 
-As shown in figure `5 <#fig:TML agent>`__, the TML framework enables an
-advanced Multi-Agentic Architecture that moves beyond single-agent
+As shown in figure `5 <#fig:TML%20agent>`__, the TML framework enables
+an advanced Multi-Agentic Architecture that moves beyond single-agent
 paradigms. Independent "Topic Agents" monitor specific Kafka topics for
 anomalies, funneling findings into a Vector Database where a "Team Lead
 Agent" performs collaborative synthesis. This ensures that the final
 decision is an emergent consensus derived from a meshed analysis of the
 entity’s history.
 
-.. figure:: tmlagent.png
-   :alt: 
-   :width: 80.0%
+|TML Multi-Agentic Reference Architecture|\ {#fig:TML agent width=“80%”}
 
 This architecture is fundamentally action-oriented. The "Supervisor
 Agent" is configured to interpret the Team Lead’s synthesis and execute
@@ -622,13 +580,13 @@ APIs discussed in the previous section.
 
 The RealFlow Control AI implementation serves as a primary empirical
 validation of the TML architecture in high-velocity industrial
-environments.:raw-latex:`\cite{raissi2019}` Traditional Computational
-Fluid Dynamics (CFD) approaches are computationally prohibitive for
-real-time control, often introducing latency that renders them useless
-for dynamic process adjustments. RealFlow addresses this by achieving a
-12,500x computational speedup over conventional ANSYS Fluent baselines,
-enabling full transient multiphysics fleet calculations at 8,006 Hz—well
-beyond standard SCADA clock rates.
+environments.[@raissi2019] Traditional Computational Fluid Dynamics
+(CFD) approaches are computationally prohibitive for real-time control,
+often introducing latency that renders them useless for dynamic process
+adjustments. RealFlow addresses this by achieving a 12,500x
+computational speedup over conventional ANSYS Fluent baselines, enabling
+full transient multiphysics fleet calculations at 8,006 Hz—well beyond
+standard SCADA clock rates.
 
 The Fusion Equation
 -------------------
@@ -755,11 +713,11 @@ multi-node clusters.
 Furthermore, the TML framework assumes a baseline of data integrity that
 can be difficult to guarantee in high-entropy edge environments. Because
 TML models are updated in real-time based on incoming streams, they are
-inherently susceptible to ’temporal noise’—spurious fluctuations or
+inherently susceptible to ‘temporal noise’—spurious fluctuations or
 transient anomalies that might trigger an unnecessary, erroneous state
 transition. Unlike batch systems that employ extensive offline
 preprocessing and outlier rejection phases, TML’s transactional nature
-necessitates a paradigm shift toward ’streaming feature engineering,’
+necessitates a paradigm shift toward ‘streaming feature engineering,’
 where anomaly detection must occur simultaneously with inference. Future
 iterations of the TML core must therefore integrate adaptive,
 low-latency filtration mechanisms to ensure that atomic state updates
@@ -774,52 +732,82 @@ distributed network of autonomous nodes. While this decentralization is
 essential for achieving sub-millisecond latency, it introduces
 significant challenges regarding global auditing and the enforcement of
 uniform security policies. Future research must prioritize the
-development of ’Federated Transactional Integrity’—a framework to
+development of ‘Federated Transactional Integrity’—a framework to
 cryptographically verify and synchronize state transitions across
 geographically dispersed nodes without sacrificing the performance
 benefits of localized, entity-level processing.
 
 .. container:: thebibliography
 
-   9 Bernstein, P. A. (2025). *Principles of Transactional Systems*.
+   Bernstein, P. A. (2025). *Principles of Transactional Systems*.
    Vapnik, V. (1995). *The Nature of Statistical Learning Theory*.
+   
    Kreps, J., Narkhede, N., & Rao, J. (2011). Kafka: A Distributed
-   Messaging System for Log Processing. *NetDB*. Zaharia, M., et al.
-   (2010). *Spark: Cluster Computing with Working Sets*. Bernstein, P.
-   A., & Newcomer, E. (2009). *Principles of Transaction Processing*.
+   Messaging System for Log Processing. 
+   
+   *NetDB*. Zaharia, M., et al. (2010). *Spark: Cluster Computing with Working Sets*. 
+   
+   Bernstein,P. A., & Newcomer, E. (2009). *Principles of Transaction Processing*.
+
    Morgan Kaufmann. Gray, J., & Reuter, A. (1993). *Transaction
-   Processing: Concepts and Techniques*. Morgan Kaufmann. Lamport, L.
+   Processing: Concepts and Techniques*. 
+   
+   Morgan Kaufmann. Lamport, L.
    (1978). Time, Clocks, and the Ordering of Events in a Distributed
-   System. *Communications of the ACM*, 21(7), 558-565. Brewer, E. A.
+   System. *Communications of the ACM*, 21(7), 558-565. 
+   
+   Brewer, E. A.
    (2000). Towards Robust Distributed Systems. *PODC Keynote*.
 
    Vapnik, V. N. (1998). *Statistical Learning Theory*.
-   Wiley-Interscience. Bottou, L. (2010). Large-Scale Machine Learning
-   with Stochastic Gradient Descent. *Proceedings of COMPSTAT*. Gama,
-   J., et al. (2014). A Survey on Concept Drift Adaptation. *ACM
-   Computing Surveys (CSUR)*, 46(4), 1-37. Jordan, M. I., & Mitchell, T.
+   Wiley-Interscience. 
+   
+   Bottou, L. (2010). Large-Scale Machine Learning
+   with Stochastic Gradient Descent. *Proceedings of COMPSTAT*. 
+   
+   Gama,
+   J., et al. (2014). A Survey on Concept Drift Adaptation. *ACM
+   Computing Surveys (CSUR)*, 46(4), 1-37. 
+   
+   Jordan, M. I., & Mitchell, T.
    M. (2015). Machine Learning: Trends, Perspectives, and Prospects.
    *Science*, 349(6245), 255-260.
 
    Wooldridge, M., & Jennings, N. R. (1995). Intelligent Agents: Theory
    and Practice. *The Knowledge Engineering Review*, 10(2), 115-152.
-   Bengio, Y., et al. (2013). Representation Learning: A Review and New
+   
+   Bengio, Y., et al. (2013). Representation Learning: A Review and New
    Perspectives. *IEEE Transactions on Pattern Analysis and Machine
    Intelligence*.
 
-   Shi, W., et al. (2016). Edge Computing: Vision and Challenges. *IEEE
-   Internet of Things Journal*, 3(5), 637-646. Satyanarayanan, M.
+   Shi, W., et al. (2016). Edge Computing: Vision and Challenges. *IEEE
+   Internet of Things Journal*, 3(5), 637-646. 
+   
+   Satyanarayanan, M.
    (2017). The Emergence of Edge Computing. *Computer*, 50(1), 30-39.
 
    Goodfellow, I., Bengio, Y., & Courville, A. (2016). *Deep Learning*.
-   MIT Press. Maurice, S. (2020). *Transactional Machine Learning with
-   Data Streams and AutoML*. Apress. Anderson, R., et al. (2017).
+   MIT Press. 
+   
+   Maurice, S. (2020). *Transactional Machine Learning with
+   Data Streams and AutoML*. Apress. Anderson, R., et al. (2017).
+   
    Security and Governance for AI-Driven Autonomous Systems. *IEEE
-   Security & Privacy*. Haerder, T., & Reuter, A. (1983). Principles of
+   Security & Privacy*. 
+   
+   Haerder, T., & Reuter, A. (1983). Principles of
    Transaction-Oriented Database Recovery. *ACM Computing Surveys
-   (CSUR)*, 15(4), 287-317. Raissi, M., Perdikaris, P., & Karniadakis,
+   (CSUR)*, 15(4), 287-317. 
+   
+   Raissi, M., Perdikaris, P., & Karniadakis,
    G. E. (2019). Physics-Informed Neural Networks. *Journal of
    Computational Physics*, 378, 686-707.
 
    A. A. A. Donovan and B. W. Kernighan, *The Go Programming Language*,
    Addison-Wesley Professional, 2015.
+
+.. |TML Entity Based Preprocessing| image:: tmlpre.png
+.. |TML Entity Based Machine Learning| image:: tmlml.png
+.. |TML Solution Studio (TSS)| image:: tss.png
+.. |TML 10 Core Dags| image:: dagprocess.png
+.. |TML Multi-Agentic Reference Architecture| image:: tmlagent.png
