@@ -3525,8 +3525,8 @@ STEP 3c.i: gRPC API CLIENT
     import warnings
     #warnings.filterwarnings("error")
     
-    #host='tml.tss:443' - use this if using Kubernetes
-    host='127.0.01:9002'  - use this if running TML in standalong docker container
+    #host='tml.tss:443' #- use this if using Kubernetes
+    host='127.0.01:9002'  #- use this if running TML in standalong docker container
     
     sys.dont_write_bytecode = True
     
