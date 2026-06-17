@@ -1,3 +1,37 @@
+=============================================================================================
+Transactional Machine Learning (TML): Atomic State Intelligence for Real-Time Entity-Based AI
+=============================================================================================
+
+:Author: Sebastian Maurice\ :math:`^1`
+         :math:`^1`\ University of Toronto, Toronto, ON, Canada
+         ``sebastian.maurice@utoronto.ca``
+:Date: 2026-06-17
+:Abstract:
+   Traditional Machine Learning (ML) architectures rely on batch-centric
+   paradigms that decouple data generation from model state, creating a
+   persistent "Inference-Reality Gap." This paper introduces
+   Transactional Machine Learning (TML):raw-latex:`\cite{maurice2020}`,
+   a novel architecture that redefines the ML lifecycle as a series of
+   atomic state transitions. By enforcing ACID (Atomicity, Consistency,
+   Isolation, Durability) properties through the TML Solution Studio
+   (TSS), we enable autonomous AI to operate on non-stationary data
+   streams with sub-millisecond state synchronization. Beyond real-time
+   performance, TML introduces a robust Transactional Long-Term Memory
+   (T-LTM) that powers autonomous agentic systems, allowing them to
+   maintain contextual consistency in rapidly evolving environments. We
+   further address critical governance challenges by embedding
+   human-in-the-loop protocols, ensuring that high-stakes autonomous
+   decision-making remains auditable, transparent, and aligned with
+   operational constraints. Finally, we provide formal convergence
+   proofs for the TML state-space model and demonstrate its empirical
+   superiority through RealFlow Control AI, a high-velocity industrial
+   control solution.
+
+
+.. role:: raw-latex(raw)
+   :format: latex
+..
+
 Introduction: The Latency of Static Intelligence
 ================================================
 
