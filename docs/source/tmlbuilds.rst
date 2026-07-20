@@ -1664,6 +1664,18 @@ If using HiveMQ cluster:
 STEP 3b: Produce Data Using RESTAPI: tml-read-RESTAPI-step-3-kafka-producetotopic-dag
 """""""""""""""""""""""""""""""""""""""" 	
 
+If using the REST-API you can ingest data from the following systems:
+
+  - kafka
+  - rabbitmq
+  - redis
+  - scada
+  - splunk
+  - elasticsearch
+  - clickhouse
+  - influxdb
+  - logstash
+
 .. code-block:: PYTHON
    :emphasize-lines: 48,49,50,51,52,53,54,55,56,57,58,59
           
