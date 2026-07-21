@@ -1676,6 +1676,47 @@ If using the REST-API you can ingest data from the following systems:
   - influxdb
   - logstash
 
+.. important::
+
+    To connect to the appropriate system you MUST use the REST API DAG (Step 3b) and make the necessary configuration changes in the JSON below:
+
+    1. set the "active_system" to the approapriate systm
+
+    2. set "polling_interval_seconds": 1.0, 
+ 
+    3. set "max_batch_size": 10,
+
+    4. Data must be JSON:  "strict_json_validation": True
+  
+    .. code-block::
+
+        "ingestion_settings": {
+          "active_system": "", # You can specify: kafka, rabbitmq, redis, scada, splunk, elasticsearch, clickhouse, influxdb, logstash
+          "polling_interval_seconds": 1.0,
+          "max_batch_size": 10,
+          "strict_json_validation": True
+      },
+
+    For example - if ingesting data from "rabbitmq" then:
+
+    - "active_system": "rabbitmq" and you must configure the rabbitmq json:
+
+    .. code-block::
+
+        "rabbitmq": {
+          "management_url": "http://localhost:15672",
+          "queue_name": "siem_alerts",
+          "virtual_host": "%2F",
+          "payload_key_path": ["payload"],
+          "security": {
+            "auth_type": "basic",
+            "username": "guest",
+            "password": "secure_password_here",
+            "verify_ssl": False
+          }
+        },
+
+      
 .. code-block:: PYTHON
    :emphasize-lines: 48,49,50,51,52,53,54,55,56,57,58,59,60,61,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,
                      86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,
