@@ -1699,7 +1699,7 @@ If using the REST-API you can ingest data from the following systems:
 
     For example - if ingesting data from "rabbitmq" then:
 
-    - "active_system": "rabbitmq" and you must configure the rabbitmq json:
+    - "active_system": "rabbitmq" and you must configure the rabbitmq json in the DAG 3b:
 
     .. code-block::
 
