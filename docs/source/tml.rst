@@ -106,7 +106,7 @@ streams to create training data sets for each entity, for every sliding
 time window. In this figure, data streams are joined to create ML models
 in real-time and in-memory. The user specifies the dependent and
 independent variable data streams in the Dags (discussed below). Viper
-calls the HPDE binary (via REST API) with applies algorithms to the
+calls the HPDE binary (via REST API) that applies algorithms to the
 training datasets. TML can apply: logistic regression, linear
 regression, gradient boosting, neural networks, and ridge regression to
 the training datasets. The HPDE binary is written in Golang (Donovan and
