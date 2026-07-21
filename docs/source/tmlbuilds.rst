@@ -1680,7 +1680,7 @@ If using the REST-API you can ingest data from the following systems:
 
     To connect to the appropriate system you MUST use the REST API DAG (Step 3b) and make the necessary configuration changes in the JSON below:
 
-    1. set the "active_system" to the approapriate systm
+    1. set the "active_system" to the appropriate system
 
     2. set "polling_interval_seconds": 1.0, 
  
