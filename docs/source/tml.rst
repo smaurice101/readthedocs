@@ -37,7 +37,7 @@ processing (Bengio, Courville, and Vincent 2013; Zaharia et al. 2010).  In
 dynamic environments—where a single sensor reading or financial
 transaction changes the fundamental context of an entity—waiting for a
 batch retraining window is equivalent to operating on a ghost of the
-past (Brewer 2000).  Transactional Machine Learning(Maurice 2020) (TML)
+past (Brewer 2000).  Transactional Machine Learning (Maurice 2020) (TML)
 proposes a paradigm shift: treating machine learning not as a static
 function, but as a continuous transactional process. By focusing on the
 Entity (a specific machine, user, or asset) rather than global datasets,
