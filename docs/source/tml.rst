@@ -47,7 +47,7 @@ at the edge.
 The proliferation of Internet of Things (IoT) devices and industrial
 telemetry has shifted the primary AI challenge from data volume to data
 velocity (Kreps, Narkhede, and Rao 2011; Jordan and Mitchell 2015). 
- Current cloud-centric architectures, which rely on the aggregation of
+Current cloud-centric architectures, which rely on the aggregation of
 massive data lakes, struggle with "geospatial data gravity"—the latency
 penalty incurred by moving high-velocity data from the edge to the cloud
 and back (Bernstein 2025; Bernstein and Newcomer 2009; Gray and Reuter
