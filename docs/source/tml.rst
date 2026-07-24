@@ -33,11 +33,11 @@ The modern AI landscape is dominated by models that are effectively
 "stateless" during inference. While deep neural networks have achieved
 remarkable predictive power, their integration into real-time industrial
 and financial ecosystems is hampered by the latency of batch
-processing.(Bengio, Courville, and Vincent 2013; Zaharia et al. 2010) In
+processing (Bengio, Courville, and Vincent 2013; Zaharia et al. 2010).  In
 dynamic environments—where a single sensor reading or financial
 transaction changes the fundamental context of an entity—waiting for a
 batch retraining window is equivalent to operating on a ghost of the
-past.(Brewer 2000) Transactional Machine Learning(Maurice 2020) (TML)
+past (Brewer 2000).  Transactional Machine Learning(Maurice 2020) (TML)
 proposes a paradigm shift: treating machine learning not as a static
 function, but as a continuous transactional process. By focusing on the
 Entity (a specific machine, user, or asset) rather than global datasets,
@@ -46,24 +46,24 @@ at the edge.
 
 The proliferation of Internet of Things (IoT) devices and industrial
 telemetry has shifted the primary AI challenge from data volume to data
-velocity.(Kreps, Narkhede, and Rao 2011; Jordan and Mitchell 2015)
-Current cloud-centric architectures, which rely on the aggregation of
+velocity (Kreps, Narkhede, and Rao 2011; Jordan and Mitchell 2015). 
+ Current cloud-centric architectures, which rely on the aggregation of
 massive data lakes, struggle with "geospatial data gravity"—the latency
 penalty incurred by moving high-velocity data from the edge to the cloud
-and back.(Bernstein 2025; Bernstein and Newcomer 2009; Gray and Reuter
-1993; Lamport 1978; Shi et al. 2016; Satyanarayanan 2017) TML
+and back (Bernstein 2025; Bernstein and Newcomer 2009; Gray and Reuter
+1993; Lamport 1978; Shi et al. 2016; Satyanarayanan 2017).  TML
 fundamentally addresses this by pushing the computational state to the
-edge.(Satyanarayanan 2017) By processing data at its origin, we
+edge (Satyanarayanan 2017).  By processing data at its origin, we
 eliminate the round-trip latency that prevents modern AI from
 participating in mission-critical, sub-millisecond control loops. This
 shift enables AI to function as an "embedded intelligence" rather than a
 remote analytics service.
 
 Simultaneously, the widespread adoption of AI has introduced significant
-governance and transparency challenges.(Brewer 2000; Zaharia et al.
-2010; Bengio, Courville, and Vincent 2013; Anderson et al. 2017) In
+governance and transparency challenges (Brewer 2000; Zaharia et al.
+2010; Bengio, Courville, and Vincent 2013; Anderson et al. 2017).  In
 industrial and safety-critical sectors, the "Black Box" nature of
-contemporary neural networks is a liability(Bottou 2010; V. N. Vapnik
+contemporary neural networks is a liability (Bottou 2010; V. N. Vapnik
 1998); when an AI makes a decision, operators often lack the insight
 into why that decision was made. TML resolves this by enforcing
 transactional durability. By capturing the complete lineage of an
@@ -74,11 +74,11 @@ compliance and operational trust.
 
 Finally, the evolution of Artificial Intelligence is moving beyond
 simple prediction toward autonomous, agentic systems capable of
-executing actions.(Goodfellow, Bengio, and Courville 2016) However,
+executing actions (Goodfellow, Bengio, and Courville 2016).  However,
 these autonomous agents currently suffer from "contextual staleness,"
 relying on memory structures that are frequently out of sync with
-reality. (Wooldridge and Jennings 1995; Bengio, Courville, and Vincent
-2013) TML provides the necessary "Cognitive Architecture"—a
+reality (Wooldridge and Jennings 1995; Bengio, Courville, and Vincent
+2013).  TML provides the necessary "Cognitive Architecture"—a
 Transactional Long-Term Memory (T-LTM)—that ensures agents interact with
 a consistent atomic state of the world. By bridging the gap between
 high-level reasoning and real-time transactional data, TML serves as the
@@ -94,7 +94,7 @@ a device is producing data every one second, and the size of the sliding
 time window is 30 seconds, then there will be approximately 30 data
 points to process. The Viper binary handles all of the roll back and
 processing, in-memory, at hyper speeds. The Viper binary is written in
-Golang (Donovan and Kernighan 2015). TML has 35 different processing
+Golang (Donovan and Kernighan 2015).  TML has 35 different processing
 types such as: min, max, std, variance, etc.
 
 .. figure:: tmlpre.png
@@ -176,7 +176,7 @@ The Theoretical Foundation: ACID for AI
 =======================================
 
 TML applies the rigorous standards of database theory to the machine
-learning lifecycle to ensure data and model integrity using ACID(Haerder
+learning lifecycle to ensure data and model integrity using ACID (Haerder
 and Reuter 1983):
 
 -  **Atomicity:** Every state update is binary; the system never
@@ -197,7 +197,7 @@ Differentiation from Generic Stream Processing
 
 Unlike generic stream processing frameworks that often treat data as
 anonymous events, TML applies a strict, entity-centric relational state.
-In generic streaming, state is often transient or window-based(Lamport
+In generic streaming, state is often transient or window-based (Lamport
 1978; V. Vapnik 1995); in TML, the state is atomic and durable by
 design. This shift allows the TML engine to function as a transactional
 database for AI, ensuring that the model never diverges from the
@@ -267,7 +267,7 @@ of the individual convergence errors:
 
 As transaction frequency increases, the individual error for every
 entity :math:`E_i \to 0`, ensuring the entire population remains coupled
-to reality regardless of external drift(Gama et al. 2014). Because each
+to reality regardless of external drift (Gama et al. 2014).  Because each
 model evolves independently, the system scales horizontally without
 accumulation of global error.
 
