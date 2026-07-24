@@ -53,7 +53,7 @@ penalty incurred by moving high-velocity data from the edge to the cloud
 and back (Bernstein 2025; Bernstein and Newcomer 2009; Gray and Reuter
 1993; Lamport 1978; Shi et al. 2016; Satyanarayanan 2017).  TML
 fundamentally addresses this by pushing the computational state to the
-edge (Satyanarayanan 2017).  By processing data at its origin, we
+edge (Satyanarayanan 2017; Maurice 2020).  By processing data at its origin, we
 eliminate the round-trip latency that prevents modern AI from
 participating in mission-critical, sub-millisecond control loops. This
 shift enables AI to function as an "embedded intelligence" rather than a
