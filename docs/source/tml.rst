@@ -306,6 +306,17 @@ cloud deployments:
    :alt: 
    :width: 80.0%
 
+TSS Dashboard Running in Docker Container
+--------------------------------------
+
+.. tip::
+
+   See TSS `Docker Container Section <https://tml.readthedocs.io/en/latest/docker.html#tml-solution-studio-tss-container>`_
+
+.. figure:: tss0.png
+   :alt: 
+   :width: 80.0%
+
 Architectural Encapsulation
 ---------------------------
 
