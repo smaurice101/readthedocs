@@ -581,7 +581,7 @@ endpoints, TML decouples the orchestration logic from the core
 Kafka-based processing engine, allowing for programmatic control over
 the entire analytics lifecycle.
 
-TSS can also ingest data from these systems:
+TSS can also ingest data from these systems: (`See here for more details <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-3b-produce-data-using-restapi-tml-read-restapi-step-3-kafka-producetotopic-dag>`_)
 
  * kafka
 
