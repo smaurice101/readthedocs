@@ -8,7 +8,10 @@ TSS is a revolutionary platform for building, entity-based, enterprise-ready, pr
 `IDC estimates that 30% of global data will be real-time data by 2025 <https://www.zdnet.com/article/by-2025-nearly-30-percent-of-data-generated-will-be-real-time-idc-says/>`_ - so learning how to process real-time data with TML is becoming critical.
 
 .. tip::
-   Watch the TSS `YouTube Video <https://www.youtube.com/watch?v=7VwkXYo-iFA>`_
+   - Watch the TSS `YouTube Video <https://www.youtube.com/watch?v=7VwkXYo-iFA>`_
+
+   - Read the `TML Paper <https://tml.readthedocs.io/en/latest/tml.html>`_
+
 
 Here are the TSS Screens:
 
