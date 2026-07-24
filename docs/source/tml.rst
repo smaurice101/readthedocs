@@ -581,6 +581,27 @@ endpoints, TML decouples the orchestration logic from the core
 Kafka-based processing engine, allowing for programmatic control over
 the entire analytics lifecycle.
 
+TSS can also ingest data from these systems:
+
+ * kafka
+
+ * rabbitmq
+
+ * redis
+
+ * scada
+
+ * splunk
+
+ * elasticsearch
+
+ * clickhouse
+
+ * influxdb
+
+ * logstash
+
+
 Core Capabilities
 -----------------
 
