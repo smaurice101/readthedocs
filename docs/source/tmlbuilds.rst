@@ -4775,6 +4775,10 @@ TML preprocesses real-time data for every entity along each sliding time window.
        in the data in the sliding time windows 
 
        for each entity.  
+   * - zscore
+     - This will compute the Zscore: Z=(X-mean)/StdD
+
+       It will return the maximum zscore (Z). 
 
 Data Cleaning 
 ^^^^^^^^^^^^^^^^
