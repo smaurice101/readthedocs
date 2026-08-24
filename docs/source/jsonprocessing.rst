@@ -264,11 +264,15 @@ To process Otel jsons (as show below for Traces) you can easily specify the json
 .. code-block::
 
 	 'jsoncriteria' : 'uid=gen_ai.agent.id,filter:cncf~\
-subtopics=gen_ai.agent.execution_step,gen_ai.usage.input_tokens,gen_ai.usage.output_tokens,gen_ai.usage.total_tokens,metrics.api_call_rate,metrics.target_entropy,m  etrics.payload_bytes,security.privilege_level~\ values=gen_ai.agent.execution_step,gen_ai.usage.input_tokens,gen_ai.usage.output_tokens,gen_ai.usage.total_tokens,metrics.api_call_rate,metrics.target_entropy,metr  ics.payload_bytes,security.privilege_level~\
-identifiers=service.instance.id,service.instance.id,service.instance.id,service.instance.id,service.instance.id,service.instance.id,service.instance.id,service.ins  tance.id~\
-  datetime=startTimeUnixNano~\
-  msgid=datapoint.id~\
-  latlong=lat:long'
+     subtopics=gen_ai.agent.execution_step,gen_ai.usage.input_tokens,gen_ai.usage.output_tokens,
+     gen_ai.usage.total_tokens,metrics.api_call_rate,metrics.target_entropy,metrics.payload_bytes,security.privilege_level~\
+     values=gen_ai.agent.execution_step,gen_ai.usage.input_tokens,gen_ai.usage.output_tokens,gen_ai.usage.total_tokens,
+     metrics.api_call_rate,metrics.target_entropy,metr  ics.payload_bytes,security.privilege_level~\
+     identifiers=service.instance.id,service.instance.id,service.instance.id,service.instance.id,service.instance.id,
+     service.instance.id,service.instance.id,service.ins  tance.id~\
+     datetime=startTimeUnixNano~\
+     msgid=datapoint.id~\
+     latlong=lat:long'
 
 
 JSON Criteria Creator
