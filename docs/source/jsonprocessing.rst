@@ -251,7 +251,7 @@ JSON Message In A Payload
 OpenTelemetry (OTel) JSON Format For Cloud Native Solution
 -----------------------------------------------------
 
-TML is fully compatible with OpenTelemetry JSON formats for: `traces, metrics, and logs<https://opentelemetry.io/docs/specs/otel/protocol/file-exporter/#examples>`_
+TML is fully compatible with OpenTelemetry JSON formats for: `traces, metrics, and logs <https://opentelemetry.io/docs/specs/otel/protocol/file-exporter/#examples>`_
 
 To process Otel jsons (as show below for Traces) you can easily specify the json criteria in `Step 4 <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-4-preprocesing-data-dag-tml-system-step-4-kafka-preprocess-dag>`_
 
