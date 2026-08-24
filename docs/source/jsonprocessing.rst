@@ -265,13 +265,13 @@ To process Otel jsons (as show below for Traces) you can easily specify the json
 						{
 							"key": "service.name",
 							"value": {
-								"stringValue": "agent_service_billing"
+								"stringValue": "agent_service_support"
 							}
 						},
 						{
 							"key": "service.instance.id",
 							"value": {
-								"stringValue": "agent_billing_15"
+								"stringValue": "agent_support_15"
 							}
 						},
 						{
@@ -296,12 +296,12 @@ To process Otel jsons (as show below for Traces) you can easily specify the json
 						},
 						"spans": [
 							{
-								"traceId": "66188e73657a4b2ea464125359cc8842",
-								"spanId": "edad921e30014227",
+								"traceId": "7d16e7ad83154aa0b94935d22149c58e",
+								"spanId": "a3393fcf3a5f4378",
 								"name": "agent.step.execute",
 								"kind": "SPAN_KIND_INTERNAL",
-								"startTimeUnixNano": "1787332199699290112",
-								"endTimeUnixNano": "1787332200241520896",
+								"startTimeUnixNano": "1787607226285300992",
+								"endTimeUnixNano": "1787607226544187136",
 								"attributes": [
 									{
 										"key": "gen_ai.system",
@@ -312,55 +312,55 @@ To process Otel jsons (as show below for Traces) you can easily specify the json
 									{
 										"key": "gen_ai.agent.id",
 										"value": {
-											"stringValue": "agent_billing_15"
+											"stringValue": "agent_support_15"
 										}
 									},
 									{
 										"key": "gen_ai.agent.execution_step",
 										"value": {
-											"intValue": "1"
+											"intValue": 1
 										}
 									},
 									{
 										"key": "gen_ai.usage.input_tokens",
 										"value": {
-											"intValue": "1537"
+											"intValue": 683
 										}
 									},
 									{
 										"key": "gen_ai.usage.output_tokens",
 										"value": {
-											"intValue": "293"
+											"intValue": 103
 										}
 									},
 									{
 										"key": "gen_ai.usage.total_tokens",
 										"value": {
-											"intValue": "1830"
+											"intValue": 786
 										}
 									},
 									{
 										"key": "metrics.api_call_rate",
 										"value": {
-											"doubleValue": 3.25
+											"doubleValue": 3.08
 										}
 									},
 									{
 										"key": "metrics.target_entropy",
 										"value": {
-											"doubleValue": 0.1
+											"doubleValue": 0.12
 										}
 									},
 									{
 										"key": "metrics.payload_bytes",
 										"value": {
-											"intValue": "9079"
+											"intValue": 1810
 										}
 									},
 									{
 										"key": "security.privilege_level",
 										"value": {
-											"intValue": "2"
+											"intValue": 1
 										}
 									},
 									{
@@ -386,7 +386,6 @@ To process Otel jsons (as show below for Traces) you can easily specify the json
 			}
 		]
 	}
-
 
 * Step 4 Json criteria example:
 
