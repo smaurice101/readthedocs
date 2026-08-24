@@ -288,13 +288,13 @@ Note the following:
      - gen_ai.agent.id
    * - subtopics
      - gen_ai.agent.execution_step,gen_ai.usage.input_tokens,gen_ai.usage.output_tokens,
-     gen_ai.usage.total_tokens,metrics.api_call_rate,metrics.target_entropy,metrics.payload_bytes,security.privilege_level
+       gen_ai.usage.total_tokens,metrics.api_call_rate,metrics.target_entropy,metrics.payload_bytes,security.privilege_level
    * - values
      - gen_ai.agent.execution_step,gen_ai.usage.input_tokens,gen_ai.usage.output_tokens,
-     gen_ai.usage.total_tokens,metrics.api_call_rate,metrics.target_entropy,metrics.payload_bytes,security.privilege_level
+       gen_ai.usage.total_tokens,metrics.api_call_rate,metrics.target_entropy,metrics.payload_bytes,security.privilege_level
    * - identifiers
      - service.instance.id,service.instance.id,service.instance.id,service.instance.id,service.instance.id,
-     service.instance.id,service.instance.id,service.instance.id
+       service.instance.id,service.instance.id,service.instance.id
    * - datetime
      - startTimeUnixNano
    * - msgid
