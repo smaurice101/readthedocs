@@ -257,7 +257,136 @@ To process Otel jsons (as show below for Traces) you can easily specify the json
 
 .. code-block::
 
-	{"resourceSpans": [{"resource": {"attributes": [{"key": "service.name", "value": {"stringValue": "agent_service_billing"}}, {"key": "service.instance.id", "value": {"stringValue": "agent_billing_15"}}, {"key": "telemetry.sdk.name", "value": {"stringValue": "opentelemetry"}}, {"key": "telemetry.sdk.language", "value": {"stringValue": "python"}}]}, "scopeSpans": [{"scope": {"name": "opentelemetry.instrumentation.genai", "version": "0.4.0"}, "spans": [{"traceId": "66188e73657a4b2ea464125359cc8842", "spanId": "edad921e30014227", "name": "agent.step.execute", "kind": "SPAN_KIND_INTERNAL", "startTimeUnixNano": "1787332199699290112", "endTimeUnixNano": "1787332200241520896", "attributes": [{"key": "gen_ai.system", "value": {"stringValue": "custom_agent_framework"}}, {"key": "gen_ai.agent.id", "value": {"stringValue": "agent_billing_15"}}, {"key": "gen_ai.agent.execution_step", "value": {"intValue": "1"}}, {"key": "gen_ai.usage.input_tokens", "value": {"intValue": "1537"}}, {"key": "gen_ai.usage.output_tokens", "value": {"intValue": "293"}}, {"key": "gen_ai.usage.total_tokens", "value": {"intValue": "1830"}}, {"key": "metrics.api_call_rate", "value": {"doubleValue": 3.25}}, {"key": "metrics.target_entropy", "value": {"doubleValue": 0.1}}, {"key": "metrics.payload_bytes", "value": {"intValue": "9079"}}, {"key": "security.privilege_level", "value": {"intValue": "2"}}, {"key": "security.prompt_injection_flag", "value": {"boolValue": false}}, {"key": "security.sandbox_isolated", "value": {"boolValue": true}}], "status": {"code": "STATUS_CODE_OK"}}]}]}]}
+	{
+		"resourceSpans": [
+			{
+				"resource": {
+					"attributes": [
+						{
+							"key": "service.name",
+							"value": {
+								"stringValue": "agent_service_billing"
+							}
+						},
+						{
+							"key": "service.instance.id",
+							"value": {
+								"stringValue": "agent_billing_15"
+							}
+						},
+						{
+							"key": "telemetry.sdk.name",
+							"value": {
+								"stringValue": "opentelemetry"
+							}
+						},
+						{
+							"key": "telemetry.sdk.language",
+							"value": {
+								"stringValue": "python"
+							}
+						}
+					]
+				},
+				"scopeSpans": [
+					{
+						"scope": {
+							"name": "opentelemetry.instrumentation.genai",
+							"version": "0.4.0"
+						},
+						"spans": [
+							{
+								"traceId": "66188e73657a4b2ea464125359cc8842",
+								"spanId": "edad921e30014227",
+								"name": "agent.step.execute",
+								"kind": "SPAN_KIND_INTERNAL",
+								"startTimeUnixNano": "1787332199699290112",
+								"endTimeUnixNano": "1787332200241520896",
+								"attributes": [
+									{
+										"key": "gen_ai.system",
+										"value": {
+											"stringValue": "custom_agent_framework"
+										}
+									},
+									{
+										"key": "gen_ai.agent.id",
+										"value": {
+											"stringValue": "agent_billing_15"
+										}
+									},
+									{
+										"key": "gen_ai.agent.execution_step",
+										"value": {
+											"intValue": "1"
+										}
+									},
+									{
+										"key": "gen_ai.usage.input_tokens",
+										"value": {
+											"intValue": "1537"
+										}
+									},
+									{
+										"key": "gen_ai.usage.output_tokens",
+										"value": {
+											"intValue": "293"
+										}
+									},
+									{
+										"key": "gen_ai.usage.total_tokens",
+										"value": {
+											"intValue": "1830"
+										}
+									},
+									{
+										"key": "metrics.api_call_rate",
+										"value": {
+											"doubleValue": 3.25
+										}
+									},
+									{
+										"key": "metrics.target_entropy",
+										"value": {
+											"doubleValue": 0.1
+										}
+									},
+									{
+										"key": "metrics.payload_bytes",
+										"value": {
+											"intValue": "9079"
+										}
+									},
+									{
+										"key": "security.privilege_level",
+										"value": {
+											"intValue": "2"
+										}
+									},
+									{
+										"key": "security.prompt_injection_flag",
+										"value": {
+											"boolValue": false
+										}
+									},
+									{
+										"key": "security.sandbox_isolated",
+										"value": {
+											"boolValue": true
+										}
+									}
+								],
+								"status": {
+									"code": "STATUS_CODE_OK"
+								}
+							}
+						]
+					}
+				]
+			}
+		]
+	}
+
 
 * Step 4 Json criteria example:
 
