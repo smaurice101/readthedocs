@@ -248,6 +248,29 @@ JSON Message In A Payload
 
    # add + to join fields
 
+OpenTelemetry (OTel) JSON Format For Cloud Native Solution
+-----------------------------------------------------
+
+TML is fully compatible with OpenTelemetry JSON formats for: `traces, metrics, and logs<https://opentelemetry.io/docs/specs/otel/protocol/file-exporter/#examples>`_
+
+To process Otel jsons (as show below for Traces) you can easily specify the json criteria in `Step 4 <https://tml.readthedocs.io/en/latest/tmlbuilds.html#step-4-preprocesing-data-dag-tml-system-step-4-kafka-preprocess-dag>`_
+
+.. code-block::
+
+	{"resourceSpans": [{"resource": {"attributes": [{"key": "service.name", "value": {"stringValue": "agent_service_billing"}}, {"key": "service.instance.id", "value": {"stringValue": "agent_billing_15"}}, {"key": "telemetry.sdk.name", "value": {"stringValue": "opentelemetry"}}, {"key": "telemetry.sdk.language", "value": {"stringValue": "python"}}]}, "scopeSpans": [{"scope": {"name": "opentelemetry.instrumentation.genai", "version": "0.4.0"}, "spans": [{"traceId": "66188e73657a4b2ea464125359cc8842", "spanId": "edad921e30014227", "name": "agent.step.execute", "kind": "SPAN_KIND_INTERNAL", "startTimeUnixNano": "1787332199699290112", "endTimeUnixNano": "1787332200241520896", "attributes": [{"key": "gen_ai.system", "value": {"stringValue": "custom_agent_framework"}}, {"key": "gen_ai.agent.id", "value": {"stringValue": "agent_billing_15"}}, {"key": "gen_ai.agent.execution_step", "value": {"intValue": "1"}}, {"key": "gen_ai.usage.input_tokens", "value": {"intValue": "1537"}}, {"key": "gen_ai.usage.output_tokens", "value": {"intValue": "293"}}, {"key": "gen_ai.usage.total_tokens", "value": {"intValue": "1830"}}, {"key": "metrics.api_call_rate", "value": {"doubleValue": 3.25}}, {"key": "metrics.target_entropy", "value": {"doubleValue": 0.1}}, {"key": "metrics.payload_bytes", "value": {"intValue": "9079"}}, {"key": "security.privilege_level", "value": {"intValue": "2"}}, {"key": "security.prompt_injection_flag", "value": {"boolValue": false}}, {"key": "security.sandbox_isolated", "value": {"boolValue": true}}], "status": {"code": "STATUS_CODE_OK"}}]}]}]}
+
+* Step 4 Json criteria example:
+
+.. code-block::
+
+		 'jsoncriteria' : 'uid=gen_ai.agent.id,filter:cncf~\
+subtopics=gen_ai.agent.execution_step,gen_ai.usage.input_tokens,gen_ai.usage.output_tokens,gen_ai.usage.total_tokens,metrics.api_call_rate,metrics.target_entropy,metrics.payload_bytes,security.privilege_level~\
+values=gen_ai.agent.execution_step,gen_ai.usage.input_tokens,gen_ai.usage.output_tokens,gen_ai.usage.total_tokens,metrics.api_call_rate,metrics.target_entropy,metrics.payload_bytes,security.privilege_level~\		identifiers=service.instance.id,service.instance.id,service.instance.id,service.instance.id,service.instance.id,service.instance.id,service.instance.id,service.instance.id~\
+datetime=startTimeUnixNano~\
+msgid=datapoint.id~\
+latlong=lat:long'
+
+
 JSON Criteria Creator
 ----------------------
 
