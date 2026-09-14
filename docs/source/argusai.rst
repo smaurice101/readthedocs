@@ -16,45 +16,10 @@ By leveraging distributed streaming backbones (Apache Kafka / Redpanda), sliding
 System Architecture & Data Flow
 ================================
 
+Below figure shows the process flow of Argus AI:
+
 .. figure:: argusai.png
-        :50%:
-
-.. code-block:: text
-
-   ┌─────────────────────────────────────────────────────────────────────────────────────────┐
-   │                                Autonomous Agent Runtime                                 │
-   │                   (LLM Invocations, Tool Executions, State History)                     │
-   └───────────────────────────────────────────┬─────────────────────────────────────────────┘
-                                               │ Telemetry Stream
-                                               ▼
-   ┌─────────────────────────────────────────────────────────────────────────────────────────┐
-   │                               Apache Kafka / Redpanda Bus                               │
-   │                                 (Topic: `agent-telemetry`)                              │
-   └───────────────────────────────────────────┬─────────────────────────────────────────────┘
-                                               │
-                                               ▼
-   ┌─────────────────────────────────────────────────────────────────────────────────────────┐
-   │                                    TML Metric Engine                                    │
-   │                 (Sliding Windows: Shannon Entropy, Markov Transitions)                  │
-   └───────────────────────────────────────────┬─────────────────────────────────────────────┘
-                                               │ Calculated Metrics (x_t)
-                                               ▼
-   ┌─────────────────────────────────────────────────────────────────────────────────────────┐
-   │                                  MAADS Anomaly Engine                                   │
-   │                        (Rolling Baselines & Dynamic Z-Score)                            │
-   └───────────────────────────────────────────┬─────────────────────────────────────────────┘
-                                               │
-                         ┌─────────────────────┴─────────────────────┐
-                         │                                           │
-            [Safe State: |Z| <= Z_max]                 [Rogue State: |Z| > Z_max]
-                         │                                           │
-                         ▼                                           ▼
-   ┌───────────────────────────────────────────┐ ┌───────────────────────────────────────────┐
-   │       Allow Tool / Next Agent Step        │ │         ARGUS KILL SWITCH ACTIVE          │
-   │                                           │ │  • Terminate Agent Runtime                │
-   │                                           │ │  • Revoke API/Tool Tokens                 │
-   │                                           │ │  • Emit OTLP / SIEM Security Alert        │
-   └───────────────────────────────────────────┘ └───────────────────────────────────────────┘
+   :scale: 70%
 
 Technical Specifications & Thresholds
 ======================================
