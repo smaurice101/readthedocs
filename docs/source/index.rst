@@ -264,6 +264,7 @@ Contents
    dashboards
    api
    realflow
+   argusai
    tmlsimfaq
    tmlsimulator
    entity
