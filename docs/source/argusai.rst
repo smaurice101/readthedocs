@@ -16,6 +16,9 @@ By leveraging distributed streaming backbones (Apache Kafka / Redpanda), sliding
 System Architecture & Data Flow
 ================================
 
+.. figure:: argusai.png
+        :50%:
+
 .. code-block:: text
 
    ┌─────────────────────────────────────────────────────────────────────────────────────────┐
