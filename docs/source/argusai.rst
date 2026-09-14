@@ -13,13 +13,22 @@ Executive Summary
 
 By leveraging distributed streaming backbones (Apache Kafka / Redpanda), sliding-window statistical metric producers (Shannon Entropy, Markov State Transitions, Jaccard Distance), real-time AutoML anomaly scoring, and dynamic **Circuit Breakers / Kill Switches**, Argus AI provides sub-second threat mitigation for enterprise AI governance.
 
+Argus AI Dashboard
+===================
+
+Below is the real-time Argus AI dashboard for Rogue Agent detection.
+
+.. figure:: argusdash.png
+   :scale: 60%
+
+
 System Architecture & Data Flow
 ================================
 
 Below figure shows the process flow of Argus AI:
 
 .. figure:: argusai.png
-   :scale: 70%
+   :scale: 60%
 
 Technical Specifications & Thresholds
 ======================================
