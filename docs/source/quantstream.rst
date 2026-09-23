@@ -1,5 +1,5 @@
 ========================================================================================
-Transactional Machine Learning (TML) Stream Engine for Financial Assets
+QuantStream AI: Real-Time Streaming Engine for Financial Intra-Day Stock Trading
 ========================================================================================
 
 This document specifies the technical architecture for real-time quantitative feature engineering, dynamic target classification, in-memory model training, and continuous probability inference using **Transactional Machine Learning (TML)**. 
