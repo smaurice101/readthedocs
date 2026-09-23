@@ -25,7 +25,7 @@ Unlike Conventional Machine Learning (CML)—which relies on static, pre-trained
 Where Does QuantStream AI Excel
 ----------------------------------
 
-While QuantStream does NOT replace the market leaders for ultra-low latency execution, **TML represents an excellent architectural pattern for mid-frequency, feature-store-free stream processing**:
+While QuantStream does NOT replace the market leaders for ultra-low latency execution, **QuantStream represents an excellent architectural pattern for mid-frequency, feature-store-free stream processing**:
 
   - Elimination of Database Read/Write Latency: Maintaining state in $O(1)$ ring buffers in memory outperforms standard database-backed quantitative setups.
 
