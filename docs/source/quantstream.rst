@@ -39,6 +39,12 @@ While QuantStream does **NOT** replace the market leaders for ultra-low latency 
 
    For anyone operating outside the sub-microsecond HFT colocation domain, this TML pattern provides a lean, modern, production-grade streaming engine that punches far above its weight class without the operational cost or complexity of enterprise infrastructure.
 
+QuantStream AI Advantage
+----------------------------------
+
+.. figure:: quantstreamsetup.png
+   :scale: 60%
+
 2. QuantStream AI: Empirical Proof & Backtest Validation
 =======================================================
 
