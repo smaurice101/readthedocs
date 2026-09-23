@@ -17,34 +17,8 @@ Unlike Conventional Machine Learning (CML)—which relies on static, pre-trained
 
 The pipeline transforms high-frequency market feeds into real-time directional predictions (``BUY``, ``HOLD``, or ``SELL``) by consuming trade events from Kafka, computing features on-the-fly, fitting asset- and regime-specific micro-models entirely in memory, and publishing signal events back to Kafka.
 
-.. code-block:: text
-
-   ┌────────────────────────────────────────┐
-   │ WebSocket / Market Feed (Tick Data)    │
-   └───────────────────┬────────────────────┘
-                       │ (Publish Ticks)
-                       ▼
-   ┌────────────────────────────────────────┐
-   │ Kafka Topic: market-ticks-<symbol>     │
-   └───────────────────┬────────────────────┘
-                       │ (Consume Ticks)
-                       ▼
-   ┌─────────────────────────────────────────────────────────────────────────────────────────┐
-   │ Transactional Machine Learning (TML) Engine                                             │
-   │                                                                                         │
-   │  1. In-Memory Window   ──> Reads tick offset window directly into RAM (Zero Disk I/O)  │
-   │  2. Feature Stream     ──> Deque ring buffers extract 9 stationary indicators X_t       │
-   │  3. Dynamic Target Y_t ──> Volatility-scaled target classification (-1, 0, +1)          │
-   │  4. In-Memory AutoML   ──> Fits & selects optimal micro-model for window & asset      │
-   │  5. Live Inference     ──> Generates probabilities P(BUY), P(HOLD), P(SELL)             │
-   └───────────────────┬─────────────────────────────────────────────────────────────────────┘
-                       │
-                       ▼
-   ┌────────────────────────────────────────┐
-   │ Kafka Topic: model-signals-<symbol>    │ ──> Output: Signal (+1, 0, -1) and
-   └────────────────────────────────────────┘     probabilities P(Y|X) for execution
-
----
+.. figure:: quantstreamprocess.png
+  :scale: 60%
 
 2. Quantitative Feature Matrix (:math:`\mathbf{X}_t`)
 ======================================================
