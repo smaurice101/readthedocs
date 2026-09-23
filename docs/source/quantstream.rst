@@ -12,7 +12,16 @@ Unlike Conventional Machine Learning (CML)—which relies on static, pre-trained
 
 ---
 
-1. System Architecture & Stream Pipeline
+1. QuantStream AI TML Implementation
+========================================
+
+.. note::
+   Access to this solution will be available in the near future.
+
+.. figure:: quantstreamdash.png
+   :scale: 60%
+
+2. System Architecture & Stream Pipeline
 ========================================
 
 The pipeline transforms high-frequency market feeds into real-time directional predictions (``BUY``, ``HOLD``, or ``SELL``) by consuming trade events from Kafka, computing features on-the-fly, fitting asset- and regime-specific micro-models entirely in memory, and publishing signal events back to Kafka.
@@ -20,7 +29,7 @@ The pipeline transforms high-frequency market feeds into real-time directional p
 .. figure:: quantstreamprocess.png
   :scale: 60%
 
-2. Quantitative Feature Matrix (:math:`\mathbf{X}_t`)
+3. Quantitative Feature Matrix (:math:`\mathbf{X}_t`)
 ======================================================
 
 Raw price and volume streams are non-stationary and drift over time. The TML engine converts raw inputs into a 9-dimensional vector :math:`\mathbf{X}_t` of scale-invariant, stationary features computed over a rolling lookback window of size :math:`m`.
@@ -89,7 +98,7 @@ Given the sliding price window :math:`\mathbf{P} = [p_{k-m+1}, \dots, p_k]`:
 
 ---
 
-3. Dependent Variable Formulation (:math:`Y_t`)
+4. Dependent Variable Formulation (:math:`Y_t`)
 ================================================
 
 The target classification variable :math:`Y_t \in \{-1, 0, 1\}` maps continuous forward returns to discrete execution directions: ``[SELL (-1), HOLD (0), BUY (+1)]``.
@@ -102,6 +111,81 @@ For training within the sliding offset window, the forward :math:`k`-tick return
 .. math::
 
    R_{t,k} = \frac{p_{t+k} - p_t}{p_t}
+
+============================================
+Quantitative Decision Rule for Target Label Y
+============================================
+
+This module defines a simple deterministic decision rule for classifying tick-level market signals into target labels :math:`Y \in \{+1, 0, -1\}` using the feature vector :math:`X_t`.
+
+Decision Rule Formulation
+=========================
+
+The target label :math:`Y` is classified according to the following piece-wise logic:
+
+.. math::
+
+   Y = \begin{cases} 
+   +1 & \text{if } (x_1 > 0.5 \cdot x_6) \;\land\; (x_9 > 0) \;\land\; (x_3 < 0.40) & \text{(BUY / LONG)} \\
+   -1 & \text{if } (x_1 < -0.5 \cdot x_6) \;\land\; (x_9 < 0) \;\land\; (x_3 > 0.60) & \text{(SELL / SHORT)} \\
+   0 & \text{otherwise} & \text{(HOLD / NEUTRAL)}
+   \end{cases}
+
+Where:
+
+* :math:`x_1`: **Tick Return** (``x1_tick_return``)
+* :math:`x_3`: **Price Location in Range** (``x3_price_location``)
+* :math:`x_6`: **Realized Volatility** (``x6_realized_volatility``)
+* :math:`x_9`: **Acceleration / Momentum Jerk** (``x9_acceleration``)
+
+---
+
+Sample Evaluation
+=================
+
+Input Vector
+------------
+
+.. code-block:: json
+
+   {
+     "x1_tick_return": 0.000158,
+     "x2_session_return": -0.000949,
+     "x3_price_location": 0.345455,
+     "x4_range_drift": -0.654545,
+     "x5_window_return": -0.000949,
+     "x6_realized_volatility": 0.000254,
+     "x7_stochastic_position": 0.345455,
+     "x8_sma_distance": 0.00002,
+     "x9_acceleration": 0.000079
+   }
+
+Step-by-Step Evaluation
+-----------------------
+
+1. **Momentum Threshold Test** (:math:`x_1 > 0.5 \cdot x_6`):
+   
+   .. math::
+
+      0.000158 > (0.5 \times 0.000254) \implies 0.000158 > 0.000127 \quad \text{[PASS]}
+
+2. **Acceleration Test** (:math:`x_9 > 0`):
+   
+   .. math::
+
+      0.000079 > 0 \quad \text{[PASS]}
+
+3. **Oversold Location Test** (:math:`x_3 < 0.40`):
+   
+   .. math::
+
+      0.345455 < 0.40 \quad \text{[PASS]}
+
+Classification Outcome
+----------------------
+
+.. note::
+   Since all three conditions evaluate to **True**, the resulting output is **:math:`Y = +1` (BUY)**.
 
 Dynamic Volatility Filtering
 ----------------------------
@@ -119,12 +203,6 @@ To prevent classifying market microstructure noise as actionable signals, target
 Where :math:`\delta` acts as a scale multiplier (typically :math:`0.5 \le \delta \le 1.5`). Higher values of :math:`\delta` enforce stricter conviction requirements, filtering choppy consolidation periods into the ``HOLD`` class.
 
 ---
-
-4. Complete In-Memory TML Implementation
-========================================
-
-.. figure:: quantstreamdash.png
-   :scale: 60%
 
 5. Commercial Platform Comparison Matrix
 ========================================
