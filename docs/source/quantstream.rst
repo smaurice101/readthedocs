@@ -27,7 +27,7 @@ Where Does QuantStream AI Excel
 
 While QuantStream does NOT replace the market leaders for ultra-low latency execution, **QuantStream represents an excellent architectural pattern for mid-frequency, feature-store-free stream processing**:
 
-  - Elimination of Database Read/Write Latency: Maintaining state in $O(1)$ ring buffers in memory outperforms standard database-backed quantitative setups.
+  - Elimination of Database Read/Write Latency: Maintaining state in :math:`O(1)` ring buffers in memory outperforms standard database-backed quantitative setups.
 
   - Online Learning & Self-Labeling: The simultaneous emission of feature vector $X_t$ and target label $Y_t$ makes it well-suited for online model adaptation, reinforcement learning (RL) reward tracking, and streaming model validation.
 
