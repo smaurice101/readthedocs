@@ -150,7 +150,7 @@ Where :math:`\delta` acts as a scale multiplier (typically :math:`0.5 \le \delta
 ========================================
 
 .. figure:: quantstream.png
-  :50%:
+   :scale: 60%
 
 5. Commercial Platform Comparison Matrix
 ========================================
