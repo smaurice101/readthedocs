@@ -22,6 +22,17 @@ Unlike Conventional Machine Learning (CML)—which relies on static, pre-trained
 .. figure:: quantstreamdash.png
    :scale: 60%
 
+Where Does QuantStream AI Excel
+----------------------------------
+
+While QuantStream does NOT replace the market leaders for ultra-low latency execution, **TML represents an excellent architectural pattern for mid-frequency, feature-store-free stream processing**:
+
+  - Elimination of Database Read/Write Latency: Maintaining state in $O(1)$ ring buffers in memory outperforms standard database-backed quantitative setups.
+
+  - Online Learning & Self-Labeling: The simultaneous emission of feature vector $X_t$ and target label $Y_t$ makes it well-suited for online model adaptation, reinforcement learning (RL) reward tracking, and streaming model validation.
+
+  - Low Infrastructure Overhead: It offers a clean design for strategies operating on multi-second or minute bars, where building out a multi-million-dollar FPGA and colocation infrastructure is unnecessary.
+
 2. System Architecture & Stream Pipeline
 ========================================
 
@@ -297,13 +308,4 @@ Cost-Effective Scalability
 * **Commercial Enterprise Problem**: Enterprise big-data streaming stacks or institutional platforms require expensive per-core licensing or high cloud cluster costs.
 * **TML Advantage**: TML runs as lightweight, containerized microservices. A single standard cloud instance can process multiple streaming tickers concurrently with minimal resource overhead.
 
-Where TML Does Excel
---------------------
 
-While this solution does NOT replace the market leaders for ultra-low latency execution, **TML represents an excellent architectural pattern for mid-frequency, feature-store-free stream processing**:
-
-  - Elimination of Database Read/Write Latency: Maintaining state in $O(1)$ ring buffers in memory outperforms standard database-backed quantitative setups.
-
-  - Online Learning & Self-Labeling: The simultaneous emission of feature vector $X_t$ and target label $Y_t$ makes it well-suited for online model adaptation, reinforcement learning (RL) reward tracking, and streaming model validation.
-
-  - Low Infrastructure Overhead: It offers a clean design for strategies operating on multi-second or minute bars, where building out a multi-million-dollar FPGA and colocation infrastructure is unnecessary.
