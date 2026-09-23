@@ -33,6 +33,10 @@ While QuantStream does **NOT** replace the market leaders for ultra-low latency 
 
   - **Low Infrastructure Overhead:** It offers a clean design for strategies operating on multi-second or minute bars, where building out a multi-million-dollar FPGA and colocation infrastructure is unnecessary.
 
+.. important::
+
+   For anyone operating outside the sub-microsecond HFT colocation domain, this TML pattern provides a lean, modern, production-grade streaming engine that punches far above its weight class without the operational cost or complexity of enterprise infrastructure.
+
 2. System Architecture & Stream Pipeline
 ========================================
 
