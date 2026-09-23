@@ -25,7 +25,7 @@ Unlike Conventional Machine Learning (CML)—which relies on static, pre-trained
 Where Does QuantStream AI Excel
 ----------------------------------
 
-While QuantStream does **NOT** replace the market leaders for ultra-low latency execution i.e.High Frequency Trading (HFT), **QuantStream represents an excellent architectural pattern for mid-frequency, stream processing that is close to HFT but without the infrastrucure costs - that is QuantStream's SWEET SPOT**:
+While QuantStream does **NOT** replace the market leaders for ultra-low latency execution i.e. High Frequency Trading (HFT), **QuantStream represents an excellent architectural pattern for mid-frequency, stream processing that is close to HFT but without the infrastrucure costs: that is QuantStream's SWEET SPOT**:
 
   - Elimination of Database Read/Write Latency: Maintaining state in :math:`O(1)` ring buffers in memory outperforms standard database-backed quantitative setups.
 
