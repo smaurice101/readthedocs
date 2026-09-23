@@ -83,8 +83,8 @@ Metric Definitions
 
 Below are formal definitions for each metric used in the empirical evaluation table:
 
-1. Directional Accuracy (BUY / SELL)
-------------------------------------
+Directional Accuracy (BUY / SELL)
+"""""""""""""""""""""""""""""""""
 * **Definition:** The percentage of executed trade signals where the engine correctly predicted the future price movement direction (i.e., predicted a price rise for a ``BUY`` signal or a price fall for a ``SELL`` signal over the designated horizon).
 * **Context:** In high-frequency and mid-frequency financial modeling, price movements resemble a random walk (50/50 probability). A directional accuracy of **58.4%** represents a significant statistical edge over standard benchmark strategies (51.0%–53.0%).
 
