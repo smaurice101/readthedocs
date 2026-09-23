@@ -113,14 +113,13 @@ For training within the sliding offset window, the forward :math:`k`-tick return
 
    R_{t,k} = \frac{p_{t+k} - p_t}{p_t}
 
-============================================
 Quantitative Decision Rule for Target Label Y
-============================================
+---------------------------------------------
 
 This module defines a simple deterministic decision rule for classifying tick-level market signals into target labels :math:`Y \in \{+1, 0, -1\}` using the feature vector :math:`X_t`.
 
 Decision Rule Formulation
-=========================
+--------------------------
 
 The target label :math:`Y` is classified according to the following piece-wise logic:
 
@@ -142,7 +141,7 @@ Where:
 ---
 
 Sample Evaluation
-=================
+-----------------
 
 Input Vector
 ------------
