@@ -16,7 +16,8 @@ Unlike Conventional Machine Learning (CML)—which relies on static, pre-trained
 ========================================
 
 .. note::
-   Access to this solution will be available in the near future.
+   
+    Access to this solution will be available in the near future.
 
 .. figure:: quantstreamdash.png
    :scale: 60%
