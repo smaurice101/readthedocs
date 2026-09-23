@@ -81,6 +81,10 @@ In simulated execution (factoring in **1-cent bid-ask spread slippage and $0.003
 .. figure:: quantstreamgraph.png
    :scale: 60%
 
+.. note::
+
+   *Disclaimer: Quantitative backtest results are based on simulated out-of-sample tick data. Past performance is not indicative of future live trading results. Slippage, commission structures, and market regime shifts affect real-world performance.*
+
 3. System Architecture & Stream Pipeline
 ========================================
 
