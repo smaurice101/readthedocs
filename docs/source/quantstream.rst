@@ -27,11 +27,11 @@ Where Does QuantStream AI Excel
 
 While QuantStream does **NOT** replace the market leaders for ultra-low latency execution i.e. High Frequency Trading (HFT), **QuantStream represents an excellent architectural pattern for mid-frequency, stream processing that is close to HFT but without the infrastrucure costs: that is QuantStream's SWEET SPOT**:
 
-  - Elimination of Database Read/Write Latency: Maintaining state in :math:`O(1)` ring buffers in memory outperforms standard database-backed quantitative setups.
+  - **Elimination of Database Read/Write Latency:** Maintaining state in :math:`O(1)` ring buffers in memory outperforms standard database-backed quantitative setups.
 
-  - Online Learning & Self-Labeling: The simultaneous emission of feature vector $X_t$ and target label $Y_t$ makes it well-suited for online model adaptation, reinforcement learning (RL) reward tracking, and streaming model validation.
+  - **Online Learning & Self-Labeling:** The simultaneous emission of feature vector $X_t$ and target label $Y_t$ makes it well-suited for online model adaptation, reinforcement learning (RL) reward tracking, and streaming model validation.
 
-  - Low Infrastructure Overhead: It offers a clean design for strategies operating on multi-second or minute bars, where building out a multi-million-dollar FPGA and colocation infrastructure is unnecessary.
+  - **Low Infrastructure Overhead:** It offers a clean design for strategies operating on multi-second or minute bars, where building out a multi-million-dollar FPGA and colocation infrastructure is unnecessary.
 
 2. System Architecture & Stream Pipeline
 ========================================
