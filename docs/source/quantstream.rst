@@ -185,7 +185,7 @@ Classification Outcome
 ----------------------
 
 .. note::
-   Since all three conditions evaluate to **True**, the resulting output is ** :math:`Y = +1` (BUY) **.
+   Since all three conditions evaluate to **True**, the resulting output is :math:`Y = +1` **(BUY)**.
 
 Dynamic Volatility Filtering
 ----------------------------
