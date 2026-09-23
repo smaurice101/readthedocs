@@ -29,7 +29,9 @@ While QuantStream does **NOT** replace the market leaders for ultra-low latency 
 
   - **Elimination of Database Read/Write Latency:** Maintaining state in :math:`O(1)` ring buffers in memory outperforms standard database-backed quantitative setups.
 
-  - **Online Learning & Self-Labeling:** The simultaneous emission of feature vector $X_t$ and target label $Y_t$ makes it well-suited for online model adaptation, reinforcement learning (RL) reward tracking, and streaming model validation.
+
+  - **Online Learning & Self-Labeling:** The simultaneous emission of feature vector :math:`X_t` and target label :math:`Y_t` makes it well-suited for online model adaptation, reinforcement learning (RL) reward tracking, and streaming model validation.
+
 
   - **Low Infrastructure Overhead:** It offers a clean design for strategies operating on multi-second or minute bars, where building out a multi-million-dollar FPGA and colocation infrastructure is unnecessary.
 
