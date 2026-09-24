@@ -320,6 +320,29 @@ Where :math:`\delta` acts as a scale multiplier (typically :math:`0.5 \le \delta
 
 ---
 
+Buy / Sell / Hold Decision - Making
+=====================================
+
+.. list-table:: Live Deployment Execution Logic
+   :widths: 25 35 40
+   :header-rows: 1
+
+   * - Probability Range
+     - Interpretation
+     - Recommended Action
+   * - :math:`P(\text{BUY}) \ge 0.60 - 0.70`
+     - Strong bullish micro-structure alignment
+     - Execute Market/Limit Buy Order
+   * - :math:`P(\text{SELL}) \ge 0.60 - 0.70`
+     - Strong bearish micro-structure alignment
+     - Execute Market/Limit Sell Order
+   * - :math:`P(\text{HOLD}) \ge 0.50`
+     - Price is choppy or range-bound
+     - Cancel pending orders / Stay flat
+   * - All classes :math:`< 0.50`
+     - High entropy / Noise state
+     - No-op (Do not trade)
+
 6. Commercial Platform Comparison Matrix
 ========================================
 
