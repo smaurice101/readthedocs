@@ -320,7 +320,7 @@ Where :math:`\delta` acts as a scale multiplier (typically :math:`0.5 \le \delta
 
 ---
 
-Buy / Sell / Hold Decision - Making
+6. Buy / Sell / Hold Decision - Making
 =====================================
 
 .. list-table:: Live Deployment Execution Logic
@@ -343,7 +343,7 @@ Buy / Sell / Hold Decision - Making
      - High entropy / Noise state
      - No-op (Do not trade)
 
-6. Commercial Platform Comparison Matrix
+7. Commercial Platform Comparison Matrix
 ========================================
 
 To evaluate viability, performance, and flexibility, this TML solution is benchmarked against commercial retail trading platforms (**TradingView**, **MetaTrader 4/5**), quantitative execution frameworks (**QuantConnect**, **Interactive Brokers API**), data platforms (**Databricks Streaming**), and institutional HFT systems (**Kx kdb+/q**).
@@ -403,7 +403,7 @@ To evaluate viability, performance, and flexibility, this TML solution is benchm
 
 ---
 
-7. Key Advantages Over Commercial Trading Platforms
+8. Key Advantages Over Commercial Trading Platforms
 ===================================================
 
 Dynamic Regime Adaptability vs. Static Rules
