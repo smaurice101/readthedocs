@@ -166,12 +166,12 @@ Backtesting and business impact
 - The width of the HDI can be used to dynamically adjust max stake per market: narrow intervals allow higher exposure; wide intervals trigger tighter limits.
 - In backtests where this rule was applied, operators could **reduce Profit and Loss (P&L) volatility** without sacrificing expected return.
 
-Extensive 60 Day Precision Odds Bets Against Real MLB Outcomes
+Extensive 60 Day Testing Of Precision Odds Bets Against Real MLB Outcomes
 ================================================================
 
 Below shows results of 60 days of testing the predicted bets for Major League Baseball (MLB) against ACTUAL game outcomes.  
 
-As can be see PrecisionOdds acheived over 60 days:
+**As can be see PrecisionOdds acheived over 60 days:**
 
  **1. Avg. ROI:** 23.86%
 
