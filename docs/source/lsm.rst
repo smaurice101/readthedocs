@@ -174,8 +174,11 @@ Below shows results of 60 days of testing the predicted bets for Major League Ba
 **As can be seen PrecisionOdds acheived over 60 days:**
 
  **1. Avg. ROI:** 23.86%
+
  **2. Avg (Daily) USD Profits:** $31,963.97
+
  **3. Net USD Profits:** $1,917,838.00
+
  **4. Total Units (Bets) Staked:** 73,286
 
 .. figure:: precisionbacktesting.png
