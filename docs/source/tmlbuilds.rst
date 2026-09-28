@@ -6481,9 +6481,23 @@ Another powerful feature of TML is performing machine learning at the entity lev
    * - **Algorithm**
      - **Description**   
    * - Logistic Regression
-     - Performs classification regression 
+     - Performs classification regression with TWO (2) classes
 
        and predicts probabilities
+   * - Multinomial Logistic Regression
+     - Performs classification regression with MORE than TWO classes
+
+       and predicts probabilities.  TML implements multiclass 
+
+       ("Y=1,2,3...") logistic regression using the One-vs-Rest (OvR) 
+ 
+       strategy: one binary linear.Logistic model is trained per class
+
+       ("this class" vs "everything else"), and prediction picks the class whose model
+ 
+       gives the highest probability.  Prediction also returns the 
+  
+       probabilities for all classes. 
    * - Linear Regression
      - Performs linear regression using 
 
@@ -6811,6 +6825,8 @@ Here are the **core parameters** in the above dag 5:
        islogistic=0, then it assumes the dependent 
 
        variable is continuous.
+
+       If islogistic=2, it performs multinomial logistic regression.
    * - modelsearchtuner
      - This parameter will attempt to fine tune the 
 
