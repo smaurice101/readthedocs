@@ -242,15 +242,14 @@ The target label :math:`Y` is classified according to the following piece-wise l
 .. math::
 
    Y = \begin{cases} 
-   +1 & \text{if } (x_1 > 0.5 \cdot x_6) \;\land\; (x_9 > 0) \;\land\; (x_3 < 0.40) & \text{(BUY / LONG)} \\
-   -1 & \text{if } (x_1 < -0.5 \cdot x_6) \;\land\; (x_9 < 0) \;\land\; (x_3 > 0.60) & \text{(SELL / SHORT)} \\
+   +1 & \text{if } (x_1 > 0.5 \cdot x_6) \;\land\; (x_9 > 0) & \text{(BUY / LONG)} \\
+   -1 & \text{if } (x_1 < -0.5 \cdot x_6) \;\land\; (x_9 < 0) & \text{(SELL / SHORT)} \\
    0 & \text{otherwise} & \text{(HOLD / NEUTRAL)}
    \end{cases}
 
 Where:
 
 * :math:`x_1`: **Tick Return** (``x1_tick_return``)
-* :math:`x_3`: **Price Location in Range** (``x3_price_location``)
 * :math:`x_6`: **Realized Volatility** (``x6_realized_volatility``)
 * :math:`x_9`: **Acceleration / Momentum Jerk** (``x9_acceleration``)
 
