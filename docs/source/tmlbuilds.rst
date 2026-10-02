@@ -7710,6 +7710,14 @@ Here are the **core parameters** in the above dag 6:
        will be: Voltage_preprocessed_AnomProb, 
 
        Current_preprocessed_AnomProb.
+
+       NOTE: If you consume from the RAW data (Step 3) for predictions,
+
+       you MUST specify the first variable as the entity path.  
+
+       For example, if your TML trained model accepts 3 variables (x1,x2,x3) from
+
+       the RAW json, then streamstojoin="entitypath,x1,x2,x3"
    * - inputdata
      - You can also manually enter the values for 
 
