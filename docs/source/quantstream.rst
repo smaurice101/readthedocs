@@ -2,7 +2,7 @@
 QuantStream AI: Real-Time Streaming Engine for Financial Intra-Day Stock Trading
 ========================================================================================
 
-**Objective of QuantStream AI is to democratize High Frequency Trading (HFT).  QuantStream is Mid-Frequency Trading that can be run on any desktop or laptop without any expensive hardware that is required for HFT but with equal capabilty of fast algorithic trading.**
+**Objective of QuantStream AI is to democratize High Frequency Trading (HFT).  QuantStream is Mid-Frequency Trading (MFT) that can be run on any desktop or laptop without any expensive hardware that is required for HFT but with equal capabilty of fast algorithic trading.**
 
 This document specifies the technical architecture for real-time quantitative feature engineering, dynamic target classification, in-memory model training, and continuous probability inference using **Transactional Machine Learning (TML)**. 
 
