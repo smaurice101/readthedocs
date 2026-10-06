@@ -437,4 +437,105 @@ Cost-Effective Scalability
 * **Commercial Enterprise Problem**: Enterprise big-data streaming stacks or institutional platforms require expensive per-core licensing or high cloud cluster costs.
 * **TML Advantage**: TML runs as lightweight, containerized microservices. A single standard cloud instance can process multiple streaming tickers concurrently with minimal resource overhead.
 
+Trading Settings Configuration
+====================================
 
+The ``[TradingSettings]`` configuration block defines the core parameters, risk management rules, and execution constraints for your automated trading system. These setting are set in the QuantStream dashboard: config parameters.  Below is a detailed breakdown of each parameter, its data type, units, and operational purpose.
+
+Configuration Reference
+-----------------------
+
+.. list-table:: 
+   :widths: 20 15 20 45
+   :header-rows: 1
+
+   * - Parameter
+     - Type
+     - Default / Example
+     - Description
+   * - ``minprice``
+     - Integer / Float
+     - ``5``
+     - The minimum stock/asset price required to consider a trade entry.
+   * - ``maxprice``
+     - Integer / Float
+     - ``100``
+     - The maximum stock/asset price allowed for trade entry.
+   * - ``volume``
+     - Integer
+     - ``100000``
+     - The minimum or target volume requirement for liquidity filtering.
+   * - ``volatility``
+     - Integer / Float
+     - ``60``
+     - The volatility threshold used to filter eligible instruments.
+   * - ``tradebudget``
+     - Integer / Float
+     - ``10000``
+     - The total financial budget allocated for trading operations.
+   * - ``market``
+     - String
+     - ``US``
+     - The target market region or country code (e.g., ``US``).
+   * - ``exchange``
+     - String
+     - ``XNAS``
+     - The Market Identifier Code (MIC) for the target exchange.
+   * - ``exchangename``
+     - String
+     - ``NASDAQ``
+     - The human-readable name of the exchange.
+   * - ``broker``
+     - String
+     - ``Interactive_Brokers``
+     - The designated brokerage platform used for order execution.
+   * - ``brokerurl``
+     - URL
+     - ``https://www.interactivebrokers.ca/...``
+     - The official website link for the configured broker.
+   * - ``tradelossnotexceed``
+     - Integer / Float
+     - ``50``
+     - The maximum allowable monetary loss per individual trade.
+   * - ``maxopenpositions``
+     - Integer
+     - ``10``
+     - The maximum number of concurrent open positions allowed.
+   * - ``maxpctsellloss``
+     - Float
+     - ``0.01``
+     - The maximum percentage loss allowed on a sell execution (e.g., ``0.01`` for 1%).
+   * - ``minholdseconds``
+     - Integer
+     - ``10``
+     - The minimum required holding time (in seconds) before an exit.
+   * - ``minentryeconds``
+     - Integer
+     - ``10``
+     - The minimum cooldown or delay time (in seconds) between entries.
+
+Detailed Parameter Breakdown
+----------------------------
+
+Filtering & Asset Selection
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+* **minprice & maxprice**: Establish a price boundary to focus trading activity on a specific equity tier (e.g., mid-cap stocks priced between $5 and $100).
+* **volume**: Ensures sufficient market liquidity by filtering for instruments that meet or exceed this volume metric.
+* **volatility**: Sets parameters around acceptable market volatility to match the strategy's risk profile.
+
+Capital & Broker Configuration
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+* **tradebudget**: Limits the total capital exposed by the strategy.
+* **market, exchange, & exchangename**: Define the geographic and institutional venue parameters.
+* **broker & brokerurl**: Identify the execution broker and provide reference access to their platform.
+
+Risk Management & Execution Rules
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+* **tradelossnotexceed**: Acts as a risk guardrail, placing a cap on how much money a single trade is allowed to lose.
+* **maxopenpositions**: Controls portfolio diversification and prevents over-leveraging by capping simultaneous trades.
+* **maxpctsellloss**: Establishes a percentage-based threshold for sell-side loss mitigation.
+* **minholdseconds**: Prevents high-frequency churn or premature exits by enforcing a minimum duration a position must be held.
+* **minentryeconds**: Manages execution pacing by ensuring a mandatory time buffer between trade entries.
