@@ -545,3 +545,4 @@ Risk Management & Execution Rules
 * **maxpctsellloss**: Establishes a percentage-based threshold for sell-side loss mitigation.
 * **minholdseconds**: Prevents high-frequency churn or premature exits by enforcing a minimum duration a position must be held.
 * **minentryeconds**: Manages execution pacing by ensuring a mandatory time buffer between trade entries.
+* **notionalpct**: Dynamically optimizes quantity based on fraction of total trade budget allocated per position (default 10%)..
