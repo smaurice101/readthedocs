@@ -517,6 +517,7 @@ Configuration Reference
      - Float
      - ``0.1``
      - Target notional pct (float): Fraction of total trade budget allocated per position (default 10%).
+       For example: target_allocation = trade_budget * notionalpct, stock_quantity=target_allocation/price
 
 Detailed Parameter Breakdown
 ----------------------------
