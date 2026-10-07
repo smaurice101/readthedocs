@@ -513,6 +513,10 @@ Configuration Reference
      - Integer
      - ``10``
      - The minimum cooldown or delay time (in seconds) between entries.
+   * - ``notionalpct``
+     - Float
+     - ``0.1``
+     - Target notional pct (float): Fraction of total trade budget allocated per position (default 10%).
 
 Detailed Parameter Breakdown
 ----------------------------
