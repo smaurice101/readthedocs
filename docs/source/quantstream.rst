@@ -454,11 +454,11 @@ Configuration Reference
      - Default / Example
      - Description
    * - ``minprice``
-     - Integer / Float
+     - Integer
      - ``5``
      - The minimum stock/asset price required to consider a trade entry.
    * - ``maxprice``
-     - Integer / Float
+     - Integer
      - ``100``
      - The maximum stock/asset price allowed for trade entry.
    * - ``volume``
@@ -466,11 +466,11 @@ Configuration Reference
      - ``100000``
      - The minimum or target volume requirement for liquidity filtering.
    * - ``volatility``
-     - Integer / Float
+     - Integer
      - ``60``
      - The volatility threshold used to filter eligible instruments.
    * - ``tradebudget``
-     - Integer / Float
+     - Integer
      - ``10000``
      - The total financial budget allocated for trading operations.
    * - ``market``
@@ -494,7 +494,7 @@ Configuration Reference
      - ``https://www.interactivebrokers.ca/...``
      - The official website link for the configured broker.
    * - ``tradelossnotexceed``
-     - Integer / Float
+     - Integer
      - ``50``
      - The maximum allowable monetary loss per individual trade.
    * - ``maxopenpositions``
