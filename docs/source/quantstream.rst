@@ -572,7 +572,7 @@ Below is the complete suite of operational guard rails implemented in the risk e
      - Rationale
    * - **Circuit Breaker**
      - Portfolio
-     - Cumulative losses reach or exceed ``max_loss_allowed`` ($\ge 60\%$ of trade budget)
+     - Cumulative losses reach or exceed ``max_loss_allowed`` (> 50% of trade budget)
      - **HALTS ALL NEW BUYS** (``return False``)
      - Protects total capital from complete depletion during systemic drawdowns.
    * - **Guard 1: Duplicate Buy Protection**
@@ -597,7 +597,7 @@ Below is the complete suite of operational guard rails implemented in the risk e
      - Prevents unauthorized shorting, ghost liquidations, or execution drift.
    * - **Guard 5: Minimum Hold Time**
      - Symbol (SELL)
-     - Incoming ``SELL`` signal within ``min_hold_seconds`` (default: 30s) of opening
+     - Incoming ``SELL`` signal within ``min_hold_seconds`` (default: 10s) of opening
      - **BLOCKS SELL** (``return False``)
      - Enforces minimum holding duration to filter out market noise and micro-fluctuations.
    * - **Guard 6: Execution Price Validation**
@@ -609,7 +609,9 @@ Below is the complete suite of operational guard rails implemented in the risk e
      - Order (SELL)
      - Incoming ``SELL`` evaluated against pricing
     
-       • Asset drops :math:$\ge 5\%$<br>• Minor loss within allowed noise floor
+       • Asset drops > 5%
+     
+       • Minor loss within allowed noise floor
      - • **ALLOWS SELL** (``return True``)
        
        **BLOCKS SELL** (``return False``)
