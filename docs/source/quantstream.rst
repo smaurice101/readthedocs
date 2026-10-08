@@ -546,3 +546,91 @@ Risk Management & Execution Rules
 * **minholdseconds**: Prevents high-frequency churn or premature exits by enforcing a minimum duration a position must be held.
 * **minentryeconds**: Manages execution pacing by ensuring a mandatory time buffer between trade entries.
 * **notionalpct**: Dynamically optimizes quantity based on fraction of total trade budget allocated per position (default 10%).
+
+.. Institutional Risk Engine documentation master file, created by
+   sphinx-quickstart. You can adapt this file completely to your liking, but
+   it should at least contain the root `toctree` directive.
+
+QuantStream AI Agent Risk Guardrails
+=====================================
+
+QuantStream AI operates as an automated state manager that tracks open positions, cumulative PnL, circuit breakers, and enforces strict pre-trade and post-trade validation checks.
+
+Complete Guard Rails Reference Matrix
+-------------------------------------
+
+Below is the complete suite of operational guard rails implemented in the risk engine:
+
+.. list-table:: 
+   :widths: 20 15 25 20 20
+   :header-rows: 1
+
+   * - Guard Name
+     - Scope
+     - Trigger Condition
+     - System Action
+     - Rationale
+   * - **Circuit Breaker**
+     - Portfolio
+     - Cumulative losses reach or exceed ``max_loss_allowed`` ($\ge 60\%$ of trade budget)[cite: 3]
+     - **HALTS ALL NEW BUYS** (``return False``)[cite: 3]
+     - Protects total capital from complete depletion during systemic drawdowns.
+   * - **Guard 1: Duplicate Buy Protection**
+     - Order (BUY)
+     - Incoming ``BUY`` signal for a symbol already present in active holdings[cite: 3]
+     - **BLOCKS BUY** (``return False``)[cite: 3]
+     - Prevents accidental position doubling and over-concentration.
+   * - **Guard 2: Max Open Positions**
+     - Portfolio (BUY)
+     - Total active holdings reach ``max_open_positions`` limit (default: 5)[cite: 3]
+     - **BLOCKS BUY** (``return False``)[cite: 3]
+     - Enforces institutional capital allocation caps and portfolio diversification.
+   * - **Guard 3: Re-Entry Cooldown**
+     - Symbol (BUY)
+     - Incoming ``BUY`` signal within ``min_reentry_seconds`` (default: 30s) after closing[cite: 3]
+     - **BLOCKS BUY** (``return False``)[cite: 3]
+     - Prevents algorithmic whipsawing and high-frequency re-entry churn.
+   * - **Guard 4: Orphaned Sell Block**
+     - Order (SELL)
+     - Incoming ``SELL`` signal for a symbol with **no active** ``BUY`` position[cite: 3]
+     - **BLOCKS SELL** (``return False``)[cite: 3]
+     - Prevents unauthorized shorting, ghost liquidations, or execution drift.
+   * - **Guard 5: Minimum Hold Time**
+     - Symbol (SELL)
+     - Incoming ``SELL`` signal within ``min_hold_seconds`` (default: 30s) of opening[cite: 3]
+     - **BLOCKS SELL** (``return False``)[cite: 3]
+     - Enforces minimum holding duration to filter out market noise and micro-fluctuations.
+   * - **Guard 6: Execution Price Validation**
+     - Order (SELL)
+     - Incoming ``SELL`` signal on an open position where market ``price`` evaluates to ``None``[cite: 3]
+     - **BLOCKS SELL** (``return False``)[cite: 3]
+     - Ensures missing price data does not corrupt risk evaluation math.
+   * - **Guard 7: Stop-Loss & Loss Floor**
+     - Order (SELL)
+     - Incoming ``SELL`` evaluated against pricing[cite: 3]:<br>• Asset drops $\ge 10\%$<br>• Minor loss within allowed noise floor
+     - • **ALLOWS SELL** (``return True``)[cite: 3]<br>• **BLOCKS SELL** (``return False``)[cite: 3]
+     - • Cuts losses instantly on black swan events.<br>• Blocks premature panic-selling on normal noise.
+
+Stop-Loss & Loss Floor Implementation (Guard 7)
+==============================================
+
+The following Python snippet implements the dual-threshold risk logic for Guard 7:
+
+.. code-block:: python
+
+    # Guard 7: Institutional Stop-Loss & Loss Floor Logic
+    if incoming_signal == "SELL" and is_currently_holding and price is not None:
+        buy_price = self.open_positions[symbol]["price"]
+        current_loss_pct = (buy_price - price) / buy_price # e.g., 0.10 for 10% loss
+
+        # 1. ALLOW STOP-LOSS: If the asset crashes past your max allowed loss threshold (e.g., > 10%), ALWAYS ALLOW SELL to cut losses.
+        max_allowable_drop = 0.10 # 10% extreme drop threshold
+        if current_loss_pct >= max_allowable_drop:
+            # Allow the sell to go through to protect capital
+            return True
+
+        # 2. PREVENT NOISE SELL: If it's a minor loss within normal volatility noise (e.g., trying to sell at a 0.5% loss prematurely), block it.
+        price_floor = buy_price * (1.0 - self.max_pct_sell_loss)
+        if price < price_floor:
+            print(f"[GUARD BLOCK] {{symbol}} sell price (\${{price:.2f}}) results in a {{current_loss_pct*100:.2f}}% minor loss, violating minimum loss threshold. SELL blocked.")
+            return False
