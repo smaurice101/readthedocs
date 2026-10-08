@@ -572,43 +572,43 @@ Below is the complete suite of operational guard rails implemented in the risk e
      - Rationale
    * - **Circuit Breaker**
      - Portfolio
-     - Cumulative losses reach or exceed ``max_loss_allowed`` ($\ge 60\%$ of trade budget)[cite: 3]
-     - **HALTS ALL NEW BUYS** (``return False``)[cite: 3]
+     - Cumulative losses reach or exceed ``max_loss_allowed`` ($\ge 60\%$ of trade budget)
+     - **HALTS ALL NEW BUYS** (``return False``)
      - Protects total capital from complete depletion during systemic drawdowns.
    * - **Guard 1: Duplicate Buy Protection**
      - Order (BUY)
-     - Incoming ``BUY`` signal for a symbol already present in active holdings[cite: 3]
-     - **BLOCKS BUY** (``return False``)[cite: 3]
+     - Incoming ``BUY`` signal for a symbol already present in active holdings
+     - **BLOCKS BUY** (``return False``)
      - Prevents accidental position doubling and over-concentration.
    * - **Guard 2: Max Open Positions**
      - Portfolio (BUY)
-     - Total active holdings reach ``max_open_positions`` limit (default: 5)[cite: 3]
-     - **BLOCKS BUY** (``return False``)[cite: 3]
+     - Total active holdings reach ``max_open_positions`` limit (default: 5)
+     - **BLOCKS BUY** (``return False``)
      - Enforces institutional capital allocation caps and portfolio diversification.
    * - **Guard 3: Re-Entry Cooldown**
      - Symbol (BUY)
-     - Incoming ``BUY`` signal within ``min_reentry_seconds`` (default: 30s) after closing[cite: 3]
-     - **BLOCKS BUY** (``return False``)[cite: 3]
+     - Incoming ``BUY`` signal within ``min_reentry_seconds`` (default: 30s) after closing
+     - **BLOCKS BUY** (``return False``)
      - Prevents algorithmic whipsawing and high-frequency re-entry churn.
    * - **Guard 4: Orphaned Sell Block**
      - Order (SELL)
-     - Incoming ``SELL`` signal for a symbol with **no active** ``BUY`` position[cite: 3]
-     - **BLOCKS SELL** (``return False``)[cite: 3]
+     - Incoming ``SELL`` signal for a symbol with **no active** ``BUY`` position
+     - **BLOCKS SELL** (``return False``)
      - Prevents unauthorized shorting, ghost liquidations, or execution drift.
    * - **Guard 5: Minimum Hold Time**
      - Symbol (SELL)
-     - Incoming ``SELL`` signal within ``min_hold_seconds`` (default: 30s) of opening[cite: 3]
-     - **BLOCKS SELL** (``return False``)[cite: 3]
+     - Incoming ``SELL`` signal within ``min_hold_seconds`` (default: 30s) of opening
+     - **BLOCKS SELL** (``return False``)
      - Enforces minimum holding duration to filter out market noise and micro-fluctuations.
    * - **Guard 6: Execution Price Validation**
      - Order (SELL)
-     - Incoming ``SELL`` signal on an open position where market ``price`` evaluates to ``None``[cite: 3]
-     - **BLOCKS SELL** (``return False``)[cite: 3]
+     - Incoming ``SELL`` signal on an open position where market ``price`` evaluates to ``None``
+     - **BLOCKS SELL** (``return False``)
      - Ensures missing price data does not corrupt risk evaluation math.
    * - **Guard 7: Stop-Loss & Loss Floor**
      - Order (SELL)
-     - Incoming ``SELL`` evaluated against pricing[cite: 3]:<br>• Asset drops $\ge 10\%$<br>• Minor loss within allowed noise floor
-     - • **ALLOWS SELL** (``return True``)[cite: 3]<br>• **BLOCKS SELL** (``return False``)[cite: 3]
+     - Incoming ``SELL`` evaluated against pricing[cite: 3]:<br>• Asset drops $\ge 5\%$<br>• Minor loss within allowed noise floor
+     - • **ALLOWS SELL** (``return True``)<br>• **BLOCKS SELL** (``return False``)
      - • Cuts losses instantly on black swan events.<br>• Blocks premature panic-selling on normal noise.
 
 Stop-Loss & Loss Floor Implementation (Guard 7)
@@ -624,7 +624,7 @@ The following Python snippet implements the dual-threshold risk logic for Guard 
         current_loss_pct = (buy_price - price) / buy_price # e.g., 0.10 for 10% loss
 
         # 1. ALLOW STOP-LOSS: If the asset crashes past your max allowed loss threshold (e.g., > 10%), ALWAYS ALLOW SELL to cut losses.
-        max_allowable_drop = 0.10 # 10% extreme drop threshold
+        max_allowable_drop = 0.05 # 5% extreme drop threshold
         if current_loss_pct >= max_allowable_drop:
             # Allow the sell to go through to protect capital
             return True
