@@ -612,7 +612,7 @@ Below is the complete suite of operational guard rails implemented in the risk e
      - • Cuts losses instantly on black swan events.<br>• Blocks premature panic-selling on normal noise.
 
 Stop-Loss & Loss Floor Implementation (Guard 7)
-==============================================
+--------------------------------------------
 
 The following Python snippet implements the dual-threshold risk logic for Guard 7:
 
