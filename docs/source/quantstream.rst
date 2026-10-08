@@ -608,7 +608,9 @@ Below is the complete suite of operational guard rails implemented in the risk e
    * - **Guard 7: Stop-Loss & Loss Floor**
      - Order (SELL)
      - Incoming ``SELL`` evaluated against pricing[cite: 3]:<br>• Asset drops $\ge 5\%$<br>• Minor loss within allowed noise floor
-     - • **ALLOWS SELL** (``return True``)<br>• **BLOCKS SELL** (``return False``)
+     - • **ALLOWS SELL** (``return True``)
+       
+       **BLOCKS SELL** (``return False``)
      - • Cuts losses instantly on black swan events.<br>• Blocks premature panic-selling on normal noise.
 
 Stop-Loss & Loss Floor Implementation (Guard 7)
