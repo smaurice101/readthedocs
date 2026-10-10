@@ -570,6 +570,12 @@ Risk Management & Execution Rules
 * **minholdseconds**: Prevents high-frequency churn or premature exits by enforcing a minimum duration a position must be held.
 * **minentryeconds**: Manages execution pacing by ensuring a mandatory time buffer between trade entries.
 * **notionalpct**: Dynamically optimizes quantity based on fraction of total trade budget allocated per position (default 10%).
+* **maxpricedrop**: Max price drop protection (default: 0.1)
+* **addlimitorder**: Prevent slippage in buy price (default: 1)
+* **maxdaysonbooks**: Max days for open positions (default: 5)
+* **maxtrades**: Max trades to make to control trade fees (default: 100)
+* **maxshares**: Max shares to make to control trade fees (default: 400)
+* **minpredictionaccuracy**: Min prediction accuracy for QuantStream prediction accruacy (default: 0.7)
 
 .. Institutional Risk Engine documentation master file, created by
    sphinx-quickstart. You can adapt this file completely to your liking, but
