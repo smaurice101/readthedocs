@@ -519,6 +519,30 @@ Configuration Reference
      - Target notional pct (float): Fraction of total trade budget allocated per position (default 10%).
        
        For example: target_allocation = trade_budget * notionalpct, stock_quantity=target_allocation/price
+   * - ``maxpricedrop``
+     - Float
+     - ``0.1``
+     - This is a extreme price drop rule.  For example, if price drops by 10% QuantStream will sell it. (default 10%).
+   * - ``addlimitorder``
+     - Integer
+     - ``1``
+     - Add a limit order to prevent slippage, however risk is order may not be filled.  Or set to 0 for no limit order. (default 1).
+   * - ``maxdaysonbooks``
+     - Integer
+     - ``5``
+     - Set a limit on the number of days a stock can remain on the books (i.e. how long stock remain in an open position state). (default 5). After the day, QuantStream will sell it.
+   * - ``maxtrades``
+     - Integer
+     - ``100``
+     - Set a limit on the maximum number of trades QuantStream can make - this could be important to limit trade fees. (default 100). Or set to -1 for unlimited trades.
+   * - ``maxshares``
+     - Integer
+     - ``500``
+     - Set a limit on the maximum number of shares QuantStream can trade - this could be important to limit trade fees. (default 500). Or set to -1 to let QuantStream decide any amount.
+   * - ``minpredictionaccuracy``
+     - Float
+     - ``0.7``
+     - Set a limit on the minimum prediction level for QuantStream algorithm that predicts Buy, Sell, Hold signals. (default 0.7). 
 
 Detailed Parameter Breakdown
 ----------------------------
