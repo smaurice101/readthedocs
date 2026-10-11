@@ -551,22 +551,6 @@ Configuration Reference
      - Float
      - ``0.0035``
      - Cost for each share. (default 0.0035).  Change as needed.
-   * - ``exchange_fee_per_share``
-     - Float
-     - ``0.0030``
-     - Exchange fee per share. (default 0.0030).  Change as needed.
-   * - ``clearing_fee_per_share``
-     - Float
-     - ``0.0002``
-     - Clearing fee per share. (default 0.0002).  Change as needed.
-   * - ``regulatory_fee_pct``
-     - Float
-     - ``0.000175``
-     - Regulatory fee. (default 0.000175).  Change as needed.
-   * - ``min_order_commission``
-     - Float
-     - ``0.35``
-     - Min order commission. (default 0.35).  Change as needed.
 
 Detailed Parameter Breakdown
 ----------------------------
@@ -606,10 +590,6 @@ Fees and Commissions
 
 * **cost_per_trade**: Represents the base per-order component of the broker's tiered commission structure, acting as a baseline routing or order-handling fee charged per executed transaction ticket.   
 * **cost_per_share**: The variable commission rate charged per individual share traded under the tiered volume bracket.   
-* **exchange_fee_per_share**: The external pass-through fee levied directly by market centers and Electronic Communication Networks (ECNs) for removing liquidity.
-* **clearing_fee_per_share**: The fractional pass-through cost charged by clearing houses for processing, settling, and recording share ownership transfers.
-* **regulatory_fee_pct**: The percentage-based statutory fee charged by regulatory bodies on sell-side transactions to cover governmental oversight costs.
-* **min_order_commission**: The strict minimum cost floor enforced per order to ensure profitability when calculated share-based commissions fall below the threshold.
 
 .. Institutional Risk Engine documentation master file, created by
    sphinx-quickstart. You can adapt this file completely to your liking, but
