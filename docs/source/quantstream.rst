@@ -674,3 +674,17 @@ The following Python snippet implements the dual-threshold risk logic for Guard 
                 if price <= buy_price:
                     print(f"[GUARD BLOCK] {symbol} sell price (${price:.2f}) is not profitable vs buy price (${buy_price:.2f}). SELL blocked.")
                     return False
+
+Fee Model & Cost Optimization
+=============================
+
+To maintain institutional cost efficiency, QuantStream AI incorporates a transparent fee accounting model specifically optimized for **IBKR Pro Tiered Pricing** in Canada.
+
+Fee Structure & Ceilings:
+* **Blended Commission Formula:** Total daily trading fees are calculated dynamically as:
+  
+  .. math::
+     \text{Total Fees} = (\text{Total Trades} \times \text{cost\_per\_trade}) + (\text{Total Shares} \times \text{cost\_per\_share})
+
+* **Strict \$25/Day Fee Ceiling:** To prevent excessive commission drag during high-volatility sessions, operational caps are enforced at **70 trades/day** and **1,500 shares/day** via `qsconfig.ini`.
+* **Pass-Through Metrics:** Fully accounts for exchange ECN fees, clearing fees, regulatory percentages, and minimum order commission floors (\$0.35 USD)[cite: 3].
