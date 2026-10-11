@@ -656,19 +656,21 @@ The following Python snippet implements the dual-threshold risk logic for Guard 
 
 .. code-block:: python
 
-    # Guard 7: Institutional Stop-Loss & Loss Floor Logic
-    if incoming_signal == "SELL" and is_currently_holding and price is not None:
-        buy_price = self.open_positions[symbol]["price"]
-        current_loss_pct = (buy_price - price) / buy_price # e.g., 0.10 for 10% loss
+            # Guard 7: Institutional Stop-Loss, Max Days & Strict Profit Enforcement
+            if incoming_signal == "SELL" and is_currently_holding and price is not None:
+                buy_price = self.open_positions[symbol]["price"]
+                current_loss_pct = (buy_price - price) / buy_price 
 
-        # 1. ALLOW STOP-LOSS: If the asset crashes past your max allowed loss threshold (e.g., > 10%), ALWAYS ALLOW SELL to cut losses.
-        max_allowable_drop = 0.05 # 5% extreme drop threshold
-        if current_loss_pct >= max_allowable_drop:
-            # Allow the sell to go through to protect capital
-            return True
+                # 1. EMERGENCY STOP-LOSS: Allow sell if price crashes past max allowed drop (e.g., 10%)
+                if current_loss_pct >= self.max_allowable_drop:
+                    return True
 
-        # 2. PREVENT NOISE SELL: If it's a minor loss within normal volatility noise (e.g., trying to sell at a 0.5% loss prematurely), block it.
-        price_floor = buy_price * (1.0 - self.max_pct_sell_loss)
-        if price < price_floor:
-            print(f"[GUARD BLOCK] {{symbol}} sell price (\${{price:.2f}}) results in a {{current_loss_pct*100:.2f}}% minor loss, violating minimum loss threshold. SELL blocked.")
-            return False
+                # 2. TIME-BASED EXIT: Allow sell if maximum days on books limit is reached
+                daysonbooks = self.open_positions[symbol]["daysonbooks"]
+                if daysonbooks >= self.max_days_on_books:
+                     return True
+                     
+                # 3. STRICT PROFIT RULE: Block sell unless price is strictly greater than buy price
+                if price <= buy_price:
+                    print(f"[GUARD BLOCK] {symbol} sell price (${price:.2f}) is not profitable vs buy price (${buy_price:.2f}). SELL blocked.")
+                    return False
