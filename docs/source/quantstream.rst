@@ -702,9 +702,9 @@ The following Python snippet implements the dual-threshold risk logic for Guard 
                           cf.writeviperlogs(test, f"[AGENT TAKE PROFIT] {symbol} reached target profit of {current_gain_pct*100:.2f}%. SELL approved.")
                           return True
       
-                      # 3. TIME-BASED EXIT: Allow sell if maximum days on books limit is reached
+                      # 3. TIME-BASED EXIT: Allow sell if maximum days on books limit is reached or min days on books is reached and less than max sell loss
                       daysonbooks = self.open_positions[symbol]["daysonbooks"]
-                      if daysonbooks >= self.max_days_on_books:
+                      if daysonbooks >= self.max_days_on_books or (daysonbooks >= self.min_days_on_books and current_loss_pct <= self.max_pct_sell_loss):
                            cf.writeviperlogs(test, f"[AGENT DAYS ON BOOK] {symbol} Exceeds or equal to days on book: {daysonbooks}. SELL approved.")                                        
                            return True
                            
@@ -712,7 +712,7 @@ The following Python snippet implements the dual-threshold risk logic for Guard 
                       print(f"[GUARD BLOCK] {symbol} gain ({current_gain_pct*100:.2f}% ) has not met take-profit target ({self.take_profit_pct*100:.2f}%). SELL blocked.")
                       cf.writeviperlogs(test, f"[AGENT GUARD BLOCK] {symbol} gain ({current_gain_pct*100:.2f}%) has not met take-profit target ({self.take_profit_pct*100:.2f}%). SELL blocked.")					
                       return False
-      
+
 
 
 Fee Model & Cost Optimization
