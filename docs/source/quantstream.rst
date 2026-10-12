@@ -527,10 +527,14 @@ Configuration Reference
      - Integer
      - ``1``
      - Add a limit order to prevent slippage, however risk is order may not be filled.  Or set to 0 for no limit order. (default 1).
+   * - ``mindaysonbooks``
+     - Integer
+     - ``10``
+     - Set a limit on the minimum number of days a stock can remain on the books (i.e. how long stock remain in an open position state). (default 10). After the day, QuantStream will sell it IF the loss is less than maxpctsellloss.
    * - ``maxdaysonbooks``
      - Integer
-     - ``5``
-     - Set a limit on the number of days a stock can remain on the books (i.e. how long stock remain in an open position state). (default 5). After the day, QuantStream will sell it.
+     - ``30``
+     - Set a limit on the maximum number of days a stock can remain on the books (i.e. how long stock remain in an open position state). (default 30). After the day, QuantStream will sell it regardless of loss.
    * - ``maxtrades``
      - Integer
      - ``100``
@@ -588,7 +592,8 @@ Risk Management & Execution Rules
 * **notionalpct**: Dynamically optimizes quantity based on fraction of total trade budget allocated per position (default 10%).
 * **maxpricedrop**: Max price drop protection (default: 0.1)
 * **addlimitorder**: Prevent slippage in buy price (default: 1)
-* **maxdaysonbooks**: Max days for open positions (default: 5)
+* **mindaysonbooks**: Min days for open positions (default: 10).  QuantStream will sell IF loss is less than maxpctsellloss.
+* **maxdaysonbooks**: Max days for open positions (default: 30).  QuantStream will sell regardless of loss.
 * **maxtrades**: Max trades to make to control trade fees (default: 100)
 * **maxshares**: Max shares to make to control trade fees (default: 4000)
 * **minpredictionaccuracy**: Min prediction accuracy for QuantStream prediction accruacy (default: 0.7)
