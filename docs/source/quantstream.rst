@@ -680,7 +680,7 @@ The following Python snippet implements the dual-threshold risk logic for Guard 
 
 .. code-block:: python
 
-                  # Guard 7: Institutional Stop-Loss, Take-Profit Target, Max Days & Profit Enforcement
+                  # Guard 7: Institutional Stop-Loss, Take-Profit Target, Max Days Enforcement
                   if incoming_signal == "SELL" and is_currently_holding and price is not None:
                       buy_price = self.open_positions[symbol]["price"]
                       current_loss_pct = (buy_price - price) / buy_price 
@@ -688,25 +688,25 @@ The following Python snippet implements the dual-threshold risk logic for Guard 
       
                       # 1. EMERGENCY STOP-LOSS: Allow sell if price crashes past max allowed drop (e.g., 10%)
                       if current_loss_pct >= self.max_allowable_drop:
+                          cf.writeviperlogs(test, f"[AGENT EMERGENCY STOP LOSS] {symbol} STOP-LOSS {current_loss_pct:.2f} >= {self.max_allowable_drop}. SELL approved.")                    
                           return True
       
                       # 2. TAKE-PROFIT TARGET: Allow sell immediately if profit reaches user-defined threshold (e.g., 5% / 0.05)
-                      #target_profit_pct = getattr(self, 'take_profit_pct', 0.05)
-                      if current_gain_pct >= self.target_profit_pct:
-                          self._log_throttled(f"{symbol}_take_profit", f"[TAKE PROFIT] {symbol} reached {current_gain_pct*100:.2f}% gain (Target: {target_profit_pct*100:.2f}%). SELL approved.")
+                      if current_gain_pct >= self.take_profit_pct:
+                          self._log_throttled(f"{symbol}_take_profit", f"[TAKE PROFIT] {symbol} reached {current_gain_pct*100:.2f}% gain (Target: {self.take_profit_pct*100:.2f}%). SELL approved.")
                           cf.writeviperlogs(test, f"[AGENT TAKE PROFIT] {symbol} reached target profit of {current_gain_pct*100:.2f}%. SELL approved.")
                           return True
       
                       # 3. TIME-BASED EXIT: Allow sell if maximum days on books limit is reached
                       daysonbooks = self.open_positions[symbol]["daysonbooks"]
                       if daysonbooks >= self.max_days_on_books:
+                           cf.writeviperlogs(test, f"[AGENT DAYS ON BOOK] {symbol} Exceeds or equal to days on book: {daysonbooks}. SELL approved.")                                        
                            return True
                            
-                      # 4. STRICT PROFIT RULE: Block sell unless price is strictly greater than buy price
-                      if price <= buy_price:
-                          print(f"[GUARD BLOCK] {symbol} sell price (${price:.2f}) is not profitable vs buy price (${buy_price:.2f}). SELL blocked.")
-                          cf.writeviperlogs(test,f"[AGENT GUARD BLOCK] {symbol} sell price (${price:.2f}) is not profitable vs buy price (${buy_price:.2f}). SELL blocked.")					
-                          return False
+                      # 4. STRICT TARGET BLOCK: Block all other SELL signals if neither stop-loss, take-profit, nor max days is met
+                      print(f"[GUARD BLOCK] {symbol} gain ({current_gain_pct*100:.2f}% ) has not met take-profit target ({self.take_profit_pct*100:.2f}%). SELL blocked.")
+                      cf.writeviperlogs(test, f"[AGENT GUARD BLOCK] {symbol} gain ({current_gain_pct*100:.2f}%) has not met take-profit target ({self.take_profit_pct*100:.2f}%). SELL blocked.")					
+                      return False
       
 
 
