@@ -537,8 +537,8 @@ Configuration Reference
      - Set a limit on the maximum number of trades QuantStream can make - this could be important to limit trade fees. (default 100). Or set to -1 for unlimited trades.
    * - ``maxshares``
      - Integer
-     - ``500``
-     - Set a limit on the maximum number of shares QuantStream can trade - this could be important to limit trade fees. (default 500). Or set to -1 to let QuantStream decide any amount.
+     - ``5000``
+     - Set a limit on the maximum number of shares QuantStream can trade - this could be important to limit trade fees. (default 5000). Or set to -1 to let QuantStream decide any amount.
    * - ``minpredictionaccuracy``
      - Float
      - ``0.7``
@@ -553,8 +553,8 @@ Configuration Reference
      - Cost for each share. (default 0.0035).  Change as needed.
    * - ``take_profit_pct``
      - Float
-     - ``0.05``
-     - Sell when the profit is greater than or equal to 5%. (default 0.05).  Change as needed.
+     - ``0.01``
+     - Sell when the profit is greater than or equal to 1%. (default 0.01).  Change as needed.
 
 Detailed Parameter Breakdown
 ----------------------------
@@ -586,9 +586,9 @@ Risk Management & Execution Rules
 * **addlimitorder**: Prevent slippage in buy price (default: 1)
 * **maxdaysonbooks**: Max days for open positions (default: 5)
 * **maxtrades**: Max trades to make to control trade fees (default: 100)
-* **maxshares**: Max shares to make to control trade fees (default: 400)
+* **maxshares**: Max shares to make to control trade fees (default: 4000)
 * **minpredictionaccuracy**: Min prediction accuracy for QuantStream prediction accruacy (default: 0.7)
-* **take_profit_pct**: Take profit when profit exceed this percentage. (default: 0.05)
+* **take_profit_pct**: Take profit when profit exceed this percentage. (default: 0.01)
 
 Fees and Commissions
 ^^^^^^^^^^^^^^^^^^^^
