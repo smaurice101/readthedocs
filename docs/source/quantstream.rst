@@ -551,6 +551,10 @@ Configuration Reference
      - Float
      - ``0.0035``
      - Cost for each share. (default 0.0035).  Change as needed.
+   * - ``take_profit_pct``
+     - Float
+     - ``0.05``
+     - Sell when the profit is greater than or equal to 5%. (default 0.05).  Change as needed.
 
 Detailed Parameter Breakdown
 ----------------------------
@@ -584,6 +588,7 @@ Risk Management & Execution Rules
 * **maxtrades**: Max trades to make to control trade fees (default: 100)
 * **maxshares**: Max shares to make to control trade fees (default: 400)
 * **minpredictionaccuracy**: Min prediction accuracy for QuantStream prediction accruacy (default: 0.7)
+* **take_profit_pct**: Take profit when profit exceed this percentage. (default: 0.05)
 
 Fees and Commissions
 ^^^^^^^^^^^^^^^^^^^^
