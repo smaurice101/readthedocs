@@ -684,16 +684,22 @@ Stop-Loss & Loss Floor Implementation (Guard 7)
 The following Python snippet implements the dual-threshold risk logic for Guard 7:
 
 .. code-block:: python
-
+      
                   # Guard 7: Institutional Stop-Loss, Take-Profit Target, Max Days Enforcement
                   if incoming_signal == "SELL" and is_currently_holding and price is not None:
                       buy_price = self.open_positions[symbol]["price"]
                       current_loss_pct = (buy_price - price) / buy_price 
                       current_gain_pct = (price - buy_price) / buy_price
       
-                      # 1. EMERGENCY STOP-LOSS: Allow sell if price crashes past max allowed drop (e.g., 10%)
-                      if current_loss_pct >= self.max_allowable_drop:
-                          cf.writeviperlogs(test, f"[AGENT EMERGENCY STOP LOSS] {symbol} STOP-LOSS {current_loss_pct:.2f} >= {self.max_allowable_drop}. SELL approved.")                    
+                      #mhour,mmin,maxhour,maxmin=cf.checktime("US")
+                      # 1. Absolute Emergency Floor (Triggers instantly on day 1 if crash is severe)
+                      if current_loss_pct >= (self.max_allowable_drop * 1.5): # e.g., 15% instant drop
+                          cf.writeviperlogs(test, f"[FATAL EMERGENCY STOP] {symbol} catastrophic drop {current_loss_pct:.2f}. SELL immediately.")
+                          return True
+      
+                      # 1.2. Standard Stop-Loss with your Grace Period Window
+                      if current_loss_pct >= self.max_allowable_drop and self.min_days_on_books <= daysonbooks <= self.max_days_on_books:
+                          cf.writeviperlogs(test, f"[AGENT GRACE-PERIOD STOP LOSS] {symbol} STOP-LOSS {current_loss_pct:.2f} at day {daysonbooks}. SELL approved.")
                           return True
       
                       # 2. TAKE-PROFIT TARGET: Allow sell immediately if profit reaches user-defined threshold (e.g., 5% / 0.05)
@@ -712,8 +718,6 @@ The following Python snippet implements the dual-threshold risk logic for Guard 
                       print(f"[GUARD BLOCK] {symbol} gain ({current_gain_pct*100:.2f}% ) has not met take-profit target ({self.take_profit_pct*100:.2f}%). SELL blocked.")
                       cf.writeviperlogs(test, f"[AGENT GUARD BLOCK] {symbol} gain ({current_gain_pct*100:.2f}%) has not met take-profit target ({self.take_profit_pct*100:.2f}%). SELL blocked.")					
                       return False
-
-
 
 Fee Model & Cost Optimization
 =============================
