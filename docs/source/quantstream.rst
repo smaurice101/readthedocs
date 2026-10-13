@@ -732,3 +732,38 @@ Fee Structure & Ceilings:
 
 * **Strict \$25/Day Fee Ceiling:** To prevent excessive commission drag during high-volatility sessions, operational caps are enforced at **70 trades/day** and **1,500 shares/day** via `qsconfig.ini`. If trading fees are not a concern set max_trades=-1 and max_shares=-1.
 * **Pass-Through Metrics:** Fully accounts for exchange ECN fees, clearing fees, regulatory percentages, and minimum order commission floors (\$0.35 USD).
+
+Institutional Alpha & Tail-Risk Guarded Stock Screener
+==================================================
+
+QuantStream AI uses a special algorithm at the start of the day to carefully pick the stocks for the trading day.
+
+The **Institutional Alpha & Tail-Risk Guarded Screener** is an advanced quantitative screening engine designed to isolate high-probability momentum equities while strictly filtering out erratic, high-tail-risk assets. Built for algorithmic traders and portfolio managers, the system bridges the gap between raw momentum capture and robust institutional risk management.
+
+Key Architectural Strengths
+---------------------------
+
+1. Bounded Volatility Guardrails
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* **Controlled Volatility Band:** Unlike basic screeners that chase hyper-volatile micro-caps or speculative biotechs, the screener enforces a strict annualized volatility window (**20% to 55%**). 
+* **Elimination of Tail-Risk:** This ensures candidates possess enough intraday movement for swing momentum while completely weeding out unstable blow-off tops and flat, dead assets.
+
+2. Zero-Tolerance Tail-Risk Shield
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* **Historical Drawdown Limiting:** The screener tracks the historical frequency of severe single-session drops (capping 7%+ gap-downs at $\le 1.5\%$). 
+* **Gap Protection:** This protects portfolios from unexpected liquidation events, earnings surprises, and macro air pockets.
+
+3. Institutional Accumulation Sponsoring
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* **Up-Volume Tracking:** The engine calculates an **Accumulation/Distribution Ratio** comparing up-day volume to total volume across the observation window ($\ge 55\%$ baseline).
+* **Smart Money Confirmation:** This guarantees that price advances are backed by genuine institutional volume accumulation rather than low-volume retail churn.
+
+4. Gain-to-Pain Efficiency Scoring (Omega-Style)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* **Risk-Adjusted Performance:** Moving beyond naive linear return metrics, the screener utilizes a **Gain-to-Pain Ratio** that aggregates cumulative gains against cumulative downside losses.
+* **Friction Reduction:** Top-ranked stocks are those that climb with smooth, consistent upward traction while minimizing corrective pullback friction.
+
+5. Structural Trend & Extension Protection
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* **Moving Average Alignment:** Verifies that candidate stocks are in an orderly institutional markup phase by requiring clean structural alignment ($\text{Price} > \text{EMA}_{20} > \text{EMA}_{50}$).
+* **ATR Extension Ceilings:** Prevents chasing overextended moves by capping distance from the mean Average True Range (ATR).
