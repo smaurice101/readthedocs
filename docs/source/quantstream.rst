@@ -750,7 +750,7 @@ Key Architectural Strengths
 
 2. Zero-Tolerance Tail-Risk Shield
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* **Historical Drawdown Limiting:** The screener tracks the historical frequency of severe single-session drops (capping 7%+ gap-downs at $\le 1.5\%$). 
+* **Historical Drawdown Limiting:** The screener tracks the historical frequency of severe single-session drops (capping 7%+ gap-downs at :math:`\le` 1.5%). 
 * **Gap Protection:** This protects portfolios from unexpected liquidation events, earnings surprises, and macro air pockets.
 
 3. Institutional Accumulation Sponsoring
