@@ -738,7 +738,7 @@ Institutional Alpha & Tail-Risk Guarded Stock Screener
 
 QuantStream AI uses a special algorithm at the start of the day to carefully pick the stocks for the trading day.
 
-The **Institutional Alpha & Tail-Risk Guarded Screener** is an advanced quantitative screening engine designed to isolate high-probability momentum equities while strictly filtering out erratic, high-tail-risk assets. Built specificlally for QuantStreams' algorithmic trading engine, the system bridges the gap between raw momentum capture and robust institutional risk management.
+The **Institutional Alpha & Tail-Risk Guarded Screener** is an advanced quantitative screening engine designed to isolate high-probability momentum equities while strictly filtering out erratic, high-tail-risk assets. Built specifically for QuantStreams' algorithmic trading engine, the system bridges the gap between raw momentum capture and robust institutional risk management.
 
 Key Architectural Strengths
 ---------------------------
