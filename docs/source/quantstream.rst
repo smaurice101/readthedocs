@@ -765,5 +765,5 @@ Key Architectural Strengths
 
 5. Structural Trend & Extension Protection
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* **Moving Average Alignment:** Verifies that candidate stocks are in an orderly institutional markup phase by requiring clean structural alignment ($\text{Price} > \text{EMA}_{20} > \text{EMA}_{50}$).
+* **Moving Average Alignment:** Verifies that candidate stocks are in an orderly institutional markup phase by requiring clean structural alignment (:math:`\text{Price} > \text{EMA}_{20} > \text{EMA}_{50}`).
 * **ATR Extension Ceilings:** Prevents chasing overextended moves by capping distance from the mean Average True Range (ATR).
