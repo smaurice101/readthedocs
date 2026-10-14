@@ -755,7 +755,7 @@ Key Architectural Strengths
 
 3. Institutional Accumulation Sponsoring
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* **Up-Volume Tracking:** The engine calculates an **Accumulation/Distribution Ratio** comparing up-day volume to total volume across the observation window ($\ge 55\%$ baseline).
+* **Up-Volume Tracking:** The engine calculates an **Accumulation/Distribution Ratio** comparing up-day volume to total volume across the observation window (:math:`\ge` 55% baseline).
 * **Smart Money Confirmation:** This guarantees that price advances are backed by genuine institutional volume accumulation rather than low-volume retail churn.
 
 4. Gain-to-Pain Efficiency Scoring (Omega-Style)
