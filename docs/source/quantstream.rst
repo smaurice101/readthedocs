@@ -690,6 +690,7 @@ The following Python snippet implements the dual-threshold risk logic for Guard 
                       buy_price = self.open_positions[symbol]["price"]
                       current_loss_pct = (buy_price - price) / buy_price 
                       current_gain_pct = (price - buy_price) / buy_price
+                      daysonbooks = self.open_positions[symbol]["daysonbooks"]
       
                       #mhour,mmin,maxhour,maxmin=cf.checktime("US")
                       # 1. Absolute Emergency Floor (Triggers instantly on day 1 if crash is severe)
@@ -718,6 +719,7 @@ The following Python snippet implements the dual-threshold risk logic for Guard 
                       print(f"[GUARD BLOCK] {symbol} gain ({current_gain_pct*100:.2f}% ) has not met take-profit target ({self.take_profit_pct*100:.2f}%). SELL blocked.")
                       cf.writeviperlogs(test, f"[AGENT GUARD BLOCK] {symbol} gain ({current_gain_pct*100:.2f}%) has not met take-profit target ({self.take_profit_pct*100:.2f}%). SELL blocked.")					
                       return False
+
 
 Fee Model & Cost Optimization
 =============================
