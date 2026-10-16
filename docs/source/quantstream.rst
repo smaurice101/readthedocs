@@ -563,6 +563,10 @@ Configuration Reference
      - Int
      - ``50``
      - Set the maximum number of shares per trade to limit trade fees. (default 50).  Set to -1 to let QuantStream decide.
+   * - ``autotradebudget``
+     - Int
+     - ``1``
+     - If Set to 1, QuantStream will update the trade budget based on the final PnL. This enables compounding of PnL. Set to 0 if you DO NOT want QuantStream to update trade budget.
 
 Detailed Parameter Breakdown
 ----------------------------
@@ -599,6 +603,7 @@ Risk Management & Execution Rules
 * **minpredictionaccuracy**: Min prediction accuracy for QuantStream prediction accruacy (default: 0.7)
 * **take_profit_pct**: Take profit when profit exceed this percentage. (default: 0.01)
 * **maxsharespertrade**: Maximum shares per trade.  Set to -1 to let QuantStream decide. (default: 50)
+* **autotradebudget**: If Set to 1, QuantStream will update the trade budget based on the final PnL. This enables compounding of PnL. Set to 0 if you DO NOT want QuantStream to update trade budget. (default: 1)
 
 Fees and Commissions
 ^^^^^^^^^^^^^^^^^^^^
