@@ -818,3 +818,75 @@ Methodology Details
 
 4. **Gaussian Process (Kriging) Regression**: 
    To account for model uncertainty and evaluate failure boundaries smoothly, a Gaussian Process Regressor (`sklearn.gaussian_process.GaussianProcessRegressor`) with an RBF kernel fits the simulated drawdown distribution. The resulting epistemic standard deviation (`gp_std`) provides a robust confidence buffer when calculating survival probabilities against major drawdowns (:math:`\ge 8\%`).
+
+QuantStream Architectural Screener Differentiation: Screener Comparison
+====================================================================
+
+Most equity screeners on the market—ranging from retail platforms to standard Python scripts—rely on **static, backward-looking filters**. The **QuantStream Institutional Alpha Screener** was built from the ground up to operate as a **forward-looking, stochastic risk engine**.
+
+This document outlines the core technical and mathematical differences that set this engine apart from traditional screeners.
+
+At a Glance: Feature Matrix
+===========================
+
+.. list-table::
+   :widths: 30 35 35
+   :header-rows: 1
+
+   * - Feature Dimension
+     - Traditional Retail / Basic Screeners
+     - Institutional Alpha Screener (QMC + Surrogates)
+   * - **Analytical Perspective**
+     - Backward-looking historical metrics (P/E, 50-day SMA, RSI).
+     - Forward-looking stochastic path simulation over a 30-day horizon (`max_days_on_books`).
+   * - **Simulation Engine**
+     - None, or basic Monte Carlo with standard pseudo-random draws (:math:`O(N^{-1/2})` convergence).
+     - **Quasi-Monte Carlo (QMC)** using deterministic **Sobol sequences** (:math:`O(N^{-1})` convergence).
+   * - **Macro Risk Evaluation**
+     - Static sector labels or static beta values.
+     - **Dynamic, multi-regime macro stress testing** against live `SPY` and `QQQ` benchmark feeds.
+   * - **Uncertainty Quantification**
+     - None (binary pass/fail output).
+     - **Gaussian Process (Kriging) Surrogates** with RBF kernels to model epistemic confidence bounds.
+   * - **Risk-Adjusted Metrics**
+     - Sharpe Ratio or simple standard deviation (penalizes upside volatility).
+     - **Sortino Ratio** focusing strictly on downside variance and institutional accumulation ratios.
+   * - **Universe Reliability**
+     - Fixed stock lists that break when market counts drop; risk of single-stock concentration.
+     - **4-tier multi-pass fallback architecture** guaranteeing a hard minimum floor (`target_count_min`).
+
+Core Technological Differentiators
+==================================
+
+1. Static Backward Filters vs. Forward-Looking Stochastic Simulation
+---------------------------------------------------------------------
+
+* **Traditional Screeners**: Query database records to see if a stock *already* met a criteria yesterday (e.g., "RSI < 30" or "50-day SMA > 200-day SMA"). They assume past trend stability implies future performance.
+* **This Engine**: Uses past data solely to calibrate drift (:math:`\mu`) and volatility (:math:`\sigma`) parameters, then projects hundreds of forward-looking stochastic price trajectories over your explicit holding window (30 days).
+
+2. Pseudo-Random Monte Carlo vs. Quasi-Monte Carlo (Sobol Sequences)
+--------------------------------------------------------------------
+
+* **Traditional Screeners**: If they simulate at all, they use standard pseudo-random number generators (PRNGs). PRNG draws suffer from "clustering" and leave large unexplored gaps in multi-dimensional space, requiring 10,000+ iterations to achieve numerical accuracy.
+* **This Engine**: Employs **Quasi-Monte Carlo (QMC)** with scrambled **Sobol sequences** (`scipy.stats.qmc.Sobol`). Sobol sequences fill the probability space uniformly without gap-clustering, improving the asymptotic error bound from :math:`O(N^{-1/2})` to nearly :math:`O(N^{-1})`. This delivers hedge-fund-grade mathematical precision with only 256 sample paths per regime.
+
+3. Isolated Stock Evaluation vs. Systemic Beta-Weighted Macro Shocks
+---------------------------------------------------------------------
+
+* **Traditional Screeners**: Evaluate stocks in complete isolation from the broader macroeconomic environment. A stock with strong momentum will pass even if it is highly sensitive to an imminent sector sell-off.
+* **This Engine**: Computes dynamic rolling covariance and beta ($\beta$) against `SPY` (broad market) and `QQQ` (technology sector). It then forces every candidate asset through three concurrent macro stress regimes:
+    * *Regime A*: Normal Baseline Drift.
+    * *Regime B*: Macroeconomic Slowdown (-6% market drag).
+    * *Regime C*: Tech/Liquidity Panic Crash (-12% shock).
+
+4. Binary Hard Cutoffs vs. Gaussian Process Surrogate Bounds
+------------------------------------------------------------
+
+* **Traditional Screeners**: Apply rigid binary rules (e.g., "Exclude if Volatility > 35%"). This drops high-performing assets that briefly touched a threshold due to an anomalous single-day print.
+* **This Engine**: Fits a non-parametric **Gaussian Process Regressor** (`sklearn.gaussian_process.GaussianProcessRegressor`) with Radial Basis Function (RBF) kernels over the simulated path returns. The resulting epistemic standard deviation (`gp_std`) provides continuous, smooth probability distributions rather than arbitrary hard cuts.
+
+5. Single-Pass Fragility vs. Guaranteed Multi-Pass Fallback Architecture
+------------------------------------------------------------------------
+
+* **Traditional Screeners**: Return whatever arbitrary count of stocks happens to match a strict query. In market downturns, strict queries often return 0 or 1 stock, forcing portfolio under-diversification.
+* **This Engine**: Implements a strict **4-pass cascade** (Strict Alpha :math:`\rightarrow` Moderate :math:`\rightarrow` Safety Floor :math:`\rightarrow` Emergency Floor Guarantee). If volatile market conditions dry up strict institutional candidates, Pass 4 automatically activates to ensure a hard minimum portfolio safety floor (e.g., 20 to 30+ stocks) is always populated.
