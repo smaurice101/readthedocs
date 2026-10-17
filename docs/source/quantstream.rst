@@ -747,7 +747,7 @@ QuantStream AI uses a special algorithm at the start of the day to carefully pic
 
 The **Institutional Alpha & Tail-Risk Guarded Screener** is an advanced quantitative screening engine designed to isolate high-probability momentum equities while strictly filtering out erratic, high-tail-risk assets. Built specifically for QuantStream's algorithmic trading engine, the system bridges the gap between raw momentum capture and robust institutional risk management.
 
-22.12.1. Key Architectural Strengths
+Key Architectural Strengths
 ------------------------------------
 
 * **Controlled Volatility Band:** Enforces an institutional annualized volatility window (6% to 45%) to weed out unstable blow-off tops and dead assets while capturing smooth momentum.
