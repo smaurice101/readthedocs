@@ -763,3 +763,30 @@ Key Architectural Strengths
 * **Dynamic Macro Sector Rotation:** Assesses real-time relative strength across major sector ETFs (e.g., XLK, XLE, XLV) to dynamically reward leading sector tailwinds (+25% boost) and penalize lagging sectors (-25% haircut).
 
 * **Guaranteed Target-Count Fulfillment:** Features a progressive, multi-pass auto-relaxing fallback loop that guarantees the screener securely yields the exact target candidate count (e.g., 50, 80, 150) under any market conditions.
+
+.. Stock Screener & Macro-Stressed MCA documentation master file
+
+Macro-Stressed Monte Carlo Analysis (MCA)
+=========================================
+
+**QuantStream performs Macro-Stressed Monte Carlo Analysis (MCA)** which is an institutional-grade, quantitative engine designed to screen US equity markets (NASDAQ and NYSE) for high-alpha candidates while stress-testing them against severe macroeconomic tail-risks over a 30-day holding horizon.
+
+Key Features
+============
+
+* **Automated Universe Harvesting**: Dynamically fetches and cleans active trading symbols from NASDAQ and NYSE listings.
+* **Multi-Pass Institutional Filtering**: Enforces strict liquidity, volatility, Sortino ratio, and accumulation criteria. Ensures strict safety floors to prevent concentration risk.
+* **Benchmark Integration (`SPY`, `QQQ`)**: Pulls major market benchmarks to calculate beta-weighted sensitivities.
+* **Macro-Stressed Monte Carlo Analysis (MCA)**: Simulates hundreds of stochastic paths using Geometric Brownian Motion across three distinct market regimes:
+    * *Regime A*: Normal Baseline Drift.
+    * *Regime B*: Macroeconomic Slowdown (-6% market drag).
+    * *Regime C*: Tech/Liquidity Panic Crash (-12% shock).
+* **Absolute Winner Selection**: Ranks stocks based on composite profitability and tail-risk resilience scores, outputting results directly to `tailwind_enhanced_stocks.csv`.
+
+How Macro-Stressed MCA Works
+============================
+
+1. **Drift & Volatility Extraction**: Computes expected daily return (:math:`\mu`) and volatility (:math:`\sigma`) from log returns.
+2. **Beta Calculation**: Measures how sensitive the stock is relative to benchmark indices (`SPY`/`QQQ`).
+3. **Multi-Regime Stress Simulation**: Projects forward paths under baseline and distressed macroeconomic conditions over a 30-day window.
+4. **Resilience Scoring**: Calculates the exact percentage of simulated paths that successfully avoid major drawdowns (:math:`\ge 8%`) and remain profitable at exit.
