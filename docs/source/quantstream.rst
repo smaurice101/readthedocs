@@ -789,4 +789,4 @@ How Macro-Stressed MCA Works
 1. **Drift & Volatility Extraction**: Computes expected daily return (:math:`\mu`) and volatility (:math:`\sigma`) from log returns.
 2. **Beta Calculation**: Measures how sensitive the stock is relative to benchmark indices (`SPY`/`QQQ`).
 3. **Multi-Regime Stress Simulation**: Projects forward paths under baseline and distressed macroeconomic conditions over a 30-day window.
-4. **Resilience Scoring**: Calculates the exact percentage of simulated paths that successfully avoid major drawdowns (:math:`\ge 8%`) and remain profitable at exit.
+4. **Resilience Scoring**: Calculates the exact percentage of simulated paths that successfully avoid major drawdowns (:math:`\ge 8\%`) and remain profitable at exit.
