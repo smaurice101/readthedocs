@@ -858,34 +858,34 @@ At a Glance: Feature Matrix
 Core Technological Differentiators
 ==================================
 
-1. Static Backward Filters vs. Forward-Looking Stochastic Simulation
+Static Backward Filters vs. Forward-Looking Stochastic Simulation
 ---------------------------------------------------------------------
 
 * **Traditional Screeners**: Query database records to see if a stock *already* met a criteria yesterday (e.g., "RSI < 30" or "50-day SMA > 200-day SMA"). They assume past trend stability implies future performance.
 * **This Engine**: Uses past data solely to calibrate drift (:math:`\mu`) and volatility (:math:`\sigma`) parameters, then projects hundreds of forward-looking stochastic price trajectories over your explicit holding window (30 days).
 
-2. Pseudo-Random Monte Carlo vs. Quasi-Monte Carlo (Sobol Sequences)
+Pseudo-Random Monte Carlo vs. Quasi-Monte Carlo (Sobol Sequences)
 --------------------------------------------------------------------
 
 * **Traditional Screeners**: If they simulate at all, they use standard pseudo-random number generators (PRNGs). PRNG draws suffer from "clustering" and leave large unexplored gaps in multi-dimensional space, requiring 10,000+ iterations to achieve numerical accuracy.
 * **This Engine**: Employs **Quasi-Monte Carlo (QMC)** with scrambled **Sobol sequences** (`scipy.stats.qmc.Sobol`). Sobol sequences fill the probability space uniformly without gap-clustering, improving the asymptotic error bound from :math:`O(N^{-1/2})` to nearly :math:`O(N^{-1})`. This delivers hedge-fund-grade mathematical precision with only 256 sample paths per regime.
 
-3. Isolated Stock Evaluation vs. Systemic Beta-Weighted Macro Shocks
+Isolated Stock Evaluation vs. Systemic Beta-Weighted Macro Shocks
 ---------------------------------------------------------------------
 
 * **Traditional Screeners**: Evaluate stocks in complete isolation from the broader macroeconomic environment. A stock with strong momentum will pass even if it is highly sensitive to an imminent sector sell-off.
-* **This Engine**: Computes dynamic rolling covariance and beta ($\beta$) against `SPY` (broad market) and `QQQ` (technology sector). It then forces every candidate asset through three concurrent macro stress regimes:
+* **This Engine**: Computes dynamic rolling covariance and beta (:math:`\beta`) against `SPY` (broad market) and `QQQ` (technology sector). It then forces every candidate asset through three concurrent macro stress regimes:
     * *Regime A*: Normal Baseline Drift.
     * *Regime B*: Macroeconomic Slowdown (-6% market drag).
     * *Regime C*: Tech/Liquidity Panic Crash (-12% shock).
 
-4. Binary Hard Cutoffs vs. Gaussian Process Surrogate Bounds
+Binary Hard Cutoffs vs. Gaussian Process Surrogate Bounds
 ------------------------------------------------------------
 
 * **Traditional Screeners**: Apply rigid binary rules (e.g., "Exclude if Volatility > 35%"). This drops high-performing assets that briefly touched a threshold due to an anomalous single-day print.
 * **This Engine**: Fits a non-parametric **Gaussian Process Regressor** (`sklearn.gaussian_process.GaussianProcessRegressor`) with Radial Basis Function (RBF) kernels over the simulated path returns. The resulting epistemic standard deviation (`gp_std`) provides continuous, smooth probability distributions rather than arbitrary hard cuts.
 
-5. Single-Pass Fragility vs. Guaranteed Multi-Pass Fallback Architecture
+Single-Pass Fragility vs. Guaranteed Multi-Pass Fallback Architecture
 ------------------------------------------------------------------------
 
 * **Traditional Screeners**: Return whatever arbitrary count of stocks happens to match a strict query. In market downturns, strict queries often return 0 or 1 stock, forcing portfolio under-diversification.
