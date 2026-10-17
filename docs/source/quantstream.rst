@@ -766,8 +766,8 @@ Key Architectural Strengths
 
 .. Stock Screener & Macro-Stressed MCA documentation master file
 
-Macro-Stressed Monte Carlo Analysis (MCA)
-=========================================
+Advanced Stocks' Screening with Macro-Stressed Monte Carlo Analysis (MCA)
+==========================================================================
 
 **QuantStream performs Macro-Stressed Monte Carlo Analysis (MCA)** which is an institutional-grade, quantitative engine designed to screen US equity markets (NASDAQ and NYSE) for high-alpha candidates while stress-testing them against severe macroeconomic tail-risks over a 30-day holding horizon.
 
