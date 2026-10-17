@@ -810,7 +810,7 @@ Methodology Details
    Uniform Sobol samples within the range [0, 1] are mapped directly to standard normal market shocks using the inverse cumulative distribution function (Percent Point Function, `scipy.stats.norm.ppf`), ensuring accurate representation of market return distributions.
 
 3. **Beta-Weighted Macro Drift Adjustments**: 
-   The stock's individual drift (:math:`\mu`) and volatility ($\sigma$) are dynamically adjusted using its computed equity beta relative to `SPY`/`QQQ`. This propagates systemic macro shocks into the Geometric Brownian Motion equation:
+   The stock's individual drift (:math:`\mu`) and volatility (:math:`\sigma`) are dynamically adjusted using its computed equity beta relative to `SPY`/`QQQ`. This propagates systemic macro shocks into the Geometric Brownian Motion equation:
    
    .. code-block:: text
    
