@@ -769,24 +769,52 @@ Key Architectural Strengths
 Advanced Stocks' Screening with Macro-Stressed Monte Carlo Analysis (MCA)
 ==========================================================================
 
-**QuantStream performs Macro-Stressed Monte Carlo Analysis (MCA)** which is an institutional-grade, quantitative engine designed to screen US equity markets (NASDAQ and NYSE) for high-alpha candidates while stress-testing them against severe macroeconomic tail-risks over a 30-day holding horizon.
+**QuantStream performs advanced Macro-Stressed Monte Carlo Analysis (MCA)**.
+
+**QuantStream Institutional Alpha Screener** is an advanced quantitative engine designed to screen US equity markets (NASDAQ and NYSE) for high-alpha equities. It combines **Quasi-Monte Carlo (QMC)** variance reduction using Sobol sequences with **Gaussian Process (Kriging) Surrogates** to stress-test stocks against extreme macro regimes over a 30-day holding horizon (`max_days_on_books`).
 
 Key Features
 ============
 
-* **Automated Universe Harvesting**: Dynamically fetches and cleans active trading symbols from NASDAQ and NYSE listings.
-* **Multi-Pass Institutional Filtering**: Enforces strict liquidity, volatility, Sortino ratio, and accumulation criteria. Ensures strict safety floors to prevent concentration risk.
-* **Benchmark Integration (`SPY`, `QQQ`)**: Pulls major market benchmarks to calculate beta-weighted sensitivities.
-* **Macro-Stressed Monte Carlo Analysis (MCA)**: Simulates hundreds of stochastic paths using Geometric Brownian Motion across three distinct market regimes:
+* **Dynamic Universe Retrieval**: 
+  Automatically harvests raw listing directories from NASDAQ and NYSE. The engine strips out warrants, preferred shares, test issues, and exchange-traded funds (ETFs) to maintain a pure equity trading universe.
+
+* **Multi-Pass Institutional Screening**: 
+  Implements a rigorous four-pass fallback hierarchy:
+    * *Pass 1*: Strict institutional alpha filters (price bounds, high dollar volume :math:`\ge \$5\text{M}`, low volatility caps, high Sortino ratios :math:`\ge 1.2`, and strict drawdown control).
+    * *Pass 2 & 3*: Moderate and safety-floor thresholds to capture solid compounding candidates.
+    * *Pass 4*: Emergency absolute guarantee fallback ensuring a strict minimum safety floor (e.g., 20+ stocks) is always populated to eliminate portfolio concentration risk.
+
+* **Benchmark Integration (`SPY`, `QQQ`)**: 
+  Pulls historical pricing data for the S&P 500 (`SPY`) and Nasdaq 100 (`QQQ`) benchmarks to compute rolling covariance and systemic equity betas (:math:`\beta`) for every candidate asset.
+
+* **Quasi-Monte Carlo (QMC) with Sobol Sequences**: 
+  Replaces traditional pseudo-random number generation with deterministic, low-discrepancy Sobol sequences (:math:`N=256`). This achieves an asymptotic convergence rate of nearly :math:`O(N^{-1})`, providing higher numerical precision with drastically fewer iterations.
+
+* **Gaussian Process Surrogate Modeling**: 
+  Fits a non-parametric probabilistic regressor (Kriging) with Radial Basis Function (RBF) kernels to approximate path-dependent simulation outputs, quantifying epistemic uncertainty across tail-risk boundaries.
+
+* **Multi-Regime Macro Stress Testing**: 
+  Simulates stochastic price paths across three distinct macroeconomic scenarios simultaneously:
     * *Regime A*: Normal Baseline Drift.
-    * *Regime B*: Macroeconomic Slowdown (-6% market drag).
-    * *Regime C*: Tech/Liquidity Panic Crash (-12% shock).
-* **Absolute Winner Selection**: Ranks stocks based on composite profitability and tail-risk resilience scores, outputting results directly to `tailwind_enhanced_stocks.csv`.
+    * *Regime B*: Macroeconomic Slowdown (-6% broad market drag).
+    * *Regime C*: Tech/Liquidity Panic Crash (-12% sector shock).
 
-How Macro-Stressed MCA Works
-============================
+Methodology Details
+===================
 
-1. **Drift & Volatility Extraction**: Computes expected daily return (:math:`\mu`) and volatility (:math:`\sigma`) from log returns.
-2. **Beta Calculation**: Measures how sensitive the stock is relative to benchmark indices (`SPY`/`QQQ`).
-3. **Multi-Regime Stress Simulation**: Projects forward paths under baseline and distressed macroeconomic conditions over a 30-day window.
-4. **Resilience Scoring**: Calculates the exact percentage of simulated paths that successfully avoid major drawdowns (:math:`\ge 8\%`) and remain profitable at exit.
+1. **Sobol Sequence Generation & Discrepancy Control**: 
+   Standard Monte Carlo draws introduce random clustering, leaving blind spots in the probability space. By using `scipy.stats.qmc.Sobol(d=horizon_days, scramble=True)`, the engine generates uniform multi-dimensional points that evenly span the 30-day forward horizon.
+
+2. **Inverse Normal CDF Transformation**: 
+   Uniform Sobol samples within the range [0, 1] are mapped directly to standard normal market shocks using the inverse cumulative distribution function (Percent Point Function, `scipy.stats.norm.ppf`), ensuring accurate representation of market return distributions.
+
+3. **Beta-Weighted Macro Drift Adjustments**: 
+   The stock's individual drift (:math:`\mu`) and volatility ($\sigma$) are dynamically adjusted using its computed equity beta relative to `SPY`/`QQQ`. This propagates systemic macro shocks into the Geometric Brownian Motion equation:
+   
+   .. code-block:: text
+   
+      Adjusted Drift = mu + (Beta * Macro_Shock)
+
+4. **Gaussian Process (Kriging) Regression**: 
+   To account for model uncertainty and evaluate failure boundaries smoothly, a Gaussian Process Regressor (`sklearn.gaussian_process.GaussianProcessRegressor`) with an RBF kernel fits the simulated drawdown distribution. The resulting epistemic standard deviation (`gp_std`) provides a robust confidence buffer when calculating survival probabilities against major drawdowns (:math:`\ge 8\%`).
