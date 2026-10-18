@@ -465,10 +465,26 @@ Configuration Reference
      - Integer
      - ``100000``
      - The minimum or target volume requirement for liquidity filtering.
-   * - ``volatility``
+   * - ``minstocks``
      - Integer
-     - ``60``
-     - The volatility threshold used to filter eligible instruments.
+     - ``30``
+     - The min stocks to trade.
+   * - ``maxstocks``
+     - Integer
+     - ``50``
+     - The max stocks to trade.
+   * - ``maxvolatility``
+     - Integer
+     - ``40``
+     - The max volatility threshold used to filter eligible instruments.
+   * - ``minvolatility``
+     - Integer
+     - ``20``
+     - The min volatility threshold used to filter eligible instruments.
+   * - ``maxvolatility``
+     - Integer
+     - ``40``
+     - The max volatility threshold used to filter eligible instruments.
    * - ``tradebudget``
      - Integer
      - ``10000``
@@ -567,6 +583,10 @@ Configuration Reference
      - Int
      - ``1``
      - If Set to 1, QuantStream will update the trade budget based on the final PnL. This enables compounding of PnL. Set to 0 if you DO NOT want QuantStream to update trade budget.
+   * - ``autoqsagentstrategy``
+     - Int
+     - ``1``
+     - If Set to 1, QuantStream agent will manage the open position for you..see below for details.
 
 Detailed Parameter Breakdown
 ----------------------------
@@ -576,7 +596,10 @@ Filtering & Asset Selection
 
 * **minprice & maxprice**: Establish a price boundary to focus trading activity on a specific equity tier (e.g., mid-cap stocks priced between $5 and $100).
 * **volume**: Ensures sufficient market liquidity by filtering for instruments that meet or exceed this volume metric.
-* **volatility**: Sets parameters around acceptable market volatility to match the strategy's risk profile.
+* **minstocks**: Sets the minimum number of stocks to trade.
+* **maxstocks**: Sets the maximum number of stocks tp trade.
+* **minvolatility**: Sets minimum volatility in the stocks i.e. 20.
+* **maxvolatility**: Sets maximum volatility in the stocks i.e. 40.
 
 Capital & Broker Configuration
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -604,6 +627,7 @@ Risk Management & Execution Rules
 * **take_profit_pct**: Take profit when profit exceed this percentage. (default: 0.01)
 * **maxsharespertrade**: Maximum shares per trade.  Set to -1 to let QuantStream decide. (default: 50)
 * **autotradebudget**: If Set to 1, QuantStream will update the trade budget based on the final PnL. This enables compounding of PnL. Set to 0 if you DO NOT want QuantStream to update trade budget. (default: 1)
+* **autoqsagentstrategy**: Set to 1, if you want QuantStream agent to manage the trading day.  For example, if 1, QS agent will establish an OPEN position on ALL stocks (maxstock) before 12p, between 12-2, agent will open 50% of the positions and start to liquidate position, and after 2p it will settle to maxopenpositions.  (default: 1)
 
 Fees and Commissions
 ^^^^^^^^^^^^^^^^^^^^
