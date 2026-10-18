@@ -627,7 +627,11 @@ Risk Management & Execution Rules
 * **take_profit_pct**: Take profit when profit exceed this percentage. (default: 0.01)
 * **maxsharespertrade**: Maximum shares per trade.  Set to -1 to let QuantStream decide. (default: 50)
 * **autotradebudget**: If Set to 1, QuantStream will update the trade budget based on the final PnL. This enables compounding of PnL. Set to 0 if you DO NOT want QuantStream to update trade budget. (default: 1)
-* **autoqsagentstrategy**: Set to 1, if you want QuantStream agent to manage the trading day.  For example, if 1, QS agent will establish an OPEN position on ALL stocks (maxstock) before 12p, between 12-2, agent will open 50% of the positions and start to liquidate position, and after 2p it will settle to maxopenpositions.  (default: 1)
+* **autoqsagentstrategy**: Set to 1, if you want QuantStream agent to manage the trading day.  For example, if 1, QS agent will establish an OPEN position on ALL stocks (maxstock) before 12p, between 12-2, agent will open 50% of the positions and start to liquidate position, and after 2p it will settle to maxopenpositions. 
+
+If autoqsagentstrategy = 2, then QuantStream will stop buying if PnL is greater than 2% of trade budget.
+
+(default: 1)
 
 Fees and Commissions
 ^^^^^^^^^^^^^^^^^^^^
