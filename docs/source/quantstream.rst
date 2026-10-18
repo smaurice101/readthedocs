@@ -588,6 +588,8 @@ Configuration Reference
      - ``1``
      - If Set to 1, QuantStream agent will manage the open position for you..see below for details.
 
+       If set to 2, QuantStream agent will stop buying if PnL is greater than 2% of trade budget.
+
 Detailed Parameter Breakdown
 ----------------------------
 
