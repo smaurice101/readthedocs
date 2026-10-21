@@ -39,7 +39,7 @@ QuantStream runs in a Docker container: `https://hub.docker.com/r/maadsdocker/qu
 
 .. important::
 
-    Enter the token in the Docker run command below: **FINNHUBTOKEN=''**
+    Enter the token in the Docker run command below: **FINNHUBTOKEN='<Enter your token here>'**
 
 2. Setup an Interactive broker account: `https://www.interactivebrokers.ca/en/home.php <https://www.interactivebrokers.ca/en/home.php>`_
 
