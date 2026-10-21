@@ -23,10 +23,16 @@ QuantStream AI TML Implementation
 
 .. note::
    
-    Access to this solution is available upon request by sending email to: info@otics.ca
+    Access to this solution is available from Docker hub.  See below for container details.
 
 .. figure:: quantstreamdash.png
    :scale: 60%
+
+QuantStream AI Container Details
+-------------------------------
+
+QuantStream runs in a Docker container: `https://hub.docker.com/r/maadsdocker/quantstream-3f10-ml-amd64-public <https://hub.docker.com/r/maadsdocker/quantstream-3f10-ml-amd64-public>`_
+
 
 QuantStream AI: Reference Architecture
 =======================================================
