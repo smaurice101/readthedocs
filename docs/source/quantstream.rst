@@ -57,6 +57,8 @@ QuantStream runs in a Docker container: `https://hub.docker.com/r/maadsdocker/qu
 
     http://localhost:6060/qsmain.php
 
+QuantStream agents will process NASDAQ and NYSE stock market data autonomously:  Everything is autonomous.  If you set up everything properly you are doing ALGORITHMIC TRADING.  Congratualtions!
+
 QuantStream AI: Reference Architecture
 =======================================================
 
