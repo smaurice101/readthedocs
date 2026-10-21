@@ -24,6 +24,14 @@ QuantStream AI TML Implementation
 .. figure:: quantstreamdash.png
    :scale: 60%
 
+QuantStream AI: Reference Architecture
+=======================================================
+
+Below is the QuantStream reference architecture. 
+
+.. figure:: quantref.png
+   :scale: 60%
+
 Where Does QuantStream AI Excel?
 ----------------------------------
 
@@ -45,14 +53,6 @@ QuantStream AI Advantage
 ----------------------------------
 
 .. figure:: quantstreamsetup.png
-   :scale: 60%
-
-QuantStream AI: Reference Architecture
-=======================================================
-
-Below is the QuantStream reference architecture. 
-
-.. figure:: quantref.png
    :scale: 60%
 
 QuantStream AI: Empirical Proof & Backtest Validation
