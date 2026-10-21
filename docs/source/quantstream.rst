@@ -33,6 +33,25 @@ QuantStream AI Container Details
 
 QuantStream runs in a Docker container: `https://hub.docker.com/r/maadsdocker/quantstream-3f10-ml-amd64-public <https://hub.docker.com/r/maadsdocker/quantstream-3f10-ml-amd64-public>`_
 
+**Prerequisites:**
+
+1. Get a Finnhub.io token: `https://finnhub.io/ <https://finnhub.io/>`_
+
+2. Setup an Interactive broker account: `https://www.interactivebrokers.ca/en/home.php<https://www.interactivebrokers.ca/en/home.php>`_
+
+3. Run the QuantStream container:
+
+.. code::
+
+   docker run -d -p 5050:5050 -p 4040:4040 -p 6060:6060 --env TSS=0 --env SOLUTIONNAME=quantstream-3f10-ml --env SOLUTIONDAG=solution_preprocessing_ml_dag-quantstream-3f10 --env GITUSERNAME= --env GITPASSWORD= --env GITREPOURL='https://github.com/smaurice101/raspberrypitss.git' --env SOLUTIONEXTERNALPORT=5050 -v /var/run/docker.sock:/var/run/docker.sock:z -v /mnt/c/maads/tml-airflow/rawdata:/rawdata:z  --env CHIP=amd64 --env SOLUTIONAIRFLOWPORT=4040 --env SOLUTIONVIPERVIZPORT=6060 --env DOCKERUSERNAME= --env EXTERNALPORT=39399 --env KAFKABROKERHOST=127.0.0.1:9092 --env KAFKACLOUDUSERNAME='<Enter API key>' --env KAFKACLOUDPASSWORD='<Enter API secret>' --env SASLMECHANISM=PLAIN --env VIPERVIZPORT=9689 --env MQTTUSERNAME= --env MQTTPASSWORD= --env AIRFLOWPORT=9000 --env READTHEDOCS= --env FINNHUBTOKEN='dao1b41r01qqjqh41800dao1b41r01qqjqh4180g' --env QSTEST=0 --env MAXSTOCKS=50 maadsdocker/quantstream-3f10-ml-amd64-public:latest
+
+4. Wait few minutes for the container to start
+
+5. Go to your browser and enter:
+
+.. code-block::
+
+    http://localhost:6060/qsmain.php
 
 QuantStream AI: Reference Architecture
 =======================================================
