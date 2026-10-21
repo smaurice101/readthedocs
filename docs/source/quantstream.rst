@@ -33,6 +33,10 @@ QuantStream AI Container Details
 
 QuantStream runs in a Docker container: `https://hub.docker.com/r/maadsdocker/quantstream-3f10-ml-amd64-public <https://hub.docker.com/r/maadsdocker/quantstream-3f10-ml-amd64-public>`_
 
+.. important:: 
+
+   QuantStream AI is FREE for personal use.  Comemrcial user must contact info@otics.ca for additional details.
+
 **Prerequisites:**
 
 1. Get a Finnhub.io token: `https://finnhub.io/ <https://finnhub.io/>`_
