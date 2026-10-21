@@ -35,7 +35,7 @@ QuantStream runs in a Docker container: `https://hub.docker.com/r/maadsdocker/qu
 
 .. important:: 
 
-   QuantStream AI is FREE for personal use.  Comemrcial user must contact info@otics.ca for additional details.
+   QuantStream AI is FREE for personal use.  Commercial users must contact **info@otics.ca** for additional details.
 
 **Prerequisites:**
 
