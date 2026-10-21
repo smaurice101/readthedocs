@@ -37,7 +37,7 @@ QuantStream runs in a Docker container: `https://hub.docker.com/r/maadsdocker/qu
 
 1. Get a Finnhub.io token: `https://finnhub.io/ <https://finnhub.io/>`_
 
-2. Setup an Interactive broker account: `https://www.interactivebrokers.ca/en/home.php<https://www.interactivebrokers.ca/en/home.php>`_
+2. Setup an Interactive broker account: `https://www.interactivebrokers.ca/en/home.php <https://www.interactivebrokers.ca/en/home.php>`_
 
 3. Run the QuantStream container:
 
