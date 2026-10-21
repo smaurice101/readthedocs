@@ -14,7 +14,7 @@ Unlike Conventional Machine Learning (CML)—which relies on static, pre-trained
 
 ---
 
-1. QuantStream AI TML Implementation
+QuantStream AI TML Implementation
 ========================================
 
 .. note::
@@ -24,7 +24,7 @@ Unlike Conventional Machine Learning (CML)—which relies on static, pre-trained
 .. figure:: quantstreamdash.png
    :scale: 60%
 
-Where Does QuantStream AI Excel
+Where Does QuantStream AI Excel?
 ----------------------------------
 
 While QuantStream does **NOT** replace the market leaders for ultra-low latency execution i.e. High Frequency Trading (HFT), **QuantStream represents an excellent architectural pattern for mid-frequency, stream processing that is close to HFT but without the infrastrucure costs: that is QuantStream's SWEET SPOT**:
@@ -47,7 +47,15 @@ QuantStream AI Advantage
 .. figure:: quantstreamsetup.png
    :scale: 60%
 
-2. QuantStream AI: Empirical Proof & Backtest Validation
+QuantStream AI: Reference Architecture
+=======================================================
+
+Below is the QuantStream reference architecture. 
+
+.. figure:: quantref.png
+   :scale: 60%
+
+QuantStream AI: Empirical Proof & Backtest Validation
 =======================================================
 
 To evaluate the predictive power and structural edge of **QuantStream AI**, we backtested the 9-feature vectors (:math:`X_t`) and target classification engine (:math:`Y_t`) on **1.2 million tick-level trade events** across high-beta equities (TSLA, NVDA, AMZN) over a 60-day out-of-sample window.
@@ -140,7 +148,7 @@ In simulated execution (factoring in **1-cent bid-ask spread slippage and $0.003
 
    *Disclaimer: Quantitative backtest results are based on simulated out-of-sample tick data. Past performance is not indicative of future live trading results. Slippage, commission structures, and market regime shifts affect real-world performance.*
 
-3. System Architecture & Stream Pipeline
+System Architecture & Stream Pipeline
 ========================================
 
 The pipeline transforms high-frequency market feeds into real-time directional predictions (``BUY``, ``HOLD``, or ``SELL``) by consuming trade events from Kafka, computing features on-the-fly, fitting asset- and regime-specific micro-models entirely in memory, and publishing signal events back to Kafka.
@@ -148,7 +156,7 @@ The pipeline transforms high-frequency market feeds into real-time directional p
 .. figure:: quantstreamprocess.png
   :scale: 60%
 
-4. Quantitative Feature Matrix (:math:`\mathbf{X}_t`)
+Quantitative Feature Matrix (:math:`\mathbf{X}_t`)
 ======================================================
 
 Raw price and volume streams are non-stationary and drift over time. The TML engine converts raw inputs into a 9-dimensional vector :math:`\mathbf{X}_t` of scale-invariant, stationary features computed over a rolling lookback window of size :math:`m`.
@@ -217,7 +225,7 @@ Given the sliding price window :math:`\mathbf{P} = [p_{k-m+1}, \dots, p_k]`:
 
 ---
 
-5. Dependent Variable Formulation (:math:`Y_t`)
+Dependent Variable Formulation (:math:`Y_t`)
 ================================================
 
 The target classification variable :math:`Y_t \in \{-1, 0, 1\}` maps continuous forward returns to discrete execution directions: ``[SELL (-1), HOLD (0), BUY (+1)]``.
@@ -321,7 +329,7 @@ Where :math:`\delta` acts as a scale multiplier (typically :math:`0.5 \le \delta
 
 ---
 
-6. Buy / Sell / Hold Decision - Making
+Buy / Sell / Hold Decision - Making
 =====================================
 
 .. list-table:: Live Deployment Execution Logic
@@ -344,7 +352,7 @@ Where :math:`\delta` acts as a scale multiplier (typically :math:`0.5 \le \delta
      - High entropy / Noise state
      - No-op (Do not trade)
 
-7. Commercial Platform Comparison Matrix
+Commercial Platform Comparison Matrix
 ========================================
 
 To evaluate viability, performance, and flexibility, this TML solution is benchmarked against commercial retail trading platforms (**TradingView**, **MetaTrader 4/5**), quantitative execution frameworks (**QuantConnect**, **Interactive Brokers API**), data platforms (**Databricks Streaming**), and institutional HFT systems (**Kx kdb+/q**).
@@ -404,7 +412,7 @@ To evaluate viability, performance, and flexibility, this TML solution is benchm
 
 ---
 
-8. Key Advantages Over Commercial Trading Platforms
+Key Advantages Over Commercial Trading Platforms
 ===================================================
 
 Dynamic Regime Adaptability vs. Static Rules
