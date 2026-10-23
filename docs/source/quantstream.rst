@@ -978,7 +978,8 @@ QuanstStream achieves institutional-grade accuracy by additonally using three fo
 Neural Stochastic Differential Equations (Neural SDEs)
 ----------------------------------------------------------
 
-### Overview
+Overview
+''''''''
 Traditional SDEs rely on predefined mathematical structures for drift ($f$) and diffusion ($g$), such as the Black-Scholes or Heston models. **Neural SDEs** replace or augment these analytical drift and diffusion terms with parameterized neural networks:
 
 :math:`dX_t = f_\theta(X_t, t)dt + g_\theta(X_t, t)dW_t`
@@ -989,29 +990,36 @@ where:
 * :math:`g_\theta` is a neural network capturing state-dependent, non-linear volatility and stochastic shocks.
 * :math:`W_t` is standard Brownian motion.
 
-### Why Use Neural SDEs in QuantStream?
+Why Use Neural SDEs in QuantStream?
+''''''''''''''''''''''''''''''''''''''''
 * **Continuous-Time Rigor:** Unlike discrete-time recurrent networks (like LSTMs), Neural SDEs operate in continuous time, seamlessly handling irregularly sampled or missing market data.
 * **Universal Approximation of Dynamics:** They can learn complex, non-linear physical laws and market feedback loops directly from historical data without forcing paths into rigid parametric assumptions.
 
-## Wasserstein GANs (W-GANs) for Time Series
+Wasserstein GANs (W-GANs) for Time Series
+''''''''''''''''''''''''''''''''''''''''''''
 
-### Overview
+Overview
+''''''''''''
 Standard Generative Adversarial Networks (GANs) frequently suffer from mode collapse and vanishing gradients when modeling complex probability distributions. **Wasserstein GANs** solve this by employing the **Earth Mover's (Wasserstein-1) distance** as the optimization objective:
 
 :math:`W(P_r, P_g) = \sup_{\|D\|_L \le 1} \mathbb{E}_{x \sim P_r}[D(x)] - \mathbb{E}_{y \sim P_g}[D(y)]`
 
-### Why Use W-GANs in QuantStream?
+Why Use W-GANs in QuantStream?
+'''''''''''''''''''''''''''''''''''''
 * **Optimal Transport for Fat Tails:** Financial time series are defined by extreme tail events (crashes, liquidity crunches). Wasserstein metrics provide a smooth, mathematically stable loss landscape that accurately captures rare tail risks rather than just matching mean behavior.
 * **Conditional Generation:** In frameworks like *Conditional W-GANs*, the generator can be conditioned on macro regimes or historical price sequences to synthesize realistic future trajectory paths.
 
-## 3. Signature-Based Generative Models & Rough Paths
+Signature-Based Generative Models & Rough Paths
+'''''''''''''''''''''''''''''''''''''''''''''''''
 
-### Overview
+Overview
+'''''''''
 Rooted in **Rough Path Theory**, the **signature transform** summarizes a multi-dimensional sequential path (such as asset price histories) into an infinite, graded collection of ordered iterated integrals:
 
 :math:`S(X)_{s,t} = \left( 1, \int_{s < t_1 < t} dX_{t_1}, \int_{s < t_1 < t_2 < t} dX_{t_1} \otimes dX_{t_2}, \dots \right)`
 
-### Why Use Signature Methods in QuantStream?
+Why Use Signature Methods in QuantStream?
+'''''''''''''''''''''''''''''''''''''''''''''
 * **Universal Non-Linearity:** Continuous functions of path spaces can be approximated arbitrarily well by linear functionals applied to the truncated signature. 
 * **Invariance Properties:** Signatures are naturally invariant to time-reparameterizations, making them robust feature extractors for asynchronous or irregularly spaced trading data.
 * **Signature-Wasserstein Metrics:** Combining path signatures with Wasserstein distances (*Sig-W1*) allows models to evaluate whether two synthetic financial time-series distributions are statistically indistinguishable across path-dependent properties (like maximum drawdown or path-dependent exotic options).
