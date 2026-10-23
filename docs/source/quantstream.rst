@@ -967,3 +967,51 @@ Single-Pass Fragility vs. Guaranteed Multi-Pass Fallback Architecture
 
 * **Traditional Screeners**: Return whatever arbitrary count of stocks happens to match a strict query. In market downturns, strict queries often return 0 or 1 stock, forcing portfolio under-diversification.
 * **This Engine**: Implements a strict **4-pass cascade** (Strict Alpha :math:`\rightarrow` Moderate :math:`\rightarrow` Safety Floor :math:`\rightarrow` Emergency Floor Guarantee). If volatile market conditions dry up strict institutional candidates, Pass 4 automatically activates to ensure a hard minimum portfolio safety floor (e.g., 20 to 30+ stocks) is always populated.
+
+Advanced Simulation Architectures
+==================================
+
+When building high-fidelity simulations for complex, highly nonlinear financial data—such as fat-tailed distributions, volatility skews, and multi-regime market shocks—traditional parametric models (like standard geometric Brownian motion or fixed-grid Monte Carlo) often fall short. 
+
+QuanstStream achieves institutional-grade accuracy by additonally using three foundational frameworks: **Neural Stochastic Differential Equations (Neural SDEs)**, **Wasserstein Generative Adversarial Networks (W-GANs)**, and **Signature-based Generative Models**.
+
+Neural Stochastic Differential Equations (Neural SDEs)
+----------------------------------------------------------
+
+### Overview
+Traditional SDEs rely on predefined mathematical structures for drift ($f$) and diffusion ($g$), such as the Black-Scholes or Heston models. **Neural SDEs** replace or augment these analytical drift and diffusion terms with parameterized neural networks:
+
+:math:`dX_t = f_\theta(X_t, t)dt + g_\theta(X_t, t)dW_t`
+
+where:
+* :math:`X_t` represents the latent state vector (e.g., asset prices, volatility factors, or macroeconomic indices).
+* :math:`f_\theta` is a neural network mapping the deterministic drift trend.
+* :math:`g_\theta` is a neural network capturing state-dependent, non-linear volatility and stochastic shocks.
+* :math:`W_t` is standard Brownian motion.
+
+### Why Use Neural SDEs in QuantStream?
+* **Continuous-Time Rigor:** Unlike discrete-time recurrent networks (like LSTMs), Neural SDEs operate in continuous time, seamlessly handling irregularly sampled or missing market data.
+* **Universal Approximation of Dynamics:** They can learn complex, non-linear physical laws and market feedback loops directly from historical data without forcing paths into rigid parametric assumptions.
+
+## Wasserstein GANs (W-GANs) for Time Series
+
+### Overview
+Standard Generative Adversarial Networks (GANs) frequently suffer from mode collapse and vanishing gradients when modeling complex probability distributions. **Wasserstein GANs** solve this by employing the **Earth Mover's (Wasserstein-1) distance** as the optimization objective:
+
+:math:`W(P_r, P_g) = \sup_{\|D\|_L \le 1} \mathbb{E}_{x \sim P_r}[D(x)] - \mathbb{E}_{y \sim P_g}[D(y)]`
+
+### Why Use W-GANs in QuantStream?
+* **Optimal Transport for Fat Tails:** Financial time series are defined by extreme tail events (crashes, liquidity crunches). Wasserstein metrics provide a smooth, mathematically stable loss landscape that accurately captures rare tail risks rather than just matching mean behavior.
+* **Conditional Generation:** In frameworks like *Conditional W-GANs*, the generator can be conditioned on macro regimes or historical price sequences to synthesize realistic future trajectory paths.
+
+## 3. Signature-Based Generative Models & Rough Paths
+
+### Overview
+Rooted in **Rough Path Theory**, the **signature transform** summarizes a multi-dimensional sequential path (such as asset price histories) into an infinite, graded collection of ordered iterated integrals:
+
+:math:`S(X)_{s,t} = \left( 1, \int_{s < t_1 < t} dX_{t_1}, \int_{s < t_1 < t_2 < t} dX_{t_1} \otimes dX_{t_2}, \dots \right)`
+
+### Why Use Signature Methods in QuantStream?
+* **Universal Non-Linearity:** Continuous functions of path spaces can be approximated arbitrarily well by linear functionals applied to the truncated signature. 
+* **Invariance Properties:** Signatures are naturally invariant to time-reparameterizations, making them robust feature extractors for asynchronous or irregularly spaced trading data.
+* **Signature-Wasserstein Metrics:** Combining path signatures with Wasserstein distances (*Sig-W1*) allows models to evaluate whether two synthetic financial time-series distributions are statistically indistinguishable across path-dependent properties (like maximum drawdown or path-dependent exotic options).
