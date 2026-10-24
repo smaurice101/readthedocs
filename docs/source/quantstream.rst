@@ -968,58 +968,63 @@ Single-Pass Fragility vs. Guaranteed Multi-Pass Fallback Architecture
 * **Traditional Screeners**: Return whatever arbitrary count of stocks happens to match a strict query. In market downturns, strict queries often return 0 or 1 stock, forcing portfolio under-diversification.
 * **This Engine**: Implements a strict **4-pass cascade** (Strict Alpha :math:`\rightarrow` Moderate :math:`\rightarrow` Safety Floor :math:`\rightarrow` Emergency Floor Guarantee). If volatile market conditions dry up strict institutional candidates, Pass 4 automatically activates to ensure a hard minimum portfolio safety floor (e.g., 20 to 30+ stocks) is always populated.
 
-Advanced Simulation Architectures
-==================================
+Advanced Simulation & Risk Modeling Architectures
+==================================================
 
-When building high-fidelity simulations for complex, highly nonlinear financial data—such as fat-tailed distributions, volatility skews, and multi-regime market shocks—traditional parametric models (like standard geometric Brownian motion or fixed-grid Monte Carlo) often fall short. 
+When building high-fidelity quantitative screeners and risk models for complex, highly nonlinear financial data—such as fat-tailed return distributions, volatility clustering, and multi-regime market stress—traditional parametric models (like standard geometric Brownian motion or fixed-grid Monte Carlo) often fall short.
 
-QuanstStream achieves institutional-grade accuracy by additonally using three foundational frameworks: **Neural Stochastic Differential Equations (Neural SDEs)**, **Wasserstein Generative Adversarial Networks (W-GANs)**, and **Signature-based Generative Models**.
+QuantStream achieves institutional-grade speed and robustness by utilizing an optimized, non-parametric risk-simulation framework: **Circular Moving-Block Bootstrapping** paired with **Heavy-Tailed Student-$t$ Distribution Stress Shocks**.
 
-Neural Stochastic Differential Equations (Neural SDEs)
+Circular Moving-Block Bootstrapping
 ----------------------------------------------------------
 
 Overview
 """"""""
-Traditional SDEs rely on predefined mathematical structures for drift (:math:`f`) and diffusion (:math:`g`), such as the Black-Scholes or Heston models. **Neural SDEs** replace or augment these analytical drift and diffusion terms with parameterized neural networks:
+Rather than assuming returns follow a rigid theoretical distribution (like a pure Gaussian), **block bootstrapping** samples contiguous blocks of historical daily log returns to construct simulated price paths:
 
-:math:`dX_t = f_\theta(X_t, t)dt + g_\theta(X_t, t)dW_t`
+.. math::
+   R_{t, \text{boot}} = \{r_{i}, r_{i+1}, \dots, r_{i+k-1}\}
 
 where:
-* :math:`X_t` represents the latent state vector (e.g., asset prices, volatility factors, or macroeconomic indices).
-* :math:`f_\theta` is a neural network mapping the deterministic drift trend.
-* :math:`g_\theta` is a neural network capturing state-dependent, non-linear volatility and stochastic shocks.
-* :math:`W_t` is standard Brownian motion.
+- :math:`r_i` represents historical daily log returns sampled from the ticker's time series.
+- :math:`k` is the block size (e.g., 5 trading days) designed to preserve short-term return autocorrelation and volatility clustering.
 
-Why Use Neural SDEs in QuantStream?
-""""""""""""""""""""""""""""""""""
-* **Continuous-Time Rigor:** Unlike discrete-time recurrent networks (like LSTMs), Neural SDEs operate in continuous time, seamlessly handling irregularly sampled or missing market data.
-* **Universal Approximation of Dynamics:** They can learn complex, non-linear physical laws and market feedback loops directly from historical data without forcing paths into rigid parametric assumptions.
+Why Use Block Bootstrapping in QuantStream?
+""""""""""""""""""""""""""""""""""""""""""
+- **Empirical Fidelity:** It respects the actual historical behavior of the asset—including skewness, kurtosis, and structural memory—without making unrealistic normality assumptions.
+- **Robust Path Generation:** By resampling historical blocks across thousands of simulation paths, the model captures realistic drawdown distributions directly from empirical data.
 
-Wasserstein GANs (W-GANs) for Time Series
------------------------------------------
+Heavy-Tailed Student-$t$ Distribution Stress Shocks
+---------------------------------------------------------
 
 Overview
 """"""""""
-Standard Generative Adversarial Networks (GANs) frequently suffer from mode collapse and vanishing gradients when modeling complex probability distributions. **Wasserstein GANs** solve this by employing the **Earth Mover's (Wasserstein-1) distance** as the optimization objective:
+Financial time series are defined by extreme tail events (crashes, liquidity crunches, and sudden market shocks). To stress-test portfolios beyond standard historical lookbacks, QuantStream applies **Student-$t$ distributed shocks** with low degrees of freedom:
 
-:math:`W(P_r, P_g) = \sup_{\|D\|_L \le 1} \mathbb{E}_{x \sim P_r}[D(x)] - \mathbb{E}_{y \sim P_g}[D(y)]`
+.. math::
+   dX_t = \mu_{\text{stress}} dt + \sigma_{\text{stressed}} \cdot t_{(\nu=4)}
 
-Why Use W-GANs in QuantStream?
-""""""""""""""""""""""""""""""""
-* **Optimal Transport for Fat Tails:** Financial time series are defined by extreme tail events (crashes, liquidity crunches). Wasserstein metrics provide a smooth, mathematically stable loss landscape that accurately captures rare tail risks rather than just matching mean behavior.
-* **Conditional Generation:** In frameworks like *Conditional W-GANs*, the generator can be conditioned on macro regimes or historical price sequences to synthesize realistic future trajectory paths.
+where:
+- :math:`\mu_{\text{stress}} = \min(\mathbb{E}[r], 0)` removes positive drift assumptions during stress tests.
+- :math:`\sigma_{\text{stressed}} = 1.25 \cdot \sigma_{\text{historical}}` applies a 25% volatility inflation multiplier.
+- :math:`t_{(\nu=4)}` represents Student-$t$ shocks with 4 degrees of freedom, producing significantly heavier tails than a normal distribution.
 
-Signature-Based Generative Models & Rough Paths
+Why Use Student-$t$ Shocks in QuantStream?
+"""""""""""""""""""""""""""""""""""""""""""
+- **Fat-Tail Tail-Risk Capture:** It accurately models rare market shocks and sudden liquidity contractions.
+- **Conservative Ensemble Modeling:** By combining bootstrap paths with stressed Student-$t$ paths, the screener evaluates the more adverse outcome between empirical history and fat-tail stress scenarios.
+
+Leakage-Aware Walk-Forward Validation
+---------------------------------------------------------
+
+Overview
+""""""""""
+To ensure simulation metrics are robust and free from look-ahead bias, QuantStream employs a **rolling-origin walk-forward backtest**:
+
+.. math::
+   \text{Origin}_t \longrightarrow \text{Forecast}_{30\text{-day}} \longrightarrow \text{Held-out Evaluation}
+
+Why Use Walk-Forward Validation in QuantStream?
 """"""""""""""""""""""""""""""""""""""""""""""""
-
-Overview
-""""""""""
-Rooted in **Rough Path Theory**, the **signature transform** summarizes a multi-dimensional sequential path (such as asset price histories) into an infinite, graded collection of ordered iterated integrals:
-
-:math:`S(X)_{s,t} = \left( 1, \int_{s < t_1 < t} dX_{t_1}, \int_{s < t_1 < t_2 < t} dX_{t_1} \otimes dX_{t_2}, \dots \right)`
-
-Why Use Signature Methods in QuantStream?
-""""""""""""""""""""""""""""""""""""""""
-* **Universal Non-Linearity:** Continuous functions of path spaces can be approximated arbitrarily well by linear functionals applied to the truncated signature. 
-* **Invariance Properties:** Signatures are naturally invariant to time-reparameterizations, making them robust feature extractors for asynchronous or irregularly spaced trading data.
-* **Signature-Wasserstein Metrics:** Combining path signatures with Wasserstein distances (*Sig-W1*) allows models to evaluate whether two synthetic financial time-series distributions are statistically indistinguishable across path-dependent properties (like maximum drawdown or path-dependent exotic options).
+- **Out-of-Sample Integrity:** Each 30-day downside touch and drop forecast uses strictly trailing data available at that historical origin.
+- **Model Diagnostics:** Calculates Brier scores, calibration gaps, and Wilson score confidence intervals against actual realized market outcomes to continuously monitor model reliability.
