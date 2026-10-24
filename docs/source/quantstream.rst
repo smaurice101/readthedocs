@@ -994,7 +994,7 @@ Why Use Block Bootstrapping in QuantStream?
 - **Empirical Fidelity:** It respects the actual historical behavior of the asset—including skewness, kurtosis, and structural memory—without making unrealistic normality assumptions.
 - **Robust Path Generation:** By resampling historical blocks across thousands of simulation paths, the model captures realistic drawdown distributions directly from empirical data.
 
-Heavy-Tailed Student-$t$ Distribution Stress Shocks
+Heavy-Tailed Student-:math:`t` Distribution Stress Shocks
 ---------------------------------------------------------
 
 Overview
@@ -1007,7 +1007,7 @@ Financial time series are defined by extreme tail events (crashes, liquidity cru
 where:
 - :math:`\mu_{\text{stress}} = \min(\mathbb{E}[r], 0)` removes positive drift assumptions during stress tests.
 - :math:`\sigma_{\text{stressed}} = 1.25 \cdot \sigma_{\text{historical}}` applies a 25% volatility inflation multiplier.
-- :math:`t_{(\nu=4)}` represents Student-$t$ shocks with 4 degrees of freedom, producing significantly heavier tails than a normal distribution.
+- :math:`t_{(\nu=4)}` represents Student-:math:`t` shocks with 4 degrees of freedom, producing significantly heavier tails than a normal distribution.
 
 Why Use Student-:math:`t` Shocks in QuantStream?
 """""""""""""""""""""""""""""""""""""""""""
