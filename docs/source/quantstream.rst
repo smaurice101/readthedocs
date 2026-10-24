@@ -994,12 +994,12 @@ Why Use Block Bootstrapping in QuantStream?
 - **Empirical Fidelity:** It respects the actual historical behavior of the asset—including skewness, kurtosis, and structural memory—without making unrealistic normality assumptions.
 - **Robust Path Generation:** By resampling historical blocks across thousands of simulation paths, the model captures realistic drawdown distributions directly from empirical data.
 
-Heavy-Tailed Student-:math:`t` Distribution Stress Shocks
+Heavy-Tailed Student- :math:`t` Distribution Stress Shocks
 ---------------------------------------------------------
 
 Overview
 """"""""""
-Financial time series are defined by extreme tail events (crashes, liquidity crunches, and sudden market shocks). To stress-test portfolios beyond standard historical lookbacks, QuantStream applies **Student-:math:`t` distributed shocks** with low degrees of freedom:
+Financial time series are defined by extreme tail events (crashes, liquidity crunches, and sudden market shocks). To stress-test portfolios beyond standard historical lookbacks, QuantStream applies **Student- :math:`t` distributed shocks** with low degrees of freedom:
 
 .. math::
    dX_t = \mu_{\text{stress}} dt + \sigma_{\text{stressed}} \cdot t_{(\nu=4)}
@@ -1007,12 +1007,12 @@ Financial time series are defined by extreme tail events (crashes, liquidity cru
 where:
 - :math:`\mu_{\text{stress}} = \min(\mathbb{E}[r], 0)` removes positive drift assumptions during stress tests.
 - :math:`\sigma_{\text{stressed}} = 1.25 \cdot \sigma_{\text{historical}}` applies a 25% volatility inflation multiplier.
-- :math:`t_{(\nu=4)}` represents Student-:math:`t` shocks with 4 degrees of freedom, producing significantly heavier tails than a normal distribution.
+- :math:`t_{(\nu=4)}` represents Student- :math:`t` shocks with 4 degrees of freedom, producing significantly heavier tails than a normal distribution.
 
-Why Use Student-:math:`t` Shocks in QuantStream?
+Why Use Student- :math:`t` Shocks in QuantStream?
 """""""""""""""""""""""""""""""""""""""""""
 - **Fat-Tail Tail-Risk Capture:** It accurately models rare market shocks and sudden liquidity contractions.
-- **Conservative Ensemble Modeling:** By combining bootstrap paths with stressed Student-:math:`t` paths, the screener evaluates the more adverse outcome between empirical history and fat-tail stress scenarios.
+- **Conservative Ensemble Modeling:** By combining bootstrap paths with stressed Student- :math:`t` paths, the screener evaluates the more adverse outcome between empirical history and fat-tail stress scenarios.
 
 Leakage-Aware Walk-Forward Validation
 ---------------------------------------------------------
