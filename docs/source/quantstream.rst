@@ -45,7 +45,7 @@ QuantStream runs in a Docker container: `https://hub.docker.com/r/maadsdocker/qu
 
     Enter the token in the Docker run command below: **FINNHUBTOKEN='<Enter your token here>'**
 
-.. important ::
+.. important::
 
    Set correct volume mount: -v /mnt/c/maads/tml-airflow/rawdata:/rawdata:z  \
 
@@ -98,7 +98,7 @@ QuantStream runs in a Docker container: `https://hub.docker.com/r/maadsdocker/qu
 
     http://localhost:6060/qsmain.php
 
-.. tip ::
+.. tip::
 
    To use QuantStream in TEST mode then set the QSTEST key to 1 i.e.:
 
