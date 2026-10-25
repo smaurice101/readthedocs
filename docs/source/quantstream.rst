@@ -973,7 +973,7 @@ QuantStream Advanced Simulation & Risk Modeling Architectures
 
 When building high-fidelity quantitative screeners and risk models for complex, highly nonlinear financial data—such as fat-tailed return distributions, volatility clustering, and multi-regime market stress—traditional parametric models (like standard geometric Brownian motion or fixed-grid Monte Carlo) often fall short.
 
-QuantStream achieves institutional-grade speed and robustness by utilizing an optimized, non-parametric risk-simulation framework: **Circular Moving-Block Bootstrapping** paired with **Heavy-Tailed Student- **t** Distribution Stress Shocks**.
+QuantStream achieves institutional-grade speed and robustness by utilizing an optimized, non-parametric risk-simulation framework: **Circular Moving-Block Bootstrapping** paired with **Heavy-Tailed Student- :math:`t` Distribution Stress Shocks**, integrated alongside **Leakage-Aware Walk-Forward Validation** and **Macro-Regime Adaptive Multi-Factor Scoring**.
 
 Circular Moving-Block Bootstrapping
 ----------------------------------------------------------
@@ -983,26 +983,26 @@ Overview
 Rather than assuming returns follow a rigid theoretical distribution (like a pure Gaussian), **block bootstrapping** samples contiguous blocks of historical daily log returns to construct simulated price paths:
 
 .. math::
-   R_{t, \text{boot}} = \{r_{i}, r_{i+1}, \dots, r_{i+k-1}\}
+    R_{t, \text{boot}} = \{r_{i}, r_{i+1}, \dots, r_{i+k-1}\}
 
 where:
 - :math:`r_i` represents historical daily log returns sampled from the ticker's time series.
-- :math:`k` is the block size (e.g., 5 trading days) designed to preserve short-term return autocorrelation and volatility clustering.
+- :math:`k` is the block size (set to 5 trading days in the QuantStream engine) designed to preserve short-term return autocorrelation and volatility clustering.
 
 Why Use Block Bootstrapping in QuantStream?
 """"""""""""""""""""""""""""""""""""""""""
 - **Empirical Fidelity:** It respects the actual historical behavior of the asset—including skewness, kurtosis, and structural memory—without making unrealistic normality assumptions.
-- **Robust Path Generation:** By resampling historical blocks across thousands of simulation paths, the model captures realistic drawdown distributions directly from empirical data.
+- **Robust Path Generation:** By resampling historical blocks across thousands of simulation paths (:math:`N = 3,000`), the model captures realistic drawdown distributions and tail risk directly from empirical data.
 
 Heavy-Tailed Student :math:`t` Distribution Stress Shocks
 ---------------------------------------------------------
 
 Overview
 """"""""""
-Financial time series are defined by extreme tail events (crashes, liquidity crunches, and sudden market shocks). To stress-test portfolios beyond standard historical lookbacks, QuantStream applies **Student- **t** distributed shocks** with low degrees of freedom:
+Financial time series are defined by extreme tail events (crashes, liquidity crunches, and sudden market shocks). To stress-test portfolios beyond standard historical lookbacks, QuantStream applies **Student- :math:`t` distributed shocks** with low degrees of freedom combined with volatility inflation:
 
 .. math::
-   dX_t = \mu_{\text{stress}} dt + \sigma_{\text{stressed}} \cdot t_{(\nu=4)}
+    dX_t = \mu_{\text{stress}} dt + \sigma_{\text{stressed}} \cdot t_{(\nu=4)}
 
 where:
 - :math:`\mu_{\text{stress}} = \min(\mathbb{E}[r], 0)` removes positive drift assumptions during stress tests.
@@ -1012,19 +1012,32 @@ where:
 Why Use Student- :math:`t` Shocks in QuantStream?
 """""""""""""""""""""""""""""""""""""""""""
 - **Fat-Tail Tail-Risk Capture:** It accurately models rare market shocks and sudden liquidity contractions.
-- **Conservative Ensemble Modeling:** By combining bootstrap paths with stressed Student- **t** paths, the screener evaluates the more adverse outcome between empirical history and fat-tail stress scenarios.
+- **Conservative Ensemble Modeling:** By evaluating the maximum adverse outcomes between bootstrap paths and stressed Student- :math:`t` paths, the screener ensures robust tail-risk boundaries.
 
-Leakage-Aware Walk-Forward Validation
----------------------------------------------------------
+Leakage-Aware Walk-Forward Validation & Out-of-Sample Backtesting
+-----------------------------------------------------------------------------------
 
 Overview
 """"""""""
-To ensure simulation metrics are robust and free from look-ahead bias, QuantStream employs a **rolling-origin walk-forward backtest**:
+To ensure simulation metrics are robust and free from look-ahead bias, QuantStream employs a **rolling-origin walk-forward backtest** evaluating true out-of-sample forward returns across historical anchor windows (net of round-trip transaction costs):
 
 .. math::
-   \text{Origin}_t \longrightarrow \text{Forecast}_{30\text{-day}} \longrightarrow \text{Held-out Evaluation}
+    \text{Origin}_t \longrightarrow \text{Forecast}_{7\text{d}, 14\text{d}, 30\text{-day}} \longrightarrow \text{Held-out Evaluation}
 
 Why Use Walk-Forward Validation in QuantStream?
 """"""""""""""""""""""""""""""""""""""""""""""""
-- **Out-of-Sample Integrity:** Each 30-day downside touch and drop forecast uses strictly trailing data available at that historical origin.
-- **Model Diagnostics:** Calculates Brier scores, calibration gaps, and Wilson score confidence intervals against actual realized market outcomes to continuously monitor model reliability.
+- **Out-of-Sample Integrity:** Each downside touch probability, expected shortfall, and 7-day, 14-day, and 30-day net return forecast uses strictly trailing data available at that historical anchor origin.
+- **Model Calibration & Consistency:** Dynamically computes calibration correction factors and consistency scores against actual realized market outcomes to continuously monitor model reliability.
+
+Data-Quality Gates & Valuation-Adjusted Multi-Factor Scoring
+-----------------------------------------------------------------------------------
+
+Overview
+""""""""""
+Institutional scoring incorporates strict data-quality filters (flagging extreme P/E or P/B ratios, stale financials, and missing sectors) alongside a **Macro-Regime Adaptive Multi-Factor Score**:
+
+.. math::
+    \text{Score} = \left( \sum w_i \cdot \text{Factor}_i \right) \times \text{Quality Multiplier} \times \text{Calibration Factor}
+
+- **Regime Adaptation:** Dynamically tilts factor weights (:math:`w_i`) based on benchmark (SPY) trend and volatility states (e.g., boosting valuation and downside protection during bearish or high-volatility regimes, or momentum during uptrends).
+- **Valuation Integration:** Rewards stocks with favorable P/E, P/B, and free cash flow yields.
