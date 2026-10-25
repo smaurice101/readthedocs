@@ -51,7 +51,33 @@ QuantStream runs in a Docker container: `https://hub.docker.com/r/maadsdocker/qu
 
 .. code-block::
 
-   docker run -d -p 5050:5050 -p 4040:4040 -p 6060:6060 --env TSS=0 --env SOLUTIONNAME=quantstream-3f10-ml --env SOLUTIONDAG=solution_preprocessing_ml_dag-quantstream-3f10 --env GITUSERNAME= --env GITPASSWORD= --env GITREPOURL='https://github.com/smaurice101/raspberrypitss.git' --env SOLUTIONEXTERNALPORT=5050 -v /var/run/docker.sock:/var/run/docker.sock:z -v /mnt/c/maads/tml-airflow/rawdata:/rawdata:z  --env CHIP=amd64 --env SOLUTIONAIRFLOWPORT=4040 --env SOLUTIONVIPERVIZPORT=6060 --env DOCKERUSERNAME= --env EXTERNALPORT=39399 --env KAFKABROKERHOST=127.0.0.1:9092 --env KAFKACLOUDUSERNAME='<Enter API key>' --env KAFKACLOUDPASSWORD='<Enter API secret>' --env SASLMECHANISM=PLAIN --env VIPERVIZPORT=9689 --env MQTTUSERNAME= --env MQTTPASSWORD= --env AIRFLOWPORT=9000 --env READTHEDOCS= --env FINNHUBTOKEN='' --env QSTEST=0 --env MAXSTOCKS=50 maadsdocker/quantstream-3f10-ml-amd64-public:latest
+   docker run -d -p 5050:5050 -p 4040:4040 -p 6060:6060 \
+   --env TSS=0 \
+   --env SOLUTIONNAME=quantstream-3f10-ml \
+   --env SOLUTIONDAG=solution_preprocessing_ml_dag-quantstream-3f10 
+   --env GITUSERNAME= \
+   --env GITPASSWORD= \
+   --env GITREPOURL='https://github.com/smaurice101/raspberrypitss.git' \
+   --env SOLUTIONEXTERNALPORT=5050 \
+   -v /var/run/docker.sock:/var/run/docker.sock:z \
+   -v /mnt/c/maads/tml-airflow/rawdata:/rawdata:z  \
+   --env CHIP=amd64 \
+   --env SOLUTIONAIRFLOWPORT=4040 \
+   --env SOLUTIONVIPERVIZPORT=6060 \
+   --env DOCKERUSERNAME= \
+   --env EXTERNALPORT=39399 \
+   --env KAFKABROKERHOST=127.0.0.1:9092 \
+   --env KAFKACLOUDUSERNAME='<Enter API key>' \
+   --env KAFKACLOUDPASSWORD='<Enter API secret>' \
+   --env SASLMECHANISM=PLAIN \
+   --env VIPERVIZPORT=9689 \
+   --env MQTTUSERNAME= \
+   --env MQTTPASSWORD= \
+   --env AIRFLOWPORT=9000 \
+   --env READTHEDOCS= \
+   --env FINNHUBTOKEN='' \
+   --env QSTEST=0 \
+   --env MAXSTOCKS=50 maadsdocker/quantstream-3f10-ml-amd64-public:latest
 
 4. Wait few minutes for the container to start
 
@@ -60,6 +86,12 @@ QuantStream runs in a Docker container: `https://hub.docker.com/r/maadsdocker/qu
 .. code-block::
 
     http://localhost:6060/qsmain.php
+
+.. tip ::
+
+   To use QuantStream in TEST mode then set the QSTEST key to 1 i.e.:
+
+    QSTEST=1
 
 QuantStream agents will process NASDAQ and NYSE stock market data autonomously:  Everything is autonomous.  If you set up everything properly you are doing ALGORITHMIC TRADING.  Congratualtions!
 
