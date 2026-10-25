@@ -140,11 +140,11 @@ TSS Docker Run Command
    --env KAFKABROKERHOST=127.0.0.1:9092 \
    --env KAFKACLOUDUSERNAME='' \
    --env KAFKACLOUDPASSWORD='<Enter your API secret>' \
-   --env SMTP_SERVER='' 
-   --env SMTP_PORT= 
-   --env SMTP_USERNAME='' 
-   --env SMTP_PASSWORD= 
-   --env recipient=''
+   --env SMTP_SERVER='' \
+   --env SMTP_PORT= \
+   --env SMTP_USERNAME='' \
+   --env SMTP_PASSWORD= \
+   --env recipient='' \
    --env UPDATE=1 \
    maadsdocker/tml-solution-studio-with-airflow-amd64
 
