@@ -45,16 +45,6 @@ QuantStream runs in a Docker container: `https://hub.docker.com/r/maadsdocker/qu
 
     Enter the token in the Docker run command below: **FINNHUBTOKEN='<Enter your token here>'**
 
-.. important::
-
-   Set correct volume mount: -v /mnt/c/maads/tml-airflow/rawdata:/rawdata:z  \
-
-   You must change:
-
-    Change: /mnt/c/maads/tml-airflow/rawdata
-
-    To: Your local path
-
 2. Setup an Interactive broker account: `https://www.interactivebrokers.ca/en/home.php <https://www.interactivebrokers.ca/en/home.php>`_
 
 3. Run the QuantStream container:
@@ -89,6 +79,16 @@ QuantStream runs in a Docker container: `https://hub.docker.com/r/maadsdocker/qu
    --env QSTEST=0 \
    --env MAXSTOCKS=50 \
    maadsdocker/quantstream-3f10-ml-amd64-public:latest
+
+.. important::
+
+   Set correct volume mount: -v /mnt/c/maads/tml-airflow/rawdata:/rawdata:z  \
+
+   You must change:
+
+    **Change:** /mnt/c/maads/tml-airflow/rawdata
+
+    **To:** Your local path
 
 4. Wait few minutes for the container to start
 
