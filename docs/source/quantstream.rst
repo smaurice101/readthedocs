@@ -64,7 +64,7 @@ QuantStream runs in a Docker container: `https://hub.docker.com/r/maadsdocker/qu
    docker run -d -p 5050:5050 -p 4040:4040 -p 6060:6060 \
    --env TSS=0 \
    --env SOLUTIONNAME=quantstream-3f10-ml \
-   --env SOLUTIONDAG=solution_preprocessing_ml_dag-quantstream-3f10 
+   --env SOLUTIONDAG=solution_preprocessing_ml_dag-quantstream-3f10 \
    --env GITUSERNAME= \
    --env GITPASSWORD= \
    --env GITREPOURL='https://github.com/smaurice101/raspberrypitss.git' \
