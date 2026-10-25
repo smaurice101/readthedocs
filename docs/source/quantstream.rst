@@ -999,7 +999,7 @@ Heavy-Tailed Student :math:`t` Distribution Stress Shocks
 
 Overview
 """"""""""
-Financial time series are defined by extreme tail events (crashes, liquidity crunches, and sudden market shocks). To stress-test portfolios beyond standard historical lookbacks, QuantStream applies **Student- :math:`t` distributed shocks** with low degrees of freedom combined with volatility inflation:
+Financial time series are defined by extreme tail events (crashes, liquidity crunches, and sudden market shocks). To stress-test portfolios beyond standard historical lookbacks, QuantStream applies Student :math:`t` distributed shocks with low degrees of freedom combined with volatility inflation:
 
 .. math::
     dX_t = \mu_{\text{stress}} dt + \sigma_{\text{stressed}} \cdot t_{(\nu=4)}
