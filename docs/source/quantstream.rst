@@ -47,6 +47,10 @@ QuantStream runs in a Docker container: `https://hub.docker.com/r/maadsdocker/qu
 
 2. Setup an Interactive broker account: `https://www.interactivebrokers.ca/en/home.php <https://www.interactivebrokers.ca/en/home.php>`_
 
+.. important::
+
+    Integration with Interactive Broker in QuantStream will be coming soon.
+
 3. Run the QuantStream container:
 
 .. code-block::
