@@ -1112,7 +1112,7 @@ independent investment judgment.
 What differentiates the screener
 --------------------------------
 
-1. Multi-factor ranking rather than a single-indicator filter
+Multi-factor ranking rather than a single-indicator filter
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The screener combines several score families into a composite ranking:
@@ -1145,7 +1145,7 @@ framework makes those trade-offs visible and reduces dependence on any one
 indicator. It does not eliminate model risk, and the composite score should
 not be interpreted as a probability of profit.
 
-2. Market-regime-aware factor weighting
+Market-regime-aware factor weighting
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The screener evaluates SPY as a broad-market benchmark and examines its price
@@ -1179,7 +1179,7 @@ that the regime label is correct or that the chosen weights will outperform.
 When the required benchmark history is unavailable, the default weights may
 remain in effect.
 
-3. Explicit downside-risk simulation
+Explicit downside-risk simulation
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The screener estimates the chance that a stock's cumulative return path will
@@ -1215,7 +1215,7 @@ the maximum possible loss, or probabilities that a position will lose money.
 Results can be unreliable when market conditions change, history is limited,
 or a stock has undergone a structural change.
 
-4. Downside-model calibration and rolling consistency checks
+Downside-model calibration and rolling consistency checks
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The code compares modeled downside-touch estimates with a simplified
@@ -1238,7 +1238,7 @@ coverage, or robustness across market regimes. Its results should be tested
 against a larger, independent evaluation set before being described as
 validated predictive accuracy.
 
-5. Historical 7-, 14-, and 30-day return measures, net of an assumed cost
+Historical 7-, 14-, and 30-day return measures, net of an assumed cost
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 For each candidate, the screener computes average historical returns over
@@ -1266,7 +1266,7 @@ fully point-in-time, out-of-sample strategy backtest. The simple cost
 assumption also may not capture spread, slippage, market impact, borrow costs,
 taxes, or costs that vary by stock and market conditions.
 
-6. Liquidity-aware candidate selection
+Liquidity-aware candidate selection
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The screener applies configurable minimum and maximum share-price limits,
@@ -1301,7 +1301,7 @@ uses the calculated metrics. When too few stocks pass, the code can reduce
 the dollar-volume floor in an attempt to fill the requested count; users
 should inspect the effective filters and output before trading.
 
-7. Technical trend and momentum across multiple horizons
+Technical trend and momentum across multiple horizons
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The screener calculates 5-, 20-, 60-, and 120-day momentum, 50-day and
@@ -1328,7 +1328,7 @@ Technical indicators are descriptive signals, not standalone evidence of
 future performance. Moving averages, momentum, and volatility can lag abrupt
 changes, and their usefulness can vary by stock and market regime.
 
-8. Valuation and business-quality inputs
+Valuation and business-quality inputs
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The screener retrieves available company information and considers:
@@ -1363,7 +1363,7 @@ not establish that financial data is fresh or independently verified; API
 availability and field definitions can vary. These metrics should be treated
 as screening inputs rather than a full fundamental research process.
 
-9. Data-quality gates before final scoring
+Data-quality gates before final scoring
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Before final scoring, the code checks for selected extreme or missing
@@ -1386,7 +1386,7 @@ input is correct, current, comparable, or free from corporate-action issues.
 The code uses third-party market-data services, and the completeness and
 accuracy of the final universe depend on their responses.
 
-10. Exchange-universe construction and fallback sources
+Exchange-universe construction and fallback sources
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The screener attempts to construct a stock universe from Nasdaq Trader symbol
@@ -1414,7 +1414,7 @@ always a currently listed Nasdaq- or NYSE-only common stock requires
 additional validation. Symbol/name filters are heuristic and cannot identify
 every unusual security type or listing change.
 
-11. Optional pre-market snapshot overlay
+Optional pre-market snapshot overlay
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 When enabled and when the run occurs during the relevant pre-market window,
@@ -1437,7 +1437,7 @@ is optional and should not be represented as guaranteed real-time data or as
 a complete pre-market execution model. Historical return calculations are not
 reconstructed from pre-market prices.
 
-12. Configurable operating modes and parameters
+Configurable operating modes and parameters
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The script exposes settings for operating mode, price range, output count,
@@ -1459,7 +1459,7 @@ Changing parameters can change the output materially. Parameter tuning on the
 same historical data used to evaluate performance can lead to overfitting.
 Configuration changes should be recorded and evaluated on separate data.
 
-13. Risk cutoff can be advisory or enforced
+Risk cutoff can be advisory or enforced
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The code calculates whether a stock meets the configured downside-risk cutoff
@@ -1482,7 +1482,7 @@ A strict risk gate only enforces the model's chosen threshold. It cannot
 guarantee that realized losses remain below 10%, and it may exclude useful
 candidates or retain risky ones if the model is miscalibrated.
 
-14. Structured CSV output for inspection and downstream workflows
+Structured CSV output for inspection and downstream workflows
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The ``best`` mode writes a ``best_stock_candidates.csv`` file containing
