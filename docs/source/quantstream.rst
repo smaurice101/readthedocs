@@ -1113,7 +1113,7 @@ What differentiates the screener
 --------------------------------
 
 Multi-factor ranking rather than a single-indicator filter
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 The screener combines several score families into a composite ranking:
 
