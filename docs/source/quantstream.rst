@@ -1092,3 +1092,432 @@ Institutional scoring incorporates strict data-quality filters (flagging extreme
 
 - **Regime Adaptation:** Dynamically tilts factor weights (:math:`w_i`) based on benchmark (SPY) trend and volatility states (e.g., boosting valuation and downside protection during bearish or high-volatility regimes, or momentum during uptrends).
 - **Valuation Integration:** Rewards stocks with favorable P/E, P/B, and free cash flow yields.
+
+Stock Screener: Differentiating Capabilities
+=============================================
+
+Overview
+--------
+
+This screener is designed to do more than filter stocks by a single metric.
+It combines market-data screening, liquidity and volatility constraints,
+technical signals, valuation inputs, downside-risk simulation, historical
+return analysis, and a market-regime-dependent scoring model.
+
+Its goal is to produce a focused, repeatable list of equity candidates with
+multiple dimensions of evidence available for review. It is a research and
+decision-support tool, not a guarantee of future returns or a substitute for
+independent investment judgment.
+
+What differentiates the screener
+--------------------------------
+
+1. Multi-factor ranking rather than a single-indicator filter
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The screener combines several score families into a composite ranking:
+
+* **Historical predictive-return score** — ranks the candidate stocks by
+  computed 7-, 14-, and 30-day historical return measures.
+* **Consistency score** — summarizes the direction and variability of rolling
+  historical return windows.
+* **Downside-risk score** — combines modeled 10% downside-touch probability,
+  historical maximum drawdown, and a tail-loss measure.
+* **Momentum score** — incorporates 5-, 20-, and 60-day momentum alongside
+  the relationship between the 50-day and 200-day moving averages.
+* **Execution/liquidity score** — ranks stocks using average daily dollar
+  volume.
+* **Entry-position score** — favors prices that are not excessively extended
+  from the 50-day moving average.
+* **Valuation score** — incorporates available P/E, price-to-book, and free
+  cash flow yield inputs.
+
+The resulting composite is intended to balance return-related signals,
+consistency, risk, momentum, tradability, entry positioning, and valuation.
+The weights are configurable in the code and are adjusted for the detected
+market regime.
+
+Why it matters
+^^^^^^^^^^^^^^
+
+A stock can look attractive on one dimension and weak on another. A composite
+framework makes those trade-offs visible and reduces dependence on any one
+indicator. It does not eliminate model risk, and the composite score should
+not be interpreted as a probability of profit.
+
+2. Market-regime-aware factor weighting
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The screener evaluates SPY as a broad-market benchmark and examines its price
+relative to the 50-day and 200-day moving averages, as well as recent
+annualized volatility.
+
+Depending on the detected conditions, it changes the weights assigned to
+momentum, historical predictive-return ranking, downside protection, and
+valuation:
+
+* **Bullish trend:** increases emphasis on momentum and historical return
+  ranking.
+* **Bearish trend:** increases emphasis on valuation and downside protection
+  while reducing momentum emphasis.
+* **High-volatility conditions:** increases emphasis on valuation and downside
+  protection while reducing momentum emphasis.
+
+Why it matters
+^^^^^^^^^^^^^^
+
+The same factor mix may not be suitable in every market environment. Adaptive
+weights let the screener respond to a simple, explicit market-regime rule
+instead of applying an identical weighting scheme every day.
+
+Important limitation
+^^^^^^^^^^^^^^^^^^^^
+
+This is a rule-based regime classification, not a comprehensive macroeconomic
+forecast. The rules use SPY trend and volatility measures; they do not prove
+that the regime label is correct or that the chosen weights will outperform.
+When the required benchmark history is unavailable, the default weights may
+remain in effect.
+
+3. Explicit downside-risk simulation
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The screener estimates the chance that a stock's cumulative return path will
+touch a loss threshold of 10% over a 30-trading-day horizon. Its risk engine
+uses two simulated path approaches:
+
+* **Block bootstrap:** resamples blocks of historical daily returns, retaining
+  some short-range ordering rather than drawing every day independently.
+* **Stress simulation:** uses a Student-t shock distribution, a volatility
+  multiplier, and a non-positive historical mean input to create a more
+  adverse scenario.
+
+The screener takes the larger estimated downside-touch probability from the
+bootstrap and stress approaches. It also calculates related measures,
+including terminal-loss probability, a 5% tail-loss statistic, and historical
+maximum drawdown. A risk tier is assigned from the modeled downside-touch
+probability.
+
+Why it matters
+^^^^^^^^^^^^^^
+
+Return potential is only part of a trade decision. A candidate with an
+attractive historical return profile may also have a meaningful chance of
+experiencing a large adverse move. Explicitly displaying downside measures
+helps users compare candidates on risk as well as return.
+
+Important limitation
+^^^^^^^^^^^^^^^^^^^^
+
+These are model-based estimates derived from historical returns and specified
+simulation assumptions. They are not calibrated guarantees, predictions of
+the maximum possible loss, or probabilities that a position will lose money.
+Results can be unreliable when market conditions change, history is limited,
+or a stock has undergone a structural change.
+
+4. Downside-model calibration and rolling consistency checks
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The code compares modeled downside-touch estimates with a simplified
+historical rolling-window check and derives a model-calibration factor. It also
+computes a consistency score from rolling historical return windows.
+
+Why it matters
+^^^^^^^^^^^^^^
+
+A risk estimate should be examined alongside observed historical behavior.
+These checks provide additional diagnostics rather than relying solely on a
+single simulated probability.
+
+Important limitation
+^^^^^^^^^^^^^^^^^^^^
+
+The historical calibration procedure is a relatively simple diagnostic. It
+does not by itself establish statistical calibration, reliable probability
+coverage, or robustness across market regimes. Its results should be tested
+against a larger, independent evaluation set before being described as
+validated predictive accuracy.
+
+5. Historical 7-, 14-, and 30-day return measures, net of an assumed cost
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+For each candidate, the screener computes average historical returns over
+7-, 14-, and 30-trading-day slices and subtracts an assumed round-trip
+transaction cost. The default cost parameter is 10 basis points, configurable
+through a command-line argument.
+
+Why it matters
+^^^^^^^^^^^^^^
+
+Multiple horizons make it possible to distinguish stocks whose historical
+behavior has been stronger over shorter windows from those with stronger
+medium-term results. Including an explicit transaction-cost assumption is
+more realistic than reporting gross returns alone.
+
+Important limitation
+^^^^^^^^^^^^^^^^^^^^
+
+The code calculates these return measures from historical return slices for
+the currently selected candidates. It does not, in the implementation shown,
+rebuild and rerank the entire eligible universe independently at every
+historical decision date. Accordingly, these columns should be described as
+historical forward-window return statistics, not as conclusive proof of a
+fully point-in-time, out-of-sample strategy backtest. The simple cost
+assumption also may not capture spread, slippage, market impact, borrow costs,
+taxes, or costs that vary by stock and market conditions.
+
+6. Liquidity-aware candidate selection
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The screener applies configurable minimum and maximum share-price limits,
+requires a minimum history length, and uses average daily dollar volume as a
+liquidity filter. The default settings include:
+
+* Minimum stock price: USD 10.
+* Maximum stock price: USD 350.
+* Minimum average daily dollar volume: USD 5 million.
+* Minimum price-history length: 126 trading days.
+* Target output: 50 stocks, subject to the configured cap.
+* Minimum 14-day average true range as a percentage of price: 2% in modes
+  where that filter is enabled by default.
+
+These values are parameters, not universal recommendations, and can be
+changed by the caller or command-line options.
+
+Why it matters
+^^^^^^^^^^^^^^
+
+Dollar-volume and history filters can reduce the chance of selecting stocks
+with very limited trading activity or insufficient price history for the
+chosen calculations. ATR filtering can also help identify stocks with enough
+price movement for strategies that require it.
+
+Important limitation
+^^^^^^^^^^^^^^^^^^^^
+
+A liquidity threshold does not guarantee tight spreads or execution at the
+quoted price. The prefilter is a coarse screening step, while final selection
+uses the calculated metrics. When too few stocks pass, the code can reduce
+the dollar-volume floor in an attempt to fill the requested count; users
+should inspect the effective filters and output before trading.
+
+7. Technical trend and momentum across multiple horizons
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The screener calculates 5-, 20-, 60-, and 120-day momentum, 50-day and
+200-day moving averages, price distance from those averages, annualized
+volatility, recent 20-day volatility, average true range, a Sortino-style
+measure, and historical maximum drawdown.
+
+The composite momentum score uses 5-day, 20-day, and 60-day momentum and the
+50-day/200-day trend relationship. The entry-position score separately
+considers the absolute distance from the 50-day moving average.
+
+Why it matters
+^^^^^^^^^^^^^^
+
+Multiple horizons can help distinguish short-term price movement from a
+broader trend. Considering extension from a moving average also gives the
+model a separate way to assess whether price is far from a recent reference
+level.
+
+Important limitation
+^^^^^^^^^^^^^^^^^^^^
+
+Technical indicators are descriptive signals, not standalone evidence of
+future performance. Moving averages, momentum, and volatility can lag abrupt
+changes, and their usefulness can vary by stock and market regime.
+
+8. Valuation and business-quality inputs
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The screener retrieves available company information and considers:
+
+* Trailing P/E, with forward P/E as a fallback when trailing P/E is absent.
+* Price-to-book ratio.
+* Profit margin.
+* Free cash flow yield, where free cash flow and market capitalization are
+  available.
+* Return on assets, used in the code's quality flag.
+
+It applies basic data-quality checks to flag missing or implausible P/E,
+price-to-book, profit-margin, or sector values. It also creates a valuation
+score from available valuation components and applies a multiplier based on
+its quality flag.
+
+Why it matters
+^^^^^^^^^^^^^^
+
+The valuation layer adds company-level information to a system that otherwise
+could rely too heavily on price behavior. It can help identify when a
+candidate's market performance is accompanied by potentially relevant
+fundamental metrics.
+
+Important limitation
+^^^^^^^^^^^^^^^^^^^^
+
+The quality flag is a simple rule, not a comprehensive assessment of business
+quality. The valuation score is a heuristic, and P/E or price-to-book ratios
+are not directly comparable across all sectors. The current code's checks do
+not establish that financial data is fresh or independently verified; API
+availability and field definitions can vary. These metrics should be treated
+as screening inputs rather than a full fundamental research process.
+
+9. Data-quality gates before final scoring
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Before final scoring, the code checks for selected extreme or missing
+fundamental values and removes candidates carrying data-quality flags. It
+also requires sufficient price history and usable calculated metrics.
+
+Why it matters
+^^^^^^^^^^^^^^
+
+A quantitative model can produce misleading rankings when inputs are missing,
+stale, malformed, or implausible. Explicit checks make some of these problems
+visible and help prevent obviously problematic records from flowing silently
+into the final list.
+
+Important limitation
+^^^^^^^^^^^^^^^^^^^^
+
+The checks cover a limited set of conditions. They do not guarantee that every
+input is correct, current, comparable, or free from corporate-action issues.
+The code uses third-party market-data services, and the completeness and
+accuracy of the final universe depend on their responses.
+
+10. Exchange-universe construction and fallback sources
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The screener attempts to construct a stock universe from Nasdaq Trader symbol
+directories, filtering test issues and ETFs and applying symbol/name checks
+intended to remove certain non-common-stock instruments. It includes fallback
+logic that can use major index constituents and, if those sources are
+unavailable, a local cache.
+
+Why it matters
+^^^^^^^^^^^^^^
+
+Building the candidate universe from exchange-oriented symbol directories is
+more systematic than maintaining a short hand-written list of popular stocks.
+Fallbacks can also help the process continue when a primary source is
+unavailable.
+
+Important limitation
+^^^^^^^^^^^^^^^^^^^^
+
+The primary directory path is designed to focus on Nasdaq and NYSE listings,
+but the fallback sources are index constituent lists and the local cache; the
+code does not apply a final independent exchange-membership verification
+after every fallback. Therefore, the strict claim that every output is
+always a currently listed Nasdaq- or NYSE-only common stock requires
+additional validation. Symbol/name filters are heuristic and cannot identify
+every unusual security type or listing change.
+
+11. Optional pre-market snapshot overlay
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+When enabled and when the run occurs during the relevant pre-market window,
+the screener attempts to retrieve one-minute pre-market data. If available, it
+records pre-market price, volume, dollar volume, last-bar time, and percentage
+change versus the prior price, and uses the pre-market price in the price-band
+check.
+
+Why it matters
+^^^^^^^^^^^^^^
+
+Pre-market data can provide additional context before the regular session
+opens, rather than relying exclusively on the previous regular-session close.
+
+Important limitation
+^^^^^^^^^^^^^^^^^^^^
+
+Pre-market data may be missing, thinly traded, delayed, or noisy. The overlay
+is optional and should not be represented as guaranteed real-time data or as
+a complete pre-market execution model. Historical return calculations are not
+reconstructed from pre-market prices.
+
+12. Configurable operating modes and parameters
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The script exposes settings for operating mode, price range, output count,
+minimum dollar volume, minimum history, volatility bounds, ATR threshold,
+download batch size, worker count, history period, transaction costs,
+prefilter use, pre-market overlay, and strict downside-risk filtering.
+
+Why it matters
+^^^^^^^^^^^^^^
+
+A configurable pipeline is easier to adapt to different research workflows
+than a fixed, opaque screen. Parameters can be documented, versioned, and
+tested against the needs of a particular strategy.
+
+Important limitation
+^^^^^^^^^^^^^^^^^^^^
+
+Changing parameters can change the output materially. Parameter tuning on the
+same historical data used to evaluate performance can lead to overfitting.
+Configuration changes should be recorded and evaluated on separate data.
+
+13. Risk cutoff can be advisory or enforced
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The code calculates whether a stock meets the configured downside-risk cutoff
+and a minimum consistency threshold. By default, this result is informational:
+the candidate is not automatically excluded for failing the risk cutoff.
+When the ``--strict-risk-gate`` option is enabled, candidates that fail the
+cutoff are excluded before the final ranking.
+
+Why it matters
+^^^^^^^^^^^^^^
+
+This supports two distinct workflows: a broad research list that exposes
+risk differences, and a more restrictive candidate list that enforces a
+specified model-based risk rule.
+
+Important limitation
+^^^^^^^^^^^^^^^^^^^^
+
+A strict risk gate only enforces the model's chosen threshold. It cannot
+guarantee that realized losses remain below 10%, and it may exclude useful
+candidates or retain risky ones if the model is miscalibrated.
+
+14. Structured CSV output for inspection and downstream workflows
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The ``best`` mode writes a ``best_stock_candidates.csv`` file containing
+ticker, sector, price, selected valuation metrics, dollar volume, volatility,
+20-day momentum, historical maximum drawdown, modeled 30-day downside-touch
+probability, 7-/14-/30-day historical return measures, composite score, and
+risk tier.
+
+Why it matters
+^^^^^^^^^^^^^^
+
+A structured output supports repeatable review, sorting, comparison, and
+integration with other research tools. It also makes it possible to audit why
+a stock appears attractive or risky without relying only on a ticker list.
+
+What the screener does not establish
+------------------------------------
+
+The capabilities above describe the implementation in the supplied source
+file. They should not be presented as proof of institutional validation or
+guaranteed performance.
+
+In particular, the code alone does not establish that:
+
+* The model consistently outperforms SPY or another appropriate benchmark.
+* The reported historical returns represent a fully point-in-time
+  out-of-sample ranking strategy.
+* The downside probabilities are statistically calibrated across many
+  independent periods and market regimes.
+* The system avoids all look-ahead bias, survivorship bias, data revisions, or
+  corporate-action problems.
+* Every output symbol is always an active Nasdaq- or NYSE-listed common stock,
+  including when fallback sources are used.
+* The transaction-cost assumption captures actual spreads, slippage, market
+  impact, or all brokerage costs.
+* A high composite score means a stock is certain to rise or is suitable for
+  every investor.
+
