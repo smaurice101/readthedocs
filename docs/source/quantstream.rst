@@ -61,7 +61,11 @@ QuantStream runs in a Docker container: `https://hub.docker.com/r/maadsdocker/qu
 
    If you want to QUICKLY run the QuantStream platform on Windows run this `batch file <https://github.com/smaurice101/raspberrypi/blob/main/quantstream.bat>`_
 
-    - Note You need to update the FINNHUB token in the batch 
+        :: --- CONFIGURABLE VARIABLES ---
+        :: Get Free Finnhub token from finnhub.io
+        set FINNHUBTOKEN=<Enter Finnhub token> 
+        :: If QSTEST=2 then production - if QSTEST=1 then test mode
+        set QSTEST=2
 
    To STOP the container run this `batch file <https://github.com/smaurice101/raspberrypi/blob/main/stopquantstream.bat>`_
 
