@@ -57,6 +57,16 @@ QuantStream runs in a Docker container: `https://hub.docker.com/r/maadsdocker/qu
 
 3. Run the QuantStream container:
 
+.. tip::
+
+   If you want to QUICKLY run the QuantStream platform on Windows run this `batch file <https://github.com/smaurice101/raspberrypi/blob/main/quantstream.bat>`_
+
+    - Note You need to update the FINNHUB token in the batch 
+
+   To STOP the container run this `batch file <https://github.com/smaurice101/raspberrypi/blob/main/stopquantstream.bat>`_
+
+   You can put the FIRST batch file in a Schedule Task to run every morning.  Then run the STOP batch file to run after market closes.
+
 .. code-block::
 
    docker run -d -p 5050:5050 -p 4040:4040 -p 6060:6060 \
