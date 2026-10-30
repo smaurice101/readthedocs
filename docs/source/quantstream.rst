@@ -485,7 +485,7 @@ To evaluate viability, performance, and flexibility, this TML solution is benchm
      - Quant Frameworks (QuantConnect / IBKR)
      - Enterprise Big Data (Databricks)
      - Institutional HFT (Kx kdb+/q)
-     - This TML Solution
+     - QuantStream Solution
    * - Logic Type
      - Single-indicator or heuristic scripts
      - Static algorithmic rules & offline ML
