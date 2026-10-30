@@ -1517,6 +1517,83 @@ A structured output supports repeatable review, sorting, comparison, and
 integration with other research tools. It also makes it possible to audit why
 a stock appears attractive or risky without relying only on a ticker list.
 
+Architecture Documentation: Pre-Market Futures Telemetry & Genetic Autotuning
+========================================================================
+
+Overview
+---------
+The institutional stock screener features an autonomous architecture designed to protect capital during overnight market distress and optimize multi-factor performance. This is achieved via two core subsystems:
+
+* **Pre-Market Index Futures Telemetry (ES=F, NQ=F)**: Captures overnight price discovery and macro shock states prior to the regular cash session.
+* **Genetic Algorithm (GA) Hyperparameter Autotuning**: Dynamically evolves multi-factor institutional weights across cross-sectional candidate performance rather than relying on static assumptions.
+
+
+Pre-Market Index Futures Integration
+=================================
+
+Purpose & Design
+----------------
+Standard cash equity benchmarks (such as ``SPY``) only capture regular trading hours (9:30 AM – 4:00 PM EST). By integrating continuous index futures contracts (``ES=F`` for S&P 500 and ``NQ=F`` for Nasdaq), the screener gains visibility into overnight macroeconomic shifts, geopolitical events, and after-hours earnings prints.
+
+Execution Flow
+--------------
+1. **Data Ingestion**: During pre-market execution, the screener pulls recent historical and intraday bars for major index futures.
+2. **Shock Detection**: Computes the overnight percentage change of ``NQ=F`` and evaluates it against macro thresholds.
+3. **Regime Bias Override**: If a significant pre-market drop occurs (e.g., :math:`\le -1.5\%` on ``NQ=F``), a ``futures_shock`` flag trips, instantly transitioning the system into a **Risk-Off Shield** regime. This overrides default scoring priorities by scaling down high-beta momentum weights and pivoting focus toward deep valuation and low downside-touch risk.
+
+
+Genetic Algorithm (GA) Hyperparameter Autotuning
+===================================================
+
+Purpose & Design
+----------------
+Static multi-factor weight assignments can become brittle as market cycles shift between secular bull markets and high-volatility bear regimes. To solve this, the pipeline uses a **Genetic Algorithm (GeneticFactorOptimizer)** to discover optimal, non-linear institutional weight vectors (:math:`\mathbf{w}`) in real-time.
+
+Mathematical Formulation & Chromosome Structure
+------------------------------------------------
+Represented as a normalized vector across 7 distinct institutional metrics:
+
+.. math::
+
+   \mathbf{w} = [w_{\text{pred}}, w_{\text{cons}}, w_{\text{down}}, w_{\text{mom}}, w_{\text{exec}}, w_{\text{entry}}, w_{\text{val}}], \quad \sum w_i = 1
+
+The fitness function evaluates cross-sectional performance using a risk-adjusted return metric (Sharpe/Sortino ratio) derived from top-tier candidates over historical walk-forward windows:
+
+.. math::
+
+   \text{Fitness}(\mathbf{w}) = \frac{\mu(\text{Net Returns of Top Quartile})}{\sigma(\text{Net Returns of Top Quartile}) + \epsilon}
+
+Evolutionary Cycle
+------------------
+1. **Initialization**: Generates a population of random weight configurations using a Dirichlet distribution, blended smoothly with the current macro regime bias vector.
+2. **Selection**: Evaluates fitness across the generation and retains the top 20% elite parent chromosomes.
+3. **Crossover & Mutation**: Breeds parent weights using random linear combinations (:math:`\alpha`) combined with Gaussian mutation noise (:math:`\mathcal{N}(0, 0.05)`) to explore new hyperparameter combinations.
+4. **Convergence**: After 15 generations, the algorithm outputs the globally optimized weight vector for final multi-factor stock scoring.
+
+
+Configuration & Parameter Reference
+======================================
+
+.. list-table::
+   :widths: 25 20 55
+   :header-rows: 1
+
+   * - Parameter
+     - Default Value
+     - Description
+   * - ``num_generations``
+     - ``15``
+     - Number of evolutionary cycles executed by the Genetic Algorithm during screening.
+   * - ``population_size``
+     - ``30``
+     - Number of competing weight chromosomes evaluated per generation.
+   * - ``mutation_rate``
+     - ``0.15``
+     - Probability of injecting random Gaussian exploration noise into offspring weights.
+   * - ``futures_drop_threshold``
+     - ``-1.5%``
+     - Percentage drop in ``NQ=F`` pre-market required to trigger the autonomous Risk-Off Shield.
+
 What the screener does not establish
 ------------------------------------
 
