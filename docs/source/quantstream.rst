@@ -121,9 +121,19 @@ QuantStream runs in a Docker container: `https://hub.docker.com/r/maadsdocker/qu
 
 5. Go to your browser and enter:
 
+**QuantStream Dashboard:**
+
 .. code-block::
 
     http://localhost:6060/qsmain.php
+
+.. important::
+
+    QuantStream Dashboard password:
+
+     username: quantadmin
+
+     password: Quantadmin123!
 
 .. tip::
 
