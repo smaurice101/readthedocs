@@ -1053,7 +1053,7 @@ QuantStream Advanced Simulation & Risk Modeling Architectures
 
 When building high-fidelity quantitative screeners and risk models for complex, highly nonlinear financial data—such as fat-tailed return distributions, volatility clustering, and multi-regime market stress—traditional parametric models (like standard geometric Brownian motion or fixed-grid Monte Carlo) often fall short.
 
-QuantStream achieves institutional-grade speed and robustness by utilizing an optimized, non-parametric risk-simulation framework: **Circular Moving-Block Bootstrapping** paired with **Heavy-Tailed Student- :math:`t` Distribution Stress Shocks**, integrated alongside **Leakage-Aware Walk-Forward Validation** and **Macro-Regime Adaptive Multi-Factor Scoring**.
+QuantStream achieves institutional-grade speed and robustness by utilizing an optimized, non-parametric risk-simulation framework: **Circular Moving-Block Bootstrapping** paired with Heavy-Tailed Student- :math:`t` Distribution Stress Shocks, integrated alongside **Leakage-Aware Walk-Forward Validation** and **Macro-Regime Adaptive Multi-Factor Scoring**.
 
 Circular Moving-Block Bootstrapping
 ----------------------------------------------------------
