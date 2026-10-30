@@ -177,7 +177,7 @@ Predictive Accuracy & Signal Precision
    :header-rows: 1
 
    * - Metric
-     - Out-of-Sample Performance
+     - QuantStream Performance
      - Industry Standard Benchmark
    * - **Directional Accuracy (BUY/SELL)**
      - **58.4%**
