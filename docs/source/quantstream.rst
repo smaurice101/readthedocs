@@ -897,898 +897,263 @@ Fee Structure & Ceilings:
 * **Strict \$25/Day Fee Ceiling:** To prevent excessive commission drag during high-volatility sessions, operational caps are enforced at **70 trades/day** and **1,500 shares/day** via `qsconfig.ini`. If trading fees are not a concern set max_trades=-1 and max_shares=-1.
 * **Pass-Through Metrics:** Fully accounts for exchange ECN fees, clearing fees, regulatory percentages, and minimum order commission floors (\$0.35 USD).
 
-Institutional Alpha & Tail-Risk Guarded Stock Screener
-==============================================================
-
-QuantStream AI uses a special algorithm at the start of the day to carefully pick the stocks for the trading day.
-
-The **Institutional Alpha & Tail-Risk Guarded Screener** is an advanced quantitative screening engine designed to isolate high-probability momentum equities while strictly filtering out erratic, high-tail-risk assets. Built specifically for QuantStream's algorithmic trading engine, the system bridges the gap between raw momentum capture and robust institutional risk management.
-
-Key Architectural Strengths
-------------------------------------
-
-* **Controlled Volatility Band:** Enforces an institutional annualized volatility window (6% to 45%) to weed out unstable blow-off tops and dead assets while capturing smooth momentum.
-
-* **Sortino Ratio Risk-Adjustment:** Replaces naive volatility metrics with downside-risk evaluation, specifically penalizing negative variance and rewarding candidates with clean, upward compounding traction.
-
-* **On-Balance Volume (OBV) & Accumulation Tracking:** Verifies institutional sponsorship by calculating OBV trend slopes and Accumulation/Distribution ratios, guaranteeing that price advances are backed by genuine smart-money accumulation rather than low-volume retail churn.
-
-* **Drawdown & Overnight Gap Protection:** Imposes strict caps on recent maximum drawdowns (:math:`\le 10\%` in Tier 1) and overnight price gaps (:math:`\le 4\%`), shielding portfolios against unexpected gap-risk catastrophes, earnings surprises, and macro air pockets.
-
-* **Moving Average Trend Structure:** Verifies orderly institutional markup phases by requiring clean structural alignment (:math:`\text{EMA}_{20} > \text{EMA}_{50} \ge \text{SMA}_{200}`).
-
-* **Dynamic Macro Sector Rotation:** Assesses real-time relative strength across major sector ETFs (e.g., XLK, XLE, XLV) to dynamically reward leading sector tailwinds (+25% boost) and penalize lagging sectors (-25% haircut).
-
-* **Guaranteed Target-Count Fulfillment:** Features a progressive, multi-pass auto-relaxing fallback loop that guarantees the screener securely yields the exact target candidate count (e.g., 50, 80, 150) under any market conditions.
-
-.. Stock Screener & Macro-Stressed MCA documentation master file
-
-Advanced Stocks' Screening with Macro-Stressed Monte Carlo Analysis (MCA)
-==========================================================================
-
-**QuantStream performs advanced Macro-Stressed Monte Carlo Analysis (MCA)**.
-
-**QuantStream Institutional Alpha Screener** is an advanced quantitative engine designed to screen US equity markets (NASDAQ and NYSE) for high-alpha equities. It combines **Quasi-Monte Carlo (QMC)** variance reduction using Sobol sequences with **Gaussian Process (Kriging) Surrogates** to stress-test stocks against extreme macro regimes over a 30-day holding horizon (`max_days_on_books`).
-
-Key Features
-============
-
-* **Dynamic Universe Retrieval**: 
-  Automatically harvests raw listing directories from NASDAQ and NYSE. The engine strips out warrants, preferred shares, test issues, and exchange-traded funds (ETFs) to maintain a pure equity trading universe.
-
-* **Multi-Pass Institutional Screening**: 
-  Implements a rigorous four-pass fallback hierarchy:
-    * *Pass 1*: Strict institutional alpha filters (price bounds, high dollar volume :math:`\ge \$5\text{M}`, low volatility caps, high Sortino ratios :math:`\ge 1.2`, and strict drawdown control).
-    * *Pass 2 & 3*: Moderate and safety-floor thresholds to capture solid compounding candidates.
-    * *Pass 4*: Emergency absolute guarantee fallback ensuring a strict minimum safety floor (e.g., 20+ stocks) is always populated to eliminate portfolio concentration risk.
-
-* **Benchmark Integration (`SPY`, `QQQ`)**: 
-  Pulls historical pricing data for the S&P 500 (`SPY`) and Nasdaq 100 (`QQQ`) benchmarks to compute rolling covariance and systemic equity betas (:math:`\beta`) for every candidate asset.
-
-* **Quasi-Monte Carlo (QMC) with Sobol Sequences**: 
-  Replaces traditional pseudo-random number generation with deterministic, low-discrepancy Sobol sequences (:math:`N=256`). This achieves an asymptotic convergence rate of nearly :math:`O(N^{-1})`, providing higher numerical precision with drastically fewer iterations.
-
-* **Gaussian Process Surrogate Modeling**: 
-  Fits a non-parametric probabilistic regressor (Kriging) with Radial Basis Function (RBF) kernels to approximate path-dependent simulation outputs, quantifying epistemic uncertainty across tail-risk boundaries.
-
-* **Multi-Regime Macro Stress Testing**: 
-  Simulates stochastic price paths across three distinct macroeconomic scenarios simultaneously:
-    * *Regime A*: Normal Baseline Drift.
-    * *Regime B*: Macroeconomic Slowdown (-6% broad market drag).
-    * *Regime C*: Tech/Liquidity Panic Crash (-12% sector shock).
-
-Methodology Details
-===================
-
-1. **Sobol Sequence Generation & Discrepancy Control**: 
-   Standard Monte Carlo draws introduce random clustering, leaving blind spots in the probability space. By using `scipy.stats.qmc.Sobol(d=horizon_days, scramble=True)`, the engine generates uniform multi-dimensional points that evenly span the 30-day forward horizon.
-
-2. **Inverse Normal CDF Transformation**: 
-   Uniform Sobol samples within the range [0, 1] are mapped directly to standard normal market shocks using the inverse cumulative distribution function (Percent Point Function, `scipy.stats.norm.ppf`), ensuring accurate representation of market return distributions.
-
-3. **Beta-Weighted Macro Drift Adjustments**: 
-   The stock's individual drift (:math:`\mu`) and volatility (:math:`\sigma`) are dynamically adjusted using its computed equity beta relative to `SPY`/`QQQ`. This propagates systemic macro shocks into the Geometric Brownian Motion equation:
-   
-   .. code-block:: text
-   
-      Adjusted Drift = mu + (Beta * Macro_Shock)
-
-4. **Gaussian Process (Kriging) Regression**: 
-   To account for model uncertainty and evaluate failure boundaries smoothly, a Gaussian Process Regressor (`sklearn.gaussian_process.GaussianProcessRegressor`) with an RBF kernel fits the simulated drawdown distribution. The resulting epistemic standard deviation (`gp_std`) provides a robust confidence buffer when calculating survival probabilities against major drawdowns (:math:`\ge 8\%`).
-
-QuantStream Architectural Screener Differentiation: Screener Comparison
-====================================================================
-
-Most equity screeners on the market—ranging from retail platforms to standard Python scripts—rely on **static, backward-looking filters**. The **QuantStream Institutional Alpha Screener** was built from the ground up to operate as a **forward-looking, stochastic risk engine**.
-
-This document outlines the core technical and mathematical differences that set this engine apart from traditional screeners.
-
-At a Glance: Feature Matrix
-===========================
-
-.. list-table::
-   :widths: 30 35 35
-   :header-rows: 1
-
-   * - Feature Dimension
-     - Traditional Retail / Basic Screeners
-     - Institutional Alpha Screener (QMC + Surrogates)
-   * - **Analytical Perspective**
-     - Backward-looking historical metrics (P/E, 50-day SMA, RSI).
-     - Forward-looking stochastic path simulation over a 30-day horizon (`max_days_on_books`).
-   * - **Simulation Engine**
-     - None, or basic Monte Carlo with standard pseudo-random draws (:math:`O(N^{-1/2})` convergence).
-     - **Quasi-Monte Carlo (QMC)** using deterministic **Sobol sequences** (:math:`O(N^{-1})` convergence).
-   * - **Macro Risk Evaluation**
-     - Static sector labels or static beta values.
-     - **Dynamic, multi-regime macro stress testing** against live `SPY` and `QQQ` benchmark feeds.
-   * - **Uncertainty Quantification**
-     - None (binary pass/fail output).
-     - **Gaussian Process (Kriging) Surrogates** with RBF kernels to model epistemic confidence bounds.
-   * - **Risk-Adjusted Metrics**
-     - Sharpe Ratio or simple standard deviation (penalizes upside volatility).
-     - **Sortino Ratio** focusing strictly on downside variance and institutional accumulation ratios.
-   * - **Universe Reliability**
-     - Fixed stock lists that break when market counts drop; risk of single-stock concentration.
-     - **4-tier multi-pass fallback architecture** guaranteeing a hard minimum floor (`target_count_min`).
-
-Core Technological Differentiators
-==================================
-
-Static Backward Filters vs. Forward-Looking Stochastic Simulation
----------------------------------------------------------------------
-
-* **Traditional Screeners**: Query database records to see if a stock *already* met a criteria yesterday (e.g., "RSI < 30" or "50-day SMA > 200-day SMA"). They assume past trend stability implies future performance.
-* **This Engine**: Uses past data solely to calibrate drift (:math:`\mu`) and volatility (:math:`\sigma`) parameters, then projects hundreds of forward-looking stochastic price trajectories over your explicit holding window (30 days).
-
-Pseudo-Random Monte Carlo vs. Quasi-Monte Carlo (Sobol Sequences)
---------------------------------------------------------------------
-
-* **Traditional Screeners**: If they simulate at all, they use standard pseudo-random number generators (PRNGs). PRNG draws suffer from "clustering" and leave large unexplored gaps in multi-dimensional space, requiring 10,000+ iterations to achieve numerical accuracy.
-* **This Engine**: Employs **Quasi-Monte Carlo (QMC)** with scrambled **Sobol sequences** (`scipy.stats.qmc.Sobol`). Sobol sequences fill the probability space uniformly without gap-clustering, improving the asymptotic error bound from :math:`O(N^{-1/2})` to nearly :math:`O(N^{-1})`. This delivers hedge-fund-grade mathematical precision with only 256 sample paths per regime.
-
-Isolated Stock Evaluation vs. Systemic Beta-Weighted Macro Shocks
----------------------------------------------------------------------
-
-* **Traditional Screeners**: Evaluate stocks in complete isolation from the broader macroeconomic environment. A stock with strong momentum will pass even if it is highly sensitive to an imminent sector sell-off.
-* **This Engine**: Computes dynamic rolling covariance and beta (:math:`\beta`) against `SPY` (broad market) and `QQQ` (technology sector). It then forces every candidate asset through three concurrent macro stress regimes:
-    * *Regime A*: Normal Baseline Drift.
-    * *Regime B*: Macroeconomic Slowdown (-6% market drag).
-    * *Regime C*: Tech/Liquidity Panic Crash (-12% shock).
-
-Binary Hard Cutoffs vs. Gaussian Process Surrogate Bounds
-------------------------------------------------------------
-
-* **Traditional Screeners**: Apply rigid binary rules (e.g., "Exclude if Volatility > 35%"). This drops high-performing assets that briefly touched a threshold due to an anomalous single-day print.
-* **This Engine**: Fits a non-parametric **Gaussian Process Regressor** (`sklearn.gaussian_process.GaussianProcessRegressor`) with Radial Basis Function (RBF) kernels over the simulated path returns. The resulting epistemic standard deviation (`gp_std`) provides continuous, smooth probability distributions rather than arbitrary hard cuts.
-
-Single-Pass Fragility vs. Guaranteed Multi-Pass Fallback Architecture
-------------------------------------------------------------------------
-
-* **Traditional Screeners**: Return whatever arbitrary count of stocks happens to match a strict query. In market downturns, strict queries often return 0 or 1 stock, forcing portfolio under-diversification.
-* **This Engine**: Implements a strict **4-pass cascade** (Strict Alpha :math:`\rightarrow` Moderate :math:`\rightarrow` Safety Floor :math:`\rightarrow` Emergency Floor Guarantee). If volatile market conditions dry up strict institutional candidates, Pass 4 automatically activates to ensure a hard minimum portfolio safety floor (e.g., 20 to 30+ stocks) is always populated.
-
-QuantStream Advanced Simulation & Risk Modeling Architectures
-==================================================
-
-When building high-fidelity quantitative screeners and risk models for complex, highly nonlinear financial data—such as fat-tailed return distributions, volatility clustering, and multi-regime market stress—traditional parametric models (like standard geometric Brownian motion or fixed-grid Monte Carlo) often fall short.
-
-QuantStream achieves institutional-grade speed and robustness by utilizing an optimized, non-parametric risk-simulation framework: **Circular Moving-Block Bootstrapping** paired with Heavy-Tailed Student- :math:`t` Distribution Stress Shocks, integrated alongside **Leakage-Aware Walk-Forward Validation** and **Macro-Regime Adaptive Multi-Factor Scoring**.
-
-Circular Moving-Block Bootstrapping
-----------------------------------------------------------
-
-Overview
-""""""""
-Rather than assuming returns follow a rigid theoretical distribution (like a pure Gaussian), **block bootstrapping** samples contiguous blocks of historical daily log returns to construct simulated price paths:
-
-.. math::
-    R_{t, \text{boot}} = \{r_{i}, r_{i+1}, \dots, r_{i+k-1}\}
-
-where:
-- :math:`r_i` represents historical daily log returns sampled from the ticker's time series.
-- :math:`k` is the block size (set to 5 trading days in the QuantStream engine) designed to preserve short-term return autocorrelation and volatility clustering.
-
-Why Use Block Bootstrapping in QuantStream?
-""""""""""""""""""""""""""""""""""""""""""
-- **Empirical Fidelity:** It respects the actual historical behavior of the asset—including skewness, kurtosis, and structural memory—without making unrealistic normality assumptions.
-- **Robust Path Generation:** By resampling historical blocks across thousands of simulation paths (:math:`N = 3,000`), the model captures realistic drawdown distributions and tail risk directly from empirical data.
-
-Heavy-Tailed Student :math:`t` Distribution Stress Shocks
----------------------------------------------------------
-
-Overview
-""""""""""
-Financial time series are defined by extreme tail events (crashes, liquidity crunches, and sudden market shocks). To stress-test portfolios beyond standard historical lookbacks, QuantStream applies Student :math:`t` distributed shocks with low degrees of freedom combined with volatility inflation:
-
-.. math::
-    dX_t = \mu_{\text{stress}} dt + \sigma_{\text{stressed}} \cdot t_{(\nu=4)}
-
-where:
-- :math:`\mu_{\text{stress}} = \min(\mathbb{E}[r], 0)` removes positive drift assumptions during stress tests.
-- :math:`\sigma_{\text{stressed}} = 1.25 \cdot \sigma_{\text{historical}}` applies a 25% volatility inflation multiplier.
-- :math:`t_{(\nu=4)}` represents Student- :math:`t` shocks with 4 degrees of freedom, producing significantly heavier tails than a normal distribution.
-
-Why Use Student- :math:`t` Shocks in QuantStream?
-"""""""""""""""""""""""""""""""""""""""""""
-- **Fat-Tail Tail-Risk Capture:** It accurately models rare market shocks and sudden liquidity contractions.
-- **Conservative Ensemble Modeling:** By evaluating the maximum adverse outcomes between bootstrap paths and stressed Student- :math:`t` paths, the screener ensures robust tail-risk boundaries.
-
-Leakage-Aware Walk-Forward Validation & Out-of-Sample Backtesting
------------------------------------------------------------------------------------
-
-Overview
-""""""""""
-To ensure simulation metrics are robust and free from look-ahead bias, QuantStream employs a **rolling-origin walk-forward backtest** evaluating true out-of-sample forward returns across historical anchor windows (net of round-trip transaction costs):
-
-.. math::
-    \text{Origin}_t \longrightarrow \text{Forecast}_{7\text{d}, 14\text{d}, 30\text{-day}} \longrightarrow \text{Held-out Evaluation}
-
-Why Use Walk-Forward Validation in QuantStream?
-""""""""""""""""""""""""""""""""""""""""""""""""
-- **Out-of-Sample Integrity:** Each downside touch probability, expected shortfall, and 7-day, 14-day, and 30-day net return forecast uses strictly trailing data available at that historical anchor origin.
-- **Model Calibration & Consistency:** Dynamically computes calibration correction factors and consistency scores against actual realized market outcomes to continuously monitor model reliability.
-
-Data-Quality Gates & Valuation-Adjusted Multi-Factor Scoring
------------------------------------------------------------------------------------
-
-Overview
-""""""""""
-Institutional scoring incorporates strict data-quality filters (flagging extreme P/E or P/B ratios, stale financials, and missing sectors) alongside a **Macro-Regime Adaptive Multi-Factor Score**:
-
-.. math::
-    \text{Score} = \left( \sum w_i \cdot \text{Factor}_i \right) \times \text{Quality Multiplier} \times \text{Calibration Factor}
-
-- **Regime Adaptation:** Dynamically tilts factor weights (:math:`w_i`) based on benchmark (SPY) trend and volatility states (e.g., boosting valuation and downside protection during bearish or high-volatility regimes, or momentum during uptrends).
-- **Valuation Integration:** Rewards stocks with favorable P/E, P/B, and free cash flow yields.
-
-Stock Screener: Differentiating Capabilities
-=============================================
-
-Overview
---------
-
-This screener is designed to do more than filter stocks by a single metric.
-It combines market-data screening, liquidity and volatility constraints,
-technical signals, valuation inputs, downside-risk simulation, historical
-return analysis, and a market-regime-dependent scoring model.
-
-Its goal is to produce a focused, repeatable list of equity candidates with
-multiple dimensions of evidence available for review. It is a research and
-decision-support tool, not a guarantee of future returns or a substitute for
-independent investment judgment.
-
-What differentiates the screener
---------------------------------
-
-Multi-factor ranking rather than a single-indicator filter
-""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-The screener combines several score families into a composite ranking:
-
-* **Historical predictive-return score** — ranks the candidate stocks by
-  computed 7-, 14-, and 30-day historical return measures.
-* **Consistency score** — summarizes the direction and variability of rolling
-  historical return windows.
-* **Downside-risk score** — combines modeled 10% downside-touch probability,
-  historical maximum drawdown, and a tail-loss measure.
-* **Momentum score** — incorporates 5-, 20-, and 60-day momentum alongside
-  the relationship between the 50-day and 200-day moving averages.
-* **Execution/liquidity score** — ranks stocks using average daily dollar
-  volume.
-* **Entry-position score** — favors prices that are not excessively extended
-  from the 50-day moving average.
-* **Valuation score** — incorporates available P/E, price-to-book, and free
-  cash flow yield inputs.
-
-The resulting composite is intended to balance return-related signals,
-consistency, risk, momentum, tradability, entry positioning, and valuation.
-The weights are configurable in the code and are adjusted for the detected
-market regime.
-
-Why it matters
-^^^^^^^^^^^^^^
-
-A stock can look attractive on one dimension and weak on another. A composite
-framework makes those trade-offs visible and reduces dependence on any one
-indicator. It does not eliminate model risk, and the composite score should
-not be interpreted as a probability of profit.
-
-Market-regime-aware factor weighting
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-The screener evaluates SPY as a broad-market benchmark and examines its price
-relative to the 50-day and 200-day moving averages, as well as recent
-annualized volatility.
-
-Depending on the detected conditions, it changes the weights assigned to
-momentum, historical predictive-return ranking, downside protection, and
-valuation:
-
-* **Bullish trend:** increases emphasis on momentum and historical return
-  ranking.
-* **Bearish trend:** increases emphasis on valuation and downside protection
-  while reducing momentum emphasis.
-* **High-volatility conditions:** increases emphasis on valuation and downside
-  protection while reducing momentum emphasis.
-
-Why it matters
-^^^^^^^^^^^^^^
-
-The same factor mix may not be suitable in every market environment. Adaptive
-weights let the screener respond to a simple, explicit market-regime rule
-instead of applying an identical weighting scheme every day.
-
-Important limitation
-^^^^^^^^^^^^^^^^^^^^
-
-This is a rule-based regime classification, not a comprehensive macroeconomic
-forecast. The rules use SPY trend and volatility measures; they do not prove
-that the regime label is correct or that the chosen weights will outperform.
-When the required benchmark history is unavailable, the default weights may
-remain in effect.
-
-Explicit downside-risk simulation
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-The screener estimates the chance that a stock's cumulative return path will
-touch a loss threshold of 10% over a 30-trading-day horizon. Its risk engine
-uses two simulated path approaches:
-
-* **Block bootstrap:** resamples blocks of historical daily returns, retaining
-  some short-range ordering rather than drawing every day independently.
-* **Stress simulation:** uses a Student-t shock distribution, a volatility
-  multiplier, and a non-positive historical mean input to create a more
-  adverse scenario.
-
-The screener takes the larger estimated downside-touch probability from the
-bootstrap and stress approaches. It also calculates related measures,
-including terminal-loss probability, a 5% tail-loss statistic, and historical
-maximum drawdown. A risk tier is assigned from the modeled downside-touch
-probability.
-
-Why it matters
-^^^^^^^^^^^^^^
-
-Return potential is only part of a trade decision. A candidate with an
-attractive historical return profile may also have a meaningful chance of
-experiencing a large adverse move. Explicitly displaying downside measures
-helps users compare candidates on risk as well as return.
-
-Important limitation
-^^^^^^^^^^^^^^^^^^^^
-
-These are model-based estimates derived from historical returns and specified
-simulation assumptions. They are not calibrated guarantees, predictions of
-the maximum possible loss, or probabilities that a position will lose money.
-Results can be unreliable when market conditions change, history is limited,
-or a stock has undergone a structural change.
-
-Downside-model calibration and rolling consistency checks
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-The code compares modeled downside-touch estimates with a simplified
-historical rolling-window check and derives a model-calibration factor. It also
-computes a consistency score from rolling historical return windows.
-
-Why it matters
-^^^^^^^^^^^^^^
-
-A risk estimate should be examined alongside observed historical behavior.
-These checks provide additional diagnostics rather than relying solely on a
-single simulated probability.
-
-Important limitation
-^^^^^^^^^^^^^^^^^^^^
-
-The historical calibration procedure is a relatively simple diagnostic. It
-does not by itself establish statistical calibration, reliable probability
-coverage, or robustness across market regimes. Its results should be tested
-against a larger, independent evaluation set before being described as
-validated predictive accuracy.
-
-Historical 7-, 14-, and 30-day return measures, net of an assumed cost
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-For each candidate, the screener computes average historical returns over
-7-, 14-, and 30-trading-day slices and subtracts an assumed round-trip
-transaction cost. The default cost parameter is 10 basis points, configurable
-through a command-line argument.
-
-Why it matters
-^^^^^^^^^^^^^^
-
-Multiple horizons make it possible to distinguish stocks whose historical
-behavior has been stronger over shorter windows from those with stronger
-medium-term results. Including an explicit transaction-cost assumption is
-more realistic than reporting gross returns alone.
-
-Important limitation
-^^^^^^^^^^^^^^^^^^^^
-
-The code calculates these return measures from historical return slices for
-the currently selected candidates. It does not, in the implementation shown,
-rebuild and rerank the entire eligible universe independently at every
-historical decision date. Accordingly, these columns should be described as
-historical forward-window return statistics, not as conclusive proof of a
-fully point-in-time, out-of-sample strategy backtest. The simple cost
-assumption also may not capture spread, slippage, market impact, borrow costs,
-taxes, or costs that vary by stock and market conditions.
-
-Liquidity-aware candidate selection
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-The screener applies configurable minimum and maximum share-price limits,
-requires a minimum history length, and uses average daily dollar volume as a
-liquidity filter. The default settings include:
-
-* Minimum stock price: USD 10.
-* Maximum stock price: USD 350.
-* Minimum average daily dollar volume: USD 5 million.
-* Minimum price-history length: 126 trading days.
-* Target output: 50 stocks, subject to the configured cap.
-* Minimum 14-day average true range as a percentage of price: 2% in modes
-  where that filter is enabled by default.
-
-These values are parameters, not universal recommendations, and can be
-changed by the caller or command-line options.
-
-Why it matters
-^^^^^^^^^^^^^^
-
-Dollar-volume and history filters can reduce the chance of selecting stocks
-with very limited trading activity or insufficient price history for the
-chosen calculations. ATR filtering can also help identify stocks with enough
-price movement for strategies that require it.
-
-Important limitation
-^^^^^^^^^^^^^^^^^^^^
-
-A liquidity threshold does not guarantee tight spreads or execution at the
-quoted price. The prefilter is a coarse screening step, while final selection
-uses the calculated metrics. When too few stocks pass, the code can reduce
-the dollar-volume floor in an attempt to fill the requested count; users
-should inspect the effective filters and output before trading.
-
-Technical trend and momentum across multiple horizons
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-The screener calculates 5-, 20-, 60-, and 120-day momentum, 50-day and
-200-day moving averages, price distance from those averages, annualized
-volatility, recent 20-day volatility, average true range, a Sortino-style
-measure, and historical maximum drawdown.
-
-The composite momentum score uses 5-day, 20-day, and 60-day momentum and the
-50-day/200-day trend relationship. The entry-position score separately
-considers the absolute distance from the 50-day moving average.
-
-Why it matters
-^^^^^^^^^^^^^^
-
-Multiple horizons can help distinguish short-term price movement from a
-broader trend. Considering extension from a moving average also gives the
-model a separate way to assess whether price is far from a recent reference
-level.
-
-Important limitation
-^^^^^^^^^^^^^^^^^^^^
-
-Technical indicators are descriptive signals, not standalone evidence of
-future performance. Moving averages, momentum, and volatility can lag abrupt
-changes, and their usefulness can vary by stock and market regime.
-
-Valuation and business-quality inputs
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-The screener retrieves available company information and considers:
-
-* Trailing P/E, with forward P/E as a fallback when trailing P/E is absent.
-* Price-to-book ratio.
-* Profit margin.
-* Free cash flow yield, where free cash flow and market capitalization are
-  available.
-* Return on assets, used in the code's quality flag.
-
-It applies basic data-quality checks to flag missing or implausible P/E,
-price-to-book, profit-margin, or sector values. It also creates a valuation
-score from available valuation components and applies a multiplier based on
-its quality flag.
-
-Why it matters
-^^^^^^^^^^^^^^
-
-The valuation layer adds company-level information to a system that otherwise
-could rely too heavily on price behavior. It can help identify when a
-candidate's market performance is accompanied by potentially relevant
-fundamental metrics.
-
-Important limitation
-^^^^^^^^^^^^^^^^^^^^
-
-The quality flag is a simple rule, not a comprehensive assessment of business
-quality. The valuation score is a heuristic, and P/E or price-to-book ratios
-are not directly comparable across all sectors. The current code's checks do
-not establish that financial data is fresh or independently verified; API
-availability and field definitions can vary. These metrics should be treated
-as screening inputs rather than a full fundamental research process.
-
-Data-quality gates before final scoring
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Before final scoring, the code checks for selected extreme or missing
-fundamental values and removes candidates carrying data-quality flags. It
-also requires sufficient price history and usable calculated metrics.
-
-Why it matters
-^^^^^^^^^^^^^^
-
-A quantitative model can produce misleading rankings when inputs are missing,
-stale, malformed, or implausible. Explicit checks make some of these problems
-visible and help prevent obviously problematic records from flowing silently
-into the final list.
-
-Important limitation
-^^^^^^^^^^^^^^^^^^^^
-
-The checks cover a limited set of conditions. They do not guarantee that every
-input is correct, current, comparable, or free from corporate-action issues.
-The code uses third-party market-data services, and the completeness and
-accuracy of the final universe depend on their responses.
-
-Exchange-universe construction and fallback sources
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-The screener attempts to construct a stock universe from Nasdaq Trader symbol
-directories, filtering test issues and ETFs and applying symbol/name checks
-intended to remove certain non-common-stock instruments. It includes fallback
-logic that can use major index constituents and, if those sources are
-unavailable, a local cache.
-
-Why it matters
-^^^^^^^^^^^^^^
-
-Building the candidate universe from exchange-oriented symbol directories is
-more systematic than maintaining a short hand-written list of popular stocks.
-Fallbacks can also help the process continue when a primary source is
-unavailable.
-
-Important limitation
-^^^^^^^^^^^^^^^^^^^^
-
-The primary directory path is designed to focus on Nasdaq and NYSE listings,
-but the fallback sources are index constituent lists and the local cache; the
-code does not apply a final independent exchange-membership verification
-after every fallback. Therefore, the strict claim that every output is
-always a currently listed Nasdaq- or NYSE-only common stock requires
-additional validation. Symbol/name filters are heuristic and cannot identify
-every unusual security type or listing change.
-
-Optional pre-market snapshot overlay
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-When enabled and when the run occurs during the relevant pre-market window,
-the screener attempts to retrieve one-minute pre-market data. If available, it
-records pre-market price, volume, dollar volume, last-bar time, and percentage
-change versus the prior price, and uses the pre-market price in the price-band
-check.
-
-Why it matters
-^^^^^^^^^^^^^^
-
-Pre-market data can provide additional context before the regular session
-opens, rather than relying exclusively on the previous regular-session close.
-
-Important limitation
-^^^^^^^^^^^^^^^^^^^^
-
-Pre-market data may be missing, thinly traded, delayed, or noisy. The overlay
-is optional and should not be represented as guaranteed real-time data or as
-a complete pre-market execution model. Historical return calculations are not
-reconstructed from pre-market prices.
-
-Configurable operating modes and parameters
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-The script exposes settings for operating mode, price range, output count,
-minimum dollar volume, minimum history, volatility bounds, ATR threshold,
-download batch size, worker count, history period, transaction costs,
-prefilter use, pre-market overlay, and strict downside-risk filtering.
-
-Why it matters
-^^^^^^^^^^^^^^
-
-A configurable pipeline is easier to adapt to different research workflows
-than a fixed, opaque screen. Parameters can be documented, versioned, and
-tested against the needs of a particular strategy.
-
-Important limitation
-^^^^^^^^^^^^^^^^^^^^
-
-Changing parameters can change the output materially. Parameter tuning on the
-same historical data used to evaluate performance can lead to overfitting.
-Configuration changes should be recorded and evaluated on separate data.
-
-Risk cutoff can be advisory or enforced
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-The code calculates whether a stock meets the configured downside-risk cutoff
-and a minimum consistency threshold. By default, this result is informational:
-the candidate is not automatically excluded for failing the risk cutoff.
-When the ``--strict-risk-gate`` option is enabled, candidates that fail the
-cutoff are excluded before the final ranking.
-
-Why it matters
-^^^^^^^^^^^^^^
-
-This supports two distinct workflows: a broad research list that exposes
-risk differences, and a more restrictive candidate list that enforces a
-specified model-based risk rule.
-
-Important limitation
-^^^^^^^^^^^^^^^^^^^^
-
-A strict risk gate only enforces the model's chosen threshold. It cannot
-guarantee that realized losses remain below 10%, and it may exclude useful
-candidates or retain risky ones if the model is miscalibrated.
-
-Structured CSV output for inspection and downstream workflows
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-The ``best`` mode writes a ``best_stock_candidates.csv`` file containing
-ticker, sector, price, selected valuation metrics, dollar volume, volatility,
-20-day momentum, historical maximum drawdown, modeled 30-day downside-touch
-probability, 7-/14-/30-day historical return measures, composite score, and
-risk tier.
-
-Why it matters
-^^^^^^^^^^^^^^
-
-A structured output supports repeatable review, sorting, comparison, and
-integration with other research tools. It also makes it possible to audit why
-a stock appears attractive or risky without relying only on a ticker list.
-
-Architecture Documentation: Pre-Market Futures Telemetry & Genetic Autotuning
+QuantStream Institutional Alpha & Tail-Risk Guarded Stock Screener
 ========================================================================
 
-Overview
----------
-The institutional stock screener features an autonomous architecture designed to protect capital during overnight market distress and optimize multi-factor performance. This is achieved via two core subsystems:
+**QuantStream performs advanced Autonomous Market Regime Adaptation with Multi-Objective NSGA-II Sobol Genetic Factor Optimization**.
 
-* **Pre-Market Index Futures Telemetry (ES=F, NQ=F)**: Captures overnight price discovery and macro shock states prior to the regular cash session.
-* **Genetic Algorithm (GA) Hyperparameter Autotuning**: Dynamically evolves multi-factor institutional weights across cross-sectional candidate performance rather than relying on static assumptions.
+The **QuantStream Institutional Alpha Screener** is an advanced quantitative engine designed to screen US equity markets (NASDAQ and NYSE) for high-alpha equities. It combines **Quasi-Monte Carlo (QMC)** variance reduction using low-discrepancy Sobol sequences with **NSGA-II Multi-Objective Genetic Pareto Optimization**, **Bayesian Hierarchical Shrinkage**, and **Stress-Bootstrapped Monte Carlo Simulations** over a dynamic holding horizon (:math:`H = \text{max\_days\_on\_books}`).
 
+Key Architectural Features
+==========================
 
-Pre-Market Index Futures Integration
-=================================
+* **Dynamic Universe Retrieval & Verification**:
+  Automatically harvests listing directories directly from NASDAQ Trader (`nasdaqlisted.txt` and `otherlisted.txt`). The engine strips out warrants, preferred shares, test issues, ADRs/ADSs, and exchange-traded funds (ETFs) to isolate common equities. If exchange files are unreachable, it executes a multi-stage fallback to index constituents (S&P 500, Nasdaq-100, DJIA) and local caches.
 
-Purpose & Design
-----------------
-Standard cash equity benchmarks (such as ``SPY``) only capture regular trading hours (9:30 AM – 4:00 PM EST). By integrating continuous index futures contracts (``ES=F`` for S&P 500 and ``NQ=F`` for Nasdaq), the screener gains visibility into overnight macroeconomic shifts, geopolitical events, and after-hours earnings prints.
+* **Pre-Market Telemetry & Index Futures Risk Shield (`ES=F`, `NQ=F`)**:
+  Monitors pre-market price action and overnight index futures contracts (`NQ=F`, `ES=F`). If pre-market Nasdaq futures drop by :math:`\le -1.5\%`, an autonomous **Risk-Off Shield** trips, shifting factor priorities toward deep valuation, defensive quality, and downside protection.
 
-Execution Flow
---------------
-1. **Data Ingestion**: During pre-market execution, the screener pulls recent historical and intraday bars for major index futures.
-2. **Shock Detection**: Computes the overnight percentage change of ``NQ=F`` and evaluates it against macro thresholds.
-3. **Regime Bias Override**: If a significant pre-market drop occurs (e.g., :math:`\le -1.5\%` on ``NQ=F``), a ``futures_shock`` flag trips, instantly transitioning the system into a **Risk-Off Shield** regime. This overrides default scoring priorities by scaling down high-beta momentum weights and pivoting focus toward deep valuation and low downside-touch risk.
+* **NSGA-II Multi-Objective Sobol Genetic Factor Optimization**:
+  Replaces fixed factor weights with a real-time non-dominated sorting genetic algorithm (**NSGA-II**). The population space is initialized via **Scrambled Sobol Sequences** to optimize competing institutional objectives: maximizing risk-adjusted return (Sortino ratio) while minimizing tail drawdown risk along a Pareto frontier.
 
+* **Empirical Bayes Hierarchical Shrinkage & Tail Confidence Overlay**:
+  Mitigates cross-sectional sample noise in single-stock scores by regularizing individual scores toward sector and global averages using an Empirical Bayes weighting parameter (:math:`\lambda_k`). Ratings are further adjusted by a Gaussian survival function of modeled 30-day downside touch probabilities.
 
-Genetic Algorithm (GA) Hyperparameter Autotuning
-===================================================
+* **3,000-Path Hybrid Monte Carlo Risk Engine**:
+  Combines **Circular Moving-Block Bootstrapping** (5-day blocks to preserve empirical autocorrelation) with **Heavy-Tailed Student-t Distribution Shocks** (:math:`\nu = 4`, 1.25x volatility multiplier) to compute 30-day downside-touch probabilities (:math:`P_{\text{touch}}`), terminal drop risks, and 5% Expected Shortfall (:math:`\text{ES}_{5\%}`).
 
-Purpose & Design
-----------------
-Static multi-factor weight assignments can become brittle as market cycles shift between secular bull markets and high-volatility bear regimes. To solve this, the pipeline uses a **Genetic Algorithm (GeneticFactorOptimizer)** to discover optimal, non-linear institutional weight vectors (:math:`\mathbf{w}`) in real-time.
+* **Leakage-Aware Out-of-Sample Walk-Forward Backtesting**:
+  Evaluates true out-of-sample forward returns over historical anchor windows across 7-, 14-, and 30-trading-day horizons, net of round-trip transaction costs (default 10 bps).
 
-Mathematical Formulation & Chromosome Structure
-------------------------------------------------
-Represented as a normalized vector across 7 distinct institutional metrics:
+* **Guaranteed Target-Count Fallback Cascade**:
+  Employs a multi-tier fallback mechanism with dynamic parameter relaxation (floor scaling) ensuring the output count (e.g., 50 stocks) is strictly filled under all volatility regimes.
 
-.. math::
-
-   \mathbf{w} = [w_{\text{pred}}, w_{\text{cons}}, w_{\text{down}}, w_{\text{mom}}, w_{\text{exec}}, w_{\text{entry}}, w_{\text{val}}], \quad \sum w_i = 1
-
-The fitness function evaluates cross-sectional performance using a risk-adjusted return metric (Sharpe/Sortino ratio) derived from top-tier candidates over historical walk-forward windows:
-
-.. math::
-
-   \text{Fitness}(\mathbf{w}) = \frac{\mu(\text{Net Returns of Top Quartile})}{\sigma(\text{Net Returns of Top Quartile}) + \epsilon}
-
-Evolutionary Cycle
-------------------
-1. **Initialization**: Generates a population of random weight configurations using a Dirichlet distribution, blended smoothly with the current macro regime bias vector.
-2. **Selection**: Evaluates fitness across the generation and retains the top 20% elite parent chromosomes.
-3. **Crossover & Mutation**: Breeds parent weights using random linear combinations (:math:`\alpha`) combined with Gaussian mutation noise (:math:`\mathcal{N}(0, 0.05)`) to explore new hyperparameter combinations.
-4. **Convergence**: After 15 generations, the algorithm outputs the globally optimized weight vector for final multi-factor stock scoring.
-
-
-Configuration & Parameter Reference
+Methodology & Quantitative Mathematics
 ======================================
 
-.. list-table::
-   :widths: 25 20 55
-   :header-rows: 1
+1. Dynamic Data-Quality Gates & Fundamental Valuation
+-----------------------------------------------------
 
-   * - Parameter
-     - Default Value
-     - Description
-   * - ``num_generations``
-     - ``15``
-     - Number of evolutionary cycles executed by the Genetic Algorithm during screening.
-   * - ``population_size``
-     - ``30``
-     - Number of competing weight chromosomes evaluated per generation.
-   * - ``mutation_rate``
-     - ``0.15``
-     - Probability of injecting random Gaussian exploration noise into offspring weights.
-   * - ``futures_drop_threshold``
-     - ``-1.5%``
-     - Percentage drop in ``NQ=F`` pre-market required to trigger the autonomous Risk-Off Shield.
+Before candidate scoring, stocks pass fundamental sanity filters:
 
-QuantStream AI More Screener Details
-========================================
+* **P/E Ratio Gate**: :math:`0 < \text{P/E} \le 500`
+* **P/B Ratio Gate**: :math:`0 < \text{P/B} \le 100`
+* **Profit Margin Gate**: :math:`-200\% \le \text{Profit Margin} \le +200\%`
+* **Sector Verification**: Valid GICS economic sector classification.
 
-Overview
-========
-
-The **QuantStream AI Stock Screener** is an institutional-grade algorithmic equity candidate selection engine. Designed for production execution, it transitions traditional functional stock screeners into an autonomous, multi-objective alpha generation architecture.
-
-The engine autonomously ingests live market data, dynamically optimizes multi-factor scoring weights across high-dimensional search spaces, and performs real-time out-of-sample stress testing to output a risk-managed vector of target equity candidates.
-
-Key Features
-------------
-
-* **NSGA-II Multi-Objective Genetic Algorithm**: Evolves multi-factor weight parameters along a non-dominated Pareto frontier to maximize expected return while suppressing downside tail risk.
-* **Sobol Quasi-Monte Carlo (QMC) Initialization**: Utilizes low-discrepancy Sobol sequence sampling for uniform search-space coverage, preventing local minima stagnation during parameter evolution.
-* **Macro-Regime Telemetry Shield**: Monitors real-time pre-market futures telemetry (``ES=F``, ``NQ=F``) and benchmark moving averages (``SPY``) to trigger automated risk-off tilts during macro shocks.
-* **3,000-Path Monte Carlo Downside Engine**: Stress-tests every candidate across 3,000-path block-bootstrap simulations to compute explicit 30-day downside-touch probabilities.
-* **Autonomous Fallback & Delivery Gates**: Auto-relaxing constraint relaxation loops guarantee exact candidate volume (e.g., target 50 stocks) under extreme market volatility without manual intervention.
-
-System Architecture
-===================
-
-The following execution pipeline outlines the high-throughput quantitative lifecycle:
-
-.. figure:: qsprocess.png
-   :scale: 60%
-
-Mathematical Model & Optimization
-=================================
-
-Multi-Factor Scoring Equation
------------------------------
-
-Every equity candidate :math:`i` within the filtered universe is scored using a vector of seven normalized institutional scoring factors:
+Fundamental metrics are combined into a composite **Valuation Score**:
 
 .. math::
 
-   S_i = w_{\text{pred}} \cdot S_{i,\text{pred}} + w_{\text{cons}} \cdot S_{i,\text{cons}} + w_{\text{down}} \cdot S_{i,\text{down}} + w_{\text{mom}} \cdot S_{i,\text{mom}} + w_{\text{exec}} \cdot S_{i,\text{exec}} + w_{\text{entry}} \cdot S_{i,\text{entry}} + w_{\text{val}} \cdot S_{i,\text{val}}
+   S_{\text{val}} = \frac{1}{M} \sum_{m=1}^{M} S_m, \quad \text{where } S_{\text{P/E}} = \text{clip}\left(100 - (\text{PE} - 20) \times 2, 0, 100\right)
 
-Where:
+2. Quasi-Monte Carlo (QMC) Sobol Sequence Initialization
+-------------------------------------------------------
 
-* :math:`S_{i,\text{pred}}`: Out-of-Sample Walk-Forward Expected Return Score
-* :math:`S_{i,\text{cons}}`: Rolling Sharpe & Profit Consistency Score
-* :math:`S_{i,\text{down}}`: Inverse Downside Risk & Max Drawdown Penalty
-* :math:`S_{i,\text{mom}}`: 20-Day Trend Momentum Vector
-* :math:`S_{i,\text{exec}}`: Liquidity & Average Daily Dollar Volume Score
-* :math:`S_{i,\text{entry}}`: Short-term Mean Reversion & Entry Quality Score
-* :math:`S_{i,\text{val}}`: Fundamental Valuation Score (P/E, P/B, Profit Margins)
-
-Constraint Vector:
-
-.. math::
-
-   \sum_{k \in \text{Factors}} w_k = 1.0 \quad \text{and} \quad w_k \ge 0.01
-
-Sobol Low-Discrepancy Population Generation
--------------------------------------------
-
-Rather than pseudo-random Gaussian initialization, population vector initialization uses a :math:`d`-dimensional Sobol sequence generator:
+Standard random sampling creates artificial clustering. The Pareto genetic optimizer initializes parameter space using a scrambled $d$-dimensional **Sobol sequence**:
 
 .. math::
 
    x_n = \bigoplus_{i=1}^{b} a_i v_i
 
-This guarantees optimal uniform coverage across hyper-dimensional weight spaces, accelerating NSGA-II Pareto frontier convergence.
+For a 7-factor decision matrix, Sobol sampling ensures uniform space-filling coverage across the hyper-cube $[0, 1]^7$, accelerating convergence to the global Pareto frontier.
 
-Configuration & Command-Line Usage
-===================================
+3. NSGA-II Multi-Objective Evolutionary Pareto Optimization
+-----------------------------------------------------------
 
-The engine can be executed via the CLI with configurable risk gates and operational targets:
+The screener evaluates seven distinct institutional factor percentile rankings:
 
-.. code-block:: bash
+.. math::
 
-   python stockscreener.py \
-       --target-count 50 \
-       --min-price 10.0 \
-       --max-price 350.0 \
-       --min-dollar-volume 5000000 \
-       --sim-paths 3000 \
-       --out-file best_stock_candidates.csv
+   \mathbf{F}_i = \left[ \text{Rank}(S_{\text{pred}}), \text{Rank}(S_{\text{cons}}), \text{Rank}(S_{\text{down}}), \text{Rank}(S_{\text{mom}}), \text{Rank}(S_{\text{exec}}), \text{Rank}(S_{\text{entry}}), \text{Rank}(S_{\text{val}}) \right]
 
-Command-Line Arguments
-----------------------
+The chromosome weight vector $\mathbf{w} = [w_1, \dots, w_7]$ with constraint $\sum w_k = 1.0$ is optimized across dual competing objectives:
 
-.. list-table:: Engine Parameters
-   :widths: 25 15 15 45
+.. math::
+
+   \max_{\mathbf{w}} f_1(\mathbf{w}) = \frac{\mu(R_{\text{top } 25\%})}{\sigma(R_{\text{top } 25\%}) + \epsilon}, \quad \min_{\mathbf{w}} f_2(\mathbf{w}) = \text{Mean}(\text{MaxDrawdown}_{\text{top } 25\%})
+
+Pareto selection ranks chromosomes based on composite fitness:
+
+.. math::
+
+   \text{Fitness}(\mathbf{w}) = f_1(\mathbf{w}) - 0.5 \cdot \left(\frac{f_2(\mathbf{w})}{100}\right)
+
+4. Circular Moving-Block Bootstrapping & Heavy-Tailed Stress Simulation
+-----------------------------------------------------------------------
+
+Historical log returns $r_t = \ln(P_t / P_{t-1})$ are simulated across 3,000 paths over forward horizon $H$:
+
+* **Bootstrap Component**: Resamples contiguous 5-day blocks $B_k = \{r_i, r_{i+1}, \dots, r_{i+4}\}$ to preserve volatility clustering.
+* **Stressed Student-t Component**: Draws shocks from a Student-t distribution ($\nu = 4$) scaled by inflated historical volatility ($\sigma_{\text{stress}} = 1.25 \times \sigma_{\text{hist}}$) and non-positive drift ($\mu_{\text{stress}} = \min(\mu, 0)$):
+
+.. math::
+
+   dX_t = \mu_{\text{stress}} \cdot dt + \sigma_{\text{stress}} \cdot t_{(\nu=4)}
+
+The 30-day downside touch probability $P_{\text{touch}}$ evaluates whether path drawdowns cross the threshold $\theta = \ln(1 + \text{DROP\_THRESHOLD})$:
+
+.. math::
+
+   P_{\text{touch}} = \max \left( \mathbb{P}\left(\min_{\tau \le H} \sum_{t=1}^{\tau} r_{t, \text{boot}} \le \theta \right), \mathbb{P}\left(\min_{\tau \le H} \sum_{t=1}^{\tau} dX_{t} \le \theta \right) \right)
+
+5. Empirical Bayes Hierarchical Shrinkage Framework
+---------------------------------------------------
+
+To eliminate sample noise in small sector samples, raw stock scores $S_{i,k}$ in sector $k$ undergo Bayesian shrinkage:
+
+.. math::
+
+   \lambda_k = \text{clip}\left( \frac{n_k}{n_k + \frac{\sigma_k^2}{\sigma_g^2}}, 0.20, 0.95 \right)
+
+.. math::
+
+   \hat{S}_{i,k} = \lambda_k S_{i,k} + (1 - \lambda_k) \mu_g
+
+The final **Gold Mine Alpha Rating** applies a tail-risk confidence multiplier based on the standard normal survival function $\Phi(x)$:
+
+.. math::
+
+   \text{Gold Mine Alpha} = \hat{S}_{i,k} \times \left( 1.0 + 0.15 \times \Phi\left( \frac{20.0 - P_{\text{touch}}}{10.0} \right) \right)
+
+Extended Mathematical Formulations & Stochastic Derivations
+===========================================================
+
+1. Stochastic Differential Equation (SDE) & Beta-Adjusted Macro Drift
+-----------------------------------------------------------------------
+
+Let the underlying asset price $P_t$ follow a geometric Brownian motion under physical measure $\mathbb{P}$ adjusted for systemic market covariance:
+
+.. math::
+
+   \frac{dP_t}{P_t} = \mu_i \, dt + \sigma_i \, dW_t + \beta_i \, dM_t
+
+Where:
+
+* $\mu_i$ represents the asset's idiosyncratic drift coefficient.
+* $\sigma_i$ is the annualized volatility of asset $i$.
+* $dW_t$ is a standard Wiener process increment ($\mathbb{E}[dW_t] = 0, \text{Var}(dW_t) = dt$).
+* $\beta_i = \frac{\text{Cov}(R_i, R_{\text{SPY}})}{\text{Var}(R_{\text{SPY}})}$ is the systemic equity beta relative to the benchmark.
+* $dM_t$ is the systemic macro shock increment governed by index futures telemetry (`NQ=F`, `ES=F`). Under overnight market distress ($\Delta \text{NQ} \le -1.5\%$), the drift parameter $\mu_i$ is explicitly bounded:
+
+.. math::
+
+   \mu_{\text{stress}} = \min\left(\mu_i, 0\right) - \gamma \cdot \max(0, -\Delta \text{NQ})
+
+2. Circular Moving-Block Bootstrap Transition Probability
+---------------------------------------------------------
+
+To capture empirical autocorrelation, skewness, and volatility clustering without assuming parametric normality, historical daily log returns $\mathbf{R} = \{r_1, r_2, \dots, r_N\}$ of length $N$ are indexed circularly.
+
+The probability of drawing starting index $I_j$ for block $B_k$ of width $w = 5$ at simulation step $j$ is defined by modular arithmetic:
+
+.. math::
+
+   \mathbb{P}(I_j = s) = \frac{1}{N}, \quad s \in \{0, 1, \dots, N-1\}
+
+.. math::
+
+   r_{j, m} = r_{(s + m) \pmod N}, \quad m = 0, 1, \dots, w-1
+
+This preserves higher-order empirical moments by recycling the tail of the return series back to the beginning without artificial truncation bias.
+
+3. NSGA-II Crowding Distance & Pareto Dominance Mathematics
+-----------------------------------------------------------
+
+The GeneticFactorOptimizer ranks institutional weight chromosomes using **Non-Dominated Sorting Genetic Algorithm II (NSGA-II)** principles.
+
+* **Pareto Dominance**: Solution vector $\mathbf{w}^{(1)}$ dominates $\mathbf{w}^{(2)}$ (denoted $\mathbf{w}^{(1)} \preceq \mathbf{w}^{(2)}$) if and only if:
+
+.. math::
+
+   \forall k \in \{1, 2\}, \, f_k(\mathbf{w}^{(1)}) \le f_k(\mathbf{w}^{(2)}) \quad \text{and} \quad \exists m \text{ s.t. } f_m(\mathbf{w}^{(1)}) < f_m(\mathbf{w}^{(2)})
+
+* **Crowding Distance Metric**: To maintain diversity along the Pareto front, the local density of solutions surrounding individual $i$ is estimated by calculating the bounding box perimeter distance across objective function space:
+
+.. math::
+
+   d(i) = \sum_{k=1}^{2} \frac{f_k(i+1) - f_k(i-1)}{f_k^{\max} - f_k^{\min}}
+
+Solutions with higher crowding distances are preferentially selected to prevent genetic premature convergence and ensure robust hyperparameter exploration.
+
+QuantStream Screener Differentiation: Feature Comparison Matrix
+===============================================================
+
+.. list-table::
+   :widths: 25 35 40
    :header-rows: 1
 
-   * - Parameter
+   * - Feature Dimension
+     - Traditional Retail / Basic Screeners
+     - QuantStream Institutional Screener
+   * - **Analytical Perspective**
+     - Backward-looking historical metrics (P/E, 50-day SMA, RSI).
+     - Forward-looking stochastic path simulation & walk-forward backtests over holding windows.
+   * - **Weight Optimization**
+     - Static heuristic formulas or equal weightings.
+     - **NSGA-II Multi-Objective Sobol Genetic Optimizer** finding optimal Pareto frontiers.
+   * - **Macro Risk Telemetry**
+     - Static sector labels; blind to overnight events.
+     - **Pre-market Index Futures (`NQ=F`, `ES=F`) Telemetry** with automated Risk-Off Shielding.
+   * - **Cross-Sectional Regularization**
+     - Unadjusted noisy point scores.
+     - **Empirical Bayes Hierarchical Shrinkage** regularized against sector and global means.
+   * - **Downside Risk Engine**
+     - Simple standard deviation (penalizes upside volatility).
+     - **Hybrid 3,000-Path Monte Carlo** (Moving-Block Bootstrap + Heavy-Tailed Student-t Shocks).
+   * - **Universe Reliability**
+     - Fixed static stock lists; fails during low-volatility squeezes.
+     - **Auto-relaxing candidate selection cascade** guaranteeing target output volume.
+
+System Architecture & Operational Pipeline
+==========================================
+
+1. **Universe Ingestion**: Fetches symbols from Nasdaq Trader directories, removes non-common equities (warrants, ETFs, preferreds).
+2. **Snapshot Prefilter**: Applies NASDAQ API bulk snapshot filtering to eliminate ultra-low volume/price outliers.
+3. **Multi-Threaded Download**: Downloads historical price structures (`2y` period) in parallel batches using thread pools.
+4. **Data-Quality Gate**: Evaluates fundamental parameters and drops invalid securities.
+5. **Macro & Futures Telemetry**: Evaluates overnight `NQ=F` returns and `SPY` benchmark moving averages to determine current macro bias.
+6. **Walk-Forward Backtesting**: Calculates net out-of-sample 7d, 14d, and 30d forward returns net of transaction slippage.
+7. **NSGA-II GA Optimization**: Evolves population factor weights against historical walk-forward metrics.
+8. **Bayesian Shrinkage & Output**: Regularizes composite ratings across sectors, computes Gold Mine Alpha Ratings, and exports structured CSV reports (`best_stock_candidates.csv` and `gold_mine_candidates.csv`).
+
+CSV Output Schema Reference
+===========================
+
+.. list-table::
+   :widths: 25 15 60
+   :header-rows: 1
+
+   * - Column Name
      - Type
-     - Default
      - Description
-   * - ``--target-count``
-     - Integer
-     - ``50``
-     - Number of top-ranked stocks to export.
-   * - ``--min-price``
-     - Float
-     - ``10.0``
-     - Minimum share price filter (USD).
-   * - ``--max-price``
-     - Float
-     - ``350.0``
-     - Maximum share price filter (USD).
-   * - ``--min-dollar-volume``
-     - Float
-     - ``5000000``
-     - Minimum 20-day average daily dollar volume ($).
-   * - ``--sim-paths``
-     - Integer
-     - ``3000``
-     - Number of Monte Carlo bootstrap simulation paths.
-   * - ``--out-file``
+   * - `Ticker`
      - String
-     - ``best_stock_candidates.csv``
-     - Output destination for candidate dataset.
-
-Output Schema Specifications
-============================
-
-The output CSV file contains key quantitative metrics per candidate:
-
-.. list-table:: Output Dataset Schema
-   :widths: 30 20 50
-   :header-rows: 1
-
-   * - Column Identifier
-     - Data Type
-     - Definition
-   * - ``Ticker``
+     - Primary equity symbol.
+   * - `Sector`
      - String
-     - Security ticker symbol.
-   * - ``Sector``
+     - GICS Sector classification.
+   * - `Price_USD`
+     - Float
+     - Current execution price (adjusted for pre-market overlay if active).
+   * - `Valuation_Score`
+     - Float
+     - Composite valuation score derived from P/E, P/B, and FCF Yield (0–100).
+   * - `P_Touch_Minus10pct_30d_Pct`
+     - Float
+     - Modeled 30-day downside touch probability (%).
+   * - `Backtested_Net_Return_30d_Pct`
+     - Float
+     - Out-of-sample walk-forward net return over 30 days net of transaction costs (%).
+   * - `Best_Stock_Score`
+     - Float
+     - GA-optimized multi-factor composite score.
+   * - `Gold_Mine_Alpha_Rating`
+     - Float
+     - Bayesian regularized score with tail-risk survival overlay.
+   * - `Risk_Tier`
      - String
-     - Primary GICS economic sector classification.
-   * - ``Price_USD``
-     - Float
-     - Current market close price in USD.
-   * - ``Valuation_Score``
-     - Float
-     - Normalized valuation metric score (0–100).
-   * - ``Avg_Dollar_Vol_20d``
-     - Float
-     - 20-day average dollar volume trading liquidity.
-   * - ``Backtested_Net_Return_30d_Pct``
-     - Float
-     - Out-of-sample walk-forward 30-day net return (%).
-   * - ``Best_Stock_Score``
-     - Float
-     - Final composite multi-objective NSGA-II score.
-   * - ``Risk_Tier``
-     - String
-     - Categorized downside risk classification tier.
-
-Performance Benchmarks
-======================
-
-Extensive walk-forward out-of-sample testing confirms the operational efficiency of the system:
-
-* **Execution Runtime:** Sub-70 seconds for full universe scan, Sobol optimization, and Monte Carlo bootstrap stress testing.
-* **30-Day Win Rate:** 98.0% out-of-sample positive return consistency.
-* **Mean 30-Day Net Return:** +5.66% net of transaction slippage costs (10 bps).
-
-What the screener does not establish
-------------------------------------
-
-The capabilities above describe the implementation in the supplied source
-file. They should not be presented as proof of institutional validation or
-guaranteed performance.
-
-In particular, the code alone does not establish that:
-
-* The model consistently outperforms SPY or another appropriate benchmark.
-* The reported historical returns represent a fully point-in-time
-  out-of-sample ranking strategy.
-* The downside probabilities are statistically calibrated across many
-  independent periods and market regimes.
-* The system avoids all look-ahead bias, survivorship bias, data revisions, or
-  corporate-action problems.
-* Every output symbol is always an active Nasdaq- or NYSE-listed common stock,
-  including when fallback sources are used.
-* The transaction-cost assumption captures actual spreads, slippage, market
-  impact, or all brokerage costs.
-* A high composite score means a stock is certain to rise or is suitable for
-  every investor.
+     - Modeled downside risk classification tier.
 
 License & Disclaimer
 ====================
