@@ -1607,13 +1607,6 @@ Configuration & Parameter Reference
 QuantStream AI More Screener Details
 ========================================
 
-.. image:: https://img.shields.io/badge/Architecture-NSGA--II%20%2B%20Sobol%20QMC-blue.svg
-   :target: https://github.com/
-.. image:: https://img.shields.io/badge/Optimization-Multi--Objective%20Pareto-green.svg
-   :target: https://github.com/
-.. image:: https://img.shields.io/badge/Telemetry-Macro%20Futures%20Aware-orange.svg
-   :target: https://github.com/
-
 Overview
 ========
 
