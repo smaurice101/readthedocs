@@ -1206,11 +1206,11 @@ By implementing Non-Dominated Sorting Genetic Algorithms (**NSGA-II**) combined 
 
 2. Robust Statistical Regularization
 ------------------------------------
-Factor crowding is a primary hazard in quantitative investing. QuantStream neutralizes this via **Empirical Bayes Sector Shrinkage** ($\lambda_k$), anchoring individual asset scores to broader sector behaviors to eliminate small-sample noise and false-positive alpha spikes.
+Factor crowding is a primary hazard in quantitative investing. QuantStream neutralizes this via **Empirical Bayes Sector Shrinkage** (:math:`\lambda_k`), anchoring individual asset scores to broader sector behaviors to eliminate small-sample noise and false-positive alpha spikes.
 
 3. Real-Time Overnight Macro Shielding
 -------------------------------------
-Rather than reacting reactively during market hours, the screener monitors overnight index futures (``ES=F``, ``NQ=F``) before the opening bell. If an overnight shock (such as a $\ge 1.5\%$ drop in Nasdaq futures) is detected, the engine automatically pivots its genetic weighting toward deep value and low-drawdown defensive profiles.
+Rather than reacting reactively during market hours, the screener monitors overnight index futures (``ES=F``, ``NQ=F``) before the opening bell. If an overnight shock (such as a :math:`\ge 1.5\%` drop in Nasdaq futures) is detected, the engine automatically pivots its genetic weighting toward deep value and low-drawdown defensive profiles.
 
 4. Bulletproof Production Execution
 -----------------------------------
