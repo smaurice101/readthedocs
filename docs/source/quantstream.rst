@@ -991,7 +991,7 @@ Historical log returns :math:`r_t = \ln(P_t / P_{t-1})` are simulated across 3,0
 
    dX_t = \mu_{\text{stress}} \cdot dt + \sigma_{\text{stress}} \cdot t_{(\nu=4)}
 
-The 30-day downside touch probability :math:`P_{\text{touch}}` evaluates whether path drawdowns cross the threshold :math:`\theta = \ln(1 + \text{DROP\_THRESHOLD})`:
+The 30-day downside touch probability :math:`P_{\text{touch}}` evaluates whether path drawdowns cross the threshold :math:`\theta = \ln(1 + \text{DROP_THRESHOLD})`:
 
 .. math::
 
