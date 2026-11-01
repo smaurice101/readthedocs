@@ -902,7 +902,7 @@ QuantStream Institutional Alpha & Tail-Risk Guarded Stock Screener
 
 **QuantStream performs advanced Autonomous Market Regime Adaptation with Multi-Objective NSGA-II Sobol Genetic Factor Optimization**.
 
-The **QuantStream Institutional Alpha Screener** is an advanced quantitative engine designed to screen US equity markets (NASDAQ and NYSE) for high-alpha equities. It combines **Quasi-Monte Carlo (QMC)** variance reduction using low-discrepancy Sobol sequences with **NSGA-II Multi-Objective Genetic Pareto Optimization**, **Bayesian Hierarchical Shrinkage**, and **Stress-Bootstrapped Monte Carlo Simulations** over a dynamic holding horizon (:math:`H = max_days_on_books`).
+The **QuantStream Institutional Alpha Screener** is an advanced quantitative engine designed to screen US equity markets (NASDAQ and NYSE) for high-alpha equities. It combines **Quasi-Monte Carlo (QMC)** variance reduction using low-discrepancy Sobol sequences with **NSGA-II Multi-Objective Genetic Pareto Optimization**, **Bayesian Hierarchical Shrinkage**, and **Stress-Bootstrapped Monte Carlo Simulations** over a dynamic holding horizon (:math:`H = maxdaysonbooks`).
 
 Key Architectural Features
 ==========================
@@ -956,7 +956,7 @@ Standard random sampling creates artificial clustering. The Pareto genetic optim
 
    x_n = \bigoplus_{i=1}^{b} a_i v_i
 
-For a 7-factor decision matrix, Sobol sampling ensures uniform space-filling coverage across the hyper-cube $[0, 1]^7$, accelerating convergence to the global Pareto frontier.
+For a 7-factor decision matrix, Sobol sampling ensures uniform space-filling coverage across the hyper-cube :math:`[0, 1]^7`, accelerating convergence to the global Pareto frontier.
 
 3. NSGA-II Multi-Objective Evolutionary Pareto Optimization
 -----------------------------------------------------------
@@ -967,7 +967,7 @@ The screener evaluates seven distinct institutional factor percentile rankings:
 
    \mathbf{F}_i = \left[ \text{Rank}(S_{\text{pred}}), \text{Rank}(S_{\text{cons}}), \text{Rank}(S_{\text{down}}), \text{Rank}(S_{\text{mom}}), \text{Rank}(S_{\text{exec}}), \text{Rank}(S_{\text{entry}}), \text{Rank}(S_{\text{val}}) \right]
 
-The chromosome weight vector $\mathbf{w} = [w_1, \dots, w_7]$ with constraint $\sum w_k = 1.0$ is optimized across dual competing objectives:
+The chromosome weight vector :math:`\mathbf{w} = [w_1, \dots, w_7]` with constraint :math:`\sum w_k = 1.0` is optimized across dual competing objectives:
 
 .. math::
 
@@ -982,10 +982,10 @@ Pareto selection ranks chromosomes based on composite fitness:
 4. Circular Moving-Block Bootstrapping & Heavy-Tailed Stress Simulation
 -----------------------------------------------------------------------
 
-Historical log returns $r_t = \ln(P_t / P_{t-1})$ are simulated across 3,000 paths over forward horizon $H$:
+Historical log returns :math:`r_t = \ln(P_t / P_{t-1})` are simulated across 3,000 paths over forward horizon :math:`H`:
 
-* **Bootstrap Component**: Resamples contiguous 5-day blocks $B_k = \{r_i, r_{i+1}, \dots, r_{i+4}\}$ to preserve volatility clustering.
-* **Stressed Student-t Component**: Draws shocks from a Student-t distribution ($\nu = 4$) scaled by inflated historical volatility ($\sigma_{\text{stress}} = 1.25 \times \sigma_{\text{hist}}$) and non-positive drift ($\mu_{\text{stress}} = \min(\mu, 0)$):
+* **Bootstrap Component**: Resamples contiguous 5-day blocks :math:`B_k = \{r_i, r_{i+1}, \dots, r_{i+4}\}` to preserve volatility clustering.
+* **Stressed Student-t Component**: Draws shocks from a Student-t distribution (:math:`\nu = 4`) scaled by inflated historical volatility (:math:`\sigma_{\text{stress}} = 1.25 \times \sigma_{\text{hist}}`) and non-positive drift (:math:`\mu_{\text{stress}} = \min(\mu, 0)`):
 
 .. math::
 
@@ -1000,7 +1000,7 @@ The 30-day downside touch probability $P_{\text{touch}}$ evaluates whether path 
 5. Empirical Bayes Hierarchical Shrinkage Framework
 ---------------------------------------------------
 
-To eliminate sample noise in small sector samples, raw stock scores $S_{i,k}$ in sector $k$ undergo Bayesian shrinkage:
+To eliminate sample noise in small sector samples, raw stock scores :math:`S_{i,k}` in sector :math:`k` undergo Bayesian shrinkage:
 
 .. math::
 
@@ -1010,7 +1010,7 @@ To eliminate sample noise in small sector samples, raw stock scores $S_{i,k}$ in
 
    \hat{S}_{i,k} = \lambda_k S_{i,k} + (1 - \lambda_k) \mu_g
 
-The final **Gold Mine Alpha Rating** applies a tail-risk confidence multiplier based on the standard normal survival function $\Phi(x)$:
+The final **Gold Mine Alpha Rating** applies a tail-risk confidence multiplier based on the standard normal survival function :math:`\Phi(x)`:
 
 .. math::
 
@@ -1022,7 +1022,7 @@ Extended Mathematical Formulations & Stochastic Derivations
 1. Stochastic Differential Equation (SDE) & Beta-Adjusted Macro Drift
 -----------------------------------------------------------------------
 
-Let the underlying asset price $P_t$ follow a geometric Brownian motion under physical measure $\mathbb{P}$ adjusted for systemic market covariance:
+Let the underlying asset price :math:`P_t` follow a geometric Brownian motion under physical measure :math:`\mathbb{P}` adjusted for systemic market covariance:
 
 .. math::
 
@@ -1030,11 +1030,11 @@ Let the underlying asset price $P_t$ follow a geometric Brownian motion under ph
 
 Where:
 
-* $\mu_i$ represents the asset's idiosyncratic drift coefficient.
-* $\sigma_i$ is the annualized volatility of asset $i$.
-* $dW_t$ is a standard Wiener process increment ($\mathbb{E}[dW_t] = 0, \text{Var}(dW_t) = dt$).
-* $\beta_i = \frac{\text{Cov}(R_i, R_{\text{SPY}})}{\text{Var}(R_{\text{SPY}})}$ is the systemic equity beta relative to the benchmark.
-* $dM_t$ is the systemic macro shock increment governed by index futures telemetry (`NQ=F`, `ES=F`). Under overnight market distress ($\Delta \text{NQ} \le -1.5\%$), the drift parameter $\mu_i$ is explicitly bounded:
+* :math:`\mu_i` represents the asset's idiosyncratic drift coefficient.
+* :math:`\sigma_i` is the annualized volatility of asset :math:`i`.
+* :math:`dW_t` is a standard Wiener process increment (:math:`\mathbb{E}[dW_t] = 0, \text{Var}(dW_t) = dt`).
+* :math:`\beta_i = \frac{\text{Cov}(R_i, R_{\text{SPY}})}{\text{Var}(R_{\text{SPY}})}` is the systemic equity beta relative to the benchmark.
+* :math:`dM_t` is the systemic macro shock increment governed by index futures telemetry (`NQ=F`, `ES=F`). Under overnight market distress (:math:`\Delta \text{NQ} \le -1.5\%`), the drift parameter :math:`\mu_i` is explicitly bounded:
 
 .. math::
 
@@ -1043,9 +1043,9 @@ Where:
 2. Circular Moving-Block Bootstrap Transition Probability
 ---------------------------------------------------------
 
-To capture empirical autocorrelation, skewness, and volatility clustering without assuming parametric normality, historical daily log returns $\mathbf{R} = \{r_1, r_2, \dots, r_N\}$ of length $N$ are indexed circularly.
+To capture empirical autocorrelation, skewness, and volatility clustering without assuming parametric normality, historical daily log returns :math:`\mathbf{R} = \{r_1, r_2, \dots, r_N\}` of length :math:`N` are indexed circularly.
 
-The probability of drawing starting index $I_j$ for block $B_k$ of width $w = 5$ at simulation step $j$ is defined by modular arithmetic:
+The probability of drawing starting index :math:`I_j` for block :math:`B_k` of width :math:`w = 5` at simulation step :math:`j` is defined by modular arithmetic:
 
 .. math::
 
@@ -1062,13 +1062,13 @@ This preserves higher-order empirical moments by recycling the tail of the retur
 
 The GeneticFactorOptimizer ranks institutional weight chromosomes using **Non-Dominated Sorting Genetic Algorithm II (NSGA-II)** principles.
 
-* **Pareto Dominance**: Solution vector $\mathbf{w}^{(1)}$ dominates $\mathbf{w}^{(2)}$ (denoted $\mathbf{w}^{(1)} \preceq \mathbf{w}^{(2)}$) if and only if:
+* **Pareto Dominance**: Solution vector :math:`\mathbf{w}^{(1)}` dominates :math:`\mathbf{w}^{(2)}` (denoted :math:`\mathbf{w}^{(1)} \preceq \mathbf{w}^{(2)}`) if and only if:
 
 .. math::
 
    \forall k \in \{1, 2\}, \, f_k(\mathbf{w}^{(1)}) \le f_k(\mathbf{w}^{(2)}) \quad \text{and} \quad \exists m \text{ s.t. } f_m(\mathbf{w}^{(1)}) < f_m(\mathbf{w}^{(2)})
 
-* **Crowding Distance Metric**: To maintain diversity along the Pareto front, the local density of solutions surrounding individual $i$ is estimated by calculating the bounding box perimeter distance across objective function space:
+* **Crowding Distance Metric**: To maintain diversity along the Pareto front, the local density of solutions surrounding individual :math:`i` is estimated by calculating the bounding box perimeter distance across objective function space:
 
 .. math::
 
