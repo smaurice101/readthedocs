@@ -1186,10 +1186,10 @@ Institutional Feature Comparison
      - **Quasi-Monte Carlo Sobol Sequences** (``scipy.stats.qmc``) co-initialized with macro-bias vectors.
    * - **Statistical Regularization**
      - Proprietary hierarchical shrinkage models to prevent factor crowding and small-sample variance.
-     - **Empirical Bayes Sector Shrinkage** ($\lambda_k$) regularizing individual scores against sector means.
+     - **Empirical Bayes Sector Shrinkage** (:math:`\lambda_k`) regularizing individual scores against sector means.
    * - **Tail-Risk Stress Testing**
      - Full-scale macroeconomic historical stress testing (2008 GFC, 2020 COVID shock models).
-     - **Circular Moving-Block Bootstrap with Student-t Shocks** ($\text{df}=4$) capturing fat tails and autocorrelation.
+     - **Circular Moving-Block Bootstrap with Student-t Shocks** (:math:`\text{df}=4`) capturing fat tails and autocorrelation.
    * - **Macro Regime Awareness**
      - Real-time cross-asset correlation matrices, NLP sentiment parsers, and automated overnight risk deleveraging.
      - **Pre-Market Index Futures Telemetry** (``ES=F``, ``NQ=F``) triggering dynamic genetic risk-off bias shifts.
