@@ -910,7 +910,7 @@ Key Architectural Features
 * **Dynamic Universe Retrieval & Verification**:
   Automatically harvests listing directories directly from NASDAQ Trader (`nasdaqlisted.txt` and `otherlisted.txt`). The engine strips out warrants, preferred shares, test issues, ADRs/ADSs, and exchange-traded funds (ETFs) to isolate common equities. If exchange files are unreachable, it executes a multi-stage fallback to index constituents (S&P 500, Nasdaq-100, DJIA) and local caches.
 
-* **Pre-Market Telemetry & Index Futures Risk Shield (`ES=F`, `NQ=F`)**:
+* **Pre-Market Telemetry & Index Futures Risk Shield (ES=F, NQ=F)**:
   Monitors pre-market price action and overnight index futures contracts (`NQ=F`, `ES=F`). If pre-market Nasdaq futures drop by :math:`\le -1.5\%`, an autonomous **Risk-Off Shield** trips, shifting factor priorities toward deep valuation, defensive quality, and downside protection.
 
 * **NSGA-II Multi-Objective Sobol Genetic Factor Optimization**:
@@ -950,7 +950,7 @@ Fundamental metrics are combined into a composite **Valuation Score**:
 2. Quasi-Monte Carlo (QMC) Sobol Sequence Initialization
 -------------------------------------------------------
 
-Standard random sampling creates artificial clustering. The Pareto genetic optimizer initializes parameter space using a scrambled $d$-dimensional **Sobol sequence**:
+Standard random sampling creates artificial clustering. The Pareto genetic optimizer initializes parameter space using a scrambled :math:`d`-dimensional **Sobol sequence**:
 
 .. math::
 
@@ -991,7 +991,7 @@ Historical log returns :math:`r_t = \ln(P_t / P_{t-1})` are simulated across 3,0
 
    dX_t = \mu_{\text{stress}} \cdot dt + \sigma_{\text{stress}} \cdot t_{(\nu=4)}
 
-The 30-day downside touch probability $P_{\text{touch}}$ evaluates whether path drawdowns cross the threshold $\theta = \ln(1 + \text{DROP\_THRESHOLD})$:
+The 30-day downside touch probability :math:`P_{\text{touch}}` evaluates whether path drawdowns cross the threshold :math:`\theta = \ln(1 + \text{DROP\_THRESHOLD})`:
 
 .. math::
 
