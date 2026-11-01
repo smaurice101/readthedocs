@@ -1155,6 +1155,67 @@ CSV Output Schema Reference
      - String
      - Modeled downside risk classification tier.
 
+QuantStream AI vs. Billion-Dollar Quant Hedge Funds: Architecture Matrix
+========================================================================
+
+.. contents:: Table of Contents
+   :depth: 2
+   :local:
+
+Overview
+========
+To understand the power and sophistication of the **QuantStream AI** stock screener, it is helpful to compare its quantitative architecture directly against the multi-billion-dollar infrastructure deployed by elite quantitative hedge funds (such as Renaissance Technologies, Two Sigma, and Citadel). 
+
+While institutional funds operate across vast compute clusters and petabyte-scale alternative datasets, QuantStream successfully distills the core mathematical machinery of a systematic desk into a lean, high-performance Python engine.
+
+Institutional Feature Comparison
+================================
+
+.. list-table:: 
+   :widths: 22 39 39
+   :header-rows: 1
+
+   * - Architectural Dimension
+     - Multi-Billion Dollar Quant Hedge Funds
+     - QuantStream AI Screener
+   * - **Factor Weight Optimization**
+     - Proprietary machine learning and reinforcement learning models trained on distributed compute grids.
+     - **NSGA-II Multi-Objective Sobol Genetic Optimizer** co-optimizing Sortino risk-adjusted returns and drawdown risk.
+   * - **Space-Filling Initialization**
+     - Latin Hypercube and Sobol low-discrepancy pseudo-random generators for robust parameter search.
+     - **Quasi-Monte Carlo Sobol Sequences** (``scipy.stats.qmc``) co-initialized with macro-bias vectors.
+   * - **Statistical Regularization**
+     - Proprietary hierarchical shrinkage models to prevent factor crowding and small-sample variance.
+     - **Empirical Bayes Sector Shrinkage** ($\lambda_k$) regularizing individual scores against sector means.
+   * - **Tail-Risk Stress Testing**
+     - Full-scale macroeconomic historical stress testing (2008 GFC, 2020 COVID shock models).
+     - **Circular Moving-Block Bootstrap with Student-t Shocks** ($\text{df}=4$) capturing fat tails and autocorrelation.
+   * - **Macro Regime Awareness**
+     - Real-time cross-asset correlation matrices, NLP sentiment parsers, and automated overnight risk deleveraging.
+     - **Pre-Market Index Futures Telemetry** (``ES=F``, ``NQ=F``) triggering dynamic genetic risk-off bias shifts.
+   * - **Production Reliability**
+     - Dedicated 24/7 DevOps teams maintaining cluster fault tolerance and automated failovers.
+     - **Progressive Multi-Attempt Relaxation Loops** guaranteeing minimum target count fulfillment (``targetcountmin = 20+``).
+
+Key Institutional Advantages
+============================
+
+1. Peerless Multi-Objective Pareto Optimization
+------------------------------------------------
+By implementing Non-Dominated Sorting Genetic Algorithms (**NSGA-II**) combined with Quasi-Monte Carlo Sobol initialization, QuantStream achieves true Pareto-optimal trade-offs between return and risk, mirroring the exact multi-objective search techniques utilized by professional asset managers.
+
+2. Robust Statistical Regularization
+------------------------------------
+Factor crowding is a primary hazard in quantitative investing. QuantStream neutralizes this via **Empirical Bayes Sector Shrinkage** ($\lambda_k$), anchoring individual asset scores to broader sector behaviors to eliminate small-sample noise and false-positive alpha spikes.
+
+3. Real-Time Overnight Macro Shielding
+-------------------------------------
+Rather than reacting reactively during market hours, the screener monitors overnight index futures (``ES=F``, ``NQ=F``) before the opening bell. If an overnight shock (such as a $\ge 1.5\%$ drop in Nasdaq futures) is detected, the engine automatically pivots its genetic weighting toward deep value and low-drawdown defensive profiles.
+
+4. Bulletproof Production Execution
+-----------------------------------
+Traditional quantitative pipelines frequently crash or return empty datasets when strict market filters tighten. QuantStream's **progressive multi-attempt relaxation loops** intelligently expand drawdown limits and volume floors iteratively, ensuring an institutional-grade candidate cohort is always successfully generated.
+
 License & Disclaimer
 ====================
 
