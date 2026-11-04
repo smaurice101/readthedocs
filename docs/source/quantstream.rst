@@ -1239,18 +1239,18 @@ Architecture & Pipeline
 Key Quantitative Mechanisms
 ---------------------------
 
-1. Vectorized Monte Carlo & Student-t Stress Simulator
+Vectorized Monte Carlo & Student-t Stress Simulator
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Simulates 3,000 parallel price paths over the remaining holding horizon (``days_left``) using a combination of historical bootstrap block sampling (block size = 5) and parametric Student-t distribution shocks (:math:`df = 4`, volatility multiplier = :math:`1.25`).
 
 * **Downside Touch Probability** (``P_Touch_Minus10pct_horizon_Pct``): The likelihood that an asset touches a :math:`-10\%` drawdown threshold over the remaining duration.
 * **Expected Remaining Return** (``Expected_Return_horizon_Pct``): Projected terminal return across simulated paths.
 
-2. Walk-Forward Rolling Backtest
+Walk-Forward Rolling Backtest
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Evaluates historical rolling windows matching the asset's remaining horizon across past price action, factoring in a :math:`0.20\%` roundtrip transaction cost assumption to measure expected real-world drift.
 
-3. Balanced 2-of-3 Warning Rule
+Balanced 2-of-3 Warning Rule
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 A position is flagged as a candidate for pruning only if it triggers **at least 2 out of 3** distinct quantitative warning criteria:
 
@@ -1319,31 +1319,6 @@ Output DataFrame Schema
    * - ``Deadwood``
      - ``str``
      - Final pruning flag (``yes`` for liquidation, ``no`` to hold).
-
-Integration & Usage Example
----------------------------
-
-The following snippet demonstrates how to run the screener module and extract actionable liquidation payloads:
-
-.. code-block:: python
-
-   import deadwoodscreener_3 as ds
-
-   # Example input portfolio array
-   input_array = [
-       ['2026-11-03T23:19:27.954724Z', 'PAYX', 'BUY', 116.74, 30.0, '3502.20', '0.00', '0.00', 100000, 'US', 'XNAS', 'interactive_broker', 'NO', 7, 5, 30],
-       ['2026-11-03T23:19:27.954724Z', 'YMAT', 'BUY', 2.24, 30.0, '67.20', '0.00', '0.00', 100000, 'US', 'XNAS', 'interactive_broker', 'NO', 5, 5, 30]
-   ]
-
-   # Run screener on portfolio array
-   report = ds.identify_deadwood_stocks(input_array)
-
-   # Extract actionable sell orders for QuantStream agent execution
-   deadwood_orders = report[report["Deadwood"] == "yes"][
-       ["Ticker", "Current_Price_USD", "Quantity", "Position_Value_USD"]
-   ]
-
-   sell_payload = deadwood_orders.to_dict(orient="records")
 
 License & Disclaimer
 ====================
