@@ -1216,6 +1216,135 @@ Rather than reacting reactively during market hours, the screener monitors overn
 -----------------------------------
 Traditional quantitative pipelines frequently crash or return empty datasets when strict market filters tighten. QuantStream's **progressive multi-attempt relaxation loops** intelligently expand drawdown limits and volume floors iteratively, ensuring an institutional-grade candidate cohort is always successfully generated.
 
+QuantStream Deadwood Screener & Portfolio Pruning Module
+========================================================
+
+Overview
+--------
+
+The **Deadwood Screener** is an institutional-grade automated portfolio pruning module designed for the **QuantStream** trading agent. Its primary objective is to identify and liquidate underperforming assets ("deadwood") while enforcing strict safety guardrails and multi-factor quantitative vetoes to prevent the premature sale of positions showing potential recovery or market-relative strength.
+
+Architecture & Pipeline
+-----------------------
+
+.. figure:: deadwood.png
+   :scale:60%
+
+1. **Input Ingestion**: Parses incoming portfolio arrays containing position metadata (ticker, buy price, quantity, days on books, minimum/maximum holding horizons).
+2. **Batch Data Fetching**: Retrieves historical price and volume data in a single vectorized batch via ``yfinance``, alongside S&P 500 (``SPY``) benchmark data for comparative relative strength analysis.
+3. **Analytical Engines**: Executes high-performance vectorized NumPy simulations, rolling walk-forward backtests, and technical momentum indicators.
+4. **Decision Logic**: Applies the balanced 2-of-3 warning rule and 4 institutional safety vetoes.
+5. **Execution Payload**: Returns a structured pandas DataFrame with actionable liquidation flags, quantities, and valuations.
+
+Key Quantitative Mechanisms
+---------------------------
+
+1. Vectorized Monte Carlo & Student-t Stress Simulator
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Simulates 3,000 parallel price paths over the remaining holding horizon (``days_left``) using a combination of historical bootstrap block sampling (block size = 5) and parametric Student-t distribution shocks (:math:`df = 4`, volatility multiplier = :math:`1.25`).
+
+* **Downside Touch Probability** (``P_Touch_Minus10pct_horizon_Pct``): The likelihood that an asset touches a :math:`-10\%` drawdown threshold over the remaining duration.
+* **Expected Remaining Return** (``Expected_Return_horizon_Pct``): Projected terminal return across simulated paths.
+
+2. Walk-Forward Rolling Backtest
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Evaluates historical rolling windows matching the asset's remaining horizon across past price action, factoring in a :math:`0.20\%` roundtrip transaction cost assumption to measure expected real-world drift.
+
+3. Balanced 2-of-3 Warning Rule
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+A position is flagged as a candidate for pruning only if it triggers **at least 2 out of 3** distinct quantitative warning criteria:
+
+* **Negative Outlook**: Expected remaining return :math:`< -1.0\%`.
+* **Stalled Momentum**: 20-day momentum :math:`< -3.0\%`.
+* **Elevated Tail Risk**: Downside touch probability :math:`> 30.0\%`.
+
+.. note::
+   Evaluation is strictly gated by the time threshold (``dob >= min_dob``), ensuring positions are given an initial trial window before being screened.
+
+Institutional Anti-Deadwood Safety Vetoes
+------------------------------------------
+
+Even if a stock triggers the 2-of-3 warning rule, it is **forcefully protected** from liquidation if any of the following institutional safety vetoes evaluate to ``True``:
+
+* **In-Profit Buffer**: The current market price exceeds the original purchase price (``current_price > buy_price``).
+* **Relative Strength (RS) Outperformance**: The asset's 20-day momentum outperforms the S&P 500 benchmark by more than :math:`+2.0\%` (``momentum20 - spy_mom20 > 2.0``).
+* **Volume Accumulation**: Recent volume exceeds :math:`1.25\times` its 20-day moving average on sessions where closing prices are flat to up, indicating institutional dip-buying sponsorship.
+
+Output DataFrame Schema
+-----------------------
+
+.. list-table::
+   :widths: 25 15 60
+   :header-rows: 1
+
+   * - Column Name
+     - Data Type
+     - Description
+   * - ``Ticker``
+     - ``str``
+     - Asset symbol (e.g., ``PAYX``, ``YMAT``).
+   * - ``Buy_Price_USD``
+     - ``float``
+     - Original execution purchase price.
+   * - ``Current_Price_USD``
+     - ``float``
+     - Latest market closing price.
+   * - ``Quantity``
+     - ``float``
+     - Position share quantity held.
+   * - ``Position_Value_USD``
+     - ``float``
+     - Current market value of the position (``Current Price × Quantity``).
+   * - ``Days_On_Books``
+     - ``int``
+     - Total elapsed days since position entry (``dob``).
+   * - ``Max_Days_On_Books``
+     - ``int``
+     - Maximum scheduled holding duration limit.
+   * - ``Days_Left``
+     - ``int``
+     - Remaining holding horizon before expiration (``max_dob - dob``).
+   * - ``Expected_Return_Remaining_Pct``
+     - ``float``
+     - Combined backtested and Monte Carlo projected return (%).
+   * - ``Momentum_20d_Pct``
+     - ``float``
+     - 20-day trailing price momentum (%).
+   * - ``Risk_Tier``
+     - ``str``
+     - Categorical classification of downside exposure.
+   * - ``Protection_Veto``
+     - ``str``
+     - Active safety override reason (or ``None`` if unprotected).
+   * - ``Deadwood``
+     - ``str``
+     - Final pruning flag (``yes`` for liquidation, ``no`` to hold).
+
+Integration & Usage Example
+---------------------------
+
+The following snippet demonstrates how to run the screener module and extract actionable liquidation payloads:
+
+.. code-block:: python
+
+   import deadwoodscreener_3 as ds
+
+   # Example input portfolio array
+   input_array = [
+       ['2026-11-03T23:19:27.954724Z', 'PAYX', 'BUY', 116.74, 30.0, '3502.20', '0.00', '0.00', 100000, 'US', 'XNAS', 'interactive_broker', 'NO', 7, 5, 30],
+       ['2026-11-03T23:19:27.954724Z', 'YMAT', 'BUY', 2.24, 30.0, '67.20', '0.00', '0.00', 100000, 'US', 'XNAS', 'interactive_broker', 'NO', 5, 5, 30]
+   ]
+
+   # Run screener on portfolio array
+   report = ds.identify_deadwood_stocks(input_array)
+
+   # Extract actionable sell orders for QuantStream agent execution
+   deadwood_orders = report[report["Deadwood"] == "yes"][
+       ["Ticker", "Current_Price_USD", "Quantity", "Position_Value_USD"]
+   ]
+
+   sell_payload = deadwood_orders.to_dict(orient="records")
+
 License & Disclaimer
 ====================
 
