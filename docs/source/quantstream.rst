@@ -1222,7 +1222,7 @@ QuantStream Deadwood Screener & Portfolio Pruning Module
 Overview
 --------
 
-The **Deadwood Screener** is an institutional-grade automated portfolio pruning module designed for the **QuantStream** trading agent. Its primary objective is to identify and liquidate underperforming assets ("deadwood") while enforcing strict safety guardrails and multi-factor quantitative vetoes to prevent the premature sale of positions showing potential recovery or market-relative strength.
+The **Deadwood Screener** is an institutional-grade automated portfolio pruning module designed for the **QuantStream** trading agent. Its primary objective is to identify and liquidate underperforming assets ("deadwood") while enforcing strict safety guardrails, macro-sector matrix rules, and multi-factor quantitative vetoes to prevent the premature sale of positions showing potential recovery or market-relative strength.
 
 Architecture & Pipeline
 -----------------------
@@ -1231,10 +1231,11 @@ Architecture & Pipeline
    :scale: 60%
 
 1. **Input Ingestion**: Parses incoming portfolio arrays containing position metadata (ticker, buy price, quantity, days on books, minimum/maximum holding horizons).
-2. **Batch Data Fetching**: Retrieves historical price and volume data in a single vectorized batch via ``yfinance``, alongside S&P 500 (``SPY``) benchmark data for comparative relative strength analysis.
+2. **Batch Data Fetching**: Retrieves historical price, volume, and macro futures data in a single vectorized batch via ``yfinance``, alongside S&P 500 (``SPY``) benchmark data and sector ETFs for comparative relative strength and rotation analysis.
 3. **Analytical Engines**: Executes high-performance vectorized NumPy simulations, rolling walk-forward backtests, and technical momentum indicators.
-4. **Decision Logic**: Applies the balanced 2-of-3 warning rule and 4 institutional safety vetoes.
-5. **Execution Payload**: Returns a structured pandas DataFrame with actionable liquidation flags, quantities, and valuations.
+4. **Macro & Sector Evaluation**: Filters broad market conditions via Nasdaq/S&P futures (``NQ=F``, ``ES=F``) and maps stock sectors to dynamic industry ETFs for rotation matrix checks.
+5. **Decision Logic**: Applies the balanced 2-of-3 warning rule, institutional safety vetoes, sector rotation matrix constraints, and hard expiration overrides.
+6. **Execution Payload**: Returns a structured pandas DataFrame with actionable liquidation flags, quantities, and valuations.
 
 Key Quantitative Mechanisms
 ---------------------------
@@ -1243,8 +1244,8 @@ Vectorized Monte Carlo & Student-t Stress Simulator
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Simulates 3,000 parallel price paths over the remaining holding horizon (``days_left``) using a combination of historical bootstrap block sampling (block size = 5) and parametric Student-t distribution shocks (:math:`df = 4`, volatility multiplier = :math:`1.25`).
 
-* **Downside Touch Probability** (``P_Touch_Minus10pct_horizon_Pct``): The likelihood that an asset touches a :math:`-10\%` drawdown threshold over the remaining duration.
-* **Expected Remaining Return** (``Expected_Return_horizon_Pct``): Projected terminal return across simulated paths.
+- **Downside Touch Probability** (``P_Touch_Minus10pct_horizon_Pct``): The likelihood that an asset touches a :math:`-10\%` drawdown threshold over the remaining duration.
+- **Expected Remaining Return** (``Expected_Return_horizon_Pct``): Projected terminal return across simulated paths.
 
 Walk-Forward Rolling Backtest
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1254,21 +1255,43 @@ Balanced 2-of-3 Warning Rule
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 A position is flagged as a candidate for pruning only if it triggers **at least 2 out of 3** distinct quantitative warning criteria:
 
-* **Negative Outlook**: Expected remaining return :math:`< -1.0\%`.
-* **Stalled Momentum**: 20-day momentum :math:`< -3.0\%`.
-* **Elevated Tail Risk**: Downside touch probability :math:`> 30.0\%`.
+- **Negative Outlook**: Expected remaining return :math:`< -1.0\%`.
+- **Stalled Momentum**: 20-day momentum :math:`< -3.0\%`.
+- **Elevated Tail Risk**: Downside touch probability :math:`> 30.0\%`.
 
 .. note::
    Evaluation is strictly gated by the time threshold (``dob >= min_dob``), ensuring positions are given an initial trial window before being screened.
 
-Institutional Anti-Deadwood Safety Vetoes
-------------------------------------------
+Macro Futures Trend Filtering & Sector Rotation Matrix
+------------------------------------------------------
 
-Even if a stock triggers the 2-of-3 warning rule, it is **forcefully protected** from liquidation if any of the following institutional safety vetoes evaluate to ``True``:
+To protect capital from execution slippage during panics and account for cyclical industry dynamics, the module integrates a dual-layer macro and sector matrix:
 
-* **In-Profit Buffer**: The current market price exceeds the original purchase price (``current_price > buy_price``).
-* **Relative Strength (RS) Outperformance**: The asset's 20-day momentum outperforms the S&P 500 benchmark by more than :math:`+2.0\%` (``momentum20 - spy_mom20 > 2.0``).
-* **Volume Accumulation**: Recent volume exceeds :math:`1.25\times` its 20-day moving average on sessions where closing prices are flat to up, indicating institutional dip-buying sponsorship.
+Macro Futures Filter (`NQ=F`, `ES=F`)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Evaluates short-term price changes in Nasdaq Futures (``NQ=F``) and S&P 500 Futures (``ES=F``). If index futures drop more than :math:`0.5\%`, the broad market state is classified as **Bad (-)**; otherwise, it is **Good (+)**.
+
+Sector Rotation & Industry Tailwinds
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Dynamically maps individual stock sectors to primary industry ETFs (e.g., Technology to ``XLK``, Financials to ``XLF``, Healthcare to ``XLV``) and tracks their 20-day trailing momentum.
+
+Market & Sector Decision Matrix
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. figure:: sectortable.png
+   :scale: 60%
+
+Institutional Anti-Deadwood Safety Vetoes & Overrides
+-----------------------------------------------------
+
+Even if a stock triggers the 2-of-3 warning rule and passes the market/sector matrix, it is **forcefully protected** from liquidation if any of the following institutional safety vetoes evaluate to ``True``:
+
+- **In-Profit Buffer**: The current market price exceeds the original purchase price (``current_price > buy_price``).
+- **Relative Strength (RS) Outperformance**: The asset's 20-day momentum outperforms the S&P 500 benchmark by more than :math:`+2.0\%` (``momentum20 - spy_mom20 > 2.0``).
+- **Volume Accumulation**: Recent volume exceeds :math:`1.25\times` its 20-day moving average on sessions where closing prices are flat to up, indicating institutional dip-buying sponsorship.
+
+.. warning::
+   **Hard Expiration Override**: If a position reaches its maximum scheduled holding limit (``dob >= max_dob``), safety vetoes and macro/sector holding filters are automatically overridden to guarantee timely portfolio pruning.
 
 Output DataFrame Schema
 -----------------------
@@ -1315,10 +1338,11 @@ Output DataFrame Schema
      - Categorical classification of downside exposure.
    * - ``Protection_Veto``
      - ``str``
-     - Active safety override reason (or ``None`` if unprotected).
+     - Active safety override reason or sector lag notation (or ``None`` if unprotected).
    * - ``Deadwood``
      - ``str``
      - Final pruning flag (``yes`` for liquidation, ``no`` to hold).
+
 
 License & Disclaimer
 ====================
