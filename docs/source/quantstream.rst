@@ -1228,7 +1228,7 @@ Architecture & Pipeline
 -----------------------
 
 .. figure:: deadwood.png
-   :scale:60%
+   :scale: 60%
 
 1. **Input Ingestion**: Parses incoming portfolio arrays containing position metadata (ticker, buy price, quantity, days on books, minimum/maximum holding horizons).
 2. **Batch Data Fetching**: Retrieves historical price and volume data in a single vectorized batch via ``yfinance``, alongside S&P 500 (``SPY``) benchmark data for comparative relative strength analysis.
