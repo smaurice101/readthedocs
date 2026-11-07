@@ -905,7 +905,7 @@ QuantStream Institutional Alpha & Tail-Risk Guarded Stock Screener
 The **QuantStream Institutional Alpha Screener** is an advanced quantitative engine designed to screen US equity markets (NASDAQ and NYSE) for high-alpha equities. It combines **Quasi-Monte Carlo (QMC)** variance reduction using low-discrepancy Sobol sequences with **NSGA-II Multi-Objective Genetic Pareto Optimization**, **Bayesian Hierarchical Shrinkage**, and **Stress-Bootstrapped Monte Carlo Simulations** over a dynamic holding horizon (:math:`H = maxdaysonbooks`).
 
 .. figure:: screenerprocess.png
-   :scale: 40%
+   :scale: 80%
 
 Key Architectural Features
 ==========================
@@ -1061,7 +1061,7 @@ To prevent selecting stocks that merely ride broad market beta, momentum is isol
 Extended Mathematical Formulations & Stochastic Derivations
 ===========================================================
 
-1. Stochastic Differential Equation (SDE) & Beta-Adjusted Macro Drift
+Stochastic Differential Equation (SDE) & Beta-Adjusted Macro Drift
 -----------------------------------------------------------------------
 
 Let the underlying asset price :math:`P_t` follow a geometric Brownian motion under physical measure :math:`\mathbb{P}` adjusted for systemic market covariance:
@@ -1082,7 +1082,7 @@ Where:
 
    \mu_{\text{stress}} = \min\left(\mu_i, 0\right) - \gamma \cdot \max(0, -\Delta \text{NQ})
 
-2. Circular Moving-Block Bootstrap Transition Probability
+Circular Moving-Block Bootstrap Transition Probability
 ---------------------------------------------------------
 
 To capture empirical autocorrelation, skewness, and volatility clustering without assuming parametric normality, historical daily log returns :math:`\mathbf{R} = \{r_1, r_2, \dots, r_N\}` of length :math:`N` are indexed circularly.
@@ -1099,7 +1099,7 @@ The probability of drawing starting index :math:`I_j` for block :math:`B_k` of w
 
 This preserves higher-order empirical moments by recycling the tail of the return series back to the beginning without artificial truncation bias.
 
-3. NSGA-II Crowding Distance & Pareto Dominance Mathematics
+NSGA-II Crowding Distance & Pareto Dominance Mathematics
 -----------------------------------------------------------
 
 The GeneticFactorOptimizer ranks institutional weight chromosomes using **Non-Dominated Sorting Genetic Algorithm II (NSGA-II)** principles.
