@@ -1048,7 +1048,7 @@ To detect stealth institutional order flow imbalance and adverse selection risk,
 Cross-Sectional Residual Momentum via OLS Orthogonalization
 -------------------------------------------------------------
 
-To prevent selecting stocks that merely ride broad market beta, momentum is isolated via Ordinary Least Squares (OLS) regression[cite: 4].
+To prevent selecting stocks that merely ride broad market beta, momentum is isolated via Ordinary Least Squares (OLS) regression.
 
 - **Market Orthogonalization**: Regresses each candidate asset's return series against the benchmark (SPY) return history to strip out systemic market co-movement:
 
