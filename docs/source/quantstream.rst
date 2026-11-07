@@ -1010,7 +1010,7 @@ The 30-day downside touch probability :math:`P_{\text{touch}}` evaluates whether
    P_{\text{touch}} = \max \left( \mathbb{P}\left(\min_{\tau \le H} \sum_{t=1}^{\tau} r_{t, \text{boot}} \le \theta \right), \mathbb{P}\left(\min_{\tau \le H} \sum_{t=1}^{\tau} dX_{t} \le \theta \right) \right)
 
 .. note::
-   **Plain-English Explanation:** If a small sector only has two or three stocks, one lucky winner can make the whole group look artificially genius. Bayesian shrinkage acts like a reality check—pulling small, noisy groups back toward the broader market average so the screener doesn't chase false alarms.
+   **Plain-English Explanation:** Imagine simulating 3,000 different possible futures for a stock over the next month. The system takes real chunks of past market behavior (to keep realistic price swings) and then artificially injects surprise economic storms (heavy-tailed shocks) to ask: *"What is the exact chance this stock crashes by 10%?"*
 
 Empirical Bayes Hierarchical Shrinkage Framework
 ---------------------------------------------------
