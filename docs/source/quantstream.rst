@@ -1266,6 +1266,9 @@ Overview
 
 The **Apex Deadwood Screener** is an institutional-grade automated portfolio pruning module designed for the **QuantStream** trading agent. Its primary objective is to identify and liquidate underperforming assets ("deadwood") while enforcing strict safety guardrails, macro-sector matrix rules, fundamental quality vetoes, and NSGA-II genetic multi-factor optimization to prevent premature liquidation of positions showing potential recovery or idiosyncratic strength.
 
+.. figure:: DeadwoodFlow.png
+   :scale: 60%
+
 Architecture & Pipeline
 -----------------------
 
