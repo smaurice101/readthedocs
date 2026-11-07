@@ -934,7 +934,7 @@ Key Architectural Features
 Methodology & Quantitative Mathematics
 ======================================
 
-1. Dynamic Data-Quality Gates & Fundamental Valuation
+Dynamic Data-Quality Gates & Fundamental Valuation
 -----------------------------------------------------
 
 Before candidate scoring, stocks pass fundamental sanity filters:
@@ -950,7 +950,7 @@ Fundamental metrics are combined into a composite **Valuation Score**:
 
    S_{\text{val}} = \frac{1}{M} \sum_{m=1}^{M} S_m, \quad \text{where } S_{\text{P/E}} = \text{clip}\left(100 - (\text{PE} - 20) \times 2, 0, 100\right)
 
-2. Quasi-Monte Carlo (QMC) Sobol Sequence Initialization
+Quasi-Monte Carlo (QMC) Sobol Sequence Initialization
 -------------------------------------------------------
 
 Standard random sampling creates artificial clustering. The Pareto genetic optimizer initializes parameter space using a scrambled :math:`d`-dimensional **Sobol sequence**:
@@ -961,7 +961,7 @@ Standard random sampling creates artificial clustering. The Pareto genetic optim
 
 For a 7-factor decision matrix, Sobol sampling ensures uniform space-filling coverage across the hyper-cube :math:`[0, 1]^7`, accelerating convergence to the global Pareto frontier.
 
-3. NSGA-II Multi-Objective Evolutionary Pareto Optimization
+NSGA-II Multi-Objective Evolutionary Pareto Optimization
 -----------------------------------------------------------
 
 The screener evaluates seven distinct institutional factor percentile rankings:
@@ -982,7 +982,7 @@ Pareto selection ranks chromosomes based on composite fitness:
 
    \text{Fitness}(\mathbf{w}) = f_1(\mathbf{w}) - 0.5 \cdot \left(\frac{f_2(\mathbf{w})}{100}\right)
 
-4. Circular Moving-Block Bootstrapping & Heavy-Tailed Stress Simulation
+Circular Moving-Block Bootstrapping & Heavy-Tailed Stress Simulation
 -----------------------------------------------------------------------
 
 Historical log returns :math:`r_t = \ln(P_t / P_{t-1})` are simulated across 3,000 paths over forward horizon :math:`H`:
@@ -1000,7 +1000,7 @@ The 30-day downside touch probability :math:`P_{\text{touch}}` evaluates whether
 
    P_{\text{touch}} = \max \left( \mathbb{P}\left(\min_{\tau \le H} \sum_{t=1}^{\tau} r_{t, \text{boot}} \le \theta \right), \mathbb{P}\left(\min_{\tau \le H} \sum_{t=1}^{\tau} dX_{t} \le \theta \right) \right)
 
-5. Empirical Bayes Hierarchical Shrinkage Framework
+Empirical Bayes Hierarchical Shrinkage Framework
 ---------------------------------------------------
 
 To eliminate sample noise in small sector samples, raw stock scores :math:`S_{i,k}` in sector :math:`k` undergo Bayesian shrinkage:
@@ -1019,7 +1019,7 @@ The final **Gold Mine Alpha Rating** applies a tail-risk confidence multiplier b
 
    \text{Gold Mine Alpha} = \hat{S}_{i,k} \times \left( 1.0 + 0.15 \times \Phi\left( \frac{20.0 - P_{\text{touch}}}{10.0} \right) \right)
 
-6. True Hierarchical Risk Parity (HRP) Tree Clustering
+True Hierarchical Risk Parity (HRP) Tree Clustering
 ------------------------------------------------------
 
 To eliminate portfolio concentration risk across highly correlated market sectors, the engine applies a true Hierarchical Risk Parity (HRP) tree clustering algorithm on return correlation distance.
@@ -1030,10 +1030,10 @@ To eliminate portfolio concentration risk across highly correlated market sector
 
     d_{i,j} = \sqrt{\frac{1}{2} (1 - \rho_{i,j})}
 
-- **Ward Linkage & Clustering**: Applies agglomerative hierarchical clustering via Ward's minimum variance method and partitions the asset space into clusters using inconsistency thresholds :math:`t = \lceil N_{\text{final}} / 3 \rceil$ .
+- **Ward Linkage & Clustering**: Applies agglomerative hierarchical clustering via Ward's minimum variance method and partitions the asset space into clusters using inconsistency thresholds :math:`t = \lceil N_{\text{final}} / 3 \rceil` .
 - **Cluster Allocation**: Iteratively selects candidates across distinct tree clusters to guarantee maximal structural diversification before final index export.
 
-7. Volume-Synchronized Probability of Toxicity (VPIN) & Order Flow Delta
+Volume-Synchronized Probability of Toxicity (VPIN) & Order Flow Delta
 -----------------------------------------------------------------------
 
 To detect stealth institutional order flow imbalance and adverse selection risk, the screener computes high-frequency volume toxicity metrics.
@@ -1045,7 +1045,7 @@ To detect stealth institutional order flow imbalance and adverse selection risk,
 
     \text{CLV}_t = \frac{(C_t - L_t) - (H_t - C_t)}{H_t - L_t}
 
-8. Cross-Sectional Residual Momentum via OLS Orthogonalization
+Cross-Sectional Residual Momentum via OLS Orthogonalization
 -------------------------------------------------------------
 
 To prevent selecting stocks that merely ride broad market beta, momentum is isolated via Ordinary Least Squares (OLS) regression[cite: 4].
