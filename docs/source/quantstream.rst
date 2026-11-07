@@ -1016,6 +1016,45 @@ The final **Gold Mine Alpha Rating** applies a tail-risk confidence multiplier b
 
    \text{Gold Mine Alpha} = \hat{S}_{i,k} \times \left( 1.0 + 0.15 \times \Phi\left( \frac{20.0 - P_{\text{touch}}}{10.0} \right) \right)
 
+6. True Hierarchical Risk Parity (HRP) Tree Clustering
+------------------------------------------------------
+
+To eliminate portfolio concentration risk across highly correlated market sectors, the engine applies a true Hierarchical Risk Parity (HRP) tree clustering algorithm on return correlation distance.
+
+- **Distance Metric**: Constructs a correlation matrix over recent historical returns (:math:`N = 60` bars) and computes Euclidean distance over correlation:
+
+.. math::
+
+    d_{i,j} = \sqrt{\frac{1}{2} (1 - \rho_{i,j})}
+
+- **Ward Linkage & Clustering**: Applies agglomerative hierarchical clustering via Ward's minimum variance method and partitions the asset space into clusters using inconsistency thresholds (:math:`t = \lceil N_{\text{final}} / 3 \rceil$).
+- **Cluster Allocation**: Iteratively selects candidates across distinct tree clusters to guarantee maximal structural diversification before final index export.
+
+7. Volume-Synchronized Probability of Toxicity (VPIN) & Order Flow Delta
+-----------------------------------------------------------------------
+
+To detect stealth institutional order flow imbalance and adverse selection risk, the screener computes high-frequency volume toxicity metrics.
+
+- **VPIN Volume Bucketing**: Aggregates intraday price and volume distributions into equal-volume buckets (:math:`V_{\text{bucket}} = \frac{\sum V}{10}`) to measure order flow toxicity independent of clock time.
+- **Order Flow Delta**: Quantifies buying versus selling pressure accumulation using close-location-value (CLV) scaling weighted by trading volume:
+
+.. math::
+
+    \text{CLV}_t = \frac{(C_t - L_t) - (H_t - C_t)}{H_t - L_t}
+
+8. Cross-Sectional Residual Momentum via OLS Orthogonalization
+-------------------------------------------------------------
+
+To prevent selecting stocks that merely ride broad market beta, momentum is isolated via Ordinary Least Squares (OLS) regression[cite: 4].
+
+- **Market Orthogonalization**: Regresses each candidate asset's return series against the benchmark (SPY) return history to strip out systemic market co-movement:
+
+.. math::
+
+    R_{i,t} = \alpha_i + \beta_i R_{\text{SPY}, t} + \varepsilon_{i,t}
+
+- **Residual Alpha Accumulation**: Ranks candidates based on annualized cumulative idiosyncratic residuals (:math:`\varepsilon_{i,t}`) over a 60-day window.
+
 Extended Mathematical Formulations & Stochastic Derivations
 ===========================================================
 
