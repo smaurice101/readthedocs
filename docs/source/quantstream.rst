@@ -904,6 +904,9 @@ QuantStream Institutional Alpha & Tail-Risk Guarded Stock Screener
 
 The **QuantStream Institutional Alpha Screener** is an advanced quantitative engine designed to screen US equity markets (NASDAQ and NYSE) for high-alpha equities. It combines **Quasi-Monte Carlo (QMC)** variance reduction using low-discrepancy Sobol sequences with **NSGA-II Multi-Objective Genetic Pareto Optimization**, **Bayesian Hierarchical Shrinkage**, and **Stress-Bootstrapped Monte Carlo Simulations** over a dynamic holding horizon (:math:`H = maxdaysonbooks`).
 
+.. figure:: screenerprocess.png
+   :scale: 60%
+
 Key Architectural Features
 ==========================
 
@@ -1027,7 +1030,7 @@ To eliminate portfolio concentration risk across highly correlated market sector
 
     d_{i,j} = \sqrt{\frac{1}{2} (1 - \rho_{i,j})}
 
-- **Ward Linkage & Clustering**: Applies agglomerative hierarchical clustering via Ward's minimum variance method and partitions the asset space into clusters using inconsistency thresholds (:math:`t = \lceil N_{\text{final}} / 3 \rceil$).
+- **Ward Linkage & Clustering**: Applies agglomerative hierarchical clustering via Ward's minimum variance method and partitions the asset space into clusters using inconsistency thresholds :math:`t = \lceil N_{\text{final}} / 3 \rceil$ .
 - **Cluster Allocation**: Iteratively selects candidates across distinct tree clusters to guarantee maximal structural diversification before final index export.
 
 7. Volume-Synchronized Probability of Toxicity (VPIN) & Order Flow Delta
