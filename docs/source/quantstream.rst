@@ -905,7 +905,7 @@ QuantStream Institutional Alpha & Tail-Risk Guarded Stock Screener
 The **QuantStream Institutional Alpha Screener** is an advanced quantitative engine designed to screen US equity markets (NASDAQ and NYSE) for high-alpha equities. It combines **Quasi-Monte Carlo (QMC)** variance reduction using low-discrepancy Sobol sequences with **NSGA-II Multi-Objective Genetic Pareto Optimization**, **Bayesian Hierarchical Shrinkage**, and **Stress-Bootstrapped Monte Carlo Simulations** over a dynamic holding horizon (:math:`H = maxdaysonbooks`).
 
 .. figure:: screenerprocess.png
-   :scale: 60%
+   :scale: 40%
 
 Key Architectural Features
 ==========================
@@ -1267,7 +1267,7 @@ Overview
 The **Apex Deadwood Screener** is an institutional-grade automated portfolio pruning module designed for the **QuantStream** trading agent. Its primary objective is to identify and liquidate underperforming assets ("deadwood") while enforcing strict safety guardrails, macro-sector matrix rules, fundamental quality vetoes, and NSGA-II genetic multi-factor optimization to prevent premature liquidation of positions showing potential recovery or idiosyncratic strength.
 
 .. figure:: DeadwoodFlow.png
-   :scale: 60%
+   :scale: 40%
 
 Architecture & Pipeline
 -----------------------
