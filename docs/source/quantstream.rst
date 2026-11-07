@@ -950,6 +950,9 @@ Fundamental metrics are combined into a composite **Valuation Score**:
 
    S_{\text{val}} = \frac{1}{M} \sum_{m=1}^{M} S_m, \quad \text{where } S_{\text{P/E}} = \text{clip}\left(100 - (\text{PE} - 20) \times 2, 0, 100\right)
 
+.. note::
+   **Plain-English Explanation:** Before the screener even looks at charts or momentum, it acts like a strict accountant. It filters out broken data, extreme accounting anomalies (like nonsense P/E ratios or bankrupt margins), and averages out basic value metrics so the system doesn't get tricked by garbage numbers.
+
 Quasi-Monte Carlo (QMC) Sobol Sequence Initialization
 -------------------------------------------------------
 
@@ -960,6 +963,9 @@ Standard random sampling creates artificial clustering. The Pareto genetic optim
    x_n = \bigoplus_{i=1}^{b} a_i v_i
 
 For a 7-factor decision matrix, Sobol sampling ensures uniform space-filling coverage across the hyper-cube :math:`[0, 1]^7`, accelerating convergence to the global Pareto frontier.
+
+.. note::
+   **Plain-English Explanation:** Imagine you are testing thousands of recipes by throwing darts blindly at a board. Random throwing often leaves big gaps or clusters. A Sobol sequence acts like a smart, evenly spaced grid, ensuring the computer tests a perfectly balanced variety of recipe combinations without missing any blind spots.
 
 NSGA-II Multi-Objective Evolutionary Pareto Optimization
 -----------------------------------------------------------
@@ -982,6 +988,9 @@ Pareto selection ranks chromosomes based on composite fitness:
 
    \text{Fitness}(\mathbf{w}) = f_1(\mathbf{w}) - 0.5 \cdot \left(\frac{f_2(\mathbf{w})}{100}\right)
 
+.. note::
+   **Plain-English Explanation:** This is like a fitness coach trying to build the ultimate athlete who is both a world-class sprinter and a marathon runner. Instead of just picking one goal, the genetic algorithm constantly tests and evolves factor mixes to find the absolute best trade-off between maximizing profits and keeping drawdowns low.
+
 Circular Moving-Block Bootstrapping & Heavy-Tailed Stress Simulation
 -----------------------------------------------------------------------
 
@@ -999,6 +1008,9 @@ The 30-day downside touch probability :math:`P_{\text{touch}}` evaluates whether
 .. math::
 
    P_{\text{touch}} = \max \left( \mathbb{P}\left(\min_{\tau \le H} \sum_{t=1}^{\tau} r_{t, \text{boot}} \le \theta \right), \mathbb{P}\left(\min_{\tau \le H} \sum_{t=1}^{\tau} dX_{t} \le \theta \right) \right)
+
+.. note::
+   **Plain-English Explanation:** If a small sector only has two or three stocks, one lucky winner can make the whole group look artificially genius. Bayesian shrinkage acts like a reality check—pulling small, noisy groups back toward the broader market average so the screener doesn't chase false alarms.
 
 Empirical Bayes Hierarchical Shrinkage Framework
 ---------------------------------------------------
@@ -1019,6 +1031,9 @@ The final **Gold Mine Alpha Rating** applies a tail-risk confidence multiplier b
 
    \text{Gold Mine Alpha} = \hat{S}_{i,k} \times \left( 1.0 + 0.15 \times \Phi\left( \frac{20.0 - P_{\text{touch}}}{10.0} \right) \right)
 
+.. note::
+   **Plain-English Explanation:** If a small sector only has two or three stocks, one lucky winner can make the whole group look artificially genius. Bayesian shrinkage acts like a reality check—pulling small, noisy groups back toward the broader market average so the screener doesn't chase false alarms.
+
 True Hierarchical Risk Parity (HRP) Tree Clustering
 ------------------------------------------------------
 
@@ -1033,6 +1048,9 @@ To eliminate portfolio concentration risk across highly correlated market sector
 - **Ward Linkage & Clustering**: Applies agglomerative hierarchical clustering via Ward's minimum variance method and partitions the asset space into clusters using inconsistency thresholds :math:`t = \lceil N_{\text{final}} / 3 \rceil` .
 - **Cluster Allocation**: Iteratively selects candidates across distinct tree clusters to guarantee maximal structural diversification before final index export.
 
+.. note::
+   **Plain-English Explanation:** If you buy ten "different" tech stocks that all crash at the exact same time when Nasdaq drops, you aren't actually diversified. HRP builds a family tree of how stocks move together and forces the portfolio to pick leaders from entirely different, uncorrelated branches.
+
 Volume-Synchronized Probability of Toxicity (VPIN) & Order Flow Delta
 -----------------------------------------------------------------------
 
@@ -1044,6 +1062,9 @@ To detect stealth institutional order flow imbalance and adverse selection risk,
 .. math::
 
     \text{CLV}_t = \frac{(C_t - L_t) - (H_t - C_t)}{H_t - L_t}
+
+.. note::
+   **Plain-English Explanation:** This acts like an undercover surveillance system for big institutional players. It measures whether stealth buyers or aggressive sellers are secretly accumulating or dumping shares behind the scenes, alerting the system to hidden market traps.
 
 Cross-Sectional Residual Momentum via OLS Orthogonalization
 -------------------------------------------------------------
@@ -1057,6 +1078,9 @@ To prevent selecting stocks that merely ride broad market beta, momentum is isol
     R_{i,t} = \alpha_i + \beta_i R_{\text{SPY}, t} + \varepsilon_{i,t}
 
 - **Residual Alpha Accumulation**: Ranks candidates based on annualized cumulative idiosyncratic residuals (:math:`\varepsilon_{i,t}`) over a 60-day window.
+
+.. note::
+   **Plain-English Explanation:** Any stock looks like a momentum champion on a day when the entire stock market is surging. This math strips away the general market tide (beta) to find stocks that are winning purely on their own unique, independent strength.
 
 Extended Mathematical Formulations & Stochastic Derivations
 ===========================================================
@@ -1082,6 +1106,9 @@ Where:
 
    \mu_{\text{stress}} = \min\left(\mu_i, 0\right) - \gamma \cdot \max(0, -\Delta \text{NQ})
 
+.. note::
+   **Plain-English Explanation:** This is the underlying mathematical physics engine. It tracks how a stock drifts day-to-day while dynamically slamming the brakes (adjusting the drift) the moment overnight futures flash a macro panic warning.
+
 Circular Moving-Block Bootstrap Transition Probability
 ---------------------------------------------------------
 
@@ -1098,6 +1125,9 @@ The probability of drawing starting index :math:`I_j` for block :math:`B_k` of w
    r_{j, m} = r_{(s + m) \pmod N}, \quad m = 0, 1, \dots, w-1
 
 This preserves higher-order empirical moments by recycling the tail of the return series back to the beginning without artificial truncation bias.
+
+.. note::
+   **Plain-English Explanation:** When recycling past stock data for our 3,000 simulation futures, this logic ensures that when we reach the end of a historical data list, we loop back to the beginning seamlessly without breaking the natural rhythm and volatility patterns of the asset.
 
 NSGA-II Crowding Distance & Pareto Dominance Mathematics
 -----------------------------------------------------------
@@ -1117,6 +1147,9 @@ The GeneticFactorOptimizer ranks institutional weight chromosomes using **Non-Do
    d(i) = \sum_{k=1}^{2} \frac{f_k(i+1) - f_k(i-1)}{f_k^{\max} - f_k^{\min}}
 
 Solutions with higher crowding distances are preferentially selected to prevent genetic premature convergence and ensure robust hyperparameter exploration.
+
+.. note::
+   **Plain-English Explanation:** When the genetic optimizer is evolving stock strategies, it doesn't want all the best solutions huddled in one crowded corner. The crowding distance rule forces the algorithm to explore diverse, distinct alternative strategies across the board.
 
 QuantStream Screener Differentiation: Feature Comparison Matrix
 ===============================================================
