@@ -1323,19 +1323,31 @@ Simulates 3,000 parallel price paths over the remaining holding horizon (``days_
 - **Downside Touch Probability** (``_risk_touch``): The likelihood that an asset touches a :math:`-10\%` drawdown threshold over the remaining duration.
 - **Expected Remaining Return** (``Expected_Return_Remaining_Pct``): Projected terminal return across simulated paths combined with walk-forward backtests.
 
+.. note::
+   **Plain-English Explanation:** This acts like a stress-tester for open positions. It simulates 3,000 possible future scenarios for the remaining days on books, injecting sudden market storms to see if a stock has a high risk of crashing by 10%.
+
 Walk-Forward Rolling Backtest & Microstructure Friction
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Evaluates historical rolling windows matching the asset's remaining horizon, factoring in base transaction costs plus **Amihud illiquidity penalties** to measure expected real-world net drift.
+
+.. note::
+   **Plain-English Explanation:** Before deciding a stock is deadwood, the system looks back at how similar price periods historically behaved and accounts for trading costs and hidden friction (like illiquidity) to see if it's truly broken or just sluggish.
 
 Cross-Sectional Residual Momentum & Return Skewness Convexity
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 - **Residual Momentum**: Isolates true idiosyncratic alpha by regressing asset returns against the SPY benchmark via OLS regression to strip out systemic market beta.
 - **Return Skewness**: Measures right-tailed return asymmetry to protect convex return distributions.
 
+.. note::
+   **Plain-English Explanation:** This checks if a stock is just drifting down because the whole market is falling (market beta) or if it has special, hidden upside strength and asymmetric comeback potential that makes it worth holding.
+
 NSGA-II Sobol Genetic Optimization & Empirical Bayes Shrinkage
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 - **Genetic Factor Optimizer**: Dynamically weights return ranks, momentum ranks, residual momentum, convexity, downside risk scores, and oversold resilience.
 - **Empirical Bayes Sector Shrinkage**: Regularizes individual health scores toward sector means to eliminate small-sample statistical noise.
+
+.. note::
+   **Plain-English Explanation:** The system uses an advanced evolutionary algorithm to figure out how much weight to give to momentum versus risk. It also smooths out small-sample noise by comparing each position against its broader sector family.
 
 Macro Futures Trend Filtering & Sector Rotation Matrix
 ------------------------------------------------------
@@ -1348,6 +1360,9 @@ Sector Rotation & Industry Tailwinds
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Dynamically maps individual stock sectors to primary industry ETFs (e.g., Technology to ``XLK``, Financials to ``XLF``, Healthcare to ``XLV``) and tracks their trailing momentum.
 
+.. note::
+   **Plain-English Explanation:** Before selling a stock, the system checks overnight futures and industry sector trends. If the whole sector or market is just having a temporary bad day, it won't panic-sell a good company.
+
 Institutional Anti-Deadwood Safety Vetoes & Fundamental Overrides
 -----------------------------------------------------------------
 
@@ -1358,6 +1373,9 @@ Even if a stock triggers multiple quantitative warning criteria and passes the m
 - **Volume Accumulation**: Recent volume exceeds :math:`1.25\times` its 20-day moving average on sessions where closing prices are flat to up, indicating institutional accumulation.
 - **Oversold Resilience / Bad News Baked In**: Maximum drawdown exceeds :math:`18.0\%` while downside touch probability remains below :math:`25.0\%`.
 - **Fundamental Quality Veto**: P/E ratio is between 5.0 and 18.0, Free Cash Flow yield is :math:`\ge 6.0\%`, or ROIC is :math:`\ge 8.0\%`.
+
+.. note::
+   **Plain-English Explanation:** Even if a stock looks weak on paper, the system has built-in "shield protocols." If a stock is already making money, heavily accumulated by big institutions, or fundamentally pristine, these safety shields block it from being sold prematurely.
 
 .. warning::
    **Hard Expiration Override**: If a position reaches its maximum scheduled holding limit (``dob >= max_dob``) and exhibits worsening price projections, safety vetoes (except fundamental quality) are overridden to guarantee timely portfolio pruning.
