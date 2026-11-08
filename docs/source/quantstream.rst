@@ -552,7 +552,7 @@ Detailed Breakdown of the Buy Process
 
 - The execution loop verifies three non-negotiable conditions before proceeding:
 
-  - **Probability Gate:** $\text{TML Probability} > \text{min\_prediction\_probability}$
+  - **Probability Gate:** :math:`\text{TML Probability} > \text{min\_prediction\_probability}`
 
   - **Uniqueness Gate:** The ticker is not already present in your active portfolio (open_positions).
 
@@ -590,7 +590,7 @@ Detailed Breakdown of the Sell Process
 
 **Emergency Stop-Loss Trigger:**
 
-- If market volatility causes a severe adverse move where the price falls below Max Price Drop $\times 1.5$, the system bypasses holding windows and executes an immediate risk-off cut.
+- If market volatility causes a severe adverse move where the price falls below Max Price Drop :math:`\times 1.5`, the system bypasses holding windows and executes an immediate risk-off cut.
 
 **Hard Expiration (Max Days on Books):**
 
@@ -602,7 +602,7 @@ Detailed Breakdown of the Sell Process
 
 **Mid-Horizon Trailing Profit Protection:**
 
-- If a stock is mid-book (min_dob <= dob < max_dob) and has accumulated a solid profit (Current PnL > 2%), but begins giving back gains, the system evaluates if the give-back exceeds $0.5 \times \text{Current PnL}$. If it does, it secures the remaining profit before it turns into a loss.
+- If a stock is mid-book (min_dob <= dob < max_dob) and has accumulated a solid profit (Current PnL > 2%), but begins giving back gains, the system evaluates if the give-back exceeds :math:`0.5 \times \text{Current PnL}`. If it does, it secures the remaining profit before it turns into a loss.
 
 **Apex Deadwood Pruning Screener:**
 
