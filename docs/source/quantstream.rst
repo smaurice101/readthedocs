@@ -531,6 +531,88 @@ To evaluate viability, performance, and flexibility, this TML solution is benchm
 
 ---
 
+When QuantStream Buys a Stock
+==============================
+
+.. figure:: qsbuy.png
+   :scale: 60%
+
+Detailed Breakdown of the Buy Process
+-------------------------------------
+
+**Screener Output Generation**
+
+- Before market open, the QuantStream stock screener outputs its top verified candidates into best_stock_candidates.csv, featuring their Gold Mine Alpha Ratings, volatility percentages, and modeled downside risk tiers.
+
+**TML Real-Time Prediction:**
+
+- The TML (Trading Machine Learning) inference engine scans incoming real-time ticks or quotes and calculates a dynamic probability score representing the likelihood of a successful trade entry.
+
+**Core Gating Checks:**
+
+- The execution loop verifies three non-negotiable conditions before proceeding:
+
+  - **Probability Gate:** $\text{TML Probability} > \text{min\_prediction\_probability}$
+
+  - **Uniqueness Gate:** The ticker is not already present in your active portfolio (open_positions).
+
+  - **Capacity Gate:** Adding the position will not breach max_open_positions.
+
+**Budget & Capital Allocation:**
+
+- The system checks available cash against tradebudget and targetnotionalpct to ensure sufficient capital is uncommitted.
+
+**Volatility- & Alpha-Adjusted Sizing:**
+
+- Instead of fixed sizing, the number of shares is dynamically scaled:
+
+  - **Volatility Adjustment:** Higher volatility scales position size down to maintain constant risk parity across holdings.
+
+  - **Alpha Scaling:** Higher Gold Mine Alpha Ratings or NSGA-II composite scores scale allocation up toward target notional limits.Order 
+
+- Submission & Ledger Update:
+
+  - The order is routed (with optional limit orders configured via addlimitorder), and the position is officially added to the active book to be monitored by the Deadwood Pruning Screener.
+
+
+When QuantStream Sells a Stock
+==============================
+
+.. figure:: qssell.png
+   :scale: 60%
+
+Detailed Breakdown of the Sell Process
+---------------------------------------
+
+**Take-Profit Execution**
+
+- If a stock's price appreciates past your configured Take Profit % threshold relative to the entry price, the system immediately flags the position for liquidation to lock in gains.
+
+**Emergency Stop-Loss Trigger:**
+
+- If market volatility causes a severe adverse move where the price falls below Max Price Drop $\times 1.5$, the system bypasses holding windows and executes an immediate risk-off cut.
+
+**Hard Expiration (Max Days on Books):**
+
+- When an asset reaches its maximum allowed lifespan (maxdaysonbooks), safety vetoes are overridden and the position is pruned to free up capital for fresh screener candidates.
+
+**Minimum Holding & Loss Threshold (Max Pct Sell Loss):**
+
+- Once a position has cleared the initial trial window (min_dob), if its loss matches or exceeds Max Pct Sell Loss, the system cuts the trade to prevent further capital degradation.
+
+**Mid-Horizon Trailing Profit Protection:**
+
+- If a stock is mid-book (min_dob <= dob < max_dob) and has accumulated a solid profit (Current PnL > 2%), but begins giving back gains, the system evaluates if the give-back exceeds $0.5 \times \text{Current PnL}$. If it does, it secures the remaining profit before it turns into a loss.
+
+**Apex Deadwood Pruning Screener:**
+
+- For positions meeting minimum age criteria, the Apex Deadwood Screener evaluates residual momentum, return skewness, 20-day trailing trends, and institutional safety vetoes (such as in-profit buffers or volume accumulation) to confirm whether the position should be pruned.
+
+**Execution & Audit Logging:**
+
+- Validated sell orders are formatted into a structured liquidation dictionary for automated routing, and all decisions are logged to deadwood_audit_ledger.csv.
+
+
 Key Advantages Over Commercial Trading Platforms
 ===================================================
 
