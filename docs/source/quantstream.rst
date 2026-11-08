@@ -531,6 +531,29 @@ To evaluate viability, performance, and flexibility, this TML solution is benchm
 
 ---
 
+QuantStream Mid-Frequency Trading with Interactive Brokers
+========================================================
+
+.. figure:: qsibkrtrading.png
+   :scale: 60%
+
+**Key Stages of the PipelineIngestion & Signal Generation:**
+
+  - Quantitative models ingest real-time tick and bar feeds from Finnhub WebSockets or Interactive Brokers, outputting structured signal packets containing the target symbol, action (BUY or SELL), quantity, and price.
+
+**Global Status & Position Guards:**
+
+  - Before any order is dispatched, the engine checks the file-based trading toggle (tradestatus.txt) and queries your thread-safe internal ledger (self.holdings) to prevent duplicate long entries or liquidating unheld assets.
+
+**Contract Qualification & Rate Limiting:**
+
+  - Assets are pre-qualified asynchronously (qualifyContractsAsync) to avoid latency spikes, and orders are passed through a strict rate-limiting scheduler (up to 50 msgs/sec) to stay well within IBKR pacing guidelines.
+
+**Socket Dispatch & Fill Reconciliation:**
+
+  - Orders route through the local TCP socket to TWS or IB Gateway (port 7497). Incoming execution fills are captured asynchronously by _on_fill_event, deduplicated by execution ID, and reconcile your position book in real time.   
+
+
 When QuantStream Buys a Stock
 ==============================
 
