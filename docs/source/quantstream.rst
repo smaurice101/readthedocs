@@ -534,6 +534,10 @@ To evaluate viability, performance, and flexibility, this TML solution is benchm
 QuantStream Mid-Frequency Trading with Interactive Brokers
 ========================================================
 
+.. tip::
+
+   You can download the Interactive Broker Desktop UI from here: `https://www.interactivebrokers.ca/en/trading/download-tws.php <https://www.interactivebrokers.ca/en/trading/download-tws.php>`_
+
 .. figure:: qsibkrtrading.png
    :scale: 60%
 
