@@ -546,7 +546,7 @@ Detailed Breakdown of the Buy Process
 
 **TML Real-Time Prediction:**
 
-- The TML (Trading Machine Learning) inference engine scans incoming real-time ticks or quotes and calculates a dynamic probability score representing the likelihood of a successful trade entry.
+- The TML (Transactional Machine Learning) inference engine scans incoming real-time ticks or quotes and calculates a dynamic probability score representing the likelihood of a successful trade entry.
 
 **Core Gating Checks:**
 
