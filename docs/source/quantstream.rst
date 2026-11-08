@@ -552,7 +552,7 @@ Detailed Breakdown of the Buy Process
 
 - The execution loop verifies three non-negotiable conditions before proceeding:
 
-  - **Probability Gate:** :math:`\text{TML Probability} > \text{min\_prediction\_probability}`
+  - **Probability Gate:** :math:`\text{TML Probability} > \text{min_prediction_probability}`
 
   - **Uniqueness Gate:** The ticker is not already present in your active portfolio (open_positions).
 
@@ -564,13 +564,13 @@ Detailed Breakdown of the Buy Process
 
 **Volatility- & Alpha-Adjusted Sizing:**
 
-- Instead of fixed sizing, the number of shares is dynamically scaled:
+- **Instead of fixed sizing, the number of shares is dynamically scaled:*
 
   - **Volatility Adjustment:** Higher volatility scales position size down to maintain constant risk parity across holdings.
 
   - **Alpha Scaling:** Higher Gold Mine Alpha Ratings or NSGA-II composite scores scale allocation up toward target notional limits.Order 
 
-- Submission & Ledger Update:
+- **Submission & Ledger Update:**
 
   - The order is routed (with optional limit orders configured via addlimitorder), and the position is officially added to the active book to be monitored by the Deadwood Pruning Screener.
 
