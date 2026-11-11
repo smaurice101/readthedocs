@@ -275,6 +275,9 @@ Raw price and volume streams are non-stationary and drift over time. The TML eng
 
 Finnhub Raw Data Used to Extract Features
 ---------------------------------------------
+
+Data from `Finnhub.io <https://finnhub.io>`_
+
 .. code-block::
 
    {'type': 'trade', 'data': [{'t': 1794427812656, 'p': 258.33, 'v': 100, 'c': ['1'], 's': 'DGX'}, {'t': 1794427812656, 'p': 258.36, 'v': 137, 'c': ['1'], 's': 'DGX'}]}
