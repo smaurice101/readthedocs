@@ -283,6 +283,10 @@ Finnhub Raw Data Used to Extract Features
 
    * - Field
      - Description
+   * - 'type'
+     - Indicates the category of the message stream. In this case, it means the payload contains real-time execution trades (last price updates).
+   * - 'data'
+     - A list (array) of individual trade events that occurred virtually simultaneously or were batched together by the WebSocket server.
    * - 's'
      - The ticker symbol for the asset traded. Here it is DGX (Quest Diagnostics).
    * - 'p'
