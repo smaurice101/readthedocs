@@ -273,6 +273,27 @@ Quantitative Feature Matrix (:math:`\mathbf{X}_t`)
 
 Raw price and volume streams are non-stationary and drift over time. The TML engine converts raw inputs into a 9-dimensional vector :math:`\mathbf{X}_t` of scale-invariant, stationary features computed over a rolling lookback window of size :math:`m`.
 
+Finnhub Raw Data Used to Extract Features
+---------------------------------------------
+.. code-block::
+
+   {'type': 'trade', 'data': [{'t': 1794427812656, 'p': 258.33, 'v': 100, 'c': ['1'], 's': 'DGX'}, {'t': 1794427812656, 'p': 258.36, 'v': 137, 'c': ['1'], 's': 'DGX'}]}
+
+.. list-table::
+
+   * - Field
+     - Description
+   * - 's'
+     - The ticker symbol for the asset traded. Here it is DGX (Quest Diagnostics).
+   * - 'p'
+     - The execution price per share for that specific trade.
+   * - 'v'
+     - The number of shares traded in this exact transaction (e.g., 100 shares at $258.33, and a subsequent trade of 137 shares at $258.36).
+   * - 't'
+     - The UNIX timestamp in milliseconds indicating precisely when the trade took place.(Tip: In Python, you can convert this to a readable UTC time using datetime.fromtimestamp(1794427812656 / 1000.0, tz=timezone.utc)).
+   * - 'c'
+     - A list of trade condition codes provided by the exchange. Condition code ['1'] typically denotes a Regular Sale (a standard, normal trade execution during regular market hours without special settlement conditions).
+
 Ring Buffer State Management
 ----------------------------
 
