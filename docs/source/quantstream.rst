@@ -97,6 +97,8 @@ QuantStream runs in a Docker container: `https://hub.docker.com/r/maadsdocker/qu
    --env IBKRHOST=host.docker.internal \
    --env IBKRPORT=7497 \
    --env IBKRCLIENTID=99 \
+   --env IBKRUSERNAME= \
+   --env IBKRPASSWORD= \ 
    --env MAXSTOCKS=50 \
    maadsdocker/quantstream-3f10-ml-amd64-public:latest
 
