@@ -156,7 +156,6 @@ QuantStream connects headlessly to **IB Gateway** on ``4001`` (live) or ``4002``
 1. **Configure QuantStream:** Point ``IBKRPORT`` at the IB Gateway API port (``4001`` for live, ``4002`` for paper) and set ``IBKRCLIENTID`` (e.g., ``99``).
 2. **Monitor in Parallel with TWS:** Run TWS logged into the same account to monitor positions, orders, and executions directly in the TWS **Trades** and **Portfolio** panels.
 3. **Optional Secondary TWS API Client:** If connecting a separate API watcher to TWS on ``7496`` (live) or ``7497`` (paper), assign a distinct Client ID (e.g., ``900``) so API sessions do not collide with QuantStream.
-4. **Session Handling:** Configure ``ExistingSessionDetectedAction=primary`` and ``AcceptIncomingConnectionAction=accept`` in ``IBController.ini`` so IB Gateway and TWS can coexist without dropping the headless session[cite: 19].
 
 .. figure:: qsorderflow.png
    :scale: 60%
