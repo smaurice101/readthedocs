@@ -139,7 +139,7 @@ To setup Interactive Brokers in Linux do the following:
 
    .. code-block:
 
-     cd ~/Jts
+       cd ~/Jts
 
 4. Start Trader Workstation:
 
