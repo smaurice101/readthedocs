@@ -137,13 +137,15 @@ To setup Interactive Brokers in Linux do the following:
 
 3. This will install in folder JTS - goto to this folder:
 
-   .. code-block:
+   .. code-block::
 
        cd ~/Jts
 
 4. Start Trader Workstation:
 
-   ./tws
+   .. code-block::
+
+      ./tws
 
 5. Configure TWS (see image): GOTO FILE -> Global Configuration
 
