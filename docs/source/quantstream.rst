@@ -51,9 +51,16 @@ QuantStream runs in a Docker container: `https://hub.docker.com/r/maadsdocker/qu
 
 2. Setup an Interactive broker account: `https://www.interactivebrokers.ca/en/home.php <https://www.interactivebrokers.ca/en/home.php>`_
 
+   Also see: :ref:`Setting Up Interactive Brokers`
+
 .. important::
 
-    Integration with Interactive Broker in QuantStream will be coming soon.
+    You will need a Username and Password for Interactive Broker (funded) account if you want to do REAL algorithmic trading with QuantStream.  
+
+    If you just want to test with Interactive Broker, before you use it with REAL money - then you can use Interactive Broker DEMO account as shown in image below - it is completely FREE and RISK-FREE and a great way to test QuantStream with real-time market prices and order filled by IB.
+
+.. figure:: ibdemo.png
+   :scale: 60%
 
 3. Run the QuantStream container:
 
@@ -101,6 +108,53 @@ QuantStream runs in a Docker container: `https://hub.docker.com/r/maadsdocker/qu
    --env IBKRPASSWORD= \ 
    --env MAXSTOCKS=50 \
    maadsdocker/quantstream-3f10-ml-amd64-public:latest
+
+Setting Up Interactive Brokers
+------------------------------
+
+To setup Interactive Brokers in Linux do the following:
+
+.. figure:: ibdashpro.png
+   :scale: 60%
+
+1. If using windows start WSL (windows subsystem for Linux).  Goto Command Prompt and type:
+
+   .. code-block::
+
+      wsl
+
+2. Download Trader Woskstation for Linux:
+
+   .. code-block::
+
+      https://www.interactivebrokers.ca/en/trading/download-tws.php
+
+3. This will install in folder JTS - goto to this folder:
+
+   .. code-block:
+
+     cd ~/Jts
+
+4. Start Trader Workstation:
+
+   ./tws
+
+5. Configure TWS: GOTO FILE -> Global Configuration
+
+6. Click: API -> Settings
+
+   - Check: Enable ActiveX and Socket Clients
+
+   - Uncheck: Allow connections from localhost only
+
+   - Create trusted IPs:
+
+     - 127.0.0.1
+     - 172.17.0.2
+
+7. Click: Apply and OK
+
+8. ACCEPT all dialog boxes as QuantStream started sending trades to IB/TWS
 
 Container Runtime Flags
 -----------------------
