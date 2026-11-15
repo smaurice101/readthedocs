@@ -139,7 +139,10 @@ To setup Interactive Brokers in Linux do the following:
 
    ./tws
 
-5. Configure TWS: GOTO FILE -> Global Configuration
+5. Configure TWS (see image): GOTO FILE -> Global Configuration
+
+.. figure:: ibconfig.png
+   :scale: 60%
 
 6. Click: API -> Settings
 
