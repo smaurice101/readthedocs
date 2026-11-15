@@ -117,6 +117,10 @@ To setup Interactive Brokers in Linux do the following:
 .. figure:: ibdashpro.png
    :scale: 60%
 
+.. important::
+
+   See also: :ref:`Interactive Brokers Standard Ports`
+
 1. If using windows start WSL (windows subsystem for Linux).  Goto Command Prompt and type:
 
    .. code-block::
