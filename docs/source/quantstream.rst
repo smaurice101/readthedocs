@@ -177,16 +177,19 @@ Environment Variables (``--env``)
    container for market data ingestion.
 
 ``QSTEST=0``
-   Disables test mode (``0``) for QuantStream execution.
+   Disables test mode (``0``) for QuantStream execution.  Use QSTEST=1 for testing
+   and QSTEST=2 for production but with Interactive brokers.
 
 ``IBKRHOST=127.0.0.1``
    Sets the target host address for IBKR socket connections. When running
    headless IB Gateway inside the container, use ``127.0.0.1`` so the Python
-   engine connects locally to the Gateway process.
+   engine connects locally to the Gateway process.  
+   Use **host.docker.internal** for testing Interactive Brokers.
 
 ``IBKRPORT=4002``
    Sets the IBKR API socket port and acts as the single source of truth for
    trading mode: ``4002`` for Paper Trading and ``4001`` for Live Trading.
+   Use 7497 for testing with Interactive brokers.
 
 ``IBKRCLIENTID=99``
    Sets the unique client identifier used by the QuantStream Python engine when
