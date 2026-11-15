@@ -148,8 +148,10 @@ To setup Interactive Brokers in Linux do the following:
 
    - Check: Enable ActiveX and Socket Clients
 
-   - Uncheck: Allow connections from localhost only
+   - Uncheck: Read-Only API
 
+   - Uncheck: Allow connections from localhost only
+   
    - Create trusted IPs:
 
      - 127.0.0.1
