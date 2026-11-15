@@ -133,7 +133,11 @@ To setup Interactive Brokers in Linux do the following:
 
       https://www.interactivebrokers.ca/en/trading/download-tws.php
 
-2b. Run: ./tws-latest-linux-x64.sh
+2b. Run: 
+
+   .. code-block::
+
+      ./tws-latest-linux-x64.sh
 
 3. This will install in folder JTS - goto to this folder:
 
