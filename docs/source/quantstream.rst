@@ -158,6 +158,9 @@ QuantStream connects headlessly to **IB Gateway** on ``4001`` (live) or ``4002``
 3. **Optional Secondary TWS API Client:** If connecting a separate API watcher to TWS on ``7496`` (live) or ``7497`` (paper), assign a distinct Client ID (e.g., ``900``) so API sessions do not collide with QuantStream.
 4. **Session Handling:** Configure ``ExistingSessionDetectedAction=primary`` and ``AcceptIncomingConnectionAction=accept`` in ``IBController.ini`` so IB Gateway and TWS can coexist without dropping the headless session[cite: 19].
 
+.. figure:: qsorderflow.png
+   :scale: 60%
+
 QuantStream AI: Reference Architecture
 =======================================================
 
