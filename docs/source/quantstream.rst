@@ -102,6 +102,114 @@ QuantStream runs in a Docker container: `https://hub.docker.com/r/maadsdocker/qu
    --env MAXSTOCKS=50 \
    maadsdocker/quantstream-3f10-ml-amd64-public:latest
 
+Container Runtime Flags
+-----------------------
+
+``-d``
+   Runs the container in detached mode in the background and prints the
+   container ID.
+
+``-p 5050:5050``, ``-p 4040:4040``, ``-p 6060:6060``
+   Publishes container ports to the host for the solution web/API service
+   (``5050``), Airflow interface (``4040``), and visualization service
+   (``6060``).
+
+``--add-host=host.docker.internal:host-gateway``
+   Maps ``host.docker.internal`` inside the container to the host gateway IP
+   address so containerized services can reach host-level endpoints when
+   required.
+
+``-v /var/run/docker.sock:/var/run/docker.sock:z``
+   Mounts the host Docker daemon socket into the container with SELinux/label
+   relabelling (``:z``) so orchestration tasks inside the container can interact
+   with Docker.
+
+``-v /mnt/c/maads/tml-airflow/rawdata:/rawdata:z``
+   Mounts the host data directory (``/mnt/c/maads/tml-airflow/rawdata``) to
+   ``/rawdata`` inside the container with ``:z`` relabelling, persisting
+   configuration files (such as ``qsconfig.ini``), logs, and trade artifacts.
+
+Environment Variables (``--env``)
+---------------------------------
+
+``TSS=0``
+   Disables TSS mode (``0``) for the container runtime.
+
+``SOLUTIONNAME=quantstream-3f10-ml``
+   Sets the logical solution identifier used by the platform.
+
+``SOLUTIONDAG=solution_preprocessing_ml_dag-quantstream-3f10``
+   Specifies the preprocessing/ML DAG name associated with the solution.
+
+``GITREPOURL='https://github.com/smaurice101/raspberrypitss.git'``
+   Points to the source repository URL used by the deployment/solution setup.
+
+``SOLUTIONEXTERNALPORT=5050``
+   Configures the external port exposed for the solution service.
+
+``CHIP=amd64``
+   Specifies the target CPU architecture (``amd64``).
+
+``SOLUTIONAIRFLOWPORT=4040``
+   Configures the Airflow port exposed for the solution.
+
+``SOLUTIONVIPERVIZPORT=6060``
+   Configures the visualization port exposed for the solution.
+
+``EXTERNALPORT=39399``
+   Sets the external port value used by platform routing/configuration.
+
+``KAFKABROKERHOST=127.0.0.1:9092``
+   Defines the Kafka broker host and port (``host:port``) for streaming
+   connectivity.
+
+``SASLMECHANISM=PLAIN``
+   Sets the SASL authentication mechanism (``PLAIN``) for broker connections.
+
+``VIPERVIZPORT=9689``
+   Sets the internal visualization service port.
+
+``AIRFLOWPORT=9000``
+   Sets the internal Airflow service port.
+
+``FINNHUBTOKEN="$FINNHUBTOKEN"``
+   Passes the Finnhub API token from the host shell environment into the
+   container for market data ingestion.
+
+``QSTEST=0``
+   Disables test mode (``0``) for QuantStream execution.
+
+``IBKRHOST=127.0.0.1``
+   Sets the target host address for IBKR socket connections. When running
+   headless IB Gateway inside the container, use ``127.0.0.1`` so the Python
+   engine connects locally to the Gateway process.
+
+``IBKRPORT=4002``
+   Sets the IBKR API socket port and acts as the single source of truth for
+   trading mode: ``4002`` for Paper Trading and ``4001`` for Live Trading.
+
+``IBKRCLIENTID=99``
+   Sets the unique client identifier used by the QuantStream Python engine when
+   connecting to IB Gateway.
+
+``IBKRUSERNAME="your_ibkr_username"``
+   Supplies the IBKR username for headless IB Gateway authentication. Must be
+   non-empty; ``/qs/dist/ibgatewayconnect.sh`` aborts if blank. Use a dedicated
+   secondary IBKR user login if monitoring simultaneously in TWS Desktop UI.
+
+``IBKRPASSWORD="your_ibkr_password"``
+   Supplies the IBKR password corresponding to ``IBKRUSERNAME`` for headless IB
+   Gateway authentication. Must be non-empty.
+
+``MAXSTOCKS=50``
+   Caps the maximum number of stocks processed by the workflow.
+
+Image Reference
+---------------
+
+``maadsdocker/quantstream-3f10-ml-amd64-public:latest``
+   The container image tag pulled and executed by ``docker run``.
+
 .. important::
 
    Set correct volume mount: -v /mnt/c/maads/tml-airflow/rawdata:/rawdata:z  \
