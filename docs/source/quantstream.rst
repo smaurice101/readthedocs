@@ -123,11 +123,13 @@ To setup Interactive Brokers in Linux do the following:
 
       wsl
 
-2. Download Trader Woskstation for Linux:
+2. Download Trader Woskstation by going to URL below and choosing Linux:
 
    .. code-block::
 
       https://www.interactivebrokers.ca/en/trading/download-tws.php
+
+2b. Run: ./tws-latest-linux-x64.sh
 
 3. This will install in folder JTS - goto to this folder:
 
