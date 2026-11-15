@@ -136,6 +136,26 @@ QuantStream runs in a Docker container: `https://hub.docker.com/r/maadsdocker/qu
 
 QuantStream agents will process NASDAQ and NYSE stock market data autonomously:  Everything is autonomous.  If you set up everything properly you are doing ALGORITHMIC TRADING.  Congratualtions!
 
+Interactive Brokers Standard Ports
+==================================
+
+Standard default ports for Interactive Brokers Workstation and Gateway APIs:
+
+* **IB Gateway — Live Trading API:** ``4001``
+* **IB Gateway — Paper Trading API:** ``4002``
+* **TWS (Trader Workstation) — Live Trading API:** ``7496``
+* **TWS (Trader Workstation) — Paper Trading API:** ``7497``
+
+QuantStream + Parallel TWS Setup
+--------------------------------
+
+QuantStream connects headlessly to **IB Gateway** on ``4001`` (live) or ``4002`` (paper):
+
+1. **Configure QuantStream:** Point ``IBKRPORT`` at the IB Gateway API port (``4001`` for live, ``4002`` for paper) and set ``IBKRCLIENTID`` (e.g., ``99``).
+2. **Monitor in Parallel with TWS:** Run TWS logged into the same account to monitor positions, orders, and executions directly in the TWS **Trades** and **Portfolio** panels.
+3. **Optional Secondary TWS API Client:** If connecting a separate API watcher to TWS on ``7496`` (live) or ``7497`` (paper), assign a distinct Client ID (e.g., ``900``) so API sessions do not collide with QuantStream.
+4. **Session Handling:** Configure ``ExistingSessionDetectedAction=primary`` and ``AcceptIncomingConnectionAction=accept`` in ``IBController.ini`` so IB Gateway and TWS can coexist without dropping the headless session[cite: 19].
+
 QuantStream AI: Reference Architecture
 =======================================================
 
