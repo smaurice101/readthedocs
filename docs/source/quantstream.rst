@@ -178,7 +178,7 @@ Environment Variables (``--env``)
 
 ``QSTEST=0``
    Disables test mode (``0``) for QuantStream execution.  Use QSTEST=1 for testing
-   and QSTEST=2 for production but with Interactive brokers.
+   and QSTEST=2 for production but without Interactive brokers.
 
 ``IBKRHOST=127.0.0.1``
    Sets the target host address for IBKR socket connections. When running
