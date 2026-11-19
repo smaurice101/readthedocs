@@ -1098,6 +1098,10 @@ Configuration Reference
      - If Set to 1, QuantStream agent will manage the open position for you..see below for details.
 
        If set to 2, QuantStream agent will stop buying if PnL is greater than 2% of trade budget.
+   * - ``limitordermaxhold``
+     - Int
+     - ``180``
+     - If using LMT orders, this is the maximum time in seconds that an order must filled - otherwise QuantStream cancels the order (partial orders are not allowed).
 
 Detailed Parameter Breakdown
 ----------------------------
