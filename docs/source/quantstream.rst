@@ -499,9 +499,13 @@ Configuration & Guard Parameters
 --------------------------------
 
 * **Limit Order Max Hold (``limitordermaxhold`` / ``LMT_MAX_HOLD``)**: Maximum time (in seconds, defaulting to ``180``) an active ``LMT`` order may remain open before the background monitor loop cancels it[cite: 8]. The engine dynamically reloads ``limitordermaxhold`` from ``[TradingSettings]`` in ``qsconfig.ini`` via ``getlimitorder()``.
+
 * **All-or-None (``order.allOrNone = True``)**: Set on ``LMT`` orders during batch submission in ``execute_order_batch()``.
+
 * **Time in Force (``order.tif``)**: Defaults to ``DAY`` unless overridden in the order request.
+
 * **Slippage & Spread Guard Thresholds**: ``check_slippage_guard()`` checks live bid/ask snapshots (with optional fallback to ``last``/``close`` or expected signal price when ``allow_quote_fallback=True``) and enforces a default max spread of ``0.15%`` (``max_spread_pct=0.0015``), max price drift of ``0.50%`` (``max_price_drift_pct=0.005``), and a ``5.0s`` per-symbol slippage cooldown.
+
 * **Trading Status Kill Switch**: ``execute_order_batch()`` checks the trading status file; if set to ``NO``, batch execution is skipped.
 
 Limit Order Submission Logic
@@ -511,28 +515,40 @@ Limit Order Submission Logic
    Before dispatching a batch, the engine reconciles ``pending_symbols`` against active open orders in TWS (``refresh_pending_symbols_from_ibkr()``) and skips symbols that already have an active order in TWS or are currently in flight.
 
 2. **Contract Qualification & Pre-Trade Slippage Check**
+   
    * Each order's contract is qualified via ``qualifyContractsAsync()``.
+   
    * ``check_slippage_guard()`` requests a market data snapshot and verifies bid/ask spread and price drift from the expected signal price. If a symbol fails the guard, it enters a short cooldown and is skipped for that cycle.
 
 3. **Order Placement & Tracking**
+   
    * For ``orderType == "LMT"``, the engine creates ``LimitOrder(action, qty, req['price'])``, sets ``order.allOrNone = True`` and ``order.tif``, adds the symbol to ``pending_symbols``, places the order via ``ib.placeOrder()``, and registers the order in ``_active_lmt_orders`` with its submission timestamp.
+   
    * ``_ensure_lmt_guard_loop()`` starts the background ``_monitor_lmt_order_holds()`` task if it is not already running.
 
 Cancellation & Partial-Fill Logic
 ---------------------------------
 
 1. **Max Hold Timeout Cancellation (``limitordermaxhold``)**
+
    * ``_monitor_lmt_order_holds()`` polls every ``1.0s`` and refreshes ``limitordermaxhold`` from configuration.
+
    * Once an active ``LMT`` order's elapsed time reaches ``limitordermaxhold`` seconds without filling, the monitor cancels the order via ``ib.cancelOrder()``.
+   
    * For an unfilled ``SELL`` ``LMT`` order, ``_cancel_expired_sell_lmt()`` cancels the sell order and clears ``pending_symbols`` while keeping the underlying held position.
+   
    * For other expired ``LMT`` orders, ``_cancel_trade_and_cleanup_holding()`` cancels the order, clears ``pending_symbols``, and removes any unexecuted/non-broker-confirmed pending entry from ``tracker.open_positions``.
 
 2. **Partial-Fill Denial & Flattening**
+   
    * Both ``_process_fill_safely()`` (on execution events) and ``_monitor_lmt_order_holds()`` check for partial fills where filled shares are greater than ``0`` but less than ``expected_qty``.
+   
    * When a partial fill is detected on a tracked ``LMT`` order, the engine marks ``partial_denied = True``, cancels the remaining order, cleans up pending state, and submits an opposite ``MarketOrder`` (``DAY``) via ``_flatten_denied_partial_fill()`` to flatten the partial shares.
 
 3. **Broker & Ledger Synchronization**
+   
    * Full fills update ``tracker.update_state()`` and ``self.holdings`` under ``self._lock``, deduplicated by execution ID (``execId``).
+   
    * Startup and reconnection routines sync positions (``sync_with_broker()``) and open orders (``sync_open_orders()``) from TWS.
 
 System Architecture & Stream Pipeline
