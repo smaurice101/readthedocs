@@ -474,7 +474,7 @@ QuantStream helps mitigate the risk of price slippage when live trading.  QuantS
 .. figure:: ibslippage.png
    :scale: 60%
 
-Validation Steps
+Slippage Validation Steps
 ----------------
 
 1. **Market Data Snapshot**: Calls ``reqMktData(contract, genericTickList='', snapshot=True)``
