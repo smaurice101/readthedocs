@@ -490,6 +490,56 @@ Slippage Validation Steps
 5. **Audit Trail**: Records guard outcomes via ``cf.writeviperlogs`` under
    ``[AGENT GUARD SLIPPAGE]``.
 
+Limit Order & Cancellation Logic
+================================
+
+QuantStream AI uses limit orders—including Interactive Brokers (IBKR) adaptive limit orders—along with unguarded market orders, to control execution price, limit spread slippage, and prevent unfilled or stale orders from lingering on the book.
+
+Configuration Parameters
+----------------------
+
+Limit order behavior is controlled from the **[F2] PARAMS** settings modal
+
+* **Limit Order Toggle (``addlimitorder``)**: Enables or disables limit order routing versus standard execution.
+* **Limit Order Max Hold (``limitordermaxhold``)**: Maximum time (in seconds, defaulting to ``180``) an unfilled or partially filled limit order may remain active before cancellation/re-evaluation logic triggers.
+* **Minimum Hold / Entry Timing Guards (``minholdseconds``, ``minentryeconds``)**: Timing guardrails that prevent premature entry churn or overly rapid order/position flips.
+* **Max Shares Per Trade (``maxsharespertrade``)** & **Target Notional % (``targetnotionalpct``)**: Position-sizing caps enforced prior to order submission.
+
+Limit Order Logic
+-----------------
+
+1. **Pre-Trade & Slippage Guards**
+   Before submitting an order, the execution engine checks available buying power/notional limits, per-trade share caps, and live bid/ask spread conditions so orders are not sent into wide or crossed/stale quotes.
+
+2. **Limit Price & Adaptive Routing**
+   * When limit orders are active, the engine anchors the limit price relative to the current bid/ask quote and real-time tick price rather than chasing spikes with a market order.
+   * For Interactive Brokers execution (via ``ib_async``), orders can use IBKR's **Adaptive** limit order strategy (``algoStrategy = "Adaptive"``) to seek price improvement within the limit bound while respecting maximum allowed slippage.
+
+3. **Partial Fills & Position Tracking**
+   * If a limit order fills partially, only the filled share quantity is recorded as an active position/inventory change.
+   * Remaining unfilled shares stay subject to the active hold timer until either filled or canceled.
+
+Cancellation & Timeout Logic
+----------------------------
+
+1. **Max Hold Timeout (``limitordermaxhold``)**
+   * Each open limit order tracks how long it has been working.
+   * Once elapsed time reaches ``limitordermaxhold`` seconds without a full fill, the order is flagged as stale and eligible for cancellation.
+
+2. **Price Drift / Adverse Movement Cancellation**
+   * If market price moves away from the limit price—making a buy limit too high relative to fair value or a sell limit unfavorable—the engine can cancel the working order rather than letting it fill at a worse-than-intended price or sit orphaned.
+
+3. **State Reconciliation & Cleanup**
+   * After issuing a cancel request, the engine reconciles order status and open position inventory against the broker (e.g., IBKR) so canceled or partially filled quantities do not cause duplicate entries or phantom positions.
+   * All order placements, partial fills, timeouts, and cancellations are recorded in the execution/audit logs and surfaced in the monitoring dashboard.
+
+Operator Best Practices
+-----------------------
+
+* **Tune ``limitordermaxhold`` to Volatility**: Use shorter hold windows (e.g., ``60–120s``) during fast/volatile market regimes and longer windows (e.g., ``180–300s``) in quieter sessions.
+* **Verify ``qsconfig.ini`` After Updates**: Whenever new parameters are added to the dashboard or config parser, open **[F2] PARAMS** and commit to ``qsconfig.ini`` so all keys are explicitly saved.
+* **Monitor Rejects & Cancellations**: Review daily audit logs and dashboard status messages if orders are frequently timing out or being canceled due to wide bid/ask spreads.
+
 System Architecture & Stream Pipeline
 ========================================
 
