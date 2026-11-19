@@ -466,6 +466,30 @@ In simulated execution (factoring in **1-cent bid-ask spread slippage and $0.003
 
    *Disclaimer: Quantitative backtest results are based on simulated out-of-sample tick data. Past performance is not indicative of future live trading results. Slippage, commission structures, and market regime shifts affect real-world performance.*
 
+Slippage and Spread Guard
+=========================
+
+QuantStream helps mitigate the risk of price slippage when live trading.  QuantStream validates live Interactive Brokers top-of-book quotes before it dispatches a ``BUY`` or ``SELL`` order.
+
+.. figure:: ibslippage.png
+   :scale: 60%
+
+Validation Steps
+----------------
+
+1. **Market Data Snapshot**: Calls ``reqMktData(contract, genericTickList='', snapshot=True)``
+   and waits ``0.5`` seconds asynchronously before cleaning up the market data
+   subscription in a ``finally`` block.
+2. **Quote Integrity**: Verifies that both ``bid`` and ``ask`` are positive and
+   that ``bid < ask``. Incomplete or crossed snapshots are blocked.
+3. **Spread Threshold**: Calculates ``(ask - bid) / ((bid + ask) / 2.0)`` and
+   rejects trades exceeding ``max_spread_pct`` (default ``0.0015``, or ``0.15%``).
+4. **Price Drift Threshold**: Uses ``ask`` for ``BUY`` and ``bid`` for ``SELL``,
+   rejecting trades where ``abs(execution_price - expected_price) / expected_price``
+   exceeds ``max_price_drift_pct`` (default ``0.005``, or ``0.50%``).
+5. **Audit Trail**: Records guard outcomes via ``cf.writeviperlogs`` under
+   ``[AGENT GUARD SLIPPAGE]``.
+
 System Architecture & Stream Pipeline
 ========================================
 
