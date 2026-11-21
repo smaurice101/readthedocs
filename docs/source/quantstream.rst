@@ -32,6 +32,234 @@ QuantStream AI TML Implementation
 .. figure:: quantstreamdash.png
    :scale: 60%
 
+QS-TERM Website User Guide: What Every Number Means
+----------------------------------------------------
+
+QuantStream AI Terminal (QS-TERM), by Otics Advanced Analytics, Inc. This guide walks through the dashboard from top to bottom and explains each component, each number, and how to read it.
+
+## 1. Read this first
+
+**What this site is.** QS-TERM is a monitoring and control workstation for an algorithmic trading engine (the TML engine). It shows what the engine is doing right now, what it did historically, and what it screened before the market opened.
+
+**Where the numbers come from.** The page combines three sources:
+
+| Source | What it feeds | Update rhythm |
+| --- | --- | --- |
+| Live trade log (`YYYY-MM-DD_US_XNAS_trade_log.csv`) and kernel logs | Account tiles, closed-trade analytics, charts, watchlist, open book, blotter, kernel feed | Refreshes about every 5 seconds |
+| Pre-open screener files (`best_stock_candidates.csv`, `gold_mine_candidates.csv`) | The Alpha Intelligence board and charts | Generated once before the 9:30 ET open; the panel re-checks every 5 minutes |
+| History files (`screener_alpha_audit_ledger.csv`, `global_pnl_report.csv`, `daily_audit_tax_schedule.csv`) | Audit Ledger, Desk P&L and Tax & Fees tabs | Updated by the engine, typically after the close |
+| `qsconfig.ini` | Risk limits and screening filters (F2 panel) | Changes only when someone commits new settings |
+
+**Five ideas that make everything else easier.**
+
+1. **Notional vs actual P&L.** *Notional* counts every signal the engine produced (paper plus live). *Actual* counts only trades confirmed filled at the broker (Interactive Brokers) after fees. Notional shows what the strategy would have made; actual shows what the account made.
+2. **Model output, not fact.** Scores, probabilities and backtests are the engine's estimates. They help you compare and prioritise; they do not guarantee anything.
+3. **Time zones.** The header clock and the charts use Eastern Time (ET). The execution blotter column is labelled UTC. Do not compare the two directly.
+4. **Entry price, not live price.** Several exposure figures are valued at the price the engine entered, not at the latest market price.
+5. **Missing is not zero.** A dash means the value was blank in the source file (for example, fundamentals), not that it is zero.
+
+## 2. Login screen and header bar
+
+| Component | What it means |
+| --- | --- |
+| Login gateway | Enter your desk ID and access key. The page shows the connected node (exchange), the execution engine version (TML Streaming), and the compliance record standard (SEC 17a-4 / CRA / OSFI). |
+| **LIVE TML FEED ACTIVE (5s)** | A green pulsing badge means the page is polling the engine every 5 seconds. If it is not green, the data on screen may be stale. |
+| **VENUE** | Market and exchange the engine trades, for example US:NASDAQ. |
+| **ET clock** | Current Eastern Time. The US regular session runs 09:30 to 16:00 ET. |
+| **REPLAY** | A drop-down of past sessions (last 45 days) with each day's P&L and return. Choose a date to replay that day's trades, charts and logs. Choose *Live real-time stream* to return to today. |
+| **AUTO-TRADING YES/NO** | The master switch. YES means the engine is allowed to place real orders through the broker. NO means it observes only. Treat this switch as a live-money control. |
+| **F2 PARAMS / F1 HELP / EXIT** | Opens the parameter editor, the built-in glossary, or logs you out. |
+| **TML TICKER** | A scrolling tape of the day's instruments with last price, percent change since entry, and share volume in brackets. Click a symbol to isolate it. |
+| **CMD>** | A command line for filtering. Hotkeys: F1 help, F2 parameters, `/` filter ticker, ESC reset. |
+| **Single-instrument isolation banner** | Appears when you click a ticker. Every table and chart then shows only that symbol. Press ESC or the clear button to return to the full book. |
+
+## 3. TML kernel live event feed
+
+The banner under the header mirrors the newest entries from the engine's kernel log: buys, sells, errors and risk events. It shows the event type, time, message, and a counter. A coloured flash and a short tone accompany new events (buy, sell, error or risk). "Last event … ago" tells you how long since the engine last reported; a long gap during market hours can mean the engine is idle or disconnected.
+
+## 4. The five account tiles
+
+| Tile | What it shows | How to read it |
+| --- | --- | --- |
+| **Cumulative PnL (all trades)** | Running total of notional P&L from every engine signal, paper and live. | The strategy's theoretical result for the day. It can be higher than the account's real result. |
+| **Allocated trading budget** | The capital the engine is allowed to deploy, plus the maximum open positions and the maximum loss limit in dollars. | These are the guard rails from your configuration. |
+| **Actual PnL (DMA fills)** | Realised profit or loss from trades confirmed by the broker. | The number that reflects real executions. Compare with the first tile to see slippage, fees and unfilled signals. |
+| **Active inventory positions** | Count of long positions currently held. | Compare against the max-positions limit. |
+| **Open notional exposure** | Quantity multiplied by entry price, summed across open positions. | Capital currently at work. It is marked to entry, not to the live price. |
+
+## 5. Closed round-trip alpha analytics
+
+These figures use only **SELL** executions, because a round trip is complete only when a position is sold.
+
+| Metric | Meaning |
+| --- | --- |
+| **Closed trades** | Number of completed sells. |
+| **Realized PnL** | Sum of profit and loss from those sells. Green if positive, red if negative. |
+| **Win ratio** | Share of closed sells that made money, with the breakdown W / L / E (winners, losers, breakeven). The built-in glossary counts a win as P&L of zero or more; the risk panel counts only above zero, so the two can differ slightly. |
+| **Avg win / loss** | Average dollars made on winners and lost on losers. Healthy strategies need either a high win ratio or wins larger than losses. |
+| **Max win / Max loss** | The single best and worst closed trade, with its ticker. A max loss far larger than the average loss signals tail risk. |
+
+## 6. Intraday order flow and risk telemetry
+
+| Metric | Meaning |
+| --- | --- |
+| **Orders / shares** | Total orders logged with the buy and sell split, and total shares traded. |
+| **Avg hold** | Average time positions were held, in seconds and minutes. |
+| **Ingest rate** | How quickly the page is receiving log events. A rate near zero during active trading suggests the feed has stalled. |
+| **Max DD** | Largest drop from an equity peak, in dollars and percent (see section 7). |
+| **Buy turnover / Sell proceeds** | Total dollars bought and total dollars received from sells. Their gap relates to open inventory and P&L. |
+| **Profit factor** | Gross profit divided by gross loss. Above 1.0 means winners outweigh losers in dollars; 2.0 means twice as much was won as lost. If there are no losses, the engine shows a capped value instead of infinity. |
+| **Sell win %** | The win ratio, restated for the sells in the blotter. |
+
+Beneath these sits an additional risk grid with exposure gauges coloured by how close each limit is: green (under about 60 percent of the limit), amber (60 to 85 percent), red (above 85 percent). It also reports expectancy (average P&L per closed trade), payoff ratio (average win divided by average loss), and a Kelly estimate. Treat the Kelly figure as a theoretical upper bound on bet size, not a recommendation.
+
+## 7. Equity curve and drawdown charts
+
+**Portfolio equity curve (ET).** Starting budget plus the cumulative P&L after each trade, plotted by time of day. Header values: **LAST** (latest equity), **NET Δ** (percent change from the base), **BASE** (starting budget). The overlay lines are an EMA 12 (a short moving average that smooths noise) and the HWM (the high-water mark, meaning the highest equity reached so far).
+
+**High-water-mark drawdown profile (%).** At each point, how far equity sits below its previous peak. It is always zero or negative. **CURR** is today's current distance below the peak. **MAX** is the deepest dip so far. A badge reads *HWM underwater* while equity is below its peak.
+
+How to use it: a smooth upward equity curve with shallow drawdowns indicates steady results. Sharp, deep drawdowns indicate the strategy is taking risk that the headline P&L may not show.
+
+## 8. Active universe watchlist
+
+One tile per instrument the engine is trading today. Each tile shows the ticker, the **entry** price, the **last** price, the dollar and percent difference (green above entry, red below), and share volume. Click a tile to isolate that stock across the whole page; use *Reset universe view* to clear. **YF ↗** opens the quote on Yahoo Finance.
+
+## 9. Alpha Intelligence (pre-open screener and history)
+
+This panel reads the engine's files and answers: *which stocks did the model like this morning, how risky are they, and how has the screen performed historically?*
+
+### 9.1 Headline tiles (click any tile for its definition)
+
+| Tile | Meaning |
+| --- | --- |
+| **Candidates** | How many stocks passed the pre-open screen. |
+| **Mean Alpha** | Average alpha rating (0 to 100) across candidates. A higher mean means the whole list is rated more favourably. Use it to compare days, not as an absolute grade. |
+| **Top Alpha** | The highest-rated stock and its score. |
+| **Lower-Risk Tier** | Share of candidates tagged *Lower modeled downside*. The rest are *Moderate*. |
+| **Median P(−10%)** | Middle value of the modeled chance that a stock falls at least 10 percent below its current price at any point in the next 30 days. |
+| **Top Sector** | The sector with the most candidates. A high count means concentration: one sector-wide move can hit many names at once. |
+| **Ledger Hit Rate** | Share of historical screen picks whose backtested 30-day return was above zero. Backtested, not live, and picks repeat across dates, so it overstates certainty. |
+| **Desk Net P&L (file)** | Sum of net-of-fees P&L across all sessions in `global_pnl_report.csv`. A dollar total, not a percentage. |
+
+### 9.2 Alpha Board columns
+
+| Column | Meaning | How to read it |
+| --- | --- | --- |
+| **Ticker / Sector** | Stock symbol and industry group. | Filter by either with the controls above the table. |
+| **Price** | Price in USD at file generation. | Not a live quote. |
+| **Alpha** | Composite conviction score, 0 to 100. | Higher is better. Compare within the list. |
+| **Best** | Second composite stock score, 0 to 100. | Weights are set inside the engine. Agreement between Alpha and Best adds confidence. |
+| **Flow Δ%** | Net buying versus selling pressure. | Green positive means buyers dominate; red negative means sellers dominate. |
+| **Inst** | Institutional accumulation score, 0 to 100. | Higher suggests large participants are accumulating. |
+| **VPIN** | Probability of informed trading, about 0 to 1. | Higher means more toxic or informed order flow, which often precedes volatility. |
+| **Mom20** | Price change over the last 20 trading days, percent. | Positive is upward momentum. |
+| **Vol%** | Price volatility estimate. | Higher means bigger swings, more risk and more opportunity. |
+| **P(−10%)** | Modeled chance of touching −10% within 30 days. | Shown in red above 15 percent. |
+| **BT 30D** | Backtested net 30-day return, percent. | A historical simulation after costs, not a promise. |
+| **Risk** | LOWER or MODERATE modeled downside. | A relative label from the engine. |
+| **90D** | Last 90 daily closes as a mini chart. | Green if the stock ended higher than it started, red if lower. |
+
+Click any column header to sort (click again to reverse). Click any row to open its tear sheet.
+
+### 9.3 Tear sheet (right-hand panel)
+
+Shows a price chart and extra statistics: prior close, relative volume (today's volume compared with its 20-day average, so 2.0× means double the usual), ATR14 (average daily trading range, percent), Sortino ratio (return per unit of downside risk; higher is better), expected shortfall (the average loss in the worst 5 percent of cases), stress P(−10%) (the drop probability under harsher assumptions), VWAP distance (how far price sits from the volume-weighted average price), momentum over 5, 60 and 120 days, the 50/200-day trend gap, average dollar volume (liquidity), maximum drawdown, and HRP cluster (a group number from a portfolio method that clusters similar stocks; names in the same cluster tend to move together, so spread picks across clusters).
+
+The **radar chart** shows percentile ranks inside today's list, where 100 is best. *Safety* is inverted drop probability, so a high value means lower modeled risk.
+
+### 9.4 Tabs
+
+| Tab | What you see | How to use it |
+| --- | --- | --- |
+| **Alpha Board** | Sortable, filterable list plus tear sheet. | Start here. |
+| **Risk / Alpha Map** | Bubble chart: horizontal = drop probability, vertical = alpha, bubble size = average daily dollar volume. A bar-and-line chart shows candidates and mean alpha per sector. | The top-left corner (high alpha, low risk) is most attractive. Big bubbles are easier to trade. Click a bubble to open it. |
+| **Order Flow** | The 20 largest buy or sell imbalances, and institutional accumulation plotted against VPIN. | Look for strong accumulation with low VPIN. |
+| **Audit Ledger** | For each past screen date: mean backtested 30-day return, hit rate, mean alpha, and the number of results (n). Below it, the tickers selected most often. | Judge whether high alpha has historically led to positive results. Small n means a noisy bar. |
+| **Desk P&L** | Daily notional versus actual P&L, cumulative actual P&L, cumulative fees, and summary stats. | A wide gap between notional and actual points to fees, slippage or unfilled orders. |
+| **Tax & Fees** | Per-day trades, notional and actual P&L, fees, USD/CAD rate, and the CRA and IRS amounts and rates the engine accrued. | Informational only. It is not tax advice. |
+
+### 9.5 Data-quality chips
+
+Amber and red chips under the tiles tell you when the inputs are incomplete:
+
+| Chip | Meaning |
+| --- | --- |
+| **Premarket coverage 0/N** | No candidate had premarket price bars when the file was generated, so gap analysis is not available. |
+| **Fundamentals missing** | P/E, P/B, margins and valuation scores were blank, so valuation is not reflected in the scores. |
+| **Ledger rows unscored (999)** | Rows carrying a placeholder score. They are excluded from every average. |
+| **Rows dated after today / on a weekend** | Usually a date-stamping problem upstream. Treat those rows with caution. |
+| **Missing / older than 30h** | A source file is absent or has not refreshed. |
+
+## 10. Open book inventory and execution blotter
+
+**Open book inventory** lists every position currently held: ticker, quantity, entry price and notional (quantity × entry). Click a column header to sort.
+
+**Algorithmic execution blotter** lists every fill: time (UTC), ticker, side (BUY or SELL), fill price, shares, trade P&L, cumulative P&L, and **DMA EXEC**, which shows whether the broker confirmed the order. A "TML stream synced" badge confirms the table is current. Click a row to isolate that symbol. Trade P&L appears on sells, because that is when profit is realised.
+
+## 11. Kernel logs, reports and ledgers
+
+- **TML kernel live logs:** the raw timestamped engine messages. **Export CSV** downloads a copy for audit.
+- **Compliance PDF reports:** archived daily reports, with file size and date.
+- **Execution CSV ledgers:** the raw trade logs for each session. These are append-only records kept for regulatory review (SEC 17a-4, CRA, OSFI).
+
+## 12. Built-in help and parameter editor
+
+**F1 Help** is the in-app glossary (TML, notional versus actual P&L, win ratio and profit factor, HWM drawdown, the audit trail) with a search box. **F2 Parameters** edits `qsconfig.ini`. Changes take effect only after you press **Commit**.
+
+| Group | Setting | Plain-English meaning |
+| --- | --- | --- |
+| Venue and screen | Market, Exchange MIC, Exchange name, Prime broker, Gateway URL | Where and through whom the engine trades. |
+|  | Comm / Trade, Comm / Share | Commission assumptions used when computing net results. |
+|  | Min / Max price | Only consider stocks priced within this band. |
+|  | Min volume | Minimum trading volume to qualify. |
+|  | Min / Max stocks | How many names the screener should return. |
+|  | Min / Max Vol (%) | Volatility band a stock must fall within. |
+| Risk limits | Trade budget | Capital the engine may deploy. |
+|  | Max loss limit | Dollar loss at which the engine should stop. |
+|  | Max sell loss % | Largest per-trade loss accepted on a sell. |
+|  | Max open positions / Max trades | Caps on simultaneous holdings and total orders. |
+|  | Max total shares / Max shares per trade | Caps on size. |
+|  | Min hold / entry (s) | Minimum seconds before exiting or re-entering. |
+|  | Min / Max days on books | Shortest and longest time a position may be held. |
+| Routing and strategy | Buy % alloc | Share of budget used per buy. |
+|  | Max price drop | Largest adverse move accepted. |
+|  | Limit order (0/1), Limit order max hold | Whether to use limit orders and how many seconds to wait. |
+|  | Take profit % | Gain at which a position is sold. |
+|  | Min pred accuracy | Minimum model accuracy required to act on a signal. |
+|  | Auto budget (0/1), Agent strategy (1/2) | Automatic budget sizing, and which strategy variant runs. |
+
+These descriptions are based on the setting names. Confirm exact behaviour with your desk administrator before changing live limits. Wrong values can place real orders.
+
+## 13. How to read a morning, step by step
+
+1. **Before the open:** check the chips in Alpha Intelligence. If files are stale or empty, do not rely on the lists.
+2. **Scan the headline tiles:** is the list concentrated in one sector? Is the median drop probability higher than usual?
+3. **Sort the board by Alpha,** then check Best, Flow, Inst and VPIN. Strong agreement across columns is a better signal than any single number.
+4. **Open a tear sheet** for names you care about. Check liquidity (average dollar volume), relative volume and the drop probabilities.
+5. **Check the Audit Ledger** to see whether similar screens have worked historically, and how many results sit behind the average.
+6. **After the open:** watch Actual PnL against Cumulative PnL, the drawdown chart, and the exposure gauges. Use the replay selector to review earlier sessions.
+
+## 14. Frequently asked questions
+
+**Why is Actual PnL different from Cumulative PnL?** Cumulative counts every engine signal. Actual counts only broker-confirmed fills, after fees.
+
+**Why are some columns blank?** The engine file had no value. Fundamentals and premarket data are blank when the source feed did not supply them.
+
+**Why is the hit rate so high?** Backtests use history, the same stocks recur, and results overlap in time. Do not read it as a probability that tomorrow's pick will win.
+
+**Why does the win ratio sometimes show 100 percent with no profit factor?** With no losing trades, profit factor is undefined, so the report leaves it blank.
+
+**Why does the budget change between days in the P&L file?** The engine's trading budget was changed over time, so a total cannot be divided by a single starting balance.
+
+**The page looks frozen.** Check the live-feed badge and the last kernel event age. Try a refresh; if data is still stale, contact support.
+
+## 15. Limitations and disclaimer
+
+All figures are produced by the engine and read from its files. They are model estimates and historical simulations, which do not guarantee future results. Algorithmic trading involves substantial risk of loss. This dashboard is informational and is not investment, legal or tax advice. Otics Advanced Analytics, Inc. assumes no liability for financial losses.
+
+**Support:** support@otics.ca
+
 QuantStream AI Container Details
 -------------------------------
 
