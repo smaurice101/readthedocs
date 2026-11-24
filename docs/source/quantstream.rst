@@ -1708,7 +1708,7 @@ Configuration Reference
    * - ``addlimitorder``
      - Integer
      - ``1``
-     - Add a limit order to prevent slippage, however risk is order may not be filled.  Or set to 0 for no limit order. (default 1).
+     - Add a limit order to prevent SELL side slippage, however risk is order may not be filled.  Or set to 0 for no limit order. (default 1).  BUY is filled at market price.
    * - ``mindaysonbooks``
      - Integer
      - ``10``
